@@ -5,3 +5,4 @@ export NVM_DIR="/home/master/.nvm"
 nvm use 10.0.0
 npm install --prefix applications/staging_frontend/public_html --loglevel=error
 npm build --prefix applications/staging_frontend/public_html --loglevel=error
+pm2 reload nuxt
