@@ -30,7 +30,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/axios', '~/plugins/error'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -43,8 +43,30 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/v1/users/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: { url: '/v1/users/logout', method: 'post' },
+          user: { url: '/v1/users/user', method: 'get', propertyName: 'user' }
+        }
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+        // autoFetchUser: true
+      }
+    }
+  },
+  router: {
+    middleware: ['auth']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
