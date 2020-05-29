@@ -42,9 +42,21 @@
                   <v-form class="mx-auto">
                     <v-container>
                       <v-row>
-                        <v-col cols="12" md="6" align-self="center">
+                        <v-col cols="12" md="6">
                           <v-row fill-height>
-                            <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto">person</v-icon>
+                            <client-only>
+                              <v-image-input
+                                v-model="form.company.image.value"
+                                image-quality="0.85"
+                                clearable
+                                image-format="png"
+                                uploadIcon="person"
+                                fullWidth
+                                overlayPadding="10px"
+                                scalingSliderColor="red"
+                                :readonly="false"
+                              />
+                            </client-only>
                           </v-row>
                         </v-col>
 
@@ -128,10 +140,22 @@
                   <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about each location you have</p>
                   <v-form class="mx-auto">
                     <v-container>
-                      <v-row>
+                      <v-row v-for="(location, i) in form.locations" :key="i">
                         <v-col cols="12" md="6">
                           <v-row fill-height>
-                            <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto">person</v-icon>
+                            <client-only>
+                              <v-image-input
+                                v-model="location.image.value"
+                                image-quality="0.85"
+                                clearable
+                                image-format="png"
+                                uploadIcon="person"
+                                fullWidth
+                                overlayPadding="10px"
+                                scalingSliderColor="red"
+                                :readonly="false"
+                              />
+                            </client-only>
                           </v-row>
                         </v-col>
 
@@ -141,11 +165,6 @@
                             label="Location Name (required)"
                             type="text"
                           ></v-text-field>
-                          <v-select
-                            label="Service Needs (required)"
-                            :items="needs"
-                            class="card__input black--text"
-                          ></v-select>
                         </v-col>
 
                         <v-col cols="12">
@@ -165,8 +184,9 @@
                             track-color="grey"
                             track-fill-color="primary"
                             step="10"
-                            ticks="true"
+                            ticks
                             :tick-labels="miles"
+                            :readonly="false"
                           >
 
                           </v-slider>
@@ -174,6 +194,11 @@
 
                         <v-col cols="12" md="6">
                           <v-img src="/map.png"/>
+                        </v-col>
+
+                        <v-col cols="12" class="mt-8">
+                          <p class="headline mb-0">Primary Point of Contact Info</p>
+                          <p class="subtitle-1 my-0">(Only Public to Approved Vendor)</p>
                         </v-col>
 
                         <v-col cols="12" md="6">
@@ -217,6 +242,7 @@
                       </v-row>
                     </v-container>
                   </v-form>
+                  <v-btn @click="addLocation" outlined color="primary" class="mx-auto">+ Add Location</v-btn>
                 </v-card-text>
               </v-container>
             </template>
@@ -224,17 +250,24 @@
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
                   <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Please review your information before submitting</p>
-                  <v-col cols="12" align="center">
+                  <v-col cols="12" class="align-center">
                     <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto">person</v-icon>
                     <p>Bass Pro Shops</p>
                   </v-col>
 
-                  <v-col cols="12" v-for="item in form.company">
-                    <v-subheader inset class="mx-0 px-0">
-                      <span class="primary--text font-weight-bold">{{ item.name }}</span>
-                    </v-subheader>
-<!--                    <v-divider inset class="mx-0"></v-divider>-->
-                    <p class="mt-0 mb-4">{{ item.value }}</p>
+                  <v-col cols="12" v-for="item in form.company" :key="item.name">
+                    <template v-if="item.name !== 'Company Image'">
+                      <v-subheader inset class="mx-0 px-0">
+                        <span class="primary--text font-weight-bold">{{ item.name }}</span>
+                      </v-subheader>
+                      <p class="mt-0 mb-4">{{ item.value }}</p>
+                    </template>
+                    <template v-else>
+                      <v-subheader inset class="mx-0 px-0">
+                        <span class="primary--text font-weight-bold">{{ item.name }}</span>
+                      </v-subheader>
+                      <v-img :src="item.value" max-height="300px" max-width="300px" aspect-ratio="1"></v-img>
+                    </template>
                   </v-col>
 
                 </v-card-text>
@@ -254,10 +287,16 @@
 </template>
 
 <script>
+  import VImageInput from 'vuetify-image-input';
+
   export default {
     name: 'buyer',
+    components: {
+      VImageInput
+    },
     data() {
       return {
+        loading: false,
         tab: 0,
         items: [
           'Company',
@@ -266,13 +305,6 @@
         ],
         miles: [
           '','','','','','','','','','','100','','','','','150','','','','','200'
-        ],
-        needs: [
-          'Example Need 1',
-          'Example Need 2',
-          'Example Need 3',
-          'Example Need 4',
-          'Example Need 5'
         ],
         form: {
           company: {
@@ -308,26 +340,82 @@
               name: 'Company Description',
               value: null,
             },
+            image: {
+              name: 'Company Image',
+              value: ''
+            }
           },
-        }
+          locations: [
+            {
+              name: {
+                name: 'Location Name',
+                value: null,
+              },
+              address: {
+                name: 'Address',
+                value: null,
+              },
+              range: {
+                name: 'Range',
+                value: null
+              },
+              firstName: {
+                name: 'First Name',
+                value: null
+              },
+              lastName: {
+                name: 'Last Name',
+                value: null
+              },
+              phone: {
+                name: 'Phone Number',
+                value: null
+              },
+              email: {
+                name: 'Email Address',
+                value: null,
+              },
+              description: {
+                name: 'Location Description',
+                value: null,
+              },
+              image: {
+                name: 'Location Image',
+                value: ''
+              }
+            }
+          ]
+        },
+        imageUrlLocation: '',
       }
     },
     methods: {
       nextPageIfNotLast() {
-        if(this.tab == 2) return;
+        if(this.tab === 2) return;
         this.tab += 1;
       },
       prevPageIfNotFirst() {
-        if(this.tab == 0) return;
+        if(this.tab === 0) return;
         this.tab -= 1;
       },
-      submitRegistrationForm() {
-        console.log('submit');
+      // async submitRegistrationForm() {
+      //   console.log('submit');
+      //   if (this.validate()) {
+      //     this.loading = true;
+      //     console.log(this.form);
+      //     // let {data: {message, errors}, status} = await this.$http.post('/companies/register', this.form).catch(e => e);
+      //     this.loading = false;
+      //     if (this.$error(status, message, errors)) return;
+      //     this.success = true;
+      //   }
+      // },
+      addLocation() {
+        console.log('add location');
       },
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
