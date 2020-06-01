@@ -23,8 +23,8 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'},
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' }
     ],
-
-},
+    script: [{ src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q&libraries=places"}],
+  },
   /*
    ** Customize the progress-bar color
    */
@@ -37,7 +37,10 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~/plugins/vue-google-autocomplete.js', ssr: false},
   ],
+
+
   /*
    ** Nuxt.js dev-modules
    */
@@ -85,6 +88,8 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    // extend(config, ctx) {}
+    extend(config, ctx) {
+      transpile: ['vue-google-autocomplete']
+    }
   }
 }

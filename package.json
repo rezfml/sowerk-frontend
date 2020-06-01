@@ -18,8 +18,11 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "btoa": "^1.2.1",
+    "gmap-vue": "^1.0.0",
     "nuxt": "^2.0.0",
+    "vue-google-autocomplete": "^1.1.0",
     "vue-image-upload-croppie": "^1.0.6",
+    "vue-place-autocomplete": "^0.5.3",
     "vuetify-image-input": "^19.1.0"
   },
   "devDependencies": {
