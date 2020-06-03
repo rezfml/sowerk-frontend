@@ -205,7 +205,14 @@
                         </div>
                       </v-col>
 
-                      <v-col cols="12" md="6" class="my-8" align-self="center">
+                      <v-col cols="12" md="5" class="my-8" align-self="center">
+                        <v-select
+                          class="mb-12"
+                          label="Applicant Range"
+                          :items="rangeTypes"
+                          v-model="location.range.value"
+                        >
+                        </v-select>
                         <v-slider
                           min="0"
                           max="200"
@@ -217,20 +224,37 @@
                           ticks
                           :tick-labels="miles"
                           :readonly="false"
+                          v-model="location.distance.value.miles"
+                          @input="convertMilesToMeters(i)"
+                          v-if="location.range.value === 'Custom Range(mi)'"
                         >
 
                         </v-slider>
                       </v-col>
 
-                      <v-col cols="12" md="6">
+                      <v-col cols="12" md="7">
                         <GmapMap
+                          :id="'map--' + i"
                           :center="{lat:location.address.coords ? location.address.coords.lat : 37, lng:location.address.coords ? location.address.coords.lng : -95}"
                           :zoom="location.address.zoom"
-                          style="width: 500px; height: 300px"
+                          style="height: 400px"
+                          :ref="'location-map--' + i"
                         >
                           <GmapMarker
                             :position="location.address.coords"
                             :clickable="true"
+                          />
+                          <GmapCircle
+                            v-if="location.distance.value.miles > 0 && location.range.value === 'Custom Range(mi)'"
+                            :center="location.address.coords"
+                            :radius="location.distance.value.meters"
+                            :fillOpacity="0.5"
+                            :visible="true"
+                          />
+                          <GmapPolygon
+                            v-if="location.range.value === 'State'"
+                            :paths="location.polygon.value"
+                            :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
                           />
                         </GmapMap>
                       </v-col>
@@ -355,6 +379,11 @@
         miles: [
           '','','','','','','','','','','100','','','','','150','','','','','200'
         ],
+        rangeTypes: [
+          'National',
+          'State',
+          'Custom Range(mi)'
+        ],
         form: {
           company: {
             name: {
@@ -410,8 +439,23 @@
                 coords: null,
                 zoom: 4
               },
+              state: {
+                name: 'State',
+                value: null
+              },
               range: {
                 name: 'Range',
+                value: null
+              },
+              distance: {
+                name: 'Distance',
+                value: {
+                  meters: null,
+                  miles: null
+                }
+              },
+              polygon: {
+                name: 'Polygon',
                 value: null
               },
               firstName: {
@@ -458,8 +502,8 @@
         if(id == 'company-address') {
           this.saveCompanyAddress(addressData, placeResultData);
         } else if(id.includes('location-address')) {
-          let locationId = id.split('--')[1];
-          this.saveLocationAddress(addressData, placeResultData, locationId);
+          let locationIndex = id.split('--')[1];
+          this.saveLocationAddress(addressData, placeResultData, id, locationIndex);
         }
       },
       addLocation() {
@@ -471,10 +515,19 @@
           address: {
             name: 'Address',
             value: null,
+            coords: null,
+            zoom: 4
           },
           range: {
             name: 'Range',
             value: null
+          },
+          distance: {
+            name: 'Distance',
+            value: {
+              meters: null,
+              miles: null
+            }
           },
           firstName: {
             name: 'First Name',
@@ -513,29 +566,102 @@
             return;
           } else {
             e.target.previousElementSibling.classList.add('v-label--filled');
-            console.log()
           }
         } else {
           e.target.previousElementSibling.classList.remove('v-label--filled');
         }
       },
       saveCompanyAddress(addressObj, placeObj) {
-        console.log(placeObj);
         this.form.company.address.value = placeObj.formatted_address;
         this.form.company.address.coords = {
           lng: addressObj.longitude,
           lat: addressObj.latitude,
         }
       },
-      saveLocationAddress(addressObj, placeObj, locationId) {
-        this.form.locations[locationId].address.value = placeObj.formatted_address;
-        this.form.locations[locationId].address.coords = {
+      saveLocationAddress(addressObj, placeObj, id, locationIndex) {
+        console.log(addressObj);
+        console.log(placeObj);
+        this.form.locations[locationIndex].address.value = placeObj.formatted_address;
+        this.form.locations[locationIndex].address.coords = {
           lat: addressObj.latitude,
           lng: addressObj.longitude,
         }
-        this.form.locations[locationId].address.zoom = 7;
-        console.log(this.form.locations[locationId].address.coords);
-      }
+        this.saveStateName(addressObj, placeObj, locationIndex);
+        this.form.locations[locationIndex].address.zoom = 7;
+        this.getStateData(locationIndex);
+      },
+      saveStateName(addressObj, placeObj, locationIndex) {
+        let stateShortName = addressObj.administrative_area_level_1;
+        let stateLongName;
+        placeObj.address_components.forEach(function(component) {
+          if(component.short_name === stateShortName) {
+            stateLongName = component.long_name;
+            console.log(stateLongName);
+          }
+        });
+        this.form.locations[locationIndex].state.value = stateLongName;
+      },
+      convertMilesToMeters(locationIndex) {
+        this.form.locations[locationIndex].distance.value.meters = this.form.locations[locationIndex].distance.value.miles * 1609.34;
+      },
+      async getStateData(i) {
+
+        let apiPath = "https://nominatim.openstreetmap.org/search.php";
+
+        let params = {
+          q: this.form.locations[i].state.value,
+          polygon_geojson: 1,
+          format: "json"
+        };
+
+        let polygon = [];
+
+        await this.$http.get(apiPath, { params: params }  )
+          .then(response => {
+            let geoJSONDataChunk = response.data[0];
+
+
+
+            // geojson data from http://nominatim.openstreetmap.org/ needs
+            // to be wrapped, so that the google addGeoJson() call
+            // can handle it properly
+            const geoConf = {
+              "type": "FeatureCollection",
+              "features": [
+                { "type": "Feature",
+                  "geometry": geoJSONDataChunk.geojson,
+                }
+              ]
+            };
+
+            console.log(geoConf);
+
+            //flip each coordinate array
+            if(geoConf.features[0].geometry.coordinates[0])
+            geoConf.features[0].geometry.coordinates[0].forEach(function(pair, index, array) {
+              polygon.push({
+                lat: pair[1],
+                lng: pair[0]
+              });
+            });
+
+            console.log(polygon);
+
+            this.form.locations[i].polygon.value = polygon;
+
+            //
+            // this.myCityData = new google.maps.Data();
+            // this.myCityData.addGeoJson(geoConf, "city");
+            // this.myCityData.setStyle({
+            //   fillColor: 'green',
+            //   fillOpacity: 0.1,
+            //   strokeWeight: 1
+            // });
+            //
+            // // send data to our Map component
+            // eventBus.$emit('sendCityData', this.myCityData);
+          })
+      },
     }
   }
 </script>

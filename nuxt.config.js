@@ -38,6 +38,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue-google-autocomplete.js', ssr: false},
+    { src: '~/plugins/axios.js'},
   ],
 
 
