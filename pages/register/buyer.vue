@@ -30,17 +30,18 @@
           v-model="tab"
           class="white"
           light
+          eager
         >
           <v-tab-item
             eager
           >
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
-                  <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</p>
+                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</span>
                   <v-form class="mx-auto">
                     <v-container>
                       <v-row>
-                        <v-col cols="12" md="6">
+                        <v-col cols="12" sm="6">
                           <v-row fill-height class="pl-2">
                             <client-only>
                               <v-image-input
@@ -58,12 +59,12 @@
                           </v-row>
                         </v-col>
 
-                        <v-col cols="12" md="6">
+                        <v-col cols="12" sm="6">
                           <v-text-field
                             id="company"
                             label="Company Name (required)"
                             type="text"
-                            v-model="form.company.name"
+                            v-model="form.company.name.value"
                           ></v-text-field>
 
                           <v-text-field
@@ -71,6 +72,14 @@
                             type="email"
                             class="card__input black--text"
                             v-model="form.company.email.value"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <v-text-field
+                            label="Username (required)"
+                            type="text"
+                            v-model="form.company.username.value"
                           ></v-text-field>
                         </v-col>
 
@@ -97,18 +106,20 @@
                             <div class="v-input__slot">
                               <div class="v-text-field__slot" style="width: 100%;">
                                 <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address (required)</label>
-                                <vue-google-autocomplete
-                                  id="company-address"
-                                  name="company_address"
-                                  classname="form-control"
-                                  v-on:placechanged="getAddressData"
-                                  placeholder=""
-                                  style="width: 100%;"
-                                  v-on:focus.native="animateAddressFieldOnFocus"
-                                  v-on:blur.native="animateAddressFieldOnFocus"
-                                  v-on:input.native="animateAddressFieldOnFilled"
-                                >
-                                </vue-google-autocomplete>
+                                <client-only>
+                                  <vue-google-autocomplete
+                                    id="company-address"
+                                    name="company_address"
+                                    classname="form-control"
+                                    v-on:placechanged="getAddressData"
+                                    placeholder=""
+                                    style="width: 100%;"
+                                    v-on:focus.native="animateAddressFieldOnFocus"
+                                    v-on:blur.native="animateAddressFieldOnFocus"
+                                    v-on:input.native="animateAddressFieldOnFilled"
+                                  >
+                                  </vue-google-autocomplete>
+                                </client-only>
                               </div>
                             </div>
                           </div>
@@ -139,6 +150,7 @@
                             v-model="form.company.description.value"
                           ></v-textarea>
                         </v-col>
+
                       </v-row>
                     </v-container>
                   </v-form>
@@ -148,17 +160,17 @@
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about each location you have</p>
+                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about each location you have</span>
                 <v-form class="mx-auto">
                   <v-container>
                     <v-row v-for="(location, i) in form.locations" :key="i" class="mb-12" :class="{'pt-12': i != 0 }">
 
                       <v-col cols="12">
-                        <p class="headline">Location {{ i + 1 }}</p>
+                        <span class="headline">Location {{ i + 1 }}</span>
                         <v-divider></v-divider>
                       </v-col>
 
-                      <v-col cols="12" md="6">
+                      <v-col cols="12" sm="6">
                         <v-row fill-height class="pl-3">
                           <client-only>
                             <v-image-input
@@ -176,11 +188,12 @@
                         </v-row>
                       </v-col>
 
-                      <v-col cols="12" md="6">
+                      <v-col cols="12" sm="6">
                         <v-text-field
                           id="location"
                           label="Location Name (required)"
                           type="text"
+                          v-model="location.name.value"
                         ></v-text-field>
                       </v-col>
 
@@ -189,83 +202,94 @@
                           <div class="v-input__slot">
                             <div class="v-text-field__slot" style="width: 100%;">
                               <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>
-                              <vue-google-autocomplete
-                                :id="'location-address--' + i"
-                                classname="form-control"
-                                v-on:placechanged="getAddressData"
-                                placeholder=""
-                                style="width: 100%;"
-                                v-on:focus.native="animateAddressFieldOnFocus"
-                                v-on:blur.native="animateAddressFieldOnFocus"
-                                v-on:input.native="animateAddressFieldOnFilled"
-                              >
-                              </vue-google-autocomplete>
+                              <client-only>
+                                <vue-google-autocomplete
+                                  :id="'location-address--' + i"
+                                  classname="form-control"
+                                  v-on:placechanged="getAddressData"
+                                  placeholder=""
+                                  style="width: 100%;"
+                                  v-on:focus.native="animateAddressFieldOnFocus"
+                                  v-on:blur.native="animateAddressFieldOnFocus"
+                                  v-on:input.native="animateAddressFieldOnFilled"
+                                >
+                                </vue-google-autocomplete>
+                              </client-only>
                             </div>
                           </div>
                         </div>
                       </v-col>
 
-                      <v-col cols="12" md="5" class="my-8" align-self="center">
-                        <v-select
-                          class="mb-12"
-                          label="Applicant Range"
-                          :items="rangeTypes"
-                          v-model="location.range.value"
-                        >
-                        </v-select>
-                        <v-slider
-                          min="0"
-                          max="200"
-                          thumb-label="always"
-                          :thumb-size="36"
-                          track-color="grey"
-                          track-fill-color="primary"
-                          step="10"
-                          ticks
-                          :tick-labels="miles"
-                          :readonly="false"
-                          v-model="location.distance.value.miles"
-                          @input="convertMilesToMeters(i)"
-                          v-if="location.range.value === 'Custom Range(mi)'"
-                        >
+                      <v-col cols="12">
+                        <v-expand-transition>
+                          <v-row v-if="location.address.value && location.state.value">
+                            <v-col cols="12" md="5" class="my-8" align-self="center">
+                              <span>Where would you like to accept vendor applications?</span>
+                              <v-select
+                                class="mb-8"
+                                label="Applicant Range"
+                                :items="memberships"
+                                v-model="location.membership_id.value"
+                              >
+                              </v-select>
+                              <template v-if="location.membership_id.value === 1">
+                                <span class="mb-12">Please select a range (miles).</span>
+                                <v-slider
+                                  min="0"
+                                  max="200"
+                                  thumb-label="always"
+                                  :thumb-size="36"
+                                  track-color="grey"
+                                  track-fill-color="primary"
+                                  step="10"
+                                  ticks
+                                  :tick-labels="miles"
+                                  :readonly="false"
+                                  v-model="location.radius.value"
+                                >
+                                </v-slider>
+                              </template>
+                            </v-col>
 
-                        </v-slider>
-                      </v-col>
-
-                      <v-col cols="12" md="7">
-                        <GmapMap
-                          :id="'map--' + i"
-                          :center="{lat:location.data.coords ? location.data.coords.lat : 37, lng:location.data.coords ? location.data.coords.lng : -95}"
-                          :zoom="3.5"
-                          style="height: 400px"
-                          :ref="'location-map--' + i"
-                        >
-                          <GmapMarker
-                            :position="location.data.coords"
-                            :clickable="true"
-                          />
-                          <GmapCircle
-                            v-if="location.distance.value.miles > 0 && location.range.value === 'Custom Range(mi)'"
-                            :center="location.data.coords"
-                            :radius="location.distance.value.meters"
-                            :fillOpacity="0.5"
-                            :visible="true"
-                            :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
-                          />
-                          <template v-if="location.range.value === 'State'">
-                            <GmapPolygon
-                              v-for="(set, i) in location.polygon.value"
-                              :key="i"
-                              :paths="set"
-                              :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
-                            />
-                          </template>
-                        </GmapMap>
+                            <v-col cols="12" md="7">
+                              <client-only>
+                                <GmapMap
+                                  :id="'map--' + i"
+                                  :center="{lat:location.latitude.value ? location.latitude.value : 37, lng:location.longitude.value ? location.longitude.value : -95}"
+                                  :zoom="3.5"
+                                  style="height: 400px"
+                                  :ref="'location-map--' + i"
+                                >
+                                  <GmapMarker
+                                    :position="{lat: location.latitude.value, lng: location.longitude.value}"
+                                    :clickable="true"
+                                  />
+                                  <GmapCircle
+                                    v-if="location.radius.value > 0 && location.membership_id.value === 1"
+                                    :center="{lat:location.latitude.value, lng:location.longitude.value}"
+                                    :radius="convertMilesToMeters(location.radius.value)"
+                                    :fillOpacity="0.5"
+                                    :visible="true"
+                                    :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
+                                  />
+                                  <template v-if="location.membership_id.value === 2">
+                                    <GmapPolygon
+                                      v-for="(set, i) in location.polygon.value"
+                                      :key="i"
+                                      :paths="set"
+                                      :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
+                                    />
+                                  </template>
+                                </GmapMap>
+                              </client-only>
+                            </v-col>
+                          </v-row>
+                        </v-expand-transition>
                       </v-col>
 
                       <v-col cols="12" class="mt-8">
-                        <p class="headline mb-0">Primary Point of Contact Info</p>
-                        <p class="subtitle-1 my-0">(Only Public to Approved Vendor)</p>
+                        <span class="headline mb-0">Primary Point of Contact Info</span>
+                        <span class="subtitle-1 my-0">(Only Public to Approved Vendor)</span>
                       </v-col>
 
                       <v-col cols="12" md="6">
@@ -273,6 +297,7 @@
                           id="first_name"
                           label="First Name (required)"
                           type="text"
+                          v-model="location.firstName.value"
                         ></v-text-field>
                       </v-col>
 
@@ -281,6 +306,7 @@
                           id="last_name"
                           label="Last Name (required)"
                           type="text"
+                          v-model="location.lastName.value"
                         ></v-text-field>
                       </v-col>
 
@@ -289,6 +315,7 @@
                           id="phone"
                           label="Phone (required)"
                           type="number"
+                          v-model="location.phone.value"
                         ></v-text-field>
                       </v-col>
 
@@ -297,6 +324,7 @@
                           id="email"
                           label="Email Address (required)"
                           type="email"
+                          v-model="location.email.value"
                         ></v-text-field>
                       </v-col>
 
@@ -304,6 +332,7 @@
                         <v-textarea
                           id="description"
                           label="Location Description (required)"
+                          v-model="location.description.value"
                         ></v-textarea>
                       </v-col>
                     </v-row>
@@ -316,26 +345,91 @@
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Please review your information before submitting</p>
+                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Please review your information before submitting</span>
                 <v-col cols="12" class="align-center">
                   <v-img :src="form.company.image.value" max-height="300px" max-width="300px" aspect-ratio="1" v-if="form.company.image.value && form.company.image.value != ''"></v-img>
                   <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto" v-else>person</v-icon>
-                  <p class="headline font-weight-bold">{{ form.company.name.value }}</p>
+                  <span class="headline font-weight-bold">{{ form.company.name.value }}</span>
                 </v-col>
 
                 <v-col cols="12" v-for="item in form.company" :key="item.name" v-if="!item.hide">
-                  <template v-if="item.name !== 'Company Image'">
+                  <template v-if="item.label != 'Company Image'">
                     <v-subheader inset class="mx-0 px-0">
-                      <span class="primary--text font-weight-bold">{{ item.name }}</span>
+                      <span class="primary--text font-weight-bold">{{ item.label }}</span>
                     </v-subheader>
-                    <p class="mt-0 mb-4">{{ item.value }}</p>
+                    <span class="mt-0 mb-4">{{ item.value }}</span>
                   </template>
                   <template v-else>
                     <v-subheader inset class="mx-0 px-0">
-                      <span class="primary--text font-weight-bold">{{ item.name }}</span>
+                      <span class="primary--text font-weight-bold">{{ item.label }}</span>
                     </v-subheader>
                     <v-img :src="item.value" max-height="300px" max-width="300px" aspect-ratio="1"></v-img>
                   </template>
+                </v-col>
+
+                <v-col cols="12" class="mt-6">
+                  <v-col cols="12" v-for="(location, i) in form.locations" :key="i" class="px-0">
+                    <span class="headline grey--text text--darken-4">Location {{ i + 1 }}</span>
+                    <v-divider class="mt-2 light-gray"></v-divider>
+                    <template v-for="(item, j) in location">
+                      <v-col class="px-0" cols="12" :key="j" v-show="!item.hide">
+                        <template v-if="item.label != 'Location Image'">
+                          <v-subheader inset class="mx-0 px-0">
+                            <span class="primary--text font-weight-bold">{{ item.label }}</span>
+                          </v-subheader>
+                          <span class="mt-0 mb-4">{{ item.value }}</span>
+                        </template>
+                        <template v-else>
+                          <v-subheader inset class="mx-0 px-0">
+                            <span class="primary--text font-weight-bold">{{ item.label }}</span>
+                          </v-subheader>
+                          <v-img :src="item.value" height="300px" width="300px" aspect-ratio="1"></v-img>
+                        </template>
+                      </v-col>
+                    </template>
+                    <v-col cols="12" class="px-0">
+                      <v-subheader inset class="mx-0 px-0">
+                        <span class="primary--text font-weight-bold">Application Range</span>
+                      </v-subheader>
+                      <client-only>
+                        <GmapMap
+                          :center="{lat:location.latitude.value ? location.latitude.value : 37, lng:location.longitude.value ? location.longitude.value : -95}"
+                          :zoom="3.5"
+                          style="height: 400px"
+                        >
+                          <GmapMarker
+                            v-if="location.latitude.value"
+                            :position="{lat: location.latitude.value, lng: location.longitude.value}"
+                            :clickable="true"
+                          />
+                          <GmapCircle
+                            v-if="location.radius.value > 0 && location.membership_id.value === 1"
+                            :center="{lat:location.latitude.value, lng:location.longitude.value}"
+                            :radius="convertMilesToMeters(location.radius.value)"
+                            :fillOpacity="0.5"
+                            :visible="true"
+                            :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
+                          />
+                          <template v-if="location.membership_id.value === 2">
+                            <GmapPolygon
+                              v-for="(set, i) in location.polygon.value"
+                              :key="i"
+                              :paths="set"
+                              :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
+                            />
+                          </template>
+                        </GmapMap>
+                      </client-only>
+                    </v-col>
+                  </v-col>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-checkbox
+                    label="I agree to the Terms of Service"
+                    v-on:change="getTosDate"
+                  >
+                  </v-checkbox>
                 </v-col>
 
               </v-card-text>
@@ -345,7 +439,7 @@
         <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
           <v-btn color="primary" text @click="prevPageIfNotFirst" v-show="tab !== 0"> < Back</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab !== 2">Next > </v-btn>
+          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab < 2">Next > </v-btn>
           <v-btn color="primary" class="px-8" @click="submitRegistrationForm" v-else>Submit</v-btn>
         </v-card-actions>
       </v-card>
@@ -383,108 +477,152 @@
         miles: [
           '','','','','','','','','','','100','','','','','150','','','','','200'
         ],
-        rangeTypes: [
-          'National',
-          'State',
-          'Custom Range(mi)'
+        memberships: [
+          {
+            text: 'Local',
+            value: 1
+          },
+          {
+            text: 'State',
+            value: 2
+          },
+          {
+            text: 'National',
+            value: 3
+          },
         ],
         form: {
           company: {
             name: {
-              name: 'Company Name',
+              label: 'Name',
               value: null,
-              hide: true,
+            },
+            username: {
+              label: 'Username',
+              value: null
             },
             email: {
-              name: 'Email',
+              label: 'Email',
               value: null,
             },
             password: {
-              name: 'Password',
+              label: 'Password',
               value: null,
               hide: true,
             },
             confirm: {
-              name: 'Confirm',
+              label: 'Confirm',
               value: null,
               hide: true,
             },
             address: {
-              name: 'Address',
+              label: 'Address',
               value: null,
             },
+            city: {
+              label: 'City',
+              value: null
+            },
+            state: {
+              label: 'State',
+              value: null
+            },
+            zipcode: {
+              label: 'Zip',
+              value: null
+            },
             firstName: {
-              name: 'First Name',
+              label: 'First Name',
               value: null,
             },
             lastName: {
-              name: 'Last Name',
+              label: 'Last Name',
               value: null,
             },
             description: {
-              name: 'Company Description',
+              label: 'Company Description',
               value: null,
             },
             image: {
-              name: 'Company Image',
+              label: 'Company Image',
               value: '',
               hide: true
+            },
+            tos_date: {
+              hide: true,
+              value: null,
             }
           },
           locations: [
             {
-              name: null,
-              data: {
-                coords: null,
-                zoom: 4
-              },
-              fullAddress: null,
-              address: null,
-              city: {
-                name: 'City',
+              name: {
+                label: 'Name',
                 value: null,
               },
+              latitude: {
+                label: 'Latitude',
+                value: null,
+                hide: true
+              },
+              longitude: {
+                label: 'Longitude',
+                value: null,
+                hide: true
+              },
+              address: {
+                value: null,
+                hide: true
+              },
+              city: {
+                value: null,
+                hide: true
+              },
               state: {
-                name: 'State',
-                value: null
+                value: null,
+                fullName: null,
+                hide: true
               },
-              range: {
-                name: 'Range',
-                value: null
+              zipcode: {
+                value: null,
+                hide: true
               },
-              distance: {
-                name: 'Distance',
-                value: {
-                  meters: null,
-                  miles: null
-                }
+              membership_id: {
+                label: 'Range',
+                value: null,
+                hide: true
+              },
+              radius: {
+                label: 'Radius',
+                value: null,
+                hide: true
               },
               polygon: {
-                name: 'Polygon',
-                value: null
+                label: 'Polygon',
+                value: null,
+                hide: true
               },
               firstName: {
-                name: 'First Name',
-                value: null
+                label: 'First Name',
+                value: null,
               },
               lastName: {
-                name: 'Last Name',
+                label: 'Last Name',
                 value: null
               },
               phone: {
-                name: 'Phone Number',
+                label: 'Phone Number',
                 value: null
               },
               email: {
-                name: 'Email Address',
+                label: 'Email Address',
                 value: null,
               },
               description: {
-                name: 'Location Description',
+                label: 'Location Description',
                 value: null,
               },
               image: {
-                name: 'Location Image',
+                label: 'Location Image',
                 value: ''
               }
             }
@@ -494,7 +632,6 @@
         autocomplete: null
       }
     },
-
     methods: {
       nextPageIfNotLast() {
         if(this.tab === 2) return;
@@ -509,54 +646,82 @@
           this.saveCompanyAddress(addressData);
         } else if(id.includes('location-address')) {
           let locationIndex = id.split('--')[1];
-          this.saveLocationAddress(addressData, id, locationIndex);
+          this.saveLocationAddress(addressData, placeResultData, id, locationIndex);
         }
+      },
+      convertMilesToMeters(miles) {
+        return miles * 1609.34;
       },
       addLocation() {
         let newLocation = {
           name: {
-            name: 'Location Name',
+            label: 'Name',
             value: null,
+          },
+          latitude: {
+            label: 'Latitude',
+            value: null,
+            hide: true
+          },
+          longitude: {
+            label: 'Longitude',
+            value: null,
+            hide: true
           },
           address: {
-            name: 'Address',
             value: null,
-            coords: null,
-            zoom: 4
+            hide: true
           },
-          range: {
-            name: 'Range',
-            value: null
+          city: {
+            value: null,
+            hide: true
           },
-          distance: {
-            name: 'Distance',
-            value: {
-              meters: null,
-              miles: null
-            }
+          state: {
+            value: null,
+            fullName: null,
+            hide: true
+          },
+          zipcode: {
+            value: null,
+            hide: true
+          },
+          membership_idz: {
+            label: 'Range',
+            value: null,
+            hide: true
+          },
+          radius: {
+            label: 'Radius',
+            value: null,
+            hide: true
+          },
+          polygon: {
+            label: 'Polygon',
+            value: null,
+            hide: true
           },
           firstName: {
-            name: 'First Name',
-            value: null
+            label: 'First Name',
+            value: null,
           },
           lastName: {
-            name: 'Last Name',
+            label: 'Last Name',
             value: null
           },
           phone: {
-            name: 'Phone Number',
+            label: 'Phone Number',
             value: null
           },
           email: {
-            name: 'Email Address',
+            label: 'Email Address',
             value: null,
           },
           description: {
-            name: 'Location Description',
+            label: 'Location Description',
             value: null,
           },
           image: {
-            name: 'Location Image',
+            label: 'Location Image',
             value: ''
           }
         };
@@ -578,59 +743,49 @@
         }
       },
       saveCompanyAddress(addressObj) {
-        this.form.company.address.value = addressObj;
-        this.form.company.address.coords = {
-          lng: addressObj.longitude,
-          lat: addressObj.latitude,
-        }
+        console.log(addressObj.postal_code);
+        this.form.company.address.value = addressObj.street_number + ' ' + addressObj.route;
+        this.form.company.city.value = addressObj.locality;
+        this.form.company.state.value = addressObj.administrative_area_level_1;
+        this.form.company.zipcode.value = addressObj.postal_code;
       },
-      saveLocationAddress(addressObj, id, locationIndex) {
-        this.form.locations[locationIndex].address = addressObj.street_number + ' ' + addressObj.route;
+      saveLocationAddress(addressObj, placeObj, id, locationIndex) {
+        this.form.locations[locationIndex].address.value = addressObj.street_number + ' ' + addressObj.route;
         this.form.locations[locationIndex].city.value = addressObj.locality;
         this.form.locations[locationIndex].state.value = addressObj.administrative_area_level_1;
-        this.form.locations[locationIndex].fullAddress = addressObj.street_number + ' ' + addressObj.route + ', ' + addressObj.locality + ', ' + addressObj.administrative_area_level_1;
-
-        this.geocodeAddressToCoordinates(addressObj.street_number, addressObj.route, addressObj.locality, addressObj.administrative_area_level_1);
+        this.form.locations[locationIndex].zipcode.value = addressObj.postal_code;
+        this.form.locations[locationIndex].latitude.value = addressObj.latitude;
+        this.form.locations[locationIndex].longitude.value = addressObj.longitude;
+        console.log('here');
+        this.getStateFullNameForQuery(placeObj, locationIndex);
         this.getStateData(locationIndex);
       },
-      async geocodeAddressToCoordinates(number, route, city, state) {
-        let apiPath = 'https://maps.googleapis.com/maps/api/geocode/json?';
-        let key = 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q';
+      getStateFullNameForQuery(place, i) {
+        let form = this.form;
+        place.address_components.forEach(function(component) {
+          if(component.short_name == form.locations[i].state.value) {
+            form.locations[i].state.fullName = component.long_name;
+          }
+        });
 
-        let encodedAddress = this.encodeAddress(number, route, city, state);
-
-        await this.$http.get(apiPath + 'address=' + encodedAddress + '&key=' + key)
-          .then(response => {
-            let data = response.data.results[0];
-
-            console.log(data);
-
-          })
-      },
-      encodeAddress(number, route, city, state) {
-        let addressComponents = Array.prototype.slice.call(arguments);
-        return encodeURIComponent(addressComponents.join(' '));
-      },
-      convertMilesToMeters(locationIndex) {
-        this.form.locations[locationIndex].distance.value.meters = this.form.locations[locationIndex].distance.value.miles * 1609.34;
+        this.form = form;
       },
       async getStateData(i) {
 
         let apiPath = "https://nominatim.openstreetmap.org/search.php";
 
         let params = {
-          q: this.form.locations[i].state.value + ' state',
+          state: this.form.locations[i].state.fullName,
           polygon_geojson: 1,
           format: "json",
         };
+
 
         let polygon = [];
 
         await this.$http.get(apiPath, { params: params }  )
           .then(response => {
             let geoJSONDataChunk = response.data[0];
-
-
 
             // geojson data from http://nominatim.openstreetmap.org/ needs
             // to be wrapped, so that the google addGeoJson() call
@@ -645,6 +800,8 @@
             };
 
             let coordinateSets = geoConf.features[0].geometry.coordinates;
+
+            console.log(coordinateSets);
 
             //flip each coordinate array
             let group = [];
@@ -675,6 +832,8 @@
             }
 
             this.form.locations[i].polygon.value = polygon;
+            console.log('here');
+
           })
       },
       // will get to this later.
@@ -695,6 +854,126 @@
           }
         }
       },
+      async submitRegistrationForm() {
+        let form = this.formatFormDataForSubmission();
+        console.log("form");
+        console.log(form);
+        console.log('form end');
+        // let {data: {event_id, message, errors}, status} = await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form).catch(e => e);
+
+        // console.log(data);
+        // this.loading = false;
+        // if (this.$error(status, message, errors)) return;
+        await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+          .then(response => {
+            console.log(response);
+          })
+      },
+      getTosDate(e) {
+        if(e) {
+          let today = new Date();
+          let dateString;
+          let timeString;
+          let dd = String(today.getUTCDate()).padStart(2, '0');
+          let mm = String(today.getUTCMonth() + 1).padStart(2, '0'); //January is 0!
+          let yyyy = today.getUTCFullYear();
+          let HH = String(today.getUTCHours()).padStart(2, '0');
+          let MM = String(today.getUTCMinutes()).padStart(2, '0');
+          let SS = String(today.getUTCSeconds()).padStart(2, '0');
+
+          dateString = [yyyy, mm, dd].join('-');
+          timeString = [HH, MM, SS].join(':');
+          today = dateString + ' ' + timeString;
+          console.log(today);
+          this.form.company.tos_date.value = today;
+        }
+      },
+      formatFormDataForSubmission() {
+        let submissionData = {
+          "name": this.form.company.name.value,
+          "primary_email": this.form.company.email.value,
+          "company_profiles": [
+            // {
+            //   "address": "",
+            //   "state": "",
+            //   "city": "",
+            //   "zipcode": 0,
+            //   "description": ""
+            // }
+          ],
+          "locations": [
+            // {
+            //   "name": "string",
+            //   "address": "string",
+            //   "state": "string",
+            //   "city": "string",
+            //   "zipcode": 0,
+            //   "description": "string",
+            //   "membership_id": 0,
+            //   "radius": "string",
+            //   "company_id": "string",
+            //   "services": {
+            //     "_ids": [
+            //       0
+            //     ]
+            //   }
+            // }
+          ],
+          "users": [
+            {
+              "username": this.form.company.username.value,
+              "email": this.form.company.email.value,
+              "password": this.form.company.email.value,
+              "first_name": this.form.company.firstName.value,
+              "last_name": this.form.company.lastName.value,
+              "tos_date": null,
+            }
+          ]
+        };
+
+        let profile = {
+          address: this.form.company.address.value,
+          city: this.form.company.city.value,
+          state: this.form.company.state.value,
+          zipcode: this.form.company.zipcode.value,
+          description: this.form.company.description.value
+        }
+
+        console.log(profile);
+
+        let locationsArray = [];
+        this.form.locations.forEach(function(location) {
+
+          let tempLocationObject = {
+            "name": location.name.value,
+            "address": location.address.value,
+            "state": location.state.value,
+            "city": location.city.value,
+            "zipcode": location.zipcode.value,
+            "latitude": location.latitude.value,
+            "longitude": location.longitude.value,
+            "description": location.description.value,
+            "membership_id": 0,
+            "radius": location.radius.value ? location.radius.value : location.membership_id.value,
+            "company_id": "string",
+            "services": {
+              "_ids": [
+                0
+              ]
+            }
+          }
+
+          locationsArray.push(tempLocationObject);
+
+        });
+
+        submissionData.company_profiles.push(profile);
+        submissionData.locations = locationsArray;
+
+        console.log(submissionData);
+
+        return submissionData;
+      }
     }
   }
 </script>
@@ -737,5 +1016,13 @@
   .v-label--filled {
     top: -1.5em;
     font-size: 0.75em;
+  }
+
+  /* TRANSITIONS */
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 </style>
