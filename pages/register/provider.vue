@@ -36,127 +36,127 @@
           <v-tab-item
             eager
           >
-              <v-container style="max-width: 80%;" mx-auto>
-                <v-card-text class="pa-0">
-                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</span>
-                  <v-form class="mx-auto">
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6">
-                          <v-row fill-height class="pl-2">
-                            <client-only>
-                              <v-image-input
-                                v-model="form.company.image.value"
-                                image-quality="0.85"
-                                clearable
-                                image-format="png"
-                                uploadIcon="person"
-                                fullWidth
-                                overlayPadding="10px"
-                                scalingSliderColor="red"
-                                :readonly="false"
-                              />
-                            </client-only>
-                          </v-row>
-                        </v-col>
+            <v-container style="max-width: 80%;" mx-auto>
+              <v-card-text class="pa-0">
+                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</span>
+                <v-form class="mx-auto">
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6">
+                        <v-row fill-height class="pl-2">
+                          <client-only>
+                            <v-image-input
+                              v-model="form.company.image.value"
+                              image-quality="0.85"
+                              clearable
+                              image-format="png"
+                              uploadIcon="person"
+                              fullWidth
+                              overlayPadding="10px"
+                              scalingSliderColor="red"
+                              :readonly="false"
+                            />
+                          </client-only>
+                        </v-row>
+                      </v-col>
 
-                        <v-col cols="12" sm="6">
-                          <v-text-field
-                            id="company"
-                            label="Company Name (required)"
-                            type="text"
-                            v-model="form.company.name.value"
-                          ></v-text-field>
+                      <v-col cols="12" sm="6">
+                        <v-text-field
+                          id="company"
+                          label="Company Name (required)"
+                          type="text"
+                          v-model="form.company.name.value"
+                        ></v-text-field>
 
-                          <v-text-field
-                            label="Email Address (required)"
-                            type="email"
-                            class="card__input black--text"
-                            v-model="form.company.email.value"
-                          ></v-text-field>
-                        </v-col>
+                        <v-text-field
+                          label="Email Address (required)"
+                          type="email"
+                          class="card__input black--text"
+                          v-model="form.company.email.value"
+                        ></v-text-field>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <v-text-field
-                            label="Username (required)"
-                            type="text"
-                            v-model="form.company.username.value"
-                          ></v-text-field>
-                        </v-col>
+                      <v-col cols="12">
+                        <v-text-field
+                          label="Username (required)"
+                          type="text"
+                          v-model="form.company.username.value"
+                        ></v-text-field>
+                      </v-col>
 
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            id="password"
-                            label="Password (required)"
-                            type="password"
-                            v-model="form.company.password.value"
-                          ></v-text-field>
-                        </v-col>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          id="password"
+                          label="Password (required)"
+                          type="password"
+                          v-model="form.company.password.value"
+                        ></v-text-field>
+                      </v-col>
 
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            id="confirm"
-                            label="Confirm Password (required)"
-                            type="password"
-                            v-model="form.company.confirm.value"
-                          ></v-text-field>
-                        </v-col>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          id="confirm"
+                          label="Confirm Password (required)"
+                          type="password"
+                          v-model="form.company.confirm.value"
+                        ></v-text-field>
+                      </v-col>
 
-                        <v-col cols="12" class="v-input">
-                          <div class="v-input__control">
-                            <div class="v-input__slot">
-                              <div class="v-text-field__slot" style="width: 100%;">
-                                <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address (required)</label>
-                                <client-only>
-                                  <vue-google-autocomplete
-                                    id="company-address"
-                                    name="company_address"
-                                    classname="form-control"
-                                    v-on:placechanged="getAddressData"
-                                    placeholder=""
-                                    style="width: 100%;"
-                                    v-on:focus.native="animateAddressFieldOnFocus"
-                                    v-on:blur.native="animateAddressFieldOnFocus"
-                                    v-on:input.native="animateAddressFieldOnFilled"
-                                  >
-                                  </vue-google-autocomplete>
-                                </client-only>
-                              </div>
+                      <v-col cols="12" class="v-input">
+                        <div class="v-input__control">
+                          <div class="v-input__slot">
+                            <div class="v-text-field__slot" style="width: 100%;">
+                              <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address (required)</label>
+                              <client-only>
+                                <vue-google-autocomplete
+                                  id="company-address"
+                                  name="company_address"
+                                  classname="form-control"
+                                  v-on:placechanged="getAddressData"
+                                  placeholder=""
+                                  style="width: 100%;"
+                                  v-on:focus.native="animateAddressFieldOnFocus"
+                                  v-on:blur.native="animateAddressFieldOnFocus"
+                                  v-on:input.native="animateAddressFieldOnFilled"
+                                >
+                                </vue-google-autocomplete>
+                              </client-only>
                             </div>
                           </div>
-                        </v-col>
+                        </div>
+                      </v-col>
 
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            id="first_name"
-                            label="First Name (required)"
-                            type="text"
-                            v-model="form.company.firstName.value"
-                          ></v-text-field>
-                        </v-col>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          id="first_name"
+                          label="First Name (required)"
+                          type="text"
+                          v-model="form.company.firstName.value"
+                        ></v-text-field>
+                      </v-col>
 
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            id="last_name"
-                            label="Last Name (required)"
-                            type="text"
-                            v-model="form.company.lastName.value"
-                          ></v-text-field>
-                        </v-col>
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          id="last_name"
+                          label="Last Name (required)"
+                          type="text"
+                          v-model="form.company.lastName.value"
+                        ></v-text-field>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <v-textarea
-                            id="description"
-                            label="Business Description (required)"
-                            v-model="form.company.description.value"
-                          ></v-textarea>
-                        </v-col>
+                      <v-col cols="12">
+                        <v-textarea
+                          id="description"
+                          label="Business Description (required)"
+                          v-model="form.company.description.value"
+                        ></v-textarea>
+                      </v-col>
 
-                      </v-row>
-                    </v-container>
-                  </v-form>
-                </v-card-text>
-              </v-container>
+                    </v-row>
+                  </v-container>
+                </v-form>
+              </v-card-text>
+            </v-container>
           </v-tab-item>
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
@@ -195,6 +195,7 @@
                       :location="location"
                       :index="i"
                       @change="onFormLocationChange"
+                      :isProvider="true"
                     />
                   </v-container>
                 </v-form>
@@ -285,6 +286,14 @@
                 </v-col>
 
                 <v-col cols="12">
+                  <span class="headline grey--text text--darken-4">Billing</span>
+                  <v-divider class="mt-1 mb-8 light-gray"></v-divider>
+                  <card
+                    :stripe="api_key"
+                  />
+                </v-col>
+
+                <v-col cols="12">
                   <v-checkbox
                     label="I agree to the Terms of Service"
                     v-on:change="getTosDate"
@@ -311,7 +320,7 @@
   import VImageInput from 'vuetify-image-input'
   import * as VueGoogleMaps from '~/node_modules/gmap-vue'
   import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
-
+  import { Card, createToken } from 'vue-stripe-elements-plus'
 
   import Vue from 'vue';
   import FormLocation from '~/components/FormLocation'
@@ -324,14 +333,16 @@
   })
 
   export default {
-    name: 'buyer',
+    name: 'provider',
     components: {
       FormLocation,
       VImageInput,
-      GmapCluster
+      GmapCluster,
+      Card
     },
     data() {
       return {
+        api_key: process.env.VUE_APP_STRIPE_API_KEY,
         loading: false,
         tab: 0,
         items: [
