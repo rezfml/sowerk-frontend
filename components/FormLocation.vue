@@ -5,7 +5,7 @@
       <v-divider></v-divider>
     </v-col>
 
-    <v-col cols="12" sm="6">
+    <v-col cols="12" sm="5">
       <v-row fill-height class="pl-3">
         <client-only>
           <v-image-input
@@ -22,17 +22,15 @@
       </v-row>
     </v-col>
 
-    <v-col cols="12" sm="6">
+    <v-col cols="12" sm="7">
       <v-text-field
         id="location"
         label="Location Name (required)"
         type="text"
         v-model="location.name.value"
       ></v-text-field>
-    </v-col>
 
-    <v-col cols="12" md="7" class="v-input">
-      <div class="v-input__control">
+      <div class="v-input__control mt-10">
         <div class="v-input__slot">
           <div class="v-text-field__slot" style="width: 100%;">
             <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>
@@ -54,7 +52,11 @@
       </div>
     </v-col>
 
-    <v-col cols="12" md="5">
+    <v-col cols="12" md="7" class="v-input">
+
+    </v-col>
+
+    <v-col cols="12" md="5" v-if="!isProvider">
       <span>Where would you like to accept vendor applications?</span>
       <v-select
         class="mb-8"
@@ -193,8 +195,12 @@
             hide: true,
           },
           membership_id: {
-            value: 'buyer',
+            value: 'yearly-national',
             hide: true,
+          },
+          price: {
+            value: 300000,
+            hide: true
           },
           latitude: {
             value: null,
@@ -284,7 +290,6 @@
         }
       },
       emitSaveFormLocationData() {
-        console.log('hello');
         this.$emit('change', this.location, this.index);
       },
       saveLocationAddress(addressObj, placeObj, id, locationIndex) {

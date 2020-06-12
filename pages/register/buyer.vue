@@ -162,7 +162,7 @@
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
                 <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about each location you have</span>
-                <v-col cols="12" style="position: sticky; top: 0; z-index: 2;">
+                <v-col cols="12" style="position: sticky; top: 0; z-index: 4;">
                   <v-row style="position: relative;">
                     <v-col cols="12" style="position: sticky; width: 100%; top: 0;">
                       <client-only>
@@ -501,6 +501,24 @@
       },
       onRadiusSlide(value, index) {
 
+      },
+      animateAddressFieldOnFocus(e) {
+        let addressLabel = e.target.previousElementSibling;
+        addressLabel.classList.toggle('v-label--focus');
+      },
+      animateAddressFieldOnFilled(e) {
+        if(e.target != "") {
+          if (e.target.previousElementSibling.classList.contains('v-label--filled')) {
+            return;
+          } else {
+            e.target.previousElementSibling.classList.add('v-label--filled');
+          }
+        } else {
+          e.target.previousElementSibling.classList.remove('v-label--filled');
+        }
+      },
+      convertMilesToMeters(miles) {
+        return miles * 1609.34;
       },
       addLocation() {
         let newLocation = {
