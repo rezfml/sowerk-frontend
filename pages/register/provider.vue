@@ -371,7 +371,7 @@
                 <v-col cols="12">
                   <p class="title font-weight-regular text-center mt-12 mb-0 grey--text text--darken-2">Please review your company profile before submitting</p>
                 </v-col>
-                <v-col cols="12" class="d-flex align-center justify-center mb-4">
+                <v-col cols="12" class="d-flex flex-column align-center justify-center mb-4">
                   <v-img class="mx-auto" :src="form.company.image.value" max-height="300px" max-width="300px" aspect-ratio="1" v-if="form.company.image.value && form.company.image.value != ''"></v-img>
                   <v-icon color="grey" style="font-size: 200px; text-align: center; border: 2px solid #ccc; padding: 20px; border-radius: 100%;" class="mx-auto" v-else>person</v-icon>
                   <span class="headline font-weight-bold">{{ form.company.name.value }}</span>
@@ -807,10 +807,10 @@
       this.getPlans();
       // this.loadStates();
       this.states = states;
-      stripe = Stripe(process.env.VUE_APP_STRIPE_API_KEY);
-      elements = stripe.elements();
-      card = elements.create('card');
-      card.mount(this.$refs.card);
+      // stripe = Stripe(process.env.VUE_APP_STRIPE_API_KEY);
+      // elements = stripe.elements();
+      // card = elements.create('card');
+      // card.mount(this.$refs.card);
     },
     methods: {
       async loadStates() {

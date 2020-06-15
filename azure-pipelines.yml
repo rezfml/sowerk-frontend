@@ -23,7 +23,7 @@ steps:
 - script: |
     npm run lint
     npm run test
-  displayName: 'npm lint and test'
+  displayName: 'npm lint and tests'
 
 - task: PublishPipelineArtifact@1
   inputs:

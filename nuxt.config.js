@@ -24,8 +24,8 @@ export default {
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' }
     ],
     script: [
+      { src: "https://js.stripe.com/v3/" },
       { src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q&libraries=places"},
-      { src: "https://js.stripe.com/v3/" }
     ],
   },
   /*
