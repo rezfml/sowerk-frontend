@@ -1,9 +1,9 @@
-{
+module.exports = {
   "env": {
     "test": {
       "presets": [
         [
-          "@babel/preset-env",
+          "@vue/babel-preset-app",
           {
             "targets": {
               "node": "current"

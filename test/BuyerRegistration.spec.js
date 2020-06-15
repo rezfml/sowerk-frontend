@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import Buyer from '@/pages/register/buyer.vue'
+import Provider from '@/pages/register/provider.vue'
 
-describe('Buyer', () => {
+describe('Provider', () => {
   test('is a Vue instance', () => {
-    const wrapper = mount(Buyer)
+    const wrapper = mount(Provider)
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 })

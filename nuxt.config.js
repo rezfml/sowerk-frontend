@@ -41,6 +41,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue-google-autocomplete.js', ssr: false},
+    { src: '~/plugins/gmap-vue.js', ssr: false},
     { src: '~/plugins/axios.js'},
     { src: '~/plugins/errorHandler.js'},
   ],

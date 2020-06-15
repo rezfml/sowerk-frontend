@@ -38,11 +38,11 @@
           >
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</span>
+                <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</p>
                 <v-form class="mx-auto">
                   <v-container>
                     <v-row>
-                      <v-col cols="12" sm="6">
+                      <v-col cols="12" lg="5" xl="4">
                         <v-row fill-height class="pl-2">
                           <client-only>
                             <v-image-input
@@ -60,12 +60,14 @@
                         </v-row>
                       </v-col>
 
-                      <v-col cols="12" sm="6">
+                      <v-col cols="12" lg="7" xl="8">
                         <v-text-field
                           id="company"
                           label="Company Name (required)"
                           type="text"
                           v-model="form.company.name.value"
+                          validate-on-blur
+                          :rules="rules.requiredRules"
                         ></v-text-field>
 
                         <v-text-field
@@ -73,17 +75,17 @@
                           type="email"
                           class="card__input black--text"
                           v-model="form.company.email.value"
+                          validate-on-blur
+                          :rules="rules.emailRules"
                         ></v-text-field>
 
                         <v-text-field
                           label="Phone Number (required)"
                           type="number"
                           class="card__input black--text"
-                          :rules="[
-                            () => !!form.company.phone.value || 'Phone Number is required',
-                            () => (form.company.phone.value && form.company.phone.value.length === 10) || 'Phone Number must be 10 digits',
-                          ]"
                           v-model="form.company.phone.value"
+                          validate-on-blur
+                          :rules="rules.phoneRules"
                         ></v-text-field>
                       </v-col>
 
@@ -92,6 +94,8 @@
                           label="Username (required)"
                           type="text"
                           v-model="form.company.username.value"
+                          validate-on-blur
+                          :rules="rules.usernameRules"
                         ></v-text-field>
                       </v-col>
 
@@ -101,6 +105,8 @@
                           label="Password (required)"
                           type="password"
                           v-model="form.company.password.value"
+                          validate-on-blur
+                          :rules="rules.passwordRules"
                         ></v-text-field>
                       </v-col>
 
@@ -113,10 +119,10 @@
                         ></v-text-field>
                       </v-col>
 
-                      <v-col cols="12" class="v-input">
-                        <div class="v-input__control">
-                          <div class="v-input__slot">
-                            <div class="v-text-field__slot" style="width: 100%;">
+                      <v-col cols="12">
+                        <div class="v-input theme--light v-text-field v-text-field--is-booted">
+                          <div class="v-input__control">
+                            <div class="v-input__slot" style="width: 100%;">
                               <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address (required)</label>
                               <client-only>
                                 <vue-google-autocomplete
@@ -129,10 +135,13 @@
                                   v-on:focus.native="animateAddressFieldOnFocus"
                                   v-on:blur.native="animateAddressFieldOnFocus"
                                   v-on:input.native="animateAddressFieldOnFilled"
+                                  validate-on-blur
+                                  :rules="rules.requiredRules"
                                 >
                                 </vue-google-autocomplete>
                               </client-only>
                             </div>
+                            <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
                           </div>
                         </div>
                       </v-col>
@@ -144,6 +153,8 @@
                           type="text"
                           v-model="form.company.firstName.value"
                           v-on:change.native="formatFullName"
+                          validate-on-blur
+                          :rules="rules.requiredRules"
                         ></v-text-field>
                       </v-col>
 
@@ -154,6 +165,8 @@
                           type="text"
                           v-model="form.company.lastName.value"
                           v-on:change.native="formatFullName"
+                          validate-on-blur
+                          :rules="rules.requiredRules"
                         ></v-text-field>
                       </v-col>
 
@@ -162,6 +175,8 @@
                           id="description"
                           label="Business Description (required)"
                           v-model="form.company.description.value"
+                          validate-on-blur
+                          :rules="rules.requiredRules"
                         ></v-textarea>
                       </v-col>
 
@@ -174,7 +189,7 @@
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about each location you have</span>
+                <p class="title text-center my-8 grey--text text--darken-2">Now tell us about each location you have and they will appear on the map as you go!</p>
                 <v-col cols="12" style="position: relative; top: 0; z-index: 4;">
                   <v-row style="position: relative;">
                     <v-col cols="12" style="width: 100%; top: 0;" class="px-0">
@@ -191,6 +206,7 @@
                               <GmapMarker
                                 :key="i"
                                 :position="{lat: m.lat, lng: m.lng}"
+                                :label="i + 1 + ''"
                                 :clickable="true"
                               />
                             </template>
@@ -230,14 +246,14 @@
                         <div class="v-input__control mt-10">
                           <div class="v-input__slot">
                             <div class="v-text-field__slot" style="width: 100%;">
-                              <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>
+                              <label class="v-label theme--light form__label--address" :class="{'v-label--filled': form.locations[editingIndex].fullAddress.value}" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>
                               <client-only>
                                 <vue-google-autocomplete
                                   :id="'location-address--' + editingIndex"
                                   classname="form-control"
                                   v-on:placechanged="getAddressData"
                                   placeholder=""
-                                  style="width: 100%;"
+                                  style="width: 100%; font-size: 16px;"
                                   v-on:focus.native="animateAddressFieldOnFocus"
                                   v-on:blur.native="animateAddressFieldOnFocus"
                                   v-on:input.native="animateAddressFieldOnFilled"
@@ -309,20 +325,20 @@
                   </v-btn>
                 </template>
                 <template v-else>
-                  <v-row>
+                  <v-row class="my-8">
                     <v-col
                       cols="12"
                       v-for="(location, i) in form.locations"
                       :key="i"
                     >
                       <v-divider v-show="i > 0"></v-divider>
-                      <v-row>
-                        <v-col cols="3">
+                      <v-row class="pt-6 pb-0">
+                        <v-col cols="2">
                           <v-img v-if="location.image.value" aspect-ratio="1" :src="location.image.value"></v-img>
 <!--                          <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto" v-else>person</v-icon>-->
                           <p v-else>hello</p>
                         </v-col>
-                        <v-col cols="7">
+                        <v-col cols="8">
                           <p class="title mb-2">{{ location.name.value }}</p>
                           <p class="subtitle grey--text font-weight-medium">{{ location.fullAddress.value }}</p>
                         </v-col>
@@ -344,7 +360,7 @@
 <!--                      />-->
 <!--                    </v-container>-->
 <!--                  </v-form>-->
-                  <v-btn v-on:click.native="addLocation" outlined color="primary" class="mx-auto">+ Add Location</v-btn>
+                  <v-btn v-on:click.native="addLocation" outlined block large color="primary" class="mx-auto my-12">+ Add Location</v-btn>
                 </template>
               </v-card-text>
             </v-container>
@@ -353,11 +369,11 @@
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
                 <v-col cols="12">
-                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Please review your company profile before submitting</span>
+                  <p class="title font-weight-regular text-center mt-12 mb-0 grey--text text--darken-2">Please review your company profile before submitting</p>
                 </v-col>
-                <v-col cols="12" class="align-center">
-                  <v-img :src="form.company.image.value" max-height="300px" max-width="300px" aspect-ratio="1" v-if="form.company.image.value && form.company.image.value != ''"></v-img>
-                  <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto" v-else>person</v-icon>
+                <v-col cols="12" class="d-flex align-center justify-center mb-4">
+                  <v-img class="mx-auto" :src="form.company.image.value" max-height="300px" max-width="300px" aspect-ratio="1" v-if="form.company.image.value && form.company.image.value != ''"></v-img>
+                  <v-icon color="grey" style="font-size: 200px; text-align: center; border: 2px solid #ccc; padding: 20px; border-radius: 100%;" class="mx-auto" v-else>person</v-icon>
                   <span class="headline font-weight-bold">{{ form.company.name.value }}</span>
                 </v-col>
 
@@ -436,7 +452,6 @@
                           </template>
                         </GmapMap>
                       </client-only>
-                      <v-divider class="mt-2 light-gray"></v-divider>
                     </v-col>
                   </v-col>
                 </v-col>
@@ -515,20 +530,11 @@
 
 <script>
   import VImageInput from 'vuetify-image-input'
-  import * as VueGoogleMaps from '~/node_modules/gmap-vue'
   import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
   import { Card, createToken } from 'vue-stripe-elements-plus'
   import states from '~/static/states.js'
 
-  import Vue from 'vue';
   import FormLocation from '~/components/FormLocation'
-
-  Vue.use(VueGoogleMaps, {
-    load: {
-      key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
-    },
-    installComponents: true
-  })
 
   let stripe,
     elements,
@@ -760,7 +766,41 @@
         states: null,
         token: null,
         editing: true,
-        editingIndex: 0
+        editingIndex: 0,
+        rules: {
+          requiredRules: [
+            v => !!v || v === 0 || 'Field is required',
+          ],
+          usernameRules: [
+            v => !!v || 'Name is required',
+            v => (v && v.length <= 100) || 'Name must be less than 100 characters'
+          ],
+          emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          emailNotRequiredRules: [
+            v => /.+@.+/.test(v) || v === "" || v === null || 'E-mail must be valid',
+            v => (v && v.length <= 100) || v === "" || v === null || 'Email must be less than 100 characters'
+          ],
+          phoneRules: [
+            v => !!v || 'Phone Number is required',
+            v => (v && v.length === 10) || 'Phone Number must be 10 digits',
+          ],
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ],
+          addressRules: [
+            v => !!(this.form.address && this.form.city && this.form.state && this.form.zip) || 'Invalid Address'
+          ],
+
+        }
       }
     },
     mounted() {
@@ -795,7 +835,6 @@
         this.form.locations[this.editingIndex].longitude.value = addressData.longitude;
         this.form.locations[this.editingIndex].fullAddress.value = addressData.street_number + ' ' + addressData.route + ' ' + addressData.locality + ', ' + addressData.administrative_area_level_1 + ' ' + addressData.postal_code;
         this.getStateFullNameForQuery(placeResultData, this.editingIndex);
-        this.getStateData(this.editingIndex);
         this.saveMarker();
       },
       getStateFullNameForQuery(place) {
@@ -807,69 +846,6 @@
         });
 
         this.location = location;
-      },
-      async getStateData(i) {
-
-        let apiPath = "https://nominatim.openstreetmap.org/search.php";
-
-        let params = {
-          state: this.location.state_full.value,
-          polygon_geojson: 1,
-          format: "json",
-        };
-
-
-        let polygon = [];
-
-        await this.$http.get(apiPath, { params: params }  )
-          .then(response => {
-            let geoJSONDataChunk = response.data[0];
-
-            // geojson data from http://nominatim.openstreetmap.org/ needs
-            // to be wrapped, so that the google addGeoJson() call
-            // can handle it properly
-            const geoConf = {
-              "type": "FeatureCollection",
-              "features": [
-                { "type": "Feature",
-                  "geometry": geoJSONDataChunk.geojson,
-                }
-              ]
-            };
-
-            let coordinateSets = geoConf.features[0].geometry.coordinates;
-
-            //flip each coordinate array
-            let group = [];
-            if(coordinateSets.length > 1) {
-              coordinateSets.forEach(function(set, index, array) {
-                set.forEach(function(coordinates) {
-                  coordinates.forEach(function(coordinate) {
-                    group.push({
-                      lat: coordinate[1],
-                      lng: coordinate[0]
-                    })
-                  });
-                  polygon.push(group);
-                  group = [];
-                });
-              });
-            } else {
-              coordinateSets.forEach(function(set, index, array) {
-                set.forEach(function(coordinates) {
-                  group.push({
-                    lat: coordinates[1],
-                    lng: coordinates[0]
-                  })
-                });
-                polygon.push(group);
-                group = [];
-              });
-            }
-
-            this.location.polygon.value = polygon;
-
-          })
       },
       async getPlans() {
         let {data: {plans, message, errors}, status} = await this.$http.get('https://api.sowerk.com/v1/chargebees').catch(e => e);
@@ -1219,7 +1195,6 @@
   }
 
   .form-control {
-    padding: 2px 0;
     position: relative;
     z-index: 3;
   }
