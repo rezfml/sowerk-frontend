@@ -19,5 +19,5 @@ module.exports = {
     "<rootDir>/components/**/*.vue",
     "<rootDir>/pages/*.vue"
   ],
-  transformIgnorePatterns: ['/node_modules/(?!gmap-vue)']
+  transformIgnorePatterns: ['/node_modules/(?!gmap-vue)'],
 };

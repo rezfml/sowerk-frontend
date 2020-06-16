@@ -39,150 +39,7 @@
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
                 <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Let's start with the basic information about your company.</p>
-                <v-form class="mx-auto">
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" lg="5" xl="4">
-                        <v-row fill-height class="pl-2">
-                          <client-only>
-                            <v-image-input
-                              v-model="form.company.image.value"
-                              image-quality="0.85"
-                              clearable
-                              image-format="png"
-                              uploadIcon="person"
-                              fullWidth
-                              overlayPadding="10px"
-                              scalingSliderColor="red"
-                              :readonly="false"
-                            />
-                          </client-only>
-                        </v-row>
-                      </v-col>
-
-                      <v-col cols="12" lg="7" xl="8">
-                        <v-text-field
-                          id="company"
-                          label="Company Name (required)"
-                          type="text"
-                          v-model="form.company.name.value"
-                          validate-on-blur
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-
-                        <v-text-field
-                          label="Email Address (required)"
-                          type="email"
-                          class="card__input black--text"
-                          v-model="form.company.email.value"
-                          validate-on-blur
-                          :rules="rules.emailRules"
-                        ></v-text-field>
-
-                        <v-text-field
-                          label="Phone Number (required)"
-                          type="number"
-                          class="card__input black--text"
-                          v-model="form.company.phone.value"
-                          validate-on-blur
-                          :rules="rules.phoneRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-text-field
-                          label="Username (required)"
-                          type="text"
-                          v-model="form.company.username.value"
-                          validate-on-blur
-                          :rules="rules.usernameRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="password"
-                          label="Password (required)"
-                          type="password"
-                          v-model="form.company.password.value"
-                          validate-on-blur
-                          :rules="rules.passwordRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="confirm"
-                          label="Confirm Password (required)"
-                          type="password"
-                          v-model="form.company.confirm.value"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <div class="v-input theme--light v-text-field v-text-field--is-booted">
-                          <div class="v-input__control">
-                            <div class="v-input__slot" style="width: 100%;">
-                              <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address (required)</label>
-                              <client-only>
-                                <vue-google-autocomplete
-                                  id="company-address"
-                                  name="company_address"
-                                  classname="form-control"
-                                  v-on:placechanged="getAddressData"
-                                  placeholder=""
-                                  style="width: 100%;"
-                                  v-on:focus.native="animateAddressFieldOnFocus"
-                                  v-on:blur.native="animateAddressFieldOnFocus"
-                                  v-on:input.native="animateAddressFieldOnFilled"
-                                  validate-on-blur
-                                  :rules="rules.requiredRules"
-                                >
-                                </vue-google-autocomplete>
-                              </client-only>
-                            </div>
-                            <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
-                          </div>
-                        </div>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="first_name"
-                          label="First Name (required)"
-                          type="text"
-                          v-model="form.company.firstName.value"
-                          v-on:change.native="formatFullName"
-                          validate-on-blur
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="last_name"
-                          label="Last Name (required)"
-                          type="text"
-                          v-model="form.company.lastName.value"
-                          v-on:change.native="formatFullName"
-                          validate-on-blur
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-textarea
-                          id="description"
-                          label="Business Description (required)"
-                          v-model="form.company.description.value"
-                          validate-on-blur
-                          :rules="rules.requiredRules"
-                        ></v-textarea>
-                      </v-col>
-
-                    </v-row>
-                  </v-container>
-                </v-form>
+                <company-form></company-form>
               </v-card-text>
             </v-container>
           </v-tab-item>
@@ -535,6 +392,7 @@
   import states from '~/static/states.js'
 
   import FormLocation from '~/components/FormLocation'
+  import CompanyForm from "~/components/register/provider/CompanyForm";
 
   let stripe,
     elements,
@@ -546,7 +404,8 @@
       FormLocation,
       VImageInput,
       GmapCluster,
-      Card
+      Card,
+      CompanyForm
     },
     data() {
       return {
