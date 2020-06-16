@@ -22,7 +22,7 @@
 
         <v-col cols="12" lg="7" xl="8">
           <v-text-field
-            id="company"
+            id="name"
             label="Company Name (required)"
             type="text"
             v-model="name"
@@ -31,6 +31,7 @@
           ></v-text-field>
 
           <v-text-field
+            id="email"
             label="Email Address (required)"
             type="email"
             class="card__input black--text"
@@ -175,6 +176,9 @@
         lastName: null,
         description: null,
         fullAddress: null,
+        focused: null,
+        blurred: null,
+        fullName: null,
         rules: {
           requiredRules: [
             v => !!v || v === 0 || 'Field is required',
@@ -211,7 +215,6 @@
           addressRules: [
             v => !!(this.form.address && this.form.city && this.form.state && this.form.zip) || 'Invalid Address'
           ],
-
         }
       }
     },
@@ -249,6 +252,11 @@
       // This method formats the address components into a readable string for display purposes
       formatFullAddress() {
         this.fullAddress = this.address + ', ' + this.city + ', ' + this.state + ' ' + this.zipcode;
+      },
+
+      // This method formats the first and last name as a whole name for display purposes
+      formatFullName() {
+        this.fullName = this.firstName + ' ' + this.lastName;
       },
     },
   }
