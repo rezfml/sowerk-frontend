@@ -56,13 +56,13 @@
 
     </v-col>
 
-    <v-col cols="12" md="5" v-if="!isProvider">
+    <v-col cols="12" md="5">
       <span>Where would you like to accept vendor applications?</span>
       <v-select
         class="mb-8"
         label="Applicant Range"
         :items="memberships"
-        v-model="location.membership_id.value"
+        v-model="location.membership_id"
       >
       </v-select>
       <template v-if="location.membership_id.value === 1">

@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import CompanyForm from '@/components/register/provider/CompanyForm.vue'
 import Vue from 'vue'
 import Vuetify from 'vuetify'

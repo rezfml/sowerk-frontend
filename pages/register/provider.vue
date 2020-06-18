@@ -46,7 +46,8 @@
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <p class="title text-center my-8 grey--text text--darken-2">Now tell us about each location you have and they will appear on the map as you go!</p>
+                <p class="title font-weight-bold text-center mt-12 grey--text text--darken-3 mb-2">Location Listings Are Very Important to Buyers</p>
+                <p class="title font-weight-regular text-center grey--text text--darken-2 mt-0">Buyers see services offered, credentials, and your proximity</p>
                 <v-col cols="12" style="position: relative; top: 0; z-index: 4;">
                   <v-row style="position: relative;">
                     <v-col cols="12" style="width: 100%; top: 0;" class="px-0">
@@ -74,112 +75,118 @@
                   </v-row>
                 </v-col>
                 <template v-if="editing">
-                  <v-subheader class="headline px-0">{{ form.locations[editingIndex].name.value ? form.locations[editingIndex].name.value : 'Location ' + (editingIndex + 1) }}</v-subheader>
-                  <v-form>
-                    <v-row>
-                      <v-col cols="6" lg="5" xl="4">
-                        <client-only>
-                          <v-image-input
-                            v-model="form.locations[editingIndex].image.value"
-                            image-quality="0.85"
-                            clearable
-                            image-format="png"
-                            uploadIcon="person"
-                            fullWidth
-                            overlayPadding="10px"
-                            scalingSliderColor="red"
-                            :readonly="false"
-                          />
-                        </client-only>
-                      </v-col>
-                      <v-col cols="6" lg="7" xl="8">
-                        <v-text-field
-                          id="location"
-                          label="Location Name (required)"
-                          type="text"
-                          v-model="form.locations[editingIndex].name.value"
-                        ></v-text-field>
+                  <LocationForm
+                    :location="form.locations[editingIndex]"
+                    :index="editingIndex"
+                    @saveLocation="saveLocation"
+                    @createMarker="createMarker"
+                  />
+<!--                  <v-subheader class="headline px-0">{{ form.locations[editingIndex].name.value ? form.locations[editingIndex].name.value : 'Location ' + (editingIndex + 1) }}</v-subheader>-->
+<!--                  <v-form>-->
+<!--                    <v-row>-->
+<!--                      <v-col cols="6" lg="5" xl="4">-->
+<!--                        <client-only>-->
+<!--                          <v-image-input-->
+<!--                            v-model="form.locations[editingIndex].image.value"-->
+<!--                            image-quality="0.85"-->
+<!--                            clearable-->
+<!--                            image-format="png"-->
+<!--                            uploadIcon="person"-->
+<!--                            fullWidth-->
+<!--                            overlayPadding="10px"-->
+<!--                            scalingSliderColor="red"-->
+<!--                            :readonly="false"-->
+<!--                          />-->
+<!--                        </client-only>-->
+<!--                      </v-col>-->
+<!--                      <v-col cols="6" lg="7" xl="8">-->
+<!--                        <v-text-field-->
+<!--                          id="location"-->
+<!--                          label="Location Name (required)"-->
+<!--                          type="text"-->
+<!--                          v-model="form.locations[editingIndex].name.value"-->
+<!--                        ></v-text-field>-->
 
-                        <div class="v-input__control mt-10">
-                          <div class="v-input__slot">
-                            <div class="v-text-field__slot" style="width: 100%;">
-                              <label class="v-label theme--light form__label--address" :class="{'v-label--filled': form.locations[editingIndex].fullAddress.value}" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>
-                              <client-only>
-                                <vue-google-autocomplete
-                                  :id="'location-address--' + editingIndex"
-                                  classname="form-control"
-                                  v-on:placechanged="getAddressData"
-                                  placeholder=""
-                                  style="width: 100%; font-size: 16px;"
-                                  v-on:focus.native="animateAddressFieldOnFocus"
-                                  v-on:blur.native="animateAddressFieldOnFocus"
-                                  v-on:input.native="animateAddressFieldOnFilled"
-                                  v-model="form.locations[editingIndex].fullAddress.value"
-                                >
-                                </vue-google-autocomplete>
-                              </client-only>
-                            </div>
-                          </div>
-                        </div>
-                      </v-col>
+<!--                        <div class="v-input__control mt-10">-->
+<!--                          <div class="v-input__slot">-->
+<!--                            <div class="v-text-field__slot" style="width: 100%;">-->
+<!--                              <label class="v-label theme&#45;&#45;light form__label&#45;&#45;address" :class="{'v-label&#45;&#45;filled': form.locations[editingIndex].fullAddress.value}" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>-->
+<!--                              <client-only>-->
+<!--                                <vue-google-autocomplete-->
+<!--                                  :id="'location-address&#45;&#45;' + editingIndex"-->
+<!--                                  classname="form-control"-->
+<!--                                  v-on:placechanged="getAddressData"-->
+<!--                                  placeholder=""-->
+<!--                                  style="width: 100%; font-size: 16px;"-->
+<!--                                  v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                                  v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                                  v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                                  v-model="form.locations[editingIndex].fullAddress.value"-->
+<!--                                >-->
+<!--                                </vue-google-autocomplete>-->
+<!--                              </client-only>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </v-col>-->
 
-                      <v-col cols="12" class="mt-8">
-                        <span class="headline mb-0">Primary Point of Contact Info</span>
-                        <span class="subtitle-1 my-0">(Only Public to Approved Vendor)</span>
-                      </v-col>
+<!--                      <v-col cols="12" class="mt-8">-->
+<!--                        <span class="headline mb-0">Primary Point of Contact Info</span>-->
+<!--                        <span class="subtitle-1 my-0">(Only Public to Approved Vendor)</span>-->
+<!--                      </v-col>-->
 
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="first_name"
-                          label="First Name (required)"
-                          type="text"
-                          v-model="form.locations[editingIndex].firstName.value"
-                        ></v-text-field>
-                      </v-col>
+<!--                      <v-col cols="12" md="6">-->
+<!--                        <v-text-field-->
+<!--                          id="first_name"-->
+<!--                          label="First Name (required)"-->
+<!--                          type="text"-->
+<!--                          v-model="form.locations[editingIndex].firstName.value"-->
+<!--                        ></v-text-field>-->
+<!--                      </v-col>-->
 
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="last_name"
-                          label="Last Name (required)"
-                          type="text"
-                          v-model="form.locations[editingIndex].lastName.value"
-                        ></v-text-field>
-                      </v-col>
+<!--                      <v-col cols="12" md="6">-->
+<!--                        <v-text-field-->
+<!--                          id="last_name"-->
+<!--                          label="Last Name (required)"-->
+<!--                          type="text"-->
+<!--                          v-model="form.locations[editingIndex].lastName.value"-->
+<!--                        ></v-text-field>-->
+<!--                      </v-col>-->
 
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="phone"
-                          label="Phone (required)"
-                          type="number"
-                          v-model="form.locations[editingIndex].phone.value"
-                        ></v-text-field>
-                      </v-col>
+<!--                      <v-col cols="12" md="6">-->
+<!--                        <v-text-field-->
+<!--                          id="phone"-->
+<!--                          label="Phone (required)"-->
+<!--                          type="number"-->
+<!--                          v-model="form.locations[editingIndex].phone.value"-->
+<!--                        ></v-text-field>-->
+<!--                      </v-col>-->
 
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="email"
-                          label="Email Address (required)"
-                          type="email"
-                          v-model="form.locations[editingIndex].email.value"
-                        ></v-text-field>
-                      </v-col>
+<!--                      <v-col cols="12" md="6">-->
+<!--                        <v-text-field-->
+<!--                          id="email"-->
+<!--                          label="Email Address (required)"-->
+<!--                          type="email"-->
+<!--                          v-model="form.locations[editingIndex].email.value"-->
+<!--                        ></v-text-field>-->
+<!--                      </v-col>-->
 
-                      <v-col cols="12">
-                        <v-textarea
-                          id="description"
-                          label="Location Description (required)"
-                          v-model="form.locations[editingIndex].description.value"
-                        ></v-textarea>
-                      </v-col>
-                    </v-row>
-                  </v-form>
-                  <v-btn
-                    block
-                    color="primary"
-                    @click="finishEditingLocation"
-                  >
-                    Save Location
-                  </v-btn>
+<!--                      <v-col cols="12">-->
+<!--                        <v-textarea-->
+<!--                          id="description"-->
+<!--                          label="Location Description (required)"-->
+<!--                          v-model="form.locations[editingIndex].description.value"-->
+<!--                        ></v-textarea>-->
+<!--                      </v-col>-->
+<!--                    </v-row>-->
+<!--                  </v-form>-->
+<!--                  <v-btn-->
+<!--                    block-->
+<!--                    color="primary"-->
+<!--                    @click="finishEditingLocation"-->
+<!--                  >-->
+<!--                    Save Location-->
+<!--                  </v-btn>-->
                 </template>
                 <template v-else>
                   <v-row class="my-8">
@@ -393,6 +400,7 @@
 
   import FormLocation from '~/components/FormLocation'
   import CompanyForm from "~/components/register/provider/CompanyForm";
+  import LocationForm from "~/components/register/provider/LocationForm";
 
   let stripe,
     elements,
@@ -405,7 +413,8 @@
       VImageInput,
       GmapCluster,
       Card,
-      CompanyForm
+      CompanyForm,
+      LocationForm
     },
     data() {
       return {
@@ -607,6 +616,10 @@
               fullAddress: {
                 label: 'Address',
                 value: null
+              },
+              services: {
+                label: 'Services',
+                value: null
               }
             }
           ],
@@ -717,21 +730,6 @@
       convertMilesToMeters(miles) {
         return miles * 1609.34;
       },
-      animateAddressFieldOnFocus(e) {
-        let addressLabel = e.target.previousElementSibling;
-        addressLabel.classList.toggle('v-label--focus');
-      },
-      animateAddressFieldOnFilled(e) {
-        if(e.target != "") {
-          if (e.target.previousElementSibling.classList.contains('v-label--filled')) {
-            return;
-          } else {
-            e.target.previousElementSibling.classList.add('v-label--filled');
-          }
-        } else {
-          e.target.previousElementSibling.classList.remove('v-label--filled');
-        }
-      },
       addLocation() {
         let newLocation = {
           name: {
@@ -812,6 +810,10 @@
           },
           fullAddress: {
             label: 'Address',
+            value: null
+          },
+          services: {
+            label: 'Services',
             value: null
           }
         };
@@ -942,12 +944,13 @@
       },
       fitBounds() {
         let markers = this.markers;
-        let bounds = new google.maps.LatLngBounds();
-        markers.forEach(function(marker) {
-          bounds.extend(marker);
-        });
-
-        this.$refs['location-map'].$mapObject.fitBounds(bounds);
+        console.log(markers);
+        // let bounds = new google.maps.LatLngBounds();
+        // markers.forEach(function(marker) {
+        //   bounds.extend(marker);
+        // });
+        //
+        // this.$refs['location-map'].$mapObject.fitBounds(bounds);
       },
       formatFormDataForSubmission() {
         let submissionData = {
@@ -1030,6 +1033,46 @@
         submissionData.locations = locationsArray;
 
         return submissionData;
+      },
+      saveLocation(location) {
+        console.log(location);
+        this.form.locations[this.editingIndex].name.value = location.name;
+        this.form.locations[this.editingIndex].services.value = location.providedServices;
+        this.form.locations[this.editingIndex].address.value = location.address;
+        this.form.locations[this.editingIndex].city.value = location.city;
+        this.form.locations[this.editingIndex].state.value = location.state;
+        this.form.locations[this.editingIndex].zipcode.value = location.zipcode;
+        this.form.locations[this.editingIndex].firstName.value = location.firstName;
+        this.form.locations[this.editingIndex].lastName.value = location.lastName;
+        this.form.locations[this.editingIndex].phone.value = location.phone;
+        this.form.locations[this.editingIndex].email.value = location.email;
+        this.form.locations[this.editingIndex].description.value = location.description;
+        this.form.locations[this.editingIndex].latitude.value = location.latitude;
+        this.form.locations[this.editingIndex].longitude.value = location.longitude;
+        this.saveMarker();
+        this.finishEditingLocation();
+      },
+
+      createMarker(latitude, longitude) {
+        console.log(latitude);
+        console.log(longitude);
+
+        this.form.locations[this.editingIndex].latitude.value = latitude;
+        this.form.locations[this.editingIndex].longitude.value = longitude;
+
+        let markers = [];
+        let marker;
+        this.form.locations.forEach(function(location) {
+          marker = {
+            lat: location.latitude.value,
+            lng: location.longitude.value
+          }
+          markers.push(marker);
+        });
+
+        this.markers = markers;
+        this.fitBounds();
+
       }
     }
   }

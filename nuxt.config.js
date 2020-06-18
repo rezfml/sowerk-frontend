@@ -77,8 +77,8 @@ export default {
       themes: {
         dark: {
           primary: "#A61C00",
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          accent: colors.red.lighten1,
+          secondary: colors.amber.accent2,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
