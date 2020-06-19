@@ -1072,7 +1072,6 @@
 
         this.markers = markers;
         this.fitBounds();
-
       }
     }
   }
