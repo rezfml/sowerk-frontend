@@ -19,8 +19,6 @@
 
 <script>
   import Sidebar from "~/components/dashboard/buyer/Sidebar";
-  import LocationsCard from "~/components/dashboard/LocationsCard";
-  import QuickProviderCard from '~/components/dashboard/QuickProviderCard'
   import HomeCard from '~/components/dashboard/HomeCard'
 
   export default {

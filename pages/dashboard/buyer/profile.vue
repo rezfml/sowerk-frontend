@@ -4,7 +4,6 @@
       <v-row>
         <v-col cols="8">
           <ProfileFormCard></ProfileFormCard>
-          <LocationsCard></LocationsCard>
         </v-col>
         <v-col cols="4" class="pt-12">
           <ProfileCard></ProfileCard>
@@ -15,8 +14,6 @@
 </template>
 
 <script>
-  import Sidebar from "~/components/dashboard/buyer/Sidebar";
-  import LocationsCard from "~/components/dashboard/LocationsCard";
   import ProfileCard from "~/components/dashboard/ProfileCard";
   import ProfileFormCard from "~/components/dashboard/ProfileFormCard";
 
@@ -24,10 +21,13 @@
     name: "profile",
     layout: "app",
     components: {
-      Sidebar,
-      LocationsCard,
       ProfileCard,
       ProfileFormCard
+    },
+    data() {
+      return {
+
+      }
     }
   };
 </script>
