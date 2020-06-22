@@ -2,14 +2,12 @@
   <v-navigation-drawer app class="px-2" color="grey darken-4">
     <v-list height="100%" style="position: relative">
       <v-list-item>
-        <v-list-item-content>
+        <v-list-item-content class="py-0">
           <v-list-item-title class="title text-center">
-            Market49
+            <v-img src="/SoWerk-Logo.png" style="height: 50px; width: 100%; object-fit: cover; object-position: center;"></v-img>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
-      <v-divider class="my-4"></v-divider>
 
       <v-list-item>
         <v-list-item-avatar class="mx-auto" size="100px" >

@@ -58,7 +58,8 @@
             phone: '1234567890',
             email: 'lorem@ipsum.com'
           }
-        ]
+        ],
+
       }
     }
   };

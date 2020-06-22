@@ -7,28 +7,56 @@
           <v-row>
 
             <v-col cols="12" class="pb-0 mt-6">
-              <v-subheader class="px-0 title" light>Owner Information</v-subheader>
+              <v-subheader class="px-0 headline font-weight-bold primary--text" light>Owner Information</v-subheader>
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <client-only>
+                <v-image-input
+                  v-model="image"
+                  image-quality="0.85"
+                  clearable
+                  image-format="png"
+                  uploadIcon="person"
+                  fullWidth
+                  overlayPadding="10px"
+                  scalingSliderColor="red"
+                  :readonly="false"
+                />
+              </client-only>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
               <v-text-field
-                label="First Name"
                 light
-              ></v-text-field>
+                placeholder="John"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
               <v-text-field
-                label="Last Name"
                 light
-              ></v-text-field>
+                placeholder="Smith"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
               <v-text-field
-                label="Title (CEO, Owner, etc)"
                 light
-              ></v-text-field>
+                placeholder="CEO"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Title</p>
+                </template>
+              </v-text-field>
             </v-col>
 
           </v-row>
@@ -36,56 +64,147 @@
           <v-row>
 
             <v-col cols="12" class="pb-0 mt-6">
-              <v-subheader class="px-0 title" light>Company Information</v-subheader>
+              <v-subheader class="px-0 headline font-weight-bold primary--text" light>Company Information</v-subheader>
             </v-col>
 
             <v-col cols="12" class="pt-0">
               <v-text-field
-                label="Headquarters Address"
                 light
-              ></v-text-field>
+                placeholder="Bass Pro Shops"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Company Name</p>
+                </template>
+              </v-text-field>
+            </v-col>
+
+            <v-col cols="12" class="pt-0">
+              <v-text-field
+                light
+                placeholder="1935 S Campbell Ave, Springfield, MO 65807"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Company HQ Address</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="6" class="pt-0">
               <v-text-field
-                label="Year Founded"
                 light
-              ></v-text-field>
+                placeholder="1971"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Year Founded</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="6" class="pt-0">
               <v-text-field
-                label="Industry"
                 light
-              ></v-text-field>
+                placeholder="Retail"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Industry</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
               <v-text-field
-                label="Website"
                 light
-              ></v-text-field>
+                placeholder="bassproshops.com"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Website</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
               <v-text-field
-                label="Email"
                 light
-              ></v-text-field>
+                placeholder="johnsmith@example.com"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Email</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
               <v-text-field
-                label="Phone"
                 light
-              ></v-text-field>
+                placeholder="(123) 456-7890"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
+                </template>
+              </v-text-field>
             </v-col>
 
             <v-col cols="12" class="pt-0">
               <v-textarea
-                label="Description"
                 light
-              ></v-textarea>
+                placeholder="Tell us and visitors about your company..."
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Description</p>
+                </template>
+              </v-textarea>
+            </v-col>
+
+          </v-row>
+
+          <v-row>
+
+            <v-col cols="12" class="pb-0 mt-6">
+              <v-subheader class="px-0 headline font-weight-bold primary--text" light>Contact Information</v-subheader>
+            </v-col>
+
+            <v-col cols="12" md="6" class="pt-0">
+              <v-text-field
+                label="First Name"
+                light
+                placeholder="John"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
+                </template>
+              </v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="6" class="pt-0">
+              <v-text-field
+                label="Last Name"
+                light
+                placeholder="Smith"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
+                </template>
+              </v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="6" class="pt-0">
+              <v-text-field
+                light
+                placeholder="johnsmith@example.com"
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Email</p>
+                </template>
+              </v-text-field>
+            </v-col>
+
+            <v-col cols="12" md="6" class="pt-0">
+              <v-text-field
+                light
+                placeholder="(123) 456-7890"
+              ><template v-slot:label>
+                <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
+              </template></v-text-field>
             </v-col>
 
           </v-row>
@@ -100,8 +219,13 @@
 </template>
 
 <script>
+  import VImageInput from 'vuetify-image-input'
+
   export default {
     name: "ProfileFormCard",
+    components: {
+      VImageInput
+    },
     data() {
       return {
         firstName: null,
@@ -114,6 +238,7 @@
         email: null,
         phone: null,
         description: null,
+        image: null
       }
     }
   };

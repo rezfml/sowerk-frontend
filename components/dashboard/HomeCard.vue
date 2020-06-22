@@ -19,22 +19,23 @@
           <template v-slot:default>
             <thead>
             <tr>
-              <th class="text-center primary--text">ID</th>
-              <th class="text-center primary--text">Location Name</th>
-              <th class="text-center primary--text">Address</th>
-              <th class="text-center primary--text">Contact Name</th>
-              <th class="text-center primary--text">Phone</th>
-              <th class="text-center primary--text">Email</th>
+              <template v-if="tableProperties">
+                <th class="primary--text" v-for="(property, i) in tableProperties" :key="i">{{ property }}</th>
+              </template>
+              <template v-else>
+                <th class="primary--text">ID</th>
+                <th class="primary--text">Location Name</th>
+                <th class="primary--text">Address</th>
+                <th class="primary--text">Contact Name</th>
+                <th class="primary--text">Phone</th>
+                <th class="primary--text">Email</th>
+              </template>
             </tr>
             </thead>
             <tbody>
             <tr v-for="item in items" :key="item.id">
-              <th class="text-center font-weight-lighter">{{ item.id }}</th>
-              <th class="text-center font-weight-lighter">Lorem ipsum</th>
-              <th class="text-center font-weight-lighter">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</th>
-              <th class="text-center font-weight-lighter">Lorem ipsum</th>
-              <th class="text-center font-weight-lighter">1234567890</th>
-              <th class="text-center font-weight-lighter">lorem@ipsum.com</th>
+              <th class="font-weight-lighter" v-for="(value, i) in item" :key="i" v-if="typeof value !== 'object'">{{ value }}</th>
+              <th class="font-weight-lighter"  v-else>{{ value.join(', ') }}</th>
             </tr>
             </tbody>
           </template>
@@ -57,6 +58,10 @@
       items: {
         type: Array,
         required: true
+      },
+      tableProperties: {
+        type: Array,
+        required: false
       }
     }
   }
