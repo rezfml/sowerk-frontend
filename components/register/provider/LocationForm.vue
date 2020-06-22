@@ -25,6 +25,7 @@
             type="text"
             v-model="name"
             placeholder=" "
+            height="48px"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
@@ -89,7 +90,7 @@
         <v-col cols="12" md="5">
           <v-select
             :items="memberships"
-            v-model="location.membership_id"
+            v-model="membership_id"
             placeholder=" "
             class="pt-5 remove-legend"
             outlined
@@ -133,6 +134,7 @@
             v-model="firstName"
             v-on:change.native="formatFullName"
             placeholder=" "
+            height="48px"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
@@ -148,6 +150,7 @@
             v-model="lastName"
             v-on:change.native="formatFullName"
             placeholder=" "
+            height="48px"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
@@ -162,6 +165,7 @@
             type="number"
             v-model="phone"
             placeholder=" "
+            height="48px"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
@@ -176,6 +180,7 @@
             type="email"
             v-model="email"
             placeholder=" "
+            height="48px"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
@@ -183,12 +188,13 @@
           </v-text-field>
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12" class="mt-12">
           <v-textarea
             id="description"
             label="Location Description*"
             v-model="description"
             placeholder=" "
+            height="48px"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Location Description*</p>
@@ -251,7 +257,7 @@
         longitude: null,
         fullAddress: null,
         image: null,
-        plans: null,
+        membership_id: null,
         memberships: [
           {
             value: 'yearly-national',
@@ -267,9 +273,6 @@
           }
         ]
       }
-    },
-    mounted() {
-      this.getPlans();
     },
     methods: {
       animateAddressFieldOnFocus(e) {
@@ -324,7 +327,8 @@
           latitude: this.latitude,
           longitude: this. longitude,
           fullAddress: this.fullAddress,
-          image: this.image
+          image: this.image,
+          membership_id: this.membership_id
         }
         this.$emit('saveLocation', location);
       },

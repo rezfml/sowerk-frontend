@@ -23,7 +23,7 @@
         <v-col cols="12" lg="7" xl="8">
           <v-text-field
             id="name"
-            label="Company Name (required)"
+            label="Company Name*"
             type="text"
             v-model="name"
             validate-on-blur
@@ -32,7 +32,7 @@
 
           <v-text-field
             id="email"
-            label="Email Address (required)"
+            label="Email Address*"
             type="email"
             class="card__input black--text"
             v-model="email"
@@ -41,7 +41,7 @@
           ></v-text-field>
 
           <v-text-field
-            label="Phone Number (required)"
+            label="Phone Number*"
             type="number"
             class="card__input black--text"
             v-model="phone"
@@ -52,7 +52,7 @@
 
         <v-col cols="12">
           <v-text-field
-            label="Username (required)"
+            label="Username*"
             type="text"
             v-model="username"
             validate-on-blur
@@ -63,7 +63,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             id="password"
-            label="Password (required)"
+            label="Password*"
             type="password"
             v-model="password"
             validate-on-blur
@@ -74,7 +74,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             id="confirm"
-            label="Confirm Password (required)"
+            label="Confirm Password*"
             type="password"
             v-model="confirm"
             :rules="rules.confirmRules"
@@ -85,7 +85,7 @@
           <div class="v-input theme--light v-text-field v-text-field--is-booted">
             <div class="v-input__control">
               <div class="v-input__slot" style="width: 100%;">
-                <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address (required)</label>
+                <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
                 <client-only>
                   <vue-google-autocomplete
                     id="company-address"
@@ -111,7 +111,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             id="first_name"
-            label="First Name (required)"
+            label="First Name*"
             type="text"
             v-on:change.native="formatFullName"
             validate-on-blur
@@ -122,7 +122,7 @@
         <v-col cols="12" md="6">
           <v-text-field
             id="last_name"
-            label="Last Name (required)"
+            label="Last Name*"
             type="text"
             v-model="lastName"
             v-on:change.native="formatFullName"
@@ -134,7 +134,7 @@
         <v-col cols="12">
           <v-textarea
             id="description"
-            label="Business Description (required)"
+            label="Business Description*"
             v-model="description"
             validate-on-blur
             :rules="rules.requiredRules"

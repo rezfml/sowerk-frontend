@@ -264,63 +264,66 @@
                   <v-col cols="12" class="px-0">
                     <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now please review your locations</span>
                   </v-col>
-                  <v-col cols="12" v-for="(location, i) in form.locations" :key="i" class="px-0">
-                    <v-divider v-show="i !== 0" class="my-8 light-gray"></v-divider>
-                    <span class="headline grey--text text--darken-4">Location {{ i + 1 }}</span>
-                    <template v-for="(item, j) in location">
-                      <v-col class="px-0" cols="12" :key="j" v-show="!item.hide">
-                        <template v-if="item.label != 'Location Image'">
-                          <v-subheader inset class="mx-0 px-0">
-                            <span class="primary--text font-weight-bold">{{ item.label }}</span>
-                          </v-subheader>
-                          <span class="mt-0 mb-4">{{ item.value }}</span>
-                        </template>
-                        <template v-else>
-                          <v-subheader inset class="mx-0 px-0">
-                            <span class="primary--text font-weight-bold">{{ item.label }}</span>
-                          </v-subheader>
-                          <v-img :src="item.value" height="300px" width="300px" aspect-ratio="1"></v-img>
-                        </template>
+                  <v-col cols="12" style="position: relative; top: 0; z-index: 4;">
+                    <v-row style="position: relative;">
+                      <v-col cols="12" style="width: 100%; top: 0;" class="px-0">
+                        <client-only>
+                          <GmapMap
+                            id="reciew-map"
+                            :center="{lat:form.locations[0].latitude.value ? form.locations[0].latitude.value : 37, lng:form.locations[0].longitude.value ? form.locations[0].longitude.value : -95}"
+                            :zoom="form.locations[0].latitude.value ? 7 : 4"
+                            style="height: 400px"
+                            ref="location-map"
+                          >
+                            <GmapCluster>
+                              <template v-for="(m, i) in markers">
+                                <GmapMarker
+                                  :key="i"
+                                  :position="{lat: m.lat, lng: m.lng}"
+                                  :label="i + 1 + ''"
+                                  :clickable="true"
+                                />
+                              </template>
+                            </GmapCluster>
+                          </GmapMap>
+                        </client-only>
                       </v-col>
-                    </template>
-                    <v-col cols="12" class="px-0">
-                      <v-subheader inset class="mx-0 px-0">
-                        <span class="primary--text font-weight-bold">Application Range</span>
-                      </v-subheader>
-                      <client-only>
-                        <GmapMap
-                          :center="{lat:location.latitude.value ? location.latitude.value : 37, lng:location.longitude.value ? location.longitude.value : -95}"
-                          :zoom="3.5"
-                          style="height: 400px"
-                        >
-                          <GmapMarker
-                            v-if="location.latitude.value"
-                            :position="{lat: location.latitude.value, lng: location.longitude.value}"
-                            :clickable="true"
-                          />
-                          <GmapCircle
-                            v-if="location.radius.value > 0 && location.membership_id.value === 1"
-                            :center="{lat:location.latitude.value, lng:location.longitude.value}"
-                            :radius="convertMilesToMeters(location.radius.value)"
-                            :fillOpacity="0.5"
-                            :visible="true"
-                            :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
-                          />
-                          <template v-if="location.membership_id.value === 2">
-                            <GmapPolygon
-                              v-for="(set, i) in location.polygon.value"
-                              :key="i"
-                              :paths="set"
-                              :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
-                            />
-                          </template>
-                        </GmapMap>
-                      </client-only>
-                    </v-col>
+                    </v-row>
+                  </v-col>
+                  <v-col cols="12" class="px-0">
+                    <v-simple-table>
+                      <template v-slot:default>
+                        <thead>
+                          <tr>
+                            <th class="text-center grey--text text--darken-4">Location Name</th>
+                            <th class="text-center grey--text text--darken-4">Address</th>
+                            <th class="text-center primary--text">Contact Name</th>
+                            <th class="text-center primary--text">Phone</th>
+                            <th class="text-center primary--text">Email</th>
+                            <th class="text-center primary--text"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(location, index) in form.locations" :key="index" :class="{'grey lighten-3': index % 2 === 0, 'white': index % 2 !== 0}">
+                          <td class="text-center py-6">{{ location.name.value }}</td>
+                          <td class="text-center py-6">
+                            <p class="mb-0">{{ location.address.value }}</p>
+                            <p class="mb-0">{{ location.city.value + ', ' + location.state.value + ' ' + location.zipcode.value }}</p>
+                          </td>
+                          <td class="text-center py-6">{{ location.firstName.value + ' ' + location.lastName.value }}</td>
+                          <td class="text-center py-6">{{ location.phone.value }}</td>
+                          <td class="text-center py-6">{{ location.email.value }}</td>
+                          <td class="text-center py-6">
+                            <v-btn text class="primary--text">Edit</v-btn>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
                   </v-col>
                 </v-col>
 
-                <v-col cols="12">
+                <v-col cols="12" class="px-0">
                   <span class="headline grey--text text--darken-4">Checkout</span>
                   <v-divider class="mt-1 mb-8 light-gray"></v-divider>
                   <v-row>
@@ -834,8 +837,10 @@
         return dollars;
       },
       getNameForPlan(membership) {
-        let selectedPlan = this.plans.find(plan => plan.id === membership);
-        return selectedPlan.name;
+        console.log(membership);
+        console.log(this.plans);
+        // let selectedPlan = this.plans.find(plan => plan.id === membership);
+        // return selectedPlan.name;
       },
       calculateTotalPrice() {
         let total = 0;
@@ -1131,5 +1136,9 @@
   }
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+  }
+
+  .rounded-xl {
+    border-radius: 20px;
   }
 </style>
