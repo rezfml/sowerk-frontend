@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import Sidebar from "~/components/dashboard/buyer/Sidebar";
+  import Sidebar from "~/components/dashboard/Sidebar";
 
   export default {
     components: {

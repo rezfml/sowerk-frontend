@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import Sidebar from "~/components/dashboard/buyer/Sidebar";
+  import Sidebar from "~/components/dashboard/Sidebar";
   import HomeCard from '~/components/dashboard/HomeCard'
 
   export default {
@@ -26,8 +26,6 @@
     layout: "app",
     components: {
       Sidebar,
-      LocationsCard,
-      QuickProviderCard,
       HomeCard
     },
     data() {

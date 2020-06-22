@@ -34,7 +34,7 @@
       </v-list-item>
 
       <v-list-item
-        to="/"
+        to="/dashboard/buyer/approvedProviders"
         color="primary"
       >
         <v-list-item-icon><v-icon>mdi-account-check</v-icon></v-list-item-icon>
