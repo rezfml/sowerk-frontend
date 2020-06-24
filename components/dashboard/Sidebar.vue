@@ -17,50 +17,50 @@
 
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-center">Jane Smith</v-list-item-title>
+          <v-list-item-title class="text-center white--text">Jane Smith</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider class="my-4"></v-divider>
+      <v-divider class="my-4 grey darken-2"></v-divider>
 
       <v-list-item
         to="/dashboard/buyer/home"
         color="primary"
       >
-        <v-list-item-icon><v-icon>mdi-view-dashboard</v-icon></v-list-item-icon>
-        <v-list-item-title>Dashboard</v-list-item-title>
+        <v-list-item-icon><v-icon class="white--text">mdi-view-dashboard</v-icon></v-list-item-icon>
+        <v-list-item-title class="white--text">Dashboard</v-list-item-title>
       </v-list-item>
 
       <v-list-item
         to="/dashboard/buyer/approvedProviders"
         color="primary"
       >
-        <v-list-item-icon><v-icon>mdi-account-check</v-icon></v-list-item-icon>
-        <v-list-item-title>Approved Providers</v-list-item-title>
+        <v-list-item-icon><v-icon class="white--text">mdi-account-check</v-icon></v-list-item-icon>
+        <v-list-item-title class="white--text">Approved Providers</v-list-item-title>
       </v-list-item>
 
       <v-list-item
         to="/dashboard/buyer/profile"
         color="primary"
       >
-        <v-list-item-icon><v-icon>domain</v-icon></v-list-item-icon>
-        <v-list-item-title>Company Profile</v-list-item-title>
+        <v-list-item-icon><v-icon class="white--text">domain</v-icon></v-list-item-icon>
+        <v-list-item-title class="white--text">Company Profile</v-list-item-title>
       </v-list-item>
 
       <v-list-item
         to="/"
         color="primary"
       >
-        <v-list-item-icon><v-icon>mdi-map-marker</v-icon></v-list-item-icon>
-        <v-list-item-title>Locations</v-list-item-title>
+        <v-list-item-icon><v-icon class="white--text">mdi-map-marker</v-icon></v-list-item-icon>
+        <v-list-item-title class="white--text">Locations</v-list-item-title>
       </v-list-item>
 
       <v-list-item
         to="/"
         color="primary"
       >
-        <v-list-item-icon><v-icon>mdi-file</v-icon></v-list-item-icon>
-        <v-list-item-title>Provider Applications</v-list-item-title>
+        <v-list-item-icon><v-icon class="white--text">mdi-file</v-icon></v-list-item-icon>
+        <v-list-item-title class="white--text">Provider Applications</v-list-item-title>
       </v-list-item>
 
       <v-list-item
@@ -68,8 +68,8 @@
         color="primary"
         style="position: absolute; bottom: 0; width: 100%;"
       >
-        <v-list-item-icon><v-icon>mdi-cog</v-icon></v-list-item-icon>
-        <v-list-item-title>Settings</v-list-item-title>
+        <v-list-item-icon><v-icon class="white--text">mdi-cog</v-icon></v-list-item-icon>
+        <v-list-item-title class="white--text">Settings</v-list-item-title>
       </v-list-item>
 
     </v-list>

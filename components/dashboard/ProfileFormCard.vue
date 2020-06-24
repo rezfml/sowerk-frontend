@@ -1,29 +1,13 @@
 <template>
   <v-card class="white pt-0 my-12">
     <v-container>
-      <v-card-title style="position: absolute; top: -25px; left: 25px; width: 30%; border-radius: 3px;" class="primary body-2">Company Profile</v-card-title>
+      <v-card-title style="position: absolute; top: -25px; left: 25px; width: 30%; border-radius: 3px;" class="primary body-2 white--text">Edit Profile</v-card-title>
       <v-card-text class="pt-0">
         <v-form>
           <v-row>
 
             <v-col cols="12" class="pb-0 mt-6">
               <v-subheader class="px-0 headline font-weight-bold primary--text" light>Owner Information</v-subheader>
-            </v-col>
-
-            <v-col cols="12" md="6">
-              <client-only>
-                <v-image-input
-                  v-model="image"
-                  image-quality="0.85"
-                  clearable
-                  image-format="png"
-                  uploadIcon="person"
-                  fullWidth
-                  overlayPadding="10px"
-                  scalingSliderColor="red"
-                  :readonly="false"
-                />
-              </client-only>
             </v-col>
 
             <v-col cols="12" md="4" class="pt-0">
@@ -238,7 +222,8 @@
         email: null,
         phone: null,
         description: null,
-        image: null
+        image: null,
+        color: null
       }
     }
   };
