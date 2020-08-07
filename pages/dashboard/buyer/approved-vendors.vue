@@ -10,9 +10,10 @@
         </v-col>
         <v-col cols="9">
           <HomeCard
-            title="Approved Providers"
+            title="Approved Vendors"
             :items="items"
-            :tableProperties="providerProperties"
+            :tableProperties="headers"
+            :viewAll="false"
           ></HomeCard>
         </v-col>
       </v-row>
@@ -25,7 +26,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 
   export default {
-    name: 'approvedProviders',
+    name: 'approvedVendors',
     layout: 'app',
     components: {
       HomeCard,
@@ -35,6 +36,7 @@
       return {
         items: [
           {
+            id: 0,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -46,6 +48,7 @@
             address: 'Springfield, MO',
           },
           {
+            id: 1,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -57,6 +60,7 @@
             address: 'Springfield, MO',
           },
           {
+            id: 2,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -68,6 +72,7 @@
             address: 'Springfield, MO',
           },
           {
+            id: 3,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -79,6 +84,7 @@
             address: 'Springfield, MO',
           },
           {
+            id: 4,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -90,6 +96,7 @@
             address: 'Springfield, MO',
           },
           {
+            id: 5,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -101,6 +108,7 @@
             address: 'Springfield, MO',
           },
           {
+            id: 6,
             servicesProvided: [
               'HVAC',
               'Electrical'
@@ -164,7 +172,23 @@
           'Phone',
           'Email',
           'Location'
+        ],
+        headers: [
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+            class: 'primary--text font-weight-regular'
+          },
+          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ]
+
       }
     }
   }

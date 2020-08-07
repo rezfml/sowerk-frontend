@@ -1,12 +1,13 @@
 <template>
   <v-app class="grey lighten-3">
-    <v-container class="px-0" style="max-width: 95%;">
-      <v-row>
-        <v-col cols="8">
-          <ProfileFormCard></ProfileFormCard>
-        </v-col>
-        <v-col cols="4" class="pt-12">
+    <v-container class="px-0 fill-height" style="max-width: 95%;">
+      <v-row style="height: 100%;">
+        <v-col cols="4" class="py-12">
           <ProfileCard></ProfileCard>
+        </v-col>
+        <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">
+          <ProfileEditCard></ProfileEditCard>
+          <CustomFormCard></CustomFormCard>
         </v-col>
       </v-row>
     </v-container>
@@ -15,14 +16,16 @@
 
 <script>
   import ProfileCard from "~/components/dashboard/ProfileCard";
-  import ProfileFormCard from "~/components/dashboard/ProfileFormCard";
+  import ProfileEditCard from "~/components/dashboard/ProfileEditCard";
+  import CustomFormCard from "~/components/dashboard/CustomFormCard";
 
   export default {
     name: "profile",
     layout: "app",
     components: {
       ProfileCard,
-      ProfileFormCard
+      ProfileEditCard,
+      CustomFormCard
     },
     data() {
       return {

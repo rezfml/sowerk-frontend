@@ -29,6 +29,12 @@ export default {
     ],
   },
   /*
+  * Router
+  * */
+  router: {
+    // linkActiveClass: 'active-link primary'
+  },
+  /*
    ** Customize the progress-bar color
    */
   loading: { color: '#fff' },
@@ -73,9 +79,9 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      light: true,
       themes: {
-        dark: {
+        light: {
           primary: "#A61C00",
           accent: colors.red.lighten1,
           secondary: colors.amber.accent2,
