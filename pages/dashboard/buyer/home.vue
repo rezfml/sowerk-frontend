@@ -6,16 +6,8 @@
         title="Your Facilities"
         :tableProperties="headers"
       ></HomeCard>
-<!--      <HomeCard-->
-<!--        :items="items"-->
-<!--        title="Quick Provider Lookup"-->
-<!--      ></HomeCard>-->
-<!--      <HomeCard-->
-<!--        :items="items"-->
-<!--        title="Pending Approved Provider Requests"-->
-<!--      ></HomeCard>-->
       <v-row>
-        <v-col cols="3" v-for="(stat, index) in stats" :key="home">
+        <v-col cols="3" v-for="(stat, index) in stats" :key="index">
           <StatCard :stat="stat"></StatCard>
         </v-col>
       </v-row>
@@ -41,7 +33,7 @@
               <v-slide-group multiple show-arrows>
                 <v-slide-item
                   v-for="(item, index) in quickLookUps"
-                  :key="home"
+                  :key="index"
                   v-slot:default="{ active, toggle }"
                   class="px-4"
                 >
@@ -70,7 +62,7 @@
   import StatCard from "~/components/dashboard/StatCard";
 
   export default {
-    name: "index",
+    name: "home",
     layout: "app",
     components: {
       Sidebar,
@@ -207,7 +199,11 @@
         ]
       }
     },
-    async created() {
+    async mounted() {
+      const headers = {
+        Authorization: localStorage.getItem('token'),
+      }
+      console.log(headers);
       // await this.getLocations();
     },
     methods: {

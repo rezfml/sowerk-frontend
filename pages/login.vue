@@ -66,7 +66,36 @@
 
 <script>
   export default {
-    name: 'login.vue'
+    name: 'login.vue',
+    data() {
+      return {
+        loginData: {
+          email: '',
+          password: '',
+          msg: ''
+        },
+      }
+    },
+    methods: {
+      async login() {
+        let {data: {plans, message, errors}, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth' + '/login', this.loginData).catch(e => e);
+
+        // return axios
+        //   .post('https://sowerk-backend.herokuapp.com/api/auth' + '/login', this.loginData)
+        //   .then(response => {
+        //     console.log(response.data);
+        //     localStorage.setItem('token', response.data.token)
+        //     const token = response.data.token;
+        //     const user = response.data.user;
+        //     console.log(response.data, 'line84')
+        //     this.$store.dispatch('login', { token, user });
+        //     return response.data;
+        //   })
+        //   .catch(err => {
+        //     console.log(err, 'Error logging in')
+        //   })
+      }
+    }
   }
 </script>
 
