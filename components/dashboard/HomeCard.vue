@@ -20,11 +20,11 @@
           :items-per-page="10"
         >
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
-            <v-btn block color="primary">Review</v-btn>
+            <v-btn block color="primary" :to="slug + item.id">Review</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link
-              :to="'/dashboard/buyer/facilities/' + item.id"
+              :to="slug + item.id"
               append
             >
               <v-icon
@@ -82,7 +82,8 @@
       'title',
       'viewAll',
       'tableProperties',
-      'action'
+      'action',
+      'slug'
     ],
     data() {
       return {

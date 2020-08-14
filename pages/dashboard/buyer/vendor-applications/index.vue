@@ -1,13 +1,16 @@
 <template>
   <v-app class="grey lighten-3">
-    <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;">
-        <v-col cols="4" class="py-12">
-          <ProfileCard :location="locations[locationId]"></ProfileCard>
-        </v-col>
-        <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">
-          <ProfileEditCard :location="locations[locationId]"></ProfileEditCard>
-          <CustomFormCard></CustomFormCard>
+    <v-container class="px-0" style="max-width: 95%;">
+      <v-row>
+        <v-col cols="12">
+          <HomeCard
+            title="Vendor Applications"
+            :items="applications"
+            :tableProperties="headers"
+            :viewAll="false"
+            action="Review"
+            slug="/dashboard/buyer/vendor-applications/"
+          ></HomeCard>
         </v-col>
       </v-row>
     </v-container>
@@ -17,192 +20,203 @@
 <script>
   import HomeCard from '~/components/dashboard/HomeCard'
   import FilterCard from '~/components/dashboard/FilterCard'
-  import ProfileCard from "~/components/dashboard/ProfileCard";
-  import ProfileEditCard from "~/components/dashboard/ProfileEditCard";
-  import CustomFormCard from "~/components/dashboard/CustomFormCard";
 
   export default {
-    name: 'facility',
+    name: 'index',
     layout: 'app',
     components: {
       HomeCard,
-      FilterCard,
-      ProfileCard,
-      ProfileEditCard,
-      CustomFormCard
+      FilterCard
     },
     data() {
       return {
-        locations: [
+        applications: [
           {
             id: 1,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'JHV HVAC',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 2,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Ben Franklin Plumbing',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 3,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Landscape United LLC.',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 4,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 5,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 6,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 7,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 8,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 9,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 10,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 11,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 12,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 13,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 14,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 15,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 16,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           },
           {
             id: 17,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
+            companyName: 'Lorem Ipsum',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
             city: 'Springfield',
             state: 'MO',
-            address: 'Springfield, MO'
+            address: 'Springfield, MO',
+            service: 'HVAC'
           }
         ],
         filters: [
@@ -318,18 +332,15 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ],
-        locationId: null
+          { text: 'Location', value: 'address', class: 'primary--text font-weight-regular' },
+          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ]
       }
-    },
-    mounted() {
-      this.locationId = this.$route.params.id;
     }
   }
 </script>

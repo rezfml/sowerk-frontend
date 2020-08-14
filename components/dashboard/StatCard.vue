@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="fill-height d-flex flex-column justify-space-between">
       <v-card-title>
         <p class="text-center primary--text mx-auto mb-0 font-weight-regular" style="font-size: 18px;">{{ stat.title }}</p>
       </v-card-title>

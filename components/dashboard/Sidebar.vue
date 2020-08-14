@@ -37,9 +37,9 @@
         :to="link.to"
         style="text-decoration: none;"
         v-on:click="setActiveLink(link.slug)"
+        :class="link.class"
       >
-        <v-list-item
-        >
+        <v-list-item>
           <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
           <v-list-item-title>{{ link.text }}</v-list-item-title>
         </v-list-item>
@@ -91,6 +91,13 @@
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
             text: 'Messages & Alerts'
+          },
+          {
+            to: '/dashboard/buyer/profile/',
+            slug: 'profile',
+            icon: 'settings',
+            text: 'Settings',
+            class: 'fixed-bottom'
           }
         ],
         currentUser: null
@@ -124,5 +131,11 @@
   .nuxt-link-active > div {
     background-color: rgba(246, 34, 0, 0.5);
     border-radius: 3px;
+  }
+
+  .fixed-bottom {
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
   }
 </style>

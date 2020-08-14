@@ -1,5 +1,5 @@
 <template>
-  <v-card class="fill-height" style="position: relative;" light>
+  <v-card min-height="90vh" style="position: relative;" light>
     <v-img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>
     <div style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center">
       <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10">
