@@ -14,6 +14,7 @@
     components: {
       Sidebar
     },
+    // middleware: 'auth',
     data() {
       return {
         clipped: false,

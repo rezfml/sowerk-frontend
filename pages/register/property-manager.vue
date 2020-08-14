@@ -2,13 +2,14 @@
   <v-row
     align="center"
     justify="center"
+    style="max-width: 1200px;"
+    class="mx-auto py-12"
   >
     <v-col
       cols="12"
     >
       <v-card class="elevation-12 card--has-floating" light>
-        <v-card-title class="justify-center headline font-weight-light">Build Your Business Profile</v-card-title>
-        <v-card-subtitle class="text-center title mt-1 mb-12" style="font-weight: normal;">This information will let us know more about you.</v-card-subtitle>
+        <v-card-title class="justify-center headline font-weight-bold">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
         <v-tabs
           v-model="tab"
           background-color="grey lighten-2"
@@ -348,10 +349,10 @@
           email: '',
           company_name: '',
           password: '',
-          corporate_address: '',
-          corporate_city: '',
-          corporate_state: '',
-          corporate_zipcode: '',
+          address: '',
+          city: '',
+          state: '',
+          zipcode: '',
           description: '',
           user_type: true,
           phone: '',
@@ -624,10 +625,10 @@
         this.form.locations.push(newLocation);
       },
       saveCompanyAddress(addressObj) {
-        this.company.corporate_address = addressObj.street_number + ' ' + addressObj.route;
-        this.company.corporate_city = addressObj.locality;
-        this.company.corporate_state = addressObj.administrative_area_level_1;
-        this.company.corporate_zipcode = addressObj.postal_code;
+        this.company.address = addressObj.street_number + ' ' + addressObj.route;
+        this.company.city = addressObj.locality;
+        this.company.state = addressObj.administrative_area_level_1;
+        this.company.zipcode = addressObj.postal_code;
       },
 
       // will get to this later.

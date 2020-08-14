@@ -16,14 +16,14 @@
         <v-list-item-content>
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
             <v-col cols="12" class="pa-0 ma-0" >
-              <v-list-item-title style="font-size: 1rem;">Bass Pro Shops</v-list-item-title>
+              <v-list-item-title style="font-size: 1rem;">{{ currentUser ? currentUser.company_name : '...' }}</v-list-item-title>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Facilities - 169</v-list-item-subtitle>
             </v-col>
             <v-col cols="12" class="px-0 py-2" style="width: 100%;"><v-divider style="border-color: rgba(255,255,255,0.3);"></v-divider></v-col>
             <v-col cols="12" class="pa-0 ma-0">
-              <v-list-item-title style="font-size: 1rem;">Jane Smith</v-list-item-title
+              <v-list-item-title style="font-size: 1rem;">{{ currentUser ? currentUser.first_name + ' ' + currentUser.last_name : '...' }}</v-list-item-title
               >
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px">Super Admin</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="currentUser">{{ currentUser.is_superuser == '1' ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access - 169</v-list-item-subtitle>
             </v-col>
           </v-row>
@@ -93,9 +93,31 @@
             text: 'Messages & Alerts'
           }
         ],
+        currentUser: null
       }
     },
-  };
+    computed: {
+    },
+    async mounted () {
+      this.currentUser = this.$auth.user.users[0];
+      await this.getUser();
+    },
+    methods: {
+      async getUser() {
+        const headers = {
+          Authorization: localStorage.getItem('token'),
+        }
+        console.log(headers);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id, {headers}).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.$nextTick(function() {
+          // this.locations = data;
+          this.currentUser = data;
+          console.log(data);
+        })
+      },
+    }
+  }
 </script>
 
 <style scoped lang="scss">

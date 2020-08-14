@@ -196,22 +196,25 @@
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ]
+        ],
+        currentUser: null
       }
     },
-    async mounted() {
-      const headers = {
-        Authorization: localStorage.getItem('token'),
-      }
-      console.log(headers);
-      // await this.getLocations();
+    async mounted () {
+      this.currentUser = this.$auth.user.users[0];
+      this.getUser();
     },
     methods: {
-      async getLocations() {
-        let {data, status} = await this.$http.get('http://localhost:5050/companies').catch(e => e);
+      async getUser() {
+        const headers = {
+          Authorization: localStorage.getItem('token'),
+        }
+        console.log(headers);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id, {headers}).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
-          this.locations = data;
+          // this.locations = data;
+          console.log(data);
         })
       },
     }

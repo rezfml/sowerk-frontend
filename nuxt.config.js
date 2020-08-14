@@ -65,13 +65,41 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth',
+    '@nuxtjs/toast',
   ],
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'auth/login', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: { url: 'auth/users', method: 'get', propertyName: false },
+          // user: false,
+        },
+        tokenRequired: true,
+        tokenType: ''
+      },
+    },
+    redirect: {
+      login: '/?login=1',
+      logout: '/',
+      user: '/dashboard/buyer/home',
+      callback: '/'
+    }
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://sowerk-backend.herokuapp.com/api/'
+  },
+  toast: {
+    position: 'top-right',
+    duration: 2000
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

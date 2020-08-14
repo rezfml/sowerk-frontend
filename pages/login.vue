@@ -18,7 +18,7 @@
           elevation="8"
         >
           <v-card-title class="card__title justify-center pa-0 mb-5">Login</v-card-title>
-          <v-card-action style="display: flex; justify-content: center;">
+          <v-card-actions style="display: flex; justify-content: center;">
             <v-btn icon style="margin: 0 2.5%">
               <v-icon>lock</v-icon>
             </v-btn>
@@ -28,16 +28,17 @@
             <v-btn icon style="margin: 0 2.5%">
               <v-icon>lock</v-icon>
             </v-btn>
-          </v-card-action>
+          </v-card-actions>
         </v-card>
         <v-card-title class="justify-center" style="font-weight: normal;">Or Be Classical</v-card-title>
         <v-card-text class="pb-0 px-6">
-          <v-form>
+          <v-form v-on:submit="login">
             <v-text-field
               label="Email Address"
               name="email"
               type="text"
               class="card__input"
+              v-model="loginData.email"
             >
               <template slot="prepend">
                 <v-icon color="grey" class="text--darken-2">mail</v-icon>
@@ -49,6 +50,7 @@
               label="Password"
               name="password"
               type="password"
+              v-model="loginData.password"
             >
               <template slot="prepend">
                 <v-icon color="grey" class="text--darken-2">lock</v-icon>
@@ -57,7 +59,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions class="py-10">
-          <v-btn color="primary" text class="mx-auto">Let's Go</v-btn>
+          <v-btn color="primary" text class="mx-auto" v-on:click="login">Let's Go</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -66,7 +68,7 @@
 
 <script>
   export default {
-    name: 'login.vue',
+    name: 'login',
     data() {
       return {
         loginData: {
@@ -78,22 +80,37 @@
     },
     methods: {
       async login() {
-        let {data: {plans, message, errors}, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth' + '/login', this.loginData).catch(e => e);
+        // try {
+        //   await this.$store.dispatch('login', {
+        //     email: this.loginData.email,
+        //     password: this.loginData.password
+        //   })
+        // } catch (e) {
+        //   console.log(e);
+        // }
 
-        // return axios
-        //   .post('https://sowerk-backend.herokuapp.com/api/auth' + '/login', this.loginData)
-        //   .then(response => {
-        //     console.log(response.data);
-        //     localStorage.setItem('token', response.data.token)
-        //     const token = response.data.token;
-        //     const user = response.data.user;
-        //     console.log(response.data, 'line84')
-        //     this.$store.dispatch('login', { token, user });
-        //     return response.data;
-        //   })
-        //   .catch(err => {
-        //     console.log(err, 'Error logging in')
-        //   })
+        try {
+          let {data, status} = await this.$auth.loginWith('local', {
+            data: {
+              "email": this.loginData.email,
+              "password": this.loginData.password
+            }
+          }).catch(e => {
+            this.$toast.error('Failed Logging In', {icon: "error_outline"});
+          });
+          if (this.$auth.loggedIn) {
+            this.$toast.success('Successfully Logged In', {icon: "done"});
+          }
+          localStorage.setItem('token', data.token)
+          // console.log(data);
+          // this.$auth.setUser(data.user);
+          // this.$auth.setToken(data.token);
+          this.$router.push('/dashboard/buyer/home');
+
+        } catch (e) {
+          this.$toast.error('Username or Password wrong', {icon: "error"});
+        }
+
       }
     }
   }

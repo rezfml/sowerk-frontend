@@ -8,13 +8,22 @@
             :filters="filters"
           ></FilterCard>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="9" class="d-flex flex-column justify-space-between">
           <HomeCard
             :title="'Your Facilities - ' + locations.length"
             :items="locations"
             :tableProperties="headers"
             :viewAll="false"
           ></HomeCard>
+          <v-btn
+            max-width="300px"
+            style="align-self: flex-end;"
+            class="mb-12"
+            large
+            color="primary"
+          >
+            Register New Location
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
