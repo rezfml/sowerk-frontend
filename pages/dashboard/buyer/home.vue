@@ -2,9 +2,11 @@
   <v-app class="grey lighten-3">
     <v-container class="px-8" fluid>
       <HomeCard
-        :items="locations"
+        v-if="currentUser"
+        :items="currentUser.locations"
         title="Your Facilities"
         :tableProperties="headers"
+        slug="/dashboard/buyer/facilities/"
       ></HomeCard>
       <v-row>
         <v-col cols="3" v-for="(stat, index) in stats" :key="index">
@@ -190,9 +192,9 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Facility', value: 'locationName', class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
@@ -202,7 +204,7 @@
     },
     async mounted () {
       this.currentUser = this.$auth.user.users[0];
-      this.getUser();
+      await this.getUser();
     },
     methods: {
       async getUser() {
@@ -214,7 +216,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           // this.locations = data;
-          console.log(data);
+          this.currentUser = data;
         })
       },
     }

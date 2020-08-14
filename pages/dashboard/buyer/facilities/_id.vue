@@ -3,10 +3,10 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
         <v-col cols="4" class="py-12">
-          <ProfileCard :location="locations[locationId]"></ProfileCard>
+          <ProfileCard :location="location" v-if="location"></ProfileCard>
         </v-col>
         <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">
-          <ProfileEditCard :location="locations[locationId]"></ProfileEditCard>
+          <ProfileEditCard :location="location" v-if="location"></ProfileEditCard>
           <CustomFormCard></CustomFormCard>
         </v-col>
       </v-row>
@@ -205,131 +205,23 @@
             address: 'Springfield, MO'
           }
         ],
-        filters: [
-          {
-            name: 'Location',
-            items: [
-              'State',
-              'National',
-              'Under 10 Miles',
-              'Under 25 Miles',
-              'Under 50 Miles',
-              'Under 100 Miles',
-              'Under 150 Miles',
-              'Under 200 Miles',
-              '200+ Miles',
-            ]
-          },
-          {
-            name: 'State',
-            items: [
-              "Alaska",
-              "Alabama",
-              "Arkansas",
-              "American Samoa",
-              "Arizona",
-              "California",
-              "Colorado",
-              "Connecticut",
-              "District of Columbia",
-              "Delaware",
-              "Florida",
-              "Georgia",
-              "Guam",
-              "Hawaii",
-              "Iowa",
-              "Idaho",
-              "Illinois",
-              "Indiana",
-              "Kansas",
-              "Kentucky",
-              "Louisiana",
-              "Massachusetts",
-              "Maryland",
-              "Maine",
-              "Michigan",
-              "Minnesota",
-              "Missouri",
-              "Mississippi",
-              "Montana",
-              "North Carolina",
-              " North Dakota",
-              "Nebraska",
-              "New Hampshire",
-              "New Jersey",
-              "New Mexico",
-              "Nevada",
-              "New York",
-              "Ohio",
-              "Oklahoma",
-              "Oregon",
-              "Pennsylvania",
-              "Puerto Rico",
-              "Rhode Island",
-              "South Carolina",
-              "South Dakota",
-              "Tennessee",
-              "Texas",
-              "Utah",
-              "Virginia",
-              "Virgin Islands",
-              "Vermont",
-              "Washington",
-              "Wisconsin",
-              "West Virginia",
-              "Wyoming"
-            ]
-          },
-          {
-            name: 'Service Needs',
-            items: [
-              'HVAC',
-              'Electrical',
-              'Plumbing',
-              'Cleaning',
-              'Landscaping'
-            ]
-          },
-          {
-            name: 'Years in Business',
-            items: [
-              'Less Than 1 Year',
-              '1 - 3 Years',
-              '3 - 5 Years',
-              '5 - 10 Years',
-              '10+ Years',
-            ]
-          },
-          {
-            name: 'Approved Applications',
-            items: [
-              'Less than 5',
-              '6 - 15',
-              '16 - 24',
-              '25+',
-            ]
-          }
-        ],
-        headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
-          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ],
-        locationId: null
+        locationId: null,
+        location: null,
       }
     },
     mounted() {
       this.locationId = this.$route.params.id;
+      this.getLocation();
+    },
+    methods: {
+      async getLocation() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/' + this.locationId).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.$nextTick(function() {
+          this.location = data;
+          console.log(data);
+        })
+      },
     }
   }
 </script>

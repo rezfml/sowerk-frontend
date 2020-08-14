@@ -73,13 +73,14 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'auth/login', method: 'post', propertyName: 'token' },
+          login: { url: 'auth/login', method: 'post' },
           logout: false,
           user: { url: 'auth/users', method: 'get', propertyName: false },
           // user: false,
         },
-        tokenRequired: true,
-        tokenType: ''
+        tokenRequired: false,
+        tokenType: false,
+        globalToken: false
       },
     },
     redirect: {

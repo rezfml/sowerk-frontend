@@ -2,7 +2,7 @@
   <v-card class="white pt-0 mt-9">
     <v-container>
       <v-card-title style="position: absolute; top: -25px; left: 25px;border-radius: 3px;" class="primary body-2" ><v-icon>mdi-account</v-icon></v-card-title>
-      <template v-if="location">
+      <template v-if="locationEdit">
         <v-card-text class="py-0">
           <v-form>
             <v-row>
@@ -15,7 +15,7 @@
                 <v-text-field
                   light
                   placeholder="Bass Pro Shops"
-                  v-model="location.companyName"
+                  v-model="locationEdit.name"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Facility Name</p>
@@ -24,21 +24,47 @@
               </v-col>
 
               <v-col cols="12" class="pt-0">
-                <v-text-field
-                  light
-                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"
-                  v-model="location.address"
-                >
-                  <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Facility Address</p>
-                  </template>
-                </v-text-field>
+<!--                <v-text-field-->
+<!--                  light-->
+<!--                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"-->
+<!--                  v-model="locationEdit.address"-->
+<!--                >-->
+<!--                  <template v-slot:label>-->
+<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Facility Address</p>-->
+<!--                  </template>-->
+<!--                </v-text-field>-->
+                <div class="v-input theme--light v-text-field v-text-field--is-booted">
+                  <div class="v-input__control">
+                    <div class="v-input__slot" style="width: 100%;">
+                      <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
+                      <client-only>
+                        <vue-google-autocomplete
+                          id="company-address"
+                          name="company_address"
+                          classname="form-control"
+                          v-on:placechanged="getAddressData"
+                          placeholder=""
+                          style="width: 100%;"
+                          v-on:focus.native="animateAddressFieldOnFocus"
+                          v-on:blur.native="animateAddressFieldOnFocus"
+                          v-on:input.native="animateAddressFieldOnFilled"
+                          validate-on-blur
+                          v-model="fullAddress"
+                        >
+                        </vue-google-autocomplete>
+                      </client-only>
+                    </div>
+                    <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
+                  </div>
+                </div>
               </v-col>
 
               <v-col cols="12" md="3" class="py-0">
                 <v-text-field
                   light
                   placeholder="1971"
+                  v-model="locationEdit.year_founded"
+                  type="number"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Facility Opened</p>
@@ -50,6 +76,7 @@
                 <v-text-field
                   light
                   placeholder="BPS Direct, LLC is an American privately held…"
+                  v-model="locationEdit.description"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Facility Description</p>
@@ -61,7 +88,7 @@
             <v-row>
 
               <v-col cols="12" class="py-0 mt-0">
-                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Facility Contact</v-subheader>
+                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Facility Manager</v-subheader>
               </v-col>
 
               <v-col cols="12" md="6" class="pt-0">
@@ -69,7 +96,7 @@
                   label="First Name"
                   light
                   placeholder="John"
-                  v-model="location.name"
+                  v-model="locationEdit.contact_first_name"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
@@ -82,7 +109,7 @@
                   label="Last Name"
                   light
                   placeholder="Smith"
-                  v-model="location.name"
+                  v-model="locationEdit.contact_last_name"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
@@ -94,7 +121,7 @@
                 <v-text-field
                   light
                   placeholder="johnsmith@example.com"
-                  v-model="location.email"
+                  v-model="locationEdit.email"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Email</p>
@@ -106,18 +133,28 @@
                 <v-text-field
                   light
                   placeholder="(123) 456-7890"
-                  v-model="location.phone"
+                  v-model="locationEdit.phone"
                 ><template v-slot:label>
                   <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
                 </template></v-text-field>
               </v-col>
+
+<!--              <v-col cols="12" md="4" class="py-0">-->
+<!--                <v-select-->
+<!--                  light-->
+<!--                  placeholder="Staff Account"-->
+<!--                  v-model="location.admin_level"-->
+<!--                ><template v-slot:label>-->
+<!--                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>-->
+<!--                </template></v-select>-->
+<!--              </v-col>-->
 
             </v-row>
 
           </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-end px-4">
-          <v-btn color="primary" class="px-8">Update Profile</v-btn>
+          <v-btn color="primary" class="px-8" @click="updateLocation">Update Profile</v-btn>
         </v-card-actions>
       </template>
       <template v-else>
@@ -229,7 +266,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-end px-4">
-          <v-btn color="primary" class="px-8">Update Profile</v-btn>
+          <v-btn color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
         </v-card-actions>
       </template>
     </v-container>
@@ -259,12 +296,101 @@
         email: null,
         phone: null,
         description: null,
-        image: null
+        image: null,
+        fullAddress: null,
+        locationEdit: {
+          name: null,
+          address: null,
+          state: null,
+          city: null,
+          zipcode: null,
+          description: null,
+          radius: null,
+          longitude: null,
+          latitude: null,
+          contact_first_name: null,
+          contact_last_name: null,
+          phone: null,
+          email: null,
+          year_founded: null
+        }
       }
+    },
+    mounted() {
+      this.locationEdit.name = this.location.name;
+      this.locationEdit.address = this.location.address;
+      this.locationEdit.state = this.location.state;
+      this.locationEdit.city = this.location.city;
+      this.locationEdit.zipcode = this.location.zipcode;
+      this.locationEdit.description = this.location.description;
+      this.locationEdit.radius = this.location.radius;
+      this.locationEdit.longitude = this.location.longitude;
+      this.locationEdit.latitude = this.location.latitude;
+      this.locationEdit.contact_first_name = this.location.contact_first_name;
+      this.locationEdit.contact_last_name = this.location.contact_last_name;
+      this.locationEdit.phone = this.location.phone;
+      this.locationEdit.email = this.location.email;
+      this.locationEdit.year_founded = this.location.year_founded;
+      console.log(this.locationEdit, 'this.locationEdit');
+      this.formatFullAddress();
+    },
+    methods: {
+      async updateLocation() {
+        console.log(this.locationEdit);
+        let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
+        console.log(data);
+
+        // this.$nextTick(function() {
+        //   this.locationEdit = data;
+        // })
+      },
+
+      // Since vue-google-autocomplete is not a vuetify input field, we need this method to add a class to the address label to animate it on focus
+      animateAddressFieldOnFocus(e) {
+        let addressLabel = e.target.previousElementSibling;
+        console.log(addressLabel);
+        addressLabel.classList.toggle('v-label--focus');
+      },
+
+      // Since vue-google-autocomplete is not a vuetify-input-field, we need this method to add a class to the label when filled
+      animateAddressFieldOnFilled(e) {
+        console.log('hello');
+        // checks if e.target exists
+        if(e.target != "") {
+          // checks if targets previous element contains a class, if so quit function else add class to previous element
+          if (e.target.previousElementSibling.classList.contains('v-label--filled')) {
+            return;
+          } else {
+            e.target.previousElementSibling.classList.add('v-label--filled');
+          }
+        } else {
+          e.target.previousElementSibling.classList.remove('v-label--filled');
+        }
+      },
+
+      // This method gets the necessary props from the address object returned by vue-google-autocomplete and saves to data
+      getAddressData(addressData) {
+        this.locationEdit.address = addressData.street_number + ' ' + addressData.route;
+        this.locationEdit.city = addressData.locality;
+        this.locationEdit.state = addressData.administrative_area_level_1;
+        this.locationEdit.zipcode = addressData.postal_code;
+        // this.formatFullAddress();
+      },
+
+      // This method formats the address components into a readable string for display purposes
+      formatFullAddress() {
+        this.fullAddress = this.locationEdit.address + ', ' + this.locationEdit.city + ', ' + this.locationEdit.state + ' ' + this.locationEdit.zipcode;
+      },
     }
   };
 </script>
 
 <style scoped>
-
+  .v-label {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    top: -1.5em;
+    font-size: 0.75em;
+    color: #333!important;
+    font-weight: bold;
+  }
 </style>

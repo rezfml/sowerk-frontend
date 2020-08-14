@@ -19,6 +19,7 @@
           :items="items"
           :items-per-page="10"
         >
+          <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
             <v-btn block color="primary" :to="slug + item.id">Review</v-btn>
           </template>

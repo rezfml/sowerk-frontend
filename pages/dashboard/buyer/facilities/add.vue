@@ -22,7 +22,6 @@
             class="mb-12"
             large
             color="primary"
-            to="add"
           >
             Register New Location
           </v-btn>
@@ -37,7 +36,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 
   export default {
-    name: 'facilities',
+    name: 'add',
     layout: 'app',
     components: {
       HomeCard,
@@ -330,28 +329,15 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ]
       }
-    },
-    async mounted() {
-      this.currentUser = this.$auth.user.users[0];
-      await this.getLocations();
-    },
-    methods: {
-      async getLocations() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id, {headers}).catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
-        this.$nextTick(function() {
-          this.locations = data.locations;
-        })
-      },
-    },
+    }
   }
 </script>
 

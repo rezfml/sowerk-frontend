@@ -11,7 +11,7 @@
 
       <v-row v-if="location">
         <v-col cols="12" class="py-1">
-          <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">Bass Pro Shops ({{ location.address }})</p>
+          <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ location.name }}</p>
         </v-col>
         <v-col cols="12" class="py-1">
           <p class="mb-2" style="word-break: break-word!important;"><span class="primary--text">142</span> Approved SOWerk Providers At This Facility</p>
