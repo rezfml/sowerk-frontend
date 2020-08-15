@@ -654,6 +654,7 @@
         this.loading = false;
         if (this.$error(status, message, errors)) return;
         console.log(data);
+        this.$router.push('/login');
         // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
         //   .then(response => {
         //     console.log(response);
