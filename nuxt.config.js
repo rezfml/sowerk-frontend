@@ -28,6 +28,9 @@ export default {
       { src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q&libraries=places"},
     ],
   },
+  generate: {
+    fallback: true
+  },
   /*
   * Router
   * */
