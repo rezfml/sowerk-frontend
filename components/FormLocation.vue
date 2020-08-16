@@ -1,49 +1,75 @@
 <template>
   <v-row class="mb-12" :class="{'pt-12': index != 0 }">
     <v-col cols="12">
+      <v-row style="position: relative;">
+        <v-col cols="12" style="width: 100%;">
+          <client-only>
+            <GmapMap
+              id="locations-map"
+              :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
+              :zoom="location.latitude ? 12 : 4"
+              style="height: 400px"
+              ref="location-map"
+            >
+              <GmapMarker
+                :position="{lat: location.latitude, lng: location.longitude}"
+                :clickable="true"
+              />
+            </GmapMap>
+          </client-only>
+        </v-col>
+      </v-row>
+    </v-col>
+
+    <v-col cols="12">
       <span class="headline">Location {{ index + 1 }}</span>
       <v-divider></v-divider>
     </v-col>
 
-    <v-col cols="12" sm="5">
-      <v-row fill-height class="pl-3">
-        <client-only>
-          <v-image-input
-            image-quality="0.85"
-            clearable
-            image-format="png"
-            uploadIcon="person"
-            fullWidth
-            overlayPadding="10px"
-            scalingSliderColor="red"
-            :readonly="false"
-          />
-        </client-only>
-      </v-row>
-    </v-col>
+<!--    <v-col cols="12" sm="5">-->
+<!--      <v-row fill-height class="pl-3">-->
+<!--        <client-only>-->
+<!--          <v-image-input-->
+<!--            image-quality="0.85"-->
+<!--            clearable-->
+<!--            image-format="png"-->
+<!--            uploadIcon="person"-->
+<!--            fullWidth-->
+<!--            overlayPadding="10px"-->
+<!--            scalingSliderColor="red"-->
+<!--            :readonly="false"-->
+<!--          />-->
+<!--        </client-only>-->
+<!--      </v-row>-->
+<!--    </v-col>-->
 
-    <v-col cols="12" sm="7">
+    <v-col cols="12">
       <v-text-field
+        placeholder=" "
         id="location"
-        label="Location Name (required)"
         type="text"
-        v-model="location.name.value"
-      ></v-text-field>
+        v-model="location.name"
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
+        </template>
+      </v-text-field>
 
       <div class="v-input__control mt-10">
         <div class="v-input__slot">
           <div class="v-text-field__slot" style="width: 100%;">
-            <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Location Address (required)</label>
+            <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 12px">Location Address*</p></label>
             <client-only>
               <vue-google-autocomplete
                 :id="'location-address--' + index"
                 classname="form-control"
                 v-on:placechanged="getAddressData"
                 placeholder=""
-                style="width: 100%;"
+                style="width: 100%; font-size: 16px"
                 v-on:focus.native="animateAddressFieldOnFocus"
                 v-on:blur.native="animateAddressFieldOnFocus"
                 v-on:input.native="animateAddressFieldOnFilled"
+                v-model="fullAddress"
               >
               </vue-google-autocomplete>
             </client-only>
@@ -52,38 +78,38 @@
       </div>
     </v-col>
 
-    <v-col cols="12" md="7" class="v-input">
+<!--    <v-col cols="12" md="7" class="v-input">-->
 
-    </v-col>
+<!--    </v-col>-->
 
-    <v-col cols="12" md="5">
-      <span>Where would you like to accept vendor applications?</span>
-      <v-select
-        class="mb-8"
-        label="Applicant Range"
-        :items="memberships"
-        v-model="location.membership_id"
-      >
-      </v-select>
-      <template v-if="location.membership_id.value === 1">
-        <span class="mb-12">Please select a range (miles).</span>
-        <v-slider
-          min="0"
-          max="200"
-          thumb-label="always"
-          :thumb-size="36"
-          track-color="grey"
-          track-fill-color="primary"
-          step="10"
-          ticks
-          :tick-labels="miles"
-          :readonly="false"
-          v-model="location.radius.value"
-          v-on:change="emitRadiusSlider(index)"
-        >
-        </v-slider>
-      </template>
-    </v-col>
+<!--    <v-col cols="12" md="5">-->
+<!--      <span>Where would you like to accept vendor applications?</span>-->
+<!--      <v-select-->
+<!--        class="mb-8"-->
+<!--        label="Applicant Range"-->
+<!--        :items="memberships"-->
+<!--        v-model="location.membership_id"-->
+<!--      >-->
+<!--      </v-select>-->
+<!--      <template v-if="location.membership_id === 1">-->
+<!--        <span class="mb-12">Please select a range (miles).</span>-->
+<!--        <v-slider-->
+<!--          min="0"-->
+<!--          max="200"-->
+<!--          thumb-label="always"-->
+<!--          :thumb-size="36"-->
+<!--          track-color="grey"-->
+<!--          track-fill-color="primary"-->
+<!--          step="10"-->
+<!--          ticks-->
+<!--          :tick-labels="miles"-->
+<!--          :readonly="false"-->
+<!--          v-model="location.radius"-->
+<!--          v-on:change="emitRadiusSlider(index)"-->
+<!--        >-->
+<!--        </v-slider>-->
+<!--      </template>-->
+<!--    </v-col>-->
 
     <v-col cols="12" class="mt-8">
       <span class="headline mb-0">Primary Point of Contact Info</span>
@@ -92,46 +118,66 @@
 
     <v-col cols="12" md="6">
       <v-text-field
+        placeholder=" "
         id="first_name"
-        label="First Name (required)"
         type="text"
-        v-model="location.firstName.value"
-      ></v-text-field>
+        v-model="location.contact_first_name"
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
+        </template>
+      </v-text-field>
     </v-col>
 
     <v-col cols="12" md="6">
       <v-text-field
+        placeholder=" "
         id="last_name"
-        label="Last Name (required)"
         type="text"
-        v-model="location.lastName.value"
-      ></v-text-field>
+        v-model="location.contact_last_name"
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
+        </template>
+      </v-text-field>
     </v-col>
 
     <v-col cols="12" md="6">
       <v-text-field
+        placeholder=" "
         id="phone"
-        label="Phone (required)"
         type="number"
-        v-model="location.phone.value"
-      ></v-text-field>
+        v-model="location.phone"
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
+        </template>
+      </v-text-field>
     </v-col>
 
     <v-col cols="12" md="6">
       <v-text-field
+        placeholder=" "
         id="email"
-        label="Email Address (required)"
         type="email"
-        v-model="location.email.value"
-      ></v-text-field>
+        v-model="location.email"
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
+        </template>
+      </v-text-field>
     </v-col>
 
     <v-col cols="12">
       <v-textarea
         id="description"
-        label="Location Description (required)"
-        v-model="location.description.value"
-      ></v-textarea>
+        v-model="location.description"
+        placeholder=" "
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Location Description*</p>
+        </template>
+      </v-textarea>
     </v-col>
   </v-row>
 </template>
@@ -139,15 +185,16 @@
 <script>
   import VImageInput from 'vuetify-image-input'
   import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+  import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
   import Vue from 'vue';
 
-  Vue.use(VueGoogleMaps, {
-    load: {
-      key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
-    },
-    installComponents: true
-  })
+  // Vue.use(VueGoogleMaps, {
+  //   load: {
+  //     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
+  //   },
+  //   installComponents: true
+  // })
 
   export default {
     name: 'FormLocation',
@@ -158,6 +205,10 @@
       },
       isProvider: {
         type: Boolean,
+      },
+      location: {
+        type: Object,
+        required: true
       }
     },
     components: {
@@ -165,80 +216,6 @@
     },
     data() {
       return {
-        location: {
-          name: {
-            label: 'Name',
-            value: null,
-          },
-          radius: {
-            value: null,
-            hide: true,
-          },
-          address: {
-            label: 'Address',
-            value: null,
-            hide: true,
-          },
-          city: {
-            label: 'City',
-            value: null,
-            hide: true,
-          },
-          state: {
-            label: 'State',
-            value: null,
-            hide: true,
-          },
-          zipcode: {
-            label: 'Zipcode',
-            value: null,
-            hide: true,
-          },
-          membership_id: {
-            value: 'yearly-national',
-            hide: true,
-          },
-          price: {
-            value: 300000,
-            hide: true
-          },
-          latitude: {
-            value: null,
-            hide: true,
-          },
-          longitude: {
-            value: null,
-            hide: true,
-          },
-          polygon: {
-            value: null,
-            hide: true,
-          },
-          state_full: {
-            value: null,
-            hide: true,
-          },
-          firstName: {
-            label: 'First Name',
-            value: null,
-          },
-          lastName: {
-            label: 'Last Name',
-            value: null,
-          },
-          phone: {
-            label: 'Phone Number',
-            value: null,
-          },
-          email: {
-            label: 'Email Address',
-            value: null,
-          },
-          description: {
-            label: 'Description',
-            value: null,
-          },
-        },
         miles: [
           '','','','','','','','','','','100','','','','','150','','','','','200'
         ],
@@ -256,7 +233,11 @@
             value: 3
           },
         ],
+        fullAddress: null
       }
+    },
+    mounted() {
+      this.formatFullAddress();
     },
     methods: {
       emitRadiusSlider(e) {
@@ -289,93 +270,91 @@
           this.saveLocationAddress(addressData, placeResultData, id, locationIndex);
         }
       },
-      emitSaveFormLocationData() {
-        this.$emit('change', this.location, this.index);
+      formatFullAddress() {
+        if(!this.location.address) return;
+        this.fullAddress = this.location.address + ', ' + this.location.city + ', ' + this.location.state + ' ' + this.location.zipcode;
       },
       saveLocationAddress(addressObj, placeObj, id, locationIndex) {
-        this.location.address.value = addressObj.street_number + ' ' + addressObj.route;
-        this.location.city.value = addressObj.locality;
-        this.location.state.value = addressObj.administrative_area_level_1;
-        this.location.zipcode.value = addressObj.postal_code;
-        this.location.latitude.value = addressObj.latitude;
-        this.location.longitude.value = addressObj.longitude;
-        this.getStateFullNameForQuery(placeObj, locationIndex);
-        this.getStateData(locationIndex);
-        this.emitSaveFormLocationData();
+        this.location.address = addressObj.street_number + ' ' + addressObj.route;
+        this.location.city = addressObj.locality;
+        this.location.state = addressObj.administrative_area_level_1;
+        this.location.zipcode = addressObj.postal_code;
+        this.location.latitude = addressObj.latitude;
+        this.location.longitude = addressObj.longitude;
       },
       getStateFullNameForQuery(place) {
         let location = this.location;
         place.address_components.forEach(function(component) {
-          if(component.short_name === location.state.value) {
-            location.state_full.value = component.long_name;
+          if(component.short_name === location.state) {
+            location.state_full = component.long_name;
           }
         });
 
         this.location = location;
       },
-      async getStateData(i) {
-
-        let apiPath = "https://nominatim.openstreetmap.org/search.php";
-
-        let params = {
-          state: this.location.state_full.value,
-          polygon_geojson: 1,
-          format: "json",
-        };
-
-
-        let polygon = [];
-
-        await this.$http.get(apiPath, { params: params }  )
-          .then(response => {
-            let geoJSONDataChunk = response.data[0];
-
-            // geojson data from http://nominatim.openstreetmap.org/ needs
-            // to be wrapped, so that the google addGeoJson() call
-            // can handle it properly
-            const geoConf = {
-              "type": "FeatureCollection",
-              "features": [
-                { "type": "Feature",
-                  "geometry": geoJSONDataChunk.geojson,
-                }
-              ]
-            };
-
-            let coordinateSets = geoConf.features[0].geometry.coordinates;
-
-            //flip each coordinate array
-            let group = [];
-            if(coordinateSets.length > 1) {
-              coordinateSets.forEach(function(set, index, array) {
-                set.forEach(function(coordinates) {
-                  coordinates.forEach(function(coordinate) {
-                    group.push({
-                      lat: coordinate[1],
-                      lng: coordinate[0]
-                    })
-                  });
-                  polygon.push(group);
-                  group = [];
-                });
-              });
-            } else {
-              coordinateSets.forEach(function(set, index, array) {
-                set.forEach(function(coordinates) {
-                  group.push({
-                    lat: coordinates[1],
-                    lng: coordinates[0]
-                  })
-                });
-                polygon.push(group);
-                group = [];
-              });
-            }
-
-            this.location.polygon.value = polygon;
-
-          })
-      },
+      // async getStateData(i) {
+      //
+      //   let apiPath = "https://nominatim.openstreetmap.org/search.php";
+      //
+      //   let params = {
+      //     state: this.location.state_full,
+      //     polygon_geojson: 1,
+      //     format: "json",
+      //   };
+      //
+      //
+      //   let polygon = [];
+      //
+      //   await this.$http.get(apiPath, { params: params }  )
+      //     .then(response => {
+      //       let geoJSONDataChunk = response.data[0];
+      //
+      //       // geojson data from http://nominatim.openstreetmap.org/ needs
+      //       // to be wrapped, so that the google addGeoJson() call
+      //       // can handle it properly
+      //       const geoConf = {
+      //         "type": "FeatureCollection",
+      //         "features": [
+      //           { "type": "Feature",
+      //             "geometry": geoJSONDataChunk.geojson,
+      //           }
+      //         ]
+      //       };
+      //
+      //       let coordinateSets = geoConf.features[0].geometry.coordinates;
+      //
+      //       //flip each coordinate array
+      //       let group = [];
+      //       if(coordinateSets.length > 1) {
+      //         coordinateSets.forEach(function(set, index, array) {
+      //           set.forEach(function(coordinates) {
+      //             coordinates.forEach(function(coordinate) {
+      //               group.push({
+      //                 lat: coordinate[1],
+      //                 lng: coordinate[0]
+      //               })
+      //             });
+      //             polygon.push(group);
+      //             group = [];
+      //           });
+      //         });
+      //       } else {
+      //         coordinateSets.forEach(function(set, index, array) {
+      //           set.forEach(function(coordinates) {
+      //             group.push({
+      //               lat: coordinates[1],
+      //               lng: coordinates[0]
+      //             })
+      //           });
+      //           polygon.push(group);
+      //           group = [];
+      //         });
+      //       }
+      //
+      //       this.location.polygon = polygon;
+      //
+      //     })
+      // },
     },
   }
 </script>

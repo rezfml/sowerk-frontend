@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
@@ -50,7 +50,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue-google-autocomplete.js', ssr: false},
-    { src: '~/plugins/gmap-vue.js', ssr: false},
+    { src: '~/plugins/gmap-vue.js'},
     { src: '~/plugins/axios.js'},
     { src: '~/plugins/errorHandler.js'},
   ],
@@ -81,9 +81,6 @@ export default {
           user: { url: 'auth/users', method: 'get', propertyName: false },
           // user: false,
         },
-        tokenRequired: false,
-        tokenType: false,
-        globalToken: false
       },
     },
     redirect: {
@@ -101,7 +98,7 @@ export default {
     baseURL: 'https://sowerk-backend.herokuapp.com/api/'
   },
   toast: {
-    position: 'top-right',
+    position: 'bottom-right',
     duration: 2000
   },
   /*

@@ -28,12 +28,14 @@
               :to="slug + item.id"
               append
             >
-              <v-icon
-                small
-                class="mr-2"
-              >
-                mdi-pencil
-              </v-icon>
+              <v-btn icon>
+                <v-icon
+                  small
+                  class="mr-2"
+                >
+                  mdi-pencil
+                </v-icon>
+              </v-btn>
             </nuxt-link>
             <v-icon
               small
@@ -42,31 +44,6 @@
               mdi-delete
             </v-icon>
           </template>
-<!--          <template v-slot:default>-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--&lt;!&ndash;              <template>&ndash;&gt;-->
-<!--&lt;!&ndash;                <th class="primary&#45;&#45;text" v-for="(item, key) in items" :key="key" v-if="key !== 'createdAt' || key !== 'updatedAt'">{{ key }}</th>&ndash;&gt;-->
-<!--&lt;!&ndash;              </template>&ndash;&gt;-->
-<!--              <template>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;">ID</th>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;">Location</th>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;">Address</th>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;">Primary Contact</th>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;">Phone</th>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;">Email</th>-->
-<!--                <th class="primary&#45;&#45;text font-weight-regular" style="font-size: 18px;"></th>-->
-<!--              </template>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr v-for="item in items" :key="item.id">-->
-<!--              <th class="font-weight-regular" style="font-size: 14px;" v-for="(value, i) in item" :key="i" v-if="typeof value !== 'object'">{{ value }}</th>-->
-<!--              <th class="font-weight-lighter"  v-else>{{ value.join(', ') }}</th>-->
-<!--              <th><v-btn text color="primary" href="#"><v-icon>edit</v-icon></v-btn></th>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--          </template>-->
         </v-data-table>
       </v-card-text>
       <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">

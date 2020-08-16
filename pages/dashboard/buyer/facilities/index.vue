@@ -47,175 +47,15 @@
       return {
         locations: [
           {
-            id: 1,
-            companyName: 'JHV HVAC',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
+            id: '...',
+            companyName: '...',
+            name: '...',
+            phone: '...',
+            email: '...',
+            city: '...',
+            state: '...',
+            address: '...'
           },
-          {
-            id: 2,
-            companyName: 'Ben Franklin Plumbing',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 3,
-            companyName: 'Landscape United LLC.',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 4,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 5,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 6,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 7,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 8,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 9,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 10,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 11,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 12,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 13,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 14,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 15,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 16,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 17,
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          }
         ],
         filters: [
           {
@@ -339,16 +179,20 @@
         ]
       }
     },
-    async mounted() {
-      this.currentUser = this.$auth.user.users[0];
-      await this.getLocations();
+    mounted() {
+      this.getLocations();
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
     },
     methods: {
       async getLocations() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
-          this.locations = data.locations;
+          this.locations = data;
         })
       },
     },

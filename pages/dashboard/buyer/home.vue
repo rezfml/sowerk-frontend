@@ -2,8 +2,8 @@
   <v-app class="grey lighten-3">
     <v-container class="px-8" fluid>
       <HomeCard
-        v-if="currentUser"
-        :items="currentUser.locations"
+        v-if="locations"
+        :items="locations"
         title="Your Facilities"
         :tableProperties="headers"
         slug="/dashboard/buyer/facilities/"
@@ -37,7 +37,7 @@
                   v-for="(item, index) in quickLookUps"
                   :key="index"
                   v-slot:default="{ active, toggle }"
-                  class="px-4"
+                  class ="px-4"
                 >
                   <v-card width="200" elevation="0">
                     <v-row>
@@ -74,32 +74,6 @@
     data() {
       return {
         items: [
-          {
-            id: 1,
-            locationName: 'Lorem Ipsum',
-            address: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            name: 'Lorem Ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com'
-          },
-          {
-            id: 2,
-            locationName: 'Lorem Ipsum',
-            address: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            name: 'Lorem Ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com'
-          },
-          {
-            id: 3,
-            locationName: 'Lorem Ipsum',
-            address: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            name: 'Lorem Ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com'
-          },
-        ],
-        locations: [
           {
             id: 1,
             locationName: 'Lorem Ipsum',
@@ -185,38 +159,41 @@
           },
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
-        currentUser: null
+        locations: null,
+        user: null
       }
     },
     async mounted () {
-      this.currentUser = this.$auth.user.users[0];
+      console.log(this.currentUser);
       await this.getUser();
+      await this.getLocations();
+    },
+    computed: {
+      currentUser() {
+        return this.$store.getters['user/user'].user.user;
+      },
     },
     methods: {
       async getUser() {
-        const headers = {
-          Authorization: localStorage.getItem('token'),
-        }
-        console.log(headers);
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id, {headers}).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
-          // this.locations = data;
-          this.currentUser = data;
+          this.user = data;
+          console.log(data);
+        })
+      },
+      async getLocations() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + this.currentUser.id).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.$nextTick(function() {
+          this.locations = data;
         })
       },
     }
@@ -229,29 +206,3 @@
     background: linear-gradient(90deg, rgba(166,28,0,1) 0%, rgba(116,21,2,1) 100%);
   }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

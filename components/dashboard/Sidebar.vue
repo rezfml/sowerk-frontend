@@ -100,22 +100,19 @@
             class: 'fixed-bottom'
           }
         ],
-        currentUser: null
       }
     },
-    computed: {
+    mounted() {
+      console.log(this.currentUser);
     },
-    async mounted () {
-      this.currentUser = this.$auth.user.users[0];
-      await this.getUser();
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
     },
     methods: {
       async getUser() {
-        const headers = {
-          Authorization: localStorage.getItem('token'),
-        }
-        console.log(headers);
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id, {headers}).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           // this.locations = data;
