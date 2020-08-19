@@ -46,7 +46,7 @@
                           <v-row fill-height class="pl-2">
                             <client-only>
                               <v-image-input
-                                v-model="company.image"
+                                v-model="user.image"
                                 image-quality="0.85"
                                 clearable
                                 image-format="png"
@@ -65,47 +65,29 @@
                             id="first_name"
                             label="First Name*"
                             type="text"
-                            v-model="company.first_name"
+                            v-model="user.first_name"
                           ></v-text-field>
 
                           <v-text-field
                             id="last_name"
                             label="Last Name*"
                             type="text"
-                            v-model="company.last_name"
+                            v-model="user.last_name"
                           ></v-text-field>
 
                           <v-text-field
                             label="Email Address*"
                             type="email"
                             class="card__input black--text"
-                            v-model="company.email"
+                            v-model="user.email"
                           ></v-text-field>
 
                           <v-text-field
                             label="Phone*"
                             type="text"
                             class="card__input black--text"
-                            v-model="company.phone"
+                            v-model="user.phone"
                           ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-text-field
-                            id="company"
-                            label="Company Name*"
-                            type="text"
-                            v-model="company.company_name"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-select
-                            id="company"
-                            label="Admin Level*"
-                            type="text"
-                            :items="options.adminLevel"
-                          ></v-select>
                         </v-col>
 
                         <v-col cols="12" md="6">
@@ -113,7 +95,7 @@
                             id="password"
                             label="Password*"
                             type="password"
-                            v-model="company.password"
+                            v-model="user.password"
                           ></v-text-field>
                         </v-col>
 
@@ -125,11 +107,52 @@
                           ></v-text-field>
                         </v-col>
 
+                        <v-col cols="12">
+                          <h2 class="mt-8 mb-4">Company Information</h2>
+                          <v-divider></v-divider>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-name"
+                            label="Company Name*"
+                            type="text"
+                            v-model="company.company_name"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-year"
+                            label="Year Founded*"
+                            type="number"
+                            v-model="company.year_founded"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-email"
+                            label="Company Email*"
+                            type="text"
+                            v-model="company.email"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-phone"
+                            label="Company Phone*"
+                            type="number"
+                            v-model="company.phone"
+                          ></v-text-field>
+                        </v-col>
+
                         <v-col cols="12" class="v-input">
                           <div class="v-input__control">
                             <div class="v-input__slot">
                               <div class="v-text-field__slot" style="width: 100%;">
-                                <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Corporate Address*</label>
+                                <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
                                 <client-only>
                                   <vue-google-autocomplete
                                     id="company-address"
@@ -151,8 +174,8 @@
 
                         <v-col cols="12">
                           <v-textarea
-                            id="description"
-                            label="Business Description*"
+                            id="company-description"
+                            label="Company Description*"
                             v-model="company.description"
                           ></v-textarea>
                         </v-col>
@@ -355,18 +378,24 @@
           'Review'
         ],
         company: {
-          first_name: '',
-          last_name: '',
           email: '',
           company_name: '',
-          password: '',
           address: '',
           city: '',
           state: '',
           zipcode: '',
           description: '',
+          phone: '',
+          year_founded: '',
+        },
+        user: {
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
           user_type: true,
           phone: '',
+          companies_id: null
         },
         services: [
           'HVAC',
@@ -511,25 +540,32 @@
       async register() {
         console.log(this.company);
         console.log(this.locations);
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.company).catch(e => e);
-        console.log('register user: ', data);
-        await this.postLocations(data.user.id);
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
+        console.log('post company: ', data);
+        this.user.companies_id = data.companies.id;
+        await this.registerUser(data.companies.id);
+        // await this.postLocations(data.user.id);
         // await this.$router.push('/login');
         // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
         //   .then(response => {
         //     console.log(response);
         //   })
       },
+      async registerUser(company_id) {
+        this.user.companies_id = company_id;
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.user).catch(e => e);
+        await this.postLocations(data.user.companies_id);
+      },
       async postLocations(userId) {
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/byUserId/' + userId, this.locations).catch(e => e);
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
         // this.loading = false;
         // if (this.$error(status, message, errors)) return;
         console.log('user locations post: ', data);
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + userId).catch(e => e);
-        console.log('get user locations: ', data)
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data);
       },
       async postServicesPerLocation(locations) {
@@ -569,112 +605,105 @@
           let fields = [
             {
               "name": "Company Name",
-              "type": "input",
+              "type": "text",
               "value": "company_name",
               "required": true,
               "options": "",
             },
             {
               "name": "Company Founded",
-              "type": "input",
+              "type": "number",
               "value": "year_founded",
               "required": true,
               "options": "",
             },
             {
               "name": "Address",
-              "type": "input",
-              "value": "address",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Address",
-              "type": "input",
+              "type": "address",
               "value": "address",
               "required": true,
               "options": "",
             },
             {
               "name": "Service Provided",
-              "type": "input",
+              "type": "text",
               "value": "service",
               "required": true,
               "options": "",
             },
             {
               "name": "First Name",
-              "type": "input",
+              "type": "text",
               "value": "first_name",
               "required": true,
               "options": "",
             },
             {
               "name": "Last Name",
-              "type": "input",
+              "type": "text",
               "value": "last_name",
               "required": true,
               "options": "",
             },
             {
               "name": "Email",
-              "type": "input",
+              "type": "email",
               "value": "email",
               "required": true,
               "options": "",
             },
             {
               "name": "Phone",
-              "type": "input",
+              "type": "number",
               "value": "phone",
               "required": true,
               "options": "",
             },
             {
               "name": "What is your regular time/hour rate for your service?*",
-              "type": "input",
+              "type": "text",
               "value": "rate",
               "required": true,
               "options": "",
             },
             {
               "name": "What are your regular rate hours M-F, 8am - 5pm?*",
-              "type": "input",
+              "type": "text",
               "value": "hours",
               "required": true,
               "options": "",
             },
             {
               "name": "Do you charge for quotes that do not involve a technician?*",
-              "type": "input",
+              "type": "text",
               "value": "charge_for_quotes",
               "required": true,
               "options": "",
             },
             {
               "name": "How quick can you return quotes, once you have all of your pricing?*",
-              "type": "input",
+              "type": "text",
               "value": "return_time",
               "required": true,
               "options": "",
             },
             {
               "name": "What markets do you serve?*",
-              "type": "input",
+              "type": "text",
               "value": "markets",
               "required": true,
               "options": "",
             },
             {
               "name": "What do you consider as local for a service market?*",
-              "type": "input",
+              "type": "text",
               "value": "local",
               "required": true,
               "options": "",
             },
             {
               "name": "What other similar businesses do you support?*",
-              "type": "input",
+              "type": "text",
               "value": "similar_businesses",
               "required": true,
               "options": "",
