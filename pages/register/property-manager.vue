@@ -222,42 +222,36 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">First Name*</p>
                           <v-text-field
                             placeholder=" "
                             readonly
                             v-model="company.first_name"
                           >
-                            <template v-slot:label>
-                              <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
-                            </template>
                           </v-text-field>
                         </v-col>
 
                         <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Last Name*</p>
                           <v-text-field
                             placeholder=" "
                             readonly
                             v-model="company.last_name"
                           >
-                            <template v-slot:label>
-                              <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
-                            </template>
                           </v-text-field>
                         </v-col>
 
                         <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Email*</p>
                           <v-text-field
                             placeholder=" "
                             readonly
                             v-model="company.email"
                           >
-                            <template v-slot:label>
-                              <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
-                            </template>
                           </v-text-field>
                         </v-col>
                         <v-col cols="12" md="6">
-                          <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Phone*</p>
                           <v-text-field
                             placeholder=" "
                             readonly
@@ -266,8 +260,8 @@
                           </v-text-field>
                         </v-col>
 
-                        <v-col cols="12" class="v-input">
-                          <p class="grey--text text--darken-4 font-weight-bold">Corporate Address*</p>
+                        <v-col cols="12">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
                           <v-text-field
                             v-model="fullAddress"
                             placeholder=" "
@@ -277,8 +271,8 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 12px;">Corporate Description*</p>
-                          <p class="mb-1" style="font-size: 16px; min-height: 24px;">{{ company.description ? company.description : '\n' }}</p>
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
+                          <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
                           <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
                         </v-col>
 
@@ -314,7 +308,7 @@
             </v-container>
           </v-tab-item>
         </v-tabs-items>
-        <v-card-actions class="py-10 mx-auto" style="max-width: 80%; d-flex">
+        <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
           <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
           <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
           <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
@@ -374,6 +368,12 @@
           user_type: true,
           phone: '',
         },
+        services: [
+          'HVAC',
+          'Landscaping',
+          'Plumber',
+          'Electrician',
+        ],
         options: {
           adminLevel: [
             {
@@ -511,15 +511,179 @@
       async register() {
         console.log(this.company);
         console.log(this.locations);
-        // let {data: {event_id, message, errors}, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth' + '/register', this.company).catch(e => e);
-        // this.loading = false;
-        // if (this.$error(status, message, errors)) return;
-        // console.log(data);
-        // this.$router.push('/login');
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.company).catch(e => e);
+        console.log('register user: ', data);
+        await this.postLocations(data.user.id);
+        // await this.$router.push('/login');
         // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
         //   .then(response => {
         //     console.log(response);
         //   })
+      },
+      async postLocations(userId) {
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/byUserId/' + userId, this.locations).catch(e => e);
+        // this.loading = false;
+        // if (this.$error(status, message, errors)) return;
+        console.log('user locations post: ', data);
+        await this.getUserLocations(userId);
+      },
+      async getUserLocations(userId) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + userId).catch(e => e);
+        console.log('get user locations: ', data)
+        await this.postServicesPerLocation(data);
+      },
+      async postServicesPerLocation(locations) {
+        for (const location of locations) {
+          for (const service of this.services) {
+            let serviceObject = {
+              name: service,
+            }
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            console.log(data);
+            await this.getServicesPerLocation(location.id);
+          }
+        }
+      },
+      async getServicesPerLocation(id) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + id).catch(e => e);
+        console.log(data);
+        await this.postUserformsPerService(data);
+      },
+      async postUserformsPerService(services) {
+        for (const service of services) {
+          let userformObject = {
+            name: service.name
+          }
+          let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + service.id, userformObject).catch(e => e);
+          console.log(data);
+          await this.getUserforms(service.id);
+        }
+      },
+      async getUserforms(id) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + id).catch(e => e);
+        console.log(data);
+        await this.postFormFieldsToUserforms(data);
+      },
+      async postFormFieldsToUserforms(userforms) {
+        for(const userform of userforms) {
+          let fields = [
+            {
+              "name": "Company Name",
+              "type": "input",
+              "value": "company_name",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Company Founded",
+              "type": "input",
+              "value": "year_founded",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Address",
+              "type": "input",
+              "value": "address",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Address",
+              "type": "input",
+              "value": "address",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Service Provided",
+              "type": "input",
+              "value": "service",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "First Name",
+              "type": "input",
+              "value": "first_name",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Last Name",
+              "type": "input",
+              "value": "last_name",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Email",
+              "type": "input",
+              "value": "email",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Phone",
+              "type": "input",
+              "value": "phone",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What is your regular time/hour rate for your service?*",
+              "type": "input",
+              "value": "rate",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What are your regular rate hours M-F, 8am - 5pm?*",
+              "type": "input",
+              "value": "hours",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Do you charge for quotes that do not involve a technician?*",
+              "type": "input",
+              "value": "charge_for_quotes",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "How quick can you return quotes, once you have all of your pricing?*",
+              "type": "input",
+              "value": "return_time",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What markets do you serve?*",
+              "type": "input",
+              "value": "markets",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What do you consider as local for a service market?*",
+              "type": "input",
+              "value": "local",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What other similar businesses do you support?*",
+              "type": "input",
+              "value": "similar_businesses",
+              "required": true,
+              "options": "",
+            },
+          ];
+          for (const field of fields) {
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
+          }
+        }
       },
       getTosDate(e) {
         if(e) {

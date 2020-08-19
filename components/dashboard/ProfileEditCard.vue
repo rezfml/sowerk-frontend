@@ -2,7 +2,7 @@
   <v-card class="white pt-0 mt-9">
     <v-container>
       <v-card-title style="position: absolute; top: -25px; left: 25px;border-radius: 3px;" class="primary body-2" ><v-icon>mdi-account</v-icon></v-card-title>
-      <template v-if="locationEdit">
+      <template v-if="location">
         <v-card-text class="py-0">
           <v-form>
             <v-row>
@@ -40,7 +40,6 @@
                       <client-only>
                         <vue-google-autocomplete
                           id="company-address"
-                          name="company_address"
                           classname="form-control"
                           v-on:placechanged="getAddressData"
                           placeholder=""
@@ -157,7 +156,7 @@
           <v-btn color="primary" class="px-8" @click="updateLocation">Update Profile</v-btn>
         </v-card-actions>
       </template>
-      <template v-else>
+      <template v-else-if="company">
         <v-card-text class="py-0">
           <v-form>
             <v-row>
@@ -170,6 +169,7 @@
                 <v-text-field
                   light
                   placeholder="Bass Pro Shops"
+                  v-model="company.company_name"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Company Name</p>
@@ -181,6 +181,7 @@
                 <v-text-field
                   light
                   placeholder="1935 S Campbell Ave, Springfield, MO 65807"
+                  v-model="fullAddress"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Company HQ Address</p>
@@ -192,6 +193,7 @@
                 <v-text-field
                   light
                   placeholder="1971"
+                  v-model="company.year_founded"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Company Founded</p>
@@ -203,6 +205,7 @@
                 <v-text-field
                   light
                   placeholder="BPS Direct, LLC is an American privately held…"
+                  v-model="company.description"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Company Description</p>
@@ -222,6 +225,7 @@
                   label="First Name"
                   light
                   placeholder="John"
+                  v-model="company.first_name"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
@@ -234,6 +238,7 @@
                   label="Last Name"
                   light
                   placeholder="Smith"
+                  v-model="company.last_name"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
@@ -245,6 +250,7 @@
                 <v-text-field
                   light
                   placeholder="johnsmith@example.com"
+                  v-model="company.email"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Email</p>
@@ -256,6 +262,7 @@
                 <v-text-field
                   light
                   placeholder="(123) 456-7890"
+                  v-model="company.phone"
                 ><template v-slot:label>
                   <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
                 </template></v-text-field>
@@ -282,7 +289,8 @@
       VImageInput
     },
     props: [
-      'location'
+      'location',
+      'company'
     ],
     data() {
       return {
@@ -317,22 +325,27 @@
       }
     },
     mounted() {
-      this.locationEdit.name = this.location.name;
-      this.locationEdit.address = this.location.address;
-      this.locationEdit.state = this.location.state;
-      this.locationEdit.city = this.location.city;
-      this.locationEdit.zipcode = this.location.zipcode;
-      this.locationEdit.description = this.location.description;
-      this.locationEdit.radius = this.location.radius;
-      this.locationEdit.longitude = this.location.longitude;
-      this.locationEdit.latitude = this.location.latitude;
-      this.locationEdit.contact_first_name = this.location.contact_first_name;
-      this.locationEdit.contact_last_name = this.location.contact_last_name;
-      this.locationEdit.phone = this.location.phone;
-      this.locationEdit.email = this.location.email;
-      this.locationEdit.year_founded = this.location.year_founded;
-      console.log(this.locationEdit, 'this.locationEdit');
-      this.formatFullAddress();
+      if(this.location) {
+        this.locationEdit.name = this.location.name;
+        this.locationEdit.address = this.location.address;
+        this.locationEdit.state = this.location.state;
+        this.locationEdit.city = this.location.city;
+        this.locationEdit.zipcode = this.location.zipcode;
+        this.locationEdit.description = this.location.description;
+        this.locationEdit.radius = this.location.radius;
+        this.locationEdit.longitude = this.location.longitude;
+        this.locationEdit.latitude = this.location.latitude;
+        this.locationEdit.contact_first_name = this.location.contact_first_name;
+        this.locationEdit.contact_last_name = this.location.contact_last_name;
+        this.locationEdit.phone = this.location.phone;
+        this.locationEdit.email = this.location.email;
+        this.locationEdit.year_founded = this.location.year_founded;
+        console.log(this.locationEdit, 'this.locationEdit');
+        this.formatFullAddress(this.locationEdit);
+      } else if(this.company) {
+        console.log(this.company);
+        this.formatFullAddress(this.company);
+      }
     },
     methods: {
       async updateLocation() {
@@ -378,8 +391,8 @@
       },
 
       // This method formats the address components into a readable string for display purposes
-      formatFullAddress() {
-        this.fullAddress = this.locationEdit.address + ', ' + this.locationEdit.city + ', ' + this.locationEdit.state + ' ' + this.locationEdit.zipcode;
+      formatFullAddress(location) {
+        this.fullAddress = location.address + ', ' + location.city + ', ' + location.state + ' ' + location.zipcode;
       },
     }
   };

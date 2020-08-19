@@ -10,11 +10,12 @@
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-space-between">
           <HomeCard
-            :title="'Your Facilities - ' + locations.length"
-            :items="locations"
+            v-if="businesses"
+            :title="'Approved Businesses'"
+            :items="businesses"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/buyer/facilities/"
+            slug="/dashboard/facilities/"
           ></HomeCard>
           <v-btn
             max-width="300px"
@@ -170,17 +171,20 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'company_name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ]
+        ],
+        businesses: null
       }
     },
-    mounted() {
-      this.getLocations();
+    async mounted() {
+      console.log(this.currentUser);
+      await this.getBusinesses();
+      await this.getLocations();
     },
     computed: {
       currentUser() {
@@ -188,8 +192,16 @@
       },
     },
     methods: {
+      async getBusinesses() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/').catch(e => e);
+        console.log(data.users);
+        this.businesses = data.users.filter(function(user) {
+          return user.user_type == 1;
+        })
+        console.log(this.businesses);
+      },
       async getLocations() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/').catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.locations = data;

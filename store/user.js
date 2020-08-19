@@ -18,6 +18,14 @@ export const mutations = {
     } catch (e) {
     }
   },
+  logout: (state) => {
+    try {
+      localStorage.removeItem('user');
+      state.status.loggedIn = false;
+      state.user = null;
+    } catch (e) {
+    }
+  },
 }
 
 export const getters = {
@@ -40,8 +48,8 @@ export const actions = {
   },
 
   async logout ({ commit }) {
-    await axios.post('/api/logout')
-    commit('SET_USER', null)
+    commit('logout')
+    this.$router.push('/login');
   }
 
 }

@@ -9,7 +9,7 @@
             :tableProperties="headers"
             :viewAll="false"
             action="Review"
-            slug="/dashboard/buyer/vendor-applications/"
+            slug="/dashboard/vendor-applications/"
           ></HomeCard>
         </v-col>
       </v-row>

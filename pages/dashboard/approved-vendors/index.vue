@@ -14,7 +14,7 @@
             :items="items"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/buyer/approved-vendors/"
+            slug="/dashboard/approved-vendors/"
           ></HomeCard>
         </v-col>
       </v-row>

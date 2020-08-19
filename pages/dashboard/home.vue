@@ -6,7 +6,7 @@
         :items="locations"
         title="Your Facilities"
         :tableProperties="headers"
-        slug="/dashboard/buyer/facilities/"
+        slug="/dashboard/facilities/"
       ></HomeCard>
       <v-row>
         <v-col cols="3" v-for="(stat, index) in stats" :key="index">
@@ -171,9 +171,9 @@
       }
     },
     async mounted () {
-      console.log(this.currentUser);
-      await this.getUser();
-      await this.getLocations();
+      setTimeout(async () => {
+        await this.getLocations();
+      }, 1000)
     },
     computed: {
       currentUser() {

@@ -32,18 +32,34 @@
 
       <v-divider class="my-4"></v-divider>
 
-      <nuxt-link
-        v-for="(link) in items"
-        :to="link.to"
-        style="text-decoration: none;"
-        v-on:click="setActiveLink(link.slug)"
-        :class="link.class"
-      >
-        <v-list-item>
-          <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
-          <v-list-item-title>{{ link.text }}</v-list-item-title>
-        </v-list-item>
-      </nuxt-link>
+      <template v-if="currentUser.user_type === 1">
+        <nuxt-link
+          v-for="(link) in items"
+          :to="link.to"
+          style="text-decoration: none;"
+          v-on:click="setActiveLink(link.slug)"
+          :class="link.class"
+        >
+          <v-list-item>
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+        </nuxt-link>
+      </template>
+      <template v-else>
+        <nuxt-link
+          v-for="(link) in providerItems"
+          :to="link.to"
+          style="text-decoration: none;"
+          v-on:click="setActiveLink(link.slug)"
+          :class="link.class"
+        >
+          <v-list-item>
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+        </nuxt-link>
+      </template>
 
     </v-list>
   </v-navigation-drawer>
@@ -55,45 +71,85 @@
     data() {
       return {
         activeSlug: '/',
+        user: null,
         items: [
           {
-            to: '/dashboard/buyer/home',
+            to: '/dashboard/home',
             slug: 'home',
             icon: 'dashboard',
             text: 'Dashboard'
           },
           {
-            to: '/dashboard/buyer/facilities/',
+            to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
             text: 'Facilities'
           },
           {
-            to: '/dashboard/buyer/approved-vendors/',
+            to: '/dashboard/approved-vendors/',
             slug: 'approved-vendors',
             icon: 'mdi-account-check',
             text: 'Approved Vendors'
           },
           {
-            to: '/dashboard/buyer/vendor-applications/',
+            to: '/dashboard/vendor-applications/',
             slug: 'vendor-applications',
             icon: 'mdi-file-account',
             text: 'Vendor Applications'
           },
           {
-            to: '/dashboard/buyer/requests-for-bids/',
+            to: '/dashboard/requests-for-bids/',
             slug: 'requests-for-bids',
             icon: 'mdi-frequently-asked-questions',
             text: 'Requests For Bids'
           },
           {
-            to: '/dashboard/buyer/messages-and-alerts/',
+            to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
             text: 'Messages & Alerts'
           },
           {
-            to: '/dashboard/buyer/profile/',
+            to: '/dashboard/profile/',
+            slug: 'profile',
+            icon: 'settings',
+            text: 'Settings',
+            class: 'fixed-bottom'
+          }
+        ],
+        providerItems: [
+          {
+            to: '/dashboard/home',
+            slug: 'home',
+            icon: 'dashboard',
+            text: 'Dashboard'
+          },
+          {
+            to: '/dashboard/facilities/',
+            slug: 'facilities',
+            icon: 'store',
+            text: 'Facilities'
+          },
+          {
+            to: '/dashboard/businesses/',
+            slug: 'businesses',
+            icon: 'mdi-account',
+            text: 'Businesses'
+          },
+          {
+            to: '/dashboard/sowerk-bids/',
+            slug: 'sowerk-bids',
+            icon: 'mdi-file-account',
+            text: 'Sowerk Bids'
+          },
+          {
+            to: '/dashboard/messages-and-alerts/',
+            slug: 'messages-and-alerts',
+            icon: 'mdi-bell-alert',
+            text: 'Messages & Alerts'
+          },
+          {
+            to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
@@ -102,8 +158,10 @@
         ],
       }
     },
-    mounted() {
-      console.log(this.currentUser);
+    async mounted () {
+      setTimeout(async () => {
+        await this.getUser();
+      }, 1000)
     },
     computed: {
       currentUser() {
@@ -116,7 +174,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           // this.locations = data;
-          this.currentUser = data;
+          this.user = data;
           console.log(data);
         })
       },
