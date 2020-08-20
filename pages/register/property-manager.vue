@@ -5,6 +5,13 @@
     style="max-width: 1440px;"
     class="mx-auto py-12"
   >
+    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </v-col>
     <v-col
       cols="12"
     >
@@ -249,7 +256,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.first_name"
+                            v-model="user.first_name"
                           >
                           </v-text-field>
                         </v-col>
@@ -259,7 +266,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.last_name"
+                            v-model="user.last_name"
                           >
                           </v-text-field>
                         </v-col>
@@ -309,8 +316,7 @@
 
 <!--                <v-col cols="12" class="mt-2">-->
 <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
-<!--                  <v-data-table-->
-<!--                    :headers="headers"-->
+<!--                  <v-data-table--><!--                    :headers="headers"-->
 <!--                    :items.sync="locations"-->
 <!--                    :items-per-page="10"-->
 <!--                  >-->
@@ -455,6 +461,16 @@
         ]
       }
     },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
+      }
+    },
     methods: {
       nextPageIfNotLast() {
         if(this.tab === 2) return;
@@ -539,6 +555,7 @@
         this.company.zipcode = addressObj.postal_code;
       },
       async register() {
+        this.loading = true;
         console.log(this.company);
         console.log(this.locations);
         let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
@@ -722,6 +739,7 @@
             let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
           }
         }
+        this.loading = false;
         await this.$router.push('/login');
       },
       getTosDate(e) {

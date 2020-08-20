@@ -1,5 +1,12 @@
 <template>
   <v-navigation-drawer app class="px-2" color="grey darken-4" width="300px">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </div>
     <v-list height="100%" style="position: relative" dark class="list">
       <v-list-item>
         <v-list-item-content class="py-0">
@@ -82,6 +89,7 @@
         activeSlug: '/',
         user: null,
         company: null,
+        loading: false,
         items: [
           {
             to: '/dashboard/home',
@@ -173,6 +181,16 @@
         await this.getUser();
       }, 1000)
     },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
+      }
+    },
     computed: {
       currentUser() {
         return this.$store.state.user.user.user;
@@ -180,6 +198,7 @@
     },
     methods: {
       async getUser() {
+        this.loading = true;
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
@@ -192,11 +211,9 @@
       async getUserCompany() {
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
-        this.$nextTick(function() {
-          // this.locations = data;
-          this.company = data;
-          console.log(data);
-        })
+        this.company = data;
+        console.log(data);
+        this.loading = false;
       }
     }
   }

@@ -281,6 +281,7 @@
         this.location.zipcode = addressObj.postal_code;
         this.location.latitude = addressObj.latitude;
         this.location.longitude = addressObj.longitude;
+        console.log(this.location);
       },
       getStateFullNameForQuery(place) {
         let location = this.location;
