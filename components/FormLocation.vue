@@ -265,10 +265,13 @@
         return miles * 1609.34;
       },
       getAddressData(addressData, placeResultData, id) {
-        if(id.includes('location-address')) {
-          let locationIndex = id.split('--')[1];
-          this.saveLocationAddress(addressData, placeResultData, id, locationIndex);
-        }
+        this.location.address = addressData.street_number + ' ' + addressData.route;
+        this.location.city = addressData.locality;
+        this.location.state = addressData.administrative_area_level_1;
+        this.location.zipcode = addressData.postal_code;
+        this.location.latitude = addressData.latitude;
+        this.location.longitude = addressData.longitude;
+        console.log(this.location);
       },
       formatFullAddress() {
         if(!this.location.address) return;
