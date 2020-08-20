@@ -3,10 +3,10 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
         <v-col cols="4" class="py-12">
-          <ProfileCard></ProfileCard>
+          <ProfileCard :company="currentUser"></ProfileCard>
         </v-col>
-        <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">
-          <ProfileEditCard></ProfileEditCard>
+        <v-col cols="8" class="pb-12 d-flex flex-column">
+          <ProfileEditCard :company="currentUser"></ProfileEditCard>
           <CustomFormCard></CustomFormCard>
         </v-col>
       </v-row>
@@ -31,7 +31,12 @@
       return {
 
       }
-    }
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
+    },
   };
 </script>
 

@@ -1,30 +1,32 @@
 <template>
   <v-app class="grey lighten-3">
-    <v-container class="px-0" style="max-width: 95%;">
-      <v-row>
-        <v-col cols="3">
-          <FilterCard
-            title="Filter"
-            :filters="filters"
-          ></FilterCard>
+    <v-container class="px-0 fill-height" style="max-width: 95%;">
+      <v-row style="height: 100%;">
+        <v-col cols="12">
+          <h1 class="font-weight-light">Vender Name Placeholder - Application</h1>
         </v-col>
-        <v-col cols="9" class="d-flex flex-column justify-space-between">
-          <HomeCard
-            :title="'Your Facilities - ' + locations.length"
-            :items="locations"
-            :tableProperties="headers"
-            :viewAll="false"
-            slug="/dashboard/buyer/facilities/"
-          ></HomeCard>
-          <v-btn
-            max-width="300px"
-            style="align-self: flex-end;"
-            class="mb-12"
-            large
-            color="primary"
-          >
-            Register New Location
-          </v-btn>
+        <v-col cols="4" class="pt-8 pb-12">
+          <ProfileCard :location="locations[locationId]"></ProfileCard>
+        </v-col>
+        <v-col cols="8" class="pt-8 pb-12 d-flex flex-column justify-space-between">
+          <v-card>
+<!--            <v-card-title v-if="application">{{ application.name }}</v-card-title>-->
+            <v-card-text>
+              <v-form v-if="application">
+                <template v-for="(answer, index) in application.subData">
+                  <v-text-field v-if="answer.type !== 'address'" :type="answer.type" placeholder=" " v-model="answer.value" :required="answer.required" readonly>
+                    <template v-slot:label>
+                      <p class="grey--text text--darken-4 font-weight-bold">{{ answer.name }}</p>
+                    </template>
+                  </v-text-field>
+                </template>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="primary" text @click="deny">Deny</v-btn>
+              <v-btn color="primary" class="px-8" @click="approve">Approve</v-btn>
+            </v-card-actions>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -34,20 +36,26 @@
 <script>
   import HomeCard from '~/components/dashboard/HomeCard'
   import FilterCard from '~/components/dashboard/FilterCard'
+  import ProfileCard from "~/components/dashboard/ProfileCard";
+  import ProfileEditCard from "~/components/dashboard/ProfileEditCard";
+  import CustomFormCard from "~/components/dashboard/CustomFormCard";
 
   export default {
-    name: 'add',
+    name: 'vendor-application',
     layout: 'app',
     components: {
       HomeCard,
-      FilterCard
+      FilterCard,
+      ProfileCard,
+      ProfileEditCard,
+      CustomFormCard
     },
     data() {
       return {
         locations: [
           {
             id: 1,
-            companyName: 'JHV HVAC',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -57,7 +65,7 @@
           },
           {
             id: 2,
-            companyName: 'Ben Franklin Plumbing',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -67,7 +75,7 @@
           },
           {
             id: 3,
-            companyName: 'Landscape United LLC.',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -77,7 +85,7 @@
           },
           {
             id: 4,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -87,7 +95,7 @@
           },
           {
             id: 5,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -97,7 +105,7 @@
           },
           {
             id: 6,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -107,7 +115,7 @@
           },
           {
             id: 7,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -117,7 +125,7 @@
           },
           {
             id: 8,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -127,7 +135,7 @@
           },
           {
             id: 9,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -137,7 +145,7 @@
           },
           {
             id: 10,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -147,7 +155,7 @@
           },
           {
             id: 11,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -157,7 +165,7 @@
           },
           {
             id: 12,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -167,7 +175,7 @@
           },
           {
             id: 13,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -177,7 +185,7 @@
           },
           {
             id: 14,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -187,7 +195,7 @@
           },
           {
             id: 15,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -197,7 +205,7 @@
           },
           {
             id: 16,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -207,7 +215,7 @@
           },
           {
             id: 17,
-            companyName: 'Lorem Ipsum',
+            companyName: 'Bass Pro Shops (Springfield, MO)',
             name: 'Lorem ipsum',
             phone: '1234567890',
             email: 'lorem@ipsum.com',
@@ -321,6 +329,7 @@
             ]
           }
         ],
+        application: null,
         headers: [
           {
             text: 'ID',
@@ -335,8 +344,43 @@
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ]
+        ],
+        locationId: null
       }
+    },
+    async mounted() {
+      this.applicationId = this.$route.params.id;
+      await this.getApplication();
+    },
+    methods: {
+      async getApplication() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/applications/' + this.applicationId).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.application = data;
+        this.application.subData = JSON.parse(data.subData);
+        console.log(this.application);
+      },
+      async approve() {
+        let applicationObject = {
+          userforms_id: this.application.userforms_id,
+          userprofiles_id: this.application.userprofiles_id,
+          subData: JSON.stringify(this.application.subData),
+          approval_status: 1
+        }
+        let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
+        console.log(data);
+      },
+      async deny() {
+        let applicationObject = {
+          userforms_id: this.application.userforms_id,
+          userprofiles_id: this.application.userprofiles_id,
+          subData: JSON.stringify(this.application.subData),
+          approval_status: 2
+        }
+        let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
+        console.log(data);
+      }
+
     }
   }
 </script>

@@ -77,7 +77,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-btn block x-large color="primary" style="border-radius: 16px;">Register Now</v-btn>
+                      <v-btn block x-large color="primary" style="border-radius: 16px;" to="/register/provider">Register Now</v-btn>
                     </v-col>
 
                   </v-row>

@@ -79,47 +79,19 @@
     },
     methods: {
       async login() {
-        // try {
-        //   await this.$store.dispatch('login', {
-        //     email: this.loginData.email,
-        //     password: this.loginData.password
-        //   })
-        // } catch (e) {
-        //   console.log(e);
-        // }
+        try {
+          await this.$store.dispatch('user/login', {
+            email: this.loginData.email,
+            password: this.loginData.password
+          })
+          console.log(this.$store.state.user);
+        } catch (e) {
+          console.log(e);
+        }
 
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/login', this.loginData
-        ).catch(e => e);
-        console.log(data);
-        if(!data.token) return;
-        this.$router.push('/dashboard/buyer/home');
-
-
-        // try {
-        //   let {data, status} = await this.$auth.loginWith('local', {
-        //     data: {
-        //       "email": this.loginData.email,
-        //       "password": this.loginData.password
-        //     }
-        //   }).catch(e => {
-        //     this.$auth.setUser(data.user);
-        //     console.log(data.user);
-        //     this.$toast.error('Failed Logging In', {icon: "error_outline"});
-        //   });
-        //   console.log(data);
-        //   if (this.$auth.loggedIn) {
-        //     this.$toast.success('Successfully Logged In', {icon: "done"});
-        //   }
-        //   // localStorage.setItem('token', data.token)
-        //   // console.log(data);
-        //   // this.$auth.setToken(data.token);
-        //   this.$router.push('/dashboard/buyer/home');
-        //
-        // } catch (e) {
-        //   this.$toast.error('Username or Password wrong', {icon: "error"});
-        //   this.$auth.setUser(data.user);
-        //   console.log(data.user);
-        // }
+        // let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/login', this.loginData).catch(e => e);
+        // console.log(data);
+        // if(!data.token) return;
 
       }
     }

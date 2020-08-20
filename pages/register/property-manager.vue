@@ -2,7 +2,7 @@
   <v-row
     align="center"
     justify="center"
-    style="max-width: 1200px;"
+    style="max-width: 1440px;"
     class="mx-auto py-12"
   >
     <v-col
@@ -46,7 +46,7 @@
                           <v-row fill-height class="pl-2">
                             <client-only>
                               <v-image-input
-                                v-model="company.image"
+                                v-model="user.image"
                                 image-quality="0.85"
                                 clearable
                                 image-format="png"
@@ -65,47 +65,29 @@
                             id="first_name"
                             label="First Name*"
                             type="text"
-                            v-model="company.first_name"
+                            v-model="user.first_name"
                           ></v-text-field>
 
                           <v-text-field
                             id="last_name"
                             label="Last Name*"
                             type="text"
-                            v-model="company.last_name"
+                            v-model="user.last_name"
                           ></v-text-field>
 
                           <v-text-field
                             label="Email Address*"
                             type="email"
                             class="card__input black--text"
-                            v-model="company.email"
+                            v-model="user.email"
                           ></v-text-field>
 
                           <v-text-field
                             label="Phone*"
                             type="text"
                             class="card__input black--text"
-                            v-model="company.phone"
+                            v-model="user.phone"
                           ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-text-field
-                            id="company"
-                            label="Company Name*"
-                            type="text"
-                            v-model="company.company_name"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-select
-                            id="company"
-                            label="Admin Level*"
-                            type="text"
-                            :items="options.adminLevel"
-                          ></v-select>
                         </v-col>
 
                         <v-col cols="12" md="6">
@@ -113,7 +95,7 @@
                             id="password"
                             label="Password*"
                             type="password"
-                            v-model="company.password"
+                            v-model="user.password"
                           ></v-text-field>
                         </v-col>
 
@@ -125,11 +107,52 @@
                           ></v-text-field>
                         </v-col>
 
+                        <v-col cols="12">
+                          <h2 class="mt-8 mb-4">Company Information</h2>
+                          <v-divider></v-divider>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-name"
+                            label="Company Name*"
+                            type="text"
+                            v-model="company.company_name"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-year"
+                            label="Year Founded*"
+                            type="number"
+                            v-model="company.year_founded"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-email"
+                            label="Company Email*"
+                            type="text"
+                            v-model="company.email"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-phone"
+                            label="Company Phone*"
+                            type="number"
+                            v-model="company.phone"
+                          ></v-text-field>
+                        </v-col>
+
                         <v-col cols="12" class="v-input">
                           <div class="v-input__control">
                             <div class="v-input__slot">
                               <div class="v-text-field__slot" style="width: 100%;">
-                                <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Corporate Address*</label>
+                                <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
                                 <client-only>
                                   <vue-google-autocomplete
                                     id="company-address"
@@ -151,8 +174,8 @@
 
                         <v-col cols="12">
                           <v-textarea
-                            id="description"
-                            label="Business Description*"
+                            id="company-description"
+                            label="Company Description*"
                             v-model="company.description"
                           ></v-textarea>
                         </v-col>
@@ -166,145 +189,156 @@
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about each location you have</span>
-                <v-col cols="12" style="position: sticky; top: 0; z-index: 4;">
-                  <v-row style="position: relative;">
-                    <v-col cols="12" style="position: sticky; width: 100%; top: 0;">
-                      <client-only>
-                        <GmapMap
-                          id="locations-map"
-                          :center="{lat:form.locations[0].latitude.value ? form.locations[0].latitude.value : 37, lng:form.locations[0].longitude.value ? form.locations[0].longitude.value : -95}"
-                          :zoom="form.locations[0].latitude.value ? 7 : 4"
-                          style="height: 400px"
-                          ref="location-map"
+                <template v-if="editingLocation">
+                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about your first location</span>
+                  <v-form class="mx-auto">
+                    <v-container>
+                      <FormLocation
+                        :location="location"
+                        :index="editingIndex"
+                      />
+                    </v-container>
+                  </v-form>
+                </template>
+                <template v-else>
+                  <v-data-table
+                    :headers="headers"
+                    :items="locations"
+                    :items-per-page="10"
+                  >
+                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>
+                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+                    <template v-slot:item.actions="{ item }">
+
+                      <v-btn icon @click="editLocation(locations.indexOf(item))">
+                        <v-icon
+                          small
+                          class="mr-2"
                         >
-                          <GmapCluster>
-                            <template v-for="(m, i) in markers">
-                              <GmapMarker
-                                :key="i"
-                                :position="{lat: m.lat, lng: m.lng}"
-                                :clickable="true"
-                              />
-                            </template>
-                          </GmapCluster>
-                        </GmapMap>
-                      </client-only>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-form class="mx-auto">
-                  <v-container>
-                    <FormLocation
-                      v-for="(location, i) in form.locations"
-                      :key="i"
-                      :location="location"
-                      :index="i"
-                      @change="onFormLocationChange"
-                    />
-                  </v-container>
-                </v-form>
-                <v-btn @click="addLocation" outlined color="primary" class="mx-auto">+ Add Location</v-btn>
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                      <v-icon
+                        small
+                        @click="deleteItem(item)"
+                      >
+                        mdi-delete
+                      </v-icon>
+                    </template>
+                  </v-data-table>
+                </template>
               </v-card-text>
             </v-container>
           </v-tab-item>
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Please review your information before submitting</span>
-                <v-col cols="12" class="align-center">
-<!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image.value != ''"></v-img>-->
-                  <v-icon color="grey" style="font-size: 100px; text-align: center;" class="mx-auto">person</v-icon>
-<!--                  <span class="headline font-weight-bold">{{ company.name.value }}</span>-->
+                <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Review Company Information</p>
+                <v-col cols="12" class="align-center text-center mx-auto">
+<!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
+                  <v-icon color="grey" style="font-size: 100px; text-align: center" class="mx-auto">person</v-icon>
+                  <p class="headline font-weight-bold">{{ company.company_name }}</p>
                 </v-col>
 
-                <v-col cols="12" v-for="(item, index) in company" :key="index">
-<!--                  <template v-if="item.label != 'Company Image'">-->
-<!--                    <v-subheader inset class="mx-0 px-0">-->
-<!--                      <span class="primary&#45;&#45;text font-weight-bold">{{ item.label }}</span>-->
-<!--                    </v-subheader>-->
-<!--                    <span class="mt-0 mb-4">{{ item.value }}</span>-->
-<!--                  </template>-->
-                  <template>
-                    <v-subheader inset class="mx-0 px-0">
-                      <span class="primary--text font-weight-bold">{{ item }}</span>
-                    </v-subheader>
-                  </template>
+                <v-col cols="12" style="max-width: 720px;" class="mx-auto d-flex flex-column align-center">
+                  <v-form class="mx-auto">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">First Name*</p>
+                          <v-text-field
+                            placeholder=" "
+                            readonly
+                            v-model="company.first_name"
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Last Name*</p>
+                          <v-text-field
+                            placeholder=" "
+                            readonly
+                            v-model="company.last_name"
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Email*</p>
+                          <v-text-field
+                            placeholder=" "
+                            readonly
+                            v-model="company.email"
+                          >
+                          </v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Phone*</p>
+                          <v-text-field
+                            placeholder=" "
+                            readonly
+                            v-model="company.phone"
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
+                          <v-text-field
+                            v-model="fullAddress"
+                            placeholder=" "
+                            readonly
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
+                          <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
+                          <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
+                        </v-col>
+
+                      </v-row>
+                    </v-container>
+                  </v-form>
+                  <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
                 </v-col>
 
-                <v-col cols="12" class="mt-6">
-                  <v-col cols="12" v-for="(location, i) in form.locations" :key="i" class="px-0">
-                    <span class="headline grey--text text--darken-4">Location {{ i + 1 }}</span>
-                    <v-divider class="mt-2 light-gray"></v-divider>
-                    <template v-for="(item, j) in location">
-                      <v-col class="px-0" cols="12" :key="j" v-show="!item.hide">
-                        <template v-if="item.label != 'Location Image'">
-                          <v-subheader inset class="mx-0 px-0">
-                            <span class="primary--text font-weight-bold">{{ item.label }}</span>
-                          </v-subheader>
-                          <span class="mt-0 mb-4">{{ item.value }}</span>
-                        </template>
-                        <template v-else>
-                          <v-subheader inset class="mx-0 px-0">
-                            <span class="primary--text font-weight-bold">{{ item.label }}</span>
-                          </v-subheader>
-                          <v-img :src="item.value" height="300px" width="300px" aspect-ratio="1"></v-img>
-                        </template>
-                      </v-col>
-                    </template>
-                    <v-col cols="12" class="px-0">
-                      <v-subheader inset class="mx-0 px-0">
-                        <span class="primary--text font-weight-bold">Application Range</span>
-                      </v-subheader>
-                      <client-only>
-                        <GmapMap
-                          :center="{lat:location.latitude.value ? location.latitude.value : 37, lng:location.longitude.value ? location.longitude.value : -95}"
-                          :zoom="3.5"
-                          style="height: 400px"
-                        >
-                          <GmapMarker
-                            v-if="location.latitude.value"
-                            :position="{lat: location.latitude.value, lng: location.longitude.value}"
-                            :clickable="true"
-                          />
-                          <GmapCircle
-                            v-if="location.radius.value > 0 && location.membership_id.value === 1"
-                            :center="{lat:location.latitude.value, lng:location.longitude.value}"
-                            :radius="convertMilesToMeters(location.radius.value)"
-                            :fillOpacity="0.5"
-                            :visible="true"
-                            :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
-                          />
-                          <template v-if="location.membership_id.value === 2">
-                            <GmapPolygon
-                              v-for="(set, i) in location.polygon.value"
-                              :key="i"
-                              :paths="set"
-                              :options="{fillColor: '#a51d02', fillOpacity: '0.5', strokeColor: '#a51d02'}"
-                            />
-                          </template>
-                        </GmapMap>
-                      </client-only>
-                    </v-col>
-                  </v-col>
-                </v-col>
+<!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
 
-                <v-col cols="12">
-                  <v-checkbox
-                    label="I agree to the Terms of Service"
-                    v-on:change="getTosDate"
-                  >
-                  </v-checkbox>
-                </v-col>
+<!--                <v-col cols="12" class="mt-2">-->
+<!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
+<!--                  <v-data-table-->
+<!--                    :headers="headers"-->
+<!--                    :items.sync="locations"-->
+<!--                    :items-per-page="10"-->
+<!--                  >-->
+<!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
+<!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
+<!--                  </v-data-table>-->
+<!--                </v-col>-->
+
+<!--                <v-col cols="12">-->
+<!--                  <v-checkbox-->
+<!--                    label="I agree to the Terms of Service"-->
+<!--                    v-on:change="getTosDate"-->
+<!--                  >-->
+<!--                  </v-checkbox>-->
+<!--                </v-col>-->
 
               </v-card-text>
             </v-container>
           </v-tab-item>
         </v-tabs-items>
         <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-          <v-btn color="primary" text @click="prevPageIfNotFirst" v-show="tab !== 0"> < Back</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab < 2">Next > </v-btn>
-          <v-btn color="primary" class="px-8" @click="register" v-else>Submit</v-btn>
+          <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
+          <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
+          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">Add Location + </v-btn>
+          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="!editingLocation && tab === 1">Next > </v-btn>
+          <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
+          <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -320,15 +354,15 @@
   import Vue from 'vue';
   import FormLocation from '~/components/FormLocation'
 
-  Vue.use(VueGoogleMaps, {
-    load: {
-      key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
-    },
-    installComponents: true
-  })
+  // Vue.use(VueGoogleMaps, {
+  //   load: {
+  //     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
+  //   },
+  //   installComponents: true
+  // })
 
   export default {
-    name: 'buyer',
+    name: 'property-manager',
     components: {
       FormLocation,
       VImageInput,
@@ -344,19 +378,32 @@
           'Review'
         ],
         company: {
-          first_name: '',
-          last_name: '',
           email: '',
           company_name: '',
-          password: '',
           address: '',
           city: '',
           state: '',
           zipcode: '',
           description: '',
-          user_type: true,
           phone: '',
+          year_founded: '',
+          company_type: true
         },
+        user: {
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          is_superuser: true,
+          phone: '',
+          companies_id: null
+        },
+        services: [
+          'HVAC',
+          'Landscaping',
+          'Plumber',
+          'Electrician',
+        ],
         options: {
           adminLevel: [
             {
@@ -369,164 +416,79 @@
             }
           ]
         },
-        form: {
-          company: {
-            name: {
-              label: 'Name',
-              value: null,
-            },
-            username: {
-              label: 'Username',
-              value: null
-            },
-            email: {
-              label: 'Email',
-              value: null,
-            },
-            password: {
-              label: 'Password',
-              value: null,
-              hide: true,
-            },
-            confirm: {
-              label: 'Confirm',
-              value: null,
-              hide: true,
-            },
-            address: {
-              label: 'Address',
-              value: null,
-            },
-            city: {
-              label: 'City',
-              value: null
-            },
-            state: {
-              label: 'State',
-              value: null
-            },
-            zipcode: {
-              label: 'Zip',
-              value: null
-            },
-            firstName: {
-              label: 'First Name',
-              value: null,
-            },
-            lastName: {
-              label: 'Last Name',
-              value: null,
-            },
-            description: {
-              label: 'Company Description',
-              value: null,
-            },
-            image: {
-              label: 'Company Image',
-              value: '',
-              hide: true
-            },
-            tos_date: {
-              hide: true,
-              value: null,
-            }
-          },
-          locations: [
-            {
-              name: {
-                label: 'Name',
-                value: null,
-              },
-              latitude: {
-                label: 'Latitude',
-                value: null,
-                hide: true
-              },
-              longitude: {
-                label: 'Longitude',
-                value: null,
-                hide: true
-              },
-              address: {
-                value: null,
-                hide: true
-              },
-              city: {
-                value: null,
-                hide: true
-              },
-              state: {
-                value: null,
-                fullName: null,
-                hide: true
-              },
-              zipcode: {
-                value: null,
-                hide: true
-              },
-              membership_id: {
-                label: 'Range',
-                value: null,
-                hide: true
-              },
-              radius: {
-                label: 'Radius',
-                value: null,
-                hide: true
-              },
-              polygon: {
-                label: 'Polygon',
-                value: null,
-                hide: true
-              },
-              firstName: {
-                label: 'First Name',
-                value: null,
-              },
-              lastName: {
-                label: 'Last Name',
-                value: null
-              },
-              phone: {
-                label: 'Phone Number',
-                value: null
-              },
-              email: {
-                label: 'Email Address',
-                value: null,
-              },
-              description: {
-                label: 'Location Description',
-                value: null,
-              },
-              image: {
-                label: 'Location Image',
-                value: ''
-              }
-            }
-          ]
+        fullAddress: null,
+        locations: [],
+        location: {
+          name: null,
+          address: null,
+          city: null,
+          state: null,
+          zipcode: null,
+          contact_first_name: null,
+          contact_last_name: null,
+          phone: null,
+          email: null,
+          latitude: null,
+          longitude: null,
+          radius: 0,
+          year_founded: '',
         },
+        editingIndex: 0,
         imageUrlLocation: '',
         autocomplete: null,
         markers: [],
+        editingLocation: true,
+        headers: [
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+            class: 'primary--text font-weight-regular'
+          },
+          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ]
       }
     },
     methods: {
       nextPageIfNotLast() {
         if(this.tab === 2) return;
         this.tab += 1;
+        console.log(this.locations);
       },
       prevPageIfNotFirst() {
         if(this.tab === 0) return;
         this.tab -= 1;
       },
-      getAddressData(addressData, placeResultData, id) {
-        if(id === 'company-address') {
-          this.saveCompanyAddress(addressData);
-        } else if(id.includes('location-address')) {
-          let locationIndex = id.split('--')[1];
-          this.saveLocationAddress(addressData, placeResultData, id, locationIndex);
-        }
+      finishEditing() {
+        this.editingLocation = false;
+        console.log(this.location);
+        this.locations[this.editingIndex] = this.location;
+        this.editingIndex = null;
+      },
+      editLocation(index) {
+        console.log(index);
+        this.editingIndex = index;
+        this.location = this.locations[index];
+        console.log(this.location);
+        this.editingLocation = true;
+      },
+      getAddressData(addressData) {
+        console.log(addressData);
+        this.company.address = addressData.street_number + ' ' + addressData.route;
+        this.company.city = addressData.locality;
+        this.company.state = addressData.administrative_area_level_1;
+        this.company.zipcode = addressData.postal_code;
+        this.formatFullAddress();
+      },
+      formatFullAddress() {
+        if(!this.company.address) return;
+        this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
       },
       onRadiusSlide(value, index) {
 
@@ -551,78 +513,24 @@
       },
       addLocation() {
         let newLocation = {
-          name: {
-            label: 'Name',
-            value: null,
-          },
-          latitude: {
-            label: 'Latitude',
-            value: null,
-            hide: true
-          },
-          longitude: {
-            label: 'Longitude',
-            value: null,
-            hide: true
-          },
-          address: {
-            value: null,
-            hide: true
-          },
-          city: {
-            value: null,
-            hide: true
-          },
-          state: {
-            value: null,
-            fullName: null,
-            hide: true
-          },
-          zipcode: {
-            value: null,
-            hide: true
-          },
-          membership_id: {
-            label: 'Range',
-            value: null,
-            hide: true
-          },
-          radius: {
-            label: 'Radius',
-            value: null,
-            hide: true
-          },
-          polygon: {
-            label: 'Polygon',
-            value: null,
-            hide: true
-          },
-          firstName: {
-            label: 'First Name',
-            value: null,
-          },
-          lastName: {
-            label: 'Last Name',
-            value: null
-          },
-          phone: {
-            label: 'Phone Number',
-            value: null
-          },
-          email: {
-            label: 'Email Address',
-            value: null,
-          },
-          description: {
-            label: 'Location Description',
-            value: null,
-          },
-          image: {
-            label: 'Location Image',
-            value: ''
-          }
+          name: null,
+          address: null,
+          city: null,
+          state: null,
+          zipcode: null,
+          contact_first_name: null,
+          contact_last_name: null,
+          phone: null,
+          email: null,
+          latitude: null,
+          longitude: null,
+          radius: 0,
+          year_founded: '',
         };
-        this.form.locations.push(newLocation);
+        this.locations.push(newLocation);
+        this.location = this.locations[this.locations.length - 1];
+        this.editingIndex = this.locations.length - 1;
+        this.editingLocation = true;
       },
       saveCompanyAddress(addressObj) {
         this.company.address = addressObj.street_number + ' ' + addressObj.route;
@@ -630,52 +538,192 @@
         this.company.state = addressObj.administrative_area_level_1;
         this.company.zipcode = addressObj.postal_code;
       },
-
-      // will get to this later.
-      // need this to auto zoom and center on region select
-      // initGetBoundsPrototype() {
-      //   if (!google.maps.Polygon.prototype.getBounds) {
-      //     google.maps.Polygon.prototype.getBounds = function() {
-      //       var bounds = new google.maps.LatLngBounds();
-      //       var paths = this.getPaths();
-      //       var path;
-      //       for (var i = 0; i < paths.getLength(); i++) {
-      //         path = paths.getAt(i);
-      //         for (var ii = 0; ii < path.getLength(); ii++) {
-      //           bounds.extend(path.getAt(ii));
-      //         }
-      //       }
-      //       return bounds;
-      //     }
-      //   }
-      // },
       async register() {
-        let {data: {event_id, message, errors}, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth' + '/register', this.company).catch(e => e);
-        this.loading = false;
-        if (this.$error(status, message, errors)) return;
-        console.log(data);
-        this.$router.push('/login');
+        console.log(this.company);
+        console.log(this.locations);
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
+        console.log('post company: ', data);
+        this.user.companies_id = data.companies.id;
+        await this.registerUser(data.companies.id);
+        // await this.postLocations(data.user.id);
+        // await this.$router.push('/login');
         // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
         //   .then(response => {
         //     console.log(response);
         //   })
       },
-      // register() {
-      //   return axios
-      //     .post('https://sowerk-backend.herokuapp.com/api/auth' + '/register', this.registerData)
-      //     .then(response => {
-      //       console.log(response);
-      //       console.log(response.data);
-      //       localStorage.setItem('token', response.data.token)
-      //       const token = response.data.token;
-      //       const user = response.data.user;
-      //       this.$store.dispatch('register', { token, user });
-      //       return response.data;
-      //     })
-      //     .catch(err => {
-      //       console.log(err, 'Error logging in')
-      //     })
-      // },
+      async registerUser(company_id) {
+        this.user.companies_id = company_id;
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.user).catch(e => e);
+        await this.postLocations(data.user.companies_id);
+      },
+      async postLocations(userId) {
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/byCompaniesId/' + userId, this.locations).catch(e => e);
+        // this.loading = false;
+        // if (this.$error(status, message, errors)) return;
+        console.log('user locations post: ', data);
+        await this.getUserLocations(userId);
+      },
+      async getUserLocations(userId) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byCompaniesId/' + userId).catch(e => e);
+        console.log('get companys locations: ', data)
+        await this.postServicesPerLocation(data);
+      },
+      async postServicesPerLocation(locations) {
+        for (const location of locations) {
+          for (const service of this.services) {
+            let serviceObject = {
+              name: service,
+            }
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            console.log(data);
+          }
+        }
+        await this.postUserformsPerService();
+      },
+      async getServicesPerLocation(id) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + id).catch(e => e);
+        console.log(data);
+      },
+      async getAllServices() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + this.user.companies_id).catch(e => e);
+        console.log(data);
+        return data.locations;
+      },
+      async postUserformsPerService() {
+        let locations = await this.getAllServices();
+        console.log(locations);
+        for (const location of locations) {
+          for (const service of location.services) {
+            let userformObject = {
+              name: service.name,
+            }
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + service.id, userformObject).catch(e => e);
+            console.log(data);
+            await this.getUserforms(service.id);
+          }
+        }
+      },
+      async getUserforms(id) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + id).catch(e => e);
+        console.log(data);
+        await this.postFormFieldsToUserforms(data);
+      },
+      async postFormFieldsToUserforms(userforms) {
+        for(const userform of userforms) {
+          let fields = [
+            {
+              "name": "Company Name",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Company Founded",
+              "type": "number",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Address",
+              "type": "address",
+              "value": "address",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Service Provided",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "First Name",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Last Name",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Email",
+              "type": "email",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Phone",
+              "type": "number",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What is your regular time/hour rate for your service?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What are your regular rate hours M-F, 8am - 5pm?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Do you charge for quotes that do not involve a technician?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "How quick can you return quotes, once you have all of your pricing?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What markets do you serve?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What do you consider as local for a service market?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What other similar businesses do you support?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+          ];
+          for (const field of fields) {
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
+          }
+        }
+        await this.$router.push('/login');
+      },
       getTosDate(e) {
         if(e) {
           let today = new Date();
@@ -694,17 +742,20 @@
           // this.company.tos_date = today;
         }
       },
-      // onFormLocationChange(location, i) {
-      //   this.form.locations[i] = location;
-      //   this.saveMarker();
-      // },
+      onFormLocationChange(location, i) {
+        console.log(location);
+        // this.locations[i] = location;
+      },
+      setPage(tab) {
+        this.tab = tab;
+      }
       // saveMarker() {
         // let markers = [];
         // let marker;
-        // this.form.locations.forEach(function(location) {
+        // this.locations.forEach(function(location) {
         //   marker = {
-        //     lat: location.latitude.value,
-        //     lng: location.longitude.value
+        //     lat: location.latitude,
+        //     lng: location.longitude
         //   }
         //   markers.push(marker);
         // });
@@ -723,8 +774,8 @@
       //  },
       // formatFormDataForSubmission() {
       //   let submissionData = {
-      //     "name": this.form.company.name.value,
-      //     "primary_email": this.form.company.email.value,
+      //     "name": this.company.name,
+      //     "primary_email": this.company.email,
       //     "company_profiles": [
       //       // {
       //       //   "address": "",
@@ -754,39 +805,39 @@
       //     ],
       //     "users": [
       //       {
-      //         "username": this.form.company.username.value,
-      //         "email": this.form.company.email.value,
-      //         "password": this.form.company.email.value,
-      //         "first_name": this.form.company.firstName.value,
-      //         "last_name": this.form.company.lastName.value,
+      //         "username": this.company.username,
+      //         "email": this.company.email,
+      //         "password": this.company.email,
+      //         "first_name": this.company.firstName,
+      //         "last_name": this.company.lastName,
       //         "tos_date": null,
       //       }
       //     ]
       //   };
       //   let profile = {
-      //     address: this.form.company.address.value,
-      //     city: this.form.company.city.value,
-      //     state: this.form.company.state.value,
-      //     zipcode: this.form.company.zipcode.value,
-      //     description: this.form.company.description.value
+      //     address: this.company.address,
+      //     city: this.company.city,
+      //     state: this.company.state,
+      //     zipcode: this.company.zipcode,
+      //     description: this.company.description
       //   }
       //
       //   console.log(profile);
       //
       //   let locationsArray = [];
-      //   this.form.locations.forEach(function(location) {
+      //   this.locations.forEach(function(location) {
       //
       //     let tempLocationObject = {
-      //       "name": location.name.value,
-      //       "address": location.address.value,
-      //       "state": location.state.value,
-      //       "city": location.city.value,
-      //       "zipcode": location.zipcode.value,
-      //       "latitude": location.latitude.value,
-      //       "longitude": location.longitude.value,
-      //       "description": location.description.value,
-      //       "membership_id": location.membership_id.value,
-      //       "radius": location.radius.value,
+      //       "name": location.name,
+      //       "address": location.address,
+      //       "state": location.state,
+      //       "city": location.city,
+      //       "zipcode": location.zipcode,
+      //       "latitude": location.latitude,
+      //       "longitude": location.longitude,
+      //       "description": location.description,
+      //       "membership_id": location.membership_id,
+      //       "radius": location.radius,
       //       "company_id": "string",
       //       "services": {
       //         "_ids": [
