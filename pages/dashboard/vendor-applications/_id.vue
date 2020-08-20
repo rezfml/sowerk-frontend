@@ -2,12 +2,9 @@
   <v-app class="grey lighten-3">
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
-        <v-col cols="12">
-          <h1 class="font-weight-light">Vender Name Placeholder - Application</h1>
-        </v-col>
-        <v-col cols="4" class="pt-8 pb-12">
-          <ProfileCard :location="locations[locationId]"></ProfileCard>
-        </v-col>
+<!--        <v-col cols="4" class="pt-8 pb-12">-->
+<!--          <ProfileCard :location="locations[locationId]"></ProfileCard>-->
+<!--        </v-col>-->
         <v-col cols="8" class="pt-8 pb-12 d-flex flex-column justify-space-between">
           <v-card>
 <!--            <v-card-title v-if="application">{{ application.name }}</v-card-title>-->
