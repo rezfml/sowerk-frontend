@@ -64,22 +64,44 @@
                         <v-text-field
                           label="Representative Name*"
                           type="text"
-                          v-model="company.rep_name"
+                          v-model="user.rep_name"
                         ></v-text-field>
 
                         <v-text-field
                           label="Email Address*"
                           type="email"
                           class="card__input black--text"
-                          v-model="company.email"
+                          v-model="user.email"
                         ></v-text-field>
 
                         <v-text-field
                           label="Phone*"
                           type="text"
                           class="card__input black--text"
-                          v-model="company.phone"
+                          v-model="user.phone"
                         ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          id="password"
+                          label="Password*"
+                          type="password"
+                          v-model="user.password"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          id="confirm"
+                          label="Confirm Password*"
+                          type="password"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12">
+                        <h2 class="mt-8 mb-4">Company Information</h2>
+                        <v-divider></v-divider>
                       </v-col>
 
                       <v-col cols="12" sm="6">
@@ -91,29 +113,11 @@
                         ></v-text-field>
                       </v-col>
 
-                      <v-col cols="12" sm="6">
-                        <v-select
-                          id="company"
-                          label="Admin Level*"
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          label="Year Business Was Founded*"
                           type="text"
-                          :items="options.adminLevel"
-                        ></v-select>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="password"
-                          label="Password*"
-                          type="password"
-                          v-model="company.password"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          id="confirm"
-                          label="Confirm Password*"
-                          type="password"
+                          v-model="company.year_founded"
                         ></v-text-field>
                       </v-col>
 
@@ -141,16 +145,8 @@
                         </div>
                       </v-col>
 
-                      <v-col cols="12" md="6">
+                      <v-col cols="12">
                         <v-select :items="serviceOptions" v-model="servicesProvided" multiple chips label="What Services Do You Offer?"></v-select>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Year Business Was Founded*"
-                          type="text"
-                          v-model="company.year_founded"
-                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12">
@@ -273,7 +269,7 @@
                       </v-row>
                     </v-container>
                   </v-form>
-                  <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="tab = 0;">Edit Information</v-btn>
+                  <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
                 </v-col>
 
                 <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
@@ -349,17 +345,24 @@
           'Review'
         ],
         company: {
-          rep_name: '',
           email: '',
           company_name: '',
-          password: '',
           address: '',
           city: '',
           state: '',
           zipcode: '',
           description: '',
-          user_type: false,
           phone: '',
+          year_founded: '',
+          company_type: false
+        },
+        user: {
+          rep_name: '',
+          email: '',
+          password: '',
+          is_superuser: true,
+          phone: '',
+          companies_id: null
         },
         options: {
           adminLevel: [
@@ -507,30 +510,46 @@
       },
       async register() {
         console.log(this.company);
-        this.formatServices();
         console.log(this.locations);
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.company).catch(e => e);
-        await this.postLocations(data.user.id);
-        // console.log(data);
-        // console.log(locationData);
-
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
+        console.log('post company: ', data);
+        this.user.companies_id = data.companies.id;
+        await this.registerUser(data.companies.id);
+        // await this.postLocations(data.user.id);
+        // await this.$router.push('/login');
+        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+        //   .then(response => {
+        //     console.log(response);
+        //   })
+      },
+      async registerUser(company_id) {
+        this.user.companies_id = company_id;
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.user).catch(e => e);
+        await this.postLocations(data.user.companies_id);
       },
       async postLocations(userId) {
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/byUserId/' + userId, this.locations).catch(e => e);
-        console.log(data);
-        // await this.postServices(data.location);
-        this.$router.push('/login');
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
+        // this.loading = false;
+        // if (this.$error(status, message, errors)) return;
+        console.log('user locations post: ', data);
+        await this.getUserLocations(userId);
       },
-      async postServices(locations) {
-        console.log(locations, 'locations');
-        for (const loc of locations) {
-          console.log(loc, 'loc');
-          for (const ser of this.formattedServicesProvided) {
-            console.log(ser, 'ser');
-            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocation/' + loc.id, ser).catch(e => e);
+      async getUserLocations(userId) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        console.log('get companys locations: ', data)
+        await this.postServicesPerLocation(data);
+      },
+      async postServicesPerLocation(locations) {
+        for (const location of locations) {
+          for (const service of this.servicesProvided) {
+            let serviceObject = {
+              name: service,
+            }
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
           }
         }
+        await this.$router.push('/login');
       },
       formatServices() {
         console.log(this.servicesProvided);
@@ -563,6 +582,9 @@
       //     // this.company.tos_date = today;
       //   }
       // },
+      setPage(tab) {
+        this.tab = tab;
+      }
     }
   }
 </script>

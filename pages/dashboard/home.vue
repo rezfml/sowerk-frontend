@@ -166,12 +166,15 @@
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
-        locations: null,
+        locations: [],
         user: null
       }
     },
     async mounted () {
       setTimeout(async () => {
+        console.log(this.currentUser);
+        if(!this.currentUser) this.$router.go();
+        await this.getUser();
         await this.getLocations();
       }, 1000)
     },
@@ -190,7 +193,7 @@
         })
       },
       async getLocations() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.locations = data;

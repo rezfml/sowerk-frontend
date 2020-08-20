@@ -10,17 +10,22 @@
         </v-col>
         <v-col cols="8" class="pt-8 pb-12 d-flex flex-column justify-space-between">
           <v-card>
-            <v-row>
-              <v-col cols="12" md="7">
-                <v-card-title><p>Service Vendor Application - Joes HVAC Services</p></v-card-title>
-              </v-col>
-              <v-col cols="12" md="5">
-                <v-card-subtitle>
-                  <p class="mb-0">Submitted: June 22, 2020 - 8:14am CST</p>
-                  <p>Application Facility: <span class="primary--text">Bass Pro Shops (Memphis, TN)</span></p>
-                </v-card-subtitle>
-              </v-col>
-            </v-row>
+<!--            <v-card-title v-if="application">{{ application.name }}</v-card-title>-->
+            <v-card-text>
+              <v-form v-if="application">
+                <template v-for="(answer, index) in application.subData">
+                  <v-text-field v-if="answer.type !== 'address'" :type="answer.type" placeholder=" " v-model="answer.value" :required="answer.required" readonly>
+                    <template v-slot:label>
+                      <p class="grey--text text--darken-4 font-weight-bold">{{ answer.name }}</p>
+                    </template>
+                  </v-text-field>
+                </template>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="primary" text @click="deny">Deny</v-btn>
+              <v-btn color="primary" class="px-8" @click="approve">Approve</v-btn>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -324,6 +329,7 @@
             ]
           }
         ],
+        application: null,
         headers: [
           {
             text: 'ID',
@@ -342,8 +348,39 @@
         locationId: null
       }
     },
-    mounted() {
-      this.locationId = this.$route.params.id;
+    async mounted() {
+      this.applicationId = this.$route.params.id;
+      await this.getApplication();
+    },
+    methods: {
+      async getApplication() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/applications/' + this.applicationId).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.application = data;
+        this.application.subData = JSON.parse(data.subData);
+        console.log(this.application);
+      },
+      async approve() {
+        let applicationObject = {
+          userforms_id: this.application.userforms_id,
+          userprofiles_id: this.application.userprofiles_id,
+          subData: JSON.stringify(this.application.subData),
+          approval_status: 1
+        }
+        let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
+        console.log(data);
+      },
+      async deny() {
+        let applicationObject = {
+          userforms_id: this.application.userforms_id,
+          userprofiles_id: this.application.userprofiles_id,
+          subData: JSON.stringify(this.application.subData),
+          approval_status: 2
+        }
+        let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
+        console.log(data);
+      }
+
     }
   }
 </script>

@@ -10,23 +10,14 @@
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-space-between">
           <HomeCard
-            v-if="businesses"
-            :title="'Approved Businesses'"
-            :items="businesses"
+            v-if="services"
+            :title="'Businesses'"
+            :items="services"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/facilities/"
+            action="Apply"
+            slug="/dashboard/businesses/"
           ></HomeCard>
-          <v-btn
-            max-width="300px"
-            style="align-self: flex-end;"
-            class="mb-12"
-            large
-            color="primary"
-            to="add"
-          >
-            Register New Location
-          </v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -52,12 +43,12 @@
             companyName: '...',
             name: '...',
             phone: '...',
-            email: '...',
             city: '...',
             state: '...',
             address: '...'
           },
         ],
+        services: [],
         filters: [
           {
             name: 'Location',
@@ -171,10 +162,10 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Facility', value: 'company_name', class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'primary_contact', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
@@ -184,7 +175,6 @@
     async mounted() {
       console.log(this.currentUser);
       await this.getBusinesses();
-      await this.getLocations();
     },
     computed: {
       currentUser() {
@@ -193,19 +183,55 @@
     },
     methods: {
       async getBusinesses() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/').catch(e => e);
-        console.log(data.users);
-        this.businesses = data.users.filter(function(user) {
-          return user.user_type == 1;
-        })
-        console.log(this.businesses);
+        this.locations = [];
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/type/1').catch(e => e);
+        console.log(data);
+        // this.businesses = data.users.filter(function(user) {
+        //   return user.user_type == 1;
+        // })
+        // console.log(this.businesses);
+        await this.getLocations(data);
       },
-      async getLocations() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/').catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
-        this.$nextTick(function() {
-          this.locations = data;
-        })
+      async getLocations(companies) {
+        for (const company of companies) {
+          let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + company.id).catch(e => e);
+          console.log(data);
+          if (this.$error(status, data.message, data.errors)) return;
+          if(data.locations[0] !== 'There are no locations') {
+            for (const location of data.locations) {
+              this.$nextTick(function() {
+                this.locations.push(location);
+                console.log(this.locations);
+              })
+            }
+          } else {
+            console.log('wtf again');
+          }
+        }
+        await this.getServices();
+      },
+      async getServices() {
+        for (const location of this.locations) {
+          let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/services/bylocationid/' + location.id).catch(e => e);
+          if(data) {
+            if(data.message) continue;
+            for (const service of data) {
+              console.log(location);
+              let serviceObj = {
+                id: service.id,
+                location_id: location.id,
+                service: service.name,
+                name: location.name,
+                address: location.address + ' ' + location.city + ', ' + location.state + ' ' + location.zipcode,
+                primary_contact: location.contact_first_name + ' ' + location.contact_last_name,
+                phone: location.phone
+              };
+
+              this.services.push(serviceObj);
+            }
+          }
+        }
+        console.log(this.services);
       },
     },
   }

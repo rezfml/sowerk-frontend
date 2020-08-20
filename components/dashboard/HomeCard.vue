@@ -21,7 +21,10 @@
         >
           <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
-            <v-btn block color="primary" :to="slug + item.id">Review</v-btn>
+            <v-btn block color="primary" :to="slug + item.application_id">Review</v-btn>
+          </template>
+          <template v-slot:item.actions="{ item }" v-else-if="action === 'Apply'">
+            <v-btn block color="primary" :to="slug + item.location_id + '/application-form/' + item.id">Apply</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link

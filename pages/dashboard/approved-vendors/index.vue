@@ -11,10 +11,11 @@
         <v-col cols="9">
           <HomeCard
             title="Approved Vendors"
-            :items="items"
+            :items="companies"
             :tableProperties="headers"
             :viewAll="false"
             slug="/dashboard/approved-vendors/"
+            action="View"
           ></HomeCard>
         </v-col>
       </v-row>
@@ -35,92 +36,92 @@
     },
     data() {
       return {
-        items: [
-          {
-            id: 0,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'JHV HVAC',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          },
-          {
-            id: 1,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'Ben Franklin Plumbing',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          },
-          {
-            id: 2,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'Landscape United LLC.',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          },
-          {
-            id: 3,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          },
-          {
-            id: 4,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          },
-          {
-            id: 5,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          },
-          {
-            id: 6,
-            servicesProvided: [
-              'HVAC',
-              'Electrical'
-            ],
-            companyName: 'Lorem Ipsum',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            address: 'Springfield, MO',
-          }
-        ],
+        // items: [
+        //   {
+        //     id: 0,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'JHV HVAC',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   },
+        //   {
+        //     id: 1,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'Ben Franklin Plumbing',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   },
+        //   {
+        //     id: 2,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'Landscape United LLC.',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   },
+        //   {
+        //     id: 3,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'Lorem Ipsum',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   },
+        //   {
+        //     id: 4,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'Lorem Ipsum',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   },
+        //   {
+        //     id: 5,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'Lorem Ipsum',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   },
+        //   {
+        //     id: 6,
+        //     servicesProvided: [
+        //       'HVAC',
+        //       'Electrical'
+        //     ],
+        //     companyName: 'Lorem Ipsum',
+        //     name: 'Lorem ipsum',
+        //     phone: '1234567890',
+        //     email: 'lorem@ipsum.com',
+        //     address: 'Springfield, MO',
+        //   }
+        // ],
         filters: [
           {
             name: 'Location',
@@ -182,14 +183,38 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'company_name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ]
-
+        ],
+        applications: null,
+        companies: [],
+      }
+    },
+    async mounted() {
+      await this.getApprovedApplications();
+    },
+    methods: {
+      async getApprovedApplications() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/applications/type/1').catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        console.log(data);
+        await this.getApprovedUsers(data);
+      },
+      async getApprovedUsers(applications) {
+        for (const application of applications) {
+          let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
+          console.log(data);
+          await this.getApprovedCompanies(data);
+        }
+        console.log(this.companies);
+      },
+      async getApprovedCompanies(user) {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + user.companies_id).catch(e => e);
+        console.log(data);
+        this.companies.push(data);
       }
     }
   }

@@ -302,7 +302,7 @@
                       </v-row>
                     </v-container>
                   </v-form>
-                  <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="tab = 0;">Edit Information</v-btn>
+                  <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
                 </v-col>
 
 <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
@@ -387,13 +387,14 @@
           description: '',
           phone: '',
           year_founded: '',
+          company_type: true
         },
         user: {
           first_name: '',
           last_name: '',
           email: '',
           password: '',
-          user_type: true,
+          is_superuser: true,
           phone: '',
           companies_id: null
         },
@@ -557,14 +558,14 @@
         await this.postLocations(data.user.companies_id);
       },
       async postLocations(userId) {
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
+        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/byCompaniesId/' + userId, this.locations).catch(e => e);
         // this.loading = false;
         // if (this.$error(status, message, errors)) return;
         console.log('user locations post: ', data);
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byCompaniesId/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data);
       },
@@ -576,23 +577,31 @@
             }
             let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
-            await this.getServicesPerLocation(location.id);
           }
         }
+        await this.postUserformsPerService();
       },
       async getServicesPerLocation(id) {
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + id).catch(e => e);
         console.log(data);
-        await this.postUserformsPerService(data);
       },
-      async postUserformsPerService(services) {
-        for (const service of services) {
-          let userformObject = {
-            name: service.name
+      async getAllServices() {
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + this.user.companies_id).catch(e => e);
+        console.log(data);
+        return data.locations;
+      },
+      async postUserformsPerService() {
+        let locations = await this.getAllServices();
+        console.log(locations);
+        for (const location of locations) {
+          for (const service of location.services) {
+            let userformObject = {
+              name: service.name,
+            }
+            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + service.id, userformObject).catch(e => e);
+            console.log(data);
+            await this.getUserforms(service.id);
           }
-          let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + service.id, userformObject).catch(e => e);
-          console.log(data);
-          await this.getUserforms(service.id);
         }
       },
       async getUserforms(id) {
@@ -606,14 +615,14 @@
             {
               "name": "Company Name",
               "type": "text",
-              "value": "company_name",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "Company Founded",
               "type": "number",
-              "value": "year_founded",
+              "value": "",
               "required": true,
               "options": "",
             },
@@ -627,84 +636,84 @@
             {
               "name": "Service Provided",
               "type": "text",
-              "value": "service",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "First Name",
               "type": "text",
-              "value": "first_name",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "Last Name",
               "type": "text",
-              "value": "last_name",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "Email",
               "type": "email",
-              "value": "email",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "Phone",
               "type": "number",
-              "value": "phone",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "What is your regular time/hour rate for your service?*",
               "type": "text",
-              "value": "rate",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "What are your regular rate hours M-F, 8am - 5pm?*",
               "type": "text",
-              "value": "hours",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "Do you charge for quotes that do not involve a technician?*",
               "type": "text",
-              "value": "charge_for_quotes",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "How quick can you return quotes, once you have all of your pricing?*",
               "type": "text",
-              "value": "return_time",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "What markets do you serve?*",
               "type": "text",
-              "value": "markets",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "What do you consider as local for a service market?*",
               "type": "text",
-              "value": "local",
+              "value": "",
               "required": true,
               "options": "",
             },
             {
               "name": "What other similar businesses do you support?*",
               "type": "text",
-              "value": "similar_businesses",
+              "value": "",
               "required": true,
               "options": "",
             },
@@ -713,6 +722,7 @@
             let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
           }
         }
+        await this.$router.push('/login');
       },
       getTosDate(e) {
         if(e) {
@@ -736,6 +746,9 @@
         console.log(location);
         // this.locations[i] = location;
       },
+      setPage(tab) {
+        this.tab = tab;
+      }
       // saveMarker() {
         // let markers = [];
         // let marker;

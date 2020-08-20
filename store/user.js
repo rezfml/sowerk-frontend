@@ -38,7 +38,7 @@ export const actions = {
       const { data } = await axios.post('https://sowerk-backend.herokuapp.com/api/auth/login', { email, password })
       console.log(data.user);
       commit('login', data.user)
-      this.$router.push('/dashboard/buyer/home');
+      this.$router.push('/dashboard/home');
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')
