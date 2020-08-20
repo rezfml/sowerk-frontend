@@ -2,6 +2,13 @@
   <v-app class="grey lighten-3">
     <v-container class="px-0" style="max-width: 95%;">
       <v-row>
+        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            :size="50"
+          ></v-progress-circular>
+        </v-col>
         <v-col cols="3">
           <FilterCard
             title="Filter"
@@ -45,6 +52,7 @@
     },
     data() {
       return {
+        loading: false,
         locations: [
           {
             id: '...',
@@ -179,6 +187,16 @@
         ]
       }
     },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
+      }
+    },
     mounted() {
       this.getLocations();
     },
@@ -189,7 +207,7 @@
     },
     methods: {
       async getLocations() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.locations = data;

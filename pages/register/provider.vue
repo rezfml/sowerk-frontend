@@ -5,6 +5,13 @@
     style="max-width: 1440px;"
     class="mx-auto py-12"
   >
+    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </v-col>
     <v-col
       cols="12"
     >
@@ -424,6 +431,16 @@
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ]
+      }
+    },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
       }
     },
     methods: {
