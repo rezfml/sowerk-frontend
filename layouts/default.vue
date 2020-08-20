@@ -8,8 +8,8 @@
           <v-btn href="#" text>Home</v-btn>
           <v-btn href="#" text>About</v-btn>
           <v-btn href="#" text>Features</v-btn>
-          <v-btn href="#" text>Register</v-btn>
-          <v-btn href="#" text>Login</v-btn>
+          <v-btn to="/register" text>Register</v-btn>
+          <v-btn to="/login" text>Login</v-btn>
         </v-row>
       </v-container>
     </v-app-bar>
