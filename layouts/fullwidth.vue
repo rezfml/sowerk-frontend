@@ -1,9 +1,9 @@
 <template>
   <v-app dark>
-    <v-app-bar :clipped-left="clipped" fixed app color="transparent" flat>
+    <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0.5)" flat>
       <v-container>
         <v-row>
-          <v-toolbar-title v-text="title" />
+          <v-toolbar-title v-text="title" style="color: white!important; font-weight: bold;"/>
           <v-spacer></v-spacer>
           <v-btn href="#" text color="white">Home</v-btn>
           <v-btn href="#" text color="white">Join SOW</v-btn>
