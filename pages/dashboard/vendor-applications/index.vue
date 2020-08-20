@@ -1,5 +1,12 @@
 <template>
   <v-app class="grey lighten-3">
+    <div cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </div>
     <v-container class="px-0" style="max-width: 95%;">
       <v-row>
         <v-col cols="12">
@@ -30,6 +37,7 @@
     },
     data() {
       return {
+        loading: false,
         filters: [
           {
             name: 'Location',
@@ -151,6 +159,16 @@
           { text: 'Location', value: 'address', class: 'primary--text font-weight-regular' },
           { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ]
+      }
+    },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
       }
     },
     computed: {

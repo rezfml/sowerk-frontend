@@ -217,10 +217,7 @@
       async getLocation() {
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
-        this.$nextTick(function() {
-          this.location = data;
-          console.log(data);
-        })
+        this.location = data;
       },
     }
   }

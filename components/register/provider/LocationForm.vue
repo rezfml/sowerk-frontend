@@ -308,7 +308,6 @@
       async getPlans() {
         let {data: {plans, message, errors}, status} = await this.$http.get('https://api.sowerk.com/v1/chargebees').catch(e => e);
         if (this.$error(status, message, errors)) return;
-        console.log(plans);
         this.plans = plans;
       },
 

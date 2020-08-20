@@ -241,7 +241,6 @@
     },
     methods: {
       emitRadiusSlider(e) {
-        console.log(e);
       },
       emitPlaceChanged(e) {
 
@@ -271,7 +270,6 @@
         this.location.zipcode = addressData.postal_code;
         this.location.latitude = addressData.latitude;
         this.location.longitude = addressData.longitude;
-        console.log(this.location);
       },
       formatFullAddress() {
         if(!this.location.address) return;
@@ -284,7 +282,6 @@
         this.location.zipcode = addressObj.postal_code;
         this.location.latitude = addressObj.latitude;
         this.location.longitude = addressObj.longitude;
-        console.log(this.location);
       },
       getStateFullNameForQuery(place) {
         let location = this.location;

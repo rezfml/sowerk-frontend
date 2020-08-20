@@ -200,20 +200,16 @@
       async getApprovedApplications() {
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/applications/type/1').catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
-        console.log(data);
         await this.getApprovedUsers(data);
       },
       async getApprovedUsers(applications) {
         for (const application of applications) {
           let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
-          console.log(data);
           await this.getApprovedCompanies(data);
         }
-        console.log(this.companies);
       },
       async getApprovedCompanies(user) {
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + user.companies_id).catch(e => e);
-        console.log(data);
         this.companies.push(data);
       }
     }
