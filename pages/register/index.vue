@@ -1,6 +1,6 @@
 <template>
   <v-container class="d-flex flex-column pa-0" style="min-height: 1200px; max-width: none!important; background-image: url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9'); background-size: cover; background-position: center;">
-    <v-row class="d-flex flex-column justify-center" style="height: 100%; background-color: rgba(0,0,0,0.5);">
+    <v-row class="d-flex flex-column justify-center" style="height: 100vh; background-color: rgba(0,0,0,0.5);">
       <v-card width="100%" max-width="1000px" color="grey" class="darken-4 mx-auto px-6 pt-12" style="border-radius: 20px;">
         <v-card-title class="primary mx-auto" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px;"><p class="mx-auto mb-0 text-center white--text" style="font-size: 24px;">Register - Select Account Type</p></v-card-title>
         <v-card-text>
