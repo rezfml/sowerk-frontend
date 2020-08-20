@@ -340,18 +340,14 @@
         this.locationEdit.phone = this.location.phone;
         this.locationEdit.email = this.location.email;
         this.locationEdit.year_founded = this.location.year_founded;
-        console.log(this.locationEdit, 'this.locationEdit');
         this.formatFullAddress(this.locationEdit);
       } else if(this.company) {
-        console.log(this.company);
         this.formatFullAddress(this.company);
       }
     },
     methods: {
       async updateLocation() {
-        console.log(this.locationEdit);
         let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
-        console.log(data);
 
         // this.$nextTick(function() {
         //   this.locationEdit = data;
@@ -361,13 +357,11 @@
       // Since vue-google-autocomplete is not a vuetify input field, we need this method to add a class to the address label to animate it on focus
       animateAddressFieldOnFocus(e) {
         let addressLabel = e.target.previousElementSibling;
-        console.log(addressLabel);
         addressLabel.classList.toggle('v-label--focus');
       },
 
       // Since vue-google-autocomplete is not a vuetify-input-field, we need this method to add a class to the label when filled
       animateAddressFieldOnFilled(e) {
-        console.log('hello');
         // checks if e.target exists
         if(e.target != "") {
           // checks if targets previous element contains a class, if so quit function else add class to previous element

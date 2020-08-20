@@ -184,7 +184,6 @@
     watch: {
       loading: function() {
         if(this.loading){
-          console.log(document);
           document.documentElement.style.overflow = 'hidden'
           return
         }
@@ -204,7 +203,6 @@
         this.$nextTick(function() {
           // this.locations = data;
           this.user = data;
-          console.log(data);
           this.getUserCompany();
         })
       },
@@ -212,7 +210,6 @@
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
-        console.log(data);
         this.loading = false;
       }
     }

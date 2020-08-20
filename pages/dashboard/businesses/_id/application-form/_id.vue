@@ -45,7 +45,6 @@
       }
     },
     async mounted() {
-      console.log(this.$route.params.id);
       this.form_id = this.$route.params.id;
       await this.getUserform();
     },
@@ -58,22 +57,16 @@
       async getUserform() {
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/userforms/' + this.form_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
-        console.log(data);
         this.userform = data;
         for (const field of data.formfields) {
           this.answers.push(field);
-          console.log('field: ', field);
         }
-        console.log(this.answers);
       },
       async submit() {
-        console.log(this.answers);
         let arrayString = JSON.stringify(this.answers);
-        console.log(arrayString);
         this.application.userforms_id = this.form_id;
         this.application.userprofiles_id = this.currentUser.id;
         this.application.subData = arrayString;
-        console.log(this.application);
         let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/applications/byUserformid/' + this.form_id, this.application).catch(e => e);
       }
     }

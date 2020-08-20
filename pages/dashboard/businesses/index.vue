@@ -1,5 +1,12 @@
 <template>
   <v-app class="grey lighten-3">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </div>
     <v-container class="px-0" style="max-width: 95%;">
       <v-row>
         <v-col cols="3">
@@ -37,6 +44,7 @@
     },
     data() {
       return {
+        loading: false,
         locations: [
           {
             id: '...',
@@ -172,8 +180,17 @@
         businesses: null
       }
     },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
+      }
+    },
     async mounted() {
-      console.log(this.currentUser);
       await this.getBusinesses();
     },
     computed: {
@@ -183,9 +200,9 @@
     },
     methods: {
       async getBusinesses() {
+        this.loading = true;
         this.locations = [];
         let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/type/1').catch(e => e);
-        console.log(data);
         // this.businesses = data.users.filter(function(user) {
         //   return user.user_type == 1;
         // })
@@ -195,17 +212,14 @@
       async getLocations(companies) {
         for (const company of companies) {
           let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + company.id).catch(e => e);
-          console.log(data);
           if (this.$error(status, data.message, data.errors)) return;
           if(data.locations[0] !== 'There are no locations') {
             for (const location of data.locations) {
               this.$nextTick(function() {
                 this.locations.push(location);
-                console.log(this.locations);
               })
             }
           } else {
-            console.log('wtf again');
           }
         }
         await this.getServices();
@@ -216,7 +230,6 @@
           if(data) {
             if(data.message) continue;
             for (const service of data) {
-              console.log(location);
               let serviceObj = {
                 id: service.id,
                 location_id: location.id,
@@ -231,7 +244,7 @@
             }
           }
         }
-        console.log(this.services);
+        this.loading = false;
       },
     },
   }
