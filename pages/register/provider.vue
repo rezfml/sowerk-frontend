@@ -91,7 +91,6 @@
 
                       <v-col cols="12" md="6">
                         <v-text-field
-                          id="password"
                           label="Password*"
                           type="password"
                           v-model="user.password"
@@ -100,7 +99,6 @@
 
                       <v-col cols="12" md="6">
                         <v-text-field
-                          id="confirm"
                           label="Confirm Password*"
                           type="password"
                         ></v-text-field>
@@ -113,7 +111,6 @@
 
                       <v-col cols="12" sm="6">
                         <v-text-field
-                          id="company"
                           label="Company Name*"
                           type="text"
                           v-model="company.company_name"
@@ -125,6 +122,22 @@
                           label="Year Business Was Founded*"
                           type="text"
                           v-model="company.year_founded"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" sm="6">
+                        <v-text-field
+                          label="Company Email*"
+                          type="email"
+                          v-model="company.email"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          label="Company Phone*"
+                          type="text"
+                          v-model="company.phone"
                         ></v-text-field>
                       </v-col>
 
@@ -233,7 +246,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.rep_name"
+                            v-model="user.rep_name"
                           >
                           </v-text-field>
                         </v-col>
@@ -243,7 +256,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.email"
+                            v-model="user.email"
                           >
                           </v-text-field>
                         </v-col>
@@ -252,7 +265,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.phone"
+                            v-model="user.phone"
                           >
                           </v-text-field>
                         </v-col>
@@ -389,9 +402,6 @@
           'Landscaping',
           'Plumber',
           'Electrician',
-          'Painting',
-          'Paving',
-          'Pest Control'
         ],
         fullAddress: null,
         locations: [],
@@ -526,6 +536,7 @@
         this.company.zipcode = addressObj.postal_code;
       },
       async register() {
+        this.loading = true;
         console.log(this.company);
         console.log(this.locations);
         let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
@@ -566,6 +577,7 @@
             console.log(data);
           }
         }
+        this.loading = false;
         await this.$router.push('/login');
       },
       formatServices() {
