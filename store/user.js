@@ -35,7 +35,7 @@ export const getters = {
 export const actions = {
   async login ({ commit }, { email, password }) {
     try {
-      const { data } = await axios.post('https://sowerk-backend.herokuapp.com/api/auth/login', { email, password })
+      const { data } = await axios.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/login', { email, password })
       console.log(data.user);
       commit('login', data.user)
       this.$router.push('/dashboard/home');

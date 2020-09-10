@@ -55,7 +55,7 @@
     },
     methods: {
       async getUserform() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/userforms/' + this.form_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/' + this.form_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.userform = data;
         for (const field of data.formfields) {
@@ -67,7 +67,7 @@
         this.application.userforms_id = this.form_id;
         this.application.userprofiles_id = this.currentUser.id;
         this.application.subData = arrayString;
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/applications/byUserformid/' + this.form_id, this.application).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byUserformid/' + this.form_id, this.application).catch(e => e);
       }
     }
   }

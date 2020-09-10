@@ -327,7 +327,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       async submit() {
         console.log(this.currentUser);
         console.log(this.form);
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/locations/byUserId/' + this.currentUser.id, this.form).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byUserId/' + this.currentUser.id, this.form).catch(e => e);
         console.log(data);
       }
     }

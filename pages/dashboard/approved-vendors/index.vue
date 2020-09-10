@@ -198,18 +198,18 @@
     },
     methods: {
       async getApprovedApplications() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/applications/type/1').catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/type/1').catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         await this.getApprovedUsers(data);
       },
       async getApprovedUsers(applications) {
         for (const application of applications) {
-          let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
+          let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
           await this.getApprovedCompanies(data);
         }
       },
       async getApprovedCompanies(user) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + user.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + user.companies_id).catch(e => e);
         this.companies.push(data);
       }
     }
