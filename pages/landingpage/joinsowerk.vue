@@ -1,0 +1,435 @@
+<template>
+  <div id="joincontainer">
+    <section class="joinhero">
+      <div class="joinherotext">
+        <h1>SOWERK</h1> <!-- This needs to be an img idk where it is located though -->
+        <h1>The Approved Vendor Platform</h1>
+        <p>The Link Between Service Providers & Businesses</p>
+        <div>
+          <button>SERVICE PROVIDERS</button>
+          <button>PROPERTY & FACILITY MANAGERS</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="joinlink">
+      <h1>SOWerk Is The Link Between Service Providers and Property & Facility Managers</h1>
+      <div class="joinlinkflex">
+        <div class="joinlinkflexcolumn">
+          <h4>Property & Facility Managers</h4>
+          <img />
+          <p>Our business to business platform provides companies and property managers the tools to effiecently identify, vet, and manage service providers for each of their locations.</p>
+          <ul>
+            <li>Retail & Hospitality Chains</li>
+            <li>Commercial Real Estate Properties</li>
+            <li>Manufacturing Facilities</li>
+            <li>Warehouse & Distribution</li>
+            <li>Governments</li>
+            <li>Restaurant Groups</li>
+          </ul>
+          <button>PROPERTY & FACILITY MANAGERS LEARN MORE</button>
+        </div>
+        <img />
+        <div class="joinlinkflexcolumn">
+          <h4>Service Providers</h4>
+          <img />
+          <p>For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners</p>
+          <div>
+            <ul>
+              <li>Electrician</li>
+              <li>HVAC</li>
+              <li>Plumber</li>
+              <li>Landscaper</li>
+              <li>Printing</li>
+              <li>Paving</li>
+            </ul>
+            <ul>
+              <li>Excavation</li>
+              <li>Pest Control</li>
+              <li>Waste</li>
+              <li>Engineer</li>
+              <li>General Contractor</li>
+            </ul>
+          </div>
+          <button>SERVICE PROVIDERS LEARN MORE</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="joincaroselreview">
+      <div>CAROSEL</div>
+    </section>
+
+    <section class="jointraits">
+      <div class="jointrait">
+        <img />
+        <h5>Simple & Fast</h5>
+        <p>Our simple design makes connecting with other companies quick and painless while using either the desktop or mobile app.</p>
+      </div>
+      <div class="jointrait">
+        <img />
+        <h5>Powerful Tools</h5>
+        <p>SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.</p>
+      </div>
+      <div class="jointrait">
+        <img />
+        <h5>Automated</h5>
+        <p>SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status. </p>
+      </div>
+      <div class="jointrait">
+        <img />
+        <h5>Convenient</h5>
+        <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
+      </div>
+    </section>
+
+    <section class="joinvideo">
+      <video></video>
+    </section>
+
+    <section class="joinconnection">
+      <div class="joinconnectioncolumn">
+        <h1>Property & Facility</h1>
+        <div class="joinconnectioncontainer">
+          <div class="joinconnectioncontainerbox">
+            <img />
+            <h3>1. Create Account and Vet Vendors</h3>
+            <p>In less than 15 minutes, you can have multiple locations setup with dedicated staff accounts and live questionnaires vetting local & national service providers. </p>
+          </div>
+          <img />
+          <div class="joinconnectioncontainerbox">
+            <img />
+            <h3>2. Vendor Management & RFP</h3>
+            <p>When you need a service at one of your properties, SOWerk makes it easy to communicate in one click to your approved vendors the request for a bid. </p>
+          </div>
+          <button>See All Features</button>
+        </div>
+      </div>
+      <img />
+      <div class="joinconnectioncolumn">
+        <h1>Service Providers</h1>
+        <div class="joinconnectioncontainer">
+          <div class="joinconnectioncontainerbox">
+            <img />
+            <h3>1. Build A Profile</h3>
+            <p>SOWerk makes it easy & quick for you to show off your brand, company background, and we help promote all companies where you are an approved vendor. Your SOWerk profile is both easy and powerful. </p>
+          </div>
+          <img />
+          <div class="joinconnectioncontainerbox">
+            <img />
+            <h3>2. Approved Vendor Status</h3>
+            <p>Use your profile to qualify for approve vendor status in as little as one click. </p>
+          </div>
+          <img/>
+          <div class="joinconnectioncontainerbox">
+            <img />
+            <h3>3. Get The Job</h3>
+            <p>We make it easy and powerful for businesses to communicate their needs to approved vendors. We also make it easy for you to react quickly with a bid. </p>
+          </div>
+          <button>See All Features</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="joinreviews">
+      <h1>SOWerk Reviews</h1>
+      <h6>See what current users think about SOWerk!</h6>
+      <div class="joinreviewsflex">
+        <div>
+          <h2>Amazing Application!!!</h2>
+          <p>“SOWerk nailed it… An all in one mobile app for service companies like ours to connect with facility managers. It’s like a job board + LinkedIn for our cleaning business”</p>
+          <h5>- Cathy M.</h5>
+        </div>
+        <div>
+          <h2>Better Property Management</h2>
+          <p>“No more just googling a service company near one of our properties and hoping they work out, not to mention aking them for proof of insurance. I wish I had thought of SOWerk”</p>
+          <h5>- Joe B.</h5>
+        </div>
+      </div>
+    </section>
+
+    <section class="joinfaq">
+      <h1>Property and Facility Managers Often Ask</h1>
+      <div class="joinfaqflex">
+        <img />
+        <div>
+          <h4>Is This Going To Create More Work For Me?</h4>
+          <p>Actually, we designed SOWerk to be less work for you. Think of SOWerk like connecting with service providers on social media, except they have to meet your approved provider requirements. From here you can easily manage and communicate with your approved service providers.  </p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <img />
+        <div>
+          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
+          <p>If time is money and quality is everything then yes SOWerk can help. SOWerk makes it efficent for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers requalify annualy on things like insurance coverage and licenses so you don’t have to.</p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <img />
+        <div>
+          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
+          <p>Sales is part of any business but sometimes you just need place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </p>
+        </div>
+      </div>
+      <button>PROPERTY & FACILITY LEARN MORE</button>
+      <h1>Service Providers Generally Ask</h1>
+      <div class="joinfaqflex">
+        <img />
+        <div>
+          <h4>Do I Seriously Get More Jobs?</h4>
+          <p>Yes, Property & Facility managers of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet service providers request bids.<p>
+          <p>SOWerk also helps you look good when applying for approved vendor programs, but we also make it easy to share those good looks with others. Next time your bidding a job show off your resume by emailing or texting your SOWerk profile.</p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <img />
+        <div>
+          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
+          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+          <p>With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs</p>
+          <p>Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.</p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <img />
+        <div>
+          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
+          <p>Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program.<p>
+          <p>Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features we offer a few packages. Details can be found on our Approved Provider Pricing page.</p>
+        </div>
+      </div>
+      <button>SERVICE PROVIDER LEARN MORE</button>
+    </section>
+  </div>
+</template>
+
+<script>
+
+</script>
+
+<style scoped>
+  #joincontainer{
+    width: 100%;
+    padding: 0px !important;
+  }
+  .joinhero{
+    background: url('img/construction-645465 copy.jpg');
+    background-size: 100%;
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .joinherotext{
+    background: rgb(0, 0, 0, 0.65);
+    border-radius: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .joinherotext h1, .joinherotext p, .joinherotext button {
+    color: rgb(255, 255, 255, 1);
+  }
+  .joinherotext div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .joinherotext button {
+    background: red;
+    border-radius: 25px;
+    width: 45%;
+    margin: 0px 2.5% 20px 2.5%;
+    padding: 10px 0px 10px 0px;
+  }
+
+  .joinlink {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: red;
+  }
+  .joinlinkflex {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+  }
+  .joinlink .joinlinkflex .joinlinkflexcolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin: 10px 2% 20px 2%;
+    border-radius: 20px;
+    background: white;
+  }
+  .joinlink .joinlinkflex .joinlinkflexcolumn img {
+    width: 6%;
+  }
+  .joinlinkflexcolumn div {
+    display: flex;
+    justify-content: center;
+  }
+  .joinlinkflexcolumn div ul {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .joinlinkflexcolumn button {
+    background: red;
+    width: 80%;
+    margin: 20px 10%;
+    padding: 5px 10px 5px 10px;
+    color: white;
+    border-radius: 20px;
+    font-size: 18px;
+    font-family: Roboto;
+  }
+
+  .joincaroselreview {
+    background: #151515;
+    height: 30vh;
+    width: 100%;
+  }
+  .jointraits {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #2B2B2B;
+  }
+
+  .jointrait {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 20px;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: -75px;
+    margin-bottom: 25px;
+  }
+
+  .joinvideo{
+    background: #151515;
+    height: 30vh;
+  }
+
+  .joinconnection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2B2B2B;
+  }
+  .joinconnection h1 {
+    color: white;
+  }
+
+  .joinconnection .joinconnectioncolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    margin: 20px 10px 20px 10px;
+  }
+  .joinconnectioncolumn:nth-child(1){
+    border-top: 1px solid red;
+    border-left: 1px solid red;
+    border-right: none !important;
+    border-bottom: 1px solid red;
+    padding: 20px 10px 20px 10px;
+  }
+  .joinconnectioncolumn:nth-last-child(1n + 1){
+    border-top: 1px solid red;
+    border-right: 1px solid red;
+    border-bottom: 1px solid red;
+    padding: 20px 10px 20px 10px;
+  }
+  .joinconnectioncolumn .joinconnectioncontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+  }
+  .joinconnectioncolumn .joinconnectioncontainer button{
+    background: red;
+    color: white;
+    border-radius: 20px;
+    width: 50%;
+  }
+
+  .joinreviews{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: red;
+    color: white;
+  }
+  .joinreviewsflex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .joinreviewsflex div{
+    width: 40%;
+    margin: 20px 10% 20px 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    color: #151515;
+    border-radius: 20px;
+  }
+
+  .joinfaq {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .joinfaq h1 {
+    color: red;
+  }
+  .joinfaq .joinfaqflex {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+  }
+  .joinfaq .joinfaqflex img {
+    width: 10%;
+    margin-right: 3%;
+  }
+  .joinfaq .joinfaqflex div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 87%;
+  }
+  .joinfaq button {
+    background: red;
+    color: white;
+    width: 40%;
+  }
+</style>

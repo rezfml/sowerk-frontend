@@ -1,0 +1,358 @@
+<template>
+  <div id="landingcontainer">
+    <section class="landinghomehero">
+      <div class="landinghomeherotext">
+        <h1>SOWERK</h1> <!-- This needs to be an img idk where it is located though -->
+        <h1>The Approved Vendor Platform</h1>
+        <p>The Link Between Service Providers & Businesses</p>
+        <button>LEARN MORE</button>
+      </div>
+    </section>
+
+    <section class="landinghomepf">
+      <h4>SOWerk Property & Facility Accounts</h4>
+      <div>Carousel</div>
+      <button>VIEW ALL</button>
+    </section>
+
+    <section class="landinghomelink">
+      <div class="landinghomelinktext">
+        <h4>SOWerk is the link between Service Providers and
+          Property & Facility Managers</h4>
+        <div class="landinghomelinkfleximg">
+          <img src="./img/Untitled_Artwork 3 copy.png" />
+          <img src="./img/next copy.png"/>
+          <img src="./img/Untitled_Artwork 2 copy 2.png"/>
+        </div>
+        <p>Our business to business platform provides companies and property managers the tools to efficiently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners.</p>
+        <button>LEARN MORE</button>
+      </div>
+    </section>
+
+    <section class="landinghomesp">
+      <h4>SOWerk Service Provider Accounts</h4>
+      <div>Carousel</div>
+      <button>VIEW ALL</button>
+    </section>
+
+    <section class="landinghomereview">
+      <h1>SOWerk Reviews</h1>
+      <p>See what current users think about SOWerk!</p>
+      <div class="landinghomereviewflex">
+        <div>
+          <h4>Amazing Application!!!</h4>
+          <p>“SOWerk nailed it… An all in one mobile app for facility managers and service companies. It’s like a Job board + LinkedIn”</p>
+          <h4>- Cathy M.</h4>
+        </div>
+        <div>
+          <h4>Secured My Trust!</h4>
+          <p>“No more just googling a service company near one of our properties and hoping they work out, not to mention aking them for proof of insurance. I wish I had thought of SOWerk”</p>
+          <h4>- Joe B.</h4>
+        </div>
+      </div>
+    </section>
+
+    <section class="landinghomejoin">
+      <div class="landinghomejoinflex">
+        <img src="" alt="mac"/>
+        <div class="landinghomejoincolumn">
+          <h2>JOIN SOWERK NOW</h2>
+          <p>Register now and start making connections today. Our simple three step registration process makes it simple and easy to build your account and connect property & facility managers and service providers.</p>
+          <div>
+            <button>LEARN MORE - SERVICE PROVIDER </button>
+            <button>LEARN MORE - PROPERTY & FACILITY</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="landinghomevideo">
+      <video></video>
+    </section>
+
+    <section class="landinghomefaq">
+      <h1>Property and Facility Managers Often Ask</h1>
+      <div class="landinghomefaqflex">
+        <img />
+        <div>
+          <h4>Is This Going To Create More Work For Me?</h4>
+          <p>Actually, we designed SOWerk to be less work for you. Think of SOWerk like connecting with service providers on social media, except they have to meet your approved provider requirements. From here you can easily manage and communicate with your approved service providers.  </p>
+        </div>
+      </div>
+      <div class="landinghomefaqflex">
+        <img />
+        <div>
+          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
+          <p>If time is money and quality is everything then yes SOWerk can help. SOWerk makes it efficent for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers requalify annualy on things like insurance coverage and licenses so you don’t have to.</p>
+        </div>
+      </div>
+      <div class="landinghomefaqflex">
+        <img />
+        <div>
+          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
+          <p>Sales is part of any business but sometimes you just need place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </p>
+        </div>
+      </div>
+      <button>PROPERTY & FACILITY LEARN MORE</button>
+      <h1>Service Providers Generally Ask</h1>
+      <div class="landinghomefaqflex">
+        <img />
+        <div>
+          <h4>Do I Seriously Get More Jobs?</h4>
+          <p>Yes, Property & Facility managers of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet service providers request bids.<p>
+          <p>SOWerk also helps you look good when applying for approved vendor programs, but we also make it easy to share those good looks with others. Next time your bidding a job show off your resume by emailing or texting your SOWerk profile.</p>
+        </div>
+      </div>
+      <div class="landinghomefaqflex">
+        <img />
+        <div>
+          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
+          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+          <p>With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs</p>
+          <p>Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.</p>
+        </div>
+      </div>
+      <div class="landinghomefaqflex">
+        <img />
+        <div>
+          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
+          <p>Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program.<p>
+          <p>Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features we offer a few packages. Details can be found on our Approved Provider Pricing page.</p>
+        </div>
+      </div>
+      <button>SERVICE PROVIDER LEARN MORE</button>
+    </section>
+  </div>
+</template>
+
+<script>
+
+  export default {
+  }
+</script>
+
+<style scoped>
+  #landingcontainer{
+    width: 100%;
+    padding: 0px !important;
+  }
+  .landinghomehero{
+    background: url('img/write-593333.jpg');
+    background-size: 100%;
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .landinghomeherotext{
+    background: rgb(0, 0, 0, 0.65);
+    border-radius: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .landinghomeherotext h1, .landinghomeherotext p, .landinghomeherotext button {
+    color: rgb(255, 255, 255, 1);
+  }
+
+  .landinghomeherotext button {
+    background: red;
+    border-radius: 25px;
+    width: 40%;
+    padding: 10px 0px 10px 0px;
+  }
+
+  .landinghomepf{
+    background: #151515;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .landinghomepf h4 {
+    color: white;
+    margin-top: 20px;
+  }
+
+  .landinghomepf div {
+    color: white;
+  }
+
+  .landinghomepf button {
+    background: red;
+    width: 45%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .landinghomesp{
+    background: #151515;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .landinghomesp h4 {
+    color: white;
+    margin-top: 20px;
+  }
+
+  .landinghomesp div {
+    color: white;
+  }
+
+  .landinghomesp button {
+    background: red;
+    width: 45%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .landinghomelink {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: gray;
+  }
+
+  .landinghomelinktext {
+    background: rgb(255, 255, 255, 1);
+    border-radius: 25px;
+    width: 80%;
+    margin: 50px 0px 50px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .landinghomelinkfleximg {
+    width: 100%;
+    display: flex;
+  }
+  .landinghomelinkfleximg img {
+    width: 32%;
+    margin: 0 auto;
+  }
+
+  .landinghomereview {
+    background: red;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .landinghomereviewflex {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .landinghomereviewflex div {
+    background: white;
+    color: black;
+    width: 45%;
+    height: 30vh;
+    margin: 0 auto;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .landinghomereviewflex div p {
+    width: 80%;
+    margin: 10px 10% 10px 10%;
+    text-align: center;
+  }
+
+  .landinghomejoin {
+    background: white;
+    display: flex;
+    width: 100%;
+  }
+  .landinghomejoin .landinghomejoinflex img {
+    width: 30%;
+  }
+  .landinghomejoin .landinghomejoinflex {
+    display: flex;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 2.5% 20px 2.5%;
+  }
+  .landinghomejoin .landinghomejoinflex .landinghomejoincolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+  }
+
+  .landinghomejoincolumn h2 {
+    color: red;
+  }
+
+  .landinghomejoincolumn div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .landinghomejoincolumn div button {
+    background: red;
+    color: white;
+    width: 45%;
+    margin: 0 auto;
+    border-radius: 20px;
+  }
+
+  /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
+  .landinghomevideo{
+    background: black;
+    width: 100%;
+    height: 20vh;
+  }
+
+  .landinghomefaq {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomefaq h1 {
+    color: red;
+  }
+  .landinghomefaq .landinghomefaqflex {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+  }
+  .landinghomefaq .landinghomefaqflex img {
+    width: 10%;
+    margin-right: 3%;
+  }
+  .landinghomefaq .landinghomefaqflex div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 87%;
+  }
+  .landinghomefaq button {
+    background: red;
+    color: white;
+    width: 40%;
+  }
+</style scoped>
