@@ -2,11 +2,14 @@
   <div id="landingcontainer">
     <section class="landinghomehero">
       <div class="landinghomeherotext">
-        <h1>SOWERK</h1> <!-- This needs to be an img idk where it is located though -->
+        <img src="./img/SoWork Logo-153.png" /> <!-- This needs to be an img idk where it is located though -->
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <button>LEARN MORE</button>
       </div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
     </section>
 
     <section class="landinghomepf">
@@ -17,11 +20,10 @@
 
     <section class="landinghomelink">
       <div class="landinghomelinktext">
-        <h4>SOWerk is the link between Service Providers and
-          Property & Facility Managers</h4>
+        <h4>SOWerk is the link between Service Providers and Property & Facility Managers</h4>
         <div class="landinghomelinkfleximg">
           <img src="./img/Untitled_Artwork 3 copy.png" />
-          <img src="./img/next copy.png"/>
+          <img src="./img/red-arrow-icon-vector-eps-600w-1715070490.webp"/>
           <img src="./img/Untitled_Artwork 2 copy 2.png"/>
         </div>
         <p>Our business to business platform provides companies and property managers the tools to efficiently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners.</p>
@@ -42,19 +44,20 @@
         <div>
           <h4>Amazing Application!!!</h4>
           <p>“SOWerk nailed it… An all in one mobile app for facility managers and service companies. It’s like a Job board + LinkedIn”</p>
-          <h4>- Cathy M.</h4>
+          <p>- Cathy M.</p>
         </div>
         <div>
           <h4>Secured My Trust!</h4>
           <p>“No more just googling a service company near one of our properties and hoping they work out, not to mention aking them for proof of insurance. I wish I had thought of SOWerk”</p>
-          <h4>- Joe B.</h4>
+          <p>- Joe B.</p>
         </div>
       </div>
     </section>
 
     <section class="landinghomejoin">
       <div class="landinghomejoinflex">
-        <img src="" alt="mac"/>
+        <img class='iphonephoto' src="./img/Iphone Mockup copy.png" alt="mac"/>
+        <img class='macphoto' src="./img/Crop this pic copy.png" alt="" />
         <div class="landinghomejoincolumn">
           <h2>JOIN SOWERK NOW</h2>
           <p>Register now and start making connections today. Our simple three step registration process makes it simple and easy to build your account and connect property & facility managers and service providers.</p>
@@ -135,15 +138,20 @@
   #landingcontainer{
     width: 100%;
     padding: 0px !important;
+    font-family: Roboto;
   }
   .landinghomehero{
     background: url('img/write-593333.jpg');
     background-size: 100%;
     width: 100%;
-    height: 50vh;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+  }
+  .landinghomehero svg {
+    width: 100%;
+    height: 9vh;
+    fill: #151515;
   }
   .landinghomeherotext{
     background: rgb(0, 0, 0, 0.65);
@@ -153,17 +161,32 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 100px;
   }
 
   .landinghomeherotext h1, .landinghomeherotext p, .landinghomeherotext button {
     color: rgb(255, 255, 255, 1);
   }
+  .landinghomeherotext img {
+    width: 50%;
+    margin-top: -200px;
+    height: 600px;
+  }
+  .landinghomeherotext h1 {
+    margin-top: -250px;
+    font-size: 55px;
+  }
+  .landinghomeherotext p{
+    font-size: 23px;
+  }
 
   .landinghomeherotext button {
-    background: red;
-    border-radius: 25px;
-    width: 40%;
-    padding: 10px 0px 10px 0px;
+    background: #A61C00;
+    border-radius: 20px;
+    width: 30%;
+    padding: 20px 0px 20px 0px;
+    margin-bottom: 50px;
+    font-size: 20px;
   }
 
   .landinghomepf{
@@ -177,6 +200,7 @@
   .landinghomepf h4 {
     color: white;
     margin-top: 20px;
+    font-size: 30px;
   }
 
   .landinghomepf div {
@@ -184,10 +208,12 @@
   }
 
   .landinghomepf button {
-    background: red;
+    background: #A61C00;
     width: 45%;
     border-radius: 20px;
     margin-bottom: 20px;
+    padding: 15px 0px 15px 0px;
+    color: white;
   }
   .landinghomesp{
     background: #151515;
@@ -200,6 +226,7 @@
   .landinghomesp h4 {
     color: white;
     margin-top: 20px;
+    font-size: 30px;
   }
 
   .landinghomesp div {
@@ -207,10 +234,12 @@
   }
 
   .landinghomesp button {
-    background: red;
+    background: #A61C00;
     width: 45%;
     border-radius: 20px;
     margin-bottom: 20px;
+    padding: 15px 0px 15px 0px;
+    color: white;
   }
 
   .landinghomelink {
@@ -219,31 +248,66 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: gray;
+    background-image: url("./img/Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-size: cover;
   }
 
   .landinghomelinktext {
     background: rgb(255, 255, 255, 1);
-    border-radius: 25px;
-    width: 80%;
+    border-radius: 20px;
+    width: 60%;
     margin: 50px 0px 50px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
-
+  .landinghomelinktext h4 {
+    width: 65%;
+    color: #A61C00;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .landinghomelinktext p {
+    color: #2E2E2E;
+    width: 85%;
+    font-size: 22px;
+    text-align: center;
+    margin: 25px 0px 25px 0px;
+  }
+  .landinghomelinktext button{
+    background: #a61c00;
+    color: white;
+    width: 40%;
+    padding: 15px 0px 15px 0px;
+    margin: 0px 0px 25px 0px;
+    border-radius: 20px;
+  }
   .landinghomelinkfleximg {
-    width: 100%;
+    width: 80%;
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .landinghomelinkfleximg img {
     width: 32%;
     margin: 0 auto;
   }
-
+  .landinghomelinkfleximg img:first-child {
+    border: 1px solid #A61C00;
+    border-radius: 20px;
+    padding-top: 150px;
+    padding-bottom: 0px;
+  }
+  .landinghomelinkfleximg img:last-child {
+    border: 1px solid #A61C00;
+    border-radius: 20px;
+    padding-bottom: 150px;
+  }
   .landinghomereview {
-    background: red;
+    background: #A61C00;
     color: white;
     display: flex;
     flex-direction: column;
@@ -251,7 +315,12 @@
     justify-content: center;
     width: 100%;
   }
-
+  .landinghomereview h1 {
+    font-size: 55px;
+  }
+  .landinghomereview p {
+    font-size: 18px;
+  }
   .landinghomereviewflex {
     display: flex;
     width: 80%;
@@ -287,6 +356,16 @@
   .landinghomejoin .landinghomejoinflex img {
     width: 30%;
   }
+  .landinghomejoin .landinghomejoinflex .macphoto {
+    position: relative;
+    right: 385px;
+    width: 800px;
+  }
+  .iphonephoto {
+    z-index: 1;
+    position: relative;
+    top: 25px;
+  }
   .landinghomejoin .landinghomejoinflex {
     display: flex;
     width: 95%;
@@ -298,11 +377,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
+    width: 800px;
+    margin-left: -500px;
   }
 
   .landinghomejoincolumn h2 {
-    color: red;
+    color: #A61C00;
+    font-size: 35px;
+  }
+  .landinghomejoincolumn p {
+    font-size: 18px;
   }
 
   .landinghomejoincolumn div {
@@ -312,11 +396,13 @@
   }
 
   .landinghomejoincolumn div button {
-    background: red;
+    background: #A61C00;
     color: white;
     width: 45%;
     margin: 0 auto;
     border-radius: 20px;
+    font-size: 18px;
+    padding: 10px 0px 10px 0px;
   }
 
   /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
@@ -333,11 +419,13 @@
     align-items: center;
   }
   .landinghomefaq h1 {
-    color: red;
+    color: #A61C00;
+    font-size: 55px;
+    margin-top: 20px;
   }
   .landinghomefaq .landinghomefaqflex {
     display: flex;
-    width: 50%;
+    width: 65%;
     justify-content: center;
   }
   .landinghomefaq .landinghomefaqflex img {
@@ -350,9 +438,19 @@
     align-items: flex-start;
     width: 87%;
   }
+  .landinghomefaq h4 {
+    font-size: 25px;
+    margin-top: 20px;
+  }
+  .landinghomefaq p {
+    font-size: 18px;
+    margin-left: 30px;
+  }
   .landinghomefaq button {
-    background: red;
+    background: #A61C00;
     color: white;
     width: 40%;
+    border-radius: 20px;
+    padding: 10px 0px 10px 0px;
   }
 </style scoped>
