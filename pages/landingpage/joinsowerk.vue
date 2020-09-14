@@ -2,7 +2,7 @@
   <div id="joincontainer">
     <section class="joinhero">
       <div class="joinherotext">
-        <h1>SOWERK</h1> <!-- This needs to be an img idk where it is located though -->
+        <img src="./img/SoWork Logo-153.png" /> <!-- This needs to be an img idk where it is located though -->
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <div>
@@ -10,6 +10,9 @@
           <button>PROPERTY & FACILITY MANAGERS</button>
         </div>
       </div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
     </section>
 
     <section class="joinlink">
@@ -17,7 +20,7 @@
       <div class="joinlinkflex">
         <div class="joinlinkflexcolumn">
           <h4>Property & Facility Managers</h4>
-          <img />
+          <img src=".\img\urban copy (1).png"/>
           <p>Our business to business platform provides companies and property managers the tools to effiecently identify, vet, and manage service providers for each of their locations.</p>
           <ul>
             <li>Retail & Hospitality Chains</li>
@@ -32,7 +35,7 @@
         <img />
         <div class="joinlinkflexcolumn">
           <h4>Service Providers</h4>
-          <img />
+          <img src=".\img\worker copy (1).png"/>
           <p>For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners</p>
           <div>
             <ul>
@@ -62,22 +65,22 @@
 
     <section class="jointraits">
       <div class="jointrait">
-        <img />
+        <img src=".\img\checkmark copy.png"/>
         <h5>Simple & Fast</h5>
         <p>Our simple design makes connecting with other companies quick and painless while using either the desktop or mobile app.</p>
       </div>
       <div class="jointrait">
-        <img />
+        <img src=".\img\dashboard copy.png"/>
         <h5>Powerful Tools</h5>
         <p>SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.</p>
       </div>
       <div class="jointrait">
-        <img />
+        <img src=".\img\network copy.png"/>
         <h5>Automated</h5>
         <p>SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status. </p>
       </div>
       <div class="jointrait">
-        <img />
+        <img src=".\img\opinion copy.png"/>
         <h5>Convenient</h5>
         <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
       </div>
@@ -90,15 +93,14 @@
     <section class="joinconnection">
       <div class="joinconnectioncolumn">
         <h1>Property & Facility</h1>
-        <div class="joinconnectioncontainer">
+        <div class="joinconnectioncontainer border1">
           <div class="joinconnectioncontainerbox">
-            <img />
+            <img src=".\img\profile (2) copy.png"/>
             <h3>1. Create Account and Vet Vendors</h3>
             <p>In less than 15 minutes, you can have multiple locations setup with dedicated staff accounts and live questionnaires vetting local & national service providers. </p>
           </div>
-          <img />
           <div class="joinconnectioncontainerbox">
-            <img />
+            <img src=".\img\share copy.png"/>
             <h3>2. Vendor Management & RFP</h3>
             <p>When you need a service at one of your properties, SOWerk makes it easy to communicate in one click to your approved vendors the request for a bid. </p>
           </div>
@@ -108,21 +110,19 @@
       <img />
       <div class="joinconnectioncolumn">
         <h1>Service Providers</h1>
-        <div class="joinconnectioncontainer">
+        <div class="joinconnectioncontainer border2">
           <div class="joinconnectioncontainerbox">
-            <img />
+            <img src=".\img\profile (1) copy.png"/>
             <h3>1. Build A Profile</h3>
             <p>SOWerk makes it easy & quick for you to show off your brand, company background, and we help promote all companies where you are an approved vendor. Your SOWerk profile is both easy and powerful. </p>
           </div>
-          <img />
           <div class="joinconnectioncontainerbox">
-            <img />
+            <img src=".\img\profile copy.png"/>
             <h3>2. Approved Vendor Status</h3>
             <p>Use your profile to qualify for approve vendor status in as little as one click. </p>
           </div>
-          <img/>
           <div class="joinconnectioncontainerbox">
-            <img />
+            <img src=".\img\app copy.png"/>
             <h3>3. Get The Job</h3>
             <p>We make it easy and powerful for businesses to communicate their needs to approved vendors. We also make it easy for you to react quickly with a bid. </p>
           </div>
@@ -133,17 +133,17 @@
 
     <section class="joinreviews">
       <h1>SOWerk Reviews</h1>
-      <h6>See what current users think about SOWerk!</h6>
+      <p>See what current users think about SOWerk!</p>
       <div class="joinreviewsflex">
         <div>
-          <h2>Amazing Application!!!</h2>
+          <h4>Amazing Application!!!</h4>
           <p>“SOWerk nailed it… An all in one mobile app for service companies like ours to connect with facility managers. It’s like a job board + LinkedIn for our cleaning business”</p>
-          <h5>- Cathy M.</h5>
+          <p>- Cathy M.</p>
         </div>
         <div>
-          <h2>Better Property Management</h2>
+          <h4>Better Property Management</h4>
           <p>“No more just googling a service company near one of our properties and hoping they work out, not to mention aking them for proof of insurance. I wish I had thought of SOWerk”</p>
-          <h5>- Joe B.</h5>
+          <p>- Joe B.</p>
         </div>
       </div>
     </section>
@@ -211,15 +211,21 @@
   #joincontainer{
     width: 100%;
     padding: 0px !important;
+    font-family: Roboto;
   }
   .joinhero{
     background: url('img/construction-645465 copy.jpg');
     background-size: 100%;
     width: 100%;
-    height: 50vh;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+  }
+  .joinhero svg {
+    width: 100%;
+    height: 9vh;
+    fill: #A61C00;
+    margin-top: 20px;
   }
   .joinherotext{
     background: rgb(0, 0, 0, 0.65);
@@ -229,10 +235,23 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 100px;
   }
 
   .joinherotext h1, .joinherotext p, .joinherotext button {
     color: rgb(255, 255, 255, 1);
+  }
+  .joinherotext img {
+    width: 50%;
+    margin-top: -200px;
+    height: 600px;
+  }
+  .joinherotext h1 {
+    margin-top: -250px;
+    font-size: 55px;
+  }
+  .joinherotext p{
+    font-size: 23px;
   }
   .joinherotext div {
     width: 100%;
@@ -240,11 +259,12 @@
     justify-content: center;
   }
   .joinherotext button {
-    background: red;
-    border-radius: 25px;
+    background: #A61C00;
+    border-radius: 20px;
     width: 45%;
-    margin: 0px 2.5% 20px 2.5%;
-    padding: 10px 0px 10px 0px;
+    padding: 20px 0px 20px 0px;
+    margin: 0px 5% 50px 5%;
+    font-size: 20px;
   }
 
   .joinlink {
@@ -253,7 +273,27 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    background: red;
+    background: #A61C00;
+  }
+  .joinlink h1 {
+    color: white !important;
+    font-size: 55px;
+    text-align: center;
+    width: 70%;
+    margin: 20px 0px 20px 0px;
+  }
+  .joinlinkflex h4 {
+    font-size: 22px;
+    margin: 10px 0px 10px 0px;
+  }
+  .joinlinkflex p {
+    font-size: 18px;
+    width: 90%;
+    text-align: center;
+    border-bottom: 1px solid #A61C00;
+  }
+  .joinlinkflex p {
+    padding-bottom: 40px;
   }
   .joinlinkflex {
     display: flex;
@@ -264,13 +304,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
-    margin: 10px 2% 20px 2%;
+    width: 30%;
+    margin: 10px 5% 20px 5%;
     border-radius: 20px;
     background: white;
+    text-align: center;
+  }
+  .joinlinkflexcolumn:nth-child(1) p{
+    padding-bottom: 20px !important;
   }
   .joinlink .joinlinkflex .joinlinkflexcolumn img {
-    width: 6%;
+    width:50%;
+    margin: 10px 0px 10px 0px;
   }
   .joinlinkflexcolumn div {
     display: flex;
@@ -282,14 +327,17 @@
     flex-direction: column;
     align-items: center;
   }
+  .joinlinkflexcolumn ul {
+    font-size: 18px !important;
+  }
   .joinlinkflexcolumn button {
-    background: red;
+    background: #A61C00;
     width: 80%;
     margin: 20px 10%;
     padding: 5px 10px 5px 10px;
     color: white;
     border-radius: 20px;
-    font-size: 18px;
+    font-size: 20px;
     font-family: Roboto;
   }
 
@@ -307,10 +355,10 @@
 
   .jointrait {
     width: 20%;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background: white;
     border-radius: 20px;
     margin-left: 1%;
@@ -319,6 +367,19 @@
     margin-bottom: 25px;
   }
 
+  .jointrait img {
+    width: 50%;
+    margin: 20px 25% 20px 25%;
+  }
+  .jointrait h5 {
+    font-size: 22px;
+  }
+  .jointrait p {
+    font-size: 18px;
+    width: 80%;
+    text-align: center;
+    margin: 20px 0px 20px 0px;
+  }
   .joinvideo{
     background: #151515;
     height: 30vh;
@@ -333,26 +394,29 @@
   }
   .joinconnection h1 {
     color: white;
+    font-size: 50px;
+    text-align: center;
+    margin: 0px 0px 20px 0px;
   }
 
   .joinconnection .joinconnectioncolumn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 25%;
+    width: 30%;
     margin: 20px 10px 20px 10px;
   }
-  .joinconnectioncolumn:nth-child(1){
-    border-top: 1px solid red;
-    border-left: 1px solid red;
+  .border1{
+    border-top: 1px solid #A61C00;
+    border-left: 1px solid #A61C00;
     border-right: none !important;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #A61C00;
     padding: 20px 10px 20px 10px;
   }
-  .joinconnectioncolumn:nth-last-child(1n + 1){
-    border-top: 1px solid red;
-    border-right: 1px solid red;
-    border-bottom: 1px solid red;
+  .border2{
+    border-top: 1px solid #A61C00;
+    border-right: 1px solid #A61C00;
+    border-bottom: 1px solid #A61C00;
     padding: 20px 10px 20px 10px;
   }
   .joinconnectioncolumn .joinconnectioncontainer{
@@ -371,36 +435,64 @@
     padding: 10px;
     margin: 10px 0px 10px 0px;
   }
+  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
+    font-size: 23px;
+    margin: 10px 0px 20px 0px;
+  }
+  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
+    font-size: 20px;
+  }
+  .joinconnectioncontainerbox img {
+    width: 50%;
+  }
   .joinconnectioncolumn .joinconnectioncontainer button{
-    background: red;
+    background: #A61C00;
     color: white;
     border-radius: 20px;
+    padding: 10px 0px 10px 0px;
     width: 50%;
+    font-size: 18px;
   }
 
   .joinreviews{
+    background: #A61C00;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    background: red;
-    color: white;
+  }
+  .joinreviews h1 {
+    font-size: 55px;
+  }
+  .joinreviews  p {
+    font-size: 18px;
   }
   .joinreviewsflex {
     display: flex;
-    width: 100%;
+    width: 80%;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
   }
 
   .joinreviewsflex div{
-    width: 40%;
-    margin: 20px 10% 20px 10%;
+    background: white;
+    color: black;
+    width: 45%;
+    height: 30vh;
+    margin: 0 auto;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
-    color: #151515;
-    border-radius: 20px;
+    justify-content: center;
+  }
+  .joinreviewsflex div p {
+    width: 80%;
+    margin: 10px 10% 10px 10%;
+    text-align: center;
   }
 
   .joinfaq {
@@ -410,11 +502,13 @@
     align-items: center;
   }
   .joinfaq h1 {
-    color: red;
+    color: #A61C00;
+    font-size: 55px;
+    margin-top: 20px;
   }
   .joinfaq .joinfaqflex {
     display: flex;
-    width: 50%;
+    width: 65%;
     justify-content: center;
   }
   .joinfaq .joinfaqflex img {
@@ -427,9 +521,19 @@
     align-items: flex-start;
     width: 87%;
   }
+  .joinfaq h4 {
+    font-size: 25px;
+    margin-top: 20px;
+  }
+  .joinfaq p {
+    font-size: 18px;
+    margin-left: 30px;
+  }
   .joinfaq button {
-    background: red;
+    background: #A61C00;
     color: white;
     width: 40%;
+    border-radius: 20px;
+    padding: 10px 0px 10px 0px;
   }
 </style>
