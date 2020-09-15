@@ -31,9 +31,9 @@
       <div class="aboutplatformcontainer">
         <h1>The Approved Vendor Platform</h1>
         <div class="aboutplatformcontainerfleximg">
-          <img src="./img/Untitled_Artwork 3 copy.png" />
-          <img src="./img/red-arrow-icon-vector-eps-600w-1715070490.webp"/>
-          <img src="./img/Untitled_Artwork 2 copy 2.png"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork3copy.png" />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/red-arrow-icon-vector-eps-600w-1715070490.webp"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"/>
         </div>
         <p>SOWerk is the link between service providers (local or national) and property & facility managers. Our business to business platform provides companies and property managers the tools to effiecently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, recieve job request, and communicate with business owners.</p>
         <button>JOIN SOWERK</button>
@@ -107,7 +107,7 @@
 
   .abouthero {
     width: 100%;
-    background: url("img\write-593333.jpg");
+    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg");
     background-size: 100%;
     height: auto;
     display: flex;
@@ -181,7 +181,7 @@
   }
 
   .aboutplatform {
-    background-image: url(".\img\Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
     background-size: cover;
     width: 100%;
     display: flex;

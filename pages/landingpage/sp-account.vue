@@ -117,7 +117,34 @@
 </template>
 
 <script>
+  export default {
+    data() {
+      return {
+        loading: false,
+        serviceprovider: [{
 
+        }]
+      }
+    },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
+      }
+    },
+    mounted() {
+      this.getServiceProvider();
+    },
+    methods: {
+      async getServiceProvider() {
+
+      }
+    }
+  }
 </script>
 
 <style scoped>

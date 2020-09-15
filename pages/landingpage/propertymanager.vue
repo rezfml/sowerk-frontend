@@ -13,61 +13,12 @@
 
     <section class="splist">
       <div class="splistcontainer"><!--This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0-->
-        <div>
-          <img />
-          <h3>Bass Pro Shops</h3>
-          <p>Dallas, TX</p>
-          <p>BPS Direct, LLC is an American privately held retailer of hunting, fishing, camping and other related outdoor recreation merchandise.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>Walmart</h3>
-          <p>Springfield, MO</p>
-          <p>Walmart Inc. is an American multinational retail corporation that operates a chain of hypermarkets, discount… department stores, and grocery stores, headquartered in Bentonville, Arkansas.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>Mexican Villa</h3>
-          <p>Springfield, MO</p>
-          <p>Mexican restaurant company founded in Springfield Missouri.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>Kum & Go</h3>
-          <p>Springfield, MO</p>
-          <p>Kum & Go is a convenience store chain primarily located in the Midwestern United States.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>Hudson Hawk</h3>
-          <p>Springfield, MO</p>
-          <p>Local Barbershop offering haircuts to all over the Missouri and Arkansas area.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>Chipotle</h3>
-          <p>Springfield, MO</p>
-          <p>Chipotle Mexican Grill, Inc., often known simply as Chipotle, is an American chain of fast casual restaurants in the United States.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>O’Reilly Auto Parts</h3>
-          <p>Springfield, MO</p>
-          <p>O’Reilly Auto Parts is an American auto parts retailer that provides automotive aftermarket parts, tools, supplies, equipment, and… accessories in the United States serving both the professional service providers and do-it-yourself customers.</p>
-          <button>Apply Now</button>
-        </div>
-        <div>
-          <img />
-          <h3>Hilton</h3>
-          <p>Springfield, MO</p>
-          <p>Hilton is a leader in quality and service in the hotels and resort industry.</p>
-          <button>Apply Now</button>
+        <div v-for="property in propertymanagers">
+          <img :src="property.imgUrl"/>
+          <h3>{{property.company_name}}</h3>
+          <p>{{property.city}}, {{property.state}}</p>
+          <p>{{property.description}}</p>
+          <a :href="'pf/' + property.id"><button>View Profile</button></a>
         </div>
       </div>
       <button>All Property & Facility Accounts</button>
@@ -116,12 +67,44 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      loading: false,
+      propertymanagers: [
 
+      ]
+    }
+  },
+  watch: {
+    loading: function() {
+      if(this.loading){
+        console.log(document);
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+      document.documentElement.style.overflow = 'auto'
+    }
+  },
+  mounted() {
+    this.getPropertyManagers();
+  },
+  methods: {
+    async getPropertyManagers() {
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=1&limit=8&offset=0').catch(e => e);
+      if (this.$error(status, data.message, data.errors)) return;
+      this.$nextTick(function() {
+        this.propertymanagers = data;
+        console.log(this.propertymanagers);
+      })
+    },
+  },
+}
 </script>
 
 <style scoped>
   .sphero {
-    background: url("./img/construction-645465 copy.jpg");
+    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg");
     width: 100%;
     display: flex;
     justify-content: center;
@@ -194,7 +177,11 @@
     border-radius: 20px;
     padding: 5px 0px 5px 0px;
   }
-
+  .splistcontainer div a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   .aboutdescription{
     background: #47494E;
     width: 100%;

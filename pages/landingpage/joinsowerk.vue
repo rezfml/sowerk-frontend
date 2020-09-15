@@ -2,7 +2,7 @@
   <div id="joincontainer">
     <section class="joinhero">
       <div class="joinherotext">
-        <img src="./img/SoWork Logo-153.png" /> <!-- This needs to be an img idk where it is located though -->
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png" /> <!-- This needs to be an img idk where it is located though -->
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <div>
@@ -20,7 +20,7 @@
       <div class="joinlinkflex">
         <div class="joinlinkflexcolumn">
           <h4>Property & Facility Managers</h4>
-          <img src=".\img\urban copy (1).png"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"/>
           <p>Our business to business platform provides companies and property managers the tools to effiecently identify, vet, and manage service providers for each of their locations.</p>
           <ul>
             <li>Retail & Hospitality Chains</li>
@@ -35,7 +35,7 @@
         <img />
         <div class="joinlinkflexcolumn">
           <h4>Service Providers</h4>
-          <img src=".\img\worker copy (1).png"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"/>
           <p>For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners</p>
           <div>
             <ul>
@@ -65,22 +65,22 @@
 
     <section class="jointraits">
       <div class="jointrait">
-        <img src=".\img\checkmark copy.png"/>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"/>
         <h5>Simple & Fast</h5>
         <p>Our simple design makes connecting with other companies quick and painless while using either the desktop or mobile app.</p>
       </div>
       <div class="jointrait">
-        <img src=".\img\dashboard copy.png"/>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"/>
         <h5>Powerful Tools</h5>
         <p>SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.</p>
       </div>
       <div class="jointrait">
-        <img src=".\img\network copy.png"/>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"/>
         <h5>Automated</h5>
         <p>SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status. </p>
       </div>
       <div class="jointrait">
-        <img src=".\img\opinion copy.png"/>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"/>
         <h5>Convenient</h5>
         <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
       </div>
@@ -95,12 +95,12 @@
         <h1>Property & Facility</h1>
         <div class="joinconnectioncontainer border1">
           <div class="joinconnectioncontainerbox">
-            <img src=".\img\profile (2) copy.png"/>
+            <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"/>
             <h3>1. Create Account and Vet Vendors</h3>
             <p>In less than 15 minutes, you can have multiple locations setup with dedicated staff accounts and live questionnaires vetting local & national service providers. </p>
           </div>
           <div class="joinconnectioncontainerbox">
-            <img src=".\img\share copy.png"/>
+            <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"/>
             <h3>2. Vendor Management & RFP</h3>
             <p>When you need a service at one of your properties, SOWerk makes it easy to communicate in one click to your approved vendors the request for a bid. </p>
           </div>
@@ -112,17 +112,17 @@
         <h1>Service Providers</h1>
         <div class="joinconnectioncontainer border2">
           <div class="joinconnectioncontainerbox">
-            <img src=".\img\profile (1) copy.png"/>
+            <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_1_copy.png"/>
             <h3>1. Build A Profile</h3>
             <p>SOWerk makes it easy & quick for you to show off your brand, company background, and we help promote all companies where you are an approved vendor. Your SOWerk profile is both easy and powerful. </p>
           </div>
           <div class="joinconnectioncontainerbox">
-            <img src=".\img\profile copy.png"/>
+            <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/profilecopy.png"/>
             <h3>2. Approved Vendor Status</h3>
             <p>Use your profile to qualify for approve vendor status in as little as one click. </p>
           </div>
           <div class="joinconnectioncontainerbox">
-            <img src=".\img\app copy.png"/>
+            <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/appcopy.png"/>
             <h3>3. Get The Job</h3>
             <p>We make it easy and powerful for businesses to communicate their needs to approved vendors. We also make it easy for you to react quickly with a bid. </p>
           </div>
@@ -214,7 +214,7 @@
     font-family: Roboto;
   }
   .joinhero{
-    background: url('img/construction-645465 copy.jpg');
+    background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg');
     background-size: 100%;
     width: 100%;
     height: auto;
@@ -355,7 +355,7 @@
 
   .jointrait {
     width: 20%;
-    height: 70vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -390,7 +390,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("./img/Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#444444, #2B2B2B);
     background-size: cover;
   }
   .joinconnection h1 {

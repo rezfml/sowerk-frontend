@@ -113,7 +113,7 @@
   .joinservicehero {
     width: 100%;
     height: 50vh;
-    background: url("img/macbook-336704 copy.jpg");
+    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg");
     background-size: 100%;
     display: flex;
     flex-direction: column;

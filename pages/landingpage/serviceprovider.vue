@@ -13,61 +13,12 @@
 
     <section class="splist">
       <div class="splistcontainer"><!--This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0-->
-        <div>
-          <img />
-          <h3>Atlas Plumbing</h3>
-          <p>Dallas, TX</p>
-          <p>Based out of Dallas Texas, Atlas offers plumbing services, large or small across America</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Quanta Electrical Services</h3>
-          <p>Springfield, MO</p>
-          <p>Quanta Services is an American corporation that provides infrastructure services for…electric power, pipeline, industrial and</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Benjamin Franklin</h3>
-          <p>Springfield, MO</p>
-          <p>A Greene County based plumbing service</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Nations Roof</h3>
-          <p>Springfield, MO</p>
-          <p>National roofing company founded in 2005</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Atlas Plumbing</h3>
-          <p>Dallas, TX</p>
-          <p>Based out of Dallas Texas, Atlas offers plumbing services, large or small across America</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Quanta Electrical Services</h3>
-          <p>Springfield, MO</p>
-          <p>Quanta Services is an American corporation that provides infrastructure services for…electric power, pipeline, industrial and</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Benjamin Franklin</h3>
-          <p>Springfield, MO</p>
-          <p>A Greene County based plumbing service</p>
-          <button>View Profile</button>
-        </div>
-        <div>
-          <img />
-          <h3>Nations Roof</h3>
-          <p>Springfield, MO</p>
-          <p>National roofing company founded in 2005</p>
-          <button>View Profile</button>
+        <div v-for="service in serviceproviders">
+          <img :src="service.imgUrl"/>
+          <h3>{{service.company_name}}</h3>
+          <p>{{service.city}}, {{service.state}}</p>
+          <p>{{service.description}}</p>
+          <a :href="'sp/' + service.id"><button>View Profile</button></a>
         </div>
       </div>
       <button>View All Service Provider Accounts</button>
@@ -81,9 +32,7 @@
       return {
         loading: false,
         serviceproviders: [
-          {
 
-          },
         ]
       }
     },
@@ -102,15 +51,21 @@
     },
     methods: {
       async getServiceProviders() {
-        let {data, status} = await this.$http.get()
-      }
-    }
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=0&limit=8&offset=0').catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.$nextTick(function() {
+          this.serviceproviders = data;
+          console.log(this.serviceproviders);
+          console.log(this.currentUser);
+        })
+      },
+    },
   }
 </script>
 
 <style scoped>
   .sphero {
-    background: url("./img/construction-645465 copy.jpg");
+    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg");
     width: 100%;
     display: flex;
     justify-content: center;
@@ -182,6 +137,11 @@
     color: white;
     border-radius: 20px;
     padding: 5px 0px 5px 0px;
+  }
+  .splistcontainer div a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
 </style>

@@ -2,7 +2,7 @@
   <div id="landingcontainer">
     <section class="landinghomehero">
       <div class="landinghomeherotext">
-        <img src="./img/SoWork Logo-153.png" /> <!-- This needs to be an img idk where it is located though -->
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png" /> <!-- This needs to be an img idk where it is located though -->
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <button>LEARN MORE</button>
@@ -22,9 +22,9 @@
       <div class="landinghomelinktext">
         <h4>SOWerk is the link between Service Providers and Property & Facility Managers</h4>
         <div class="landinghomelinkfleximg">
-          <img src="./img/Untitled_Artwork 3 copy.png" />
-          <img src="./img/red-arrow-icon-vector-eps-600w-1715070490.webp"/>
-          <img src="./img/Untitled_Artwork 2 copy 2.png"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork3copy.png" />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/red-arrow-icon-vector-eps-600w-1715070490.webp"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"/>
         </div>
         <p>Our business to business platform provides companies and property managers the tools to efficiently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners.</p>
         <button>LEARN MORE</button>
@@ -56,8 +56,8 @@
 
     <section class="landinghomejoin">
       <div class="landinghomejoinflex">
-        <img class='iphonephoto' src="./img/Iphone Mockup copy.png" alt="mac"/>
-        <img class='macphoto' src="./img/Crop this pic copy.png" alt="" />
+        <img class='iphonephoto' src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png" alt="mac"/>
+        <img class='macphoto' src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png" alt="" />
         <div class="landinghomejoincolumn">
           <h2>JOIN SOWERK NOW</h2>
           <p>Register now and start making connections today. Our simple three step registration process makes it simple and easy to build your account and connect property & facility managers and service providers.</p>
@@ -141,7 +141,7 @@
     font-family: Roboto;
   }
   .landinghomehero{
-    background: url('img/write-593333.jpg');
+    background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
     background-size: 100%;
     width: 100%;
     height: auto;
@@ -248,7 +248,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("./img/Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#444444, #2B2B2B);
     background-size: cover;
   }
 
