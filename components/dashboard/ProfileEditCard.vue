@@ -347,7 +347,7 @@
     },
     methods: {
       async updateLocation() {
-        let {data, status} = await this.$http.put('https://sowerk-backend.herokuapp.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
+        let {data, status} = await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
 
         // this.$nextTick(function() {
         //   this.locationEdit = data;

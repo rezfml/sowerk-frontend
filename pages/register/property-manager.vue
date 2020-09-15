@@ -558,7 +558,7 @@
         this.loading = true;
         console.log(this.company);
         console.log(this.locations);
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
         console.log('post company: ', data);
         this.user.companies_id = data.companies.id;
         await this.registerUser(data.companies.id);
@@ -571,18 +571,18 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.user).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register', this.user).catch(e => e);
         await this.postLocations(data.user.companies_id);
       },
       async postLocations(userId) {
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/byCompaniesId/' + userId, this.locations).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' + userId, this.locations).catch(e => e);
         // this.loading = false;
         // if (this.$error(status, message, errors)) return;
         console.log('user locations post: ', data);
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/byCompaniesId/' + userId).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data);
       },
@@ -592,18 +592,18 @@
             let serviceObject = {
               name: service,
             }
-            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
           }
         }
         await this.postUserformsPerService();
       },
       async getServicesPerLocation(id) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + id).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + id).catch(e => e);
         console.log(data);
       },
       async getAllServices() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + this.user.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.user.companies_id).catch(e => e);
         console.log(data);
         return data.locations;
       },
@@ -615,14 +615,14 @@
             let userformObject = {
               name: service.name,
             }
-            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + service.id, userformObject).catch(e => e);
+            let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/byServiceId/' + service.id, userformObject).catch(e => e);
             console.log(data);
             await this.getUserforms(service.id);
           }
         }
       },
       async getUserforms(id) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/userforms/byServiceId/' + id).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/byServiceId/' + id).catch(e => e);
         console.log(data);
         await this.postFormFieldsToUserforms(data);
       },
@@ -736,7 +736,7 @@
             },
           ];
           for (const field of fields) {
-            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
+            let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
           }
         }
         this.loading = false;
@@ -767,114 +767,6 @@
       setPage(tab) {
         this.tab = tab;
       }
-      // saveMarker() {
-        // let markers = [];
-        // let marker;
-        // this.locations.forEach(function(location) {
-        //   marker = {
-        //     lat: location.latitude,
-        //     lng: location.longitude
-        //   }
-        //   markers.push(marker);
-        // });
-        //
-        // this.markers = markers;
-        // this.fitBounds();
-      // },
-      // fitBounds() {
-      //   let markers = this.markers;
-      //   let bounds = new google.maps.LatLngBounds();
-      //   markers.forEach(function(marker) {
-      //     bounds.extend(marker);
-      //   });
-      //
-      //   this.$refs['location-map'].$mapObject.fitBounds(bounds);
-      //  },
-      // formatFormDataForSubmission() {
-      //   let submissionData = {
-      //     "name": this.company.name,
-      //     "primary_email": this.company.email,
-      //     "company_profiles": [
-      //       // {
-      //       //   "address": "",
-      //       //   "state": "",
-      //       //   "city": "",
-      //       //   "zipcode": 0,
-      //       //   "description": ""
-      //       // }
-      //     ],
-      //     "locations": [
-      //       // {
-      //       //   "name": "string",
-      //       //   "address": "string",
-      //       //   "state": "string",
-      //       //   "city": "string",
-      //       //   "zipcode": 0,
-      //       //   "description": "string",
-      //       //   "membership_id": 0,
-      //       //   "radius": "string",
-      //       //   "company_id": "string",
-      //       //   "services": {
-      //       //     "_ids": [
-      //       //       0
-      //       //     ]
-      //       //   }
-      //       // }
-      //     ],
-      //     "users": [
-      //       {
-      //         "username": this.company.username,
-      //         "email": this.company.email,
-      //         "password": this.company.email,
-      //         "first_name": this.company.firstName,
-      //         "last_name": this.company.lastName,
-      //         "tos_date": null,
-      //       }
-      //     ]
-      //   };
-      //   let profile = {
-      //     address: this.company.address,
-      //     city: this.company.city,
-      //     state: this.company.state,
-      //     zipcode: this.company.zipcode,
-      //     description: this.company.description
-      //   }
-      //
-      //   console.log(profile);
-      //
-      //   let locationsArray = [];
-      //   this.locations.forEach(function(location) {
-      //
-      //     let tempLocationObject = {
-      //       "name": location.name,
-      //       "address": location.address,
-      //       "state": location.state,
-      //       "city": location.city,
-      //       "zipcode": location.zipcode,
-      //       "latitude": location.latitude,
-      //       "longitude": location.longitude,
-      //       "description": location.description,
-      //       "membership_id": location.membership_id,
-      //       "radius": location.radius,
-      //       "company_id": "string",
-      //       "services": {
-      //         "_ids": [
-      //           0
-      //         ]
-      //       }
-      //     }
-      //
-      //     locationsArray.push(tempLocationObject);
-      //
-      //   });
-      //
-      //   submissionData.company_profiles.push(profile);
-      //   submissionData.locations = locationsArray;
-      //
-      //   console.log(submissionData);
-      //
-      //   return submissionData;
-      // }
     }
   }
 </script>

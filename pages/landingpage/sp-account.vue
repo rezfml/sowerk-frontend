@@ -118,6 +118,7 @@
 
 <script>
   export default {
+    name: 'sp-account',
     data() {
       return {
         loading: false,

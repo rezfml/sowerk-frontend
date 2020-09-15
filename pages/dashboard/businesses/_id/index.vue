@@ -233,7 +233,7 @@
     },
     methods: {
       async getLocation() {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/' + this.locationId).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.location = data;

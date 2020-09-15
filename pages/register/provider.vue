@@ -539,7 +539,7 @@
         this.loading = true;
         console.log(this.company);
         console.log(this.locations);
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/companies', this.company).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
         console.log('post company: ', data);
         this.user.companies_id = data.companies.id;
         await this.registerUser(data.companies.id);
@@ -552,18 +552,18 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/register', this.user).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register', this.user).catch(e => e);
         await this.postLocations(data.user.companies_id);
       },
       async postLocations(userId) {
-        let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
         // this.loading = false;
         // if (this.$error(status, message, errors)) return;
         console.log('user locations post: ', data);
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data);
       },
@@ -573,7 +573,7 @@
             let serviceObject = {
               name: service,
             }
-            let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
           }
         }
