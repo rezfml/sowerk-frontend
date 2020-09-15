@@ -76,7 +76,36 @@
 </template>
 
 <script>
+  export default {
+    data() {
+      return {
+        loading: false,
+        serviceproviders: [
+          {
 
+          },
+        ]
+      }
+    },
+    watch: {
+      loading: function() {
+        if(this.loading){
+          console.log(document);
+          document.documentElement.style.overflow = 'hidden'
+          return
+        }
+        document.documentElement.style.overflow = 'auto'
+      }
+    },
+    mounted() {
+      this.getServiceProviders();
+    },
+    methods: {
+      async getServiceProviders() {
+        let {data, status} = await this.$http.get()
+      }
+    }
+  }
 </script>
 
 <style scoped>

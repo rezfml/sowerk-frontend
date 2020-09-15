@@ -390,7 +390,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2B2B2B;
+    background-image: url("./img/Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-size: cover;
   }
   .joinconnection h1 {
     color: white;

@@ -2,6 +2,9 @@
   <div id="aboutcontainer">
     <section class="abouthero">
       <h1>About SOWerk</h1>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
     </section>
 
     <section class="aboutdescription">
@@ -19,6 +22,9 @@
           </div>
         </div>
       </div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
     </section>
 
     <section class="aboutplatform">
@@ -26,7 +32,7 @@
         <h1>The Approved Vendor Platform</h1>
         <div class="aboutplatformcontainerfleximg">
           <img src="./img/Untitled_Artwork 3 copy.png" />
-          <img src="./img/next copy.png"/>
+          <img src="./img/red-arrow-icon-vector-eps-600w-1715070490.webp"/>
           <img src="./img/Untitled_Artwork 2 copy 2.png"/>
         </div>
         <p>SOWerk is the link between service providers (local or national) and property & facility managers. Our business to business platform provides companies and property managers the tools to effiecently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, recieve job request, and communicate with business owners.</p>
@@ -103,7 +109,7 @@
     width: 100%;
     background: url("img\write-593333.jpg");
     background-size: 100%;
-    height: 50vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,22 +119,29 @@
     color: white;
     width: 50%;
     text-align: center;
+    margin: 100px 0px 100px 0px;
+    font-size: 55px;
   }
-
+  .abouthero svg {
+    width: 100%;
+    height: 9vh;
+    fill: #A61C00;
+  }
   .aboutdescription{
-    background: red;
+    background: #A61C00;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 50vh;
+    height: auto;
+    color: white;
   }
   .aboutdescriptionflex{
     display: flex;
     width: 90%;
     justify-content: center;
     border-radius: 20px;
-    margin: -50px 0px 50px 0px;
+    margin: -50px 0px 100px 0px;
   }
   .aboutdescriptionflex img {
     width: 40%;
@@ -138,6 +151,19 @@
     flex-direction: column;
     align-items: center;
     width: 60%;
+    margin-top: 25px;
+  }
+  .aboutdescriptionflex h1 {
+    font-size: 35px;
+  }
+  .aboutdescriptionflex p {
+    font-size: 18px;
+    align-self: flex-start;
+  }
+  .aboutdescription svg {
+    width: 100%;
+    height: 9vh;
+    fill: #444444;
   }
   .aboutbuttoncontainer {
     display: flex;
@@ -147,17 +173,21 @@
     background: transparent;
     color: white;
     border: 1px solid white;
-    width: 50%;
+    width: 45%;
     padding: 10px 0px 10px 0px;
+    font-size: 18px;
+    border-radius: 20px;
+    margin: 0px 2.5% 0px 2.5%;
   }
 
   .aboutplatform {
-    background: #47494E;
+    background-image: url(".\img\Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-size: cover;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 60vh;
+    height: auto;
   }
 
   .aboutplatform .aboutplatformcontainer {
@@ -165,9 +195,9 @@
     flex-direction: column;
     align-items: center;
     background: white;
-    width: 50%;
+    width: 65%;
     border-radius: 20px;
-    margin-top: -50px;
+    margin-top: -75px;
   }
   .aboutplatformcontainer h1 {
     background: #47494E;
@@ -176,24 +206,41 @@
     text-align: center;
     padding: 10px 0px 10px 0px;
     margin-top: -20px;
+    font-size: 50px;
+    color: white;
   }
-  .aboutplatformcontainer .aboutplatformcontainerfleximg {
+  .aboutplatformcontainerfleximg {
+    width: 80%;
     display: flex;
-    width: 90%;
-    margin: 10px 0px 10px 0px;
+    justify-content: center;
+    align-items: center;
   }
   .aboutplatformcontainerfleximg img {
-    width: 33%;
+    width: 32%;
+    margin: 0 auto;
+  }
+  .aboutplatformcontainerfleximg img:first-child {
+    border: 1px solid #A61C00;
+    border-radius: 20px;
+    padding-top: 150px;
+    padding-bottom: 0px;
+  }
+  .aboutplatformcontainerfleximg img:last-child {
+    border: 1px solid #A61C00;
+    border-radius: 20px;
+    padding-bottom: 150px;
   }
   .aboutplatformcontainer p {
     width: 90%;
+    font-size: 22px;
   }
   .aboutplatformcontainer button {
-    background: red;
+    background: #A61C00;
     border-radius: 20px;
     padding: 10px 0px 10px 0px;
     width: 50%;
     margin-bottom: 20px;
+    font-size: 16px;
   }
   .aboutfaq {
     width: 100%;
@@ -202,11 +249,13 @@
     align-items: center;
   }
   .aboutfaq h1 {
-    color: red;
+    color: #A61C00;
+    font-size: 55px;
+    margin-top: 20px;
   }
   .aboutfaq .aboutfaqflex {
     display: flex;
-    width: 50%;
+    width: 65%;
     justify-content: center;
   }
   .aboutfaq .aboutfaqflex img {
@@ -219,9 +268,19 @@
     align-items: flex-start;
     width: 87%;
   }
+  .aboutfaq h4 {
+    font-size: 25px;
+    margin-top: 20px;
+  }
+  .aboutfaq p {
+    font-size: 18px;
+    margin-left: 30px;
+  }
   .aboutfaq button {
-    background: red;
+    background: #A61C00;
     color: white;
     width: 40%;
+    border-radius: 20px;
+    padding: 10px 0px 10px 0px;
   }
 </style>
