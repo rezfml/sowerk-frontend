@@ -13,8 +13,8 @@
     <PreviewSliderSection
       :slider="propertyAccounts"
     ></PreviewSliderSection>
-    <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x; height: 90vh; max-height: 1200px;" align-content="center" justify="center">
-      <v-card max-height="800" height="80%" width="70%" class="py-4">
+    <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;" align-content="center" justify="center" class="py-12">
+      <v-card height="auto" width="70%" class="py-4 my-12">
         <v-card-title><p class="primary--text font-weight-bold text-h5 text-center mx-auto" style="width: 80%; word-break: normal;">SOWerk is the link between Service Providers and Property & Facility Managers</p></v-card-title>
         <v-card-text>
           <v-row>
@@ -65,6 +65,107 @@
                 <p class="text-center">- Joe B.</p>
               </v-card-text>
             </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-flex>
+    <v-flex>
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="6" style="position: relative;">
+            <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png" class="device--mac"></v-img>
+            <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png" class="device--iphone"></v-img>
+          </v-col>
+          <v-col cols="12" md="6" align-self="center">
+            <p class="text-h5 primary--text font-weight-bold">JOIN SOWERK NOW</p>
+            <p class="">Register now and start making connections today. Our simple three step registration process makes it simple and easy to build your account and connect property & facility managers and service providers.</p>
+            <v-row>
+              <v-col cols="12" md="5">
+                <v-btn class="primary py-5" rounded>Learn More - Service Provider</v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="12" md="5">
+                <v-btn class="primary py-5" rounded>Learn More - Property & Facility</v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-flex>
+    <v-flex class="my-12 py-12">
+      <v-container>
+        <v-row>
+          <v-col cols="12" class="d-flex flex-column">
+            <p class="text-h3 font-weight-bold primary--text text-center">Property and Facility Managers Often Ask</p>
+            <v-list width="70%" class="mx-auto">
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-capitalize text-h5 font-weight-bold mb-3">Is this going to create more work for me?</v-list-item-title>
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text">Actually, we designed SOWerk to be less work for you. Think of SOWerk like connecting with service providers on social media, except they have to meet your approved provider requirements. From here you can easily manage and communicate with your approved service providers.</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-capitalize text-h5 font-weight-bold mb-3">Will SOWerk Save Us Money? Will It Protect Our Investments?</v-list-item-title>
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text">If time is money and quality is everything then yes SOWerk can help. SOWerk makes it efficent for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers requalify annualy on things like insurance coverage and licenses so you don’t have to.</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-capitalize text-h5 font-weight-bold mb-3">Will SOWerk Help Shield Me From Cold Calls?</v-list-item-title>
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text">Sales is part of any business but sometimes you just need place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-btn class="text-uppercase primary mx-auto" x-large width="30%">Learn More</v-btn>
+          </v-col>
+        </v-row>
+
+        <!-- Service Providers FAQ -->
+        <v-row class="mt-12">
+          <v-col cols="12" class="d-flex flex-column">
+            <p class="text-h3 font-weight-bold primary--text text-center">Service Provideres Often Ask</p>
+            <v-list width="70%" class="mx-auto">
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-capitalize text-h5 font-weight-bold mb-3">Do I Seriously Get More Jobs?</v-list-item-title>
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text">
+                    <p>Yes, Property & Facility managers of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet service providers request bids.</p>
+                    <p class="mb-0">SOWerk also helps you look good when applying for approved vendor programs, but we also make it easy to share those good looks with others. Next time your bidding a job show off your resume by emailing or texting your SOWerk profile. </p>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-capitalize text-h5 font-weight-bold mb-3">Will SOWerk Save Us Money? Will It Protect Our Investments?</v-list-item-title>
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text">
+                    <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+                    <p>With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs</p>
+                    <p class="mb-0">Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.</p>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-capitalize text-h5 font-weight-bold mb-3">Will SOWerk Help Shield Me From Cold Calls?</v-list-item-title>
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text">
+                    <p>Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program.</p>
+                    <p class="mb-0">Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features we offer a few packages. Details can be found on our Approved Provider Pricing page.</p>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-btn class="text-uppercase primary mx-auto" x-large width="30%">Learn More</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -186,3 +287,25 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .device--mac >>> .v-image__image.v-image__image--cover {
+    background-size: 170%!important;
+  }
+
+  .device--iphone {
+    position: absolute;
+    width: 75%;
+    bottom: -20%;
+    left: -25%;
+  }
+
+  .wrap-text {
+    -webkit-line-clamp: unset !important;
+    overflow: visible!important;
+    text-overflow: unset!important;
+    white-space: unset!important;
+    line-height: 1.5rem;
+  }
+
+</style>
