@@ -191,10 +191,10 @@
     async mounted () {
       setTimeout(async () => {
         console.log(this.currentUser);
-        if(!this.currentUser) this.$router.go();
-        this.loading = true;
-        await this.getUser();
-        await this.getLocations();
+        // if(!this.currentUser) this.$router.go();
+        // this.loading = true;
+        // await this.getUser();
+        // await this.getLocations();
       }, 1000)
     },
     computed: {

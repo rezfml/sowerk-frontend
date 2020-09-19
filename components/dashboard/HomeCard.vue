@@ -26,6 +26,9 @@
           <template v-slot:item.actions="{ item }" v-else-if="action === 'Apply'">
             <v-btn block color="primary" :to="slug + item.location_id + '/application-form/' + item.id">Apply</v-btn>
           </template>
+          <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+            <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+          </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link
               :to="slug + item.id"
