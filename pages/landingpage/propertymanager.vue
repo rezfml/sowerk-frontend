@@ -9,13 +9,16 @@
           <button>Join SOW</button>
         </div>
       </div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
     </section>
 
     <section class="splist">
       <div class="splistcontainer"><!--This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0-->
         <div v-for="property in propertymanagers">
           <img :src="property.imgUrl"/>
-          <h3>{{property.company_name}}</h3>
+          <h3>{{property.account_name}}</h3>
           <p>{{property.city}}, {{property.state}}</p>
           <p>{{property.description}}</p>
           <a :href="'pf/' + property.id"><button>View Profile</button></a>
@@ -104,11 +107,23 @@ export default {
 
 <style scoped>
   .sphero {
-    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg");
+    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg");
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .sphero h1{
+    font-size: 55px;
+  }
+  .sphero p{
+    font-size: 23px;
+  }
+  .sphero svg {
+    width: 100%;
+    height: 9vh;
+    fill: #A61C00;
   }
   .sphero .spherobox {
     background: rgb(0, 0, 0, 0.55);
@@ -122,22 +137,24 @@ export default {
     margin: 50px 0px 50px 0px;
     color: white;
   }
-
-  .spherobox form input {
-    background: white;
-    padding: 2px 5px 2px 5px;
-    border-radius: 35px;
+  .spherobox .buttonflex {
+    display: flex;
+    width: 80%;
+    justify-content: center;
   }
-  .spherobox form button {
-    background: red;
-    border-radius: 35px;
-    padding: 3px 5px 3px 5px;
-    margin-left: -25px;
+
+  .spherobox button {
+    background: #A61C00;
+    border-radius: 20px;
+    padding: 15px 0px 15px 0px;
+    margin: 0 auto;
+    width: 45%;
+    font-size: 20px;
   }
 
   .splist {
     width: 100%;
-    background: red;
+    background: #A61C00;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -150,6 +167,9 @@ export default {
     justify-content: center;
     margin: 20px 0px 20px 0px;
   }
+  .splistcontainer img {
+    border-radius: 50px;
+  }
 
   .splistcontainer div {
     width: 24%;
@@ -160,7 +180,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
   }
   .splist button {
     background: white;

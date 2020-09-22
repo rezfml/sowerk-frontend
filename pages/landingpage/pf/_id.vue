@@ -7,7 +7,7 @@
       <img />
       <p>{{propertymanagerVal.description}}</p>
       <button>Apply To All Location</button>
-      <div v-for='location in propertymanagerVal.locations' class="pfaccountlocationlist">
+      <div v-for='(location, index) in propertymanagerVal.locations' class="pfaccountlocationlist">
         <h2>Locations</h2>
         <div class="pfaccountlocationflex">
           <div class="pfaccountlocationcolumn">
@@ -21,6 +21,7 @@
             <p>Founded: {{ location.year_founded }}</p>
             <p>Joined SOWerk: 2020</p>
           </div>
+          <!-- BELOW NEEDS TO CHANGE WHEN UPDATE NUMBER OF APPROVED PROVIDERS IS LISTED-->
           <div class="pfaccountlocationflexrow">
             <p>142</p>
             <p>Approved SOWerk Providers At This Location</p>

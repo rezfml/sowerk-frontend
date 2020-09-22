@@ -60,7 +60,7 @@
     </section>
 
     <section class="joincaroselreview">
-      <div>CAROSEL</div>
+      <AllReviews v-bind:allReviews="allReviews"></AllReviews>
     </section>
 
     <section class="jointraits">
@@ -131,22 +131,7 @@
       </div>
     </section>
 
-    <section class="joinreviews">
-      <h1>SOWerk Reviews</h1>
-      <p>See what current users think about SOWerk!</p>
-      <div class="joinreviewsflex">
-        <div>
-          <h4>Amazing Application!!!</h4>
-          <p>“SOWerk nailed it… An all in one mobile app for service companies like ours to connect with facility managers. It’s like a job board + LinkedIn for our cleaning business”</p>
-          <p>- Cathy M.</p>
-        </div>
-        <div>
-          <h4>Better Property Management</h4>
-          <p>“No more just googling a service company near one of our properties and hoping they work out, not to mention aking them for proof of insurance. I wish I had thought of SOWerk”</p>
-          <p>- Joe B.</p>
-        </div>
-      </div>
-    </section>
+    <Reviews v-bind:reviews="reviews"></Reviews>
 
     <section class="joinfaq">
       <h1>Property and Facility Managers Often Ask</h1>
@@ -204,6 +189,41 @@
 </template>
 
 <script>
+import Reviews from '../../components/landing/Reviews';
+import AllReviews from '../../components/landing/AllReviews';
+
+export default {
+  data: () => ({
+    allReviews: [],
+    reviews: []
+  }),
+  components: {
+    Reviews,
+    AllReviews
+  },
+  mounted() {
+    this.getReviews();
+    this.getAllReviews();
+  },
+  methods: {
+    async getAllReviews() {
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimit?limit=20&offset=0').catch(e => e);
+      if (this.$error(status, data.message, data.errors)) return;
+      this.$nextTick(function() {
+        this.allReviews = data;
+        console.log(this.allReviews, 'allReviews');
+      })
+    },
+    async getReviews() {
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);
+      if (this.$error(status, data.message, data.errors)) return;
+      this.$nextTick(function() {
+        this.reviews = data;
+        console.log(this.reviews, 'reviews');
+      })
+    }
+  }
+}
 
 </script>
 
@@ -343,8 +363,9 @@
 
   .joincaroselreview {
     background: #151515;
-    height: 30vh;
+    height: auto;
     width: 100%;
+    padding: 0px 0px 100px 0px;
   }
   .jointraits {
     width: 100%;
@@ -455,7 +476,7 @@
     font-size: 18px;
   }
 
-  .joinreviews{
+  .landinghomereview {
     background: #A61C00;
     color: white;
     display: flex;
@@ -464,36 +485,11 @@
     justify-content: center;
     width: 100%;
   }
-  .joinreviews h1 {
+  .landinghomereview h1 {
     font-size: 55px;
   }
-  .joinreviews  p {
+  .landinghomereview p {
     font-size: 18px;
-  }
-  .joinreviewsflex {
-    display: flex;
-    width: 80%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .joinreviewsflex div{
-    background: white;
-    color: black;
-    width: 45%;
-    height: 30vh;
-    margin: 0 auto;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .joinreviewsflex div p {
-    width: 80%;
-    margin: 10px 10% 10px 10%;
-    text-align: center;
   }
 
   .joinfaq {
