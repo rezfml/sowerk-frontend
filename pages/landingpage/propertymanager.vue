@@ -29,7 +29,10 @@
 
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
-        <img />
+        <div class="aboutdescriptionimg">
+          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+          <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+        </div>
         <div class="aboutdescriptiontext">
           <h1>It all started with “What If…”</h1>
           <p>What if we could simplify the business connection between service providers and property & facility managers?</p>
@@ -45,22 +48,22 @@
 
       <section class="joinservicetraits">
         <div>
-          <img />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"/>
           <h3>Simple & Fast</h3>
           <p>Our simple design makes connecting with other companies quick and painless while using either the desktop or mobile app.</p>
         </div>
         <div>
-          <img />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"/>
           <h3>Powerful Tools</h3>
           <p>SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.</p>
         </div>
         <div>
-          <img />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"/>
           <h3>Automated</h3>
           <p>SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status. </p>
         </div>
         <div>
-          <img />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"/>
           <h3>Convenient</h3>
           <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
         </div>
@@ -186,8 +189,9 @@ export default {
     background: white;
     border-radius: 20px;
     margin: 30px 0px 30px 0px;
-    padding: 10px 0px 10px 0px;
-    width: 80%;
+    padding: 15px 0px 15px 0px;
+    font-size: 14px;
+    width: 50%;
   }
   .splistcontainer div button{
     width: 80%;
@@ -201,6 +205,14 @@ export default {
     width: 100%;
     display: flex;
     justify-content: center;
+    text-decoration: none;
+    font-size: 22px;
+  }
+  .splistcontainer div h3 {
+    font-size: 22px;
+  }
+  .splistcontainer div h3 {
+    font-size: 18px;
   }
   .aboutdescription{
     background: #47494E;
@@ -217,14 +229,37 @@ export default {
     border-radius: 20px;
     margin: 50px 0px 50px 0px;
   }
-  .aboutdescriptionflex img {
+  .aboutdescriptionflex .aboutdescriptionimg {
     width: 40%;
+    display: flex;
+  }
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1 {
+    width: 50%;
+    height: 300px;
+    z-index: 1;
+    position: relative;
+    top: 250px;
+  }
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
+    width: 150%;
+    position: relative;
+    left: -560px;
+    top: -230px;
   }
   .aboutdescriptiontext{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 60%;
+    color: white;
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+  .aboutdescriptiontext h1{
+    font-size: 35px;
+  }
+  .aboutdescriptiontext p{
+    font-size: 18px;
   }
   .aboutbuttoncontainer {
     display: flex;
@@ -234,8 +269,11 @@ export default {
     background: transparent;
     color: white;
     border: 1px solid white;
-    width: 50%;
+    border-radius: 20px;
+    width: 49%;
     padding: 10px 0px 10px 0px;
+    font-size: 18px;
+    margin: 0 auto;
   }
 
   .joinservicetraits{
@@ -243,15 +281,31 @@ export default {
     width: 100%;
     justify-content: center;
     align-items: center;
+    margin-top: -250px;
   }
   .joinservicetraits div {
     width: 20%;
+    height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     background: white;
     border-radius: 20px;
     margin: 50px 5px 50px 5px;
+  }
+  .joinservicetraits div h3{
+    font-size: 22px;
+    margin: 15px 0px 15px 0px;
+  }
+  .joinservicetraits div p{
+    font-size: 18px;
+    width: 90%;
+    text-align: center;
+  }
+  .joinservicetraits div img{
+    width: 50%;
+    margin-top: 20px;
   }
 
 </style>

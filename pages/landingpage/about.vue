@@ -9,7 +9,10 @@
 
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
-        <img />
+        <div class="aboutdescriptionimg">
+          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+          <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+        </div>
         <div class="aboutdescriptiontext">
           <h1>It all started with “What If…”</h1>
           <p>What if we could simplify the business connection between service providers and property & facility managers?</p>
@@ -43,21 +46,21 @@
     <section class="aboutfaq">
       <h1>Property and Facility Managers Often Ask</h1>
       <div class="aboutfaqflex">
-        <img />
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Is This Going To Create More Work For Me?</h4>
           <p>Actually, we designed SOWerk to be less work for you. Think of SOWerk like connecting with service providers on social media, except they have to meet your approved provider requirements. From here you can easily manage and communicate with your approved service providers.  </p>
         </div>
       </div>
       <div class="aboutfaqflex">
-        <img />
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
           <p>If time is money and quality is everything then yes SOWerk can help. SOWerk makes it efficent for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers requalify annualy on things like insurance coverage and licenses so you don’t have to.</p>
         </div>
       </div>
       <div class="aboutfaqflex">
-        <img />
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
           <p>Sales is part of any business but sometimes you just need place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </p>
@@ -66,7 +69,7 @@
       <button>PROPERTY & FACILITY LEARN MORE</button>
       <h1>Service Providers Generally Ask</h1>
       <div class="aboutfaqflex">
-        <img />
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Do I Seriously Get More Jobs?</h4>
           <p>Yes, Property & Facility managers of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet service providers request bids.<p>
@@ -74,7 +77,7 @@
         </div>
       </div>
       <div class="aboutfaqflex">
-        <img />
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
           <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
@@ -83,7 +86,7 @@
         </div>
       </div>
       <div class="aboutfaqflex">
-        <img />
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
           <p>Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program.<p>
@@ -143,8 +146,23 @@
     border-radius: 20px;
     margin: -50px 0px 100px 0px;
   }
-  .aboutdescriptionflex img {
+  .aboutdescriptionflex .aboutdescriptionimg {
     width: 40%;
+    display: flex;
+    margin-bottom: -300px;
+  }
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1 {
+    width: 50%;
+    height: 350px;
+    z-index: 1;
+    position: relative;
+    top: 250px;
+  }
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
+    width: 150%;
+    position: relative;
+    left: -560px;
+    top: -250px;
   }
   .aboutdescriptiontext{
     display: flex;
@@ -155,6 +173,7 @@
   }
   .aboutdescriptionflex h1 {
     font-size: 35px;
+    align-self: flex-start;
   }
   .aboutdescriptionflex p {
     font-size: 18px;
@@ -163,7 +182,7 @@
   .aboutdescription svg {
     width: 100%;
     height: 9vh;
-    fill: #444444;
+    fill: #2B2B2B;
   }
   .aboutbuttoncontainer {
     display: flex;
@@ -181,8 +200,7 @@
   }
 
   .aboutplatform {
-    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png"), linear-gradient(#444444, #2B2B2B);
-    background-size: cover;
+    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png"), linear-gradient( #2B2B2B, #444444);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -197,7 +215,8 @@
     background: white;
     width: 65%;
     border-radius: 20px;
-    margin-top: -75px;
+    margin-top: -150px;
+    margin-bottom: 50px;
   }
   .aboutplatformcontainer h1 {
     background: #47494E;
@@ -231,16 +250,18 @@
     padding-bottom: 150px;
   }
   .aboutplatformcontainer p {
-    width: 90%;
+    width: 70%;
     font-size: 22px;
+    margin: 10px 0px 10px 0px;
   }
   .aboutplatformcontainer button {
     background: #A61C00;
     border-radius: 20px;
     padding: 10px 0px 10px 0px;
     width: 50%;
-    margin-bottom: 20px;
+    margin: 20px 0px 40px 0px;
     font-size: 16px;
+    color: white;
   }
   .aboutfaq {
     width: 100%;
