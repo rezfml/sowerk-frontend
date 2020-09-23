@@ -40,6 +40,12 @@ export default {
     align-items: center;
     margin-bottom: 20px;
   }
+  .landinghomereview h1{
+    font-size: 55px;
+  }
+  .landinghomereview p{
+    font-size: 18px;
+  }
   .landinghomereviewflex div {
     background: white;
     color: black;
@@ -53,8 +59,14 @@ export default {
     justify-content: center;
   }
   .landinghomereviewflex div p {
-    width: 80%;
-    margin: 10px 10% 10px 10%;
+    font-size: 18px;
+    width: 90%;
+    margin: 0 auto;
     text-align: center;
+    line-height: 1.5em;
+  }
+  .landinghomereviewflex div h4 {
+    font-size: 30px;
+    margin: 0px 0px 20px 0px;
   }
 </style>

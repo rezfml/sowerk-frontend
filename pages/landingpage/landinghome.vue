@@ -37,7 +37,7 @@
       <button>VIEW ALL</button>
     </section>
 
-    <Reviews></Reviews>
+    <Reviews v-bind:reviews="reviews"></Reviews>
 
     <section class="landinghomejoin">
       <div class="landinghomejoinflex">

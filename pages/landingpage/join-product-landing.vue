@@ -43,21 +43,21 @@
 
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
-        <div class="joinproductstepcontainerstep">
+        <div class="joinproductstepcontainerstep step-right">
           <img />
           <div>
             <h1>Step 1 <span>- Company Account & Locations</span></h1>
             <p>After setting up your account and locations, SOWerk makes it easy to filter approved service providers quickly and easily for any location across the country.</p>
           </div>
         </div>
-        <div class="joinproductstepcontainerstep">
+        <div class="joinproductstepcontainerstep step-left">
           <div>
             <h1>Step 2 <span>- Approve Service Providers</span></h1>
             <p>Use one of SOWerk’s pre-made vendor application or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well no matter how close or far away.</p>
           </div>
           <img />
         </div>
-        <div class="joinproductstepcontainerstep">
+        <div class="joinproductstepcontainerstep step-right">
           <img />
           <div>
             <h1>Step 3 <span>- Super Simple Management</span></h1>
@@ -66,6 +66,9 @@
         </div>
       </div>
       <button>REGISTER NOW</button>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
     </section>
 
     <section class="joinproductfaq">
@@ -141,7 +144,7 @@
     height: 9vh;
     fill: #A61C00;
     margin-top: 50px;
-    margin-bottom: -290px;
+    margin-bottom: -305px;
   }
   .joinproducttraits{
     background: #A61C00;
@@ -186,6 +189,7 @@
   .joinproductdescription p {
     width: 70%;
     font-size: 22px;
+    text-align: center;
   }
 
   .joinproductdescription p:first-child{
@@ -195,7 +199,7 @@
   .joinproductdescription button {
     background: #A61C00;
     width: 40%;
-    margin-bottom: 70px;
+    margin: 20px 0px 70px 0px;
     padding: 15px 0px 15px 0px;
     border-radius: 20px;
     font-size: 18px;
@@ -216,6 +220,7 @@
     background: white;
     border-radius: 20px;
     margin-top: -30px;
+    height: auto;
   }
   .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep img {
     width: 30%;
@@ -223,13 +228,27 @@
   .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep {
     display: flex;
     width: 100%;
+    margin: 30px 0px 30px 0px;
   }
   .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep div {
     display: flex;
     flex-direction: column;
     width: 70%;
   }
-
+  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep div span {
+    color: #A61C00;
+  }
+  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep div h1 {
+    font-size: 35px;
+  }
+  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep div p {
+    font-size: 20px;
+  }
+  .joinproductsteps svg {
+    width: 100%;
+    height: 9vh;
+    fill: white;
+  }
   .joinproductsteps button {
     background: #A61C00;
     color: white;
@@ -248,7 +267,16 @@
     align-items: center;
   }
   .joinproductfaq h1 {
-    color: red;
+    color: #A61C00;
+    font-size: 55px;
+    margin: 40px 0px 40px 0px;
+  }
+  .joinproductfaq h4 {
+    font-size: 25px;
+  }
+  .joinproductfaq p {
+    font-size: 18px;
+    margin: 20px 0px 30px 15px;
   }
   .joinproductfaq .joinproductfaqflex {
     display: flex;
@@ -266,9 +294,13 @@
     width: 87%;
   }
   .joinproductfaq button {
-    background: red;
+    background: #A61C00;
     color: white;
     width: 40%;
+    font-size: 18px;
+    padding: 15px 0px 15px 0px;
+    border-radius: 20px;
+    margin: 30px 0px 30px 0px;
   }
 
 </style>

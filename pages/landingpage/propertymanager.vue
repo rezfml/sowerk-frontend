@@ -196,7 +196,7 @@ export default {
   .splistcontainer div button{
     width: 80%;
     margin: 0 auto;
-    background: red;
+    background: #A61C00;
     color: white;
     border-radius: 20px;
     padding: 5px 0px 5px 0px;
