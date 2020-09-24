@@ -145,7 +145,7 @@ export default {
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.carouselPropertyManagers = data;
-        console.log(this.carouselPropertyManagers, 'pf managers');
+        console.log(this.carouselPropertyManagers, 'property-manager managers');
       })
     },
     async getCarouselServiceProviders() {

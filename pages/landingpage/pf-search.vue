@@ -31,7 +31,7 @@
             <h1>{{company.account_name}}</h1>
             <p>{{company.description}}</p>
           </div>
-          <a :href="'pf/' + company.id"><button>VIEW ACCOUNT</button></a>
+          <a :href="'property-manager/' + company.id"><button>VIEW ACCOUNT</button></a>
         </div>
         <jw-pagination :items="propertymanagers" @changePage="onChangePage" :pageSize="8" :maxPages="Math.round(propertymanagers.length/8)"></jw-pagination>
       </div>
@@ -94,22 +94,34 @@ Vue.use(JwPagination);
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
   .searchSection div {
     display: flex;
     justify-content: center;
     width: 80%;
+    margin: 10px 0px 10px 0px;
+  }
+  .searchSection h1{
+    font-size: 55px;
+  }
+  .searchSection div form{
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
   .searchSection form input {
     background: white;
     padding: 2px 5px 2px 5px;
     border-radius: 35px;
+    width: 50%;
   }
   .searchSection form button {
     background: #A61C00;
     border-radius: 35px;
-    padding: 3px 5px 3px 5px;
-    margin-left: -25px;
+    padding: 5px 10px 5px 10px;
+    margin-left: -305px;
+    font-size: 18px;
   }
   .companyList{
     width: 100%;
@@ -125,6 +137,8 @@ Vue.use(JwPagination);
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10px 0px 10px 0px;
+    border-radius: 20px;
   }
   .flexCompanies {
     display: flex;
