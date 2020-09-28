@@ -10,7 +10,7 @@
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+          <!-- <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/> -->
           <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
         </div>
         <div class="aboutdescriptiontext">
@@ -80,7 +80,7 @@
         <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.jpg"/>
         <div>
           <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
-          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+          <p >Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
           <p>With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs</p>
           <p>Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.</p>
         </div>
@@ -303,5 +303,118 @@
     width: 40%;
     border-radius: 20px;
     padding: 10px 0px 10px 0px;
+  }
+
+  @media (max-width: 800px) {
+    .abouthero h1{
+      font-size: 50px;
+    }
+
+    .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2[data-v-75c9003b] {
+    width: 150%;
+    position: relative;
+    left: -80px;
+    top: -200px;
+    }
+
+    .aboutdescriptiontext[data-v-75c9003b] {
+      width:100%;
+    }
+
+    .aboutdescriptionflex h1[data-v-75c9003b] {
+      width: 100%;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .aboutdescriptionflex p[data-v-75c9003b]{
+      margin: 10px 0;
+      width: 100%;
+    }
+    .aboutdescriptionflex[data-v-75c9003b] {
+      margin: 0;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .aboutbuttoncontainer[data-v-75c9003b] {
+        margin: 15px 0;
+        justify-content: center;
+    }
+
+    .aboutdescriptionimg {
+      width: 500px;
+    }
+
+    img.aboutdescriptionimg2 {
+      object-fit: contain;
+      width: 700px;
+      height: 400px;
+    }
+
+    .aboutdescriptionflex button[data-v-75c9003b]{
+      width: 30%;
+      font-size: 15px;
+    }
+
+
+    .aboutplatform .aboutplatformcontainer[data-v-75c9003b] {
+      width: 90%;
+      margin-top: 25px;
+    }
+
+    .aboutplatformcontainer h1[data-v-75c9003b]{
+      margin-bottom: 30px;
+    }
+
+    .aboutplatformcontainer p[data-v-75c9003b] {
+      font-size: 20px;
+      width: 75%;
+      margin: 15px 0 15px 0;
+    }
+
+    .aboutfaq .aboutfaqflex[data-v-75c9003b] {
+      width: 100%;
+    }
+
+
+
+    .aboutfaqflex {
+      margin: 20px 0;
+      width: 90%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .aboutfaqflex img {
+      height: 100px;
+      width: 100%;
+    }
+
+    .aboutfaqflex h4 {
+      text-align: center;
+      margin: 20px 0px;
+      width: 100%;
+    }
+
+    .aboutfaqflex p {
+      margin: 5px auto;
+      text-align: justify;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .aboutfaq h1 {
+      font-size: 43px;
+      max-width: 90%;
+      margin: 35px 0 25px 0;
+    }
+
+    .aboutfaq button {
+      margin: 35px;
+    }
   }
 </style>
