@@ -44,16 +44,38 @@
 <!--    </v-col>-->
 
     <v-col cols="12">
-      <v-text-field
-        placeholder=" "
-        id="location"
-        type="text"
-        v-model="location.name"
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
-        </template>
-      </v-text-field>
+      <v-row class="d-flex align-center">
+        <v-col cols="12" md="6">
+          <client-only >
+            <v-image-input
+              v-model="location.imageUrl"
+              image-quality="0.85"
+              clearable
+              fullWidth
+              image-format="png"
+              uploadIcon="person"
+              overlayPadding="10px"
+              scalingSliderColor="red"
+              :readonly="false"
+              style=""
+            />
+          </client-only>
+          <v-checkbox v-model="checkbox1"
+                      :label="`Use Brand Logo For This Facility`"></v-checkbox>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            placeholder=" "
+            id="location"
+            type="text"
+            v-model="location.name"
+          >
+            <template v-slot:label>
+              <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
+            </template>
+          </v-text-field>
+        </v-col>
+      </v-row>
 
       <div class="v-input__control mt-10">
         <div class="v-input__slot">
@@ -76,6 +98,18 @@
           </div>
         </div>
       </div>
+
+      <v-col>
+        <v-textarea
+          id="description"
+          v-model="location.description"
+          placeholder=" "
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>
+          </template>
+        </v-textarea>
+      </v-col>
     </v-col>
 
 <!--    <v-col cols="12" md="7" class="v-input">-->
@@ -111,9 +145,21 @@
 <!--      </template>-->
 <!--    </v-col>-->
 
-    <v-col cols="12" class="mt-8">
-      <span class="headline mb-0">Primary Point of Contact Info</span>
-      <span class="subtitle-1 my-0">(Only Public to Approved Vendor)</span>
+    <v-col cols="12" class="mt-8 d-flex justify-center">
+      <span class="headline mb-0">Location Manager</span>
+    </v-col>
+    <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
+    <v-col cols="12" md="6">
+      <v-checkbox v-model="location.pfLogoCheckbox"
+      :label="`This account will be managed by ${user.first_name} ${user.last_name}`"></v-checkbox>
+    </v-col>
+
+    <v-col cols="12" md="6">
+      <v-select
+        id="admin-level"
+        label="Admin Level*"
+        :items="adminLevel"
+        v-model="location.adminLevel"></v-select>
     </v-col>
 
     <v-col cols="12" md="6">
@@ -168,17 +214,6 @@
       </v-text-field>
     </v-col>
 
-    <v-col cols="12">
-      <v-textarea
-        id="description"
-        v-model="location.description"
-        placeholder=" "
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">Location Description*</p>
-        </template>
-      </v-textarea>
-    </v-col>
   </v-row>
 </template>
 
@@ -209,6 +244,10 @@
       location: {
         type: Object,
         required: true
+      },
+      user: {
+        type: Object,
+        required: true
       }
     },
     components: {
@@ -219,6 +258,12 @@
         miles: [
           '','','','','','','','','','','100','','','','','150','','','','','200'
         ],
+        adminLevel: [
+          1,
+          0
+        ],
+        checkbox1: false,
+        checkbox: false,
         memberships: [
           {
             text: 'Local',
