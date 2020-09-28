@@ -1,0 +1,316 @@
+<template>
+  <div class="joinservicecontainer">
+    <section class="joinservicehero">
+      <div>
+        <h1>Service Providers</h1>
+        <p>Approved Providers Get the Job</p>
+        <button>Get Started Now</button>
+      </div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
+    </section>
+
+    <section class="joinservicetraits">
+      <div>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"/>
+        <h3>Simple & Fast</h3>
+        <p>Our simple design makes connecting with other companies quick and painless while using either the desktop or mobile app.</p>
+      </div>
+      <div>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"/>
+        <h3>Powerful Tools</h3>
+        <p>SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.</p>
+      </div>
+      <div>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"/>
+        <h3>Automated</h3>
+        <p>SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status. </p>
+      </div>
+      <div>
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"/>
+        <h3>Convenient</h3>
+        <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
+      </div>
+    </section>
+
+    <section class="joinservicedescription">
+      <p>SOWerk makes it possible for a service providers like you to connect with prorperty & facility managers, become an approved vendor, and streamline work opportunties & communications. For those times when you need to promote your trackrecord and qualifications to a buyer not on SOWerk, well, we make that easy too. Your time is money, so it’s time you use SOWerk </p>
+      <button>REGISTER NOW</button>
+    </section>
+
+    <section class="joinservicesteps">
+      <div class="joinservicestepscontainer">
+        <div class="joinservicestepcontainerstep">
+          <img />
+          <div>
+            <h1>Step 1 <span>- Build a Profile</span></h1>
+            <p>Your SOWerk Profile is Your New Calling Card. Designed To Make You Look Good!</p>
+            <p>Your company dashboard displays recent users that you have been in contact with along with a chart of your pending application requests.</p>
+          </div>
+        </div>
+        <div class="joinservicestepcontainerstep">
+          <div>
+            <h1>Step 2 <span>- Apply With Buyers</span></h1>
+            <p>Apply For Businesses Looking For You With One Click.</p>
+            <p>With the click of one button, your company can apply to work for large businesses located in your area. This process makes it easy for you and the Buyer to connect and review each others profiles hassle free.</p>
+          </div>
+          <img />
+        </div>
+        <div class="joinservicestepcontainerstep">
+          <img />
+          <div>
+            <h1>Step 3 <span>- Generate Leads</span></h1>
+            <p>SOWerk makes it easy for you to get inbound service leads & we make it simple for you to show off your trackrecord (profile) to a potential customer.</p>
+            <p>Easily share in one click with anyone outside of the platform via email or text.</p>
+          </div>
+        </div>
+      </div>
+      <button>REGISTER NOW</button>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon points="0,100 110,0 100,100"/>
+      </svg>
+    </section>
+
+    <section class="joinservicefaq">
+      <h1>Service Providers Generally Ask</h1>
+      <div class="joinservicefaqflex">
+        <img />
+        <div>
+          <h4>Do I Seriously Get More Jobs?</h4>
+          <p>Yes, Property & Facility managers of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet service providers request bids.</p>
+          <p>SOWerk also helps you look good when applying for approved vendor programs, but we also make it easy to share those good looks with others. Next time your bidding a job show off your resume by emailing or texting your SOWerk profile.</p>
+        </div>
+      </div>
+      <div class="joinservicefaqflex">
+        <img />
+        <div>
+          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
+          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+
+          <p>With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs</p>
+
+          <p>Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.</p>
+        </div>
+      </div>
+      <div class="joinservicefaqflex">
+        <img />
+        <div>
+          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
+          <p>Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program.</p>
+          <p>Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features we offer a few packages. Details can be found on our Approved Provider Pricing page.</p>
+        </div>
+      </div>
+      <button>REGISTER NOW</button>
+    </section>
+  </div>
+</template>
+
+<script>
+
+</script>
+
+<style scoped>
+  .joinservicecontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .joinservicehero {
+    width: 100%;
+    height: 50vh;
+    background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .joinservicehero h1{
+    font-size: 55px;
+    text-align: center;
+  }
+  .joinservicehero p{
+    font-size: 23px;
+    text-align: center;
+  }
+  .joinservicehero svg {
+    width: 100%;
+    height: 9vh;
+    fill: #A61C00;
+    margin-top: 50px;
+    margin-bottom: -320px;
+  }
+  .joinservicehero div {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .joinservicehero div button {
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px 0px 5px 0px;
+    font-size: 18px;
+    width: 50%;
+  }
+  .joinservicetraits{
+    background: #A61C00;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .joinservicetraits div {
+    width: 20%;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 20px;
+    margin: 50px 5px 50px 5px;
+  }
+  .joinservicetraits div img {
+    width: 50%;
+    height: 200px;
+  }
+  .joinservicetraits div h3 {
+    font-size: 22px;
+    margin: 10px 0px 10px 0px;
+  }
+  .joinservicetraits div p {
+    width: 80%;
+    font-size: 18px;
+  }
+  .joinservicedescription{
+    width: 100%;
+    background: #151515;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .joinservicedescription p {
+    width: 70%;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .joinservicedescription p:first-child{
+    margin-top: 50px;
+  }
+
+  .joinservicedescription button {
+    background: #A61C00;
+    width: 40%;
+    margin: 20px 0px 70px 0px;
+    padding: 15px 0px 15px 0px;
+    border-radius: 20px;
+    font-size: 18px;
+  }
+
+  .joinservicesteps {
+    background: #47494E;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .joinservicesteps .joinservicestepscontainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 20px;
+    margin-top: -30px;
+    height: auto;
+  }
+  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep img {
+    width: 30%;
+  }
+  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep {
+    display: flex;
+    width: 100%;
+    margin: 30px 0px 30px 0px;
+  }
+  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep div {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+  }
+  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep div span {
+    color: #A61C00;
+  }
+  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep div h1 {
+    font-size: 35px;
+  }
+  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep div p {
+    font-size: 20px;
+  }
+  .joinservicesteps svg {
+    width: 100%;
+    height: 9vh;
+    fill: white;
+  }
+  .joinservicesteps button {
+    background: #A61C00;
+    color: white;
+    padding: 20px 0px 20px 0px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    width: 40%;
+    font-size: 18px;
+  }
+
+  .joinservicefaq {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .joinservicefaq h1 {
+    color: #A61C00;
+    font-size: 55px;
+    margin: 40px 0px 40px 0px;
+  }
+  .joinservicefaq h4 {
+    font-size: 25px;
+  }
+  .joinservicefaq p {
+    font-size: 18px;
+    margin: 20px 0px 30px 15px;
+  }
+  .joinservicefaq .joinservicefaqflex {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+  }
+  .joinservicefaq .joinservicefaqflex img {
+    width: 10%;
+    margin-right: 3%;
+  }
+  .joinservicefaq .joinservicefaqflex div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 87%;
+  }
+  .joinservicefaq button {
+    background: #A61C00;
+    color: white;
+    width: 40%;
+    font-size: 18px;
+    padding: 15px 0px 15px 0px;
+    border-radius: 20px;
+    margin: 30px 0px 30px 0px;
+  }
+
+</style>

@@ -198,7 +198,7 @@
       },
       // async getLocations(companies) {
       //   for (const company of companies) {
-      //     let {data, status} = await this.$http.get('https://sowerk-backend.herokuapp.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+      //     let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
       //     console.log(data);
       //     if (this.$error(status, data.message, data.errors)) return;
       //     if(data.locations[0] !== 'There are no locations') {

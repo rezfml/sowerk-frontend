@@ -5,8 +5,8 @@
         <v-row>
           <v-toolbar-title v-text="title" />
           <v-spacer></v-spacer>
-          <v-btn href="#" text>Home</v-btn>
-          <v-btn href="#" text>About</v-btn>
+          <v-btn href="/landingpage/landinghome" text>Home</v-btn>
+          <v-btn href="/landingpage/about" text>About</v-btn>
           <v-btn href="#" text>Features</v-btn>
           <v-btn to="/register" text>Register</v-btn>
           <v-btn to="/login" text>Login</v-btn>
@@ -14,9 +14,7 @@
       </v-container>
     </v-app-bar>
     <v-content>
-      <v-container>
         <nuxt />
-      </v-container>
     </v-content>
     <v-footer :fixed="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>

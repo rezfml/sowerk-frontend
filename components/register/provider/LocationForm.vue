@@ -304,7 +304,7 @@
         this.$emit('createMarker', this.latitude, this.longitude);
       },
 
-      // get membership plans
+      // get membership plans GET
       async getPlans() {
         let {data: {plans, message, errors}, status} = await this.$http.get('https://api.sowerk.com/v1/chargebees').catch(e => e);
         if (this.$error(status, message, errors)) return;
