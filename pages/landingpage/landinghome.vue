@@ -14,7 +14,7 @@
 
     <section class="landinghomepf">
       <h4>SOWerk Property & Facility Accounts</h4>
-      <CaroselPF v-bind:carouselPropertyManagers="carouselPropertyManagers"></CaroselPF>
+      <PreviewSliderSectionPF :carouselPropertyManagers="carouselPropertyManagers"></PreviewSliderSectionPF>
       <button>VIEW ALL</button>
     </section>
 
@@ -33,7 +33,7 @@
 
     <section class="landinghomesp">
       <h4>SOWerk Service Provider Accounts</h4>
-      <CaroselSP v-bind:carouselServiceProviders="carouselServiceProviders"></CaroselSP>
+      <PreviewSliderSectionSP :carouselServiceProviders="carouselServiceProviders"></PreviewSliderSectionSP>
       <button>VIEW ALL</button>
     </section>
 
@@ -114,9 +114,11 @@
 </template>
 
 <script>
-import CaroselPF from '../../components/landing/CaroselPF';
-import CaroselSP from '~/components/landing/CaroselSP';
+// import CaroselPF from '../../components/landing/CaroselPF';
+// import CaroselSP from '~/components/landing/CaroselSP';
 import Reviews from '../../components/landing/Reviews';
+import PreviewSliderSectionPF from '~/components/landing/PreviewSliderSectionPF';
+import PreviewSliderSectionSP from '~/components/landing/PreviewSliderSectionSP';
 export default {
   data: () => ({
     carouselPropertyManagers: [
@@ -130,8 +132,8 @@ export default {
     ]
   }),
   components: {
-    CaroselPF,
-    CaroselSP,
+    PreviewSliderSectionPF,
+    PreviewSliderSectionSP,
     Reviews
   },
   mounted() {

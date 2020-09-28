@@ -2,7 +2,7 @@
   <v-carousel show-arrows id="carousel">
     <v-carousel-item v-for="(review, i) in allReviews" :key='i'>
        <div class="starflex">
-         <img v-for="star in review.stars" src="https://sowerk-images.s3.us-east-2.amazonaws.com/rcjrRG65i.png" />
+         <v-icon v-for="star in review.stars">star</v-icon>
        </div>
       <h1>{{review.reviewTitle}}</h1>
       <p>{{review.reviewDescription}} - {{review.reviewerName}}, {{review.reviewerAccountType}}</p>
