@@ -409,15 +409,6 @@
     top: -200px;
   }
 
-  /* .aboutdescriptionflex
-    .aboutdescriptionimg
-    .aboutdescriptionimg1[data-v-75c9003b] {
-    width: 200%;
-    top: 10px;
-    left: -100px;
-    height: 300px;
-  } */
-
   .aboutdescriptiontext[data-v-75c9003b] {
     width: 90%;
   }
