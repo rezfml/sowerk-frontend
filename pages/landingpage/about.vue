@@ -599,47 +599,47 @@
 
   .aboutdescriptionflex
     .aboutdescriptionimg
-    .aboutdescriptionimg2[data-v-75c9003b] {
+    .aboutdescriptionimg2 {
     left: -110px;
   }
 
   .aboutdescriptiontext h1 {
-    font-size: 30px;
+    font-size: 28px;
   }
   .aboutdescriptiontext p {
     font-size: 16px;
   }
 
-  .aboutdescriptionflex button[data-v-75c9003b] {
+  .aboutdescriptionflex button {
     font-size: 13px;
   }
 
-  .aboutplatformcontainer h1[data-v-75c9003b] {
+  .aboutplatformcontainer h1{
     font-size: 40px;
   }
 
-  .aboutplatformcontainerfleximg[data-v-75c9003b] {
+  .aboutplatformcontainerfleximg {
     width: 80%;
   }
 
-  .aboutplatformcontainer p[data-v-75c9003b] {
+  .aboutplatformcontainer p {
     font-size: 16px;
   }
 
-  .aboutfaq h1[data-v-75c9003b] {
+  .aboutfaq h1 {
     font-size: 30px;
     width: 100%;
   }
-  .aboutfaqflex h4[data-v-75c9003b] {
-    font-size: 21px;
+  .aboutfaqflex h4 {
+    font-size: 23px;
   }
 
   .aboutfaq p{
     font-size: 15px;
   }
 
-  .aboutfaq button[data-v-75c9003b] {
-    font-size: 13px;
+  .aboutfaq button[data-v-75c9003b][data-v-75c9003b] {
+    font-size: 15px;
   }
 }
 </style>
