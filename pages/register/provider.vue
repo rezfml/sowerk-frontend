@@ -193,6 +193,7 @@
                       <FormLocation
                         :location="location"
                         :index="editingIndex"
+                        :user="user"
                       />
                     </v-container>
                   </v-form>
@@ -206,7 +207,6 @@
                     <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>
                     <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
                     <template v-slot:item.actions="{ item }">
-
                       <v-btn icon @click="editLocation(locations.indexOf(item))">
                         <v-icon
                           small
@@ -227,6 +227,43 @@
               </v-card-text>
             </v-container>
           </v-tab-item>
+
+          <v-tab-item eager>
+            <v-container style="max-width: 80%;" mx-auto>
+              <v-card-text class="pa-0">
+                <template v-if="editingInsurance && editingLicense">
+                  <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6">Optional -</span> SOWerk highly encourages you to upload Company Documents</v-card-title>
+                  <v-card-subtitle class="justify-center headline font-weight-bold">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
+                  <v-card-subtitle class="justify-center headline font-weight-bold">*Note: These documents are not public and will only be included when you apply to be an approved vender.</v-card-subtitle>
+                  <v-form class="mx-auto">
+                    <v-container>
+                      <InsuranceForm
+                        :insurance="insurance"
+                        :index="editingIndexInsurance"
+                      />
+                    </v-container>
+                  </v-form>
+                </template>
+                <template v-else>
+                  <v-data-table
+                    :headers="headerInsurance"
+                    :items="insurances"
+                    :items-per-page="10"
+                  >
+                    <template v-slot:item.id="{ item }">{{insurances.indexOf(item) + 1}}</template>
+                    <template v-slot:item.name="{item }">{{item.name}}</template>
+                    <template v-slot:item.actions="{item}">
+                      <v-btn icon @click="editInsurance(insurances.indexOf(item))">
+                        <v-icon small class="mr-2">mdi-pencil</v-icon>
+                      </v-btn>
+                      <v-icon small @click="deleteInsurance(item)">mdi-delete</v-icon>
+                    </template>
+                  </v-data-table>
+                </template>
+              </v-card-text>
+            </v-container>
+          </v-tab-item>
+
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
@@ -322,10 +359,13 @@
           <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
           <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
           <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
-          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">Add Location + </v-btn>
-          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="!editingLocation && tab === 1">Next > </v-btn>
+          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
+          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addInsurance" v-if="!editingInsurance && tab ===2">+ Add Another Insurance</v-btn>
+          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLicense" v-if=" !editingLicense && tab ===2">+ Add Another License</v-btn>
+          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
           <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
-          <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2">Submit</v-btn>
+          <v-btn color="primary" class="px-8" @click="finishEditingInsuranceLicense" v-else-if="editingInsurance && editingLocation && tab === 2">Finish Document</v-btn>
+          <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -340,6 +380,7 @@
 
   import Vue from 'vue';
   import FormLocation from '~/components/FormLocation'
+  import InsuranceForm from '~/components/InsuranceForm'
 
   // Vue.use(VueGoogleMaps, {
   //   load: {
@@ -362,6 +403,7 @@
         items: [
           'Company',
           'Locations',
+          'Documents',
           'Review'
         ],
         company: {
@@ -382,6 +424,25 @@
           password: '',
           is_superuser: true,
           phone: '',
+          companies_id: null
+        },
+        insurances: [],
+        insurance: {
+          name: '',
+          policyNumber: '',
+          expirationDate: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null
+        },
+        licenses: [],
+        license: {
+          type: '',
+          licenseNumber: '',
+          licenseLocation: '',
+          expirationDate: '',
+          documentUrl: '',
+          documentVisible: false,
           companies_id: null
         },
         options: {
@@ -422,10 +483,14 @@
         },
         formattedServicesProvided: [],
         editingIndex: 0,
+        editingIndexInsurance: 0,
+        editingIndexLicense: 0,
         imageUrlLocation: '',
         autocomplete: null,
         markers: [],
         editingLocation: true,
+        editingInsurance: true,
+        editingLicense: true,
         headers: [
           {
             text: 'ID',
@@ -440,6 +505,18 @@
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
+        headerInsurance: [
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+            class: 'primary--text font-weight-regular'
+          },
+          { text: "Insurance Company", value: 'name', class: 'primary--text font-weight-regular'},
+          { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-regular'},
+          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-regular'},
         ]
       }
     },
@@ -455,7 +532,7 @@
     },
     methods: {
       nextPageIfNotLast() {
-        if(this.tab === 2) return;
+        if(this.tab === 3) return;
         this.tab += 1;
         console.log(this.locations);
       },
@@ -469,12 +546,27 @@
         this.locations[this.editingIndex] = this.location;
         this.editingIndex = null;
       },
+      finishEditingInsuranceLicense() {
+        this.editingInsurance = false;
+        this.editingLicense = false;
+        this.insurances[this.editingIndexInsurance] = this.insurance;
+        this.licenses[this.editingIndexLicense] = this.license;
+        this.editingIndexInsurance = null;
+        this.editingIndexInsurance = null;
+      },
       editLocation(index) {
         console.log(index);
         this.editingIndex = index;
         this.location = this.locations[index];
         console.log(this.location);
         this.editingLocation = true;
+      },
+      editInsurance(index) {
+        console.log(index);
+        this.editingIndexInsurance = index;
+        this.insurance = this.insurances[index];
+        console.log(this.insurance);
+        this.editingInsurance = true;
       },
       getAddressData(addressData) {
         console.log(addressData);
@@ -528,6 +620,12 @@
         this.location = this.locations[this.locations.length - 1];
         this.editingIndex = this.locations.length - 1;
         this.editingLocation = true;
+      },
+      addInsurance() {
+        this.editingInsurance = true;
+      },
+      addLicense() {
+        this.editingLicense = true;
       },
       saveCompanyAddress(addressObj) {
         this.company.address = addressObj.street_number + ' ' + addressObj.route;
