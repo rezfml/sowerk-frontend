@@ -1,15 +1,16 @@
 <template>
   <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
     <v-container class="pt-0" fluid>
-      <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">{{ title }}</v-card-title>
+      <v-card-title
+        style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+        class="primary white--text font-weight-regular red-gradient"
+        >{{ title }}</v-card-title
+      >
       <v-card-actions class="d-flex justify-end px-4 py-0">
         <v-row class="py-0">
           <v-spacer></v-spacer>
           <v-col cols="4" class="py-0">
-            <v-text-field
-              label="Search"
-              light
-            ></v-text-field>
+            <v-text-field label="Search" light></v-text-field>
           </v-col>
         </v-row>
       </v-card-actions>
@@ -19,66 +20,74 @@
           :items="items"
           :items-per-page="10"
         >
-          <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+          <template v-slot:item.full_name="{ item }"
+            >{{ item.contact_first_name }}
+            {{ item.contact_last_name }}</template
+          >
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
-            <v-btn block color="primary" :to="slug + item.application_id">Review</v-btn>
+            <v-btn block color="primary" :to="slug + item.application_id"
+              >Review</v-btn
+            >
           </template>
-          <template v-slot:item.actions="{ item }" v-else-if="action === 'Apply'">
-            <v-btn block color="primary" :to="slug + item.location_id + '/application-form/' + item.id">Apply</v-btn>
+          <template
+            v-slot:item.actions="{ item }"
+            v-else-if="action === 'Apply'"
+          >
+            <v-btn
+              block
+              color="primary"
+              :to="slug + item.location_id + '/application-form/' + item.id"
+              >Apply</v-btn
+            >
           </template>
           <template v-slot:item.actions="{ item }" v-else>
-            <nuxt-link
-              :to="slug + item.id"
-              append
-            >
+            <nuxt-link :to="slug + item.id" append>
               <v-btn icon>
-                <v-icon
-                  small
-                  class="mr-2"
-                >
+                <v-icon small class="mr-2">
                   mdi-pencil
                 </v-icon>
               </v-btn>
             </nuxt-link>
-            <v-icon
-              small
-              @click="deleteItem(item)"
-            >
+            <v-icon small @click="deleteItem(item)">
               mdi-delete
             </v-icon>
           </template>
         </v-data-table>
       </v-card-text>
       <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
-        <v-btn color="primary" class="px-8" rounded outlined small style="font-size: 12px">View All</v-btn>
+        <v-btn
+          color="primary"
+          class="px-8"
+          rounded
+          outlined
+          small
+          style="font-size: 12px"
+          >View All</v-btn
+        >
       </v-card-actions>
     </v-container>
   </v-card>
 </template>
 <script>
-  export default {
-    name: 'HomeCard',
-    props: [
-      'items',
-      'title',
-      'viewAll',
-      'tableProperties',
-      'action',
-      'slug'
-    ],
-    data() {
-      return {
-        locations: null,
-      }
-    },
-    mounted() {
-    },
-  }
+export default {
+  name: 'HomeCard',
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug'],
+  data() {
+    return {
+      locations: null
+    }
+  },
+  mounted() {}
+}
 </script>
 
 <style lang="scss" scoped>
-  .red-gradient {
-    background: rgb(166,28,0);
-    background: linear-gradient(90deg, rgba(166,28,0,1) 0%, rgba(116,21,2,1) 100%);
-  }
+.red-gradient {
+  background: rgb(166, 28, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(166, 28, 0, 1) 0%,
+    rgba(116, 21, 2, 1) 100%
+  );
+}
 </style>

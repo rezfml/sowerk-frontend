@@ -10,7 +10,10 @@
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <!-- <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/> -->
+          <!-- <img
+            class="aboutdescriptionimg1"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"
+          /> -->
           <img
             class="aboutdescriptionimg2"
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"
@@ -230,6 +233,7 @@
   border-radius: 20px;
   margin: -50px 0px 100px 0px;
 }
+
 .aboutdescriptionflex .aboutdescriptionimg {
   width: 40%;
   display: flex;
@@ -253,7 +257,7 @@
   flex-direction: column;
   align-items: center;
   width: 60%;
-  margin-top: 25px;
+  margin-top: 35px;
 }
 .aboutdescriptionflex h1 {
   font-size: 35px;
@@ -284,7 +288,7 @@
 }
 
 .aboutplatform {
-  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png') ,
+  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
     linear-gradient(#2b2b2b, #444444);
   width: 100%;
   display: flex;
@@ -359,11 +363,13 @@
   font-size: 55px;
   margin-top: 20px;
 }
+
 .aboutfaq .aboutfaqflex {
   display: flex;
   width: 65%;
   justify-content: center;
 }
+
 .aboutfaq .aboutfaqflex img {
   width: 10%;
   margin-right: 3%;
@@ -398,14 +404,23 @@
   .aboutdescriptionflex
     .aboutdescriptionimg
     .aboutdescriptionimg2[data-v-75c9003b] {
-    width: 150%;
+    width: 200%;
     position: relative;
-    left: -80px;
+    left: -140px;
     top: -200px;
   }
 
+  /* .aboutdescriptionflex
+    .aboutdescriptionimg
+    .aboutdescriptionimg1[data-v-75c9003b] {
+    width: 200%;
+    top: 10px;
+    left: -100px;
+    height: 300px;
+  } */
+
   .aboutdescriptiontext[data-v-75c9003b] {
-    width: 100%;
+    width: 90%;
   }
 
   .aboutdescriptionflex h1[data-v-75c9003b] {
@@ -417,6 +432,7 @@
   .aboutdescriptionflex p[data-v-75c9003b] {
     margin: 10px 0;
     width: 100%;
+    text-align: justify;
   }
 
   .aboutdescriptionflex[data-v-75c9003b] {
@@ -444,6 +460,7 @@
   .aboutdescriptionflex button[data-v-75c9003b] {
     width: 30%;
     font-size: 15px;
+    padding:10px;
   }
 
   .aboutplatform .aboutplatformcontainer[data-v-75c9003b] {
@@ -530,11 +547,11 @@
     font-size: 43px;
   }
 
-   .aboutplatformcontainer p[data-v-75c9003b] {
+  .aboutplatformcontainer p[data-v-75c9003b] {
     font-size: 18px;
   }
 
-    .aboutplatformcontainerfleximg[data-v-75c9003b] {
+  .aboutplatformcontainerfleximg[data-v-75c9003b] {
     width: 75%;
   }
 
@@ -543,14 +560,12 @@
   }
 
   .aboutfaq p[data-v-75c9003b] {
-    font-size: 17px ;
+    font-size: 17px;
   }
 
   .aboutfaq button[data-v-75c9003b] {
     font-size: 14px;
   }
-
-  
 }
 
 @media (max-width: 580px) {
@@ -591,17 +606,16 @@
     font-size: 30px;
     width: 100%;
   }
-.aboutfaqflex h4[data-v-75c9003b] {
-    font-size:  22px;
+  .aboutfaqflex h4[data-v-75c9003b] {
+    font-size: 22px;
   }
 
   .aboutfaq p[data-v-75c9003b] {
-    font-size: 16px ;
+    font-size: 16px;
   }
 
-   .aboutfaq button[data-v-75c9003b] {
+  .aboutfaq button[data-v-75c9003b] {
     font-size: 13px;
   }
- 
 }
 </style>
