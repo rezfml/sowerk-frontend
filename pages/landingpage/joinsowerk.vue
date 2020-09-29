@@ -359,7 +359,9 @@ export default {
 }
 .joinhero {
   background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg');
-  background-size: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 100%;
   height: auto;
   display: flex;
@@ -542,7 +544,7 @@ export default {
   justify-content: center;
   align-items: center;
   background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
-    linear-gradient(#444444, #2b2b2b);
+  linear-gradient(#444444, #2b2b2b);
   background-size: cover;
 }
 .joinconnection h1 {
@@ -762,8 +764,13 @@ export default {
     font-size: 15px;
   }
 
+  .joinlinkflex {
+    width: 100%;
+  }
+
   .joinlink .joinlinkflex .joinlinkflexcolumn {
     margin: 10px 5% 20px 5%;
+    width: 37%;
   }
 
   .joinlink h1 {
@@ -802,5 +809,95 @@ export default {
     margin-top: 0;
     max-width: 300px;
   }
+
+  .joinconnection h1 {
+    font-size: 48px;
+  }
+
+  .joinconnection .joinconnectioncolumn {
+    width: 40%;
+  }
+  .joinconnectioncontainerbox img {
+    width: 40%;
+  }
+
+  .joinfaq h1 {
+    font-size: 45px;
+  }
+}
+
+@media (max-width: 850px) {
+  .joinherotext {
+    width: 100%;
+    border-radius: 0;
+
+  }
+
+  .joinherotext img {
+    width: 525px;
+  }
+
+  .joinlink h1 {
+    width: 80%;
+  }
+
+  .joinlinkflex {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .joinlink .joinlinkflex .joinlinkflexcolumn{
+    margin: 10px 2% 10px 2%;
+    width: 100%;
+    max-width: 70%;
+  }
+
+  .joinlink .joinlinkflex .joinlinkflexcolumn img {
+width: 28%;
+  }
+
+
+  .joinfaq h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 680px) {
+  .joinherotext h1 {
+    font-size: 38px;
+  }
+
+  .joinherotext button {
+    font-size: 14px;
+  }
+
+  .joinlink h1 {
+    font-size: 26px;
+    width: 85%;
+  }
+
+  .joinlinkflex  {
+    width: 100%;
+    
+}
+.jointraits div {
+  flex: 0 50%;
+}
+.joinconnection h1 {
+  font-size: 42px;
+}
+.joinconnection {
+  flex-direction: column;
+}
+
+.joinconnection .joinconnectioncolumn {
+  width: 80%;
+}
+
+.joinconnection h1 {
+  font-size: 40px;
+  width: 100%;
+}
 }
 </style>
