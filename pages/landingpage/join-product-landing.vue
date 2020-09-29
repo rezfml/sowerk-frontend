@@ -648,4 +648,10 @@
     font-size: 17px;
   }
 }
+
+@media (max-width: 600px) {
+  .joinproducttraits div {
+    flex: 0 60%;
+  }
+}
 </style>
