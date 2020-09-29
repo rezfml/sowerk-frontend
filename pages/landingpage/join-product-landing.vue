@@ -182,8 +182,9 @@
   height: 60vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg');
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,8 +213,8 @@
   width: 100%;
   height: 9vh;
   fill: #a61c00;
-  margin-top: 115px;
-  margin-bottom: -305px;
+  margin-top: 50px;
+  margin-bottom: -320px;
 }
 .joinproducttraits {
   background: #a61c00;
