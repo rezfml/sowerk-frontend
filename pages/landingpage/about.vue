@@ -148,7 +148,7 @@
         />
         <div>
           <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
-          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+          <p id="pfaq">Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
           <p>
             With only a click or two on your computer or mobile device you can
             use your SOWerk Profile to apply for approved vendor programs
@@ -184,8 +184,7 @@
   </div>
 </template>
 
-<script>
-</script>
+<script></script>
 
 <style scoped>
 #aboutcontainer {
@@ -426,13 +425,15 @@
   .aboutdescriptionflex h1[data-v-75c9003b] {
     width: 100%;
     text-align: center;
-    font-size: 30px;
+    font-size: 33px;
+    margin: 15px 0px 12px 0px;
   }
 
   .aboutdescriptionflex p[data-v-75c9003b] {
     margin: 10px 0;
     width: 100%;
-    text-align: justify;
+    text-align: center;
+    line-height: 24px;
   }
 
   .aboutdescriptionflex[data-v-75c9003b] {
@@ -458,9 +459,9 @@
   }
 
   .aboutdescriptionflex button[data-v-75c9003b] {
-    width: 30%;
-    font-size: 15px;
-    padding:10px;
+    width: 100%;
+    font-size: 16px;
+    padding: 5px 10px;
   }
 
   .aboutplatform .aboutplatformcontainer[data-v-75c9003b] {
@@ -468,20 +469,30 @@
     margin-top: 25px;
   }
 
-  .aboutplatformcontainer h1[data-v-75c9003b] {
+  .aboutplatformcontainer h1 {
     margin-bottom: 30px;
+    font-size: 48px;
   }
 
-  .aboutplatformcontainer p[data-v-75c9003b] {
-    font-size: 20px;
-    width: 75%;
-    margin: 15px 0 15px 0;
+  .aboutplatformcontainer p {
+    font-size: 19px;
+    width: 80%;
+    margin: 25px 0 20px 0;
+    text-align: justify;
+  }
+
+  .aboutplatformcontainer button {
+    width: 80%;
+    font-size: 17px;
   }
 
   .aboutfaq .aboutfaqflex[data-v-75c9003b] {
     width: 100%;
   }
 
+#pfaq {
+  width: 100%;
+}
   .aboutfaqflex {
     margin: 20px 0;
     width: 90%;
@@ -503,6 +514,8 @@
   .aboutfaqflex p {
     margin: 5px auto;
     text-align: justify;
+    font-size: 17px;
+    line-height: 30px;
   }
 
   h1 {
@@ -510,13 +523,15 @@
   }
 
   .aboutfaq h1 {
-    font-size: 43px;
-    max-width: 90%;
-    margin: 35px 0 25px 0;
+    font-size: 35px;
+    max-width: 100%;
+    margin: 50px 0 20px 0;
   }
 
   .aboutfaq button {
     margin: 35px;
+    width: 85%;
+    font-size: 17px;
   }
 }
 
@@ -528,7 +543,7 @@
   .aboutdescriptionflex
     .aboutdescriptionimg
     .aboutdescriptionimg2[data-v-75c9003b] {
-    left: -70px;
+    left: -110px;
   }
 
   .aboutdescriptiontext h1 {
@@ -540,26 +555,31 @@
   }
 
   .aboutdescriptionflex button[data-v-75c9003b] {
-    font-size: 13px;
+    font-size: 15px;
   }
 
-  .aboutplatformcontainer h1[data-v-75c9003b] {
+  .aboutplatformcontainer h1 {
     font-size: 43px;
   }
 
-  .aboutplatformcontainer p[data-v-75c9003b] {
-    font-size: 18px;
+  .aboutplatformcontainer p {
+    font-size: 16px;
   }
 
-  .aboutplatformcontainerfleximg[data-v-75c9003b] {
+  .aboutplatformcontainer button {
+    font-size: 16px;
+  }
+
+  .aboutplatformcontainerfleximg {
     width: 75%;
   }
 
-  .aboutfaq h1[data-v-75c9003b] {
-    font-size: 38px;
+  .aboutfaq h1 {
+    font-size: 32px;
+    max-width: 100%;
   }
 
-  .aboutfaq p[data-v-75c9003b] {
+  .aboutfaq p {
     font-size: 17px;
   }
 
@@ -576,7 +596,7 @@
   .aboutdescriptionflex
     .aboutdescriptionimg
     .aboutdescriptionimg2[data-v-75c9003b] {
-    left: -60px;
+    left: -110px;
   }
 
   .aboutdescriptiontext h1 {
@@ -607,11 +627,11 @@
     width: 100%;
   }
   .aboutfaqflex h4[data-v-75c9003b] {
-    font-size: 22px;
+    font-size: 21px;
   }
 
-  .aboutfaq p[data-v-75c9003b] {
-    font-size: 16px;
+  .aboutfaq p{
+    font-size: 15px;
   }
 
   .aboutfaq button[data-v-75c9003b] {

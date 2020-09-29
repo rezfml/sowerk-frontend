@@ -169,8 +169,7 @@
   </div>
 </template>
 
-<script>
-</script>
+<script></script>
 
 <style scoped>
 .joinproductcontainer {
@@ -471,29 +470,44 @@
     font-size: 17px;
     padding: 0px 25px 0px 25px;
   }
-.joinproductsteps button {
-  padding:15px 0px 15px 0px;
-}
+  .joinproductsteps button {
+    padding: 15px 0px 15px 0px;
+  }
 
-.joinproductfaq h1 {
-  font-size: 49px;
-  text-align: center;
-  margin: 40px 25px 40px 25px;
-}
+  .joinproductfaq h1 {
+    font-size: 49px;
+    text-align: center;
+    margin: 40px 25px 40px 25px;
+  }
 
-.joinproductfaq .joinproductfaqflex {
-  width: 70%;
-}
+  .joinproductfaq .joinproductfaqflex {
+    width: 70%;
+  }
 
-.joinproductfaq h4 {
-  font-size: 23px;
-}
+  .joinproductfaq h4 {
+    font-size: 23px;
+  }
 
-.joinproductfaq p {
-  font-size: 17px;
-}
+  .joinproductfaq p {
+    font-size: 17px;
+  }
 
+  @media (max-width: 750px) {
+    .joinproducthero div h1 {
+      font-size: 49px;
+    }
 
+    .joinproducthero div p {
+      font-size: 20px;
+    }
 
+    .joinproductsteps
+      .joinproductstepscontainer
+      .joinproductstepcontainerstep
+      div
+      span {
+      font-size: 28px;
+    }
+  }
 }
 </style>
