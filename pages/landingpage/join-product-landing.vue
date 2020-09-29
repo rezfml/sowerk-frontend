@@ -198,6 +198,7 @@
 }
 .joinproducthero div h1 {
   font-size: 55px;
+  text-align: center;
 }
 .joinproducthero div p {
   font-size: 23px;
@@ -236,7 +237,7 @@
 }
 .joinproducttraits div img {
   width: 50%;
-  height: 200px;
+  height: 150px;
 }
 .joinproducttraits div h3 {
   font-size: 22px;
@@ -440,9 +441,6 @@
 
   .joinproducthero div p {
     font-size: 22px;
-  }
-
-  .joinproducthero div button {
   }
 
   .joinproducttraits {
