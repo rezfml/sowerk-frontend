@@ -593,6 +593,10 @@
     font-size: 38px;
   }
 
+  .aboutdescriptionflex {
+    width: 100%;
+  }
+
   .aboutdescriptionflex
     .aboutdescriptionimg
     .aboutdescriptionimg2[data-v-75c9003b] {
@@ -607,7 +611,7 @@
   }
 
   .aboutdescriptionflex button[data-v-75c9003b] {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .aboutplatformcontainer h1[data-v-75c9003b] {
