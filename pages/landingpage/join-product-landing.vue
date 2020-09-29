@@ -440,13 +440,14 @@
   }
 
   .joinproductdescription p {
-    width: 72%;
+    width: 78%;
     font-size: 17px;
     line-height: 24px;
   }
 
   .joinproductdescription button {
     padding: 12px 0px 12px 0px;
+    width: 80%;
   }
 
   .joinproductsteps .joinproductstepscontainer {
@@ -472,16 +473,17 @@
   }
   .joinproductsteps button {
     padding: 15px 0px 15px 0px;
+    width: 80%;
   }
 
   .joinproductfaq h1 {
-    font-size: 49px;
+    font-size: 38px;
     text-align: center;
-    margin: 40px 25px 40px 25px;
+    margin: 40px 5px;
   }
 
   .joinproductfaq .joinproductfaqflex {
-    width: 70%;
+    width: 80%;
   }
 
   .joinproductfaq h4 {
@@ -491,7 +493,11 @@
   .joinproductfaq p {
     font-size: 17px;
   }
+.joinproductfaq button {
+  width: 80%;
+}
 
+}
   @media (max-width: 750px) {
     .joinproducthero div h1 {
       font-size: 49px;
@@ -509,5 +515,5 @@
       font-size: 28px;
     }
   }
-}
+
 </style>
