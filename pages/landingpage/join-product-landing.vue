@@ -80,7 +80,7 @@
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
-          <img />
+          <img alt="test"/>
           <div>
             <h1>Step 1 <span>- Company Account & Locations</span></h1>
             <p>
@@ -100,10 +100,10 @@
               represent your brand well no matter how close or far away.
             </p>
           </div>
-          <img />
+          <img alt="test" />
         </div>
         <div class="joinproductstepcontainerstep step-right">
-          <img />
+          <img alt="test"/>
           <div>
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
@@ -154,7 +154,7 @@
         </div>
       </div>
       <div class="joinproductfaqflex">
-        <img />
+        <img width="100px" height="100px"/>
         <div>
           <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
           <p>
@@ -225,7 +225,7 @@
 }
 .joinproducttraits div {
   width: 20%;
-  height: 450px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -294,6 +294,7 @@
 }
 .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep img {
   width: 30%;
+  border: 1px solid #333;
 }
 .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep {
   display: flex;
@@ -392,8 +393,13 @@
 }
 
 @media (max-width: 1350px) {
+  .joinproducttraits div {
+    width: 21%;
+    height: 450px;
+  }
   .joinproducttraits div img {
     height: 125px;
+    width: 125px;
   }
   .joinproducttraits div h3 {
     font-size: 20px;
@@ -405,6 +411,25 @@
 
   .joinproductfaq h1 {
     margin: 40px 0px 40px 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .joinproducttraits div {
+    height: 425px;
+  }
+
+  .joinproducttraits div img {
+    height: 90px;
+    width: 90px;
+  }
+
+  .joinproducttraits div h3 {
+    font-size: 19px;
+  }
+
+  .joinproducttraits div p {
+    font-size: 15px;
   }
 }
 
@@ -429,6 +454,19 @@
     max-width: 320px;
   }
 
+  .joinproducttraits div img {
+    height: 120px;
+    width: 120px;
+  }
+
+  .joinproducttraits div h3 {
+    font-size: 20px;
+  }
+
+  .joinproducttraits div p {
+    font-size: 16px;
+  }
+
   .joinproducttraits div:nth-child(1),
   .joinproducttraits div:nth-child(2) {
     /* margin-bottom: 20px; */
@@ -441,7 +479,7 @@
   }
 
   .joinproductdescription p {
-    width: 78%;
+    width: 80%;
     font-size: 17px;
     line-height: 24px;
   }
@@ -494,27 +532,120 @@
   .joinproductfaq p {
     font-size: 17px;
   }
-.joinproductfaq button {
-  width: 80%;
+  .joinproductfaq button {
+    width: 80%;
+  }
 }
-
-}
-  @media (max-width: 750px) {
-    .joinproducthero div h1 {
-      font-size: 49px;
-    }
-
-    .joinproducthero div p {
-      font-size: 20px;
-    }
-
-    .joinproductsteps
-      .joinproductstepscontainer
-      .joinproductstepcontainerstep
-      div
-      span {
-      font-size: 28px;
-    }
+@media (max-width: 750px) {
+  .joinproducthero div h1 {
+    font-size: 45px;
   }
 
+  .joinproducthero div p {
+    font-size: 20px;
+  }
+
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div {
+    width: 90%;
+  }
+
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    span {
+    font-size: 25px;
+  }
+
+  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep img {
+    border: 1px solid #333;
+    height: 250px;
+    width: 80%;
+
+  }
+
+  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0
+  }
+
+  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep:nth-child(2) {
+    flex-direction: column-reverse;
+  }
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    h1 {
+    width: 100%;
+    padding: 20px 0 0 0;
+    margin-left: 25px;
+  }
+
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    p {
+    font-size: 18px;
+    /* padding: 0 0 0 40px; */
+   text-align: justify;
+    margin-top: 10px;
+  }
+
+  .joinproductfaq h1 {
+    font-size: 34px;
+  }
+  .joinproductfaq .joinproductfaqflex {
+    width: 80%;
+  }
+
+  .joinproductfaq h4 {
+    font-size: 21px;
+  }
+
+  .joinproductfaq p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  .joinproducthero div h1 {
+    font-size: 38px;
+  }
+
+  .joinproducthero div p {
+    font-size: 19px;
+  }
+
+  .joinproducthero div button {
+    font-size: 17px;
+    padding: 8px  48px 8px 48px;
+  }
+
+  .joinproductdescription p {
+    font-size: 16px;
+  }
+  
+  .joinproductdescription button {
+    font-size: 17px;
+  }
+
+  .joinproductfaq h1 {
+    font-size: 29px;
+  }
+
+  .joinproductfaq h4 {
+    font-size: 20px;
+  }
+
+  .joinproductfaq button {
+    font-size: 17px;
+  }
+}
 </style>
