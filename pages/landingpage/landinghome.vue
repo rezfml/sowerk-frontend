@@ -711,24 +711,12 @@ export default {
 
 /* for screens less than 500 pixels */
 @media (max-width: 500px) {
-    #landingcontainer{
-    width: 100%;
-    padding: 0px !important;
-    font-family: Roboto;
-  }
   .landinghomehero{
-    background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
     background-size: cover;
     background-position-x:50%;
     width: 100%;
     height: auto;
     background-repeat:no-repeat;
-    display: flex;
-    flex-direction: column;
-  }
-  .landinghomehero svg {
-    width: 100%;
-    height: 9vh;
   }
   .landinghomeherotext{
     border-radius: 25px;
@@ -793,7 +781,7 @@ export default {
     width: 45%;
     border-radius: 20px;
     margin-bottom: 20px;
-    padding: 10px 0px 10px 0px;
+    padding: 7px 0px 7px 0px;
     font-size: 12px;
     font-weight: 500;
   }
@@ -817,7 +805,7 @@ export default {
   }
   .landinghomelinktext h4 {
     width: 80%;
-    font-size: 22px;
+    font-size: 14px;
     text-align: center;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -825,13 +813,13 @@ export default {
   .landinghomelinktext p {
     color: #2E2E2E;
     width: 85%;
-    font-size: 22px;
+    font-size: 12px;
     text-align: center;
     margin: 25px 0px 25px 0px;
   }
   .landinghomelinktext button{
     width: 40%;
-    padding: 15px 0px 15px 0px;
+    padding: 7px 0px 7px 0px;
     margin: 0px 0px 25px 0px;
     border-radius: 20px;
     font-size: 12px;
@@ -846,7 +834,7 @@ export default {
   .landinghomelinkfleximg img {
     width: 32%;
     margin: 0 auto;
-    height: 160px;
+    height: 110px;
   }
 
   /*needing a new image size the current ones will not work on anything smaller than a desktop*/
@@ -870,7 +858,7 @@ export default {
     font-size: 55px;
   }
   .landinghomereview p {
-    font-size: 18px;
+    font-size: 12px;
   }
   .landinghomejoin {
     display: flex;
