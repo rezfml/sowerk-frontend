@@ -241,7 +241,6 @@
                     <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>
                     <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
                     <template v-slot:item.actions="{ item }">
-
                       <v-btn icon @click="editLocation(locations.indexOf(item))">
                         <v-icon
                           small
