@@ -45,6 +45,7 @@ import JwPagination from 'jw-vue-pagination';
 
 Vue.use(JwPagination);
   export default {
+    name: "PFSearch",
     data() {
       return {
         loading: false,

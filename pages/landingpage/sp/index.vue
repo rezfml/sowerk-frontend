@@ -4,31 +4,30 @@
       <div class="spherobox">
         <h1>Get Connected Now</h1>
         <p>Search SOWerk’s Nationwide Database</p>
-        <div class="buttonflex">
-          <button>Search All Businesses</button>
-          <button>Join SOW</button>
-        </div>
+        <form>
+          <input type="text" placeholder="" value="" />
+          <button type="submit">Search Now</button>
+        </form>
       </div>
 <!--      <svg viewBox="0 0 100 100" preserveAspectRatio="none">-->
 <!--        <polygon points="0,100 110,0 100,100"/>-->
 <!--      </svg>-->
     </section>
 
-
 <!--    <section class="splist">-->
 <!--      <div class="splistcontainer">&lt;!&ndash;This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0&ndash;&gt;-->
-<!--        <div v-for="property in propertymanagers">-->
-<!--          <img :src="property.imgUrl"/>-->
-<!--          <h3>{{property.account_name}}</h3>-->
-<!--          <p>{{property.city}}, {{property.state}}</p>-->
-<!--          <p>{{property.description}}</p>-->
-<!--          <a :href="'property-manager/' + property.id"><button>View Profile</button></a>-->
+<!--        <div v-for="service in serviceproviders">-->
+<!--          <img :src="service.imgUrl"/>-->
+<!--          <h3>{{service.account_name}}</h3>-->
+<!--          <p>{{service.city}}, {{service.state}}</p>-->
+<!--          <p>{{service.description}}</p>-->
+<!--          <a :href="'sp/' + service.id"><button>View Profile</button></a>-->
 <!--        </div>-->
 <!--      </div>-->
-<!--      <button>All Property & Facility Accounts</button>-->
+<!--      <button>View All Service Provider Accounts</button>-->
 <!--    </section>-->
 
-    <PFSearch></PFSearch>
+    <SPSearch></SPSearch>
 
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
@@ -76,19 +75,19 @@
 </template>
 
 <script>
-import PFSearch from "~/components/landing/PFSearch.vue"
+import SPSearch from "~/components/landing/SPSearch.vue";
 
 export default {
   data() {
     return {
       loading: false,
-      propertymanagers: [
+      serviceproviders: [
 
       ]
     }
   },
   components: {
-    PFSearch
+    SPSearch
   },
   watch: {
     loading: function() {
@@ -101,15 +100,16 @@ export default {
     }
   },
   mounted() {
-    this.getPropertyManagers();
+    this.getServiceProviders();
   },
   methods: {
-    async getPropertyManagers() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=1&limit=8&offset=0').catch(e => e);
+    async getServiceProviders() {
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=0&limit=8&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
-        this.propertymanagers = data;
-        console.log(this.propertymanagers);
+        this.serviceproviders = data;
+        console.log(this.serviceproviders);
+        console.log(this.currentUser);
       })
     },
   },
@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 .sphero {
-  background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg");
+  background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg");
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -148,19 +148,17 @@ export default {
   margin: 50px 0px 50px 0px;
   color: white;
 }
-.spherobox .buttonflex {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-}
 
-.spherobox button {
+.spherobox form input {
+  background: white;
+  padding: 2px 5px 2px 5px;
+  border-radius: 35px;
+}
+.spherobox form button {
   background: #A61C00;
-  border-radius: 20px;
-  padding: 15px 0px 15px 0px;
-  margin: 0 auto;
-  width: 45%;
-  font-size: 20px;
+  border-radius: 35px;
+  padding: 3px 5px 3px 5px;
+  margin-left: -25px;
 }
 
 .splist {
@@ -181,7 +179,6 @@ export default {
 .splistcontainer img {
   border-radius: 50px;
 }
-
 .splistcontainer div {
   width: 24%;
   margin: 20px 0.5% 20px 0.5%;
@@ -216,12 +213,7 @@ export default {
   text-decoration: none;
   font-size: 22px;
 }
-.splistcontainer div h3 {
-  font-size: 22px;
-}
-.splistcontainer div h3 {
-  font-size: 18px;
-}
+
 .aboutdescription{
   background: #47494E;
   width: 100%;

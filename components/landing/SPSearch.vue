@@ -26,6 +26,7 @@ import JwPagination from 'jw-vue-pagination';
 
 Vue.use(JwPagination);
 export default {
+  name: "SPSearch",
   data() {
     return {
       loading: false,
