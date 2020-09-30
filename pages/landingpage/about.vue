@@ -212,7 +212,7 @@
   width: 50%;
   text-align: center;
   margin: 200px 0px 200px 0px;
-  font-size: 55px;
+  font-size: 3.5vw;
 }
 /* .abouthero svg {
   width: 100%;
@@ -436,9 +436,15 @@
   padding: 10px 0px 10px 0px;
 }
 
+@media (max-width: 1280px){
+   .abouthero h1 {
+    font-size: 45px;
+  }
+}
+
 @media (max-width: 800px) {
   .abouthero h1 {
-    font-size: 50px;
+    font-size: 43px;
   }
 
   .aboutdescriptionflex
@@ -569,7 +575,7 @@
 
 @media (max-width: 680px) {
   .abouthero h1 {
-    font-size: 42px;
+    font-size: 36px;
   }
 
   .aboutdescriptionflex
@@ -645,7 +651,7 @@
   }
 
   .aboutplatformcontainer h1 {
-    font-size: 40px;
+    font-size: 3vw;
   }
 
   .aboutplatformcontainerfleximg {

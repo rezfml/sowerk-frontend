@@ -1,20 +1,26 @@
 <template>
   <div class="pfaccountlocationcontainer">
     <div class="pfaccountlocation" v-if="loading">
-      <img :src="propertymanagerVal.imgUrl" class="profilepic"/>
-      <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
-      <p class="companyDescription">{{propertymanagerVal.description}}</p>
+      <img :src="propertymanagerVal.imgUrl" class="profilepic" />
+      <h1 class="companyName">{{ propertymanagerVal.account_name }}</h1>
+      <p class="companyDescription">{{ propertymanagerVal.description }}</p>
       <button class="applyAll">Apply To All Locations</button>
       <h2 class="companyLocationTitle">Locations</h2>
-      <div v-for='(location, index) in locationSlice1' class="pfaccountlocationlist">
+      <div
+        v-for="(location, index) in locationSlice1"
+        class="pfaccountlocationlist"
+      >
         <div class="pfaccountlocationflex">
           <div class="pfaccountlocationcolumn">
-            <img class="locationPic" :src="location.imageUrl"/>
+            <img class="locationPic" :src="location.imageUrl" />
             <button class="locationShare">Share</button>
           </div>
           <div class="pfaccountlocationcolumn">
-            <h1 class="locationName">{{location.name}}</h1>
-            <p class="locationAddress">Address: {{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
+            <h1 class="locationName">{{ location.name }}</h1>
+            <p class="locationAddress">
+              Address: {{ location.address }}, {{ location.city }},
+              {{ location.state }}, {{ location.zipcode }}
+            </p>
             <p class="locationFounding">Founded: {{ location.year_founded }}</p>
             <p class="locationJoined">Joined SOWerk: 2020</p>
           </div>
@@ -24,32 +30,53 @@
             <p>Approved SOWerk Providers At This Location</p>
           </div>
         </div>
-        <button class="applyApproval">Apply To Become An Approved Service Provider</button>
+        <button class="applyApproval">
+          Apply To Become An Approved Service Provider
+        </button>
       </div>
     </div>
 
     <div class="pfaccountsecondcolumn">
       <div class="retailLocations">
-        <p class="locationNum" v-if="this.propertymanagerVal.locations"><span style="color: #A61C00;">{{propertymanagerVal.locations.length}}</span> Retail Locations</p>
-        <div v-for='location in locationSlice2' class="pfaccountlocationflexrow2">
-          <p>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
-          <a :href="'/landingpage/property-manager/' + propertymanagerVal.id + '/location/' + location.id">></a>
+        <p class="locationNum" v-if="this.propertymanagerVal.locations">
+          <span style="color: #A61C00;">{{
+            propertymanagerVal.locations.length
+          }}</span>
+          Retail Locations
+        </p>
+        <div
+          v-for="location in locationSlice2"
+          class="pfaccountlocationflexrow2"
+        >
+          <p>
+            {{ location.address }}, {{ location.city }}, {{ location.state }},
+            {{ location.zipcode }}
+          </p>
+          <a
+            :href="
+              '/landingpage/property-manager/' +
+                propertymanagerVal.id +
+                '/location/' +
+                location.id
+            "
+            >></a
+          >
         </div>
       </div>
       <div class="featuredbusiness">
         <h2>Featured Businesses Near You</h2>
         <div>
-          <img alt="Cabela's"/>
+          <img alt="Cabela's" />
           <h3>Cabela’s</h3>
           <a>View Account</a>
         </div>
         <div>
-          <img alt="Walmart"/>
+          <img alt="Walmart" />
           <h3>Walmart</h3>
           <a>View Account</a>
         </div>
         <div>
-          <img alt="Chipotle"/>
+          <img alt="Chipotle" />
           <h3>Chipotle</h3>
           <a>View Account</a>
         </div>
@@ -78,43 +105,53 @@ export default {
           phone: Number,
           state: '',
           year_founded: Number,
-          zipcode: Number
-        }
+          zipcode: Number,
+        },
       ],
       locationSlice1: [],
       locationSlice2: [],
     }
   },
-  watch: {
-
-  },
+  watch: {},
   async mounted() {
-    this.loading = true;
-    await this.getPropertyManager();
+    this.loading = true
+    await this.getPropertyManager()
   },
   methods: {
     async getPropertyManager() {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.$route.params.id)
-        .then(res => {
-          this.propertymanagerVal = res.data;
-          this.locationSlice1 = res.data.locations.slice(0,3);
-          this.locationSlice2 = res.data.locations.slice(0,5);
-          console.log(this.propertymanagerVal, 'property-manager', this.locationSlice1, 'loc 1', this.locationSlice2, 'loc 2');
+      await this.$http
+        .get(
+          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' +
+            this.$route.params.id
+        )
+        .then((res) => {
+          this.propertymanagerVal = res.data
+          this.locationSlice1 = res.data.locations.slice(0, 3)
+          this.locationSlice2 = res.data.locations.slice(0, 5)
+          console.log(
+            this.propertymanagerVal,
+            'property-manager',
+            this.locationSlice1,
+            'loc 1',
+            this.locationSlice2,
+            'loc 2'
+          )
         })
-        .catch(e => e);
+        .catch((e) => e)
       /*if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.propertymanagerVal = data;
         console.log(this.propertymanagerVal);
       })*/
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
-.pfaccountlocationcontainer{
-  background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#2B2B2B, #444444);
+.pfaccountlocationcontainer {
+  background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
+    linear-gradient(#2b2b2b, #444444);
   background-size: contain;
   width: 100%;
   height: auto;
@@ -124,7 +161,7 @@ export default {
   overflow: scroll;
 }
 
-.pfaccountlocation{
+.pfaccountlocation {
   background: white;
   width: 50%;
   margin-right: 20px;
@@ -134,7 +171,7 @@ export default {
   align-items: center;
 }
 
-.pfaccountsecondcolumn{
+.pfaccountsecondcolumn {
   width: 30%;
   margin-right: 50px;
   display: flex;
@@ -142,14 +179,17 @@ export default {
   align-items: center;
 }
 
-.pfaccountlocation .profilepic{
-  border-radius: 25px;
+.pfaccountlocation .profilepic {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  margin-top: 25px;
 }
 
-.pfaccountlocation .companyName{
-  color: #A61C00;
+.pfaccountlocation .companyName {
+  color: #a61c00;
   font-size: 26px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .pfaccountlocation .companyDescription {
@@ -160,23 +200,23 @@ export default {
 }
 
 .pfaccountlocation .applyAll {
-  background: #A61C00;
+  background: #a61c00;
   color: white;
   font-size: 18px;
-  width: 50%;
+  width: 60%;
   padding: 5px 0px 5px 0px;
   border-radius: 20px;
 }
 
-.pfaccountlocationlist{
+.pfaccountlocationlist {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 20px 0px 20px 0px;
 }
-.pfaccountlocationlist:nth-child(odd){
-  background: #F4F4F4;
+.pfaccountlocationlist:nth-child(odd) {
+  background: #f4f4f4;
 }
 
 .pfaccountlocation .companyLocationTitle {
@@ -184,28 +224,28 @@ export default {
   width: 90%;
   text-align: center;
   font-size: 26px;
-  color: #A61C00;
+  color: #a61c00;
   margin: 20px 0px 20px 0px;
   padding-top: 20px;
 }
 
-.pfaccountlocationflex{
+.pfaccountlocationflex {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
 }
 .pfaccountlocationlist .applyApproval {
-  width: 75%;
-  background: #A61C00;
+  width: 60%;
+  background: #a61c00;
   color: white;
   padding: 10px 0px 10px 0px;
   border-radius: 20px;
   margin: 20px 0px 20px 0px;
 }
-.pfaccountsecondcolumn{
+.pfaccountsecondcolumn {
   width: 20%;
 }
-.pfaccountlocationcolumn .locationPic{
+.pfaccountlocationcolumn .locationPic {
   border-radius: 50%;
   width: 4vw;
   height: 7vh;
@@ -215,59 +255,59 @@ export default {
   font-size: 18px;
   width: 70%;
   margin-top: 20px;
-  color: #A61C00;
+  color: #a61c00;
   background: transparent;
   margin-left: 20px;
   padding: 0px;
 }
 .pfaccountlocationcolumn button {
   width: 100%;
-  background: #A61C00;
+  background: #a61c00;
   color: white;
-  border: 1px solid #A61C00;
+  border: 1px solid #a61c00;
   padding: 10px 0px 10px 0px;
   border-radius: 20px;
 }
-.pfaccountlocationcolumn:first-child{
+.pfaccountlocationcolumn:first-child {
   width: 15%;
 }
-.pfaccountlocationflexrow{
+.pfaccountlocationflexrow {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   width: 25%;
 }
-.pfaccountlocationflexrow p{
+.pfaccountlocationflexrow p {
   font-size: 18px;
   font-weight: bold;
-  color: #7C7C7C;
+  color: #7c7c7c;
   padding: 0px 5px 0px 5px;
 }
-.pfaccountlocationflexrow2{
+.pfaccountlocationflexrow2 {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.pfaccountlocationflexrow2 p{
+.pfaccountlocationflexrow2 p {
   font-size: 18px;
-  color: #7C7C7C;
+  color: #7c7c7c;
   padding: 12px 0px 0px 0px;
 }
 .pfaccountlocationflexrow2 a {
   font-size: 18px;
-  color: #7C7C7C;
+  color: #7c7c7c;
   margin-right: 20px;
   text-decoration: none;
 }
-.pfaccountlocationflexrow2:nth-child(even){
-  background:#F8F8F8;
+.pfaccountlocationflexrow2:nth-child(even) {
+  background: #f8f8f8;
 }
 .locationNum {
   text-align: center;
   font-size: 26px;
-  color: #7C7C7C;
+  color: #7c7c7c;
 }
 .retailLocations {
   background: white;
@@ -281,13 +321,15 @@ export default {
   font-weight: bold;
 }
 .locationName {
-  color: #A61C00;
+  color: #a61c00;
   font-size: 18px;
   font-weight: bold;
   align-self: start;
   margin-left: -50px;
 }
-.locationAddress, .locationFounding, .locationJoined {
+.locationAddress,
+.locationFounding,
+.locationJoined {
   color: #666666;
   font-size: 18px;
   align-self: start;
@@ -318,26 +360,25 @@ export default {
   color: white;
   padding: 20px 0px 20px 0px;
 }
-.featuredbusiness div h3{
+.featuredbusiness div h3 {
   font-size: 20px;
   font-weight: bold;
 }
 
 .featuredbusiness div a {
-  color: #9A9A9A;
+  color: #9a9a9a;
   text-decoration-style: solid;
-  text-decoration-color: #9A9A9A;
+  text-decoration-color: #9a9a9a;
   font-size: 20px;
   font-weight: normal;
 }
 
 .featuredbusiness button {
-  background: #A61C00;
+  background: #a61c00;
   width: 60%;
   border-radius: 20px;
   color: white;
   margin: 20px 0px 0px 0px;
   padding: 10px 0px 10px 0px;
 }
-
 </style>
