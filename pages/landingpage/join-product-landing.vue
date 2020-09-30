@@ -6,9 +6,9 @@
         <p>Find, Vet, and Manage Approved Vendors</p>
         <button>Get Started - It’s Free</button>
       </div>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
-      </svg>
+      </svg> -->
     </section>
 
     <section class="joinproducttraits">
@@ -221,8 +221,24 @@
   background: #a61c00;
   display: flex;
   width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.joinproducttraits:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background:inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top left;
+  transform:skewY(-2deg);
 }
 .joinproducttraits div {
   width: 20%;
@@ -233,7 +249,8 @@
   justify-content: center;
   background: white;
   border-radius: 20px;
-  margin: 50px 5px 50px 5px;
+  margin: -100px 5px 50px 5px;
+  z-index: 5;
 }
 .joinproducttraits div img {
   width: 50%;
