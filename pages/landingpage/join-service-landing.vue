@@ -6,9 +6,9 @@
         <p>Approved Providers Get the Job</p>
         <button>Get Started Now</button>
       </div>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
-      </svg>
+      </svg> -->
     </section>
 
     <section class="joinservicetraits">
@@ -191,7 +191,7 @@
 }
 .joinservicehero {
   width: 100%;
-  height: 50vh;
+  height: 70vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg');
   background-size: cover;
@@ -237,9 +237,25 @@
   background: #a61c00;
   display: flex;
   width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
+.joinservicetraits:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background:inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top left;
+  transform:skewY(-2deg);
+}
+
 .joinservicetraits div {
   width: 20%;
   height: 500px;
@@ -249,7 +265,9 @@
   justify-content: center;
   background: white;
   border-radius: 20px;
-  margin: 50px 5px 50px 5px;
+  margin: -125px 5px 50px 5px;
+    z-index: 5;
+
 }
 .joinservicetraits div img {
   width: 50%;
