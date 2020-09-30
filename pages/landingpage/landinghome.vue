@@ -453,7 +453,7 @@ export default {
 @media (max-width: 800px) {
   .landinghomehero{
     background-size: cover;
-    background-position-x:50%;
+    background-position-x:40%;
     width: 100%;
     height: auto;
     background-repeat:no-repeat;
@@ -474,7 +474,7 @@ export default {
   }
   .landinghomeherotext h1 {
     margin-top: -250px;
-    font-size: 40px;
+    font-size:30px;
   }
   .landinghomeherotext p{
     font-size: 16px;
@@ -718,6 +718,7 @@ export default {
   .landinghomeherotext h1 {
     margin-top: -200px;
     font-size: 18px;
+    margin-left:0px !important;
   }
   .landinghomeherotext p{
     font-size: 10px;

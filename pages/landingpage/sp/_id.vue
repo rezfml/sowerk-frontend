@@ -2,7 +2,7 @@
   <div class="pfaccountlocationcontainer">
     <div class="pfaccountlocation">
       <img class="coverpic"/>
-      <img :src="serviceproviderVal.imgUrl"class="profilepic"/>
+      <img :src="serviceproviderVal.imgUrl" class="profilepic"/>
       <h1>{{serviceproviderVal.company_name}}</h1>
       <img />
       <p>{{serviceproviderVal.description}}</p>
