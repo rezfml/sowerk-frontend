@@ -12,7 +12,7 @@
             <h1>{{company.account_name}}</h1>
             <p>{{company.description}}</p>
           </div>
-          <a :href="'property-manager/' + company.id"><button>VIEW ACCOUNT</button></a>
+          <a :href="'service-provider/' + company.id"><button>VIEW ACCOUNT</button></a>
         </div>
         <jw-pagination :items="serviceproviders" @changePage="onChangePage" :pageSize="8" :maxPages="Math.round(serviceproviders.length/8)"></jw-pagination>
       </div>

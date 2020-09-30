@@ -2,13 +2,13 @@
   <div class="pfaccountlocationcontainer">
     <div class="pfaccountlocation">
       <img class="coverpic"/>
-      <img class="profilepic"/>
+      <img :src="locationVal.imageUrl" class="profilepic"/>
       <button>Share</button>
-      <h1>Bass Pro Shops (Memphis, TN)</h1>
-      <p>BPS Direct, LLC is an American privately held retailer of hunting, fishing, camping and other related outdoor recreation merchandise. Bass Pro Shops supports and sells merchandise for the National Audubon Society.</p>
-      <p>Address: 1 Bass Pro Dr, Memphis, TN 38105</p>
-      <p>Founded: 1989</p>
-      <p>Joined SOWerk: 2020</p>
+      <h1>{{locationVal.name}}</h1>
+      <p>{{locationVal.description}}</p>
+      <p>Address: {{locationVal.address}}, {{locationVal.city}}, {{locationVal.state}} {{locationVal.zipcode}}</p>
+      <p>Founded: {{ locationVal.year_founded }}</p>
+      <p v-if="locationVal.created">Joined SOWerk: {{ locationVal.created.slice(0,4) }}</p>
       <form>
         <label>Accepting Vendor Applications</label>
         <select>
@@ -42,6 +42,29 @@
 </template>
 
 <script>
+
+export default {
+  data() {
+    return {
+      loading: false,
+      locationVal: []
+    }
+  },
+  async mounted() {
+    this.loading = true;
+    await this.getPropertyManagerLocation();
+  },
+  methods: {
+    async getPropertyManagerLocation() {
+      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.$route.params.id)
+        .then(res => {
+          this.locationVal = res.data;
+          console.log(this.locationVal, 'location');
+        })
+        .catch(e => e);
+    }
+  }
+}
 
 </script>
 

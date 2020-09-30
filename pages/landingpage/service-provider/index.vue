@@ -21,7 +21,7 @@
 <!--          <h3>{{service.account_name}}</h3>-->
 <!--          <p>{{service.city}}, {{service.state}}</p>-->
 <!--          <p>{{service.description}}</p>-->
-<!--          <a :href="'sp/' + service.id"><button>View Profile</button></a>-->
+<!--          <a :href="'service-provider/' + service.id"><button>View Profile</button></a>-->
 <!--        </div>-->
 <!--      </div>-->
 <!--      <button>View All Service Provider Accounts</button>-->
