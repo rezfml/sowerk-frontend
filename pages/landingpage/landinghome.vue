@@ -446,4 +446,514 @@ export default {
   border-radius: 20px;
   padding: 10px 0px 10px 0px;
 }
+
+
+
+/* for screens less than 800 pixels */
+@media (max-width: 800px) {
+    #landingcontainer{
+    width: 100%;
+    padding: 0px !important;
+  }
+  .landinghomehero{
+    background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
+    background-size: cover;
+    background-position-x:50%;
+    width: 100%;
+    height: auto;
+    background-repeat:no-repeat;
+    display: flex;
+    flex-direction: column;
+  }
+  .landinghomehero svg {
+    width: 100%;
+    height: 9vh;
+  }
+  .landinghomeherotext{
+    border-radius: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+  }
+  
+  .landinghomeherotext img {
+    width: 50%;
+    margin-top: -200px;
+    height: 600px;
+  }
+  .landinghomeherotext h1 {
+    margin-top: -250px;
+    font-size: 40px;
+  }
+  .landinghomeherotext p{
+    font-size: 16px;
+  }
+  .landinghomeherotext button {
+    border-radius: 12px;
+    width: 30%;
+    padding: 10px 0px 10px 0px;
+    margin-bottom: 50px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomepf{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomepf h4 {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  .landinghomepf button {
+    width: 45%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 10px 0px 10px 0px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomesp{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomesp h4 {
+    margin-top: 20px;
+    font-size: 30px;
+  }
+
+  .landinghomesp button {
+    width: 45%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 10px 0px 10px 0px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomelink {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-size: cover;
+  }
+  .landinghomelinktext {
+    border-radius: 20px;
+    width: 80%;
+    margin: 50px 0px 50px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .landinghomelinktext h4 {
+    width: 80%;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .landinghomelinktext p {
+    width: 85%;
+    font-size: 22px;
+    text-align: center;
+    margin: 25px 0px 25px 0px;
+  }
+  .landinghomelinktext button{
+    width: 40%;
+    padding: 15px 0px 15px 0px;
+    margin: 0px 0px 25px 0px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomelinkfleximg {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .landinghomelinkfleximg img {
+    width: 32%;
+    margin: 0 auto;
+    height: 160px;
+  }
+
+  /*needing a new image size the current ones will not work on anything smaller than a desktop*/
+  .landinghomelinkfleximg img:first-child {
+    padding-top: 40px;
+    border-radius: 20px;
+  }
+  .landinghomelinkfleximg img:last-child {
+    border-radius: 20px;
+    padding-bottom: 50px;
+    padding-top: 0px;
+  }
+  .landinghomereview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .landinghomereview h1 {
+    font-size: 55px;
+  }
+  .landinghomereview p {
+    font-size: 18px;
+  }
+  .landinghomejoin {
+    display: flex;
+    width: 100%;
+  }
+  .landinghomejoin .landinghomejoinflex img {
+    width: 30%;
+  }
+  .landinghomejoin .landinghomejoinflex .macphoto {
+    position: relative;
+    right: 375px;
+    width: 580px;
+  }
+  .iphonephoto {
+    z-index: 1;
+    position: relative;
+    top: 25px;
+  }
+  .landinghomejoin .landinghomejoinflex {
+    display: flex;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 2.5% 20px 2.5%;
+  }
+  .landinghomejoin .landinghomejoinflex .landinghomejoincolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin-left: -500px;
+  }
+  .landinghomejoincolumn h2 {
+    font-size: 35px;
+  }
+  .landinghomejoincolumn p {
+    font-size: 14px;
+  }
+  .landinghomejoincolumn div {
+    display: flex;
+    justify-content: center;
+    width: 95%;
+  }
+  .landinghomejoincolumn div button {
+    width: 49%;
+    margin: 0 auto;
+    border-radius: 20px;
+    font-size: 11.5px;
+    padding: 10px 0px 10px 0px;
+  }
+  /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
+  .landinghomevideo{
+    width: 100%;
+    height: 20vh;
+  }
+  .landinghomefaq {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomefaq h1 {
+    font-size: 26px;
+    margin-top: 20px;
+  }
+  .landinghomefaq .landinghomefaqflex {
+    display: flex;
+    width: 65%;
+    justify-content: center;
+  }
+  .landinghomefaq .landinghomefaqflex img {
+    width: 10%;
+    margin-right: 3%;
+  }
+  .landinghomefaq .landinghomefaqflex div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 87%;
+  }
+  .landinghomefaq h4 {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .landinghomefaq p {
+    font-size: 12px;
+    margin-left: 30px;
+  }
+  .landinghomefaq button {
+    width: 45%;
+    border-radius: 12px;
+    padding: 12px 109px 12px 109px;
+    font-size: 12px;
+    font-weight: 500;
+    align-items: center;
+  }
+}
+
+
+
+/* for screens less than 500 pixels */
+@media (max-width: 500px) {
+  .landinghomehero{
+    background-size: cover;
+    background-position-x:50%;
+    width: 100%;
+    height: auto;
+    background-repeat:no-repeat;
+  }
+  .landinghomeherotext{
+    border-radius: 25px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+  }
+  .landinghomeherotext img {
+    width: 60%;
+    margin-top: -175px;
+    height: 450px;
+  }
+  .landinghomeherotext h1 {
+    margin-top: -200px;
+    font-size: 26px;
+  }
+  .landinghomeherotext p{
+    font-size: 11px;
+  }
+  .landinghomeherotext button {
+    border-radius: 8px;
+    width: 30%;
+    padding: 7px 0px 7px 0px;
+    margin-bottom: 50px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .landinghomepf{
+    background: #151515;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomepf h4 {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .landinghomepf button {
+    width: 45%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 7px 0px 7px 0px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomesp{
+    background: #151515;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomesp h4 {
+    margin-top: 20px;
+    font-size: 30px;
+  }
+  .landinghomesp button {
+    width: 45%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 7px 0px 7px 0px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomelink {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#444444, #2B2B2B);
+    background-size: cover;
+  }
+  .landinghomelinktext {
+    border-radius: 20px;
+    width: 80%;
+    margin: 50px 0px 50px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .landinghomelinktext h4 {
+    width: 80%;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .landinghomelinktext p {
+    color: #2E2E2E;
+    width: 85%;
+    font-size: 12px;
+    text-align: center;
+    margin: 25px 0px 25px 0px;
+  }
+  .landinghomelinktext button{
+    width: 40%;
+    padding: 7px 0px 7px 0px;
+    margin: 0px 0px 25px 0px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .landinghomelinkfleximg {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .landinghomelinkfleximg img {
+    width: 32%;
+    margin: 0 auto;
+    height: 110px;
+  }
+
+  /*needing a new image size the current ones will not work on anything smaller than a desktop*/
+  .landinghomelinkfleximg img:first-child {
+    padding-top: 40px;
+    border-radius: 20px;
+  }
+  .landinghomelinkfleximg img:last-child {
+    border-radius: 20px;
+    padding-bottom: 50px;
+    padding-top: 0px;
+  }
+  .landinghomereview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .landinghomereview h1 {
+    font-size: 55px;
+  }
+  .landinghomereview p {
+    font-size: 12px;
+  }
+  .landinghomejoin {
+    display: flex;
+    width: 100%;
+  }
+  .landinghomejoin .landinghomejoinflex img {
+    width: 30%;
+  }
+  .landinghomejoin .landinghomejoinflex .macphoto {
+    position: relative;
+    right: 375px;
+    width: 580px;
+  }
+  .iphonephoto {
+    z-index: 1;
+    position: relative;
+    top: 25px;
+  }
+  .landinghomejoin .landinghomejoinflex {
+    display: flex;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 2.5% 20px 2.5%;
+  }
+  .landinghomejoin .landinghomejoinflex .landinghomejoincolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin-left: -500px;
+  }
+  .landinghomejoincolumn h2 {
+    font-size: 35px;
+  }
+  .landinghomejoincolumn p {
+    font-size: 14px;
+  }
+  .landinghomejoincolumn div {
+    display: flex;
+    justify-content: center;
+    width: 95%;
+  }
+  .landinghomejoincolumn div button {
+    width: 49%;
+    margin: 0 auto;
+    border-radius: 20px;
+    font-size: 11.5px;
+    padding: 10px 0px 10px 0px;
+  }
+  /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
+  .landinghomevideo{
+    width: 100%;
+    height: 20vh;
+  }
+  .landinghomefaq {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .landinghomefaq h1 {
+    font-size: 26px;
+    margin-top: 20px;
+  }
+  .landinghomefaq .landinghomefaqflex {
+    display: flex;
+    width: 65%;
+    justify-content: center;
+  }
+  .landinghomefaq .landinghomefaqflex img {
+    width: 10%;
+    margin-right: 3%;
+  }
+  .landinghomefaq .landinghomefaqflex div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 87%;
+  }
+  .landinghomefaq h4 {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .landinghomefaq p {
+    font-size: 12px;
+    margin-left: 30px;
+  }
+  .landinghomefaq button {
+    width: 45%;
+    border-radius: 12px;
+    padding: 12px 109px 12px 109px;
+    font-size: 12px;
+    font-weight: 500;
+    align-items: center;
+  }
+}
 </style scoped>
