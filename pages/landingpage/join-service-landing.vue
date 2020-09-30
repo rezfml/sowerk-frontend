@@ -247,13 +247,13 @@
   width: 100%;
   height: 100%;
   content: '';
-  background:inherit;
+  background: inherit;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg);
+  transform: skewY(-2deg);
 }
 
 .joinservicetraits div {
@@ -266,8 +266,7 @@
   background: white;
   border-radius: 20px;
   margin: -125px 5px 50px 5px;
-    z-index: 5;
-
+  z-index: 5;
 }
 .joinservicetraits div img {
   width: 50%;
@@ -528,14 +527,18 @@
     font-size: 32px;
     padding: 0px 25px 0px 25px;
   }
-  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep div p {
+  .joinservicesteps
+    .joinservicestepscontainer
+    .joinservicestepcontainerstep
+    div
+    p {
     font-size: 17px;
     padding: 0px 25px 0px 25px;
   }
 
   .joinservicesteps button {
- padding: 10px 0px 10px 0px;    
- width: 80%;
+    padding: 10px 0px 10px 0px;
+    width: 80%;
   }
 
   .joinservicefaq h1 {
@@ -544,11 +547,11 @@
     margin: 40px 5px;
   }
 
-   .joinservicefaq .joinservicefaqflex {
+  .joinservicefaq .joinservicefaqflex {
     width: 80%;
   }
 
-   .joinservicefaq h4 {
+  .joinservicefaq h4 {
     font-size: 23px;
   }
 
@@ -556,15 +559,14 @@
     font-size: 17px;
   }
 
-   .joinservicefaq button {
+  .joinservicefaq button {
     width: 80%;
-     padding: 10px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
   }
 }
 
-
 @media (max-width: 750px) {
-    .joinservicehero div h1 {
+  .joinservicehero div h1 {
     font-size: 45px;
   }
 
@@ -572,14 +574,14 @@
     font-size: 20px;
   }
 
-   .joinservicesteps
+  .joinservicesteps
     .joinservicestepscontainer
     .joinservicestepcontainerstep
     div {
     width: 90%;
   }
 
-   .joinservicesteps
+  .joinservicesteps
     .joinservicestepscontainer
     .joinservicestepcontainerstep
     div
@@ -587,21 +589,25 @@
     font-size: 25px;
   }
 
-  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep img {
+  .joinservicesteps
+    .joinservicestepscontainer
+    .joinservicestepcontainerstep
+    img {
     border: 1px solid #333;
     height: 250px;
     width: 80%;
-
   }
 
   .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 20px 0
+    margin: 20px 0;
   }
 
-  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep:nth-child(2) {
+  .joinservicesteps
+    .joinservicestepscontainer
+    .joinservicestepcontainerstep:nth-child(2) {
     flex-direction: column-reverse;
   }
 
@@ -622,7 +628,7 @@
     p {
     font-size: 18px;
     /* padding: 0 0 0 40px; */
-   text-align: justify;
+    text-align: justify;
     margin-top: 10px;
   }
 
@@ -634,19 +640,17 @@
     width: 80%;
   }
 
-.joinservicefaq h4 {
+  .joinservicefaq h4 {
     font-size: 22px;
   }
 
   .joinservicefaq p {
     font-size: 16px;
   }
-  
 }
 
-
 @media (max-width: 680px) {
-   .joinservicehero div h1 {
+  .joinservicehero div h1 {
     font-size: 40px;
   }
 
@@ -654,7 +658,7 @@
     font-size: 19px;
   }
 
-   .joinservicehero div button {
+  .joinservicehero div button {
     font-size: 17px;
   }
 
@@ -668,10 +672,8 @@
 
   .joinservicefaq button {
     font-size: 17px;
-   
   }
 }
-
 
 @media (max-width: 600px) {
   .joinservicetraits div {

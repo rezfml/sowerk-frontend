@@ -19,43 +19,59 @@
     </section>
 
     <section class="joinlink">
-      <h1>
-        SOWerk Is The Link Between Service Providers and Property & Facility
-        Managers
-      </h1>
+      <div>
+        <h1>
+          SOWerk Is The Link Between Service Providers and Property & Facility
+          Managers
+        </h1>
+      </div>
       <div class="joinlinkflex">
         <div class="joinlinkflexcolumn">
-          <h4>Property & Facility Managers</h4>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
-          />
-          <p>
-            Our business to business platform provides companies and property
-            managers the tools to effiecently identify, vet, and manage service
-            providers for each of their locations.
-          </p>
-          <ul>
-            <li>Retail & Hospitality Chains</li>
-            <li>Commercial Real Estate Properties</li>
-            <li>Manufacturing Facilities</li>
-            <li>Warehouse & Distribution</li>
-            <li>Governments</li>
-            <li>Restaurant Groups</li>
-          </ul>
+          <div>
+            <h4>Property & Facility Managers</h4>
+          </div>
+          <div>
+            <img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
+            />
+          </div>
+          <div>
+            <p>
+              Our business to business platform provides companies and property
+              managers the tools to effiecently identify, vet, and manage
+              service providers for each of their locations.
+            </p>
+          </div>
+          <div classname="joinlinklists">
+            <ul>
+              <li>Retail & Hospitality Chains</li>
+              <li>Commercial Real Estate Properties</li>
+              <li>Manufacturing Facilities</li>
+              <li>Warehouse & Distribution</li>
+              <li>Governments</li>
+              <li>Restaurant Groups</li>
+            </ul>
+          </div>
           <button>PROPERTY & FACILITY MANAGERS</button>
         </div>
         <img />
         <div class="joinlinkflexcolumn">
-          <h4>Service Providers</h4>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
-          />
-          <p>
-            For service providers, SOWerk makes it possible for you to become an
-            approved vendor, receive job request, and communicate with business
-            owners
-          </p>
           <div>
+            <h4>Service Providers</h4>
+          </div>
+          <div>
+            <img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
+            />
+          </div>
+          <div>
+            <p>
+              For service providers, SOWerk makes it possible for you to become
+              an approved vendor, receive job request, and communicate with
+              business owners
+            </p>
+          </div>
+          <div classname="joinlinklists">
             <ul>
               <li>Electrician</li>
               <li>HVAC</li>
@@ -312,11 +328,11 @@ import AllReviews from '../../components/landing/AllReviews'
 export default {
   data: () => ({
     allReviews: [],
-    reviews: []
+    reviews: [],
   }),
   components: {
     Reviews,
-    AllReviews
+    AllReviews,
   },
   mounted() {
     this.getReviews()
@@ -330,7 +346,7 @@ export default {
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.allReviews = data
         console.log(this.allReviews, 'allReviews')
       })
@@ -342,12 +358,12 @@ export default {
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.reviews = data
         console.log(this.reviews, 'reviews')
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -390,17 +406,20 @@ export default {
 .joinherotext button {
   color: rgb(255, 255, 255, 1);
 }
+
+/* Need to crop image for responsiveness */
 .joinherotext img {
-  /* width: 50%; */
   margin-top: -200px;
-  height: 600px;
+  width: 580px;
+  height: 580px;
 }
 .joinherotext h1 {
-  margin-top: -250px;
-  font-size: 55px;
+  margin-top: -225px;
+  font-size: 2.5vw;
+  padding-top: 20px;
 }
 .joinherotext p {
-  font-size: 23px;
+  font-size: 1.3vw;
 }
 .joinherotext div {
   width: 100%;
@@ -413,7 +432,7 @@ export default {
   width: 45%;
   padding: 20px 0px 20px 0px;
   margin: 0px 5% 50px 5%;
-  font-size: 20px;
+  font-size: 1.42vw;
 }
 
 .joinlink {
@@ -424,16 +443,22 @@ export default {
   align-items: center;
   background: #a61c00;
 }
-.joinlink h1 {
+.joinlink div {
+  display: flex;
+  justify-content: center;
+}
+
+.joinlink div h1 {
   color: white !important;
   opacity: 0.8;
-  font-size: 55px;
+  font-size: 2.5vw;
   text-align: center;
   width: 70%;
   margin: 20px 0px 20px 0px;
 }
 .joinlinkflex h4 {
-  font-size: 22px;
+  width: 100%;
+  font-size: 1.3vw;
   margin: 10px 0px 10px 0px;
 }
 .joinlinkflex p {
@@ -443,7 +468,7 @@ export default {
   border-bottom: 1px solid #a61c00;
 }
 .joinlinkflex p {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 .joinlinkflex {
   display: flex;
@@ -454,6 +479,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: start;
   width: 35%;
   margin: 10px 5% 20px 5%;
   border-radius: 20px;
@@ -466,21 +492,30 @@ export default {
   padding-bottom: 20px !important;
 }
 .joinlink .joinlinkflex .joinlinkflexcolumn img {
-  width: 50%;
-  margin: 10px 0px 10px 0px;
+  width: 45%;
+  /* margin: 10px 0px 10px 0px; */
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .joinlinkflexcolumn div {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
+
 .joinlinkflexcolumn div ul {
-  width: 45%;
+  /* width: 45%; */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  line-height: 23px;
 }
 .joinlinkflexcolumn ul {
   font-size: 18px !important;
+}
+
+.joinlinkflexcolumn div ul li {
+  text-align: left;
 }
 .joinlinkflexcolumn button {
   background: #a61c00;
@@ -489,7 +524,7 @@ export default {
   padding: 15px 10px 15px 10px;
   color: white;
   border-radius: 20px;
-  font-size: 15px;
+  font-size: 1vw;
   font-family: Roboto;
 }
 
@@ -544,7 +579,7 @@ export default {
   justify-content: center;
   align-items: center;
   background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
-  linear-gradient(#444444, #2b2b2b);
+    linear-gradient(#444444, #2b2b2b);
   background-size: cover;
 }
 .joinconnection h1 {
@@ -633,7 +668,7 @@ export default {
 }
 .joinfaq h1 {
   color: #a61c00;
-  font-size: 55px;
+  font-size: 3.3vw;
   margin-top: 60px;
   margin-bottom: 25px;
 }
@@ -653,11 +688,11 @@ export default {
   width: 87%;
 }
 .joinfaq h4 {
-  font-size: 25px;
+  font-size: 1.3vw;
   margin-top: 20px;
 }
 .joinfaq p {
-  font-size: 18px;
+  font-size: 1vw;
   margin-left: 30px;
 }
 .joinfaq button {
@@ -670,24 +705,20 @@ export default {
 }
 
 @media (max-width: 1280px) {
-  .joinherotext h1 {
-    font-size: 45px;
-  }
-
   .joinherotext p {
-    font-size: 22px;
+    font-size: 15px;
   }
 
-  .joinherotext button {
-    font-size: 18px;
+  .joinherotext img {
+    width: 525px;
+    height: 525px;
   }
-
-  .joinlink h1 {
-    font-size: 36px;
-  }
-
   .joinlinkflex p {
     font-size: 16px;
+  }
+
+  .joinlinkflex h4 {
+    font-size: 18px;
   }
 
   .joinlinkflexcolumn ul li {
@@ -695,7 +726,7 @@ export default {
   }
 
   .joinlinkflexcolumn button {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .jointrait h5 {
@@ -705,18 +736,19 @@ export default {
   .jointrait p {
     font-size: 14px;
   }
+
+  .joinfaq h4 {
+    font-size: 18px;
+  }
+  .joinfaq p {
+    font-size: 14px;
+  }
 }
 
-@media (max-width: 1060px) {
-  .joinherotext h1 {
-    font-size: 43px;
-  }
-
-  .joinherotext p {
-    font-size: 21px;
-  }
-  .joinherotext button {
-    font-size: 16px;
+@media (max-width: 1080px) {
+  .joinlink div h1 {
+    width: 88%;
+    font-size: 28px;
   }
 
   .joinlinkflex {
@@ -724,7 +756,7 @@ export default {
   }
 
   .joinlinkflexcolumn button {
-    font-size: 13px;
+    font-size: 14px;
   }
   .joinconnectioncolumn
     .joinconnectioncontainer
@@ -738,7 +770,7 @@ export default {
   }
 
   .joinfaq h1 {
-    font-size: 49px;
+    font-size: 34px;
   }
 
   .joinfaq .joinfaqflex {
@@ -746,22 +778,16 @@ export default {
   }
 }
 
-@media (max-width: 950px) {
-  .joinherotext img {
-    width: 100%;
-  }
-
+@media (max-width: 980px) {
   .joinherotext h1 {
-    font-size: 40px;
+    font-size: 25px;
   }
-
-  .joinherotext p {
-    font-size: 19px;
+  .joinherotext img {
+    width: 500px;
+    height: 500px;
   }
-
   .joinherotext button {
-    padding: 10px 0 10px 0;
-    font-size: 15px;
+    padding: 15px 0 15px 0;
   }
 
   .joinlinkflex {
@@ -773,24 +799,12 @@ export default {
     width: 37%;
   }
 
-  .joinlink h1 {
-    font-size: 32px;
-  }
-
-  .joinlinkflex h4 {
-    font-size: 20px;
-  }
-
-  .joinlink .joinlinkflex .joinlinkflexcolumn img {
-    width: 45%;
-  }
-
   .joinlinkflexcolumn ul li {
     font-size: 15px;
   }
 
   .joinlinkflexcolumn button {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .jointraits {
@@ -820,25 +834,22 @@ export default {
   .joinconnectioncontainerbox img {
     width: 40%;
   }
-
-  .joinfaq h1 {
-    font-size: 45px;
-  }
+ 
 }
 
 @media (max-width: 850px) {
   .joinherotext {
     width: 100%;
     border-radius: 0;
+  }
 
+  .joinherotext button {
+    font-size: 13px;
   }
 
   .joinherotext img {
-    width: 525px;
-  }
-
-  .joinlink h1 {
-    width: 80%;
+    width: 480px;
+    height: 480px;
   }
 
   .joinlinkflex {
@@ -847,57 +858,58 @@ export default {
     align-items: center;
   }
 
-  .joinlink .joinlinkflex .joinlinkflexcolumn{
+  .joinlink .joinlinkflex .joinlinkflexcolumn {
     margin: 10px 2% 10px 2%;
     width: 100%;
     max-width: 70%;
   }
 
   .joinlink .joinlinkflex .joinlinkflexcolumn img {
-width: 28%;
+    width: 40%;
   }
-
-
-  .joinfaq h1 {
-    font-size: 40px;
+  .joinfaq p {
+    font-size: 12px;
+    margin-left: 25px;
   }
 }
 
 @media (max-width: 680px) {
-  .joinherotext h1 {
-    font-size: 38px;
-  }
-
-  .joinherotext button {
-    font-size: 14px;
-  }
-
-  .joinlink h1 {
-    font-size: 26px;
-    width: 85%;
-  }
-
-  .joinlinkflex  {
+  .joinlinkflex {
     width: 100%;
-    
-}
-.jointraits div {
-  flex: 0 50%;
-}
-.joinconnection h1 {
-  font-size: 42px;
-}
-.joinconnection {
-  flex-direction: column;
-}
+  }
+  .jointraits div {
+    flex: 0 50%;
+  }
+  .joinconnection h1 {
+    font-size: 42px;
+  }
+  .joinconnection {
+    flex-direction: column;
+  }
 
-.joinconnection .joinconnectioncolumn {
-  width: 80%;
-}
+  .joinconnection .joinconnectioncolumn {
+    width: 80%;
+  }
 
-.joinconnection h1 {
-  font-size: 40px;
-  width: 100%;
-}
+  .joinconnection h1 {
+    font-size: 40px;
+    width: 100%;
+  }
+
+  .joinfaq h1 {
+    font-size: 28px;
+  }
+
+  .joinfaq .joinfaqflex {
+    width: 80%;
+  }
+
+  .joinfaq h4 {
+    font-size: 16px;
+  }
+
+  .joinfaq button {
+    width: 80%;
+  }
 }
 </style>
