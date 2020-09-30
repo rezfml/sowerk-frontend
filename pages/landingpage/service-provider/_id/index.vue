@@ -1,39 +1,52 @@
 <template>
-  <div class="pfaccountlocationcontainer">
-    <div class="pfaccountlocation" v-if="loading">
-      <img :src="propertymanagerVal.imgUrl" class="profilepic"/>
-      <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
-      <p class="companyDescription">{{propertymanagerVal.description}}</p>
-      <button class="applyAll">Apply To All Locations</button>
-      <h2 class="companyLocationTitle">Locations</h2>
-      <div v-for='(location, index) in locationSlice1' class="pfaccountlocationlist">
-        <div class="pfaccountlocationflex">
-          <div class="pfaccountlocationcolumn">
-            <img class="locationPic" :src="location.imageUrl"/>
-            <button class="locationShare">Share</button>
-          </div>
-          <div class="pfaccountlocationcolumn">
-            <h1 class="locationName">{{location.name}}</h1>
-            <p class="locationAddress">Address: {{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
-            <p class="locationFounding">Founded: {{ location.year_founded }}</p>
-            <p class="locationJoined">Joined SOWerk: 2020</p>
-          </div>
-          <!-- BELOW NEEDS TO CHANGE WHEN UPDATE NUMBER OF APPROVED PROVIDERS IS LISTED-->
-          <div class="pfaccountlocationflexrow">
-            <p style="color: #A61C00;">142</p>
-            <p>Approved SOWerk Providers At This Location</p>
-          </div>
-        </div>
-        <button class="applyApproval">Apply To Become An Approved Service Provider</button>
-      </div>
+  <div class="spaccountlocationcontainer">
+    <div class="spaccountlocation" v-if="loading">
+      <img :src="serviceproviderVal.imgUrl" class="profilepic"/>
+      <h1 class="companyName">{{serviceproviderVal.account_name}}</h1>
+      <p class="companyDescription">{{serviceproviderVal.description}}</p>
+
+      <v-row class="d-flex justify-center" style="width: 80%; text-align: center; font-size: 18px;">
+        <v-col cols="12" md="6">
+          <p><span style="color: #A61C00;">Founded:</span> {{serviceproviderVal.year_founded}}</p>
+          <v-btn color="primary" rounded large >Contact Info</v-btn>
+        </v-col>
+        <v-col cols="12" md="6">
+          <p>Approved Insurance</p>
+          <p>Approved Service License</p>
+          <p v-if="serviceproviderVal.created">SOWerk Service Provider Since: {{ serviceproviderVal.created.slice(0,4) }}</p>
+        </v-col>
+      </v-row>
+
+      <!-- HERE NEEDS TO GO THE SLIDE GROUP FOR APPROVED VENDORS -->
+
+      <v-row class="d-flex flex-column" style="width: 80%; text-align: center; font-size: 18px;">
+        <h1>Contact Us</h1>
+        <v-form class="d-flex justify-center">
+          <v-col cols="12" md="6">
+            <v-text-field
+              placeholder="Name (First)"></v-text-field>
+            <v-text-field
+              placeholder="Name (Last)"></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+              placeholder="Phone"></v-text-field>
+            <v-text-field
+              placeholder="Email"></v-text-field>
+            <v-btn color="white" large rounded>Submit</v-btn>
+          </v-col>
+        </v-form>
+      </v-row>
+
+      <button class="applyApproval">Request Vendor Application</button>
     </div>
 
-    <div class="pfaccountsecondcolumn">
+    <div class="spaccountsecondcolumn">
       <div class="retailLocations">
-        <p class="locationNum" v-if="this.propertymanagerVal.locations"><span style="color: #A61C00;">{{propertymanagerVal.locations.length}}</span> Retail Locations</p>
-        <div v-for='location in locationSlice2' class="pfaccountlocationflexrow2">
+        <p class="locationNum" v-if="this.serviceproviderVal.locations"><span style="color: #A61C00;">{{serviceproviderVal.locations.length}}</span> Retail Locations</p>
+        <div v-for='location in locationSlice2' class="spaccountlocationflexrow2">
           <p>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
-          <a :href="'/landingpage/property-manager/' + propertymanagerVal.id + '/location/' + location.id">></a>
+          <a :href="'/landingpage/service-provider/' + serviceproviderVal.id + '/location/' + location.id">></a>
         </div>
       </div>
       <div class="featuredbusiness">
@@ -64,7 +77,7 @@ export default {
   data() {
     return {
       loading: false,
-      propertymanagerVal: [
+      serviceproviderVal: [
         {
           address: '',
           city: '',
@@ -90,22 +103,22 @@ export default {
   },
   async mounted() {
     this.loading = true;
-    await this.getPropertyManager();
+    await this.getServiceProvider();
   },
   methods: {
-    async getPropertyManager() {
+    async getServiceProvider() {
       await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.$route.params.id)
         .then(res => {
-          this.propertymanagerVal = res.data;
+          this.serviceproviderVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);
           this.locationSlice2 = res.data.locations.slice(0,5);
-          console.log(this.propertymanagerVal, 'property-manager', this.locationSlice1, 'loc 1', this.locationSlice2, 'loc 2');
+          console.log(this.serviceproviderVal, 'property-manager', this.locationSlice1, 'loc 1', this.locationSlice2, 'loc 2');
         })
         .catch(e => e);
       /*if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
-        this.propertymanagerVal = data;
-        console.log(this.propertymanagerVal);
+        this.serviceproviderVal = data;
+        console.log(this.serviceproviderVal);
       })*/
     }
   }
@@ -113,7 +126,7 @@ export default {
 </script>
 
 <style scoped>
-.pfaccountlocationcontainer{
+.spaccountlocationcontainer{
   background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#2B2B2B, #444444);
   background-size: contain;
   width: 100%;
@@ -124,7 +137,7 @@ export default {
   overflow: scroll;
 }
 
-.pfaccountlocation{
+.spaccountlocation{
   background: white;
   width: 50%;
   margin-right: 20px;
@@ -134,7 +147,7 @@ export default {
   align-items: center;
 }
 
-.pfaccountsecondcolumn{
+.spaccountsecondcolumn{
   width: 30%;
   margin-right: 50px;
   display: flex;
@@ -142,24 +155,24 @@ export default {
   align-items: center;
 }
 
-.pfaccountlocation .profilepic{
+.spaccountlocation .profilepic{
   border-radius: 25px;
 }
 
-.pfaccountlocation .companyName{
+.spaccountlocation .companyName{
   color: #A61C00;
   font-size: 26px;
   margin-top: 5px;
 }
 
-.pfaccountlocation .companyDescription {
+.spaccountlocation .companyDescription {
   font-size: 18px;
   color: #666666;
   width: 90%;
   text-align: center;
 }
 
-.pfaccountlocation .applyAll {
+.spaccountlocation .applyAll {
   background: #A61C00;
   color: white;
   font-size: 18px;
@@ -168,18 +181,18 @@ export default {
   border-radius: 20px;
 }
 
-.pfaccountlocationlist{
+.spaccountlocationlist{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 20px 0px 20px 0px;
 }
-.pfaccountlocationlist:nth-child(odd){
+.spaccountlocationlist:nth-child(odd){
   background: #F4F4F4;
 }
 
-.pfaccountlocation .companyLocationTitle {
+.spaccountlocation .companyLocationTitle {
   border-top: 1px solid #707070;
   width: 90%;
   text-align: center;
@@ -189,12 +202,12 @@ export default {
   padding-top: 20px;
 }
 
-.pfaccountlocationflex{
+.spaccountlocationflex{
   display: flex;
   width: 100%;
   justify-content: space-evenly;
 }
-.pfaccountlocationlist .applyApproval {
+.applyApproval {
   width: 75%;
   background: #A61C00;
   color: white;
@@ -202,16 +215,16 @@ export default {
   border-radius: 20px;
   margin: 20px 0px 20px 0px;
 }
-.pfaccountsecondcolumn{
+.spaccountsecondcolumn{
   width: 20%;
 }
-.pfaccountlocationcolumn .locationPic{
+.spaccountlocationcolumn .locationPic{
   border-radius: 50%;
   width: 4vw;
   height: 7vh;
   margin-left: 20px;
 }
-.pfaccountlocationcolumn .locationShare {
+.spaccountlocationcolumn .locationShare {
   font-size: 18px;
   width: 70%;
   margin-top: 20px;
@@ -220,7 +233,7 @@ export default {
   margin-left: 20px;
   padding: 0px;
 }
-.pfaccountlocationcolumn button {
+.spaccountlocationcolumn button {
   width: 100%;
   background: #A61C00;
   color: white;
@@ -228,40 +241,40 @@ export default {
   padding: 10px 0px 10px 0px;
   border-radius: 20px;
 }
-.pfaccountlocationcolumn:first-child{
+.spaccountlocationcolumn:first-child{
   width: 15%;
 }
-.pfaccountlocationflexrow{
+.spaccountlocationflexrow{
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   width: 25%;
 }
-.pfaccountlocationflexrow p{
+.spaccountlocationflexrow p{
   font-size: 18px;
   font-weight: bold;
   color: #7C7C7C;
   padding: 0px 5px 0px 5px;
 }
-.pfaccountlocationflexrow2{
+.spaccountlocationflexrow2{
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.pfaccountlocationflexrow2 p{
+.spaccountlocationflexrow2 p{
   font-size: 18px;
   color: #7C7C7C;
   padding: 12px 0px 0px 0px;
 }
-.pfaccountlocationflexrow2 a {
+.spaccountlocationflexrow2 a {
   font-size: 18px;
   color: #7C7C7C;
   margin-right: 20px;
   text-decoration: none;
 }
-.pfaccountlocationflexrow2:nth-child(even){
+.spaccountlocationflexrow2:nth-child(even){
   background:#F8F8F8;
 }
 .locationNum {
@@ -340,4 +353,7 @@ export default {
   padding: 10px 0px 10px 0px;
 }
 
+.v-form button {
+  border: 1px solid #A61C00;
+}
 </style>
