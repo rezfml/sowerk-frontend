@@ -2,9 +2,9 @@
   <div id="aboutcontainer">
     <section class="abouthero">
       <h1>About SOWerk</h1>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
-      </svg>
+      </svg> -->
     </section>
 
     <section class="aboutdescription">
@@ -41,9 +41,9 @@
           </div>
         </div>
       </div>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
-      </svg>
+      </svg> -->
     </section>
 
     <section class="aboutplatform">
@@ -194,10 +194,10 @@
 
 .abouthero {
   width: 100%;
-  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
+  height: 60vh;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
   background-size: cover;
   object-fit: contain;
-  /* background-size: 100%; */
   height: auto;
   display: flex;
   flex-direction: column;
@@ -208,22 +208,39 @@
   color: white;
   width: 50%;
   text-align: center;
-  margin: 100px 0px 100px 0px;
+  margin: 200px 0px 200px 0px;
   font-size: 55px;
 }
-.abouthero svg {
+/* .abouthero svg {
   width: 100%;
   height: 9vh;
   fill: #a61c00;
-}
+} */
 .aboutdescription {
   background: #a61c00;
   width: 100%;
+  height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: auto;
   color: white;
+  padding-bottom: 100px;
+}
+
+.aboutdescription:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top left;
+  transform:skewY(-2deg)
 }
 .aboutdescriptionflex {
   display: flex;
@@ -231,6 +248,8 @@
   justify-content: center;
   border-radius: 20px;
   margin: -50px 0px 100px 0px;
+    z-index: 100;
+
 }
 
 .aboutdescriptionflex .aboutdescriptionimg {
@@ -287,13 +306,31 @@
 }
 
 .aboutplatform {
-  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
+  background-image:  url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
     linear-gradient(#2b2b2b, #444444);
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: auto;
+  position: relative;
+  padding-bottom: 150px;
+}
+
+.aboutplatform:after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content:'';
+  background:inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* z-index: -1; */
+  transform-origin: top left;
+  transform: skewY(-2deg)
 }
 
 .aboutplatform .aboutplatformcontainer {
@@ -305,6 +342,7 @@
   border-radius: 20px;
   margin-top: -150px;
   margin-bottom: 50px;
+  z-index: 5;
 }
 .aboutplatformcontainer h1 {
   background: #47494e;
@@ -312,7 +350,8 @@
   border-radius: 20px;
   text-align: center;
   padding: 10px 0px 10px 0px;
-  margin-top: -20px;
+  margin-top: -40px;
+  margin-bottom: 20px;
   font-size: 50px;
   color: white;
 }
