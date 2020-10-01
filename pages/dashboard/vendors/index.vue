@@ -199,16 +199,16 @@
         businesses: null
       }
     },
-    watch: {
-      loading: function() {
-        if(this.loading){
-          console.log(document);
-          document.documentElement.style.overflow = 'hidden'
-          return
-        }
-        document.documentElement.style.overflow = 'auto'
-      }
-    },
+    // watch: {
+    //   loading: function() {
+    //     if(this.loading){
+    //       console.log(document);
+    //       document.documentElement.style.overflow = 'hidden'
+    //       return
+    //     }
+    //     document.documentElement.style.overflow = 'auto'
+    //   }
+    // },
     async mounted() {
       await this.getBusinesses();
     },
@@ -219,7 +219,7 @@
     },
     methods: {
       async getBusinesses() {
-        this.loading = true;
+        // this.loading = true;
         this.locations = [];
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/1').catch(e => e);
         // this.businesses = data.users.filter(function(user) {

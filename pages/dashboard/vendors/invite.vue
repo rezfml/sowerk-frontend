@@ -1,6 +1,74 @@
 <template>
   <v-app class="grey lighten-3">
-    <v-card></v-card>
+    <v-container>
+      <v-card>
+        <v-container class="px-12">
+          <v-row>
+            <v-col cols="12">
+              <v-img src="/sowerk-requests-logo.png" max-height="200" max-width="400" class="mx-auto"></v-img>
+              <p class="primary--text text-center font-weight-bold text-h5">Invite a Service Provider to join SOWerk And Connect For Free</p>
+              <p class="text-center text-h6">Enter the Service Providers information below, add another line and invite multiple at once.</p>
+              <p class="text-body-1 text-center">(Note* by selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk with a free connection, but will still have to submit an application to your business.)</p>
+            </v-col>
+            <v-col cols="12">
+              <v-data-table
+                :headers="headers"
+                :items="vendors"
+                class="text-caption table--bordered"
+                disable-pagination
+                hide-default-footer
+              >
+                <template v-slot:item.service="{ item }">
+                  <v-text-field class="text-caption" v-model="item.service"></v-text-field>
+                </template>
+                <template v-slot:item.companyName="{ item }">
+                  <v-text-field class="text-caption" v-model="item.companyName"></v-text-field>
+                </template>
+                <template v-slot:item.firstName="{ item }">
+                  <v-text-field class="text-caption" v-model="item.firstName"></v-text-field>
+                </template>
+                <template v-slot:item.lastName="{ item }">
+                  <v-text-field class="text-caption" v-model="item.lastName"></v-text-field>
+                </template>
+                <template v-slot:item.email="{ item }">
+                  <v-text-field class="text-caption" v-model="item.email"></v-text-field>
+                </template>
+                <template v-slot:item.phone="{ item }">
+                  <v-text-field class="text-caption" v-model="item.phone"></v-text-field>
+                </template>
+                <template v-slot:item.preapproved="{ item }">
+                  <v-select
+                    :items="preapprovedOptions"
+                    v-model="item.preapproved"
+                    item-text="text"
+                    item-value="value"
+                    class="text-caption"
+                  >
+                  </v-select>
+                </template>
+                <template v-slot:item.property="{ item }">
+                  <v-select
+                    :items="properties"
+                    item-text="text"
+                    item-value="value"
+                    v-model="item.property"
+                    class="text-caption"
+                  >
+                  </v-select>
+                </template>
+              </v-data-table>
+            </v-col>
+            <v-col cols="12" class="d-flex justify-end">
+              <v-btn color="primary" text @click="addInvitee">+ Add Another Line</v-btn>
+            </v-col>
+            <v-col class="d-flex justify-space-between my-12">
+              <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
+              <v-btn color="primary" rounded class="px-12">Invite Service Providers</v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
+    </v-container>
   </v-app>
 </template>
 
@@ -18,40 +86,70 @@
     data() {
       return {
         loading: false,
+        preapprovedOptions: [
+          {
+            text: 'Yes',
+            value: true,
+          },
+          {
+            text: 'No',
+            value: false,
+          }
+        ],
         vendors: [
           {
             id: '1',
             service: 'HVAC',
             companyName: "John's HVAC",
-            name: 'John Smith',
+            firstName: 'John',
+            lastName: 'Smith',
             email: 'test@test.com',
             phone: '(347) 522-7496',
-            location: 'Springfield, MO',
+            preapproved: true,
+            property: null,
           },
           {
             id: '2',
             service: 'Plumbing',
             companyName: "Rez's Plumbing",
-            name: 'Rez Smith',
+            firstName: 'Rez',
+            lastName: 'Smith',
             email: 'test@test.com',
             phone: '(347) 522-7496',
-            location: 'Springfield, MO',
+            preapproved: true,
+            property: null,
           },
           {
             id: '3',
             service: 'Welding',
             companyName: "Adam's Welding",
-            name: 'Adam Smith',
+            firstName: 'Adam',
+            lastName: 'Smith',
             email: 'test@test.com',
             phone: '(347) 522-7496',
-            location: 'Springfield, MO',
+            preapproved: true,
+            property: null,
           },
+        ],
+        properties: [
+          {
+            text: 'Springfield, MO',
+            value: 'Springfield, MO',
+          },
+          {
+            text: 'St. Louis, MO',
+            value: 'St. Louis, MO',
+          },
+          {
+            text: 'Ozark, MO',
+            value: 'Ozark, MO',
+          }
         ],
         services: [],
         filters: [
           {
             name: 'Location',
-            items: [
+          items: [
               'State',
               'National',
               'Under 10 Miles',
@@ -163,11 +261,12 @@
           },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'First Name', value: 'firstName', class: 'primary--text font-weight-regular' },
+          { text: 'Last Name', value: 'lastName', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Pre-Approved', value: 'preapproved', class: 'primary--text font-weight-regular' },
+          { text: 'Property', value: 'property', class: 'primary--text font-weight-regular' },
         ],
         businesses: null
       }
@@ -238,10 +337,33 @@
         }
         this.loading = false;
       },
+      addInvitee() {
+        let newVendor = {
+            id: '',
+            service: '',
+            companyName: "",
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            preapproved: true,
+            property: '',
+        };
+
+        this.vendors.push(newVendor);
+
+      }
     },
   }
 </script>
 
 <style scoped>
+  .table--bordered, .table--bordered >>> tr {
+    border: 1px solid lightgrey!important;
+    border-collapse: collapse;
+  }
 
+  .table--bordered >>> th:not(:first-child) {
+    min-width: 150px;
+  }
 </style>
