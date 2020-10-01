@@ -53,7 +53,7 @@
                           <v-row fill-height class="pl-2">
                             <client-only>
                               <v-image-input
-                                v-model="user.image"
+                                v-model="company.imgUrl"
                                 image-quality="0.85"
                                 clearable
                                 image-format="png"
@@ -122,10 +122,34 @@
                         <v-col cols="12" sm="6">
                           <v-text-field
                             id="company-name"
-                            label="Company Name*"
+                            label="Account Name*"
                             type="text"
-                            v-model="company.company_name"
+                            v-model="company.account_name"
                           ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-brand"
+                            label="Brand Name*"
+                            type="text"
+                            v-model="company.brand_name"></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-select
+                            id="company-best"
+                            label="What Best Describes You*"
+                            :items="bestSelection"
+                            v-model="company.bestDescription"></v-select>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-llc"
+                            label="List your LLC Name (If Applicable)"
+                            type="text"
+                            v-model="company.llcName"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6">
@@ -197,12 +221,13 @@
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
                 <template v-if="editingLocation">
-                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about your first location</span>
+                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Complete The Below Details For Each Location. All progress is saved automatically and you can view your list of locations after every add. Need Help Uploading Multiple Locations? Contact SOWERK Here</span>
                   <v-form class="mx-auto">
                     <v-container>
                       <FormLocation
                         :location="location"
                         :index="editingIndex"
+                        :user="user"
                       />
                     </v-container>
                   </v-form>
@@ -216,7 +241,6 @@
                     <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>
                     <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
                     <template v-slot:item.actions="{ item }">
-
                       <v-btn icon @click="editLocation(locations.indexOf(item))">
                         <v-icon
                           small
@@ -338,10 +362,10 @@
           </v-tab-item>
         </v-tabs-items>
         <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-          <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
+          <v-btn style="background-color: #e0e0e0;" outlined class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
           <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
           <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
-          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">Add Location + </v-btn>
+          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
           <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="!editingLocation && tab === 1">Next > </v-btn>
           <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
           <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2">Submit</v-btn>
@@ -383,17 +407,27 @@
           'Locations',
           'Review'
         ],
+        bestSelection: [
+          "- I own this brand",
+          "- I am a franchisee of this brand"
+        ],
         company: {
           email: '',
-          company_name: '',
+          account_name: '',
+          brand_name: '',
+          bestDescription: "",
+          llcName: '',
+          imgUrl: '',
           address: '',
           city: '',
           state: '',
-          zipcode: '',
+          zipcode: Number,
           description: '',
           phone: '',
-          year_founded: '',
-          company_type: true
+          year_founded: Number,
+          company_type: true,
+          currentConnections: Number,
+          maxConnections: Number
         },
         user: {
           first_name: '',
@@ -437,7 +471,12 @@
           latitude: null,
           longitude: null,
           radius: 0,
-          year_founded: '',
+          year_founded: 0,
+          description: null,
+          adminLevel: 0,
+          imageUrl: "",
+          pfLogoCheckbox: false,
+          companies_id: Number
         },
         editingIndex: 0,
         imageUrlLocation: '',
@@ -483,7 +522,7 @@
       },
       finishEditing() {
         this.editingLocation = false;
-        console.log(this.location);
+        console.log(this.location, location);
         this.locations[this.editingIndex] = this.location;
         this.editingIndex = null;
       },
@@ -541,8 +580,14 @@
           latitude: null,
           longitude: null,
           radius: 0,
-          year_founded: '',
+          year_founded: null,
+          description: null,
+          adminLevel: null,
+          imageUrl: "",
+          pfLogoCheckbox: false,
+          companies_id: this.user.companies_id
         };
+
         this.locations.push(newLocation);
         this.location = this.locations[this.locations.length - 1];
         this.editingIndex = this.locations.length - 1;
@@ -575,6 +620,7 @@
         await this.postLocations(data.user.companies_id);
       },
       async postLocations(userId) {
+        console.log(this.locations);
         let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' + userId, this.locations).catch(e => e);
         // this.loading = false;
         // if (this.$error(status, message, errors)) return;
