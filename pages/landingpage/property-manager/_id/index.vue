@@ -164,7 +164,7 @@ export default {
 .pfaccountlocation {
   background: white;
   width: 50%;
-  margin-right: 20px;
+  /* margin-right: 20px; */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -173,7 +173,7 @@ export default {
 
 .pfaccountsecondcolumn {
   width: 30%;
-  margin-right: 50px;
+  /* margin-right: 50px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,9 +202,9 @@ export default {
 .pfaccountlocation .applyAll {
   background: #a61c00;
   color: white;
-  font-size: 18px;
+  font-size: 17px;
   width: 60%;
-  padding: 5px 0px 5px 0px;
+  padding: 10px 0px 10px 0px;
   border-radius: 20px;
 }
 
@@ -214,6 +214,7 @@ export default {
   align-items: center;
   width: 100%;
   padding: 20px 0px 20px 0px;
+  border-radius: 20px;
 }
 .pfaccountlocationlist:nth-child(odd) {
   background: #f4f4f4;
@@ -291,7 +292,7 @@ export default {
   width: 100%;
 }
 .pfaccountlocationflexrow2 p {
-  font-size: 16px;
+  font-size: 14px;
   color: #7c7c7c;
   padding: 12px 0px 0px 0px;
 }
@@ -306,12 +307,12 @@ export default {
 }
 .locationNum {
   text-align: center;
-  font-size: 22px;
+  font-size: 21px;
   color: #7c7c7c;
 }
 .retailLocations {
   background: white;
-  border-radius: 30px;
+  border-radius: 20px;
   width: 90%;
   margin-bottom: 20px;
   display: flex;
@@ -380,6 +381,12 @@ export default {
   color: white;
   margin: 20px 0px 0px 0px;
   padding: 5px 0px 5px 0px;
+}
+
+@media (max-width: 1500px) {
+  .pfaccountsecondcolumn {
+    width: 30%;
+  }
 }
 
 @media (max-width: 1280px) {
@@ -451,5 +458,43 @@ export default {
     margin-right: 0;
     width: 30%;
   }
+
+  .locationNum {
+    font-size: 18px;
+  }
+  .pfaccountlocationflexrow2 p {
+    font-size: 12px;
+  }
+
+  .featuredbusiness div {
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 980px) {
+  .pfaccountlocation {
+    width: 65%;
+  }
+.pfaccountsecondcolumn {
+  width: 72%;
+}
+.featuredbusiness{
+  width: 90%;
+}
+.featuredbusiness div h3 {
+  text-align: left;
+}
+
+.pfaccountlocationcontainer {
+  flex-direction: column;
+  align-items: center;
+}
+
+.retailLocations {
+  margin-top: 25px;
+}
+
+
 }
 </style>
