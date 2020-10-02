@@ -80,7 +80,7 @@
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
-          <img alt="test"/>
+          <img alt="test" />
           <div>
             <h1>Step 1 <span>- Company Account & Locations</span></h1>
             <p>
@@ -103,7 +103,7 @@
           <img alt="test" />
         </div>
         <div class="joinproductstepcontainerstep step-right">
-          <img alt="test"/>
+          <img alt="test" />
           <div>
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
@@ -154,7 +154,7 @@
         </div>
       </div>
       <div class="joinproductfaqflex">
-        <img width="100px" height="100px"/>
+        <img width="100px" height="100px" />
         <div>
           <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
           <p>
@@ -232,13 +232,13 @@
   width: 100%;
   height: 100%;
   content: '';
-  background:inherit;
+  background: inherit;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg);
+  transform: skewY(-2deg);
 }
 .joinproducttraits div {
   width: 20%;
@@ -575,21 +575,25 @@
     font-size: 25px;
   }
 
-  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep img {
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    img {
     border: 1px solid #333;
     height: 250px;
     width: 80%;
-
   }
 
   .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 20px 0
+    margin: 20px 0;
   }
 
-  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep:nth-child(2) {
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep:nth-child(2) {
     flex-direction: column-reverse;
   }
   .joinproductsteps
@@ -609,7 +613,7 @@
     p {
     font-size: 18px;
     /* padding: 0 0 0 40px; */
-   text-align: justify;
+    text-align: justify;
     margin-top: 10px;
   }
 
@@ -640,13 +644,13 @@
 
   .joinproducthero div button {
     font-size: 17px;
-    padding: 8px  48px 8px 48px;
+    padding: 8px 48px 8px 48px;
   }
 
   .joinproductdescription p {
     font-size: 16px;
   }
-  
+
   .joinproductdescription button {
     font-size: 17px;
   }

@@ -148,7 +148,9 @@
         />
         <div>
           <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
-          <p id="pfaq">Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+          <p id="pfaq">
+            Not at all, a SOWerk profile only takes 10 minuets to setup.
+          </p>
           <p>
             With only a click or two on your computer or mobile device you can
             use your SOWerk Profile to apply for approved vendor programs
@@ -195,7 +197,8 @@
 .abouthero {
   width: 100%;
   height: 60vh;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
   background-size: cover;
   object-fit: contain;
   /* background-size: 100%; */
@@ -211,7 +214,7 @@
   text-align: center;
   margin: 150px 0px 150px 0px;
   margin: 200px 0px 200px 0px;
-  font-size: 55px;
+  font-size: 3.5vw;
 }
 /* .abouthero svg {
   width: 100%;
@@ -242,7 +245,7 @@
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg)
+  transform: skewY(-2deg);
 }
 .aboutdescriptionflex {
   display: flex;
@@ -250,8 +253,7 @@
   justify-content: center;
   border-radius: 20px;
   margin: -50px 0px 100px 0px;
-    z-index: 100;
-
+  z-index: 100;
 }
 
 .aboutdescriptionflex .aboutdescriptionimg {
@@ -308,7 +310,7 @@
 }
 
 .aboutplatform {
-  background-image:  url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
+  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
     linear-gradient(#2b2b2b, #444444);
   width: 100%;
   height: 100%;
@@ -324,15 +326,15 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  content:'';
-  background:inherit;
+  content: '';
+  background: inherit;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   /* z-index: -1; */
   transform-origin: top left;
-  transform: skewY(-2deg)
+  transform: skewY(-2deg);
 }
 
 .aboutplatform .aboutplatformcontainer {
@@ -436,39 +438,45 @@
   padding: 10px 0px 10px 0px;
 }
 
+@media (max-width: 1280px){
+   .abouthero h1 {
+    font-size: 45px;
+  }
+}
+
 @media (max-width: 800px) {
   .abouthero h1 {
-    font-size: 50px;
+    font-size: 43px;
   }
 
   .aboutdescriptionflex
     .aboutdescriptionimg
-    .aboutdescriptionimg2[data-v-75c9003b] {
+    .aboutdescriptionimg2 {
     width: 200%;
     position: relative;
     left: -140px;
     top: -200px;
   }
 
-  .aboutdescriptiontext[data-v-75c9003b] {
+  .aboutdescriptiontext {
     width: 90%;
   }
 
-  .aboutdescriptionflex h1[data-v-75c9003b] {
+  .aboutdescriptionflex h1 {
     width: 100%;
     text-align: center;
     font-size: 33px;
     margin: 15px 0px 12px 0px;
   }
 
-  .aboutdescriptionflex p[data-v-75c9003b] {
+  .aboutdescriptionflex p {
     margin: 10px 0;
     width: 100%;
     text-align: center;
     line-height: 24px;
   }
 
-  .aboutdescriptionflex[data-v-75c9003b] {
+  .aboutdescriptionflex {
     margin: 0;
     flex-direction: column;
     align-items: center;
@@ -522,9 +530,9 @@
     width: 100%;
   }
 
-#pfaq {
-  width: 100%;
-}
+  #pfaq {
+    width: 100%;
+  }
   .aboutfaqflex {
     margin: 20px 0;
     width: 90%;
@@ -569,7 +577,7 @@
 
 @media (max-width: 680px) {
   .abouthero h1 {
-    font-size: 42px;
+    font-size: 36px;
   }
 
   .aboutdescriptionflex
@@ -629,9 +637,7 @@
     width: 100%;
   }
 
-  .aboutdescriptionflex
-    .aboutdescriptionimg
-    .aboutdescriptionimg2 {
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
     left: -110px;
   }
 
@@ -646,8 +652,8 @@
     font-size: 13px;
   }
 
-  .aboutplatformcontainer h1{
-    font-size: 40px;
+  .aboutplatformcontainer h1 {
+    font-size: 3vw;
   }
 
   .aboutplatformcontainerfleximg {
@@ -666,7 +672,7 @@
     font-size: 23px;
   }
 
-  .aboutfaq p{
+  .aboutfaq p {
     font-size: 15px;
   }
 
