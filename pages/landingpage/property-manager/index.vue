@@ -164,8 +164,9 @@ export default {
   background-size: cover;
   object-fit: contain;
   width: 100%;
-  height: 60vh;
   display: flex;
+  height:50vh;
+  /* margin-top:-200px; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -188,9 +189,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 0px 40px 0px;
-  border-radius: 15px;
-  margin: 50px 0px 50px 0px;
+  padding: 20px 0px 20px 0px;
+  border-radius: 20px;
+  margin: 250px 0px 250px 0px;
   color: white;
 }
 .spherobox .buttonflex {
@@ -395,8 +396,5 @@ export default {
     font-size: 14px;
   }
 
-  .searchSection form button {
-  
-}
 }
 </style>

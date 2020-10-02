@@ -182,6 +182,7 @@ export default {
   width: 100%;
   height: auto;
   display: flex;
+  margin-top: -200px;
   flex-direction: column;
 }
 .landinghomehero svg {
@@ -197,7 +198,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 300px;
 }
 .landinghomeherotext h1, .landinghomeherotext p, .landinghomeherotext button {
   color: rgb(255, 255, 255, 1);
@@ -644,7 +645,7 @@ export default {
     margin: 0 auto;
     border-radius: 20px;
     font-size: 11.5px;
-    padding: 10px 0px 10px 0px;
+    padding: 1% .5%;
   }
   /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
   .landinghomevideo{
@@ -687,7 +688,7 @@ export default {
   .landinghomefaq button {
     width: 45%;
     border-radius: 12px;
-    padding: 12px 109px 12px 109px;
+    padding: 12px 5% 12px 5%;
     font-size: 12px;
     font-weight: 500;
     align-items: center;
@@ -893,7 +894,7 @@ export default {
     border-radius: 12px;
     font-size: 9.5px;
     font-weight: 500;
-    padding: 7px 10px 7px 10px;
+    padding: 1% .5%;
   }
   /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
   .landinghomevideo{
@@ -930,7 +931,7 @@ export default {
   .landinghomefaq button {
     width: 45%;
     border-radius: 8px;
-    padding: 7px 65px 7px 65px;
+    padding: 7px 5% 7px 5%;
     font-size: 9px;
     font-weight: 600;
     align-items: center;

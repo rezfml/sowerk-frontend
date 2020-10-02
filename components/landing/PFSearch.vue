@@ -25,175 +25,206 @@
 
     <section class="companyList">
       <div class="companyContainer">
-        <div class="flexCompanies" v-for="company in pageOfItems" :key="company.id">
-          <img :src="company.imgUrl"/>
+        <div
+          class="flexCompanies"
+          v-for="company in pageOfItems"
+          :key="company.id"
+        >
+          <img :src="company.imgUrl" />
           <div>
-            <h1>{{company.account_name}}</h1>
-            <p>{{company.description}}</p>
+            <h1>{{ company.account_name }}</h1>
+            <p>{{ company.description }}</p>
           </div>
-          <a :href="'property-manager/' + company.id"><button>VIEW ACCOUNT</button></a>
+          <a :href="'property-manager/' + company.id"
+            ><button>VIEW ACCOUNT</button></a
+          >
         </div>
-        <jw-pagination :items="propertymanagers" @changePage="onChangePage" :pageSize="8" :maxPages="Math.round(propertymanagers.length/8)"></jw-pagination>
+        <jw-pagination
+          :items="propertymanagers"
+          @changePage="onChangePage"
+          :pageSize="8"
+          :maxPages="Math.round(propertymanagers.length / 8)"
+        ></jw-pagination>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import JwPagination from 'jw-vue-pagination';
+import Vue from 'vue'
+import JwPagination from 'jw-vue-pagination'
 
-Vue.use(JwPagination);
-  export default {
-    name: "PFSearch",
-    data() {
-      return {
-        loading: false,
-        propertymanagers: [
-
-        ],
-        pageOfItems: []
+Vue.use(JwPagination)
+export default {
+  name: 'PFSearch',
+  data() {
+    return {
+      loading: false,
+      propertymanagers: [],
+      pageOfItems: [],
+    }
+  },
+  components: {
+    JwPagination: JwPagination,
+  },
+  watch: {
+    loading: function () {
+      if (this.loading) {
+        console.log(document)
+        document.documentElement.style.overflow = 'hidden'
+        return
       }
+      document.documentElement.style.overflow = 'auto'
     },
-    components: {
-      JwPagination: JwPagination
+  },
+  mounted() {
+    this.getPropertyManagers()
+  },
+  methods: {
+    async getPropertyManagers() {
+      let { data, status } = await this.$http
+        .get(
+          `http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/1`
+        )
+        .catch((e) => e)
+      if (this.$error(status, data.message, data.errors)) return
+      this.$nextTick(function () {
+        this.propertymanagers = data
+        console.log(this.propertymanagers)
+      })
     },
-    watch: {
-      loading: function() {
-        if(this.loading){
-          console.log(document);
-          document.documentElement.style.overflow = 'hidden'
-          return
-        }
-        document.documentElement.style.overflow = 'auto'
-      }
+    onChangePage(pageOfItems) {
+      this.pageOfItems = pageOfItems
     },
-    mounted() {
-      this.getPropertyManagers();
-    },
-    methods: {
-      async getPropertyManagers() {
-        let {data, status} = await this.$http.get(`http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/1`).catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
-        this.$nextTick(function() {
-          this.propertymanagers = data;
-          console.log(this.propertymanagers);
-        })
-      },
-      onChangePage(pageOfItems) {
-        this.pageOfItems = pageOfItems;
-      }
-    },
-  }
-
+  },
+}
 </script>
 
 <style scoped>
-  .searchSection {
-    background: black;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+.searchSection {
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+.searchSection div {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 10px 0px 10px 0px;
+}
+.searchSection h1 {
+  font-size: 4.2vw;
+}
+.searchSection div form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.searchSection form input {
+  background: white;
+  padding: 2px 5px 2px 5px;
+  border-radius: 35px;
+  width: 50%;
+}
+.searchSection form button {
+  background: #a61c00;
+  border-radius: 35px;
+  padding: 5px 10px 5px 10px;
+  margin-left: -305px;
+  font-size: 18px;
+}
+.companyList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
+    linear-gradient(#444444, #2b2b2b);
+  background-size: cover;
+}
+.companyList .companyContainer {
+  width: 80%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0px 10px 0px;
+}
+
+.flexCompanies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 10px;
+}
+.flexCompanies:nth-child(even) {
+  background: #f8f8f8;
+}
+.flexCompanies:nth-child(odd) {
+  background: white;
+}
+.flexCompanies img {
+  width: 100px;
+  border-radius: 20px;
+  margin: 10px 5% 10px 10px;
+  height: 100px;
+  border: 0.2px solid #333;
+  border-radius: 50px;
+}
+.flexCompanies div {
+  width: 60%;
+  text-align: start;
+  margin-left: 10px;
+}
+.flexCompanies div h1 {
+  color: #a61c00;
+  font-size: 20px;
+}
+.flexCompanies div p {
+  font-size: 18px;
+}
+.flexCompanies a {
+  height: auto;
+  /* margin: 10px 5% 10px 5%; */
+  text-align: center;
+  color: white;
+  font-size: 15px;
+}
+.flexCompanies a button {
+  background: #a61c00;
+  padding: 6px 35px 6px 35px;
+  border-radius: 20px;
+}
+
+@media (max-width: 1280px) {
+  .flexCompanies a button {
+    font-size: 13px;
+    padding: 10px 15px;
   }
-  .searchSection div {
-    display: flex;
-    justify-content: center;
-    width: 80%;
-    margin: 10px 0px 10px 0px;
-  }
-  .searchSection h1{
-    font-size: 55px;
-  }
-  .searchSection div form{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  .searchSection form input {
-    background: white;
-    padding: 2px 5px 2px 5px;
-    border-radius: 35px;
-    width: 50%;
-  }
-  .searchSection form button {
-    background: #A61C00;
-    border-radius: 35px;
-    padding: 5px 10px 5px 10px;
-    margin-left: -305px;
-    font-size: 18px;
-  }
-  .companyList{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url("https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png"), linear-gradient(#444444, #2B2B2B);
-    background-size: cover;
+}
+
+@media (max-width: 980px) {
+  .searchSection h1 {
+    font-size: 36px;
   }
   .companyList .companyContainer {
-    width: 80%;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0px 10px 0px;
-    border-radius: 20px;
-  }
-  .flexCompanies {
-    display: flex;
-    justify-content: center;
     width: 90%;
   }
-  .flexCompanies:nth-child(even) {
-    background: #F8F8F8;
-  }
-  .flexCompanies:nth-child(odd) {
-    background: white;
-  }
-  .flexCompanies img {
-    width: 10%;
-    border-radius: 20px;
-    margin: 10px 5% 10px 5%;
-    height: 100px;
-  }
-  .flexCompanies div {
-    width: 60%;
-    text-align: start;
-    margin-left: 10px;
-  }
-  .flexCompanies div h1{
-    color: #A61C00;
-    font-size: 20px;
-  }
-  .flexCompanies div p{
-    font-size: 18px;
-  }
-  .flexCompanies a {
-    width: 10%;
-    height: auto;
-    margin: 10px 5% 10px 5%;
-    text-align: center;
-    color: white;
-    font-size: 18px;
-  }
-  .flexCompanies a button {
-    background: #A61C00;
-    padding: 6px 12px 6px 12px;
-    border-radius: 20px;
-  }
 
-  
-@media (max-width: 980px) {
-  .searchSection h1{
-  font-size: 36px;
-}
+  .flexCompanies a button {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
 }
 
 @media (max-width: 680px) {
-  .searchSection h1{
-  font-size: 32px;
-}
+  .searchSection h1 {
+    font-size: 32px;
+  }
 }
 </style>
