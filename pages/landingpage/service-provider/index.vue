@@ -5,8 +5,9 @@
         <h1>Get Connected Now</h1>
         <p>Search SOWerk’s Nationwide Database</p>
         <form>
-          <input type="text" placeholder="" value="" />
-          <button type="submit">Search Now</button>
+          <input type="text" placeholder="" value=""> 
+          <button type="submit">Search Now</button></input>
+          
         </form>
       </div>
 <!--      <svg viewBox="0 0 100 100" preserveAspectRatio="none">-->
@@ -75,41 +76,43 @@
 </template>
 
 <script>
-import SPSearch from "~/components/landing/SPSearch.vue";
+import SPSearch from '~/components/landing/SPSearch.vue'
 
 export default {
   data() {
     return {
       loading: false,
-      serviceproviders: [
-
-      ]
+      serviceproviders: [],
     }
   },
   components: {
-    SPSearch
+    SPSearch,
   },
   watch: {
-    loading: function() {
-      if(this.loading){
-        console.log(document);
+    loading: function () {
+      if (this.loading) {
+        console.log(document)
         document.documentElement.style.overflow = 'hidden'
         return
       }
       document.documentElement.style.overflow = 'auto'
-    }
+    },
   },
   mounted() {
-    this.getServiceProviders();
+    this.getServiceProviders()
   },
   methods: {
     async getServiceProviders() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=0&limit=8&offset=0').catch(e => e);
-      if (this.$error(status, data.message, data.errors)) return;
-      this.$nextTick(function() {
-        this.serviceproviders = data;
-        console.log(this.serviceproviders);
-        console.log(this.currentUser);
+      let { data, status } = await this.$http
+        .get(
+          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=0&limit=8&offset=0'
+        )
+        .catch((e) => e)
+      if (this.$error(status, data.message, data.errors)) return
+      this.$nextTick(function () {
+        this.serviceproviders = data
+        console.log(this.serviceproviders)
+        console.log(this.currentUser)
       })
     },
   },
@@ -118,52 +121,66 @@ export default {
 
 <style scoped>
 .sphero {
-  background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg");
+  background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg');
+  background-size: cover;
+  object-fit: contain;
   width: 100%;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.sphero h1{
+.sphero h1 {
   font-size: 55px;
+  width: 100%;
+  text-align: center;
 }
-.sphero p{
+.sphero p {
   font-size: 23px;
+  width: 100%;
+  text-align: center;
 }
 .sphero svg {
   width: 100%;
   height: 9vh;
-  fill: #A61C00;
+  fill: #a61c00;
 }
 .sphero .spherobox {
-  background: rgb(0, 0, 0, 0.55);
+  background: rgb(0, 0, 0, 0.8);
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px 0px 20px 0px;
-  border-radius: 20px;
+  border-radius: 15px;
   margin: 50px 0px 50px 0px;
   color: white;
 }
 
+.spherobox form {
+  width: 100%;
+  text-align: center;
+}
+
 .spherobox form input {
+  width: 50%;
   background: white;
   padding: 2px 5px 2px 5px;
   border-radius: 35px;
 }
 .spherobox form button {
-  background: #A61C00;
+  background: #a61c00;
   border-radius: 35px;
-  padding: 3px 5px 3px 5px;
-  margin-left: -25px;
+  padding: 4.8px 30px 3px 30px;
+  margin-left: -130px;
+  font-size: 12px;
 }
 
 .splist {
   width: 100%;
-  background: #A61C00;
+  background: #a61c00;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -198,10 +215,10 @@ export default {
   font-size: 14px;
   width: 50%;
 }
-.splistcontainer div button{
+.splistcontainer div button {
   width: 80%;
   margin: 0 auto;
-  background: #A61C00;
+  background: #a61c00;
   color: white;
   border-radius: 20px;
   padding: 5px 0px 5px 0px;
@@ -214,15 +231,15 @@ export default {
   font-size: 22px;
 }
 
-.aboutdescription{
-  background: #47494E;
+.aboutdescription {
+  background: #47494e;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: auto;
 }
-.aboutdescriptionflex{
+.aboutdescriptionflex {
   display: flex;
   width: 90%;
   justify-content: center;
@@ -246,7 +263,7 @@ export default {
   left: -560px;
   top: -230px;
 }
-.aboutdescriptiontext{
+.aboutdescriptiontext {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -255,10 +272,10 @@ export default {
   margin-left: 10px;
   margin-top: 20px;
 }
-.aboutdescriptiontext h1{
+.aboutdescriptiontext h1 {
   font-size: 35px;
 }
-.aboutdescriptiontext p{
+.aboutdescriptiontext p {
   font-size: 18px;
 }
 .aboutbuttoncontainer {
@@ -276,7 +293,7 @@ export default {
   margin: 0 auto;
 }
 
-.joinservicetraits{
+.joinservicetraits {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -294,18 +311,17 @@ export default {
   border-radius: 20px;
   margin: 50px 5px 50px 5px;
 }
-.joinservicetraits div h3{
+.joinservicetraits div h3 {
   font-size: 22px;
   margin: 15px 0px 15px 0px;
 }
-.joinservicetraits div p{
+.joinservicetraits div p {
   font-size: 18px;
   width: 90%;
   text-align: center;
 }
-.joinservicetraits div img{
+.joinservicetraits div img {
   width: 50%;
   margin-top: 20px;
 }
-
 </style>
