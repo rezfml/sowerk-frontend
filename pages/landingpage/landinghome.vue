@@ -451,23 +451,12 @@ export default {
 
 /* for screens less than 800 pixels */
 @media (max-width: 800px) {
-    #landingcontainer{
-    width: 100%;
-    padding: 0px !important;
-  }
   .landinghomehero{
-    background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
     background-size: cover;
-    background-position-x:50%;
+    background-position-x:40%;
     width: 100%;
     height: auto;
     background-repeat:no-repeat;
-    display: flex;
-    flex-direction: column;
-  }
-  .landinghomehero svg {
-    width: 100%;
-    height: 9vh;
   }
   .landinghomeherotext{
     border-radius: 25px;
@@ -477,8 +466,7 @@ export default {
     align-items: center;
     justify-content: center;
     margin-top: 100px;
-  }
-  
+  }  
   .landinghomeherotext img {
     width: 50%;
     margin-top: -200px;
@@ -486,7 +474,7 @@ export default {
   }
   .landinghomeherotext h1 {
     margin-top: -250px;
-    font-size: 40px;
+    font-size:30px;
   }
   .landinghomeherotext p{
     font-size: 16px;
@@ -527,7 +515,6 @@ export default {
     margin-top: 20px;
     font-size: 30px;
   }
-
   .landinghomesp button {
     width: 45%;
     border-radius: 20px;
@@ -721,10 +708,6 @@ export default {
   .landinghomeherotext{
     border-radius: 25px;
     width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     margin-top: 100px;
   }
   .landinghomeherotext img {
@@ -734,10 +717,11 @@ export default {
   }
   .landinghomeherotext h1 {
     margin-top: -200px;
-    font-size: 26px;
+    font-size: 18px;
+    margin-left:0px !important;
   }
   .landinghomeherotext p{
-    font-size: 11px;
+    font-size: 10px;
   }
   .landinghomeherotext button {
     border-radius: 8px;
@@ -748,9 +732,7 @@ export default {
     font-weight: 500;
   }
   .landinghomepf{
-    background: #151515;
     width: 100%;
-    display: flex;
     flex-direction: column;
     align-items: center;
   }
@@ -763,11 +745,10 @@ export default {
     border-radius: 12px;
     margin-bottom: 20px;
     padding: 7px 0px 7px 0px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
   }
   .landinghomesp{
-    background: #151515;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -779,10 +760,10 @@ export default {
   }
   .landinghomesp button {
     width: 45%;
-    border-radius: 20px;
+    border-radius: 12px;
     margin-bottom: 20px;
     padding: 7px 0px 7px 0px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
   }
   .landinghomelink {
@@ -821,7 +802,7 @@ export default {
     width: 40%;
     padding: 7px 0px 7px 0px;
     margin: 0px 0px 25px 0px;
-    border-radius: 20px;
+    border-radius: 12px;
     font-size: 12px;
     font-weight: 500;
   }
@@ -855,7 +836,7 @@ export default {
     width: 100%;
   }
   .landinghomereview h1 {
-    font-size: 55px;
+    font-size: 18px !important;
   }
   .landinghomereview p {
     font-size: 12px;
@@ -869,13 +850,14 @@ export default {
   }
   .landinghomejoin .landinghomejoinflex .macphoto {
     position: relative;
-    right: 375px;
-    width: 580px;
+    right: 225px;
+    width: 350px;
   }
   .iphonephoto {
     z-index: 1;
-    position: relative;
+    /*position: relative;*/
     top: 25px;
+    left:-15px;
   }
   .landinghomejoin .landinghomejoinflex {
     display: flex;
@@ -888,45 +870,43 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
-    margin-left: -500px;
+    width: 300px;
+    margin-left: -300px;
   }
   .landinghomejoincolumn h2 {
-    font-size: 35px;
+    font-size: 18px;
   }
   .landinghomejoincolumn p {
-    font-size: 14px;
+    font-size: 10px;
   }
   .landinghomejoincolumn div {
     display: flex;
     justify-content: center;
-    width: 95%;
+    /*width:70%;*/
   }
+  /*the buttons will either need to have a change to the mobile view or wording the property and facility learn more goes to two  lines 
+      this may be fixed needs to be tested.
+  */
   .landinghomejoincolumn div button {
-    width: 49%;
+    width: 45%;
     margin: 0 auto;
-    border-radius: 20px;
-    font-size: 11.5px;
-    padding: 10px 0px 10px 0px;
+    border-radius: 12px;
+    font-size: 9.5px;
+    font-weight: 500;
+    padding: 7px 10px 7px 10px;
   }
   /* Should probably look at this later and fix -- just there to initially know there is supposed to be a video here*/
   .landinghomevideo{
     width: 100%;
     height: 20vh;
   }
-  .landinghomefaq {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   .landinghomefaq h1 {
-    font-size: 26px;
+    font-size: 18px;
     margin-top: 20px;
   }
   .landinghomefaq .landinghomefaqflex {
     display: flex;
-    width: 65%;
+    width: 75%;
     justify-content: center;
   }
   .landinghomefaq .landinghomefaqflex img {
@@ -937,23 +917,27 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 87%;
+    width: 90%;
   }
   .landinghomefaq h4 {
-    font-size: 16px;
+    font-size: 11.5px;
     margin-top: 20px;
   }
   .landinghomefaq p {
-    font-size: 12px;
+    font-size: 9px;
     margin-left: 30px;
   }
   .landinghomefaq button {
     width: 45%;
-    border-radius: 12px;
-    padding: 12px 109px 12px 109px;
-    font-size: 12px;
-    font-weight: 500;
+    border-radius: 8px;
+    padding: 7px 65px 7px 65px;
+    font-size: 9px;
+    font-weight: 600;
     align-items: center;
   }
+  /*we will need to fix this whenever we actually get the hamberger menu added. will it go horizontal or vertical? 
+  .v-btn__content{
+  }
+  */
 }
 </style scoped>
