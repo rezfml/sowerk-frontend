@@ -33,8 +33,10 @@
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <!-- <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/> -->
+          <div class="aboutdescriptionimgposition">
+          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
           <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+          </div>
         </div>
         <div class="aboutdescriptiontext">
           <h1>It all started with “What If…”</h1>
@@ -245,26 +247,48 @@ export default {
   display: flex;
   width: 90%;
   justify-content: center;
+  flex-direction: row;
   border-radius: 20px;
   margin: 50px 0px 50px 0px;
 }
 .aboutdescriptionflex .aboutdescriptionimg {
   width: 40%;
-  display: flex;
+  height: 400px;
+  /* display: flex; */
+  border: 2px solid green;
+}
+
+.aboutdescriptionimgposition {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  height: 400px;
+  border: 2px solid red;
+  margin: 0 auto;
 }
 .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1 {
   width: 50%;
-  height: 300px;
-  z-index: 1;
+  /* height: 350px; */
+  /* z-index: 1;
   position: relative;
-  top: 250px;
+  top: 150px;
+  left: -50px; */
+  grid-column: 2 / -1;
+  border: 2px solid blue;
 }
+
+.aboutdescription1 .aboutdescriptionimg2 {
+  grid-row: 1 / 2;
+}
+
 .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
-  width: 150%;
-  position: relative;
-  left: -320px;
-  top: -230px;
+  width: 700px;
+  height: 500px;
+  
+  grid-column: 1 / 3;
+  border: 2px solid orange;
 }
+
 .aboutdescriptiontext {
   display: flex;
   flex-direction: column;
@@ -273,6 +297,7 @@ export default {
   color: white;
   margin-left: 10px;
   margin-top: 20px;
+  position: relative;
 }
 .aboutdescriptiontext h1 {
   font-size: 35px;
