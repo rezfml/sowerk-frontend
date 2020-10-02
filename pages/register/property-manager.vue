@@ -154,15 +154,6 @@
 
                         <v-col cols="12" sm="6">
                           <v-text-field
-                            id="company-year"
-                            label="Year Founded*"
-                            type="number"
-                            v-model="company.year_founded"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-text-field
                             id="company-email"
                             label="Company Email*"
                             type="text"
