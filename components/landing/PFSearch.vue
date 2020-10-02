@@ -183,4 +183,17 @@ Vue.use(JwPagination);
     padding: 6px 12px 6px 12px;
     border-radius: 20px;
   }
+
+  
+@media (max-width: 980px) {
+  .searchSection h1{
+  font-size: 36px;
+}
+}
+
+@media (max-width: 680px) {
+  .searchSection h1{
+  font-size: 32px;
+}
+}
 </style>
