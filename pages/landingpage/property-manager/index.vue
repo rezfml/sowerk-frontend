@@ -113,6 +113,9 @@ export default {
   background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg");
   width: 100%;
   display: flex;
+  height:auto;
+  margin-top:-200px;
+  background-size: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -137,7 +140,7 @@ export default {
   justify-content: center;
   padding: 20px 0px 20px 0px;
   border-radius: 20px;
-  margin: 50px 0px 50px 0px;
+  margin: 250px 0px 250px 0px;
   color: white;
 }
 .spherobox .buttonflex {

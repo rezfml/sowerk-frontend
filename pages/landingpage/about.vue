@@ -198,6 +198,7 @@
   background-size: cover;
   object-fit: contain;
   /* background-size: 100%; */
+  margin-top:-100px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -208,7 +209,7 @@
   color: white;
   width: 50%;
   text-align: center;
-  margin: 100px 0px 100px 0px;
+  margin: 150px 0px 150px 0px;
   font-size: 55px;
 }
 .abouthero svg {

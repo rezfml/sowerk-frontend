@@ -23,7 +23,8 @@
           :key="item.title"
           path
         >
-          <!-- if we want icons this will allow for icons we will need to find the icons needed. 
+          <!-- 
+            if we want icons this will allow for icons we will need to find the icons needed. 
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -58,84 +59,35 @@
       </v-row>
     </v-container>
     <!--
+      legacy code that can be removed. I am keeping in till we are ready to remove
       <v-container>
         <v-row>
           <v-toolbar-title v-text="title" style="color: white!important; font-weight: bold;"/>
           <v-spacer></v-spacer>
           <v-btn href="/landingpage/landinghome" text color="white">Home</v-btn>
-          <v-btn href="#" text color="white">Join SOW</v-btn>
-          <v-btn href="/landingpage/serviceprovider" text color="white">Service Providers</v-btn>
-          <v-btn href="/landingpage/property-manager" text color="white">Businesses</v-btn>
-          <v-btn href="/landingpage/about" text color="white">About SOW</v-btn>
-          <v-btn href="/register" text color="white">Register</v-btn>
-          <v-btn to="/login" textolor="white">Login</v-btn>
+          <v-btn href="/landingpage/about" text color="white">About</v-btn>
+          <v-btn href="#" text color="white">Features</v-btn>
+          <v-btn to="/register" text color="white">Register</v-btn>
+          <v-btn to="/login" text color="white">Login</v-btn>
         </v-row>
       </v-container>
       -->
     </v-app-bar>
-    <v-content class="py-0">
-      <nuxt />
-    </v-content>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
-  </v-app>
+    </v-app>
 </template>
-
 <script>
 export default {
-  data() {
-    return {
+   name: "navBar",
+    data: () => ({
       clipped: false,
       drawer: false,
       fixed: false,
       items: [
-        {
-          icon: 'home',
-          title: 'Home',
-          path: '/landingpage/landinghome'
-        },
-        {
-          icon: 'joinSOW',
-          title: 'JoinSOW',
-          path: '#'
-        }
-        ,
-        {
-          icon: 'about',
-          title: 'Service Providers',
-          path: '/landingpage/serviceprovider'
-        }
-        ,
-        {
-          icon: 'Businesses',
-          title: 'Businesses',
-          path: '/landingpage/property-manager'
-        }
-        ,
-        {
-          icon: 'About SOW',
-          title: 'About SOW',
-          path: '/landingpage/about'
-        }
-        ,
-        {
-          icon: 'Register',
-          title: 'Register',
-          path: '/register'
-        }
-        ,
-        {
-          icon: 'Login',
-          title: 'Login',
-          path: '/login'
-        }
-      ],
+          ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
       title: 'SOWerk'
-    }
+    })
   }
-}
 </script>
