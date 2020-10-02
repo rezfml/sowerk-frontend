@@ -198,7 +198,8 @@
   background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
   background-size: cover;
   object-fit: contain;
-  height: auto;
+  /* background-size: 100%; */
+  margin-top:-100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -208,6 +209,7 @@
   color: white;
   width: 50%;
   text-align: center;
+  margin: 150px 0px 150px 0px;
   margin: 200px 0px 200px 0px;
   font-size: 55px;
 }
