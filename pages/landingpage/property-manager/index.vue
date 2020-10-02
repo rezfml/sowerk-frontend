@@ -165,7 +165,7 @@ export default {
   object-fit: contain;
   width: 100%;
   display: flex;
-  height:50vh;
+  height: 50vh;
   /* margin-top:-200px; */
   flex-direction: column;
   justify-content: center;
@@ -401,6 +401,54 @@ export default {
     font-size: 14px;
   }
 
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
+    width: 200%;
+    position: relative;
+    left: -140px;
+    top: -20px;
+  }
+
+  .aboutdescriptiontext {
+    width: 90%;
+  }
+
+  .aboutdescriptionflex h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 33px;
+    margin: 15px 0px 12px 0px;
+  }
+
+  .aboutdescriptionflex p {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+    line-height: 24px;
+  }
+
+  .aboutdescriptionflex {
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .aboutbuttoncontainer[data-v-75c9003b] {
+    margin: 15px 0;
+    justify-content: center;
+  }
+
+  img.aboutdescriptionimg2 {
+    object-fit: contain;
+    width: 700px;
+    height: 400px;
+  }
+
+  .aboutdescriptionflex button[data-v-75c9003b] {
+    width: 100%;
+    font-size: 16px;
+    padding: 5px 10px;
+  }
 
   .joinservicetraits {
     flex-wrap: wrap;
@@ -434,6 +482,11 @@ export default {
   .joinservicetraits div:nth-child(4) {
     margin: 20px 15px 50px 15px;
   }
+}
 
+@media (max-width: 600px) {
+  .joinservicetraits div {
+    flex: 0 60%;
+  }
 }
 </style>

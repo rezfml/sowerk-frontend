@@ -414,9 +414,6 @@ export default {
     justify-content: center;
   }
 
-  /* .aboutdescriptionimg {
-    width: 500px;
-  } */
   img.aboutdescriptionimg2 {
     object-fit: contain;
     width: 700px;
