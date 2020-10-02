@@ -257,7 +257,7 @@ export default {
   margin-top: 20px;
   color: #a61c00;
   background: transparent;
-  margin-left: 20px;
+  margin-left: 10px;
   padding: 0px;
 }
 .pfaccountlocationcolumn button {
@@ -380,5 +380,71 @@ export default {
   color: white;
   margin: 20px 0px 0px 0px;
   padding: 10px 0px 10px 0px;
+}
+
+@media (max-width: 1280px) {
+  .pfaccountlocation .companyLocationTitle {
+    margin-bottom: 0;
+  }
+  .pfaccountlocationcolumn {
+    width: 70%;
+  }
+
+  .pfaccountlocationflex {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .locationAddress,
+  .locationFounding,
+  .locationJoined,
+  .locationName {
+    margin-left: 0;
+    font-size: 15px;
+  }
+
+  .locationName {
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .pfaccountlocationflexrow {
+    width: 70%;
+    align-items: center;
+    justify-content: left;
+  }
+
+  .pfaccountlocationflexrow p {
+    padding: 0;
+  }
+  .pfaccountlocationflexrow p:nth-child(1) {
+    padding-right: 5px;
+  }
+
+  .pfaccountlocationflexrow p:nth-child(2) {
+    font-size: 14px;
+  }
+
+  .pfaccountlocationcolumn:nth-child(1) {
+    width: 60%;
+    padding: 15px 0 25px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pfaccountlocationcolumn .locationPic {
+    margin-left: 0;
+  }
+
+  .pfaccountlocationcolumn .locationShare {
+    margin: 0 0 0 20px;
+    width: 20%;
+  }
+
+  .pfaccountlocationlist .applyApproval {
+    font-size: 13px;
+    width: 70%;
+  }
 }
 </style>
