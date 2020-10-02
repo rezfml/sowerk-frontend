@@ -449,32 +449,32 @@
 
   .aboutdescriptionflex
     .aboutdescriptionimg
-    .aboutdescriptionimg2[data-v-75c9003b] {
+    .aboutdescriptionimg2 {
     width: 200%;
     position: relative;
     left: -140px;
     top: -200px;
   }
 
-  .aboutdescriptiontext[data-v-75c9003b] {
+  .aboutdescriptiontext {
     width: 90%;
   }
 
-  .aboutdescriptionflex h1[data-v-75c9003b] {
+  .aboutdescriptionflex h1 {
     width: 100%;
     text-align: center;
     font-size: 33px;
     margin: 15px 0px 12px 0px;
   }
 
-  .aboutdescriptionflex p[data-v-75c9003b] {
+  .aboutdescriptionflex p {
     margin: 10px 0;
     width: 100%;
     text-align: center;
     line-height: 24px;
   }
 
-  .aboutdescriptionflex[data-v-75c9003b] {
+  .aboutdescriptionflex {
     margin: 0;
     flex-direction: column;
     align-items: center;

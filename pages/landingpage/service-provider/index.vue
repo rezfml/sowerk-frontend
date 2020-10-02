@@ -33,7 +33,7 @@
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+          <!-- <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/> -->
           <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
         </div>
         <div class="aboutdescriptiontext">
@@ -132,12 +132,12 @@ export default {
   align-items: center;
 }
 .sphero h1 {
-  font-size: 55px;
+  font-size: 3.4vw;
   width: 100%;
   text-align: center;
 }
 .sphero p {
-  font-size: 23px;
+  font-size: 1.3vw;
   width: 100%;
   text-align: center;
 }
@@ -153,7 +153,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 0px 20px 0px;
+  padding: 40px 0px 40px 0px;
   border-radius: 15px;
   margin: 50px 0px 50px 0px;
   color: white;
@@ -161,7 +161,9 @@ export default {
 
 .spherobox form {
   width: 100%;
+  min-width: 700px;
   text-align: center;
+  padding: 20px 0px;
 }
 
 .spherobox form input {
@@ -260,7 +262,7 @@ export default {
 .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
   width: 150%;
   position: relative;
-  left: -560px;
+  left: -320px;
   top: -230px;
 }
 .aboutdescriptiontext {
@@ -298,7 +300,7 @@ export default {
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: -250px;
+  /* margin-top: -250px; */
 }
 .joinservicetraits div {
   width: 20%;
@@ -323,5 +325,122 @@ export default {
 .joinservicetraits div img {
   width: 50%;
   margin-top: 20px;
+}
+
+@media (max-width: 1280px) {
+  .sphero h1 {
+    font-size: 45px;
+  }
+  .sphero p {
+    font-size: 18px;
+  }
+
+  .sphero .spherobox {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 900px) {
+  .sphero h1 {
+    font-size: 40px;
+  }
+  .sphero p {
+    font-size: 16px;
+  }
+  .sphero .spherobox {
+    width: 80%;
+    min-width: 500px;
+  }
+
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
+    width: 200%;
+    position: relative;
+    left: -140px;
+    top: -20px;
+  }
+
+  .aboutdescriptiontext {
+    width: 90%;
+  }
+
+  .aboutdescriptionflex h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 33px;
+    margin: 15px 0px 12px 0px;
+  }
+
+  .aboutdescriptionflex p {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+    line-height: 24px;
+  }
+
+  .aboutdescriptionflex {
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .aboutbuttoncontainer[data-v-75c9003b] {
+    margin: 15px 0;
+    justify-content: center;
+  }
+
+  /* .aboutdescriptionimg {
+    width: 500px;
+  } */
+  img.aboutdescriptionimg2 {
+    object-fit: contain;
+    width: 700px;
+    height: 400px;
+  }
+
+  .aboutdescriptionflex button[data-v-75c9003b] {
+    width: 100%;
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+
+  .joinservicetraits {
+    flex-wrap: wrap;
+  }
+
+  .joinservicetraits div {
+    flex: 0 45%;
+    height: 425px;
+    max-width: 320px;
+  }
+
+  .joinservicetraits div img {
+    height: 120px;
+    width: 120px;
+  }
+
+  .joinservicetraits div h3 {
+    font-size: 20px;
+  }
+
+  .joinservicetraits div p {
+    font-size: 16px;
+  }
+  .joinservicetraits div:nth-child(1),
+  .joinservicetraits div:nth-child(2) {
+    /* margin-bottom: 20px; */
+    margin: 50px 15px 20px 15px;
+  }
+
+  .joinservicetraits div:nth-child(3),
+  .joinservicetraits div:nth-child(4) {
+    margin: 20px 15px 50px 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .joinservicetraits div {
+    flex: 0 60%;
+  }
 }
 </style>

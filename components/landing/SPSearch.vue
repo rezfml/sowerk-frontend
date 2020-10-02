@@ -79,7 +79,7 @@ export default {
   width: 100%;
 }
 .searchSection h1{
-  font-size: 55px;
+  font-size: 4.2vw;
   margin: 10px 0px 10px 0px;
 }
 .companyList{
@@ -140,5 +140,17 @@ export default {
   background: #A61C00;
   padding: 6px 12px 6px 12px;
   border-radius: 20px;
+}
+
+@media (max-width: 980px) {
+  .searchSection h1{
+  font-size: 36px;
+}
+}
+
+@media (max-width: 680px) {
+  .searchSection h1{
+  font-size: 32px;
+}
 }
 </style>
