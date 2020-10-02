@@ -291,7 +291,7 @@ export default {
   width: 100%;
 }
 .pfaccountlocationflexrow2 p {
-  font-size: 18px;
+  font-size: 16px;
   color: #7c7c7c;
   padding: 12px 0px 0px 0px;
 }
@@ -306,7 +306,7 @@ export default {
 }
 .locationNum {
   text-align: center;
-  font-size: 26px;
+  font-size: 22px;
   color: #7c7c7c;
 }
 .retailLocations {
@@ -348,7 +348,7 @@ export default {
   border-bottom: 1px solid lightgrey;
   padding: 0px 0px 10px 0px;
   width: 100%;
-  font-size: 26px;
+  font-size: 21px;
   font-weight: bold;
 }
 
@@ -361,7 +361,7 @@ export default {
   padding: 20px 0px 20px 0px;
 }
 .featuredbusiness div h3 {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -369,7 +369,7 @@ export default {
   color: #9a9a9a;
   text-decoration-style: solid;
   text-decoration-color: #9a9a9a;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: normal;
 }
 
@@ -379,7 +379,7 @@ export default {
   border-radius: 20px;
   color: white;
   margin: 20px 0px 0px 0px;
-  padding: 10px 0px 10px 0px;
+  padding: 5px 0px 5px 0px;
 }
 
 @media (max-width: 1280px) {
@@ -445,6 +445,11 @@ export default {
   .pfaccountlocationlist .applyApproval {
     font-size: 13px;
     width: 70%;
+  }
+
+  .pfaccountsecondcolumn {
+    margin-right: 0;
+    width: 30%;
   }
 }
 </style>
