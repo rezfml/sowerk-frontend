@@ -394,5 +394,9 @@ export default {
   .spherobox button {
     font-size: 14px;
   }
+
+  .searchSection form button {
+  
+}
 }
 </style>
