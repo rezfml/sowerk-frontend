@@ -77,17 +77,17 @@
             </template>
           </v-text-field>
 
-          <v-select
-            placeholder=" "
-            id="location"
-            type="text"
-            v-model="location.service"
-            class="flex-grow-0"
-          >
-            <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Service Provided</p>
-            </template>
-          </v-select>
+<!--          <v-select-->
+<!--            placeholder=" "-->
+<!--            id="location"-->
+<!--            type="text"-->
+<!--            v-model="location.service"-->
+<!--            class="flex-grow-0"-->
+<!--          >-->
+<!--            <template v-slot:label>-->
+<!--              <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Service Provided</p>-->
+<!--            </template>-->
+<!--          </v-select>-->
         </v-col>
       </v-row>
 
