@@ -335,7 +335,7 @@ export default {
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: -250px;
+  /* margin-top: -250px; */
 }
 .joinservicetraits div {
   width: 20%;
@@ -353,7 +353,7 @@ export default {
   margin: 15px 0px 15px 0px;
 }
 .joinservicetraits div p {
-  font-size: 18px;
+  font-size: 16px;
   width: 90%;
   text-align: center;
 }
@@ -378,9 +378,14 @@ export default {
     font-size: 16px;
     padding: 12px 0;
   }
+
+  .joinservicetraits div {
+    flex: 0 50%;
+    width: 23%;
+  }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
   .sphero h1 {
     font-size: 40px;
   }
@@ -394,6 +399,40 @@ export default {
 
   .spherobox button {
     font-size: 14px;
+  }
+
+
+  .joinservicetraits {
+    flex-wrap: wrap;
+  }
+
+  .joinservicetraits div {
+    flex: 0 45%;
+    height: 425px;
+    max-width: 320px;
+  }
+
+  .joinservicetraits div img {
+    height: 120px;
+    width: 120px;
+  }
+
+  .joinservicetraits div h3 {
+    font-size: 20px;
+  }
+
+  .joinservicetraits div p {
+    font-size: 16px;
+  }
+  .joinservicetraits div:nth-child(1),
+  .joinservicetraits div:nth-child(2) {
+    /* margin-bottom: 20px; */
+    margin: 50px 15px 20px 15px;
+  }
+
+  .joinservicetraits div:nth-child(3),
+  .joinservicetraits div:nth-child(4) {
+    margin: 20px 15px 50px 15px;
   }
 
 }
