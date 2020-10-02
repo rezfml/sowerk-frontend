@@ -496,7 +496,7 @@ export default {
   }
   .landinghomepf h4 {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 1 rem !important;
   }
   .landinghomepf button {
     width: 45%;
@@ -514,7 +514,7 @@ export default {
   }
   .landinghomesp h4 {
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 1rem !important;
   }
   .landinghomesp button {
     width: 45%;
@@ -701,7 +701,7 @@ export default {
 @media (max-width: 500px) {
   .landinghomehero{
     background-size: cover;
-    background-position-x:50%;
+    background-position-x:60%;
     width: 100%;
     height: auto;
     background-repeat:no-repeat;
@@ -709,10 +709,10 @@ export default {
   .landinghomeherotext{
     border-radius: 25px;
     width: 80%;
-    margin-top: 100px;
+    margin-top: 70%;
   }
   .landinghomeherotext img {
-    width: 60%;
+    width: 80%;
     margin-top: -175px;
     height: 450px;
   }
@@ -739,7 +739,7 @@ export default {
   }
   .landinghomepf h4 {
     margin-top: 20px;
-    font-size: 14px;
+    font-size: 1rem !important;
   }
   .landinghomepf button {
     width: 45%;
@@ -757,7 +757,7 @@ export default {
   }
   .landinghomesp h4 {
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 1rem !important;
   }
   .landinghomesp button {
     width: 45%;
@@ -936,6 +936,10 @@ export default {
     font-weight: 600;
     align-items: center;
   }
+  .row{
+    margin-right: 0;
+  }
+  
   /*we will need to fix this whenever we actually get the hamberger menu added. will it go horizontal or vertical? 
   .v-btn__content{
   }
