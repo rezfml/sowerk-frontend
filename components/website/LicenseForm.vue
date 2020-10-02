@@ -5,19 +5,19 @@
         <v-form>
           <v-row>
             <v-col cols="12" md="6" class="d-flex flex-column align-center">
-              <p class="text-h6">Upload Insurance Document</p>
+              <p class="text-h6">Upload A Copy Of License</p>
               <ul>
-                <li class="text-body-1 font-weight-regular">Proof of Policy</li>
-                <li class="text-body-1 font-weight-regular">Certificate of Coverage</li>
+                <li class="text-body-1 font-weight-regular">License Card</li>
               </ul>
               <v-file-input class="insurance-upload my-8"></v-file-input>
               <v-checkbox label="Allow Uploaded Document to be Visible to Others"></v-checkbox>
             </v-col>
             <v-col cols="12" md="6" class="d-flex flex-column justify-space-around">
-              <v-text-field label="Insurance Name" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.name"></v-text-field>
-              <v-select label="Insurance Company" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-select>
-              <v-text-field label="Policy Number" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.policyNumber"></v-text-field>
-              <v-text-field label="Expiration Date" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.expirationDate"></v-text-field>
+              <v-text-field label="License Name" class="license__input flex-grow-0" placeholder=" " v-model="license.name" hint="An Label For Your Own Internal Naming Purposes"></v-text-field>
+              <v-text-field label="License Number" class="license__input flex-grow-0" placeholder=" " v-model="license.number"></v-text-field>
+              <v-select label="License Type" class="license__input flex-grow-0" placeholder=" " v-model="license.type"></v-select>
+              <v-select label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation"></v-select>
+              <v-text-field label="Expiration Date" class="license__input flex-grow-0" placeholder=" " v-model="license.expirationDate"></v-text-field>
             </v-col>
           </v-row>
         </v-form>
@@ -33,7 +33,7 @@
       index: {
         type: Number,
       },
-      insurance: {
+      license: {
         type: Object,
         required: true
       },
@@ -104,7 +104,7 @@
     display: none;
   }
 
-  .insurance__input >>> .v-label {
+  .license__input >>> .v-label {
     color: black;
     font-weight: bold;
     font-size: 1.25em;

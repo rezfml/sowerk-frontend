@@ -63,24 +63,38 @@
           <v-checkbox v-model="checkbox1"
                       :label="`Use Brand Logo For This Facility`"></v-checkbox>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="6" class="d-flex flex-column justify-center
+">
           <v-text-field
             placeholder=" "
             id="location"
             type="text"
             v-model="location.name"
+            class="flex-grow-0 mb-12"
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
             </template>
           </v-text-field>
+
+          <v-select
+            placeholder=" "
+            id="location"
+            type="text"
+            v-model="location.service"
+            class="flex-grow-0"
+          >
+            <template v-slot:label>
+              <p class="grey--text text--darken-4 font-weight-bold">Service Provided</p>
+            </template>
+          </v-select>
         </v-col>
       </v-row>
 
-      <div class="v-input__control mt-10">
+      <div class="v-input__control mt-10 mb-8">
         <div class="v-input__slot">
           <div class="v-text-field__slot" style="width: 100%;">
-            <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 12px">Location Address*</p></label>
+            <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 1.1em">Location Address*</p></label>
             <client-only>
               <vue-google-autocomplete
                 :id="'location-address--' + index"
@@ -99,17 +113,19 @@
         </div>
       </div>
 
-      <v-col>
-        <v-textarea
-          id="description"
-          v-model="location.description"
-          placeholder=" "
-        >
-          <template v-slot:label>
-            <p class="grey--text text--darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>
-          </template>
-        </v-textarea>
-      </v-col>
+      <v-row>
+        <v-col>
+          <v-textarea
+            id="description"
+            v-model="location.description"
+            placeholder=" "
+          >
+            <template v-slot:label>
+              <p class="grey--text text--darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>
+            </template>
+          </v-textarea>
+        </v-col>
+      </v-row>
     </v-col>
 
 <!--    <v-col cols="12" md="7" class="v-input">-->
@@ -151,7 +167,11 @@
     <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
     <v-col cols="12" md="6">
       <v-checkbox v-model="location.pfLogoCheckbox"
-      :label="`This account will be managed by ${user.first_name} ${user.last_name}`"></v-checkbox>
+      :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 mb-0">This location will be managed by: <span class="primary--text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>
+        </template>
+      </v-checkbox>
     </v-col>
 
     <v-col cols="12" md="6">
@@ -423,8 +443,13 @@
     width: 100%;
   }
 
+  .v-input >>> label {
+    font-size: 1.25em;
+    top: 0;
+  }
+
   .form-control {
-    padding: 2px 0;
+    padding: 8px 0;
     position: relative;
     z-index: 3;
   }

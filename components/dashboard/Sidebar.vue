@@ -24,7 +24,7 @@
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
             <v-col cols="12" class="pa-0 ma-0" >
               <template v-if="company">
-                <v-list-item-title style="font-size: 1rem;">{{company.company_name}}</v-list-item-title>
+                <v-list-item-title style="font-size: 1rem;">{{company.account_name}}</v-list-item-title>
               </template>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
             </v-col>
@@ -38,7 +38,8 @@
               </template>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="currentUser">{{ currentUser.is_superuser == '1' ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access -
-                {{ company.locations.length }}</v-list-item-subtitle>
+                {{ company.locations.length }}
+              </v-list-item-subtitle>
             </v-col>
           </v-row>
         </v-list-item-content>
@@ -46,20 +47,30 @@
 
       <v-divider class="my-4"></v-divider>
 
-      <div v-if="company">
-        <template v-if="company.company_type === 1">
-          <nuxt-link
-            v-for="(link) in items"
-            :to="link.to"
-            style="text-decoration: none;"
-            v-on:click="setActiveLink(link.slug)"
-            :class="link.class"
-          >
-            <v-list-item>
+      <div v-if="company && company.company_type === 1">
+        <template v-for="(link, index) in items">
+          <v-list-item v-if="!link.children" :key="index">
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+          <v-list-group v-else :key="index" class="list-group">
+            <template v-slot:activator>
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title>{{ link.text }}</v-list-item-title>
+            </template>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact">
+              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
             </v-list-item>
-          </nuxt-link>
+          </v-list-group>
+        </template>
+      </div>
+
+      <div v-else-if="company">
+        <template v-if="company.company_type === 1">
+          <v-list-item>
+
+          </v-list-item>
         </template>
         <template v-else>
           <nuxt-link
@@ -87,8 +98,42 @@
     data() {
       return {
         activeSlug: '/',
-        user: null,
-        company: null,
+        user: {
+          id: 1,
+          companies_id: 1,
+          rep_name: null,
+          email: "jay@frontierml.com",
+          password: "$2a$10$Eq6IQ6r1ipDu9fbDJ4mEWerB5VhBYLzfHSyuomZcDmWzmnaK0iBbe",
+          is_superuser: 0,
+          created: "2020-09-17 20:52:36",
+          modified: "2020-09-17 20:52:36",
+          first_name: "Jay",
+          last_name: "Leach",
+          phone: "1234567890",
+          uuid: "2fa35ebb-ea5d-4129-93c0-f2223c95d679",
+          isVerified: 0
+        },
+        company: {
+          id: 1,
+          email: "1234@email.com",
+          address: "1234 Location St",
+          city: "Springfield",
+          state: "MO",
+          zipcode: 12345,
+          account_name: "Account Name here",
+          brand_name: "Brand Name here",
+          bestDescription: "Best Description Here",
+          llcName: "LLC Name Here",
+          services: "['HVAC', 'Plumbing', 'Electrical']",
+          description: "Lorem Ipsum Dolor Imet",
+          year_founded: 1970,
+          phone: "1234567890",
+          company_type: 1,
+          imgUrl: "https://www.unsplash.com/img-test",
+          currentConnections: null,
+          maxConnections: null,
+          locations: []
+        },
         loading: false,
         items: [
           {
@@ -104,10 +149,37 @@
             text: 'Facilities'
           },
           {
-            to: '/dashboard/approved-vendors/',
-            slug: 'approved-vendors',
+            to: '/dashboard/vendors/',
+            slug: 'vendors',
             icon: 'mdi-account-check',
-            text: 'Approved Vendors'
+            text: 'Vendors',
+            children: [
+              {
+                to: '/dashboard/vendors/',
+                slug: 'vendors',
+                text: 'SOWerk Vendor Directory',
+              },
+              {
+                to: '/dashboard/vendors/approved',
+                slug: 'approved',
+                text: 'Approved Vendors',
+              },
+              {
+                to: '/dashboard/vendors/invite',
+                slug: 'invite',
+                text: 'Invite Vendors',
+              },
+              {
+                to: '/dashboard/vendors/applicants',
+                slug: 'applicants',
+                text: 'Vendor Applicants',
+              },
+              {
+                to: '/dashboard/vendors/applications',
+                slug: 'applications',
+                text: 'Applications',
+              },
+            ]
           },
           {
             to: '/dashboard/vendor-applications/',
@@ -178,7 +250,7 @@
     },
     async mounted () {
       setTimeout(async () => {
-        await this.getUser();
+        // await this.getUser();
       }, 1000)
     },
     watch: {
@@ -197,7 +269,7 @@
     },
     methods: {
       async getUser() {
-        this.loading = true;
+        // this.loading = true;
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
@@ -216,7 +288,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
   .nuxt-link-active > div {
     background-color: rgba(246, 34, 0, 0.5);
     border-radius: 3px;
@@ -226,5 +298,31 @@
     position: absolute;
     bottom: 8px;
     width: 100%;
+  }
+
+  .list >>> .v-list-group__header.v-list-item--active {
+    color: white!important;
+    background-color: rgba(166,29,0,1)!important;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  .v-list-group__header.v-list-item--active::before {
+    opacity: 1!important;
+  }
+
+  .v-list .v-list-item--active {
+    color: white!important;
+    background-color: rgba(166,29,0,0.5)!important;
+  }
+
+  .v-list .v-list-item--active::before {
+    opacity: 0!important;
+  }
+
+  .v-list .v-list-item--exact {
+    color: white!important;
+    font-weight: bold;
+    background-color: rgba(166,29,0,0.5)!important;
   }
 </style>

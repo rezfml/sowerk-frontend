@@ -27,10 +27,10 @@
           style="position: relative;"
         >
           <v-tab
-            v-for="item in items"
-            :key="item"
-            :disabled="item !== tab"
+            v-for="(item, index) in items"
+            :key="index"
             style="opacity: 1!important;"
+            v-on:click.native="setTab(index)"
           >
             {{ item }}
           </v-tab>
@@ -229,37 +229,49 @@
           </v-tab-item>
 
           <v-tab-item eager>
-            <v-container style="max-width: 80%;" mx-auto>
+            <v-container style="max-width: 100%;" class="mx-auto mb-12">
               <v-card-text class="pa-0">
-                <template v-if="editingInsurance && editingLicense">
-                  <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6">Optional -</span> SOWerk highly encourages you to upload Company Documents</v-card-title>
-                  <v-card-subtitle class="justify-center headline font-weight-bold">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
-                  <v-card-subtitle class="justify-center headline font-weight-bold">*Note: These documents are not public and will only be included when you apply to be an approved vender.</v-card-subtitle>
-                  <v-form class="mx-auto">
-                    <v-container>
-                      <InsuranceForm
-                        :insurance="insurance"
-                        :index="editingIndexInsurance"
-                      />
-                    </v-container>
-                  </v-form>
-                </template>
-                <template v-else>
-                  <v-data-table
-                    :headers="headerInsurance"
-                    :items="insurances"
-                    :items-per-page="10"
-                  >
-                    <template v-slot:item.id="{ item }">{{insurances.indexOf(item) + 1}}</template>
-                    <template v-slot:item.name="{item }">{{item.name}}</template>
-                    <template v-slot:item.actions="{item}">
-                      <v-btn icon @click="editInsurance(insurances.indexOf(item))">
-                        <v-icon small class="mr-2">mdi-pencil</v-icon>
-                      </v-btn>
-                      <v-icon small @click="deleteInsurance(item)">mdi-delete</v-icon>
-                    </template>
-                  </v-data-table>
-                </template>
+                <v-row>
+                  <v-col cols="12">
+                    <v-row>
+                      <v-col cols="12">
+                        <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6 mr-2">Optional - </span> SOWerk highly encourages you to upload Company Documents</v-card-title>
+                        <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
+                        <v-card-subtitle class="justify-center headline text-center text-body-1">*Note: These documents are not public and will only be included when you apply to be an approved vendor.</v-card-subtitle>
+                        <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
+                          <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Insurance</p>
+                        </div>
+                        <v-list>
+                          <template v-for="(insurance, index) in insurances">
+                            <InsuranceForm :insurance="insurance" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index"></InsuranceForm>
+                          </template>
+                        </v-list>
+                      </v-col>
+                    </v-row>
+                    <v-row justify="center" class="mt-6">
+                      <v-btn color="primary" outlined @click="addInsurance">+ Add Another Document</v-btn>
+                    </v-row>
+                  </v-col>
+                </v-row>
+                <v-row class="mt-12 pt-12">
+                  <v-col cols="12">
+                    <v-row>
+                      <v-col cols="12">
+                        <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
+                          <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Licenses</p>
+                        </div>
+                        <v-list>
+                          <template v-for="(license, index) in licenses">
+                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index"></LicenseForm>
+                          </template>
+                        </v-list>
+                      </v-col>
+                    </v-row>
+                    <v-row justify="center" class="mt-6">
+                      <v-btn color="primary" outlined @click="addLicense">+ Add Another License</v-btn>
+                    </v-row>
+                  </v-col>
+                </v-row>
               </v-card-text>
             </v-container>
           </v-tab-item>
@@ -360,11 +372,9 @@
           <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
           <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
           <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
-          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addInsurance" v-if="!editingInsurance && tab ===2">+ Add Another Insurance</v-btn>
-          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLicense" v-if=" !editingLicense && tab ===2">+ Add Another License</v-btn>
           <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
           <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
-          <v-btn color="primary" class="px-8" @click="finishEditingInsuranceLicense" v-else-if="editingInsurance && editingLocation && tab === 2">Finish Document</v-btn>
+          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast; editingLocation = false" v-else-if="tab === 2">Review</v-btn>
           <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
         </v-card-actions>
       </v-card>
@@ -381,6 +391,7 @@
   import Vue from 'vue';
   import FormLocation from '~/components/FormLocation'
   import InsuranceForm from '~/components/InsuranceForm'
+  import LicenseForm from '@/components/website/LicenseForm'
 
   // Vue.use(VueGoogleMaps, {
   //   load: {
@@ -394,7 +405,9 @@
     components: {
       FormLocation,
       VImageInput,
-      GmapCluster
+      GmapCluster,
+      InsuranceForm,
+      LicenseForm
     },
     data() {
       return {
@@ -426,16 +439,36 @@
           phone: '',
           companies_id: null
         },
-        insurances: [],
+        insurances: [
+          {
+            name: '',
+            policyNumber: '',
+            expirationDate: '',
+            documentUrl: '',
+            documentVisible: false,
+            companies_id: null
+          }
+        ],
         insurance: {
           name: '',
+          insuranceCompany: '',
           policyNumber: '',
           expirationDate: '',
           documentUrl: '',
           documentVisible: false,
           companies_id: null
         },
-        licenses: [],
+        licenses: [
+          {
+            type: '',
+            licenseNumber: '',
+            licenseLocation: '',
+            expirationDate: '',
+            documentUrl: '',
+            documentVisible: false,
+            companies_id: null
+          }
+        ],
         license: {
           type: '',
           licenseNumber: '',
@@ -540,6 +573,9 @@
         if(this.tab === 0) return;
         this.tab -= 1;
       },
+      setTab(tabIndex) {
+        console.log(tabIndex)
+      },
       finishEditing() {
         this.editingLocation = false;
         console.log(this.location);
@@ -623,9 +659,29 @@
       },
       addInsurance() {
         this.editingInsurance = true;
+        let newInsurance = {
+          name: '',
+          insuranceCompany: '',
+          policyNumber: '',
+          expirationDate: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null
+        };
+        this.insurances.push(newInsurance);
       },
       addLicense() {
         this.editingLicense = true;
+        let newLicense = {
+          name: '',
+          insuranceCompany: '',
+          policyNumber: '',
+          expirationDate: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null
+        };
+        this.licenses.push(newLicense);
       },
       saveCompanyAddress(addressObj) {
         this.company.address = addressObj.street_number + ' ' + addressObj.route;
@@ -716,7 +772,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
   .form__address::v-deep input {
     border: 2px solid red!important;
     width: 600px;
@@ -763,4 +819,29 @@
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
   }
+
+
+
+
+  .text-with-lines {
+    position: relative;
+    width: 100%;
+  }
+
+  .text-with-lines p {
+    position: relative;
+    z-index: 1;
+  }
+
+  .text-with-lines:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: calc(50%);
+    left: 0;
+    background-color: #A61C00;
+  }
+
+
 </style>
