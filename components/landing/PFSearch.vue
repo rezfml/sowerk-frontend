@@ -117,7 +117,7 @@ export default {
   margin: 10px 0px 10px 0px;
 }
 .searchSection h1 {
-  font-size: 4.2vw;
+  font-size: 3.1vw;
 }
 .searchSection div form {
   display: flex;
