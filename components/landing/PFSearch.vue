@@ -5,7 +5,7 @@
       <div>
         <form>
           <input type="text" placeholder="" value="" />
-          <select>
+          <select >
             <option>Property & Facility</option>
             <option>Option 2</option>
             <option>Option 3</option>
@@ -117,7 +117,7 @@ export default {
   margin: 10px 0px 10px 0px;
 }
 .searchSection h1 {
-  font-size: 4.2vw;
+  font-size: 3.1vw;
 }
 .searchSection div form {
   display: flex;
@@ -137,6 +137,7 @@ export default {
   margin-left: -305px;
   font-size: 18px;
 }
+
 .companyList {
   width: 100%;
   display: flex;

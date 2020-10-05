@@ -2,7 +2,7 @@
   <div>
     <section class="sphero">
       <div class="spherobox">
-        <h1>Get Connected Now</h1>
+        <h1 h1>Get Connected Now</h1>
         <p>Search SOWerk’s Nationwide Database</p>
         <div class="buttonflex">
           <button>Search All Businesses</button>
@@ -32,34 +32,50 @@
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <img
-            class="aboutdescriptionimg1"
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"
-          />
-          <img
-            class="aboutdescriptionimg2"
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"
-          />
-        </div>
-        <div class="aboutdescriptiontext">
-          <h1>It all started with “What If…”</h1>
-          <p>
-            What if we could simplify the business connection between service
-            providers and property & facility managers?
-          </p>
-          <p>
-            Could we make it easier for both parties to manage relationships and
-            do business?
-          </p>
-          <p>
-            Today, SOWerk is proud to empower relationships, make life easier
-            and complete the link between property/facility owners and approved
-            vendors.
-          </p>
-          <p>More work and better work get done through SOWerk.</p>
-          <div class="aboutbuttoncontainer">
-            <button>LEARN MORE - SERVICE PROVIDER</button>
-            <button>LEARN MORE - PROPERTY & FACILITY</button>
+          <div class="image-stack">
+            <div class="image-item-top">
+              <img
+                class="aboutdescriptionimg1"
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"
+                alt="phone"
+              />
+            </div>
+            <div class="image-item-bottom">
+              <img
+                class="aboutdescriptionimg2"
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"
+                alt="laptop"
+              />
+            </div>
+            <div class="grid-text">
+              <div class="aboutdescriptiontext">
+                <h2 >It all started with “What If…”</h2>
+                <p class="subtitle-1">
+                  What if we could simplify the business connection between
+                  service providers and property & facility managers?
+                </p>
+                <p class="subtitle-1">
+                  Could we make it easier for both parties to manage
+                  relationships and do business?
+                </p>
+                <p class="subtitle-1">
+                  Today, SOWerk is proud to empower relationships, make life
+                  easier and complete the link between property/facility owners
+                  and approved vendors.
+                </p>
+                <p class="subtitle-1">
+                  More work and better work get done through SOWerk.
+                </p>
+                <div class="aboutbuttoncontainer">
+                  <v-btn  depressed elevation="2" outlined rounded
+                    >LEARN MORE - SERVICE PROVIDER</v-btn
+                  >
+                  <v-btn depressed elevation="2" outlined rounded
+                    >LEARN MORE - PROPERTY & FACILITY</v-btn
+                  >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -172,7 +188,7 @@ export default {
   align-items: center;
 }
 .sphero h1 {
-  font-size: 3.4vw;
+  font-size: 3.3vw;
 }
 .sphero p {
   font-size: 1.3vw;
@@ -278,56 +294,84 @@ export default {
 }
 .aboutdescriptionflex {
   display: flex;
-  width: 90%;
+  width: 100%;
   justify-content: center;
   border-radius: 20px;
-  margin: 50px 0px 50px 0px;
+  margin: 0 0 50px 0;
 }
-.aboutdescriptionflex .aboutdescriptionimg {
-  width: 40%;
-  display: flex;
+.aboutdescriptionimg {
+  width: 100%;
+  margin-top: -30px;
 }
-.aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1 {
-  width: 50%;
-  height: 300px;
+
+.image-stack {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+/* pc image */
+.image-item-bottom {
+  grid-column: 1 / span 7;
+  grid-row: 1;
+}
+
+/* phone img */
+.image-item-top {
+  grid-row: 1;
+  grid-column: 1 / span 6;
   z-index: 1;
-  position: relative;
-  top: 250px;
+  padding-top: 33%;
 }
-.aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
-  width: 150%;
-  position: relative;
-  left: -560px;
-  top: -230px;
+
+img {
+  width: 100%;
+  display: block;
 }
+
+.aboutdescriptionimg1 {
+  width: 57%;
+}
+
+.aboutdescriptionimg2 {
+  width: 100%;
+}
+
+.grid-text {
+  grid-column: 7 / -1;
+  grid-row: 1;
+}
+
 .aboutdescriptiontext {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 60%;
+  width: 100%;
   color: white;
-  margin-left: 10px;
-  margin-top: 20px;
+  position: relative;
+  padding-top: 24%;
+  margin-left: -5%;
 }
-.aboutdescriptiontext h1 {
-  font-size: 35px;
+.aboutdescriptiontext h2 {
+  padding-bottom: 15px;
+  font-size: 32px;
 }
 .aboutdescriptiontext p {
+  line-height: 38px;
   font-size: 18px;
 }
 .aboutbuttoncontainer {
+  padding-top: 10px;
   display: flex;
+  justify-content: space-evenly;
   width: 100%;
 }
 .aboutdescriptionflex button {
-  background: transparent;
+  
   color: white;
-  border: 1px solid white;
-  border-radius: 20px;
-  width: 49%;
-  padding: 10px 0px 10px 0px;
-  font-size: 18px;
-  margin: 0 auto;
+  width: 40%;
+  font-size: 12px;
+  margin: 0 10px;
 }
 
 .joinservicetraits {
@@ -379,6 +423,49 @@ export default {
     padding: 12px 0;
   }
 
+  .aboutdescriptionimg {
+    grid-template-rows: repeat(2, 1fr);
+    width: 90%;
+  }
+
+  .image-item-bottom {
+    grid-column: 1 / span 12;
+  }
+
+  .image-item-top {
+    grid-column: 1 / span 9;
+    padding-top: 34%;
+  }
+
+  .aboutdescriptionimg1 {
+    width: 60%;
+  }
+
+  .aboutdescriptionimg2 {
+    width: 100%;
+  }
+
+  .aboutdescriptiontext {
+    width: 100%;
+    padding-top: 0;
+    margin-left: 0;
+    }
+
+  .aboutdescriptiontext h2 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .aboutdescriptiontext p {
+    width: 100%;
+    text-align: center;
+  }
+
+  .grid-text {
+    grid-column: 1 / span 12;
+    grid-row: 2;
+  }
+
   .joinservicetraits div {
     flex: 0 50%;
     width: 23%;
@@ -401,54 +488,6 @@ export default {
     font-size: 14px;
   }
 
-  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
-    width: 200%;
-    position: relative;
-    left: -140px;
-    top: -20px;
-  }
-
-  .aboutdescriptiontext {
-    width: 90%;
-  }
-
-  .aboutdescriptionflex h1 {
-    width: 100%;
-    text-align: center;
-    font-size: 33px;
-    margin: 15px 0px 12px 0px;
-  }
-
-  .aboutdescriptionflex p {
-    margin: 10px 0;
-    width: 100%;
-    text-align: center;
-    line-height: 24px;
-  }
-
-  .aboutdescriptionflex {
-    margin: 0;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .aboutbuttoncontainer[data-v-75c9003b] {
-    margin: 15px 0;
-    justify-content: center;
-  }
-
-  img.aboutdescriptionimg2 {
-    object-fit: contain;
-    width: 700px;
-    height: 400px;
-  }
-
-  .aboutdescriptionflex button[data-v-75c9003b] {
-    width: 100%;
-    font-size: 16px;
-    padding: 5px 10px;
-  }
 
   .joinservicetraits {
     flex-wrap: wrap;
@@ -487,6 +526,9 @@ export default {
 @media (max-width: 600px) {
   .joinservicetraits div {
     flex: 0 60%;
+  }
+  .sphero .spherobox {
+    min-width: 100%;
   }
 }
 </style>
