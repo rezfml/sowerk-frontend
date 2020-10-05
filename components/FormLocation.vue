@@ -60,8 +60,10 @@
               style=""
             />
           </client-only>
-          <v-checkbox v-model="checkbox1"
-                      :label="`Use Brand Logo For This Facility`"></v-checkbox>
+          <v-checkbox
+            v-model="checkbox1"
+            :label="`Use Brand Logo For This Facility`"
+          ></v-checkbox>
         </v-col>
         <v-col cols="12" md="6" class="d-flex flex-column justify-center
 ">

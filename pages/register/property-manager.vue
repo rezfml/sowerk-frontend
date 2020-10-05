@@ -339,7 +339,6 @@
 <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
 <!--                  </v-data-table>-->
 <!--                </v-col>-->
-
 <!--                <v-col cols="12">-->
 <!--                  <v-checkbox-->
 <!--                    label="I agree to the Terms of Service"-->
