@@ -80,6 +80,8 @@
         </div>
       </div>
 
+   
+
       <section class="joinservicetraits">
         <div>
           <img
@@ -128,6 +130,27 @@
         </div>
       </section>
     </section>
+
+        <!-- <v-container class="grey lighten-5" >
+      <v-row no-gutters>
+        <v-col
+          v-for="n in 4"
+          :key="n"
+          cols="12"
+          lg="3"
+          md="3"
+          sm="6"
+        >
+          <v-card
+            class="pa-2"
+            outlined
+            tile
+          >
+            One of three columns
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container> -->
   </div>
 </template>
 
@@ -449,6 +472,7 @@ img {
     width: 100%;
     padding-top: 0;
     margin-left: 0;
+    margin-top: -40px;
     }
 
   .aboutdescriptiontext h2 {
