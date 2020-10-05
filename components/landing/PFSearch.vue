@@ -4,8 +4,9 @@
       <h1>Search Property & Facility Accounts</h1>
       <div>
         <form>
-          <input type="text" placeholder="" value="" />
-          <select >
+          <input type="text" placeholder="" value="" /> <input type="submit"/>
+         
+          <select class="select">
             <option>Property & Facility</option>
             <option>Option 2</option>
             <option>Option 3</option>
@@ -13,12 +14,12 @@
             <option>Option 5</option>
             <option>Option 6</option>
           </select>
-          <select>
+          <select class="select">
             <option>Location</option>
             <option>Service</option>
             <option>Name</option>
           </select>
-          <button>Search Now</button>
+          
         </form>
       </div>
     </section>
@@ -121,22 +122,38 @@ export default {
 }
 .searchSection div form {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
 }
-.searchSection form input {
+.searchSection form input[type="text"] {
   background: white;
-  padding: 2px 5px 2px 5px;
+  padding: 10px 5px 5px 5px;
   border-radius: 35px;
   width: 50%;
+}
+
+.searchSection form input[type="submit"] {
+  margin-left: -128px;
+  background: #a61c00;
+  border-radius: 35px;
+  padding: 0 15px;
+
 }
 .searchSection form button {
   background: #a61c00;
   border-radius: 35px;
   padding: 5px 10px 5px 10px;
-  margin-left: -305px;
   font-size: 18px;
 }
+
+.select {
+  color: white;
+  border: 1px solid #a61c00;
+  border-radius: 20px;
+  background: #a61c00;
+  padding: 0 10px;
+}
+
 
 .companyList {
   width: 100%;
