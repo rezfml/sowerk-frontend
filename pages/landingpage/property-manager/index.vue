@@ -527,5 +527,8 @@ img {
   .joinservicetraits div {
     flex: 0 60%;
   }
+  .sphero .spherobox {
+    min-width: 100%;
+  }
 }
 </style>

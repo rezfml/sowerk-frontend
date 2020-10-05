@@ -5,7 +5,7 @@
       <div>
         <form>
           <input type="text" placeholder="" value="" />
-          <select>
+          <select >
             <option>Property & Facility</option>
             <option>Option 2</option>
             <option>Option 3</option>
@@ -137,6 +137,7 @@ export default {
   margin-left: -305px;
   font-size: 18px;
 }
+
 .companyList {
   width: 100%;
   display: flex;

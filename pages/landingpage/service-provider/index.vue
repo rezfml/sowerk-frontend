@@ -454,6 +454,20 @@ img {
     min-width: 500px;
   }
 
+  .spherobox form {
+    min-width: 300px;
+  }
+
+  .spherobox form button {
+    padding: 4.8px 15px 3px 15px;
+    margin-left: -100px;
+  }
+
+  .aboutdescriptionflex button {
+    font-size: 11px;
+    width: 50%;
+  }
+
   .joinservicetraits {
     flex-wrap: wrap;
   }
@@ -491,6 +505,20 @@ img {
 @media (max-width: 600px) {
   .joinservicetraits div {
     flex: 0 60%;
+  }
+
+  .sphero .spherobox {
+    min-width: 100%;
+  }
+
+  .aboutbuttoncontainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aboutdescriptionflex button {
+    margin: 10px 0;
+    width: 90%;
   }
 }
 </style>
