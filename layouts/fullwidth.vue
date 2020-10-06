@@ -98,13 +98,13 @@ export default {
         {
           icon: 'joinSOW',
           title: 'JoinSOW',
-          path: '#'
+          path: 'landingpage/joinsowerk'
         }
         ,
         {
           icon: 'about',
           title: 'Service Providers',
-          path: '/landingpage/serviceprovider'
+          path: '/landingpage/service-provider'
         }
         ,
         {

@@ -43,8 +43,8 @@
           <p>Today, SOWerk is proud to empower relationships, make life easier and complete the link between property/facility owners and approved vendors.</p>
           <p>More work and better work get done through SOWerk.</p>
           <div class="aboutbuttoncontainer">
-            <button>LEARN MORE - SERVICE PROVIDER </button>
-            <button>LEARN MORE - PROPERTY & FACILITY</button>
+            <button @click="$router.push('/landingpage/service-provider')">LEARN MORE - SERVICE PROVIDER </button>
+            <button @click="$router.push('/landingpage/property-manager')">LEARN MORE - PROPERTY & FACILITY</button>
           </div>
         </div>
       </div>

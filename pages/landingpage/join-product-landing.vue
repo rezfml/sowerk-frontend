@@ -4,7 +4,7 @@
       <div>
         <h1>Property & Facility Managers</h1>
         <p>Find, Vet, and Manage Approved Vendors</p>
-        <button>Get Started - It’s Free</button>
+        <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
       </div>
       <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
@@ -74,13 +74,13 @@
         A team at your headquarters or designated local manager can use a
         computer to access SOWerk or the SOWerk mobile app.
       </p>
-      <button>REGISTER NOW</button>
+      <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
     </section>
 
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
-          <img alt="test"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
           <div>
             <h1>Step 1 <span>- Company Account & Locations</span></h1>
             <p>
@@ -100,10 +100,11 @@
               represent your brand well no matter how close or far away.
             </p>
           </div>
-          <img alt="test" />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" alt="application mockup" />
         </div>
         <div class="joinproductstepcontainerstep step-right">
-          <img alt="test"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileMockup.png" alt="profile mockup"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/phoneInvite.png" alt="">
           <div>
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
@@ -117,7 +118,7 @@
           </div>
         </div>
       </div>
-      <button>REGISTER NOW</button>
+      <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
       </svg>
@@ -126,9 +127,13 @@
     <section class="joinproductfaq">
       <h1>Property and Facility Managers Often Ask</h1>
       <div class="joinproductfaqflex">
-        <img />
         <div>
-          <h4>Is This Going To Create More Work For Me?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is This Going To Create More Work For Me?
+          </h4>
           <p>
             Actually, we designed SOWerk to be less work for you. Think of
             SOWerk like connecting with service providers on social media,
@@ -139,9 +144,13 @@
         </div>
       </div>
       <div class="joinproductfaqflex">
-        <img />
         <div>
-          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Save Us Money? Will It Protect Our Investments?
+          </h4>
           <p>
             If time is money and quality is everything then yes SOWerk can help.
             SOWerk makes it efficent for any staff member to vet & manage
@@ -154,9 +163,13 @@
         </div>
       </div>
       <div class="joinproductfaqflex">
-        <img width="100px" height="100px"/>
         <div>
-          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Help Shield Me From Cold Calls?
+          </h4>
           <p>
             Sales is part of any business but sometimes you just need place to
             send the salesman where they can apply for your approved service
@@ -164,7 +177,7 @@
           </p>
         </div>
       </div>
-      <button>REGISTER NOW</button>
+      <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
     </section>
   </div>
 </template>
@@ -312,7 +325,6 @@
 }
 .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep img {
   width: 30%;
-  border: 1px solid #333;
 }
 .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep {
   display: flex;
@@ -403,6 +415,13 @@
   border-radius: 20px;
   margin: 30px 0px 30px 0px;
 }
+.joinproductfaqflex img{
+  margin-left: -10%;
+  margin-right: unset !important;
+  width: 5% !important;
+  height:auto;
+}
+
 
 @media (max-width: 1700px) {
   .joinproducttraits div img {

@@ -9,8 +9,8 @@
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <div>
-          <button>SERVICE PROVIDERS</button>
-          <button>PROPERTY & FACILITY MANAGERS</button>
+          <button @click="$router.push('/landingpage/service-provider')">SERVICE PROVIDERS</button>
+          <button @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY MANAGERS</button>
         </div>
       </div>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -42,7 +42,7 @@
             <li>Governments</li>
             <li>Restaurant Groups</li>
           </ul>
-          <button>PROPERTY & FACILITY MANAGERS</button>
+          <button @click="$router.push('/register/property-manager')">PROPERTY & FACILITY MANAGERS</button>
         </div>
         <img />
         <div class="joinlinkflexcolumn">
@@ -72,7 +72,7 @@
               <li>General Contractor</li>
             </ul>
           </div>
-          <button>SERVICE PROVIDERS</button>
+          <button @click="$router.push('/register/provider')">SERVICE PROVIDERS</button>
         </div>
       </div>
     </section>
@@ -159,7 +159,7 @@
               request for a bid.
             </p>
           </div>
-          <button>See All Features</button>
+          <button @click="$router.push('/landingpage/property-manager')">See All Features</button>
         </div>
       </div>
       <img />
@@ -199,7 +199,7 @@
               quickly with a bid.
             </p>
           </div>
-          <button>See All Features</button>
+          <button @click="$router.push('/landingpage/service-provider')">See All Features</button>
         </div>
       </div>
     </section>
@@ -209,9 +209,13 @@
     <section class="joinfaq">
       <h1>Property and Facility Managers Often Ask</h1>
       <div class="joinfaqflex">
-        <img />
         <div>
-          <h4>Is This Going To Create More Work For Me?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is This Going To Create More Work For Me?
+          </h4>
           <p>
             Actually, we designed SOWerk to be less work for you. Think of
             SOWerk like connecting with service providers on social media,
@@ -222,9 +226,13 @@
         </div>
       </div>
       <div class="joinfaqflex">
-        <img />
         <div>
-          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Save Us Money? Will It Protect Our Investments?
+          </h4>
           <p>
             If time is money and quality is everything then yes SOWerk can help.
             SOWerk makes it efficent for any staff member to vet & manage
@@ -237,9 +245,13 @@
         </div>
       </div>
       <div class="joinfaqflex">
-        <img />
         <div>
-          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Help Shield Me From Cold Calls?
+          </h4>
           <p>
             Sales is part of any business but sometimes you just need place to
             send the salesman where they can apply for your approved service
@@ -247,12 +259,16 @@
           </p>
         </div>
       </div>
-      <button>PROPERTY & FACILITY LEARN MORE</button>
+      <button @click="$router.push('/landingpage/join-product-landing')">PROPERTY & FACILITY LEARN MORE</button>
       <h1>Service Providers Generally Ask</h1>
       <div class="joinfaqflex">
-        <img />
         <div>
-          <h4>Do I Seriously Get More Jobs?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Do I Seriously Get More Jobs?
+          </h4>
           <p>
             Yes, Property & Facility managers of all sizes use SOWerk to manage
             their approved vendor program. We make it easy for them to vet
@@ -268,9 +284,13 @@
         </div>
       </div>
       <div class="joinfaqflex">
-        <img />
         <div>
-          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is SOWerk Time Consuming and Hard To Use?
+          </h4>
           <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
           <p>
             With only a click or two on your computer or mobile device you can
@@ -283,9 +303,13 @@
         </div>
       </div>
       <div class="joinfaqflex">
-        <img />
         <div>
-          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will I Get Charged All The Time & Get Junk Leads?
+          </h4>
           <p>
             Unlike other websites, SOWerk service providers receive
             communications from their approved vendor programs, direct leads, or
@@ -300,7 +324,7 @@
           </p>
         </div>
       </div>
-      <button>SERVICE PROVIDER LEARN MORE</button>
+      <button @click="$router.push('/landingpage/join-service-landing')">SERVICE PROVIDER LEARN MORE</button>
     </section>
   </div>
 </template>
@@ -667,6 +691,12 @@ export default {
   border-radius: 20px;
   padding: 15px 0px 15px 0px;
   margin-top: 20px;
+}
+.joinfaqflex img{
+  margin-left: -10%;
+  margin-right: unset !important;
+  width: 5% !important;
+  height:auto;
 }
 
 @media (max-width: 1280px) {

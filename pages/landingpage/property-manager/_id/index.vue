@@ -24,7 +24,7 @@
             <p>Approved SOWerk Providers At This Location</p>
           </div>
         </div>
-        <button class="applyApproval">Apply To Become An Approved Service Provider</button>
+        <button @click="$router.push('/register/provider')" class="applyApproval">Apply To Become An Approved Service Provider</button>
       </div>
     </div>
 

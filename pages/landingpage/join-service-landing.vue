@@ -4,7 +4,7 @@
       <div>
         <h1>Service Providers</h1>
         <p>Approved Providers Get the Job</p>
-        <button>Get Started Now</button>
+        <button @click='$router.push("/register/provider")'>Get Started Now</button>
       </div>
       <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
@@ -68,7 +68,7 @@
         SOWerk, well, we make that easy too. Your time is money, so it’s time
         you use SOWerk
       </p>
-      <button>REGISTER NOW</button>
+      <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
     </section>
 
     <section class="joinservicesteps">
@@ -117,7 +117,7 @@
           </div>
         </div>
       </div>
-      <button>REGISTER NOW</button>
+      <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
       </svg>
@@ -126,9 +126,13 @@
     <section class="joinservicefaq">
       <h1>Service Providers Generally Ask</h1>
       <div class="joinservicefaqflex">
-        <img />
         <div>
-          <h4>Do I Seriously Get More Jobs?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Do I Seriously Get More Jobs?
+          </h4>
           <p>
             Yes, Property & Facility managers of all sizes use SOWerk to manage
             their approved vendor program. We make it easy for them to vet
@@ -143,9 +147,13 @@
         </div>
       </div>
       <div class="joinservicefaqflex">
-        <img />
         <div>
-          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is SOWerk Time Consuming and Hard To Use?
+          </h4>
           <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
 
           <p>
@@ -160,9 +168,14 @@
         </div>
       </div>
       <div class="joinservicefaqflex">
-        <img />
+        
         <div>
-          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
+          <h4> 
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will I Get Charged All The Time & Get Junk Leads?
+          </h4>
           <p>
             Unlike other websites, SOWerk service providers receive
             communications from their approved vendor programs, direct leads, or
@@ -176,7 +189,7 @@
           </p>
         </div>
       </div>
-      <button>REGISTER NOW</button>
+      <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
     </section>
   </div>
 </template>
@@ -418,6 +431,12 @@
   padding: 15px 0px 15px 0px;
   border-radius: 20px;
   margin: 30px 0px 30px 0px;
+}
+.joinservicefaqflex img{
+  margin-left: -10%;
+  margin-right: unset !important;
+  width: 5% !important;
+  height:auto;
 }
 
 @media (max-width: 1350px) {
