@@ -2,7 +2,7 @@
   <v-container class="d-flex flex-column pa-0 main-container" style="max-width: none!important; background-image: url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9'); background-size: cover; background-position: center;">
     <v-row class="d-flex flex-column justify-center" style="height:auto; background-color: rgba(0,0,0,0.5);padding-top:100px;" v-if="!$vuetify.breakpoint.large">
       <v-card width="100%" max-width="1000px" color="grey" class="darken-4 mx-auto px-6 pt-12" style="border-radius: 20px;">
-        <v-card-title class="primary mx-auto" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px;"><p class="mx-auto mb-0 text-center white--text" style="font-size: 24px;">Register - Select Account Type</p></v-card-title>
+        <v-card-title class="primary mx-auto" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px;"><p class="mx-auto mb-0 text-center white--text">Register - Select Account Type</p></v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" md="6">
@@ -11,7 +11,7 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-icon size="150" color="primary" class="mx-auto text-center" style="width: 100%;">domain</v-icon>
+                      <v-icon size="100" color="primary" class="mx-auto text-center" style="width: 100%;">domain</v-icon>
                     </v-col>
 
                     <v-col cols="12">
@@ -34,7 +34,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-btn block x-large color="primary" style="border-radius: 16px;" to="/register/property-manager">Register Now</v-btn>
+                      <v-btn block large color="primary" style="border-radius: 16px;" to="/register/property-manager">Register Now</v-btn>
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -49,7 +49,7 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-icon size="150" color="primary" class="mx-auto text-center" style="width: 100%;">mdi-account-hard-hat</v-icon>
+                      <v-icon size="100" color="primary" class="mx-auto text-center" style="width: 100%;">mdi-account-hard-hat</v-icon>
                     </v-col>
 
                     <v-col cols="12">
@@ -77,7 +77,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-btn block x-large color="primary" style="border-radius: 16px;" to="/register/provider">Register Now</v-btn>
+                      <v-btn block large color="primary" style="border-radius: 16px;" to="/register/provider">Register Now</v-btn>
                     </v-col>
 
                   </v-row>
@@ -100,7 +100,7 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-icon size="150" color="primary" class="mx-auto text-center" style="width: 100%;">domain</v-icon>
+                      <v-icon size="100" color="primary" class="mx-auto text-center" style="width: 100%;">domain</v-icon>
                     </v-col>
 
                     <v-col cols="12">
@@ -135,7 +135,7 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-icon size="150" color="primary" class="mx-auto text-center" style="width: 100%;">mdi-account-hard-hat</v-icon>
+                      <v-icon size="100" color="primary" class="mx-auto text-center" style="width: 100%;">mdi-account-hard-hat</v-icon>
                     </v-col>
 
                     <v-col cols="12">
