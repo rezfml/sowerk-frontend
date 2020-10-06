@@ -1,9 +1,9 @@
 {
-  "name": "Market49",
+  "name": "sowerk",
   "version": "1.0.0",
   "private": true,
-  "description": "Market49 Nuxt Frontend",
-  "author": "Devin Hollister-Graham",
+  "description": "SOWerk Nuxt Frontend",
+  "author": "Rez Delamasa",
   "scripts": {
     "build": "nuxt-ts build",
     "test:unit": "vue-cli-service test:unit",
