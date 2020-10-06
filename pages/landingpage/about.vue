@@ -56,7 +56,7 @@
       </div>
     </section>
 
-    <section class="aboutplatform">
+    <!-- <section class="aboutplatform">
       <div class="aboutplatformcontainer">
         <h1>The Approved Vendor Platform</h1>
         <div class="aboutplatformcontainerfleximg">
@@ -81,61 +81,77 @@
         </p>
         <button>JOIN SOWERK</button>
       </div>
-    </section>
+    </section> -->
 
-    <v-card elevation="2" align="center" width="75%" class="pa-md-10 mx-lg-auto">
-      <v-card width="800px" dark height="5rem">
-        <h1 class="text-center">The Approved Vendor Platform</h1>
+    <v-row
+      style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;"
+      align-content="center"
+      justify="center"
+      class="razer ml-0 mr-0"
+    >
+      <v-card style="border-radius: 20px; height: auto; width: 70%; top: -180px; z-index: 5" class="py-md-16 pt-sm-16 pb-sm-10 pt-16 pb-8 my-12">
+        <v-card-title
+          style="width: 80%; word-break: normal; position: absolute; top: -30px; left: 10%; background-color: #414141; border-radius: 20px"
+          class="text-h5 text-center mx-auto"
+          dark
+          height="5rem"
+        >
+          <p class="text-center mx-auto mb-0" style=" color: white">
+            The Approved Vendor Platform
+          </p>
+        </v-card-title>
+
+        <v-card-text>
+          <v-row>
+            <v-col
+              cols="4"
+              class="d-flex flex-column justify-center"
+              position="center"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork3copy.png"
+              ></v-img>
+            </v-col>
+            <v-col
+              cols="4"
+              class="d-flex flex-column justify-center"
+              position="center"
+            >
+              <v-icon size="20vw" color="primary">mdi-swap-horizontal</v-icon>
+            </v-col>
+            <v-col
+              cols="4"
+              class="d-flex flex-column justify-center"
+              position="center"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"
+              ></v-img>
+            </v-col>
+          </v-row>
+          <v-row>
+          <v-flex xs12 class="mx-sm-13 mx-4">
+            <p class="text-center text-md-h6 text-body-1 mb-0" >
+              SOWerk is the link between service providers (local or national)
+              and property & facility managers. Our business to business
+              platform provides companies and property managers the tools to
+              effiecently identify, vet, and manage service providers for each
+              of their locations. For service providers, SOWerk makes it
+              possible for you to become an approved vendor, recieve job
+              request, and communicate with business owners.
+            </p>
+            <div style="width: 100%; text-align: center">
+            <v-btn color="primary" class="mx-auto mt-8 pt-3 pb-3" width="35%" rounded
+              >JOIN SOWERK</v-btn
+            >
+            </div>
+          </v-flex>
+          </v-row>
+        </v-card-text>
       </v-card>
-      <v-container>
-        <v-row justify="center" align="center">
-          <v-col cols="4">
-            <v-card>
-              <v-img
-                src="https://picsum.photos/350/165?random"
-                height="auto"
-                class="grey darken-4"
-              ></v-img>
-            </v-card>
-          </v-col>
-          <v-col cols="3">
-            <v-card>
-              <v-img
-                src="https://picsum.photos/350/165?random"
-                height="auto"
-                class="grey darken-4"
-              ></v-img>
-            </v-card>
-          </v-col>
-          <v-col cols="4">
-            <v-card>
-              <v-img
-                src="https://picsum.photos/350/165?random"
-                height="auto"
-                class="grey darken-4"
-              ></v-img>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-container>
-        <v-card-subtitle style="font-size: 22px; line-height: 35px; width: 90%;">
-          SOWerk is the link between service providers (local or national) and
-          property & facility managers. Our business to business platform
-          provides companies and property managers the tools to effiecently
-          identify, vet, and manage service providers for each of their
-          locations. For service providers, SOWerk makes it possible for you to
-          become an approved vendor, recieve job request, and communicate with
-          business owners.
-        </v-card-subtitle>
-      </v-container>
-      <div class="text-center">
-        <v-btn rounded color="primary" dark>
-          Rounded Button
-        </v-btn>
-      </div>
-    </v-card>
+    </v-row>
 
+  
     <section class="aboutfaq">
       <h1>Property and Facility Managers Often Ask</h1>
       <div class="aboutfaqflex">
@@ -289,6 +305,7 @@
   height: auto;
   color: white;
   padding-bottom: 200px;
+   z-index: 1;
 }
 
 /* Razer edge styling to div */
@@ -397,6 +414,7 @@ img {
   height: auto;
   position: relative;
   padding-bottom: 150px;
+  
 }
 
 .aboutplatform:after {
@@ -409,10 +427,24 @@ img {
   right: 0;
   bottom: 0;
   left: 0;
-  /* z-index: -1; */
   transform-origin: top left;
   transform: skewY(-2deg);
 }
+
+/* .razer {
+  position: relative;
+}
+.razer:after {
+ position: absolute;
+ background: rgb(43, 43, 43) 0%;
+ content: '';
+ top: 0;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ transform-origin: top left;
+ transform: skewY(-2deg)
+} */
 
 .aboutplatform .aboutplatformcontainer {
   display: flex;
@@ -472,6 +504,7 @@ img {
   color: white;
 }
 .aboutfaq {
+  background-color: #EDEDED;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -490,14 +523,15 @@ img {
 }
 
 .aboutfaq .aboutfaqflex img {
+  border: 1px solid #a61c00;
   width: 10%;
-  margin-right: 3%;
 }
 .aboutfaq .aboutfaqflex div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 87%;
+  padding-left: 2%;
 }
 .aboutfaq h4 {
   font-size: 25px;
