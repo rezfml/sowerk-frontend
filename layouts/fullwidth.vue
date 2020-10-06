@@ -93,7 +93,7 @@ export default {
         {
           icon: 'home',
           title: 'Home',
-          path: '/landingpage/landinghome'
+          path: '/'
         },
         {
           icon: 'joinSOW',
