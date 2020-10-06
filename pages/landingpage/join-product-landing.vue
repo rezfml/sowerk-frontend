@@ -100,11 +100,12 @@
               represent your brand well no matter how close or far away.
             </p>
           </div>
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" alt="application mockup" />
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
         </div>
         <div class="joinproductstepcontainerstep step-right">
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileMockup.png" alt="profile mockup"/>
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/phoneInvite.png" alt="">
+          <!--we will need to replace these with higher quality images eventually-->
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
           <div>
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
@@ -372,7 +373,31 @@
   width: 40%;
   font-size: 18px;
 }
-
+.joinproductstepcontainerstep img{
+  width:45% !important;
+  height: auto;
+  margin-left:-10%;
+  margin-right:5%;
+}
+#stepTwo{
+  margin-left: 5%!important;
+  margin-right:-10%!important;
+}
+#profileDash{
+  margin-left: -15% !important;
+  margin-right:-10%;
+  margin-bottom:25%;
+  margin-top:-10%;
+  width:50%!important;
+}
+#iphoneMock{
+  margin-left:-10%;
+  margin-bottom:-5%;
+  margin-top: 15%;
+  bottom:15%;
+  width:30% !important;
+  height: auto;
+}
 .joinproductfaq {
   width: 100%;
   display: flex;
