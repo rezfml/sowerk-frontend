@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-row style="background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg'); height: 80vh; max-height: 1080px;" align-content="center">
+    <v-row style="background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg'); height: 80vh; max-height: 1200px;" align-content="center" class="pt-12">
       <v-card max-height="400px" height="50vh" width="60%" max-width="1200px" class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
         <v-card-title><v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png" height="150" contain></v-img></v-card-title>
         <v-card-text class="d-flex flex-column justify-center">
@@ -180,6 +180,7 @@ import PreviewSliderSection from "~/components/website/PreviewSliderSection";
 
 export default {
   name: 'index',
+  layout: 'fullwidth',
   components: {
     Logo,
     VuetifyLogo,

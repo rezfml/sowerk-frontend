@@ -776,7 +776,7 @@
           }
         }
         this.loading = false;
-        await this.$router.push('/login');
+        await this.$router.push('/register/verify');
       },
       getTosDate(e) {
         if(e) {
