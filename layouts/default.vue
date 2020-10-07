@@ -76,8 +76,24 @@
     <v-content>
         <nuxt />
     </v-content>
-    <v-footer :fixed="fixed"app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+    <v-footer :fixed="fixed" app style="background: #a61c00; color: white; display: flex; flex-direction: row; height: 80px;">
+      <v-row style="display: flex; justify-content: center;" >
+      
+      <v-col cols="3">
+
+        </v-col>
+        <v-col cols="3" style="text-align: center">
+        <span> SOWerk &copy; {{ new Date().getFullYear() }}</span>
+        <p>All rights Reserved</p>
+      </v-col>
+      <v-col cols="3">
+         <v-list-item >
+      <v-list-item-content style="background: transparent">
+        <v-list-item-title>Home</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>
