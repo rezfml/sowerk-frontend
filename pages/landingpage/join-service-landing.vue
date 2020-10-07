@@ -76,71 +76,20 @@
       </svg>
     </section>
 
-    <section class="joinservicefaq">
-      <h1>Service Providers Generally Ask</h1>
-      <div class="joinservicefaqflex">
-        <img />
-        <div>
-          <h4>Do I Seriously Get More Jobs?</h4>
-          <p>
-            Yes, Property & Facility managers of all sizes use SOWerk to manage
-            their approved vendor program. We make it easy for them to vet
-            service providers request bids.
-          </p>
-          <p>
-            SOWerk also helps you look good when applying for approved vendor
-            programs, but we also make it easy to share those good looks with
-            others. Next time your bidding a job show off your resume by
-            emailing or texting your SOWerk profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinservicefaqflex">
-        <img />
-        <div>
-          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
-          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
-
-          <p>
-            With only a click or two on your computer or mobile device you can
-            use your SOWerk Profile to apply for approved vendor programs
-          </p>
-
-          <p>
-            Automatic Updates: When you become an approved vendor for a company
-            we automaticly display it on your profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinservicefaqflex">
-        <img />
-        <div>
-          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
-          <p>
-            Unlike other websites, SOWerk service providers receive
-            communications from their approved vendor programs, direct leads, or
-            new businesses inviting them to apply for approved vendor program.
-          </p>
-          <p>
-            Being on SOWerk and promoting your business is free. If you wish to
-            apply for an approved vendor program or utilize other SOWerk
-            features we offer a few packages. Details can be found on our
-            Approved Provider Pricing page.
-          </p>
-        </div>
-      </div>
-      <button>REGISTER NOW</button>
-    </section>
+<OftenAskSP></OftenAskSP>
+    
   </div>
 </template>
 
 <script>
 import JoinTraitsSP from '../../components/landing/JoinTraitsSP'
+import OftenAskSP from '../../components/landing/OftenAskSP'
 
 export default {
   name: 'join-service-landing', 
   components: {
     JoinTraitsSP,
+    OftenAskSP
   }
 }
 
@@ -293,49 +242,6 @@ export default {
   font-size: 18px;
 }
 
-.joinservicefaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinservicefaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin: 40px 0px 40px 0px;
-}
-.joinservicefaq h4 {
-  font-size: 25px;
-}
-.joinservicefaq p {
-  font-size: 18px;
-  margin: 20px 0px 30px 15px;
-}
-.joinservicefaq .joinservicefaqflex {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-.joinservicefaq .joinservicefaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinservicefaq .joinservicefaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinservicefaq button {
-  background: #a61c00;
-  color: white;
-  width: 40%;
-  font-size: 18px;
-  padding: 15px 0px 15px 0px;
-  border-radius: 20px;
-  margin: 30px 0px 30px 0px;
-}
-
 
 @media (max-width: 1080px) {
   .joinservicehero div h1 {
@@ -391,29 +297,6 @@ export default {
   .joinservicesteps button {
     padding: 10px 0px 10px 0px;
     width: 80%;
-  }
-
-  .joinservicefaq h1 {
-    font-size: 38px;
-    text-align: center;
-    margin: 40px 5px;
-  }
-
-  .joinservicefaq .joinservicefaqflex {
-    width: 80%;
-  }
-
-  .joinservicefaq h4 {
-    font-size: 23px;
-  }
-
-  .joinservicefaq p {
-    font-size: 17px;
-  }
-
-  .joinservicefaq button {
-    width: 80%;
-    padding: 10px 0px 10px 0px;
   }
 }
 
@@ -515,14 +398,6 @@ export default {
   }
 
   .joinservicedescription button {
-    font-size: 17px;
-  }
-
-  .joinservicefaq h1 {
-    font-size: 33px;
-  }
-
-  .joinservicefaq button {
     font-size: 17px;
   }
 }
