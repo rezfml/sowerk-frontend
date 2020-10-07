@@ -35,7 +35,7 @@
               class="device--iphone"
             ></v-img>
           </v-col>
-          <v-col cols="12" md="6" align-self="center" class="white--text">
+          <v-col cols="12" md="6" align-self="center" class="white--text whatif-text">
             <p class="text-h5 font-weight-bold">
               It all started with “What If…”
             </p>
@@ -53,19 +53,19 @@
               approved vendors.
             </p>
             <p>More work and better work get done through SOWerk.</p>
-            <v-row>
-              <v-col cols="12" md="5">
+            <v-row style="width: 100%;" class="align-items-center whatif-btn">
+              <v-col width="100%" cols="12" md="6" sm="12" class="pa-0 px-sm-2 text-center">
                 <v-btn
-                  class="py-5 white--text"
-                  style="border-radius: 20px; background: transparent; border: 1px solid white"
+                  class="py-5 ml-sm-5 white--text"
+                  style="width: 100%; border-radius: 20px; background: transparent; border: 1px solid white; font-size: 11px;"
                   >LEARN MORE - SERVICE PROVIDER</v-btn
                 >
               </v-col>
-              <v-spacer></v-spacer>
-              <v-col>
+              <!-- <v-spacer></v-spacer> -->
+              <v-col cols="12" md="6" sm="12" class="pa-0 px-sm-2 text-center">
                 <v-btn
-                  class="py-5 white--text"
-                  style="border-radius: 20px; background: transparent; border: 1px solid white"
+                  class="py-5 ml-sm-5 white--text"
+                  style="width: 100%; border-radius: 20px; background: transparent; border: 1px solid white; font-size: 11px;"
                   >LEARN MORE - PROPERTY & FACILITY</v-btn
                 >
               </v-col>
@@ -394,4 +394,33 @@
   transform-origin: top left;
   transform: skewY(-2deg);
 }
+
+@media (max-width: 1280px) {
+  .container {
+    max-width: 990px;
+  }
+}
+
+@media (max-width: 960px) { 
+  .container { 
+    width: 90%;  
+    } 
+
+    .whatif-text {
+      padding: 40px 10px;
+      text-align: center;
+    }
+
+   
+
+
+    } 
+
+/* .pill-img {
+  border: 5px solid red;
+  width: 50%;
+  height: 50%;
+  border-top-left-radius: 230px; 
+  border-bottom-left-radius: 230px; 
+} */
 </style>
