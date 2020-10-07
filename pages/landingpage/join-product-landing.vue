@@ -75,59 +75,20 @@
       </svg>
     </section>
 
-    <section class="joinproductfaq">
-      <h1>Property and Facility Managers Often Ask</h1>
-      <div class="joinproductfaqflex">
-        <img />
-        <div>
-          <h4>Is This Going To Create More Work For Me?</h4>
-          <p>
-            Actually, we designed SOWerk to be less work for you. Think of
-            SOWerk like connecting with service providers on social media,
-            except they have to meet your approved provider requirements. From
-            here you can easily manage and communicate with your approved
-            service providers.
-          </p>
-        </div>
-      </div>
-      <div class="joinproductfaqflex">
-        <img />
-        <div>
-          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
-          <p>
-            If time is money and quality is everything then yes SOWerk can help.
-            SOWerk makes it efficent for any staff member to vet & manage
-            local/national service providers, such as getting bids for projects
-            and communicating details. If it’s easy to get bids from multiple
-            vetted providers then it might just save you both time and money.
-            Additionally, we make service providers requalify annualy on things
-            like insurance coverage and licenses so you don’t have to.
-          </p>
-        </div>
-      </div>
-      <div class="joinproductfaqflex">
-        <img width="100px" height="100px" />
-        <div>
-          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
-          <p>
-            Sales is part of any business but sometimes you just need place to
-            send the salesman where they can apply for your approved service
-            program. SOWerk is your solution.
-          </p>
-        </div>
-      </div>
-      <button>REGISTER NOW</button>
-    </section>
+<OftenAskPF></OftenAskPF>
+    
   </div>
 </template>
 
 <script>
 import JoinTraitsPF from '../../components/landing/JoinTraitsPF'
+import OftenAskPF from '../../components/landing/OftenAskPF'
 
 export default {
   name: 'join-product-landing', 
   components: {
     JoinTraitsPF,
+    OftenAskPF,
   }
 }
 </script>
@@ -276,55 +237,6 @@ export default {
   font-size: 18px;
 }
 
-.joinproductfaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinproductfaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin: 40px 0px 40px 0px;
-}
-.joinproductfaq h4 {
-  font-size: 25px;
-}
-.joinproductfaq p {
-  font-size: 18px;
-  margin: 20px 0px 30px 15px;
-}
-.joinproductfaq .joinproductfaqflex {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-.joinproductfaq .joinproductfaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinproductfaq .joinproductfaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinproductfaq button {
-  background: #a61c00;
-  color: white;
-  width: 40%;
-  font-size: 18px;
-  padding: 15px 0px 15px 0px;
-  border-radius: 20px;
-  margin: 30px 0px 30px 0px;
-}
-
-
-@media (max-width: 1350px) {
-  .joinproductfaq h1 {
-    margin: 40px 0px 40px 20px;
-  }
-}
 
 @media (max-width: 900px) {
   .joinproducthero div h1 {
@@ -371,28 +283,8 @@ export default {
     padding: 15px 0px 15px 0px;
     width: 80%;
   }
-
-  .joinproductfaq h1 {
-    font-size: 38px;
-    text-align: center;
-    margin: 40px 5px;
-  }
-
-  .joinproductfaq .joinproductfaqflex {
-    width: 80%;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 23px;
-  }
-
-  .joinproductfaq p {
-    font-size: 17px;
-  }
-  .joinproductfaq button {
-    width: 80%;
-  }
 }
+
 @media (max-width: 750px) {
   .joinproducthero div h1 {
     font-size: 45px;
@@ -458,21 +350,6 @@ export default {
     text-align: justify;
     margin-top: 10px;
   }
-
-  .joinproductfaq h1 {
-    font-size: 34px;
-  }
-  .joinproductfaq .joinproductfaqflex {
-    width: 80%;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 21px;
-  }
-
-  .joinproductfaq p {
-    font-size: 16px;
-  }
 }
 
 @media (max-width: 680px) {
@@ -494,18 +371,6 @@ export default {
   }
 
   .joinproductdescription button {
-    font-size: 17px;
-  }
-
-  .joinproductfaq h1 {
-    font-size: 29px;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 20px;
-  }
-
-  .joinproductfaq button {
     font-size: 17px;
   }
 }
