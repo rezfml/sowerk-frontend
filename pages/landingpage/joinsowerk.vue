@@ -221,109 +221,17 @@
     </section>
 
     <Reviews v-bind:reviews="reviews"></Reviews>
-
-    <section class="joinfaq">
-      <h1>Property and Facility Managers Often Ask</h1>
-      <div class="joinfaqflex">
-        <img />
-        <div>
-          <h4>Is This Going To Create More Work For Me?</h4>
-          <p>
-            Actually, we designed SOWerk to be less work for you. Think of
-            SOWerk like connecting with service providers on social media,
-            except they have to meet your approved provider requirements. From
-            here you can easily manage and communicate with your approved
-            service providers.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <img />
-        <div>
-          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
-          <p>
-            If time is money and quality is everything then yes SOWerk can help.
-            SOWerk makes it efficent for any staff member to vet & manage
-            local/national service providers, such as getting bids for projects
-            and communicating details. If it’s easy to get bids from multiple
-            vetted providers then it might just save you both time and money.
-            Additionally, we make service providers requalify annualy on things
-            like insurance coverage and licenses so you don’t have to.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <img />
-        <div>
-          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
-          <p>
-            Sales is part of any business but sometimes you just need place to
-            send the salesman where they can apply for your approved service
-            program. SOWerk is your solution.
-          </p>
-        </div>
-      </div>
-      <button>PROPERTY & FACILITY LEARN MORE</button>
-      <h1>Service Providers Generally Ask</h1>
-      <div class="joinfaqflex">
-        <img />
-        <div>
-          <h4>Do I Seriously Get More Jobs?</h4>
-          <p>
-            Yes, Property & Facility managers of all sizes use SOWerk to manage
-            their approved vendor program. We make it easy for them to vet
-            service providers request bids.
-          </p>
-          <p></p>
-          <p>
-            SOWerk also helps you look good when applying for approved vendor
-            programs, but we also make it easy to share those good looks with
-            others. Next time your bidding a job show off your resume by
-            emailing or texting your SOWerk profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <img />
-        <div>
-          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
-          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
-          <p>
-            With only a click or two on your computer or mobile device you can
-            use your SOWerk Profile to apply for approved vendor programs
-          </p>
-          <p>
-            Automatic Updates: When you become an approved vendor for a company
-            we automaticly display it on your profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <img />
-        <div>
-          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
-          <p>
-            Unlike other websites, SOWerk service providers receive
-            communications from their approved vendor programs, direct leads, or
-            new businesses inviting them to apply for approved vendor program.
-          </p>
-          <p></p>
-          <p>
-            Being on SOWerk and promoting your business is free. If you wish to
-            apply for an approved vendor program or utilize other SOWerk
-            features we offer a few packages. Details can be found on our
-            Approved Provider Pricing page.
-          </p>
-        </div>
-      </div>
-      <button>SERVICE PROVIDER LEARN MORE</button>
-    </section>
+    <OftenAskPF></OftenAskPF>
+    <OftenAskSP></OftenAskSP>
+    
   </div>
 </template>
 
 <script>
 import Reviews from '../../components/landing/Reviews'
 import AllReviews from '../../components/landing/AllReviews'
+import OftenAskPF from '../../components/landing/OftenAskPF'
+import OftenAskSP from '../../components/landing/OftenAskSP'
 
 export default {
   data: () => ({
@@ -333,6 +241,8 @@ export default {
   components: {
     Reviews,
     AllReviews,
+    OftenAskPF,
+    OftenAskSP
   },
   mounted() {
     this.getReviews()
@@ -660,49 +570,6 @@ export default {
   font-size: 18px;
 }
 
-.joinfaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinfaq h1 {
-  color: #a61c00;
-  font-size: 3.3vw;
-  margin-top: 60px;
-  margin-bottom: 25px;
-}
-.joinfaq .joinfaqflex {
-  display: flex;
-  width: 65%;
-  justify-content: center;
-}
-.joinfaq .joinfaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinfaq .joinfaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinfaq h4 {
-  font-size: 1.3vw;
-  margin-top: 20px;
-}
-.joinfaq p {
-  font-size: 1vw;
-  margin-left: 30px;
-}
-.joinfaq button {
-  background: #a61c00;
-  color: white;
-  width: 50%;
-  border-radius: 20px;
-  padding: 15px 0px 15px 0px;
-  margin-top: 20px;
-}
 
 @media (max-width: 1280px) {
   .joinherotext p {
@@ -736,13 +603,6 @@ export default {
   .jointrait p {
     font-size: 14px;
   }
-
-  .joinfaq h4 {
-    font-size: 18px;
-  }
-  .joinfaq p {
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 1080px) {
@@ -767,14 +627,6 @@ export default {
 
   .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
     font-size: 16px;
-  }
-
-  .joinfaq h1 {
-    font-size: 34px;
-  }
-
-  .joinfaq .joinfaqflex {
-    width: 70%;
   }
 }
 
@@ -834,7 +686,6 @@ export default {
   .joinconnectioncontainerbox img {
     width: 40%;
   }
- 
 }
 
 @media (max-width: 850px) {
@@ -867,10 +718,6 @@ export default {
   .joinlink .joinlinkflex .joinlinkflexcolumn img {
     width: 40%;
   }
-  .joinfaq p {
-    font-size: 12px;
-    margin-left: 25px;
-  }
 }
 
 @media (max-width: 680px) {
@@ -894,22 +741,6 @@ export default {
   .joinconnection h1 {
     font-size: 40px;
     width: 100%;
-  }
-
-  .joinfaq h1 {
-    font-size: 28px;
-  }
-
-  .joinfaq .joinfaqflex {
-    width: 80%;
-  }
-
-  .joinfaq h4 {
-    font-size: 16px;
-  }
-
-  .joinfaq button {
-    width: 80%;
   }
 }
 </style>

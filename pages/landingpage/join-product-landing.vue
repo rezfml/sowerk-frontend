@@ -140,7 +140,7 @@ export default {
 }
 .joinproducthero {
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg');
   background-size: cover;
