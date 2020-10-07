@@ -6,57 +6,9 @@
         <p>Find, Vet, and Manage Approved Vendors</p>
         <button>Get Started - It’s Free</button>
       </div>
-      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg> -->
     </section>
 
-    <section class="joinproducttraits">
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
-        />
-        <h3>Vet Vendors</h3>
-        <p>
-          We make it easy and powerful for you to vet any service provider, and
-          re-qualify them annually. SOWerk prebuilt vendor applications are easy
-          and powerful, or customize your own to better fit.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
-        />
-        <h3>Powerful Tools</h3>
-        <p>
-          One facility or 1,000’s of properties, SOWerk has you covered. Assign
-          staff and set approved vendors by location. Manage bids and completed
-          jobs all in one clean powerful interface.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-        />
-        <h3>Cold Call Shield</h3>
-        <p>
-          With your SOWerk account you have the perfect place to direct any
-          salesman calling to become your approved vendor.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-        />
-        <h3>Convenient</h3>
-        <p>
-          For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
-        </p>
-      </div>
-    </section>
+    <JoinTraitsPF></JoinTraitsPF>
 
     <section class="joinproductdescription">
       <p>
@@ -169,7 +121,16 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import JoinTraitsPF from '../../components/landing/JoinTraitsPF'
+
+export default {
+  name: 'join-product-landing', 
+  components: {
+    JoinTraitsPF,
+  }
+}
+</script>
 
 <style scoped>
 .joinproductcontainer {
@@ -217,53 +178,7 @@
   margin-top: 50px;
   margin-bottom: -320px;
 }
-.joinproducttraits {
-  background: #a61c00;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
 
-.joinproducttraits:before {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content: '';
-  background: inherit;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform-origin: top left;
-  transform: skewY(-2deg);
-}
-.joinproducttraits div {
-  width: 20%;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 20px;
-  margin: -100px 5px 50px 5px;
-  z-index: 5;
-}
-.joinproducttraits div img {
-  width: 50%;
-  height: 150px;
-}
-.joinproducttraits div h3 {
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.joinproducttraits div p {
-  width: 80%;
-  font-size: 18px;
-}
 .joinproductdescription {
   width: 100%;
   background: #151515;
@@ -404,50 +319,10 @@
   margin: 30px 0px 30px 0px;
 }
 
-@media (max-width: 1700px) {
-  .joinproducttraits div img {
-    height: 140px;
-  }
-}
 
 @media (max-width: 1350px) {
-  .joinproducttraits div {
-    width: 21%;
-    height: 450px;
-  }
-  .joinproducttraits div img {
-    height: 125px;
-    width: 125px;
-  }
-  .joinproducttraits div h3 {
-    font-size: 20px;
-  }
-
-  .joinproducttraits div p {
-    font-size: 16px;
-  }
-
   .joinproductfaq h1 {
     margin: 40px 0px 40px 20px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .joinproducttraits div {
-    height: 425px;
-  }
-
-  .joinproducttraits div img {
-    height: 90px;
-    width: 90px;
-  }
-
-  .joinproducttraits div h3 {
-    font-size: 19px;
-  }
-
-  .joinproducttraits div p {
-    font-size: 15px;
   }
 }
 
@@ -458,39 +333,6 @@
 
   .joinproducthero div p {
     font-size: 22px;
-  }
-
-  .joinproducttraits {
-    flex-wrap: wrap;
-  }
-  .joinproducttraits div {
-    flex: 0 45%;
-    height: 425px;
-    max-width: 320px;
-  }
-
-  .joinproducttraits div img {
-    height: 120px;
-    width: 120px;
-  }
-
-  .joinproducttraits div h3 {
-    font-size: 20px;
-  }
-
-  .joinproducttraits div p {
-    font-size: 16px;
-  }
-
-  .joinproducttraits div:nth-child(1),
-  .joinproducttraits div:nth-child(2) {
-    /* margin-bottom: 20px; */
-    margin: 50px 15px 20px 15px;
-  }
-
-  .joinproducttraits div:nth-child(3),
-  .joinproducttraits div:nth-child(4) {
-    margin: 20px 15px 50px 15px;
   }
 
   .joinproductdescription p {
@@ -668,9 +510,4 @@
   }
 }
 
-@media (max-width: 600px) {
-  .joinproducttraits div {
-    flex: 0 60%;
-  }
-}
 </style>
