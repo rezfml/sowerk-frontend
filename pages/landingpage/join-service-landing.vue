@@ -6,59 +6,12 @@
         <p>Approved Providers Get the Job</p>
         <button>Get Started Now</button>
       </div>
-      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg> -->
     </section>
 
-    <section class="joinservicetraits">
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
-        />
-        <h3>Simple & Fast</h3>
-        <p>
-          Our simple design makes connecting with other companies quick and
-          painless while using either the desktop or mobile app.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
-        />
-        <h3>Powerful Tools</h3>
-        <p>
-          SOWerk is designed from it’s core to solve for property and facility
-          management by providing the tools to vet & communicate grow service
-          providers.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-        />
-        <h3>Automated</h3>
-        <p>
-          SOWerk has many automated features that help make everyone’s life
-          easy, like automatically requiring service providers to requalify or
-          automatically updating a service provider’s profile every time they
-          achieve approved vendor status.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-        />
-        <h3>Convenient</h3>
-        <p>
-          For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
-        </p>
-      </div>
-    </section>
 
+<JoinTraitsSP></JoinTraitsSP>
+
+    
     <section class="joinservicedescription">
       <p>
         SOWerk makes it possible for a service providers like you to connect
@@ -181,7 +134,17 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import JoinTraitsSP from '../../components/landing/JoinTraitsSP'
+
+export default {
+  name: 'join-service-landing', 
+  components: {
+    JoinTraitsSP,
+  }
+}
+
+</script>
 
 <style scoped>
 .joinservicecontainer {
@@ -233,53 +196,7 @@
   font-size: 18px;
   width: 80%;
 }
-.joinservicetraits {
-  background: #a61c00;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.joinservicetraits:before {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content: '';
-  background: inherit;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform-origin: top left;
-  transform: skewY(-2deg);
-}
 
-.joinservicetraits div {
-  width: 20%;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 20px;
-  margin: -125px 5px 50px 5px;
-  z-index: 5;
-}
-.joinservicetraits div img {
-  width: 50%;
-  /* height: 200px; */
-}
-.joinservicetraits div h3 {
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.joinservicetraits div p {
-  width: 80%;
-  font-size: 18px;
-}
 .joinservicedescription {
   width: 100%;
   background: #151515;
@@ -419,37 +336,6 @@
   margin: 30px 0px 30px 0px;
 }
 
-@media (max-width: 1350px) {
-  .joinservicetraits div {
-    width: 21%;
-    height: 450px;
-  }
-
-  .joinservicetraits div img {
-    height: 120px;
-    width: 120px;
-  }
-}
-
-@media (max-width: 1350px) {
-  .joinservicetraits div {
-    height: 425px;
-    width: 21%;
-  }
-
-  .joinservicetraits div img {
-    height: 110px;
-    width: 110px;
-  }
-
-  .joinservicetraits div h3 {
-    font-size: 19px;
-  }
-
-  .joinservicetraits div p {
-    font-size: 15.5px;
-  }
-}
 
 @media (max-width: 1080px) {
   .joinservicehero div h1 {
@@ -468,40 +354,6 @@
 
   .joinservicehero div p {
     font-size: 21px;
-  }
-
-  .joinservicetraits {
-    flex-wrap: wrap;
-  }
-
-  .joinservicetraits div {
-    flex: 0 45%;
-    height: 425px;
-    max-width: 320px;
-  }
-
-  .joinservicetraits div img {
-    height: 120px;
-    width: 120px;
-  }
-
-  .joinservicetraits div h3 {
-    font-size: 20px;
-  }
-
-  .joinservicetraits div p {
-    font-size: 16px;
-  }
-
-  .joinservicetraits div:nth-child(1),
-  .joinservicetraits div:nth-child(2) {
-    /* margin-bottom: 20px; */
-    margin: 50px 15px 20px 15px;
-  }
-
-  .joinservicetraits div:nth-child(3),
-  .joinservicetraits div:nth-child(4) {
-    margin: 20px 15px 50px 15px;
   }
 
   .joinservicedescription p {
@@ -675,9 +527,4 @@
   }
 }
 
-@media (max-width: 600px) {
-  .joinservicetraits div {
-    flex: 0 60%;
-  }
-}
 </style>
