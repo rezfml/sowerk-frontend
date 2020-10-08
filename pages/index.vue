@@ -284,7 +284,7 @@
         <v-row class="mt-12">
           <v-col cols="12" class="d-flex flex-column">
             <p class="text-h3 font-weight-bold primary--text text-center">
-              Service Provideres Often Ask
+              Service Providers Often Ask
             </p>
             <v-list width="70%" class="mx-auto">
               <v-list-item class="mt-8 mb-12">
