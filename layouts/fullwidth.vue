@@ -76,7 +76,8 @@
     <v-content class="py-0">
       <nuxt />
     </v-content>
-    <v-footer :fixed="fixed" app>
+
+    <v-footer style="background:#a61c00; color: white;">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>

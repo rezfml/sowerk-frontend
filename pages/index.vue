@@ -1,8 +1,11 @@
 <template>
   <v-app>
-    <v-row style="background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg'); height: 80vh; max-height: 1200px;" align-content="center" class="pt-12">
+    <v-row style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg') no-repeat center center fixed; -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; height: 80vh; max-height: 1200px;" align-content="center" class="pt-12">
       <v-card max-height="400px" height="50vh" width="60%" max-width="1200px" class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
-        <v-card-title><v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png" height="150" contain></v-img></v-card-title>
+        <v-card-title style="width: 100%;"><v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk Logo" contain height="80"></v-img></v-card-title>
         <v-card-text class="d-flex flex-column justify-center">
           <p class="white--text text-h3 text-center font-weight-bold">The Approved Vendor Platform</p>
           <p class="white--text text-center text-h5">The Link Between Service Providers & Businesses</p>
@@ -129,7 +132,7 @@
         <!-- Service Providers FAQ -->
         <v-row class="mt-12">
           <v-col cols="12" class="d-flex flex-column">
-            <p class="text-h3 font-weight-bold primary--text text-center">Service Provideres Often Ask</p>
+            <p class="text-h3 font-weight-bold primary--text text-center">Service Providers Often Ask</p>
             <v-list width="70%" class="mx-auto">
               <v-list-item class="mt-8 mb-12">
                 <v-list-item-icon><v-icon color="primary" size="40">mdi-check-circle-outline</v-icon></v-list-item-icon>
