@@ -330,8 +330,8 @@
 </template>
 
 <script>
-import Reviews from '../../components/landing/Reviews'
-import AllReviews from '../../components/landing/AllReviews'
+import Reviews from '../../components/landing/general/Reviews'
+import AllReviews from '../../components/landing/general/AllReviews'
 
 export default {
   data: () => ({
