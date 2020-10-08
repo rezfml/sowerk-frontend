@@ -82,8 +82,8 @@
 </template>
 
 <script>
-import JoinTraitsSP from '../../components/landing/JoinTraitsSP'
-import OftenAskSP from '../../components/landing/OftenAskSP'
+import JoinTraitsSP from '../../components/landing/service-provider/JoinTraitsSP'
+import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
 
 export default {
   name: 'join-service-landing', 

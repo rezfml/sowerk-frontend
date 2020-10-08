@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import JoinTraitsPF from '../../components/landing/JoinTraitsPF'
-import OftenAskPF from '../../components/landing/OftenAskPF'
+import JoinTraitsPF from '../../components/landing/property-manager/JoinTraitsPF'
+import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
 
 export default {
   name: 'join-product-landing', 

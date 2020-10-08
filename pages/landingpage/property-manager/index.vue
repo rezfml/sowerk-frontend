@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import PFSearch from '~/components/landing/PFSearch.vue'
-import JoinTraits from '~/components/landing/JoinTraits.vue'
+import PFSearch from '~/components/landing/property-manager/PFSearch.vue'
+import JoinTraits from '~/components/landing/general/JoinTraits.vue'
 
 export default {
   data() {
