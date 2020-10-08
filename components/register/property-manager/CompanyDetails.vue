@@ -159,7 +159,6 @@
                   v-model="company.description"
                 ></v-textarea>
               </v-col>
-
             </v-row>
           </v-container>
         </v-form>
@@ -169,31 +168,68 @@
 </template>
 
 <script>
+import VImageInput from 'vuetify-image-input'
+import Vue from 'vue'
+
 export default {
-  name: "CompanyDetails",
+  name: 'CompanyDetails',
+  components: {
+    VImageInput,
+  },
   props: {
     company: {
       type: Object,
-      required: true
-    }
-  },
-  methods: {
-    animateAddressFieldOnFilled(e) {
-      if(e.target != "") {
-        if (e.target.previousElementSibling.classList.contains('v-label--filled')) {
-          return;
-        } else {
-          e.target.previousElementSibling.classList.add('v-label--filled');
-        }
-      } else {
-        e.target.previousElementSibling.classList.remove('v-label--filled');
-      }
+      return: true,
     },
-  }
+    user: {
+      type: Object,
+      return: true,
+    },
+    bestSelection: {
+      type: Array,
+      return: true,
+    },
 
+    getAddressData: {
+      type: Function,
+      getAddressData(addressData) {
+        console.log(addressData)
+        this.company.address =
+          addressData.street_number + ' ' + addressData.route
+        this.company.city = addressData.locality
+        this.company.state = addressData.administrative_area_level_1
+        this.company.zipcode = addressData.postal_code
+        this.formatFullAddress()
+      },
+    },
+    animateAddressFieldOnFocus: {
+      type: Function,
+      animateAddressFieldOnFocus(e) {
+        let addressLabel = e.target.previousElementSibling
+        addressLabel.classList.toggle('v-label--focus')
+      },
+    },
+    animateAddressFieldOnFilled: {
+      type: Function,
+      animateAddressFieldOnFilled(e) {
+        if (e.target != '') {
+          if (
+            e.target.previousElementSibling.classList.contains(
+              'v-label--filled'
+            )
+          ) {
+            return
+          } else {
+            e.target.previousElementSibling.classList.add('v-label--filled')
+          }
+        } else {
+          e.target.previousElementSibling.classList.remove('v-label--filled')
+        }
+      },
+    },
+  },
 }
 </script>
 
-<style scoped>
-
+<style>
 </style>

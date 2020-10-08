@@ -1,4 +1,5 @@
 <template>
+<!-- HERO -->
   <div>
     <section class="sphero">
       <div class="spherobox">
@@ -9,9 +10,6 @@
           <button>Join SOW</button>
         </div>
       </div>
-      <!--      <svg viewBox="0 0 100 100" preserveAspectRatio="none">-->
-      <!--        <polygon points="0,100 110,0 100,100"/>-->
-      <!--      </svg>-->
     </section>
 
     <!--    <section class="splist">-->
@@ -49,7 +47,7 @@
             </div>
             <div class="grid-text">
               <div class="aboutdescriptiontext">
-                <h2 >It all started with “What If…”</h2>
+                <h2>It all started with “What If…”</h2>
                 <p class="subtitle-1">
                   What if we could simplify the business connection between
                   service providers and property & facility managers?
@@ -67,7 +65,7 @@
                   More work and better work get done through SOWerk.
                 </p>
                 <div class="aboutbuttoncontainer">
-                  <v-btn  depressed elevation="2" outlined rounded
+                  <v-btn depressed elevation="2" outlined rounded
                     >LEARN MORE - SERVICE PROVIDER</v-btn
                   >
                   <v-btn depressed elevation="2" outlined rounded
@@ -80,59 +78,35 @@
         </div>
       </div>
 
-      <section class="joinservicetraits">
-        <div>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
-          />
-          <h3>Simple & Fast</h3>
-          <p>
-            Our simple design makes connecting with other companies quick and
-            painless while using either the desktop or mobile app.
-          </p>
-        </div>
-        <div>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
-          />
-          <h3>Powerful Tools</h3>
-          <p>
-            SOWerk is designed from it’s core to solve for property and facility
-            management by providing the tools to vet & communicate grow service
-            providers.
-          </p>
-        </div>
-        <div>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-          />
-          <h3>Automated</h3>
-          <p>
-            SOWerk has many automated features that help make everyone’s life
-            easy, like automatically requiring service providers to requalify or
-            automatically updating a service provider’s profile every time they
-            achieve approved vendor status.
-          </p>
-        </div>
-        <div>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-          />
-          <h3>Convenient</h3>
-          <p>
-            For the facility manager in the middle of the night that needs to
-            contact all your approved plumbers for help or a local service
-            provider that powers his business through a smart phone, SOWerk is
-            design to be convenient.
-          </p>
-        </div>
-      </section>
+      <JoinTraits></JoinTraits>
     </section>
+
+    <!-- <v-container class="grey lighten-5" >
+      <v-row no-gutters>
+        <v-col
+          v-for="n in 4"
+          :key="n"
+          cols="12"
+          lg="3"
+          md="3"
+          sm="6"
+        >
+          <v-card
+            class="pa-2"
+            outlined
+            tile
+          >
+            One of three columns
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container> -->
   </div>
 </template>
 
 <script>
 import PFSearch from '~/components/landing/PFSearch.vue'
+import JoinTraits from '~/components/landing/JoinTraits.vue'
 
 export default {
   data() {
@@ -143,6 +117,7 @@ export default {
   },
   components: {
     PFSearch,
+    JoinTraits,
   },
   watch: {
     loading: function () {
@@ -367,7 +342,6 @@ img {
   width: 100%;
 }
 .aboutdescriptionflex button {
-  
   color: white;
   width: 40%;
   font-size: 12px;
@@ -449,7 +423,8 @@ img {
     width: 100%;
     padding-top: 0;
     margin-left: 0;
-    }
+    margin-top: -40px;
+  }
 
   .aboutdescriptiontext h2 {
     width: 100%;
@@ -487,7 +462,6 @@ img {
   .spherobox button {
     font-size: 14px;
   }
-
 
   .joinservicetraits {
     flex-wrap: wrap;

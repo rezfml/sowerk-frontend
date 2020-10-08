@@ -29,19 +29,31 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
             -->
-            <v-list-item-content>
-                <a :href=item.path style="color:white;text-decoration:none;"><v-list-item-title>{{ item.title }}</v-list-item-title></a>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-    </v-sheet>
-  </v-app-bar>
+              <v-list-item-content>
+                <a :href="item.path" style="color:white;text-decoration:none;"
+                  ><v-list-item-title>{{ item.title }}</v-list-item-title></a
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+      </v-sheet>
+    </v-app-bar>
 
-  <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0.5)" flat v-else>
-    <v-container>
+    <v-app-bar
+      :clipped-left="clipped"
+      fixed
+      app
+      color="rgba(0,0,0,0.5)"
+      flat
+      v-else
+    >
+      <v-container>
         <v-row>
-          <v-toolbar-title v-text="title" style="color: white!important; font-weight: bold;"/>
+          <v-toolbar-title
+            v-text="title"
+            style="color: white!important; font-weight: bold;"
+          />
           <v-spacer></v-spacer>
         <v-btn :href=item.path
           v-for="item in items"
@@ -56,9 +68,9 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           -->
-      </v-row>
-    </v-container>
-    <!--
+        </v-row>
+      </v-container>
+      <!--
       legacy code that can be removed. I am keeping in till we are ready to remove
       <v-container>
         <v-row>
@@ -74,10 +86,14 @@
       -->
     </v-app-bar>
     <v-content>
-        <nuxt />
+      <nuxt />
     </v-content>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+    <v-footer
+      :fixed="fixed"
+      app
+      style="background: #a61c00; color: white!important; justify-content: center"
+    >
+      <span> SOWerk &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -95,37 +111,34 @@ export default {
         {
           icon: 'home',
           title: 'Home',
-          path: '/landingpage/landinghome'
+          path: '/landingpage/landinghome',
         },
         {
           icon: 'about',
           title: 'About',
-          path: '/landingpage/about'
-        }
-        ,
+          path: '/landingpage/about',
+        },
         {
           icon: 'Features',
           title: 'Features',
-          path: '#'
-        }
-        ,
+          path: '#',
+        },
         {
           icon: 'register',
           title: 'Register',
-          path: '/register'
-        }
-        ,
+          path: '/register',
+        },
         {
           icon: 'login',
           title: 'Login',
-          path: '/login'
-        }
+          path: '/login',
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'SOWerk'
+      title: 'SOWerk',
     }
-  }
+  },
 }
 </script>

@@ -6,57 +6,9 @@
         <p>Find, Vet, and Manage Approved Vendors</p>
         <button>Get Started - It’s Free</button>
       </div>
-      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg> -->
     </section>
 
-    <section class="joinproducttraits">
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
-        />
-        <h3>Vet Vendors</h3>
-        <p>
-          We make it easy and powerful for you to vet any service provider, and
-          re-qualify them annually. SOWerk prebuilt vendor applications are easy
-          and powerful, or customize your own to better fit.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
-        />
-        <h3>Powerful Tools</h3>
-        <p>
-          One facility or 1,000’s of properties, SOWerk has you covered. Assign
-          staff and set approved vendors by location. Manage bids and completed
-          jobs all in one clean powerful interface.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-        />
-        <h3>Cold Call Shield</h3>
-        <p>
-          With your SOWerk account you have the perfect place to direct any
-          salesman calling to become your approved vendor.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-        />
-        <h3>Convenient</h3>
-        <p>
-          For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
-        </p>
-      </div>
-    </section>
+    <JoinTraitsPF></JoinTraitsPF>
 
     <section class="joinproductdescription">
       <p>
@@ -123,53 +75,23 @@
       </svg>
     </section>
 
-    <section class="joinproductfaq">
-      <h1>Property and Facility Managers Often Ask</h1>
-      <div class="joinproductfaqflex">
-        <img />
-        <div>
-          <h4>Is This Going To Create More Work For Me?</h4>
-          <p>
-            Actually, we designed SOWerk to be less work for you. Think of
-            SOWerk like connecting with service providers on social media,
-            except they have to meet your approved provider requirements. From
-            here you can easily manage and communicate with your approved
-            service providers.
-          </p>
-        </div>
-      </div>
-      <div class="joinproductfaqflex">
-        <img />
-        <div>
-          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
-          <p>
-            If time is money and quality is everything then yes SOWerk can help.
-            SOWerk makes it efficent for any staff member to vet & manage
-            local/national service providers, such as getting bids for projects
-            and communicating details. If it’s easy to get bids from multiple
-            vetted providers then it might just save you both time and money.
-            Additionally, we make service providers requalify annualy on things
-            like insurance coverage and licenses so you don’t have to.
-          </p>
-        </div>
-      </div>
-      <div class="joinproductfaqflex">
-        <img width="100px" height="100px" />
-        <div>
-          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
-          <p>
-            Sales is part of any business but sometimes you just need place to
-            send the salesman where they can apply for your approved service
-            program. SOWerk is your solution.
-          </p>
-        </div>
-      </div>
-      <button>REGISTER NOW</button>
-    </section>
+<OftenAskPF></OftenAskPF>
+    
   </div>
 </template>
 
-<script></script>
+<script>
+import JoinTraitsPF from '../../components/landing/JoinTraitsPF'
+import OftenAskPF from '../../components/landing/OftenAskPF'
+
+export default {
+  name: 'join-product-landing', 
+  components: {
+    JoinTraitsPF,
+    OftenAskPF,
+  }
+}
+</script>
 
 <style scoped>
 .joinproductcontainer {
@@ -179,7 +101,7 @@
 }
 .joinproducthero {
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg');
   background-size: cover;
@@ -217,53 +139,7 @@
   margin-top: 50px;
   margin-bottom: -320px;
 }
-.joinproducttraits {
-  background: #a61c00;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
 
-.joinproducttraits:before {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content: '';
-  background: inherit;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform-origin: top left;
-  transform: skewY(-2deg);
-}
-.joinproducttraits div {
-  width: 20%;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 20px;
-  margin: -100px 5px 50px 5px;
-  z-index: 5;
-}
-.joinproducttraits div img {
-  width: 50%;
-  height: 150px;
-}
-.joinproducttraits div h3 {
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.joinproducttraits div p {
-  width: 80%;
-  font-size: 18px;
-}
 .joinproductdescription {
   width: 100%;
   background: #151515;
@@ -361,95 +237,6 @@
   font-size: 18px;
 }
 
-.joinproductfaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinproductfaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin: 40px 0px 40px 0px;
-}
-.joinproductfaq h4 {
-  font-size: 25px;
-}
-.joinproductfaq p {
-  font-size: 18px;
-  margin: 20px 0px 30px 15px;
-}
-.joinproductfaq .joinproductfaqflex {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-.joinproductfaq .joinproductfaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinproductfaq .joinproductfaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinproductfaq button {
-  background: #a61c00;
-  color: white;
-  width: 40%;
-  font-size: 18px;
-  padding: 15px 0px 15px 0px;
-  border-radius: 20px;
-  margin: 30px 0px 30px 0px;
-}
-
-@media (max-width: 1700px) {
-  .joinproducttraits div img {
-    height: 140px;
-  }
-}
-
-@media (max-width: 1350px) {
-  .joinproducttraits div {
-    width: 21%;
-    height: 450px;
-  }
-  .joinproducttraits div img {
-    height: 125px;
-    width: 125px;
-  }
-  .joinproducttraits div h3 {
-    font-size: 20px;
-  }
-
-  .joinproducttraits div p {
-    font-size: 16px;
-  }
-
-  .joinproductfaq h1 {
-    margin: 40px 0px 40px 20px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .joinproducttraits div {
-    height: 425px;
-  }
-
-  .joinproducttraits div img {
-    height: 90px;
-    width: 90px;
-  }
-
-  .joinproducttraits div h3 {
-    font-size: 19px;
-  }
-
-  .joinproducttraits div p {
-    font-size: 15px;
-  }
-}
 
 @media (max-width: 900px) {
   .joinproducthero div h1 {
@@ -458,39 +245,6 @@
 
   .joinproducthero div p {
     font-size: 22px;
-  }
-
-  .joinproducttraits {
-    flex-wrap: wrap;
-  }
-  .joinproducttraits div {
-    flex: 0 45%;
-    height: 425px;
-    max-width: 320px;
-  }
-
-  .joinproducttraits div img {
-    height: 120px;
-    width: 120px;
-  }
-
-  .joinproducttraits div h3 {
-    font-size: 20px;
-  }
-
-  .joinproducttraits div p {
-    font-size: 16px;
-  }
-
-  .joinproducttraits div:nth-child(1),
-  .joinproducttraits div:nth-child(2) {
-    /* margin-bottom: 20px; */
-    margin: 50px 15px 20px 15px;
-  }
-
-  .joinproducttraits div:nth-child(3),
-  .joinproducttraits div:nth-child(4) {
-    margin: 20px 15px 50px 15px;
   }
 
   .joinproductdescription p {
@@ -529,28 +283,8 @@
     padding: 15px 0px 15px 0px;
     width: 80%;
   }
-
-  .joinproductfaq h1 {
-    font-size: 38px;
-    text-align: center;
-    margin: 40px 5px;
-  }
-
-  .joinproductfaq .joinproductfaqflex {
-    width: 80%;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 23px;
-  }
-
-  .joinproductfaq p {
-    font-size: 17px;
-  }
-  .joinproductfaq button {
-    width: 80%;
-  }
 }
+
 @media (max-width: 750px) {
   .joinproducthero div h1 {
     font-size: 45px;
@@ -616,21 +350,6 @@
     text-align: justify;
     margin-top: 10px;
   }
-
-  .joinproductfaq h1 {
-    font-size: 34px;
-  }
-  .joinproductfaq .joinproductfaqflex {
-    width: 80%;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 21px;
-  }
-
-  .joinproductfaq p {
-    font-size: 16px;
-  }
 }
 
 @media (max-width: 680px) {
@@ -654,23 +373,6 @@
   .joinproductdescription button {
     font-size: 17px;
   }
-
-  .joinproductfaq h1 {
-    font-size: 29px;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 20px;
-  }
-
-  .joinproductfaq button {
-    font-size: 17px;
-  }
 }
 
-@media (max-width: 600px) {
-  .joinproducttraits div {
-    flex: 0 60%;
-  }
-}
 </style>
