@@ -16,22 +16,22 @@
     <PreviewSliderSection
       :slider="propertyAccounts"
     ></PreviewSliderSection>
-    <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;" align-content="center" justify="center" class="py-12">
-      <v-card height="auto" width="70%" class="py-4 my-12">
+    <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;" align-content="center" justify="center" class="py-16">
+      <v-card height="auto" width="70%" class="py-8 my-12" style="border-radius: 20px" align="center">
         <v-card-title><p class="primary--text font-weight-bold text-h5 text-center mx-auto" style="width: 80%; word-break: normal;">SOWerk is the link between Service Providers and Property & Facility Managers</p></v-card-title>
-        <v-card-text>
+        <v-card-text style="width: 80%;">
           <v-row>
-            <v-col cols="4" class="d-flex flex-column justify-center" position="center">
-              <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork3copy.png" ></v-img>
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
+              <v-img  src="https://sowerk-images.s3.us-east-2.amazonaws.com/property_managers_red_sketch.png" contain ></v-img>
             </v-col>
             <v-col cols="4" class="d-flex flex-column justify-center" position="center">
-              <v-icon size="20vw" color="primary">mdi-swap-horizontal</v-icon>
+              <v-icon size="16vw" color="primary">mdi-swap-horizontal</v-icon>
             </v-col>
-            <v-col cols="4" class="d-flex flex-column justify-center" position="center">
-              <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"></v-img>
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
+              <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/service_provider_red_sketch.png" contain></v-img>
             </v-col>
           </v-row>
-          <v-row style="width: 80%;" class="mx-auto">
+          <v-row style="width: 100%;" class="mx-auto mt-5">
             <p class="text-center text-md-h6 text-body-1">Our business to business platform provides companies and property managers the tools to efficiently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners.</p>
             <v-btn color="primary" class="mx-auto mt-8" width="30%" rounded>Learn More</v-btn>
           </v-row>
