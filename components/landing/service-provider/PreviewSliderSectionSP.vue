@@ -4,10 +4,10 @@
       <p class="white--text text-h5">SOWerk Service Provider Accounts</p>
       <!-- phone view-->
       <v-slide-group style="width: 90vw;" class="mx-auto my-12" dark :show-arrows="showArrows" v-if="$vuetify.breakpoint.mobile">
-        <v-slide-item :key='i' v-for="(company, i) in carouselServiceProviders" style="width: 33vw">
+        <v-slide-item :key='i' v-for="(company, i) in carouselServiceProviders" style="width: 50vw">
           <v-row>
             <v-col class="d-flex flex-column align-center">
-              <img style="width: 100%; padding:0px 10px 0px 10px" :src="company.imgUrl" />
+              <img style="width: 100%; padding:0 2%" :src="company.imgUrl" />
               <p class="font-weight-bold white--text text-body-2 text-md-h6">{{company.account_name}}</p>
             </v-col>
           </v-row>

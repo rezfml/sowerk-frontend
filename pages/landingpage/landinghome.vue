@@ -5,7 +5,7 @@
         <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png" /> <!-- This needs to be an img idk where it is located though -->
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
-        <button>LEARN MORE</button>
+        <button @click="$router.push('/landingpage/about')">LEARN MORE</button>
       </div>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100"/>
@@ -15,7 +15,7 @@
     <section class="landinghomepf">
       <h4>SOWerk Property & Facility Accounts</h4>
       <PreviewSliderSectionPF :carouselPropertyManagers="carouselPropertyManagers"></PreviewSliderSectionPF>
-      <button>VIEW ALL</button>
+      <button @click="$router.push('/landingpage/property-manager')">VIEW ALL</button>
     </section>
 
     <section class="landinghomelink">
@@ -27,14 +27,14 @@
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"/>
         </div>
         <p>Our business to business platform provides companies and property managers the tools to efficiently identify, vet, and manage service providers for each of their locations. For service providers, SOWerk makes it possible for you to become an approved vendor, receive job request, and communicate with business owners.</p>
-        <button>LEARN MORE</button>
+        <button @click="$router.push('/landingpage/property-manager')">LEARN MORE</button>
       </div>
     </section>
 
     <section class="landinghomesp">
       <h4>SOWerk Service Provider Accounts</h4>
       <PreviewSliderSectionSP :carouselServiceProviders="carouselServiceProviders"></PreviewSliderSectionSP>
-      <button>VIEW ALL</button>
+      <button @click="$router.push('/landingpage/service-provider')">VIEW ALL</button>
     </section>
 
     <Reviews v-bind:reviews="reviews"></Reviews>
@@ -47,8 +47,10 @@
           <h2>JOIN SOWERK NOW</h2>
           <p>Register now and start making connections today. Our simple three step registration process makes it simple and easy to build your account and connect property & facility managers and service providers.</p>
           <div>
-            <button>LEARN MORE - SERVICE PROVIDER </button>
-            <button>LEARN MORE - PROPERTY & FACILITY</button>
+            <button v-if="!$vuetify.breakpoint.mobile" @click="$router.push('/landingpage/service-provider')">LEARN MORE - SERVICE PROVIDER </button>
+            <button v-else @click="$router.push('/landingpage/service-provider')">LEARN MORE -<br/> SERVICE PROVIDER </button>
+            <button v-if="!$vuetify.breakpoint.mobile" @click="$router.push('/landingpage/property-manager')">LEARN MORE - PROPERTY & FACILITY</button>
+            <button v-else @click="$router.push('/landingpage/property-manager')">LEARN MORE -<br/> PROPERTY & FACILITY</button>
           </div>
         </div>
       </div>
@@ -61,54 +63,80 @@
     <section class="landinghomefaq">
       <h1>Property and Facility Managers Often Ask</h1>
       <div class="landinghomefaqflex">
-        <img />
         <div>
-          <h4>Is This Going To Create More Work For Me?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is This Going To Create More Work For Me?
+          </h4>
           <p>Actually, we designed SOWerk to be less work for you. Think of SOWerk like connecting with service providers on social media, except they have to meet your approved provider requirements. From here you can easily manage and communicate with your approved service providers.  </p>
         </div>
       </div>
       <div class="landinghomefaqflex">
-        <img />
         <div>
-          <h4>Will SOWerk Save Us Money? Will It Protect Our Investments?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Save Us Money? Will It Protect Our Investments?
+          </h4>
           <p>If time is money and quality is everything then yes SOWerk can help. SOWerk makes it efficent for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers requalify annualy on things like insurance coverage and licenses so you don’t have to.</p>
         </div>
       </div>
       <div class="landinghomefaqflex">
-        <img />
         <div>
-          <h4>Will SOWerk Help Shield Me From Cold Calls?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Help Shield Me From Cold Calls?
+          </h4>
           <p>Sales is part of any business but sometimes you just need place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </p>
         </div>
       </div>
-      <button>PROPERTY & FACILITY LEARN MORE</button>
+      <button v-if="!$vuetify.breakpoint.mobile" @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY LEARN MORE</button>
+      <button v-else @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY<br/> LEARN MORE</button>
       <h1>Service Providers Generally Ask</h1>
       <div class="landinghomefaqflex">
-        <img />
         <div>
-          <h4>Do I Seriously Get More Jobs?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Do I Seriously Get More Jobs?
+          </h4>
           <p>Yes, Property & Facility managers of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet service providers request bids.<p>
           <p>SOWerk also helps you look good when applying for approved vendor programs, but we also make it easy to share those good looks with others. Next time your bidding a job show off your resume by emailing or texting your SOWerk profile.</p>
         </div>
       </div>
       <div class="landinghomefaqflex">
-        <img />
         <div>
-          <h4>Is SOWerk Time Consuming and Hard To Use?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is SOWerk Time Consuming and Hard To Use?
+          </h4>
           <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
           <p>With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs</p>
           <p>Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.</p>
         </div>
       </div>
       <div class="landinghomefaqflex">
-        <img />
         <div>
-          <h4>Will I Get Charged All The Time & Get Junk Leads?</h4>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will I Get Charged All The Time & Get Junk Leads?
+          </h4>
           <p>Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program.<p>
           <p>Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features we offer a few packages. Details can be found on our Approved Provider Pricing page.</p>
         </div>
       </div>
-      <button>SERVICE PROVIDER LEARN MORE</button>
+      <button v-if="!$vuetify.breakpoint.mobile" @click="$router.push('/landingpage/service-provider')">SERVICE PROVIDER LEARN MORE</button>
+      <button v-else @click="$router.push('/landingpage/service-provider')">SERVICE PROVIDER <br/>LEARN MORE</button>
     </section>
   </div>
 </template>
@@ -436,6 +464,12 @@ export default {
   font-size: 25px;
   margin-top: 20px;
 }
+.landinghomefaq img{
+  margin-left: -10%;
+  margin-right: unset !important;
+  width: 5% !important;
+  height:auto;
+}
 .landinghomefaq p {
   font-size: 18px;
   margin-left: 30px;
@@ -496,7 +530,7 @@ export default {
   }
   .landinghomepf h4 {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 1 rem !important;
   }
   .landinghomepf button {
     width: 45%;
@@ -514,7 +548,7 @@ export default {
   }
   .landinghomesp h4 {
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 1rem !important;
   }
   .landinghomesp button {
     width: 45%;
@@ -701,7 +735,7 @@ export default {
 @media (max-width: 500px) {
   .landinghomehero{
     background-size: cover;
-    background-position-x:50%;
+    background-position-x:60%;
     width: 100%;
     height: auto;
     background-repeat:no-repeat;
@@ -709,10 +743,10 @@ export default {
   .landinghomeherotext{
     border-radius: 25px;
     width: 80%;
-    margin-top: 100px;
+    margin-top: 70%;
   }
   .landinghomeherotext img {
-    width: 60%;
+    width: 80%;
     margin-top: -175px;
     height: 450px;
   }
@@ -739,7 +773,7 @@ export default {
   }
   .landinghomepf h4 {
     margin-top: 20px;
-    font-size: 14px;
+    font-size: 1rem !important;
   }
   .landinghomepf button {
     width: 45%;
@@ -757,7 +791,7 @@ export default {
   }
   .landinghomesp h4 {
     margin-top: 20px;
-    font-size: 30px;
+    font-size: 1rem !important;
   }
   .landinghomesp button {
     width: 45%;
@@ -936,6 +970,10 @@ export default {
     font-weight: 600;
     align-items: center;
   }
+  .row{
+    margin-right: 0;
+  }
+  
   /*we will need to fix this whenever we actually get the hamberger menu added. will it go horizontal or vertical? 
   .v-btn__content{
   }
