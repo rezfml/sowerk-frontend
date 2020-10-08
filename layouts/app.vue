@@ -23,7 +23,7 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Market49'
+        title: 'SOWerk'
       }
     }
   }

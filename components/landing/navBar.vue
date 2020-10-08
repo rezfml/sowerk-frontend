@@ -11,9 +11,9 @@
         </v-btn>
       </v-row>
     </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none; background-color:rgba(21, 21, 21, 1);">
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400px;max-width:none; background-color:rgba(21, 21, 21, 1);">
       <v-list-item>
-        <v-list-item-content style="overflow: visable;color:white;">
+        <v-list-item-content style="overflow: visible;color:white;">
           <v-list-item-title text>SOWerk</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -23,8 +23,8 @@
           :key="item.title"
           path
         >
-          <!-- 
-            if we want icons this will allow for icons we will need to find the icons needed. 
+          <!--
+            if we want icons this will allow for icons we will need to find the icons needed.
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -51,7 +51,7 @@
         >
         {{ item.title }}
         </v-btn>
-          <!-- if we want icons this will allow for icons we will need to find the icons needed. 
+          <!-- if we want icons this will allow for icons we will need to find the icons needed.
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>

@@ -97,54 +97,9 @@
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
     </section>
 
-    <section class="jointraits">
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
-        />
-        <h5>Simple & Fast</h5>
-        <p>
-          Our simple design makes connecting with other companies quick and
-          painless while using either the desktop or mobile app.
-        </p>
-      </div>
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
-        />
-        <h5>Powerful Tools</h5>
-        <p>
-          SOWerk is designed from it’s core to solve for property and facility
-          management by providing the tools to vet & communicate grow service
-          providers.
-        </p>
-      </div>
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-        />
-        <h5>Automated</h5>
-        <p>
-          SOWerk has many automated features that help make everyone’s life
-          easy, like automatically requiring service providers to requalify or
-          automatically updating a service provider’s profile every time they
-          achieve approved vendor status.
-        </p>
-      </div>
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-        />
-        <h5>Convenient</h5>
-        <p>
-          For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
-        </p>
-      </div>
-    </section>
+    <JoinTraits></JoinTraits>
 
+   
     <section class="joinvideo">
       <video></video>
     </section>
@@ -232,6 +187,8 @@ import Reviews from '../../components/landing/Reviews'
 import AllReviews from '../../components/landing/AllReviews'
 import OftenAskPF from '../../components/landing/OftenAskPF'
 import OftenAskSP from '../../components/landing/OftenAskSP'
+import JoinTraits from '../../components/landing/JoinTraits.vue'
+
 
 export default {
   data: () => ({
@@ -242,7 +199,8 @@ export default {
     Reviews,
     AllReviews,
     OftenAskPF,
-    OftenAskSP
+    OftenAskSP,
+    JoinTraits
   },
   mounted() {
     this.getReviews()
@@ -444,40 +402,7 @@ export default {
   width: 100%;
   padding: 0px 0px 100px 0px;
 }
-.jointraits {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background: #2b2b2b;
-}
 
-.jointrait {
-  width: 20%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: white;
-  border-radius: 20px;
-  margin-left: 1%;
-  margin-right: 1%;
-  margin-top: -75px;
-  margin-bottom: 25px;
-}
-
-.jointrait img {
-  width: 50%;
-  margin: 20px 25% 20px 25%;
-}
-.jointrait h5 {
-  font-size: 22px;
-}
-.jointrait p {
-  font-size: 18px;
-  width: 80%;
-  text-align: center;
-  margin: 20px 0px 20px 0px;
-}
 .joinvideo {
   background: #151515;
   height: 30vh;
@@ -659,23 +584,6 @@ export default {
     font-size: 13px;
   }
 
-  .jointraits {
-    flex-wrap: wrap;
-  }
-
-  .jointraits div {
-    flex: 0 45%;
-  }
-
-  .jointrait img {
-    width: 40%;
-  }
-
-  .jointrait {
-    margin-top: 0;
-    max-width: 300px;
-  }
-
   .joinconnection h1 {
     font-size: 48px;
   }
@@ -724,9 +632,7 @@ export default {
   .joinlinkflex {
     width: 100%;
   }
-  .jointraits div {
-    flex: 0 50%;
-  }
+  
   .joinconnection h1 {
     font-size: 42px;
   }

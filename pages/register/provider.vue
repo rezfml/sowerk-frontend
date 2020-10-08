@@ -14,6 +14,7 @@
     </v-col>
     <v-col
       cols="12"
+      class="pt-12 mt-12"
     >
       <v-card class="elevation-12 card--has-floating" light>
         <v-card-title class="justify-center headline font-weight-bold">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
@@ -46,7 +47,7 @@
           >
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <v-form class="mx-auto">
+                <v-form class="mx-auto register-form">
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6">
@@ -69,14 +70,23 @@
 
                       <v-col cols="12" md="6">
                         <v-text-field
-                          label="Representative Name*"
+                          label="First Name (Your SOWerk Admin Account)*"
                           type="text"
-                          v-model="user.rep_name"
+                          placeholder=" "
+                          v-model="user.firstName"
+                        ></v-text-field>
+
+                        <v-text-field
+                          label="Last Name*"
+                          type="text"
+                          placeholder=" "
+                          v-model="user.lastName"
                         ></v-text-field>
 
                         <v-text-field
                           label="Email Address*"
                           type="email"
+                          placeholder=" "
                           class="card__input black--text"
                           v-model="user.email"
                         ></v-text-field>
@@ -84,6 +94,7 @@
                         <v-text-field
                           label="Phone*"
                           type="text"
+                          placeholder=" "
                           class="card__input black--text"
                           v-model="user.phone"
                         ></v-text-field>
@@ -93,6 +104,7 @@
                         <v-text-field
                           label="Password*"
                           type="password"
+                          placeholder=" "
                           v-model="user.password"
                         ></v-text-field>
                       </v-col>
@@ -101,72 +113,71 @@
                         <v-text-field
                           label="Confirm Password*"
                           type="password"
+                          placeholder=" "
                         ></v-text-field>
                       </v-col>
 
-                      <v-col cols="12">
-                        <h2 class="mt-8 mb-4">Company Information</h2>
-                        <v-divider></v-divider>
+                      <v-col cols="12" sm="6">
+                        <v-select
+                          id="company-best"
+                          label="What Best Describes You*"
+                          placeholder=" "
+                          :items="bestSelection"
+                          v-model="company.bestDescription"></v-select>
                       </v-col>
 
                       <v-col cols="12" sm="6">
                         <v-text-field
-                          label="Company Name*"
+                          id="company-llc"
+                          label="List your LLC Name (If Applicable)"
                           type="text"
-                          v-model="company.company_name"
-                        ></v-text-field>
+                          placeholder=" "
+                          v-model="company.llcName"></v-text-field>
+                      </v-col>
+
+<!--                      <v-col cols="12" class="v-input">-->
+<!--                        <div class="v-input__control">-->
+<!--                          <div class="v-input__slot">-->
+<!--                            <div class="v-text-field__slot" style="width: 100%;">-->
+<!--                              <label class="v-label theme&#45;&#45;light form__label&#45;&#45;address" style="left: 0px; right: auto; position: absolute;">Corporate Address*</label>-->
+<!--                              <client-only>-->
+<!--                                <vue-google-autocomplete-->
+<!--                                  id="company-address"-->
+<!--                                  name="company_address"-->
+<!--                                  classname="form-control"-->
+<!--                                  v-on:placechanged="getAddressData"-->
+<!--                                  placeholder=" "-->
+<!--                                  style="width: 100%;"-->
+<!--                                  v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                                  v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                                  v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                                >-->
+<!--                                </vue-google-autocomplete>-->
+<!--                              </client-only>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </v-col>-->
+
+                      <v-col cols="12" md="6">
+                        <v-select
+                          :items="serviceOptions"
+                          v-model="servicesProvided"
+                          multiple
+                          chips
+                          label="What Services Do You Offer?"
+                          placeholder=" "
+                        ></v-select>
                       </v-col>
 
                       <v-col cols="12" md="6">
                         <v-text-field
                           label="Year Business Was Founded*"
                           type="text"
+                          placeholder=" "
                           v-model="company.year_founded"
+                          class="pt-5"
                         ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" sm="6">
-                        <v-text-field
-                          label="Company Email*"
-                          type="email"
-                          v-model="company.email"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Company Phone*"
-                          type="text"
-                          v-model="company.phone"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" class="v-input">
-                        <div class="v-input__control">
-                          <div class="v-input__slot">
-                            <div class="v-text-field__slot" style="width: 100%;">
-                              <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Corporate Address*</label>
-                              <client-only>
-                                <vue-google-autocomplete
-                                  id="company-address"
-                                  name="company_address"
-                                  classname="form-control"
-                                  v-on:placechanged="getAddressData"
-                                  placeholder=""
-                                  style="width: 100%;"
-                                  v-on:focus.native="animateAddressFieldOnFocus"
-                                  v-on:blur.native="animateAddressFieldOnFocus"
-                                  v-on:input.native="animateAddressFieldOnFilled"
-                                >
-                                </vue-google-autocomplete>
-                              </client-only>
-                            </div>
-                          </div>
-                        </div>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-select :items="serviceOptions" v-model="servicesProvided" multiple chips label="What Services Do You Offer?"></v-select>
                       </v-col>
 
                       <v-col cols="12">
@@ -174,6 +185,7 @@
                           id="description"
                           label="Describe Your Business* (A Short Sales Pitch Used In Your Profile)"
                           v-model="company.description"
+                          placeholder=" "
                         ></v-textarea>
                       </v-col>
 
@@ -185,12 +197,12 @@
           </v-tab-item>
           <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
-              <v-card-text class="pa-0">
+              <v-card-text class="pa-0 pt-12">
                 <template v-if="editingLocation">
                   <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about your first location</span>
                   <v-form class="mx-auto">
                     <v-container>
-                      <FormLocation
+                      <LocationForm
                         :location="location"
                         :index="editingIndex"
                         :user="user"
@@ -390,6 +402,7 @@
 
   import Vue from 'vue';
   import FormLocation from '~/components/FormLocation'
+  import LocationForm from '@/components/register/provider/LocationForm'
   import InsuranceForm from '~/components/InsuranceForm'
   import LicenseForm from '@/components/website/LicenseForm'
 
@@ -402,12 +415,14 @@
 
   export default {
     name: 'property-manager',
+    layout: 'fullwidth',
     components: {
       FormLocation,
       VImageInput,
       GmapCluster,
       InsuranceForm,
-      LicenseForm
+      LicenseForm,
+      LocationForm
     },
     data() {
       return {
@@ -429,10 +444,16 @@
           description: '',
           phone: '',
           year_founded: '',
-          company_type: false
+          company_type: false,
+          isFranchise: false,
         },
+        bestSelection: [
+          "- I own this brand",
+          "- I am a franchisee of this brand"
+        ],
         user: {
-          rep_name: '',
+          firstName: '',
+          lastName: '',
           email: '',
           password: '',
           is_superuser: true,
@@ -525,19 +546,12 @@
         editingInsurance: true,
         editingLicense: true,
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Location Name', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: 'Contact Name', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         headerInsurance: [
           {
@@ -551,16 +565,6 @@
           { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-regular'},
           { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-regular'},
         ]
-      }
-    },
-    watch: {
-      loading: function() {
-        if(this.loading){
-          console.log(document);
-          document.documentElement.style.overflow = 'hidden'
-          return
-        }
-        document.documentElement.style.overflow = 'auto'
       }
     },
     methods: {
@@ -732,7 +736,7 @@
           }
         }
         this.loading = false;
-        await this.$router.push('/login');
+        await this.$router.push('/register/verify');
       },
       formatServices() {
         console.log(this.servicesProvided);
@@ -843,5 +847,11 @@
     background-color: #A61C00;
   }
 
+   .register-form >>> .v-label {
+      color: black;
+      font-weight: bold;
+      font-size: 1.25em;
+      top: 0;
+   }
 
 </style>

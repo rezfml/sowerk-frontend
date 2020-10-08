@@ -492,147 +492,139 @@ export default {
       console.log(data)
       await this.postFormFieldsToUserforms(data)
     },
-    async postFormFieldsToUserforms(userforms) {
-      for (const userform of userforms) {
-        let fields = [
-          {
-            name: 'Company Name',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Company Founded',
-            type: 'number',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Address',
-            type: 'address',
-            value: 'address',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Service Provided',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'First Name',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Last Name',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Email',
-            type: 'email',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Phone',
-            type: 'number',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'What is your regular time/hour rate for your service?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'What are your regular rate hours M-F, 8am - 5pm?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'Do you charge for quotes that do not involve a technician?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name:
-              'How quick can you return quotes, once you have all of your pricing?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'What markets do you serve?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'What do you consider as local for a service market?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-          {
-            name: 'What other similar businesses do you support?*',
-            type: 'text',
-            value: '',
-            required: true,
-            options: '',
-          },
-        ]
-        for (const field of fields) {
-          let { data, status } = await this.$http
-            .post(
-              'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/formfields/byUserFormId/' +
-                userform.id,
-              field
-            )
-            .catch((e) => e)
+ async postFormFieldsToUserforms(userforms) {
+        for(const userform of userforms) {
+          let fields = [
+            {
+              "name": "Company Name",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Company Founded",
+              "type": "number",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Address",
+              "type": "address",
+              "value": "address",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Service Provided",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "First Name",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Last Name",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Email",
+              "type": "email",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Phone",
+              "type": "number",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What is your regular time/hour rate for your service?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What are your regular rate hours M-F, 8am - 5pm?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "Do you charge for quotes that do not involve a technician?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "How quick can you return quotes, once you have all of your pricing?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What markets do you serve?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What do you consider as local for a service market?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+            {
+              "name": "What other similar businesses do you support?*",
+              "type": "text",
+              "value": "",
+              "required": true,
+              "options": "",
+            },
+          ];
+          for (const field of fields) {
+            let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
+          }
         }
-      }
-      this.loading = false
-      await this.$router.push('/login')
-    },
-    getTosDate(e) {
-      if (e) {
-        let today = new Date()
-        let dateString
-        let timeString
-        let dd = String(today.getUTCDate()).padStart(2, '0')
-        let mm = String(today.getUTCMonth() + 1).padStart(2, '0') //January is 0!
-        let yyyy = today.getUTCFullYear()
-        let HH = String(today.getUTCHours()).padStart(2, '0')
-        let MM = String(today.getUTCMinutes()).padStart(2, '0')
-        let SS = String(today.getUTCSeconds()).padStart(2, '0')
-
-        dateString = [yyyy, mm, dd].join('-')
-        timeString = [HH, MM, SS].join(':')
-        today = dateString + ' ' + timeString
-        // this.company.tos_date = today;
-      }
-    },
+        this.loading = false;
+        await this.$router.push('/register/verify');
+      },
+      getTosDate(e) {
+        if(e) {
+          let today = new Date();
+          let dateString;
+          let timeString;
+          let dd = String(today.getUTCDate()).padStart(2, '0');
+          let mm = String(today.getUTCMonth() + 1).padStart(2, '0'); //January is 0!
+          let yyyy = today.getUTCFullYear();
+          let HH = String(today.getUTCHours()).padStart(2, '0');
+          let MM = String(today.getUTCMinutes()).padStart(2, '0');
+          let SS = String(today.getUTCSeconds()).padStart(2, '0');
+          dateString = [yyyy, mm, dd].join('-');
+          timeString = [HH, MM, SS].join(':');
+          today = dateString + ' ' + timeString;
+          // this.company.tos_date = today;
+        }
+      },
     onFormLocationChange(location, i) {
       console.log(location)
       // this.locations[i] = location;

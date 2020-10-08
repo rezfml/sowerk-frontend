@@ -1,5 +1,7 @@
 <template>
-  <v-tab-item eager>
+  <v-tab-item
+    eager
+  >
     <v-container style="max-width: 80%;" mx-auto>
       <v-card-text class="pa-0">
         <v-form class="mx-auto">
@@ -89,8 +91,7 @@
                   id="company-brand"
                   label="Brand Name*"
                   type="text"
-                  v-model="company.brand_name"
-                ></v-text-field>
+                  v-model="company.brand_name"></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6">
@@ -98,8 +99,7 @@
                   id="company-best"
                   label="What Best Describes You*"
                   :items="bestSelection"
-                  v-model="company.bestDescription"
-                ></v-select>
+                  v-model="company.bestDescription"></v-select>
               </v-col>
 
               <v-col cols="12" sm="6">
@@ -107,8 +107,7 @@
                   id="company-llc"
                   label="List your LLC Name (If Applicable)"
                   type="text"
-                  v-model="company.llcName"
-                ></v-text-field>
+                  v-model="company.llcName"></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6">
@@ -133,11 +132,7 @@
                 <div class="v-input__control">
                   <div class="v-input__slot">
                     <div class="v-text-field__slot" style="width: 100%;">
-                      <label
-                        class="v-label theme--light form__label--address"
-                        style="left: 0px; right: auto; position: absolute;"
-                        >Company Address*</label
-                      >
+                      <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
                       <client-only>
                         <vue-google-autocomplete
                           id="company-address"
