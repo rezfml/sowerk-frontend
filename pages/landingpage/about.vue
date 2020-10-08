@@ -46,32 +46,35 @@
       </svg> -->
     </section>
 
-    <section class="aboutplatform">
-      <div class="aboutplatformcontainer">
-        <h1>The Approved Vendor Platform</h1>
-        <div class="aboutplatformcontainerfleximg">
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork3copy.png"
-          />
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/red-arrow-icon-vector-eps-600w-1715070490.webp"
-          />
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"
-          />
-        </div>
-        <p>
-          SOWerk is the link between service providers (local or national) and
+      <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;" align-content="center" justify="center" >
+      <v-card height="auto" width="70%" class="py-16 my-12" style="border-radius: 20px; top: -220px" align="center">
+        <v-card-title class="mx-auto" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e;"><p class="mx-auto mb-0 text-center white--text">The Approved Vendor Platform</p></v-card-title>
+        <v-card-text style="width: 80%;">
+          <v-row>
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
+              <v-img  src="https://sowerk-images.s3.us-east-2.amazonaws.com/property_managers_red_sketch.png" contain ></v-img>
+            </v-col>
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center">
+              <v-icon size="16vw" color="primary">mdi-swap-horizontal</v-icon>
+            </v-col>
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
+              <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/service_provider_red_sketch.png" contain></v-img>
+            </v-col>
+          </v-row>
+          <v-row style="width: 100%;" class="mx-auto mt-5">
+            <p class="text-center text-md-h6 text-body-1">      SOWerk is the link between service providers (local or national) and
           property & facility managers. Our business to business platform
           provides companies and property managers the tools to effiecently
           identify, vet, and manage service providers for each of their
           locations. For service providers, SOWerk makes it possible for you to
           become an approved vendor, recieve job request, and communicate with
-          business owners.
-        </p>
-        <button @click="$router.push('/register')">JOIN SOWERK</button>
-      </div>
-    </section>
+          business owners.</p>
+            <v-btn color="primary" class="mx-auto mt-8" width="30%" rounded>JOIN SOWERK</v-btn>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+
 
     <section class="aboutfaq">
       <h1>Property and Facility Managers Often Ask</h1>
@@ -196,7 +199,10 @@
   </div>
 </template>
 
-<script></script>
+<script>
+
+
+</script>
 
 <style scoped>
 #aboutcontainer {
@@ -319,91 +325,6 @@
   margin: 0px 2.5% 0px 2.5%;
 }
 
-.aboutplatform {
-  background-image:  url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
-    linear-gradient(#2b2b2b, #444444);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  position: relative;
-  padding-bottom: 150px;
-}
-
-.aboutplatform:after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content:'';
-  background:inherit;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /* z-index: -1; */
-  transform-origin: top left;
-  transform: skewY(-2deg)
-}
-
-.aboutplatform .aboutplatformcontainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: white;
-  width: 65%;
-  border-radius: 20px;
-  margin-top: -150px;
-  margin-bottom: 50px;
-  z-index: 5;
-}
-.aboutplatformcontainer h1 {
-  background: #47494e;
-  width: 70%;
-  border-radius: 20px;
-  text-align: center;
-  padding: 10px 0px 10px 0px;
-  margin-top: -40px;
-  margin-bottom: 20px;
-  font-size: 50px;
-  color: white;
-}
-.aboutplatformcontainerfleximg {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.aboutplatformcontainerfleximg img {
-  width: 32%;
-  margin: 0 auto;
-}
-.aboutplatformcontainerfleximg img:first-child {
-  border: 1px solid #a61c00;
-  border-radius: 20px;
-  padding-top: 150px;
-  padding-bottom: 0px;
-}
-.aboutplatformcontainerfleximg img:last-child {
-  border: 1px solid #a61c00;
-  border-radius: 20px;
-  padding-bottom: 150px;
-}
-.aboutplatformcontainer p {
-  width: 70%;
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.aboutplatformcontainer button {
-  background: #a61c00;
-  border-radius: 20px;
-  padding: 10px 0px 10px 0px;
-  width: 50%;
-  margin: 20px 0px 40px 0px;
-  font-size: 16px;
-  color: white;
-}
 .aboutfaq {
   width: 100%;
   display: flex;
@@ -513,28 +434,7 @@
     padding: 5px 10px;
   }
 
-  .aboutplatform .aboutplatformcontainer[data-v-75c9003b] {
-    width: 90%;
-    margin-top: 25px;
-  }
-
-  .aboutplatformcontainer h1 {
-    margin-bottom: 30px;
-    font-size: 48px;
-  }
-
-  .aboutplatformcontainer p {
-    font-size: 19px;
-    width: 80%;
-    margin: 25px 0 20px 0;
-    text-align: justify;
-  }
-
-  .aboutplatformcontainer button {
-    width: 80%;
-    font-size: 17px;
-  }
-
+  
   .aboutfaq .aboutfaqflex[data-v-75c9003b] {
     width: 100%;
   }
@@ -607,22 +507,6 @@
     font-size: 15px;
   }
 
-  .aboutplatformcontainer h1 {
-    font-size: 43px;
-  }
-
-  .aboutplatformcontainer p {
-    font-size: 16px;
-  }
-
-  .aboutplatformcontainer button {
-    font-size: 16px;
-  }
-
-  .aboutplatformcontainerfleximg {
-    width: 75%;
-  }
-
   .aboutfaq h1 {
     font-size: 32px;
     max-width: 100%;
@@ -661,18 +545,6 @@
 
   .aboutdescriptionflex button {
     font-size: 13px;
-  }
-
-  .aboutplatformcontainer h1{
-    font-size: 40px;
-  }
-
-  .aboutplatformcontainerfleximg {
-    width: 80%;
-  }
-
-  .aboutplatformcontainer p {
-    font-size: 16px;
   }
 
   .aboutfaq h1 {
