@@ -100,7 +100,7 @@
 
 <script>
 //working to get this to import so that I we will be able to use the nav bar across multiple docs and only needing to pass in the arguments for the actual nav
-//import navBar from '~/components/landing/navBar';
+//import navBar from '~/components/landing/general/navBar';
 export default {
   data() {
     return {

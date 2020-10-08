@@ -114,11 +114,11 @@
 </template>
 
 <script>
-// import CaroselPF from '../../components/landing/CaroselPF';
-// import CaroselSP from '~/components/landing/CaroselSP';
-import Reviews from '../../components/landing/Reviews';
-import PreviewSliderSectionPF from '~/components/landing/PreviewSliderSectionPF';
-import PreviewSliderSectionSP from '~/components/landing/PreviewSliderSectionSP';
+// import CaroselPF from '../../components/landing/property-manager/CaroselPF';
+// import CaroselSP from '~/components/landing/service-provider/CaroselSP';
+import Reviews from '../../components/landing/general/Reviews';
+import PreviewSliderSectionPF from '~/components/landing/property-manager/PreviewSliderSectionPF';
+import PreviewSliderSectionSP from '~/components/landing/service-provider/PreviewSliderSectionSP';
 export default {
   data: () => ({
     carouselPropertyManagers: [

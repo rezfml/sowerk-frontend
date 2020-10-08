@@ -183,11 +183,11 @@
 </template>
 
 <script>
-import Reviews from '../../components/landing/Reviews'
-import AllReviews from '../../components/landing/AllReviews'
-import OftenAskPF from '../../components/landing/OftenAskPF'
-import OftenAskSP from '../../components/landing/OftenAskSP'
-import JoinTraits from '../../components/landing/JoinTraits.vue'
+import Reviews from '../../components/landing/general/Reviews'
+import AllReviews from '../../components/landing/general/AllReviews'
+import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
+import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
+import JoinTraits from '../../components/landing/general/JoinTraits.vue'
 
 
 export default {
