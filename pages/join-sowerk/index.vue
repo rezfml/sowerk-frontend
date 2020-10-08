@@ -197,7 +197,7 @@
       <v-container style="max-width: 1280px;">
         <v-row class="py-12">
           <v-col cols="12">
-            <p class="text-h3 font-weight-bold white--text text-center">Sowerk Reviews</p>
+            <p class="text-h3 font-weight-bold white--text text-center">SOWerk Reviews</p>
             <p class="white--text text-center text-body-1 font-weight-normal">See what current users think about SOWerk</p>
           </v-col>
         </v-row>
