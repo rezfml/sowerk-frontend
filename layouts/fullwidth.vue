@@ -96,8 +96,8 @@ export default {
           path: '/landingpage/landinghome'
         },
         {
-          icon: 'joinSOW',
-          title: 'JoinSOW',
+          icon: 'join SOW',
+          title: 'Join SOW',
           path: '#'
         }
         ,
