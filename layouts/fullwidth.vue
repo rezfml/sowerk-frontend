@@ -11,9 +11,9 @@
         </v-btn>
       </v-row>
     </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400px;max-width:none; background-color:rgba(21, 21, 21, 1);">
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none; background-color:rgba(21, 21, 21, 1);">
       <v-list-item>
-        <v-list-item-content style="overflow: visible;color:white;">
+        <v-list-item-content style="overflow: visable;color:white;">
           <v-list-item-title text>SOWerk</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -23,7 +23,7 @@
           :key="item.title"
           path
         >
-          <!-- if we want icons this will allow for icons we will need to find the icons needed.
+          <!-- if we want icons this will allow for icons we will need to find the icons needed. 
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -37,7 +37,7 @@
   </v-sheet>
   </v-app-bar>
 
-  <v-app-bar :clipped-left="clipped" absolute color="rgba(0,0,0,0.5)" flat v-else>
+  <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0.5)" flat v-else>
     <v-container>
         <v-row>
           <v-toolbar-title v-text="title" style="color: white!important; font-weight: bold;"/>
@@ -50,7 +50,7 @@
         >
         {{ item.title }}
         </v-btn>
-          <!-- if we want icons this will allow for icons we will need to find the icons needed.
+          <!-- if we want icons this will allow for icons we will need to find the icons needed. 
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -76,6 +76,7 @@
     <v-content class="py-0">
       <nuxt />
     </v-content>
+
     <v-footer style="background:#a61c00; color: white;">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -93,18 +94,18 @@ export default {
         {
           icon: 'home',
           title: 'Home',
-          path: '/landingpage/landinghome'
+          path: '/'
         },
         {
-          icon: 'join SOW',
-          title: 'Join SOW',
-          path: '#'
+          icon: 'joinSOW',
+          title: 'JoinSOW',
+          path: 'landingpage/joinsowerk'
         }
         ,
         {
           icon: 'about',
           title: 'Service Providers',
-          path: '/landingpage/serviceprovider'
+          path: '/landingpage/service-provider'
         }
         ,
         {

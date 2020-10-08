@@ -9,8 +9,8 @@
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <div>
-          <button>SERVICE PROVIDERS</button>
-          <button>PROPERTY & FACILITY MANAGERS</button>
+          <button @click="$router.push('/landingpage/service-provider')">SERVICE PROVIDERS</button>
+          <button @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY MANAGERS</button>
         </div>
       </div>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -19,59 +19,43 @@
     </section>
 
     <section class="joinlink">
-      <div>
-        <h1>
-          SOWerk Is The Link Between Service Providers and Property & Facility
-          Managers
-        </h1>
-      </div>
+      <h1>
+        SOWerk Is The Link Between Service Providers and Property & Facility
+        Managers
+      </h1>
       <div class="joinlinkflex">
         <div class="joinlinkflexcolumn">
-          <div>
-            <h4>Property & Facility Managers</h4>
-          </div>
-          <div>
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
-            />
-          </div>
-          <div>
-            <p>
-              Our business to business platform provides companies and property
-              managers the tools to effiecently identify, vet, and manage
-              service providers for each of their locations.
-            </p>
-          </div>
-          <div classname="joinlinklists">
-            <ul>
-              <li>Retail & Hospitality Chains</li>
-              <li>Commercial Real Estate Properties</li>
-              <li>Manufacturing Facilities</li>
-              <li>Warehouse & Distribution</li>
-              <li>Governments</li>
-              <li>Restaurant Groups</li>
-            </ul>
-          </div>
-          <button>PROPERTY & FACILITY MANAGERS</button>
+          <h4>Property & Facility Managers</h4>
+          <img
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
+          />
+          <p>
+            Our business to business platform provides companies and property
+            managers the tools to effiecently identify, vet, and manage service
+            providers for each of their locations.
+          </p>
+          <ul>
+            <li>Retail & Hospitality Chains</li>
+            <li>Commercial Real Estate Properties</li>
+            <li>Manufacturing Facilities</li>
+            <li>Warehouse & Distribution</li>
+            <li>Governments</li>
+            <li>Restaurant Groups</li>
+          </ul>
+          <button @click="$router.push('/register/property-manager')">PROPERTY & FACILITY MANAGERS</button>
         </div>
         <img />
         <div class="joinlinkflexcolumn">
+          <h4>Service Providers</h4>
+          <img
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
+          />
+          <p>
+            For service providers, SOWerk makes it possible for you to become an
+            approved vendor, receive job request, and communicate with business
+            owners
+          </p>
           <div>
-            <h4>Service Providers</h4>
-          </div>
-          <div>
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
-            />
-          </div>
-          <div>
-            <p>
-              For service providers, SOWerk makes it possible for you to become
-              an approved vendor, receive job request, and communicate with
-              business owners
-            </p>
-          </div>
-          <div classname="joinlinklists">
             <ul>
               <li>Electrician</li>
               <li>HVAC</li>
@@ -88,7 +72,7 @@
               <li>General Contractor</li>
             </ul>
           </div>
-          <button>SERVICE PROVIDERS</button>
+          <button @click="$router.push('/register/provider')">SERVICE PROVIDERS</button>
         </div>
       </div>
     </section>
@@ -97,9 +81,54 @@
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
     </section>
 
-    <JoinTraits></JoinTraits>
+    <section class="jointraits">
+      <div class="jointrait">
+        <img
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
+        />
+        <h5>Simple & Fast</h5>
+        <p>
+          Our simple design makes connecting with other companies quick and
+          painless while using either the desktop or mobile app.
+        </p>
+      </div>
+      <div class="jointrait">
+        <img
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
+        />
+        <h5>Powerful Tools</h5>
+        <p>
+          SOWerk is designed from it’s core to solve for property and facility
+          management by providing the tools to vet & communicate grow service
+          providers.
+        </p>
+      </div>
+      <div class="jointrait">
+        <img
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+        />
+        <h5>Automated</h5>
+        <p>
+          SOWerk has many automated features that help make everyone’s life
+          easy, like automatically requiring service providers to requalify or
+          automatically updating a service provider’s profile every time they
+          achieve approved vendor status.
+        </p>
+      </div>
+      <div class="jointrait">
+        <img
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+        />
+        <h5>Convenient</h5>
+        <p>
+          For the facility manager in the middle of the night that needs to
+          contact all your approved plumbers for help or a local service
+          provider that powers his business through a smart phone, SOWerk is
+          design to be convenient.
+        </p>
+      </div>
+    </section>
 
-   
     <section class="joinvideo">
       <video></video>
     </section>
@@ -130,7 +159,7 @@
               request for a bid.
             </p>
           </div>
-          <button>See All Features</button>
+          <button @click="$router.push('/landingpage/property-manager')">See All Features</button>
         </div>
       </div>
       <img />
@@ -170,37 +199,148 @@
               quickly with a bid.
             </p>
           </div>
-          <button>See All Features</button>
+          <button @click="$router.push('/landingpage/service-provider')">See All Features</button>
         </div>
       </div>
     </section>
 
     <Reviews v-bind:reviews="reviews"></Reviews>
-    <OftenAskPF></OftenAskPF>
-    <OftenAskSP></OftenAskSP>
-    
+
+    <section class="joinfaq">
+      <h1>Property and Facility Managers Often Ask</h1>
+      <div class="joinfaqflex">
+        <div>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is This Going To Create More Work For Me?
+          </h4>
+          <p>
+            Actually, we designed SOWerk to be less work for you. Think of
+            SOWerk like connecting with service providers on social media,
+            except they have to meet your approved provider requirements. From
+            here you can easily manage and communicate with your approved
+            service providers.
+          </p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <div>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Save Us Money? Will It Protect Our Investments?
+          </h4>
+          <p>
+            If time is money and quality is everything then yes SOWerk can help.
+            SOWerk makes it efficent for any staff member to vet & manage
+            local/national service providers, such as getting bids for projects
+            and communicating details. If it’s easy to get bids from multiple
+            vetted providers then it might just save you both time and money.
+            Additionally, we make service providers requalify annualy on things
+            like insurance coverage and licenses so you don’t have to.
+          </p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <div>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will SOWerk Help Shield Me From Cold Calls?
+          </h4>
+          <p>
+            Sales is part of any business but sometimes you just need place to
+            send the salesman where they can apply for your approved service
+            program. SOWerk is your solution.
+          </p>
+        </div>
+      </div>
+      <button @click="$router.push('/landingpage/join-product-landing')">PROPERTY & FACILITY LEARN MORE</button>
+      <h1>Service Providers Generally Ask</h1>
+      <div class="joinfaqflex">
+        <div>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Do I Seriously Get More Jobs?
+          </h4>
+          <p>
+            Yes, Property & Facility managers of all sizes use SOWerk to manage
+            their approved vendor program. We make it easy for them to vet
+            service providers request bids.
+          </p>
+          <p></p>
+          <p>
+            SOWerk also helps you look good when applying for approved vendor
+            programs, but we also make it easy to share those good looks with
+            others. Next time your bidding a job show off your resume by
+            emailing or texting your SOWerk profile.
+          </p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <div>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Is SOWerk Time Consuming and Hard To Use?
+          </h4>
+          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
+          <p>
+            With only a click or two on your computer or mobile device you can
+            use your SOWerk Profile to apply for approved vendor programs
+          </p>
+          <p>
+            Automatic Updates: When you become an approved vendor for a company
+            we automaticly display it on your profile.
+          </p>
+        </div>
+      </div>
+      <div class="joinfaqflex">
+        <div>
+          <h4>
+            <span>
+              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+            </span>
+            Will I Get Charged All The Time & Get Junk Leads?
+          </h4>
+          <p>
+            Unlike other websites, SOWerk service providers receive
+            communications from their approved vendor programs, direct leads, or
+            new businesses inviting them to apply for approved vendor program.
+          </p>
+          <p></p>
+          <p>
+            Being on SOWerk and promoting your business is free. If you wish to
+            apply for an approved vendor program or utilize other SOWerk
+            features we offer a few packages. Details can be found on our
+            Approved Provider Pricing page.
+          </p>
+        </div>
+      </div>
+      <button @click="$router.push('/landingpage/join-service-landing')">SERVICE PROVIDER LEARN MORE</button>
+    </section>
   </div>
 </template>
 
 <script>
-import Reviews from '../../components/landing/general/Reviews'
-import AllReviews from '../../components/landing/general/AllReviews'
-import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
-import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
-import JoinTraits from '../../components/landing/general/JoinTraits.vue'
-
+import Reviews from '../../components/landing/Reviews'
+import AllReviews from '../../components/landing/AllReviews'
 
 export default {
   data: () => ({
     allReviews: [],
-    reviews: [],
+    reviews: []
   }),
   components: {
     Reviews,
-    AllReviews,
-    OftenAskPF,
-    OftenAskSP,
-    JoinTraits
+    AllReviews
   },
   mounted() {
     this.getReviews()
@@ -214,7 +354,7 @@ export default {
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function () {
+      this.$nextTick(function() {
         this.allReviews = data
         console.log(this.allReviews, 'allReviews')
       })
@@ -226,12 +366,12 @@ export default {
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function () {
+      this.$nextTick(function() {
         this.reviews = data
         console.log(this.reviews, 'reviews')
       })
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -274,20 +414,17 @@ export default {
 .joinherotext button {
   color: rgb(255, 255, 255, 1);
 }
-
-/* Need to crop image for responsiveness */
 .joinherotext img {
+  /* width: 50%; */
   margin-top: -200px;
-  width: 580px;
-  height: 580px;
+  height: 600px;
 }
 .joinherotext h1 {
-  margin-top: -225px;
-  font-size: 2.5vw;
-  padding-top: 20px;
+  margin-top: -250px;
+  font-size: 55px;
 }
 .joinherotext p {
-  font-size: 1.3vw;
+  font-size: 23px;
 }
 .joinherotext div {
   width: 100%;
@@ -300,7 +437,7 @@ export default {
   width: 45%;
   padding: 20px 0px 20px 0px;
   margin: 0px 5% 50px 5%;
-  font-size: 1.42vw;
+  font-size: 20px;
 }
 
 .joinlink {
@@ -311,22 +448,16 @@ export default {
   align-items: center;
   background: #a61c00;
 }
-.joinlink div {
-  display: flex;
-  justify-content: center;
-}
-
-.joinlink div h1 {
+.joinlink h1 {
   color: white !important;
   opacity: 0.8;
-  font-size: 2.5vw;
+  font-size: 55px;
   text-align: center;
   width: 70%;
   margin: 20px 0px 20px 0px;
 }
 .joinlinkflex h4 {
-  width: 100%;
-  font-size: 1.3vw;
+  font-size: 22px;
   margin: 10px 0px 10px 0px;
 }
 .joinlinkflex p {
@@ -336,7 +467,7 @@ export default {
   border-bottom: 1px solid #a61c00;
 }
 .joinlinkflex p {
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 .joinlinkflex {
   display: flex;
@@ -347,7 +478,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
   width: 35%;
   margin: 10px 5% 20px 5%;
   border-radius: 20px;
@@ -360,30 +490,21 @@ export default {
   padding-bottom: 20px !important;
 }
 .joinlink .joinlinkflex .joinlinkflexcolumn img {
-  width: 45%;
-  /* margin: 10px 0px 10px 0px; */
-  padding-top: 15px;
-  padding-bottom: 15px;
+  width: 50%;
+  margin: 10px 0px 10px 0px;
 }
 .joinlinkflexcolumn div {
   display: flex;
   justify-content: center;
-  width: 100%;
 }
-
 .joinlinkflexcolumn div ul {
-  /* width: 45%; */
+  width: 45%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  line-height: 23px;
+  align-items: center;
 }
 .joinlinkflexcolumn ul {
   font-size: 18px !important;
-}
-
-.joinlinkflexcolumn div ul li {
-  text-align: left;
 }
 .joinlinkflexcolumn button {
   background: #a61c00;
@@ -392,7 +513,7 @@ export default {
   padding: 15px 10px 15px 10px;
   color: white;
   border-radius: 20px;
-  font-size: 1vw;
+  font-size: 15px;
   font-family: Roboto;
 }
 
@@ -402,7 +523,40 @@ export default {
   width: 100%;
   padding: 0px 0px 100px 0px;
 }
+.jointraits {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #2b2b2b;
+}
 
+.jointrait {
+  width: 20%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: -75px;
+  margin-bottom: 25px;
+}
+
+.jointrait img {
+  width: 50%;
+  margin: 20px 25% 20px 25%;
+}
+.jointrait h5 {
+  font-size: 22px;
+}
+.jointrait p {
+  font-size: 18px;
+  width: 80%;
+  text-align: center;
+  margin: 20px 0px 20px 0px;
+}
 .joinvideo {
   background: #151515;
   height: 30vh;
@@ -414,7 +568,7 @@ export default {
   justify-content: center;
   align-items: center;
   background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
-    linear-gradient(#444444, #2b2b2b);
+  linear-gradient(#444444, #2b2b2b);
   background-size: cover;
 }
 .joinconnection h1 {
@@ -495,22 +649,75 @@ export default {
   font-size: 18px;
 }
 
+.joinfaq {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.joinfaq h1 {
+  color: #a61c00;
+  font-size: 55px;
+  margin-top: 60px;
+  margin-bottom: 25px;
+}
+.joinfaq .joinfaqflex {
+  display: flex;
+  width: 65%;
+  justify-content: center;
+}
+.joinfaq .joinfaqflex img {
+  width: 10%;
+  margin-right: 3%;
+}
+.joinfaq .joinfaqflex div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 87%;
+}
+.joinfaq h4 {
+  font-size: 25px;
+  margin-top: 20px;
+}
+.joinfaq p {
+  font-size: 18px;
+  margin-left: 30px;
+}
+.joinfaq button {
+  background: #a61c00;
+  color: white;
+  width: 50%;
+  border-radius: 20px;
+  padding: 15px 0px 15px 0px;
+  margin-top: 20px;
+}
+.joinfaqflex img{
+  margin-left: -10%;
+  margin-right: unset !important;
+  width: 5% !important;
+  height:auto;
+}
 
 @media (max-width: 1280px) {
-  .joinherotext p {
-    font-size: 15px;
+  .joinherotext h1 {
+    font-size: 45px;
   }
 
-  .joinherotext img {
-    width: 525px;
-    height: 525px;
+  .joinherotext p {
+    font-size: 22px;
   }
+
+  .joinherotext button {
+    font-size: 18px;
+  }
+
+  .joinlink h1 {
+    font-size: 36px;
+  }
+
   .joinlinkflex p {
     font-size: 16px;
-  }
-
-  .joinlinkflex h4 {
-    font-size: 18px;
   }
 
   .joinlinkflexcolumn ul li {
@@ -518,7 +725,7 @@ export default {
   }
 
   .joinlinkflexcolumn button {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .jointrait h5 {
@@ -530,10 +737,16 @@ export default {
   }
 }
 
-@media (max-width: 1080px) {
-  .joinlink div h1 {
-    width: 88%;
-    font-size: 28px;
+@media (max-width: 1060px) {
+  .joinherotext h1 {
+    font-size: 43px;
+  }
+
+  .joinherotext p {
+    font-size: 21px;
+  }
+  .joinherotext button {
+    font-size: 16px;
   }
 
   .joinlinkflex {
@@ -541,7 +754,7 @@ export default {
   }
 
   .joinlinkflexcolumn button {
-    font-size: 14px;
+    font-size: 13px;
   }
   .joinconnectioncolumn
     .joinconnectioncontainer
@@ -553,18 +766,32 @@ export default {
   .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
     font-size: 16px;
   }
+
+  .joinfaq h1 {
+    font-size: 49px;
+  }
+
+  .joinfaq .joinfaqflex {
+    width: 70%;
+  }
 }
 
-@media (max-width: 980px) {
-  .joinherotext h1 {
-    font-size: 25px;
-  }
+@media (max-width: 950px) {
   .joinherotext img {
-    width: 500px;
-    height: 500px;
+    width: 100%;
   }
+
+  .joinherotext h1 {
+    font-size: 40px;
+  }
+
+  .joinherotext p {
+    font-size: 19px;
+  }
+
   .joinherotext button {
-    padding: 15px 0 15px 0;
+    padding: 10px 0 10px 0;
+    font-size: 15px;
   }
 
   .joinlinkflex {
@@ -576,12 +803,41 @@ export default {
     width: 37%;
   }
 
+  .joinlink h1 {
+    font-size: 32px;
+  }
+
+  .joinlinkflex h4 {
+    font-size: 20px;
+  }
+
+  .joinlink .joinlinkflex .joinlinkflexcolumn img {
+    width: 45%;
+  }
+
   .joinlinkflexcolumn ul li {
     font-size: 15px;
   }
 
   .joinlinkflexcolumn button {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .jointraits {
+    flex-wrap: wrap;
+  }
+
+  .jointraits div {
+    flex: 0 45%;
+  }
+
+  .jointrait img {
+    width: 40%;
+  }
+
+  .jointrait {
+    margin-top: 0;
+    max-width: 300px;
   }
 
   .joinconnection h1 {
@@ -594,21 +850,25 @@ export default {
   .joinconnectioncontainerbox img {
     width: 40%;
   }
+
+  .joinfaq h1 {
+    font-size: 45px;
+  }
 }
 
 @media (max-width: 850px) {
   .joinherotext {
     width: 100%;
     border-radius: 0;
-  }
 
-  .joinherotext button {
-    font-size: 13px;
   }
 
   .joinherotext img {
-    width: 480px;
-    height: 480px;
+    width: 525px;
+  }
+
+  .joinlink h1 {
+    width: 80%;
   }
 
   .joinlinkflex {
@@ -617,36 +877,57 @@ export default {
     align-items: center;
   }
 
-  .joinlink .joinlinkflex .joinlinkflexcolumn {
+  .joinlink .joinlinkflex .joinlinkflexcolumn{
     margin: 10px 2% 10px 2%;
     width: 100%;
     max-width: 70%;
   }
 
   .joinlink .joinlinkflex .joinlinkflexcolumn img {
-    width: 40%;
+width: 28%;
+  }
+
+
+  .joinfaq h1 {
+    font-size: 40px;
   }
 }
 
 @media (max-width: 680px) {
-  .joinlinkflex {
-    width: 100%;
-  }
-  
-  .joinconnection h1 {
-    font-size: 42px;
-  }
-  .joinconnection {
-    flex-direction: column;
+  .joinherotext h1 {
+    font-size: 38px;
   }
 
-  .joinconnection .joinconnectioncolumn {
-    width: 80%;
+  .joinherotext button {
+    font-size: 14px;
   }
 
-  .joinconnection h1 {
-    font-size: 40px;
-    width: 100%;
+  .joinlink h1 {
+    font-size: 26px;
+    width: 85%;
   }
+
+  .joinlinkflex  {
+    width: 100%;
+    
+}
+.jointraits div {
+  flex: 0 50%;
+}
+.joinconnection h1 {
+  font-size: 42px;
+}
+.joinconnection {
+  flex-direction: column;
+}
+
+.joinconnection .joinconnectioncolumn {
+  width: 80%;
+}
+
+.joinconnection h1 {
+  font-size: 40px;
+  width: 100%;
+}
 }
 </style>

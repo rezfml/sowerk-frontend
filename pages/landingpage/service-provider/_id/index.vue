@@ -38,7 +38,7 @@
         </v-form>
       </v-row>
 
-      <button class="applyApproval">Request Vendor Application</button>
+      <button @click="$router.push('/register/buyer')" class="applyApproval" >Request Vendor Application</button>
     </div>
 
     <div class="spaccountsecondcolumn">
