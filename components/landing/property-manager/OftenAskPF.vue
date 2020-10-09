@@ -3,10 +3,10 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="d-flex flex-column">
-          <p class="text-h3 font-weight-bold primary--text text-center">
+          <p class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center">
             Property and Facility Managers Often Ask
           </p>
-          <v-list width="70%" class="mx-auto">
+          <v-list :width="$vuetify.breakpoint.mdAndUp ? '80%' : '100%'" class="mx-auto">
             <v-list-item class="mt-8 mb-12">
               <v-list-item-icon
                 ><v-icon color="primary" size="40"
@@ -15,7 +15,7 @@
               >
               <v-list-item-content>
                 <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3"
+                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
                   >Is this going to create more work for me?</v-list-item-title
                 >
                 <v-list-item-subtitle class="text-subtitle-1 wrap-text"
@@ -36,7 +36,7 @@
               >
               <v-list-item-content>
                 <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3"
+                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
                   >Will SOWerk Save Us Money? Will It Protect Our
                   Investments?</v-list-item-title
                 >
@@ -61,7 +61,7 @@
               >
               <v-list-item-content>
                 <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3"
+                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
                   >Will SOWerk Help Shield Me From Cold
                   Calls?</v-list-item-title
                 >
@@ -73,7 +73,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
-          <v-btn class="text-uppercase primary mx-auto" x-large width="30%" to="/landingpage/property-manager"
+          <v-btn class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2" x-large width="40%" style="border-radius: 20px; font-weight: bold" to="/landingpage/property-manager"
             >Provider Facility - Learn More</v-btn
           >
         </v-col>
@@ -96,4 +96,5 @@ export default {
     white-space: unset!important;
     line-height: 1.5rem;
   }
+
 </style>

@@ -75,7 +75,7 @@
 
       <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;" align-content="center" justify="center" class="skew-top2">
       <v-card height="auto" width="70%" class="py-16 my-12" style="border-radius: 20px;" align="center">
-        <v-card-title class="mx-auto" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e;"><p class="mx-auto mb-0 text-center white--text" >The Approved Vendor Platform</p></v-card-title>
+        <v-card-title class="mx-auto text-md-h4 text-h5" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e;"><p class="mx-auto mb-0 text-center white--text" >The Approved Vendor Platform</p></v-card-title>
         <v-card-text style="width: 80%;">
           <v-row>
             <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
