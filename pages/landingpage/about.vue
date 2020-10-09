@@ -4,15 +4,15 @@
       <h1>About SOWerk</h1>
     </section>
 
-
-    <v-flex style="background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%);" class="skew-top pb-16">
-      <v-container fluid style="max-width: 1780px;">
+<v-container fluid style="background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%);" class="py-16">
+  <v-row justify="center">
+      <v-flex sm11>
         <v-row >
           <v-col cols="12" md="6" style="position: relative;">
             <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png" class="device--mac"></v-img>
             <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png" class="device--iphone"></v-img>
           </v-col>
-          <v-col cols="12" md="6" align-self="center" style="color: white;">
+          <v-col cols="12" md="6" class="mt-16 px-16 px-md-3 text-center text-md-left" align-self="center" style="color: white;">
             <p class="text-h4 font-weight-bold">It all started with "What if..."</p>
             <p> What if we could simplify the business connection between service providers and property & facility managers?</p>
              <p>
@@ -24,18 +24,23 @@
             and complete the link between property/facility owners and approved
             vendors.
           </p>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-btn v-bind="size" class="py-5 mr-5 white--text" small outlined rounded to="/landingpage/service-provider">Learn More - Service Provider</v-btn>
+            <v-row >
+              <v-flex sm11 offset-sm-1 text-center text-md-left>
+                <v-btn  class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/service-provider"> Learn More - Service Provider</v-btn>
+                <v-btn class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/property-manager"> Learn More - Property & Facility</v-btn>
+              </v-flex>
+              <!-- <v-col cols="12" md="6">
+                <v-btn  class="py-5 mr-5 white--text text-body-1" xs-small outlined rounded to="/landingpage/service-provider">Learn More - Service Provider</v-btn>
               </v-col>
               <v-col cols="12" md="6">
-                <v-btn v-bind="size" class="py-5 white--text" small outlined rounded to="/landingpage/property-manager">Learn More - Property & Facility</v-btn>
-              </v-col>
+                <v-btn class="py-5 white--text" xs-small outlined rounded to="/landingpage/property-manager">Learn More - Property & Facility</v-btn>
+              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
-      </v-container>
     </v-flex>
+    </v-row>
+    </v-container>
 
     <!-- <section class="aboutdescription">
       <div class="aboutdescriptionflex">
@@ -120,14 +125,6 @@ export default {
   components: {
     OftenAskPF,
     OftenAskSP,
-  },
-  computed: {
-    size() {
-      const size = { xs: 'x-small', sm: 'small', lg: 'large', xl: 'x-large' }[
-        this.$vuetify.breakpoint.name
-      ]
-      return size ? { [size]: true } : {}
-    },
   },
 }
 </script>
