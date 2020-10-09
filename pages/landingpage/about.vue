@@ -72,35 +72,39 @@
         </div>
       </div>
     </section> -->
+<v-flex style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;">
+  <div>
 
-      <v-row style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;" align-content="center" justify="center" class="skew-top2">
-      <v-card height="auto" width="70%" class="py-16 my-12" style="border-radius: 20px;" align="center">
-        <v-card-title class="mx-auto text-md-h4 text-h5" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e;"><p class="mx-auto mb-0 text-center white--text" >The Approved Vendor Platform</p></v-card-title>
-        <v-card-text style="width: 80%;">
-          <v-row>
+      <v-row align-content="center" justify="center">
+      <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '70%' : '80%'" class="py-16 my-12" style="border-radius: 20px;" align="center">
+        <v-card-title class="mx-auto text-md-h4 text-h6" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e; word-wrap: break-word"><p class="mx-auto mb-0 text-center white--text"  >The Approved Vendor Platform</p></v-card-title>
+        <v-card-text style="width: 80%">
+          <v-row >
             <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
               <v-img  src="https://sowerk-images.s3.us-east-2.amazonaws.com/property_managers_red_sketch.png" contain ></v-img>
             </v-col>
-            <v-col cols="4" class="d-flex flex-column justify-center" position="center">
+            <v-col cols="4" class="d-flex flex-column justify-center pa-sm-0" position="center">
               <v-icon size="16vw" color="primary">mdi-swap-horizontal</v-icon>
             </v-col>
             <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
               <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/service_provider_red_sketch.png" contain></v-img>
             </v-col>
           </v-row>
-          <v-row style="width: 100%;" class="mx-auto mt-5">
-            <p class="text-center text-md-h6 text-body-1">      SOWerk is the link between service providers (local or national) and
+          <v-row style="width: 100%;" class="mx-auto mt-8">
+            <p class="text-center text-md-h6">SOWerk is the link between service providers (local or national) and
           property & facility managers. Our business to business platform
           provides companies and property managers the tools to effiecently
           identify, vet, and manage service providers for each of their
           locations. For service providers, SOWerk makes it possible for you to
           become an approved vendor, recieve job request, and communicate with
           business owners.</p>
-            <v-btn color="primary" class="mx-auto mt-8" width="30%" rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
+            <v-btn color="primary" class="mx-auto mt-5" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '50%'" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
           </v-row>
         </v-card-text>
       </v-card>
     </v-row>
+    </div>
+    </v-flex>
 
     <OftenAskPF></OftenAskPF>
     <OftenAskSP></OftenAskSP/>
@@ -115,37 +119,38 @@ import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
 export default {
   components: {
     OftenAskPF,
-    OftenAskSP
+    OftenAskSP,
   },
   computed: {
-    size () {
-      const size = {xs: "x-small", sm: 'small', lg: 'large', xl: 'x-large'}[this.$vuetify.breakpoint.name];
+    size() {
+      const size = { xs: 'x-small', sm: 'small', lg: 'large', xl: 'x-large' }[
+        this.$vuetify.breakpoint.name
+      ]
       return size ? { [size]: true } : {}
-    }
-  }
+    },
+  },
 }
-
 </script>
 
 <style scoped>
- .device--mac >>> .v-image__image.v-image__image--cover {
-    background-size: 170%!important;
-  }
+.device--mac >>> .v-image__image.v-image__image--cover {
+  background-size: 170% !important;
+}
 
-  .device--iphone {
-    position: absolute;
-    width: 75%;
-    bottom: -20%;
-    left: -25%;
-  }
+.device--iphone {
+  position: absolute;
+  width: 75%;
+  bottom: -20%;
+  left: -25%;
+}
 
-  .wrap-text {
-    -webkit-line-clamp: unset !important;
-    overflow: visible!important;
-    text-overflow: unset!important;
-    white-space: unset!important;
-    line-height: 1.5rem;
-  }
+.wrap-text {
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: unset !important;
+  line-height: 1.5rem;
+}
 
 /* .skew-top{
   position: relative;
@@ -165,28 +170,25 @@ export default {
   transform: skewY(-2deg);
 } */
 
-
-
 #aboutcontainer {
   width: 100%;
   padding: 0px !important;
-  
 }
 
 .abouthero {
   width: 100%;
   height: 70vh;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
   background-size: cover;
   object-fit: contain;
   /* background-size: 100%; */
-  margin-top:-100px;
+  margin-top: -100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-
 }
 .abouthero h1 {
   color: white;
@@ -221,7 +223,7 @@ export default {
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg)
+  transform: skewY(-2deg);
 }
 .aboutdescriptionflex {
   display: flex;
@@ -229,8 +231,7 @@ export default {
   justify-content: center;
   border-radius: 20px;
   margin: -50px 0px 100px 0px;
-    z-index: 100;
-
+  z-index: 100;
 }
 
 .aboutdescriptionflex .aboutdescriptionimg {
@@ -285,7 +286,6 @@ export default {
   border-radius: 20px;
   margin: 0px 2.5% 0px 2.5%;
 }
-
 
 @media (max-width: 800px) {
   .abouthero h1 {
@@ -346,7 +346,6 @@ export default {
     font-size: 16px;
     padding: 5px 10px;
   }
-
 }
 
 @media (max-width: 680px) {
@@ -371,7 +370,6 @@ export default {
   .aboutdescriptionflex button[data-v-75c9003b] {
     font-size: 15px;
   }
-
 }
 
 @media (max-width: 580px) {
@@ -383,9 +381,7 @@ export default {
     width: 100%;
   }
 
-  .aboutdescriptionflex
-    .aboutdescriptionimg
-    .aboutdescriptionimg2 {
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
     left: -110px;
   }
 
@@ -399,6 +395,5 @@ export default {
   .aboutdescriptionflex button {
     font-size: 13px;
   }
-
 }
 </style>
