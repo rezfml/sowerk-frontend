@@ -4,7 +4,7 @@
       <v-card-title
         style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}</v-card-title>
+      >{{ title }}</v-card-title>
       <v-card-actions class="d-flex justify-end px-4 py-0">
         <v-row class="py-0">
           <v-spacer></v-spacer>
@@ -18,22 +18,21 @@
           :headers="tableProperties"
           :items="items"
           :items-per-page="10"
-          :hide-default-footer="true"
         >
           <template v-slot:item.name="{ item }">
-            <v-row class="d-flex align-center" cols="12" md="6">
-              <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="50" max-width="50" style="border-radius: 50%;" class="mr-4 my-1"/>
+            <v-row class="d-flex" cols="12" md="6">
+              <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
               <p>{{item.name}}</p>
             </v-row>
           </template>
           <template v-slot:item.full_name="{ item }"
-            ><v-icon color="primary">mdi-account</v-icon>
+          ><v-icon color="primary">mdi-account</v-icon>
             {{ item.contact_first_name }}
             {{ item.contact_last_name }}</template
           >
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
             <v-btn block color="primary" :to="slug + item.application_id"
-              >Review</v-btn
+            >Review</v-btn
             >
           </template>
           <template
@@ -44,7 +43,7 @@
               block
               color="primary"
               :to="slug + item.location_id + '/application-form/' + item.id"
-              >Apply</v-btn
+            >Apply</v-btn
             >
           </template>
           <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
@@ -58,15 +57,9 @@
                 </v-icon>
               </v-btn>
             </nuxt-link>
-<!--            <v-icon small @click="deleteItem(item)">-->
-<!--              mdi-delete-->
-<!--            </v-icon>-->
-          </template>
-          <template v-slot:footer>
-            <v-row class="d-flex justify-end" style="width: 100%;">
-              <v-btn to='/dashboard/facilities/add' color="primary" class="px-16" rounded outlined large>Add New Facility</v-btn>
-              <v-btn to='/dashboard/facilities/' color="primary" class="px-12 ml-8" rounded outlined large>View All</v-btn>
-            </v-row>
+            <!--            <v-icon small @click="deleteItem(item)">-->
+            <!--              mdi-delete-->
+            <!--            </v-icon>-->
           </template>
         </v-data-table>
       </v-card-text>
@@ -78,7 +71,7 @@
           outlined
           small
           style="font-size: 12px"
-          >View All</v-btn
+        >View All</v-btn
         >
       </v-card-actions>
     </v-container>
@@ -101,9 +94,9 @@ export default {
 .red-gradient {
   background: rgb(166, 28, 0);
   background: linear-gradient(
-    90deg,
-    rgba(166, 28, 0, 1) 0%,
-    rgba(116, 21, 2, 1) 100%
+      90deg,
+      rgba(166, 28, 0, 1) 0%,
+      rgba(116, 21, 2, 1) 100%
   );
 }
 </style>

@@ -330,8 +330,8 @@
 </template>
 
 <script>
-import Reviews from '../../components/landing/Reviews'
-import AllReviews from '../../components/landing/AllReviews'
+import Reviews from '../../components/landing/general/Reviews'
+import AllReviews from '../../components/landing/general/AllReviews'
 
 export default {
   data: () => ({
@@ -909,7 +909,7 @@ width: 28%;
 
   .joinlinkflex  {
     width: 100%;
-    
+
 }
 .jointraits div {
   flex: 0 50%;

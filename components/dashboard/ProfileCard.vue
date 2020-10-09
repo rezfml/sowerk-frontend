@@ -17,9 +17,9 @@
           <p class="mb-2" style="word-break: break-word!important;"><span class="primary--text">142</span> Approved SOWerk Providers At This Facility</p>
         </v-col>
         <v-col cols="12" md="6" class="py-1">
-          <v-btn outlined rounded block color="primary" class="px-5">Dashboard</v-btn>
+          <v-btn outlined rounded block color="primary" class="px-5">View Facility Dashboard</v-btn>
         </v-col><v-col cols="12" md="6" class="py-1">
-          <v-btn outlined rounded block color="primary" class="px-10">Share</v-btn>
+          <v-btn outlined rounded block color="primary" class="px-10">Share This Property</v-btn>
         </v-col>
       </v-row>
 
@@ -41,7 +41,7 @@
     <v-card-text class="mx-auto" style="width: 80%;">
       <template v-if="location">
         <p class="title text-center primary--text">About</p>
-        <p class="body-2">Address: {{location.address}}</p>
+        <p class="body-2">Address: {{location.address}}, {{location.city}} {{location.state}} {{location.zipcode}}</p>
         <p class="body-2">Founded: 1971</p>
         <p class="body-2">Joined SOWerk: 2020</p>
       </template>
@@ -59,9 +59,11 @@
     <v-card-text class="mx-auto" style="width: 80%;">
       <template v-if="location">
         <p class="title text-center primary--text">Main Contact</p>
-        <p class="body-2">{{location.name}}</p>
+        <p class="body-2">{{location.contact_first_name}} {{location.contact_last_name}}</p>
         <p class="body-2">{{location.email}}</p>
         <p class="body-2">{{location.phone}}</p>
+        <p class="body-2" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Staff Admin</p>
+        <p class="body-2" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Super Admin</p>
       </template>
       <template v-else-if="company">
         <p class="title text-center primary--text">Profile Contact</p>

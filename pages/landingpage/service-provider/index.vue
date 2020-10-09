@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import SPSearch from "~/components/landing/SPSearch.vue";
+import SPSearch from "~/components/landing/service-provider/SPSearch.vue";
 
 export default {
   data() {

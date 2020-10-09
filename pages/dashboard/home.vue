@@ -4,7 +4,7 @@
       <HomeCard
         v-if="locations"
         :items="locations"
-        title="Your Facilities"
+        :title="'Your Facilities - ' + locations.length"
         :tableProperties="headers"
         slug="/dashboard/facilities/"
       ></HomeCard>
@@ -167,6 +167,7 @@
           },
         ],
         headers: [
+          { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
           { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
@@ -191,10 +192,10 @@
     async mounted () {
       setTimeout(async () => {
         console.log(this.currentUser);
-        // if(!this.currentUser) this.$router.go();
-        // this.loading = true;
-        // await this.getUser();
-        // await this.getLocations();
+        if(!this.currentUser) this.$router.go();
+        this.loading = true;
+        await this.getUser();
+        await this.getLocations();
       }, 1000)
     },
     computed: {
@@ -216,6 +217,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.locations = data;
+          console.log(this.locations, 'locations', data, 'data')
         })
         this.loading = false;
       },

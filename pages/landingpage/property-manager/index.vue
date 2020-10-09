@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import PFSearch from "~/components/landing/PFSearch.vue"
+import PFSearch from "~/components/landing/property-manager/PFSearch.vue"
 
 export default {
   data() {

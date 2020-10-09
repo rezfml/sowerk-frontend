@@ -15,24 +15,26 @@
             :filters="filters"
           ></FilterCard>
         </v-col>
-        <v-col cols="9" class="d-flex flex-column justify-space-between">
-          <HomeCard
+        <v-col cols="9" class="d-flex flex-column justify-start">
+          <FacilitiesCard
             :title="'Your Facilities - ' + locations.length"
             :items="locations"
             :tableProperties="headers"
             :viewAll="false"
             slug="/dashboard/facilities/"
-          ></HomeCard>
-          <v-btn
-            max-width="300px"
-            style="align-self: flex-end;"
-            class="mb-12"
-            large
-            color="primary"
-            to="add"
-          >
-            Register New Location
-          </v-btn>
+          ></FacilitiesCard>
+          <v-row class="d-flex justify-space-between align-center"style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+            <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+            <v-btn
+              style=""
+              class="px-16 mr-16"
+              large
+              outlined
+              rounded
+              color="white"
+              to="add"
+            >Add Now</v-btn>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -42,12 +44,13 @@
 <script>
   import HomeCard from '~/components/dashboard/HomeCard'
   import FilterCard from '~/components/dashboard/FilterCard'
+  import FacilitiesCard from '@/components/dashboard/FacilitiesCard'
 
   export default {
     name: 'facilities',
     layout: 'app',
     components: {
-      HomeCard,
+      FacilitiesCard,
       FilterCard
     },
     data() {
