@@ -49,7 +49,7 @@
 
       <div v-if="company && company.company_type === 1">
         <template v-for="(link, index) in items">
-          <v-list-item v-if="!link.children" :key="index">
+          <v-list-item v-if="!link.children" :key="index" :to="link.to">
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
@@ -146,7 +146,19 @@
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
-            text: 'Facilities'
+            text: 'My Properties',
+            children: [
+              {
+                to: '/dashboard/facilities/',
+                slug: 'facilities',
+                text: 'My Properties'
+              },
+              {
+                to: '/dashboard/facilities/add',
+                slug: 'add_facilities',
+                text: 'Add New Property'
+              }
+            ]
           },
           {
             to: '/dashboard/vendors/',

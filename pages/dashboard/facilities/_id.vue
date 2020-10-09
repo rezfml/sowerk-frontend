@@ -6,7 +6,7 @@
           <ProfileCard :location="location" v-if="location"></ProfileCard>
         </v-col>
         <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">
-          <ProfileEditCard :location="location" v-if="location"></ProfileEditCard>
+          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location"></ProfileEditCard>
           <CustomFormCard></CustomFormCard>
         </v-col>
       </v-row>
@@ -31,6 +31,10 @@
       ProfileEditCard,
       CustomFormCard
     },
+    adminLevels: [
+      1,
+      0
+    ],
     data() {
       return {
         locations: [

@@ -98,6 +98,8 @@
                 <v-select
                   id="company-best"
                   label="What Best Describes You*"
+                  :item-text="bestSelection.text"
+                  :item-value="bestSelection.value"
                   :items="bestSelection"
                   v-model="company.bestDescription"></v-select>
               </v-col>
@@ -144,6 +146,7 @@
                           v-on:focus.native="animateAddressFieldOnFocus"
                           v-on:blur.native="animateAddressFieldOnFocus"
                           v-on:input.native="animateAddressFieldOnFilled"
+                          v-model="fullAddress"
                         >
                         </vue-google-autocomplete>
                       </client-only>
@@ -169,12 +172,15 @@
 
 <script>
 import VImageInput from 'vuetify-image-input'
-import Vue from 'vue'
+import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
 export default {
   name: 'CompanyDetails',
   components: {
     VImageInput,
+    GmapCluster,
+    VueGoogleMaps
   },
   props: {
     company: {
@@ -189,43 +195,18 @@ export default {
       type: Array,
       return: true,
     },
-
+    fullAddress: {
+      type: String,
+      return: true,
+    },
     getAddressData: {
-      type: Function,
-      getAddressData(addressData) {
-        console.log(addressData)
-        this.company.address =
-          addressData.street_number + ' ' + addressData.route
-        this.company.city = addressData.locality
-        this.company.state = addressData.administrative_area_level_1
-        this.company.zipcode = addressData.postal_code
-        this.formatFullAddress()
-      },
+      type: Function
     },
     animateAddressFieldOnFocus: {
-      type: Function,
-      animateAddressFieldOnFocus(e) {
-        let addressLabel = e.target.previousElementSibling
-        addressLabel.classList.toggle('v-label--focus')
-      },
+      type: Function
     },
     animateAddressFieldOnFilled: {
-      type: Function,
-      animateAddressFieldOnFilled(e) {
-        if (e.target != '') {
-          if (
-            e.target.previousElementSibling.classList.contains(
-              'v-label--filled'
-            )
-          ) {
-            return
-          } else {
-            e.target.previousElementSibling.classList.add('v-label--filled')
-          }
-        } else {
-          e.target.previousElementSibling.classList.remove('v-label--filled')
-        }
-      },
+      type: Function
     },
   },
 }
