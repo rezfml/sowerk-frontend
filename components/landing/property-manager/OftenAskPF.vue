@@ -73,7 +73,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
-          <v-btn class="text-uppercase primary mx-auto" x-large width="30%"
+          <v-btn class="text-uppercase primary mx-auto" x-large width="30%" to="/landingpage/property-manager"
             >Provider Facility - Learn More</v-btn
           >
         </v-col>
