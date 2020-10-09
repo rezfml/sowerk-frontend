@@ -9,7 +9,8 @@
             Service Providers Often Ask
           </p>
           <v-list
-            :width="$vuetify.breakpoint.mdAndUp ? '80%' : '100%'"
+            max-width="950px"
+            :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
             class="mx-auto"
           >
             <v-list-item class="mt-8 mb-12">
@@ -23,7 +24,10 @@
                   class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
                   >Do I Seriously Get More Jobs?</v-list-item-title
                 >
-                <v-list-item-subtitle class="text-subtitle-1 wrap-text" style="line-height: 23px">
+                <v-list-item-subtitle
+                  class="text-subtitle-1 wrap-text"
+                  style="line-height: 23px"
+                >
                   <p>
                     Yes, Property & Facility managers of all sizes use SOWerk to
                     manage their approved vendor program. We make it easy for
@@ -51,7 +55,10 @@
                   >Will SOWerk Save Us Money? Will It Protect Our
                   Investments?</v-list-item-title
                 >
-                <v-list-item-subtitle class="text-subtitle-1 wrap-text" style="line-height: 23px">
+                <v-list-item-subtitle
+                  class="text-subtitle-1 wrap-text"
+                  style="line-height: 23px"
+                >
                   <p>
                     Not at all, a SOWerk profile only takes 10 minuets to setup.
                   </p>
@@ -80,7 +87,10 @@
                   >Will SOWerk Help Shield Me From Cold
                   Calls?</v-list-item-title
                 >
-                <v-list-item-subtitle class="text-subtitle-1 wrap-text" style="line-height: 23px">
+                <v-list-item-subtitle
+                  class="text-subtitle-1 wrap-text"
+                  style="line-height: 23px"
+                >
                   <p>
                     Unlike other websites, SOWerk service providers receive
                     communications from their approved vendor programs, direct
@@ -100,7 +110,7 @@
           <v-btn
             class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
             x-large
-            width="40%"
+            :width="$vuetify.breakpoint.mdAndUp ? '60%' : '70%'"
             style="border-radius: 20px; font-weight: bold"
             to="/landingpage/service-provider"
             >Service Provider - Learn More</v-btn

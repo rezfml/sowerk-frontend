@@ -3,10 +3,16 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="d-flex flex-column">
-          <p class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center">
+          <p
+            class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+          >
             Property and Facility Managers Often Ask
           </p>
-          <v-list :width="$vuetify.breakpoint.mdAndUp ? '80%' : '100%'" class="mx-auto">
+          <v-list
+            max-width="950px"
+            :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
+            class="mx-auto"
+          >
             <v-list-item class="mt-8 mb-12">
               <v-list-item-icon
                 ><v-icon color="primary" size="40"
@@ -73,7 +79,11 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
-          <v-btn class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2" x-large width="40%" style="border-radius: 20px; font-weight: bold" to="/landingpage/property-manager"
+          <v-btn
+            class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+            :width="$vuetify.breakpoint.mdAndUp ? '60%' : '70%'"
+            style="border-radius: 20px; font-weight: bold"
+            to="/landingpage/property-manager"
             >Provider Facility - Learn More</v-btn
           >
         </v-col>
@@ -89,12 +99,11 @@ export default {
 </script>
 
 <style scoped>
-  .wrap-text {
-    -webkit-line-clamp: unset !important;
-    overflow: visible!important;
-    text-overflow: unset!important;
-    white-space: unset!important;
-    line-height: 1.5rem;
-  }
-
+.wrap-text {
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: unset !important;
+  line-height: 1.5rem;
+}
 </style>
