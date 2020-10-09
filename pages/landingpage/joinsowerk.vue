@@ -1,5 +1,22 @@
 <template>
+
   <div id="joincontainer">
+        <v-row style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; height: 80vh; max-height: 1200px;" align-content="center" class="pt-12">
+      <v-card max-height="400px" height="50vh" width="60%" max-width="1200px" class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
+        <v-card-title style="width: 100%;"><v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk Logo" contain height="80"></v-img></v-card-title>
+        <v-card-text class="d-flex flex-column justify-center">
+          <p class="white--text text-h3 text-center font-weight-bold">The Approved Vendor Platform</p>
+          <p class="white--text text-center text-h5">The Link Between Service Providers & Businesses</p>
+          <div style="display: flex; flex-direction: row; justify-content: center">
+          <v-btn class=" primary ma-3" x-large width="100%" max-width="350" to="/landingpage/service-provider">Service Providers</v-btn>
+          <v-btn class=" primary ma-3" x-large width="100%" max-width="350" to="/landingpage/property-manager">Property & Facility Managers</v-btn>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-row>
     <section class="joinhero">
       <div class="joinherotext">
         <img

@@ -110,7 +110,7 @@
           <v-btn
             class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
             x-large
-            :width="$vuetify.breakpoint.mdAndUp ? '60%' : '70%'"
+            :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
             style="border-radius: 20px; font-weight: bold"
             to="/landingpage/service-provider"
             >Service Provider - Learn More</v-btn
