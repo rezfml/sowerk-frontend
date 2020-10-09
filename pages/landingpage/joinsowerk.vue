@@ -1,18 +1,58 @@
 <template>
-
   <div id="joincontainer">
-        <v-row style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
+    <v-row
+      style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; height: 80vh; max-height: 1200px;" align-content="center" class="pt-12">
-      <v-card max-height="400px" height="50vh" width="60%" max-width="1200px" class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
-        <v-card-title style="width: 100%;"><v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk Logo" contain height="80"></v-img></v-card-title>
+  background-size: cover; height: 80vh; max-height: 1200px;"
+      align-content="center"
+      class="pt-12"
+    >
+      <v-card
+        max-height="400px"
+        height="50vh"
+        width="60%"
+        max-width="1200px"
+        style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
+        class="d-flex flex-column justify-center align-center"
+        color="rgba(0,0,0,0.7)"
+      >
+        <v-card-title style="width: 100%;"
+          ><v-img
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
+            alt="SOWerk Logo"
+            contain
+            height="80"
+          ></v-img
+        ></v-card-title>
         <v-card-text class="d-flex flex-column justify-center">
-          <p class="white--text text-h3 text-center font-weight-bold">The Approved Vendor Platform</p>
-          <p class="white--text text-center text-h5">The Link Between Service Providers & Businesses</p>
-          <div style="display: flex; flex-direction: row; justify-content: center">
-          <v-btn class=" primary ma-3" x-large width="100%" max-width="350" to="/landingpage/service-provider">Service Providers</v-btn>
-          <v-btn class=" primary ma-3" x-large width="100%" max-width="350" to="/landingpage/property-manager">Property & Facility Managers</v-btn>
+          <p class="white--text text-h3 text-center font-weight-bold">
+            The Approved Vendor Platform
+          </p>
+          <p class="white--text text-center text-h5">
+            The Link Between Service Providers & Businesses
+          </p>
+          <div
+            style="display: flex; flex-direction: row; justify-content: center"
+          >
+            <v-btn
+              class=" primary ma-3"
+              x-large
+              width="100%"
+              max-width="350"
+              style="border-radius: 20px"
+              to="/landingpage/service-provider"
+              >Service Providers</v-btn
+            >
+            <v-btn
+              class=" primary ma-3"
+              x-large
+              width="100%"
+              max-width="350"
+              style="border-radius: 20px"
+              to="/landingpage/property-manager"
+              >Property & Facility Managers</v-btn
+            >
           </div>
         </v-card-text>
       </v-card>
@@ -26,8 +66,12 @@
         <h1>The Approved Vendor Platform</h1>
         <p>The Link Between Service Providers & Businesses</p>
         <div>
-          <button @click="$router.push('/landingpage/service-provider')">SERVICE PROVIDERS</button>
-          <button @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY MANAGERS</button>
+          <button @click="$router.push('/landingpage/service-provider')">
+            SERVICE PROVIDERS
+          </button>
+          <button @click="$router.push('/landingpage/property-manager')">
+            PROPERTY & FACILITY MANAGERS
+          </button>
         </div>
       </div>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -59,7 +103,9 @@
             <li>Governments</li>
             <li>Restaurant Groups</li>
           </ul>
-          <button @click="$router.push('/register/property-manager')">PROPERTY & FACILITY MANAGERS</button>
+          <button @click="$router.push('/register/property-manager')">
+            PROPERTY & FACILITY MANAGERS
+          </button>
         </div>
         <img />
         <div class="joinlinkflexcolumn">
@@ -89,7 +135,9 @@
               <li>General Contractor</li>
             </ul>
           </div>
-          <button @click="$router.push('/register/provider')">SERVICE PROVIDERS</button>
+          <button @click="$router.push('/register/provider')">
+            SERVICE PROVIDERS
+          </button>
         </div>
       </div>
     </section>
@@ -176,7 +224,9 @@
               request for a bid.
             </p>
           </div>
-          <button @click="$router.push('/landingpage/property-manager')">See All Features</button>
+          <button @click="$router.push('/landingpage/property-manager')">
+            See All Features
+          </button>
         </div>
       </div>
       <img />
@@ -216,7 +266,9 @@
               quickly with a bid.
             </p>
           </div>
-          <button @click="$router.push('/landingpage/service-provider')">See All Features</button>
+          <button @click="$router.push('/landingpage/service-provider')">
+            See All Features
+          </button>
         </div>
       </div>
     </section>
@@ -229,7 +281,10 @@
         <div>
           <h4>
             <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+              <img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
+                alt="sowerk icon"
+              />
             </span>
             Is This Going To Create More Work For Me?
           </h4>
@@ -246,7 +301,10 @@
         <div>
           <h4>
             <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+              <img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
+                alt="sowerk icon"
+              />
             </span>
             Will SOWerk Save Us Money? Will It Protect Our Investments?
           </h4>
@@ -265,7 +323,10 @@
         <div>
           <h4>
             <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+              <img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
+                alt="sowerk icon"
+              />
             </span>
             Will SOWerk Help Shield Me From Cold Calls?
           </h4>
@@ -276,13 +337,18 @@
           </p>
         </div>
       </div>
-      <button @click="$router.push('/landingpage/join-product-landing')">PROPERTY & FACILITY LEARN MORE</button>
+      <button @click="$router.push('/landingpage/join-product-landing')">
+        PROPERTY & FACILITY LEARN MORE
+      </button>
       <h1>Service Providers Generally Ask</h1>
       <div class="joinfaqflex">
         <div>
           <h4>
             <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+              <img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
+                alt="sowerk icon"
+              />
             </span>
             Do I Seriously Get More Jobs?
           </h4>
@@ -304,7 +370,10 @@
         <div>
           <h4>
             <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+              <img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
+                alt="sowerk icon"
+              />
             </span>
             Is SOWerk Time Consuming and Hard To Use?
           </h4>
@@ -323,7 +392,10 @@
         <div>
           <h4>
             <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
+              <img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
+                alt="sowerk icon"
+              />
             </span>
             Will I Get Charged All The Time & Get Junk Leads?
           </h4>
@@ -341,7 +413,9 @@
           </p>
         </div>
       </div>
-      <button @click="$router.push('/landingpage/join-service-landing')">SERVICE PROVIDER LEARN MORE</button>
+      <button @click="$router.push('/landingpage/join-service-landing')">
+        SERVICE PROVIDER LEARN MORE
+      </button>
     </section>
   </div>
 </template>
@@ -353,11 +427,11 @@ import AllReviews from '../../components/landing/general/AllReviews'
 export default {
   data: () => ({
     allReviews: [],
-    reviews: []
+    reviews: [],
   }),
   components: {
     Reviews,
-    AllReviews
+    AllReviews,
   },
   mounted() {
     this.getReviews()
@@ -371,7 +445,7 @@ export default {
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.allReviews = data
         console.log(this.allReviews, 'allReviews')
       })
@@ -383,12 +457,12 @@ export default {
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.reviews = data
         console.log(this.reviews, 'reviews')
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -585,7 +659,7 @@ export default {
   justify-content: center;
   align-items: center;
   background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
-  linear-gradient(#444444, #2b2b2b);
+    linear-gradient(#444444, #2b2b2b);
   background-size: cover;
 }
 .joinconnection h1 {
@@ -709,11 +783,11 @@ export default {
   padding: 15px 0px 15px 0px;
   margin-top: 20px;
 }
-.joinfaqflex img{
+.joinfaqflex img {
   margin-left: -10%;
   margin-right: unset !important;
   width: 5% !important;
-  height:auto;
+  height: auto;
 }
 
 @media (max-width: 1280px) {
@@ -877,7 +951,6 @@ export default {
   .joinherotext {
     width: 100%;
     border-radius: 0;
-
   }
 
   .joinherotext img {
@@ -894,16 +967,15 @@ export default {
     align-items: center;
   }
 
-  .joinlink .joinlinkflex .joinlinkflexcolumn{
+  .joinlink .joinlinkflex .joinlinkflexcolumn {
     margin: 10px 2% 10px 2%;
     width: 100%;
     max-width: 70%;
   }
 
   .joinlink .joinlinkflex .joinlinkflexcolumn img {
-width: 28%;
+    width: 28%;
   }
-
 
   .joinfaq h1 {
     font-size: 40px;
@@ -924,27 +996,26 @@ width: 28%;
     width: 85%;
   }
 
-  .joinlinkflex  {
+  .joinlinkflex {
     width: 100%;
-    
-}
-.jointraits div {
-  flex: 0 50%;
-}
-.joinconnection h1 {
-  font-size: 42px;
-}
-.joinconnection {
-  flex-direction: column;
-}
+  }
+  .jointraits div {
+    flex: 0 50%;
+  }
+  .joinconnection h1 {
+    font-size: 42px;
+  }
+  .joinconnection {
+    flex-direction: column;
+  }
 
-.joinconnection .joinconnectioncolumn {
-  width: 80%;
-}
+  .joinconnection .joinconnectioncolumn {
+    width: 80%;
+  }
 
-.joinconnection h1 {
-  font-size: 40px;
-  width: 100%;
-}
+  .joinconnection h1 {
+    font-size: 40px;
+    width: 100%;
+  }
 }
 </style>

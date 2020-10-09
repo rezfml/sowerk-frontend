@@ -4,7 +4,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; height: 80vh; max-height: 1200px;" align-content="center" class="pt-12">
-      <v-card max-height="400px" height="50vh" width="60%" max-width="1200px" class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
+      <v-card max-height="400px" height="50vh" width="60%" max-width="1200px" style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
         <v-card-title style="width: 100%;"><v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk Logo" contain height="80"></v-img></v-card-title>
         <v-card-text class="d-flex flex-column justify-center">
           <p class="white--text text-h3 text-center font-weight-bold">The Approved Vendor Platform</p>
