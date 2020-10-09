@@ -29,12 +29,6 @@
                 <v-btn  class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/service-provider"> Learn More - Service Provider</v-btn>
                 <v-btn class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/property-manager"> Learn More - Property & Facility</v-btn>
               </v-flex>
-              <!-- <v-col cols="12" md="6">
-                <v-btn  class="py-5 mr-5 white--text text-body-1" xs-small outlined rounded to="/landingpage/service-provider">Learn More - Service Provider</v-btn>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-btn class="py-5 white--text" xs-small outlined rounded to="/landingpage/property-manager">Learn More - Property & Facility</v-btn>
-              </v-col> -->
             </v-row>
           </v-col>
         </v-row>

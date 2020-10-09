@@ -1,5 +1,6 @@
 <template>
   <div id="joincontainer">
+    <!-- HERO -->
     <v-row
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -57,29 +58,131 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <section class="joinhero">
-      <div class="joinherotext">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png"
-        />
-        <!-- This needs to be an img idk where it is located though -->
-        <h1>The Approved Vendor Platform</h1>
-        <p>The Link Between Service Providers & Businesses</p>
-        <div>
-          <button @click="$router.push('/landingpage/service-provider')">
-            SERVICE PROVIDERS
-          </button>
-          <button @click="$router.push('/landingpage/property-manager')">
-            PROPERTY & FACILITY MANAGERS
-          </button>
-        </div>
-      </div>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg>
-    </section>
 
-    <section class="joinlink">
+    <!-- SoWerk Link Section -->
+    <v-container
+      fluid
+      grid-list-md
+      text-center
+      pb-8
+      style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center"
+      class="skew-top"
+    >
+       <p class="text-lg-h3 text-h4 font-weight-bold white--text" style="word-break: break-word; width: 80%; opacity: .8;">
+        SOWerk Is The Link Between Service Providers and Property & Facility
+        Managers
+      </p>
+      <v-layout
+        row  justify-center justify-md-center
+        style="max-width: 1280px;"
+      >
+        <!-- CARD 1 -->
+        <v-col cols="6" md="4" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 625px"
+          >
+            <v-card-text
+              class="text-body-2 text-md-h6"
+              style="font-weight:bold; color: black;"
+              >Property & Facility Managers</v-card-text
+            >
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+
+            <div
+              class="my-4 text-caption text-md-body-2"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              Our business to business platform provides companies and property
+            managers the tools to effiecently identify, vet, and manage service
+            providers for each of their locations.
+            </div>
+
+            <hr style="width: 80%;border: .8px solid #A61C00;" />
+            <div style="display: flex; width: 90%;  padding: 15px 10px 20px;">
+              <ul style="text-align: left; list-style: none;" class="text-caption text-md-body-2  pl-0">
+                <li>- Retail & Hospitality Chains</li>
+                <li>- Commercial Real Estate Properties</li>
+                <li>- Manufacturing Facilities</li>
+                <li>- Warehouse & Distribution</li>
+                <li>- Governments</li>
+                <li>- Restaurant Groups</li>
+              </ul>
+            </div>
+            <v-btn style="color: white;background:#A61C00; border-radius: 20px" md-large small>Property & Facility Managers</v-btn>
+          </v-card>
+        </v-col>
+
+        <!-- ARROWS -->
+        <v-col cols="2" md="3" class="justify-center pa-sm-0 d-sm-none d-none d-md-flex" position="center">
+          <v-icon size="16vw" color="white">mdi-swap-horizontal</v-icon>
+        </v-col>
+
+        <!-- CARD 2 -->
+        <v-col cols="6" md="4" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height:625px"
+          >
+            <v-card-text
+              class="text-body-2 text-md-h6"
+              style="font-weight:bold; color: black;"
+              >Service Providers</v-card-text
+            >
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+
+            <div
+              class="my-4 text-caption text-md-body-2"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+               For service providers, SOWerk makes it possible for you to become an
+            approved vendor, receive job request, and communicate with business
+            owners
+            </div>
+            <hr style="width: 80%; border: .8px solid #A61C00;" />
+            <div
+            class="pl-3"
+              style="display: flex; width: 90%; justify-content: space-between; padding: 15px 0;"
+            >
+              <ul class="text-caption text-md-body-2 pl-0" style="text-align: left; list-style: none;">
+                <li>- Electrician</li>
+                <li>- HVAC</li>
+                <li>- Plumber</li>
+                <li>- Landscaper</li>
+                <li>- Printing</li>
+                <li>- Paving</li>
+              </ul>
+              <ul style="text-align: left; list-style: none;  pl-0" class="text-caption text-md-body-2">
+                <li>- Excavation</li>
+                <li>- Pest Control</li>
+                <li>- Waste</li>
+                <li>- Engineer</li>
+                <li>- General Contractor</li>
+              </ul>
+            </div>
+            <v-btn style="color: white;background:#A61C00; border-radius: 20px" md-large small >Service Providers</v-btn>
+          </v-card>
+        </v-col>
+      </v-layout>
+    </v-container>
+
+    <!-- <section class="joinlink">
       <h1>
         SOWerk Is The Link Between Service Providers and Property & Facility
         Managers
@@ -140,7 +243,7 @@
           </button>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="joincaroselreview">
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
@@ -472,63 +575,23 @@ export default {
   padding: 0px !important;
   font-family: Roboto;
 }
-.joinhero {
-  background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-}
-.joinhero svg {
-  width: 100%;
-  height: 9vh;
-  fill: #a61c00;
-  margin-top: 20px;
-}
-.joinherotext {
-  background: rgb(0, 0, 0, 0.65);
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-  width: 68%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
+
+.skew-top{
+  position: relative;
+  z-index: 30;
 }
 
-.joinherotext h1,
-.joinherotext p,
-.joinherotext button {
-  color: rgb(255, 255, 255, 1);
-}
-.joinherotext img {
-  /* width: 50%; */
-  margin-top: -200px;
-  height: 600px;
-}
-.joinherotext h1 {
-  margin-top: -250px;
-  font-size: 55px;
-}
-.joinherotext p {
-  font-size: 23px;
-}
-.joinherotext div {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.joinherotext button {
-  background: #a61c00;
-  border-radius: 20px;
-  width: 45%;
-  padding: 20px 0px 20px 0px;
-  margin: 0px 5% 50px 5%;
-  font-size: 20px;
+.skew-top:before{
+  position: absolute;
+  content: '';
+  background-color: #a61c00;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -20;
+  transform-origin: top left;
+  transform: skewY(-2deg);
 }
 
 .joinlink {
@@ -791,18 +854,6 @@ export default {
 }
 
 @media (max-width: 1280px) {
-  .joinherotext h1 {
-    font-size: 45px;
-  }
-
-  .joinherotext p {
-    font-size: 22px;
-  }
-
-  .joinherotext button {
-    font-size: 18px;
-  }
-
   .joinlink h1 {
     font-size: 36px;
   }
@@ -829,17 +880,6 @@ export default {
 }
 
 @media (max-width: 1060px) {
-  .joinherotext h1 {
-    font-size: 43px;
-  }
-
-  .joinherotext p {
-    font-size: 21px;
-  }
-  .joinherotext button {
-    font-size: 16px;
-  }
-
   .joinlinkflex {
     width: 90%;
   }
@@ -868,23 +908,6 @@ export default {
 }
 
 @media (max-width: 950px) {
-  .joinherotext img {
-    width: 100%;
-  }
-
-  .joinherotext h1 {
-    font-size: 40px;
-  }
-
-  .joinherotext p {
-    font-size: 19px;
-  }
-
-  .joinherotext button {
-    padding: 10px 0 10px 0;
-    font-size: 15px;
-  }
-
   .joinlinkflex {
     width: 100%;
   }
@@ -948,15 +971,6 @@ export default {
 }
 
 @media (max-width: 850px) {
-  .joinherotext {
-    width: 100%;
-    border-radius: 0;
-  }
-
-  .joinherotext img {
-    width: 525px;
-  }
-
   .joinlink h1 {
     width: 80%;
   }
@@ -983,14 +997,6 @@ export default {
 }
 
 @media (max-width: 680px) {
-  .joinherotext h1 {
-    font-size: 38px;
-  }
-
-  .joinherotext button {
-    font-size: 14px;
-  }
-
   .joinlink h1 {
     font-size: 26px;
     width: 85%;
