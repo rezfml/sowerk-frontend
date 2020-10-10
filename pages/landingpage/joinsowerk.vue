@@ -1,6 +1,6 @@
 <template>
   <div id="joincontainer">
-    <!-- HERO -->
+    <!-- HERO SECTION-->
     <v-row
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -59,10 +59,9 @@
       </v-card>
     </v-row>
 
-    <!-- SoWerk Link Section -->
+    <!-- SOWERK LINK SECTION -->
     <v-container
       fluid
-      grid-list-md
       text-center
       pb-8
       style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center"
@@ -75,64 +74,73 @@
         SOWerk Is The Link Between Service Providers and Property & Facility
         Managers
       </p>
-      <v-layout row justify-center justify-md-center style="max-width: 1280px;">
+      <!-- <v-layout row justify-center justify-md-center style="max-width: 1280px;"> -->
+
+      <v-row style="max-width: 1280px;" class="justify-center">
         <!-- CARD 1 -->
-        <v-col cols="6" md="4" sm="6">
-          <v-card
-            align="center"
-            class="mx-1"
-            style="border-radius: 20px; height: 625px"
-          >
-            <v-card-text
-              class="text-body-2 text-md-h6"
-              style="font-weight:bold; color: black;"
-              >Property & Facility Managers</v-card-text
-            >
-            <div
-              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
-            >
-              <v-img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
-                style="object-fit: contain;"
-              ></v-img>
-            </div>
+        <v-col cols="12" sm="8" md="5">
+          <v-card  align="center"
+            class="ma-1" style="border-radius: 20px; height: 100%">
+            <v-card-title>
+              <p class="mx-auto text-center">Property & Facility Manager</p>
+            </v-card-title>
 
-            <div
-              class="my-4 text-caption text-md-body-2"
-              style="width: 80%; font-size: 1rem; text-align: justify"
-            >
-              Our business to business platform provides companies and property
-              managers the tools to effiecently identify, vet, and manage
-              service providers for each of their locations.
-            </div>
+            <v-card-text >
+              <v-row >
+                <v-col cols="6" offset="3">
+                  <v-img
+                    src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
+                    style="object-fit: contain; width: 100%;"
+                  ></v-img>
+                </v-col>
 
-            <hr style="width: 80%;border: .8px solid #A61C00;" />
-            <div style="display: flex; width: 90%;  padding: 15px 10px 20px;">
-              <ul
-                style="text-align: left; list-style: none;"
-                class="text-caption text-md-body-2  pl-0"
-              >
-                <li>- Retail & Hospitality Chains</li>
-                <li>- Commercial Real Estate Properties</li>
-                <li>- Manufacturing Facilities</li>
-                <li>- Warehouse & Distribution</li>
-                <li>- Governments</li>
-                <li>- Restaurant Groups</li>
-              </ul>
-            </div>
-            <v-btn
-              style="color: white;background:#A61C00; border-radius: 20px"
-              md-large
-              small
-              >Property & Facility Managers</v-btn
-            >
+                <v-col cols="12">
+                  <p
+                    class="text-justify mx-auto my-2"
+                    style="max-width: 350px; width: 80%"
+                  >
+                    Our business to business platform provides companies and
+                    property managers the tools to effiecently identify, vet,
+                    and manage service providers for each of their locations.
+                  </p>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-divider
+                    class="my-1"
+                    style="width: 80%; border: .8px solid #A61C00"
+                  ></v-divider>
+                </v-col>
+
+                <v-col class="12 mx-auto" style="max-width: 350px;">
+                  <ul style="list-style: none; text-align: left">
+                    <li>- Retail & Hospitality Chains</li>
+                    <li>- Commercial Real Estate Properties</li>
+                    <li>- Manufacturing Facilities</li>
+                    <li>- Warehouse & Distribution</li>
+                    <li>- Governments</li>
+                    <li>- Restaurant Groups</li>
+                  </ul>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-btn
+                    style="color: white; background:#A61C00; border-radius: 16px"
+                    block
+                    large
+                    to="/landingpage/property-manager"
+                    >Property & Facility Managers</v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-card-text>
           </v-card>
         </v-col>
 
-        <!-- ARROWS -->
+        <!-- ARROWS - hidden on mobile for now-->
         <v-col
           cols="2"
-          md="3"
+          md="2"
           class="justify-center pa-sm-0 d-sm-none d-none d-md-flex"
           position="center"
         >
@@ -140,70 +148,73 @@
         </v-col>
 
         <!-- CARD 2 -->
-        <v-col cols="6" md="4" sm="6">
+        <v-col cols="12" sm="8" md="5">
           <v-card
             align="center"
-            class="mx-1"
-            style="border-radius: 20px; height:625px"
+            class="ma-1"
+            style="border-radius: 20px; height: 100%"
           >
-            <v-card-text
-              class="text-body-2 text-md-h6"
-              style="font-weight:bold; color: black;"
-              >Service Providers</v-card-text
-            >
-            <div
-              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
-            >
-              <v-img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
-                style="object-fit: contain;"
-              ></v-img>
-            </div>
+            <v-card-title>
+              <p class="mx-auto text-center">Service Providers</p>
+            </v-card-title>
 
-            <div
-              class="my-4 text-caption text-md-body-2"
-              style="width: 80%; font-size: 1rem; text-align: justify"
-            >
-              For service providers, SOWerk makes it possible for you to become
-              an approved vendor, receive job request, and communicate with
-              business owners
-            </div>
-            <hr style="width: 80%; border: .8px solid #A61C00;" />
-            <div
-              class="pl-3"
-              style="display: flex; width: 90%; justify-content: space-between; padding: 15px 0;"
-            >
-              <ul
-                class="text-caption text-md-body-2 pl-0"
-                style="text-align: left; list-style: none;"
-              >
-                <li>- Electrician</li>
-                <li>- HVAC</li>
-                <li>- Plumber</li>
-                <li>- Landscaper</li>
-                <li>- Printing</li>
-                <li>- Paving</li>
-              </ul>
-              <ul
-                style="text-align: left; list-style: none;  pl-0"
-                class="text-caption text-md-body-2"
-              >
-                <li>- Excavation</li>
-                <li>- Pest Control</li>
-                <li>- Waste</li>
-                <li>- Engineer</li>
-                <li>- General Contractor</li>
-              </ul>
-            </div>
-            <v-btn
-              style="color: white;background:#A61C00; border-radius: 20px"
-              md-large
-              small
-              >Service Providers</v-btn
-            >
+            <v-card-text >
+              <v-row>
+                <v-col cols="6" offset="3">
+                  <v-img
+                    src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
+                    style="object-fit: contain; width: 100%;"
+                  ></v-img>
+                </v-col>
+
+                <v-col cols="12">
+                  <p class="text-justify mx-auto my-2" style="max-width: 350px; width: 80%">
+                    For service providers, SOWerk makes it possible for you to
+                    become an approved vendor, receive job request, and
+                    communicate with business owners
+                  </p>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-divider
+                    class="my-1"
+                    style="width: 80%; border: .8px solid #A61C00"
+                  ></v-divider>
+                </v-col>
+
+                <v-col cols="12 mx-auto" style="max-width: 350px;">
+                  <ul
+                    style="column-count: 2; list-style: none; text-align: left"
+                  >
+                    <li>- Electrician</li>
+                    <li>- HVAC</li>
+                    <li>- Plumber</li>
+                    <li>- Landscaper</li>
+                    <li>- Printing</li>
+                    <li>- Paving</li>
+                    <li>- Excavation</li>
+                    <li>- Pest Control</li>
+                    <li>- Waste</li>
+                    <li>- Engineer</li>
+                    <li>- Contractor</li>
+                  </ul>
+                </v-col>
+
+                <v-col cols="12 mt-4">
+                  <v-btn
+                    style="color: white; background:#A61C00; border-radius: 16px"
+                    block
+                    large
+                    to="/landingpage/service-provider"
+                    >Service Providers</v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-card-text>
           </v-card>
         </v-col>
-      </v-layout>
+      </v-row>
+      <!-- </v-layout> -->
     </v-container>
 
     <!-- <section class="joinlink">
@@ -269,144 +280,142 @@
       </div>
     </section> -->
 
-   <!-- All Reviews Section -->
+    <!-- All Reviews Section -->
     <section class="joincaroselreview">
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
     </section>
 
     <!-- Join Traits Section -->
     <v-container
-    fluid
-    grid-list-md
-    text-center
-    pb-8
-    style="background:#2B2B2B; display: flex; justify-content: center"
-  >
-    <v-layout row style="max-width: 1280px;">
-      <!-- CARD 1 -->
-      <v-col cols="12" lg="3" sm="6">
-        <v-card
-          align="center"
-          class="mx-1"
-          style="border-radius: 20px; height: 480px"
-        >
-          <div
-            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+      fluid
+      grid-list-md
+      text-center
+      pb-8
+      style="background:#2B2B2B; display: flex; justify-content: center"
+    >
+      <v-layout row style="max-width: 1280px;">
+        <!-- CARD 1 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
           >
-            <v-img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
-              style="object-fit: contain;"
-            ></v-img>
-          </div>
-          <v-card-text
-            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Simple & Fast</v-card-text
-          >
-          <div
-            class="my-4"
-            style="width: 80%; font-size: 1rem; text-align: justify"
-          >
-            Our simple design makes connecting with other companies quick and
-            painless while using either the desktop or mobile app.
-          </div>
-        </v-card>
-      </v-col>
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Simple & Fast</v-card-text
+            >
+            <div
+              class="my-4"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              Our simple design makes connecting with other companies quick and
+              painless while using either the desktop or mobile app.
+            </div>
+          </v-card>
+        </v-col>
 
-      <!-- CARD 2 -->
-      <v-col cols="12" lg="3" sm="6">
-        <v-card
-          align="center"
-          class="mx-1"
-          style="border-radius: 20px; height: 480px"
-        >
-          <div
-            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+        <!-- CARD 2 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
           >
-            <v-img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
-              style="object-fit: contain;"
-            ></v-img>
-          </div>
-          <v-card-text
-            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Powerful Tools</v-card-text
-          >
-          <div
-            class="my-6"
-            style="width: 80%; font-size: 1rem; text-align: justify"
-          >
-            SOWerk is designed from it’s core to solve for property and facility
-            management by providing the tools to vet & communicate grow service
-            providers.
-          </div>
-        </v-card>
-      </v-col>
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Powerful Tools</v-card-text
+            >
+            <div
+              class="my-6"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              SOWerk is designed from it’s core to solve for property and
+              facility management by providing the tools to vet & communicate
+              grow service providers.
+            </div>
+          </v-card>
+        </v-col>
 
-      <!-- CARD 3 -->
-      <v-col cols="12" lg="3" sm="6">
-        <v-card
-          align="center"
-          class="mx-1"
-          style="border-radius: 20px; height: 480px"
-        >
-          <div
-            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+        <!-- CARD 3 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
           >
-            <v-img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-              style="object-fit: contain;"
-            ></v-img>
-          </div>
-          <v-card-text
-            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Automated</v-card-text
-          >
-          <div
-            class="my-4"
-            style="width: 80%; font-size: 1rem; text-align: justify"
-          >
-            SOWerk has many automated features that help make everyone’s life
-            easy, like automatically requiring service providers to requalify or
-            automatically updating a service provider’s profile every time they
-            achieve approved vendor status.
-          </div>
-        </v-card>
-      </v-col>
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Automated</v-card-text
+            >
+            <div
+              class="my-4"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              SOWerk has many automated features that help make everyone’s life
+              easy, like automatically requiring service providers to requalify
+              or automatically updating a service provider’s profile every time
+              they achieve approved vendor status.
+            </div>
+          </v-card>
+        </v-col>
 
-      <!-- CARD 4 -->
-      <v-col cols="12" lg="3" sm="6">
-        <v-card
-          align="center"
-          class="mx-1"
-          style="border-radius: 20px; height: 480px"
-        >
-          <div
-            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+        <!-- CARD 4 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
           >
-            <v-img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-              style="object-fit: contain;"
-            ></v-img>
-          </div>
-          <v-card-text
-            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Convenient</v-card-text
-          >
-          <div
-            class="my-4"
-            style="width: 80%; font-size: 1rem; text-align: justify"
-          >
-            For the facility manager in the middle of the night that needs to
-            contact all your approved plumbers for help or a local service
-            provider that powers his business through a smart phone, SOWerk is
-            design to be convenient.
-          </div>
-        </v-card>
-      </v-col>
-    </v-layout>
-  </v-container>
-
-    
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Convenient</v-card-text
+            >
+            <div
+              class="my-4"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              For the facility manager in the middle of the night that needs to
+              contact all your approved plumbers for help or a local service
+              provider that powers his business through a smart phone, SOWerk is
+              design to be convenient.
+            </div>
+          </v-card>
+        </v-col>
+      </v-layout>
+    </v-container>
 
     <section class="joinvideo">
       <video></video>
@@ -499,7 +508,6 @@ import Reviews from '../../components/landing/general/Reviews'
 import AllReviews from '../../components/landing/general/AllReviews'
 import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
 import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
-
 
 export default {
   data: () => ({
@@ -762,7 +770,6 @@ export default {
   .joinlinkflexcolumn button {
     font-size: 14px;
   }
-
 }
 
 @media (max-width: 1060px) {
@@ -825,7 +832,6 @@ export default {
   .joinconnectioncontainerbox img {
     width: 40%;
   }
-
 }
 
 @media (max-width: 850px) {
@@ -859,7 +865,7 @@ export default {
   .joinlinkflex {
     width: 100%;
   }
-  
+
   .joinconnection h1 {
     font-size: 42px;
   }
