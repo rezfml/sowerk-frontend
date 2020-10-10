@@ -269,57 +269,144 @@
       </div>
     </section> -->
 
+   <!-- All Reviews Section -->
     <section class="joincaroselreview">
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
     </section>
 
-    <section class="jointraits">
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
-        />
-        <h5>Simple & Fast</h5>
-        <p>
-          Our simple design makes connecting with other companies quick and
-          painless while using either the desktop or mobile app.
-        </p>
-      </div>
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
-        />
-        <h5>Powerful Tools</h5>
-        <p>
-          SOWerk is designed from it’s core to solve for property and facility
-          management by providing the tools to vet & communicate grow service
-          providers.
-        </p>
-      </div>
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-        />
-        <h5>Automated</h5>
-        <p>
-          SOWerk has many automated features that help make everyone’s life
-          easy, like automatically requiring service providers to requalify or
-          automatically updating a service provider’s profile every time they
-          achieve approved vendor status.
-        </p>
-      </div>
-      <div class="jointrait">
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-        />
-        <h5>Convenient</h5>
-        <p>
-          For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
-        </p>
-      </div>
-    </section>
+    <!-- Join Traits Section -->
+    <v-container
+    fluid
+    grid-list-md
+    text-center
+    pb-8
+    style="background:#2B2B2B; display: flex; justify-content: center"
+  >
+    <v-layout row style="max-width: 1280px;">
+      <!-- CARD 1 -->
+      <v-col cols="12" lg="3" sm="6">
+        <v-card
+          align="center"
+          class="mx-1"
+          style="border-radius: 20px; height: 480px"
+        >
+          <div
+            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+          >
+            <v-img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+              style="object-fit: contain;"
+            ></v-img>
+          </div>
+          <v-card-text
+            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+            >Simple & Fast</v-card-text
+          >
+          <div
+            class="my-4"
+            style="width: 80%; font-size: 1rem; text-align: justify"
+          >
+            Our simple design makes connecting with other companies quick and
+            painless while using either the desktop or mobile app.
+          </div>
+        </v-card>
+      </v-col>
+
+      <!-- CARD 2 -->
+      <v-col cols="12" lg="3" sm="6">
+        <v-card
+          align="center"
+          class="mx-1"
+          style="border-radius: 20px; height: 480px"
+        >
+          <div
+            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+          >
+            <v-img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+              style="object-fit: contain;"
+            ></v-img>
+          </div>
+          <v-card-text
+            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+            >Powerful Tools</v-card-text
+          >
+          <div
+            class="my-6"
+            style="width: 80%; font-size: 1rem; text-align: justify"
+          >
+            SOWerk is designed from it’s core to solve for property and facility
+            management by providing the tools to vet & communicate grow service
+            providers.
+          </div>
+        </v-card>
+      </v-col>
+
+      <!-- CARD 3 -->
+      <v-col cols="12" lg="3" sm="6">
+        <v-card
+          align="center"
+          class="mx-1"
+          style="border-radius: 20px; height: 480px"
+        >
+          <div
+            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+          >
+            <v-img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+              style="object-fit: contain;"
+            ></v-img>
+          </div>
+          <v-card-text
+            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+            >Automated</v-card-text
+          >
+          <div
+            class="my-4"
+            style="width: 80%; font-size: 1rem; text-align: justify"
+          >
+            SOWerk has many automated features that help make everyone’s life
+            easy, like automatically requiring service providers to requalify or
+            automatically updating a service provider’s profile every time they
+            achieve approved vendor status.
+          </div>
+        </v-card>
+      </v-col>
+
+      <!-- CARD 4 -->
+      <v-col cols="12" lg="3" sm="6">
+        <v-card
+          align="center"
+          class="mx-1"
+          style="border-radius: 20px; height: 480px"
+        >
+          <div
+            style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+          >
+            <v-img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+              style="object-fit: contain;"
+            ></v-img>
+          </div>
+          <v-card-text
+            style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+            >Convenient</v-card-text
+          >
+          <div
+            class="my-4"
+            style="width: 80%; font-size: 1rem; text-align: justify"
+          >
+            For the facility manager in the middle of the night that needs to
+            contact all your approved plumbers for help or a local service
+            provider that powers his business through a smart phone, SOWerk is
+            design to be convenient.
+          </div>
+        </v-card>
+      </v-col>
+    </v-layout>
+  </v-container>
+
+    
 
     <section class="joinvideo">
       <video></video>
@@ -412,6 +499,7 @@ import Reviews from '../../components/landing/general/Reviews'
 import AllReviews from '../../components/landing/general/AllReviews'
 import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
 import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
+
 
 export default {
   data: () => ({
@@ -565,40 +653,7 @@ export default {
   width: 100%;
   padding: 0px 0px 100px 0px;
 }
-.jointraits {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background: #2b2b2b;
-}
 
-.jointrait {
-  width: 20%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: white;
-  border-radius: 20px;
-  margin-left: 1%;
-  margin-right: 1%;
-  margin-top: -75px;
-  margin-bottom: 25px;
-}
-
-.jointrait img {
-  width: 50%;
-  margin: 20px 25% 20px 25%;
-}
-.jointrait h5 {
-  font-size: 22px;
-}
-.jointrait p {
-  font-size: 18px;
-  width: 80%;
-  text-align: center;
-  margin: 20px 0px 20px 0px;
-}
 .joinvideo {
   background: #151515;
   height: 30vh;
@@ -691,56 +746,6 @@ export default {
   font-size: 18px;
 }
 
-.joinfaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinfaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin-top: 60px;
-  margin-bottom: 25px;
-}
-.joinfaq .joinfaqflex {
-  display: flex;
-  width: 65%;
-  justify-content: center;
-}
-.joinfaq .joinfaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinfaq .joinfaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinfaq h4 {
-  font-size: 25px;
-  margin-top: 20px;
-}
-.joinfaq p {
-  font-size: 18px;
-  margin-left: 30px;
-}
-.joinfaq button {
-  background: #a61c00;
-  color: white;
-  width: 50%;
-  border-radius: 20px;
-  padding: 15px 0px 15px 0px;
-  margin-top: 20px;
-}
-.joinfaqflex img {
-  margin-left: -10%;
-  margin-right: unset !important;
-  width: 5% !important;
-  height: auto;
-}
-
 @media (max-width: 1280px) {
   .joinlink h1 {
     font-size: 36px;
@@ -758,13 +763,6 @@ export default {
     font-size: 14px;
   }
 
-  .jointrait h5 {
-    font-size: 21px;
-  }
-
-  .jointrait p {
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 1060px) {
@@ -784,14 +782,6 @@ export default {
 
   .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
     font-size: 16px;
-  }
-
-  .joinfaq h1 {
-    font-size: 49px;
-  }
-
-  .joinfaq .joinfaqflex {
-    width: 70%;
   }
 }
 
@@ -825,23 +815,6 @@ export default {
     font-size: 12px;
   }
 
-  .jointraits {
-    flex-wrap: wrap;
-  }
-
-  .jointraits div {
-    flex: 0 45%;
-  }
-
-  .jointrait img {
-    width: 40%;
-  }
-
-  .jointrait {
-    margin-top: 0;
-    max-width: 300px;
-  }
-
   .joinconnection h1 {
     font-size: 48px;
   }
@@ -853,9 +826,6 @@ export default {
     width: 40%;
   }
 
-  .joinfaq h1 {
-    font-size: 45px;
-  }
 }
 
 @media (max-width: 850px) {
@@ -878,10 +848,6 @@ export default {
   .joinlink .joinlinkflex .joinlinkflexcolumn img {
     width: 28%;
   }
-
-  .joinfaq h1 {
-    font-size: 40px;
-  }
 }
 
 @media (max-width: 680px) {
@@ -893,9 +859,7 @@ export default {
   .joinlinkflex {
     width: 100%;
   }
-  .jointraits div {
-    flex: 0 50%;
-  }
+  
   .joinconnection h1 {
     font-size: 42px;
   }
