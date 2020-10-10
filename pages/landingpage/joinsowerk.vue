@@ -68,14 +68,14 @@
       style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center"
       class="skew-top"
     >
-       <p class="text-lg-h3 text-h4 font-weight-bold white--text" style="word-break: break-word; width: 80%; opacity: .8;">
+      <p
+        class="text-lg-h3 text-h4 font-weight-bold white--text"
+        style="word-break: break-word; width: 80%; opacity: .8;"
+      >
         SOWerk Is The Link Between Service Providers and Property & Facility
         Managers
       </p>
-      <v-layout
-        row  justify-center justify-md-center
-        style="max-width: 1280px;"
-      >
+      <v-layout row justify-center justify-md-center style="max-width: 1280px;">
         <!-- CARD 1 -->
         <v-col cols="6" md="4" sm="6">
           <v-card
@@ -102,13 +102,16 @@
               style="width: 80%; font-size: 1rem; text-align: justify"
             >
               Our business to business platform provides companies and property
-            managers the tools to effiecently identify, vet, and manage service
-            providers for each of their locations.
+              managers the tools to effiecently identify, vet, and manage
+              service providers for each of their locations.
             </div>
 
             <hr style="width: 80%;border: .8px solid #A61C00;" />
             <div style="display: flex; width: 90%;  padding: 15px 10px 20px;">
-              <ul style="text-align: left; list-style: none;" class="text-caption text-md-body-2  pl-0">
+              <ul
+                style="text-align: left; list-style: none;"
+                class="text-caption text-md-body-2  pl-0"
+              >
                 <li>- Retail & Hospitality Chains</li>
                 <li>- Commercial Real Estate Properties</li>
                 <li>- Manufacturing Facilities</li>
@@ -117,12 +120,22 @@
                 <li>- Restaurant Groups</li>
               </ul>
             </div>
-            <v-btn style="color: white;background:#A61C00; border-radius: 20px" md-large small>Property & Facility Managers</v-btn>
+            <v-btn
+              style="color: white;background:#A61C00; border-radius: 20px"
+              md-large
+              small
+              >Property & Facility Managers</v-btn
+            >
           </v-card>
         </v-col>
 
         <!-- ARROWS -->
-        <v-col cols="2" md="3" class="justify-center pa-sm-0 d-sm-none d-none d-md-flex" position="center">
+        <v-col
+          cols="2"
+          md="3"
+          class="justify-center pa-sm-0 d-sm-none d-none d-md-flex"
+          position="center"
+        >
           <v-icon size="16vw" color="white">mdi-swap-horizontal</v-icon>
         </v-col>
 
@@ -151,16 +164,19 @@
               class="my-4 text-caption text-md-body-2"
               style="width: 80%; font-size: 1rem; text-align: justify"
             >
-               For service providers, SOWerk makes it possible for you to become an
-            approved vendor, receive job request, and communicate with business
-            owners
+              For service providers, SOWerk makes it possible for you to become
+              an approved vendor, receive job request, and communicate with
+              business owners
             </div>
             <hr style="width: 80%; border: .8px solid #A61C00;" />
             <div
-            class="pl-3"
+              class="pl-3"
               style="display: flex; width: 90%; justify-content: space-between; padding: 15px 0;"
             >
-              <ul class="text-caption text-md-body-2 pl-0" style="text-align: left; list-style: none;">
+              <ul
+                class="text-caption text-md-body-2 pl-0"
+                style="text-align: left; list-style: none;"
+              >
                 <li>- Electrician</li>
                 <li>- HVAC</li>
                 <li>- Plumber</li>
@@ -168,7 +184,10 @@
                 <li>- Printing</li>
                 <li>- Paving</li>
               </ul>
-              <ul style="text-align: left; list-style: none;  pl-0" class="text-caption text-md-body-2">
+              <ul
+                style="text-align: left; list-style: none;  pl-0"
+                class="text-caption text-md-body-2"
+              >
                 <li>- Excavation</li>
                 <li>- Pest Control</li>
                 <li>- Waste</li>
@@ -176,7 +195,12 @@
                 <li>- General Contractor</li>
               </ul>
             </div>
-            <v-btn style="color: white;background:#A61C00; border-radius: 20px" md-large small >Service Providers</v-btn>
+            <v-btn
+              style="color: white;background:#A61C00; border-radius: 20px"
+              md-large
+              small
+              >Service Providers</v-btn
+            >
           </v-card>
         </v-col>
       </v-layout>
@@ -378,154 +402,16 @@
 
     <Reviews v-bind:reviews="reviews"></Reviews>
 
-    <section class="joinfaq">
-      <h1>Property and Facility Managers Often Ask</h1>
-      <div class="joinfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
-                alt="sowerk icon"
-              />
-            </span>
-            Is This Going To Create More Work For Me?
-          </h4>
-          <p>
-            Actually, we designed SOWerk to be less work for you. Think of
-            SOWerk like connecting with service providers on social media,
-            except they have to meet your approved provider requirements. From
-            here you can easily manage and communicate with your approved
-            service providers.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
-                alt="sowerk icon"
-              />
-            </span>
-            Will SOWerk Save Us Money? Will It Protect Our Investments?
-          </h4>
-          <p>
-            If time is money and quality is everything then yes SOWerk can help.
-            SOWerk makes it efficent for any staff member to vet & manage
-            local/national service providers, such as getting bids for projects
-            and communicating details. If it’s easy to get bids from multiple
-            vetted providers then it might just save you both time and money.
-            Additionally, we make service providers requalify annualy on things
-            like insurance coverage and licenses so you don’t have to.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
-                alt="sowerk icon"
-              />
-            </span>
-            Will SOWerk Help Shield Me From Cold Calls?
-          </h4>
-          <p>
-            Sales is part of any business but sometimes you just need place to
-            send the salesman where they can apply for your approved service
-            program. SOWerk is your solution.
-          </p>
-        </div>
-      </div>
-      <button @click="$router.push('/landingpage/join-product-landing')">
-        PROPERTY & FACILITY LEARN MORE
-      </button>
-      <h1>Service Providers Generally Ask</h1>
-      <div class="joinfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
-                alt="sowerk icon"
-              />
-            </span>
-            Do I Seriously Get More Jobs?
-          </h4>
-          <p>
-            Yes, Property & Facility managers of all sizes use SOWerk to manage
-            their approved vendor program. We make it easy for them to vet
-            service providers request bids.
-          </p>
-          <p></p>
-          <p>
-            SOWerk also helps you look good when applying for approved vendor
-            programs, but we also make it easy to share those good looks with
-            others. Next time your bidding a job show off your resume by
-            emailing or texting your SOWerk profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
-                alt="sowerk icon"
-              />
-            </span>
-            Is SOWerk Time Consuming and Hard To Use?
-          </h4>
-          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
-          <p>
-            With only a click or two on your computer or mobile device you can
-            use your SOWerk Profile to apply for approved vendor programs
-          </p>
-          <p>
-            Automatic Updates: When you become an approved vendor for a company
-            we automaticly display it on your profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img
-                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"
-                alt="sowerk icon"
-              />
-            </span>
-            Will I Get Charged All The Time & Get Junk Leads?
-          </h4>
-          <p>
-            Unlike other websites, SOWerk service providers receive
-            communications from their approved vendor programs, direct leads, or
-            new businesses inviting them to apply for approved vendor program.
-          </p>
-          <p></p>
-          <p>
-            Being on SOWerk and promoting your business is free. If you wish to
-            apply for an approved vendor program or utilize other SOWerk
-            features we offer a few packages. Details can be found on our
-            Approved Provider Pricing page.
-          </p>
-        </div>
-      </div>
-      <button @click="$router.push('/landingpage/join-service-landing')">
-        SERVICE PROVIDER LEARN MORE
-      </button>
-    </section>
+    <OftenAskPF></OftenAskPF>
+    <OftenAskSP></OftenAskSP>
   </div>
 </template>
 
 <script>
 import Reviews from '../../components/landing/general/Reviews'
 import AllReviews from '../../components/landing/general/AllReviews'
+import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
+import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
 
 export default {
   data: () => ({
@@ -535,6 +421,8 @@ export default {
   components: {
     Reviews,
     AllReviews,
+    OftenAskPF,
+    OftenAskSP,
   },
   mounted() {
     this.getReviews()
@@ -576,12 +464,12 @@ export default {
   font-family: Roboto;
 }
 
-.skew-top{
+.skew-top {
   position: relative;
   z-index: 30;
 }
 
-.skew-top:before{
+.skew-top:before {
   position: absolute;
   content: '';
   background-color: #a61c00;
