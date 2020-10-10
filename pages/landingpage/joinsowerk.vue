@@ -74,7 +74,6 @@
         SOWerk Is The Link Between Service Providers and Property & Facility
         Managers
       </p>
-      <!-- <v-layout row justify-center justify-md-center style="max-width: 1280px;"> -->
 
       <v-row style="max-width: 1280px;" class="justify-center">
         <!-- CARD 1 -->
@@ -214,71 +213,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <!-- </v-layout> -->
     </v-container>
-
-    <!-- <section class="joinlink">
-      <h1>
-        SOWerk Is The Link Between Service Providers and Property & Facility
-        Managers
-      </h1>
-      <div class="joinlinkflex">
-        <div class="joinlinkflexcolumn">
-          <h4>Property & Facility Managers</h4>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
-          />
-          <p>
-            Our business to business platform provides companies and property
-            managers the tools to effiecently identify, vet, and manage service
-            providers for each of their locations.
-          </p>
-          <ul>
-            <li>Retail & Hospitality Chains</li>
-            <li>Commercial Real Estate Properties</li>
-            <li>Manufacturing Facilities</li>
-            <li>Warehouse & Distribution</li>
-            <li>Governments</li>
-            <li>Restaurant Groups</li>
-          </ul>
-          <button @click="$router.push('/register/property-manager')">
-            PROPERTY & FACILITY MANAGERS
-          </button>
-        </div>
-        <img />
-        <div class="joinlinkflexcolumn">
-          <h4>Service Providers</h4>
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
-          />
-          <p>
-            For service providers, SOWerk makes it possible for you to become an
-            approved vendor, receive job request, and communicate with business
-            owners
-          </p>
-          <div>
-            <ul>
-              <li>Electrician</li>
-              <li>HVAC</li>
-              <li>Plumber</li>
-              <li>Landscaper</li>
-              <li>Printing</li>
-              <li>Paving</li>
-            </ul>
-            <ul>
-              <li>Excavation</li>
-              <li>Pest Control</li>
-              <li>Waste</li>
-              <li>Engineer</li>
-              <li>General Contractor</li>
-            </ul>
-          </div>
-          <button @click="$router.push('/register/provider')">
-            SERVICE PROVIDERS
-          </button>
-        </div>
-      </div>
-    </section> -->
 
     <!-- All Reviews Section -->
     <section class="joincaroselreview">
@@ -578,83 +513,6 @@ export default {
   transform: skewY(-2deg);
 }
 
-.joinlink {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  background: #a61c00;
-}
-.joinlink h1 {
-  color: white !important;
-  opacity: 0.8;
-  font-size: 55px;
-  text-align: center;
-  width: 70%;
-  margin: 20px 0px 20px 0px;
-}
-.joinlinkflex h4 {
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.joinlinkflex p {
-  font-size: 18px;
-  width: 90%;
-  text-align: center;
-  border-bottom: 1px solid #a61c00;
-}
-.joinlinkflex p {
-  padding-bottom: 40px;
-}
-.joinlinkflex {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-}
-.joinlink .joinlinkflex .joinlinkflexcolumn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 35%;
-  margin: 10px 5% 20px 5%;
-  border-radius: 20px;
-  background: white;
-  text-align: center;
-  padding: 10px;
-  max-width: 400px;
-}
-.joinlinkflexcolumn:nth-child(1) p {
-  padding-bottom: 20px !important;
-}
-.joinlink .joinlinkflex .joinlinkflexcolumn img {
-  width: 50%;
-  margin: 10px 0px 10px 0px;
-}
-.joinlinkflexcolumn div {
-  display: flex;
-  justify-content: center;
-}
-.joinlinkflexcolumn div ul {
-  width: 45%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinlinkflexcolumn ul {
-  font-size: 18px !important;
-}
-.joinlinkflexcolumn button {
-  background: #a61c00;
-  width: 90%;
-  margin: 20px 0;
-  padding: 15px 10px 15px 10px;
-  color: white;
-  border-radius: 20px;
-  font-size: 15px;
-  font-family: Roboto;
-}
-
 .joincaroselreview {
   background: #151515;
   height: auto;
@@ -754,32 +612,8 @@ export default {
   font-size: 18px;
 }
 
-@media (max-width: 1280px) {
-  .joinlink h1 {
-    font-size: 36px;
-  }
-
-  .joinlinkflex p {
-    font-size: 16px;
-  }
-
-  .joinlinkflexcolumn ul li {
-    font-size: 16px;
-  }
-
-  .joinlinkflexcolumn button {
-    font-size: 14px;
-  }
-}
 
 @media (max-width: 1060px) {
-  .joinlinkflex {
-    width: 90%;
-  }
-
-  .joinlinkflexcolumn button {
-    font-size: 13px;
-  }
   .joinconnectioncolumn
     .joinconnectioncontainer
     .joinconnectioncontainerbox
@@ -793,35 +627,6 @@ export default {
 }
 
 @media (max-width: 950px) {
-  .joinlinkflex {
-    width: 100%;
-  }
-
-  .joinlink .joinlinkflex .joinlinkflexcolumn {
-    margin: 10px 5% 20px 5%;
-    width: 37%;
-  }
-
-  .joinlink h1 {
-    font-size: 32px;
-  }
-
-  .joinlinkflex h4 {
-    font-size: 20px;
-  }
-
-  .joinlink .joinlinkflex .joinlinkflexcolumn img {
-    width: 45%;
-  }
-
-  .joinlinkflexcolumn ul li {
-    font-size: 15px;
-  }
-
-  .joinlinkflexcolumn button {
-    font-size: 12px;
-  }
-
   .joinconnection h1 {
     font-size: 48px;
   }
@@ -834,38 +639,7 @@ export default {
   }
 }
 
-@media (max-width: 850px) {
-  .joinlink h1 {
-    width: 80%;
-  }
-
-  .joinlinkflex {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .joinlink .joinlinkflex .joinlinkflexcolumn {
-    margin: 10px 2% 10px 2%;
-    width: 100%;
-    max-width: 70%;
-  }
-
-  .joinlink .joinlinkflex .joinlinkflexcolumn img {
-    width: 28%;
-  }
-}
-
 @media (max-width: 680px) {
-  .joinlink h1 {
-    font-size: 26px;
-    width: 85%;
-  }
-
-  .joinlinkflex {
-    width: 100%;
-  }
-
   .joinconnection h1 {
     font-size: 42px;
   }
