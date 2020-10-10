@@ -12,7 +12,7 @@
       <v-card
         max-height="400px"
         height="50vh"
-        width="60%"
+        :width="$vuetify.breakpoint.lgAndUp ? '70%' : '100%'"
         max-width="1200px"
         style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
         class="d-flex flex-column justify-center align-center"
@@ -27,33 +27,35 @@
           ></v-img
         ></v-card-title>
         <v-card-text class="d-flex flex-column justify-center">
-          <p class="white--text text-h3 text-center font-weight-bold">
+          <p
+            class="white--text text-h4 text-md-h3 text-center font-weight-bold"
+          >
             The Approved Vendor Platform
           </p>
-          <p class="white--text text-center text-h5">
+          <p class="white--text text-center text-h6 text-md-h5">
             The Link Between Service Providers & Businesses
           </p>
-          <div
-            style="display: flex; flex-direction: row; justify-content: center"
-          >
+       
+         <div class="text-center">
             <v-btn
               class=" primary ma-3"
-              x-large
-              width="100%"
+             large
+              width="90%"
               max-width="350"
-              style="border-radius: 20px"
+              style="border-radius: 16px"
               to="/landingpage/service-provider"
               >Service Providers</v-btn
             >
             <v-btn
               class=" primary ma-3"
-              x-large
-              width="100%"
+              large
+              width="90%"
               max-width="350"
-              style="border-radius: 20px"
+              style="border-radius: 16px"
               to="/landingpage/property-manager"
               >Property & Facility Managers</v-btn
             >
+        
           </div>
         </v-card-text>
       </v-card>
@@ -78,14 +80,17 @@
       <v-row style="max-width: 1280px;" class="justify-center">
         <!-- CARD 1 -->
         <v-col cols="12" sm="8" md="5">
-          <v-card  align="center"
-            class="ma-1" style="border-radius: 20px; height: 100%">
+          <v-card
+            align="center"
+            class="ma-1"
+            style="border-radius: 20px; height: 100%"
+          >
             <v-card-title>
               <p class="mx-auto text-center">Property & Facility Manager</p>
             </v-card-title>
 
-            <v-card-text >
-              <v-row >
+            <v-card-text>
+              <v-row>
                 <v-col cols="6" offset="3">
                   <v-img
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
@@ -157,7 +162,7 @@
               <p class="mx-auto text-center">Service Providers</p>
             </v-card-title>
 
-            <v-card-text >
+            <v-card-text>
               <v-row>
                 <v-col cols="6" offset="3">
                   <v-img
@@ -167,7 +172,10 @@
                 </v-col>
 
                 <v-col cols="12">
-                  <p class="text-justify mx-auto my-2" style="max-width: 350px; width: 80%">
+                  <p
+                    class="text-justify mx-auto my-2"
+                    style="max-width: 350px; width: 80%"
+                  >
                     For service providers, SOWerk makes it possible for you to
                     become an approved vendor, receive job request, and
                     communicate with business owners
@@ -611,7 +619,6 @@ export default {
 .landinghomereview p {
   font-size: 18px;
 }
-
 
 @media (max-width: 1060px) {
   .joinconnectioncolumn
