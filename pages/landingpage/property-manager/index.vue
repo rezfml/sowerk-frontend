@@ -1,55 +1,265 @@
 <template>
   <div>
-    <section class="sphero">
-      <div class="spherobox">
-        <h1>Get Connected Now</h1>
-        <p>Search SOWerk’s Nationwide Database</p>
-        <div class="buttonflex">
-          <button>Search All Businesses</button>
-          <button>Join SOW</button>
-        </div>
-      </div>
-<!--      <svg viewBox="0 0 100 100" preserveAspectRatio="none">-->
-<!--        <polygon points="0,100 110,0 100,100"/>-->
-<!--      </svg>-->
-    </section>
+    <v-container
+      fluid
+      class="pt-0 mt-0"
+      style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg') no-repeat center center; background-size: cover; height: 80vh; display: flex; justify-content: center; align-items: center"
+    >
+      <v-row align="center" justify="center">
+        <v-card
+          max-height="400px"
+          height="50vh"
+          :width="$vuetify.breakpoint.lgAndUp ? '60%' : '100%'"
+          style="border-radius: 16px; "
+          class="d-flex flex-column justify-center align-center"
+          color="rgba(0,0,0,0.7)"
+        >
+          <v-card-text style="width: 100%">
+            <p
+              class="white--text text-h4 text-md-h3 text-center font-weight-bold"
+            >
+              Get Connected Now
+            </p>
+            <p class="white--text text-center text-h6 text-md-h5">
+              Search SOWerk's Nationwide Database
+            </p>
+          </v-card-text>
+          <v-card-text>
+            <div class="text-center">
+              <v-btn
+                class="primary ma-3"
+                large
+                width="90%"
+                max-width="350"
+                style="border-radius: 16px"
+                >Search All Businesses</v-btn
+              >
+              <v-btn
+                class="primary ma-3"
+                large
+                width="90%"
+                max-width="350"
+                style="border-radius: 16px"
+                to="/landingpage/joinsowerk"
+                >JOIN SOW</v-btn
+              >
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-row>
+    </v-container>
 
-
-<!--    <section class="splist">-->
-<!--      <div class="splistcontainer">&lt;!&ndash;This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0&ndash;&gt;-->
-<!--        <div v-for="property in propertymanagers">-->
-<!--          <img :src="property.imgUrl"/>-->
-<!--          <h3>{{property.account_name}}</h3>-->
-<!--          <p>{{property.city}}, {{property.state}}</p>-->
-<!--          <p>{{property.description}}</p>-->
-<!--          <a :href="'property-manager/' + property.id"><button>View Profile</button></a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <button>All Property & Facility Accounts</button>-->
-<!--    </section>-->
+    <!--    <section class="splist">-->
+    <!--      <div class="splistcontainer">&lt;!&ndash;This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0&ndash;&gt;-->
+    <!--        <div v-for="property in propertymanagers">-->
+    <!--          <img :src="property.imgUrl"/>-->
+    <!--          <h3>{{property.account_name}}</h3>-->
+    <!--          <p>{{property.city}}, {{property.state}}</p>-->
+    <!--          <p>{{property.description}}</p>-->
+    <!--          <a :href="'property-manager/' + property.id"><button>View Profile</button></a>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <button>All Property & Facility Accounts</button>-->
+    <!--    </section>-->
 
     <PFSearch></PFSearch>
 
-    <section class="aboutdescription">
-      <div class="aboutdescriptionflex">
-        <div class="aboutdescriptionimg">
-          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
-          <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
-        </div>
-        <div class="aboutdescriptiontext">
-          <h1>It all started with “What If…”</h1>
-          <p>What if we could simplify the business connection between service providers and property & facility managers?</p>
-          <p>Could we make it easier for both parties to manage relationships and do business?</p>
-          <p>Today, SOWerk is proud to empower relationships, make life easier and complete the link between property/facility owners and approved vendors.</p>
-          <p>More work and better work get done through SOWerk.</p>
-          <div class="aboutbuttoncontainer">
-            <button @click="$router.push('/landingpage/service-provider')">LEARN MORE - SERVICE PROVIDER </button>
-            <button @click="$router.push('/landingpage/property-manager')">LEARN MORE - PROPERTY & FACILITY</button>
-          </div>
-        </div>
-      </div>
+    <v-container fluid style="background:#2B2B2B" class="py-16">
+      <v-row justify="center">
+        <v-flex sm11>
+          <v-row>
+            <v-col cols="12" md="6" style="position: relative;">
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"
+                class="device--mac"
+              ></v-img>
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"
+                class="device--iphone"
+              ></v-img>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+              class="mt-16 px-16 px-md-3 text-center text-md-left"
+              align-self="center"
+              style="color: white;"
+            >
+              <p class="text-h4 font-weight-bold">
+                It all started with "What if..."
+              </p>
+              <p>
+                What if we could simplify the business connection between
+                service providers and property & facility managers?
+              </p>
+              <p>
+                Could we make it easier for both parties to manage relationships
+                and do business?
+              </p>
+              <p>
+                Today, SOWerk is proud to empower relationships, make life
+                easier and complete the link between property/facility owners
+                and approved vendors.
+              </p>
+              <v-row>
+                <v-flex sm11 offset-sm-1 text-center text-md-left>
+                  <v-btn
+                    class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15"
+                    small
+                    outlined
+                    rounded
+                    to="/landingpage/service-provider"
+                  >
+                    Learn More - Service Provider</v-btn
+                  >
+                  <v-btn
+                    class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15"
+                    small
+                    outlined
+                    rounded
+                    to="/landingpage/property-manager"
+                  >
+                    Learn More - Property & Facility</v-btn
+                  >
+                </v-flex>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-flex>
+      </v-row>
+    </v-container>
 
-      <section class="joinservicetraits">
+    <v-container
+      fluid
+      grid-list-md
+      text-center
+      pb-8
+      style="background:#2B2B2B; display: flex; justify-content: center"
+    >
+      <v-layout row style="max-width: 1280px;" class="my-12">
+        <!-- CARD 1 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
+          >
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Vet Vendors</v-card-text
+            >
+            <div
+              class="my-4"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              We make it easy and powerful for you to vet any service provider,
+              and re-qualify them annually. SOWerk prebuilt vendor applications
+              are easy and powerful, or customize your own to better fit.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 2 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
+          >
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Powerful Tools</v-card-text
+            >
+            <div
+              class="my-6"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              One facility or 1,000’s of properties, SOWerk has you covered.
+              Assign staff and set approved vendors by location. Manage bids and
+              completed jobs all in one clean powerful interface.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 3 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
+          >
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Cold Call Shield</v-card-text
+            >
+            <div
+              class="my-4"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              With your SOWerk account you have the perfect place to direct any
+              salesman calling to become your approved vendor.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 4 -->
+        <v-col cols="12" lg="3" sm="6">
+          <v-card
+            align="center"
+            class="mx-1"
+            style="border-radius: 20px; height: 480px"
+          >
+            <div
+              style="width: 150px; height: auto; padding-top:15px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
+              >Convenient</v-card-text
+            >
+            <div
+              class="my-4"
+              style="width: 80%; font-size: 1rem; text-align: justify"
+            >
+              For the facility manager in the middle of the night that needs to
+              contact all your approved plumbers for help or a local service
+              provider that powers his business through a smart phone, SOWerk is
+              design to be convenient.
+            </div>
+          </v-card>
+        </v-col>
+      </v-layout>
+    </v-container>
+
+    <!-- <section class="joinservicetraits">
         <div>
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"/>
           <h3>Simple & Fast</h3>
@@ -70,46 +280,48 @@
           <h3>Convenient</h3>
           <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
         </div>
-      </section>
-    </section>
+     
+    </section> -->
   </div>
 </template>
 
 <script>
-import PFSearch from "~/components/landing/property-manager/PFSearch.vue"
+import PFSearch from '~/components/landing/property-manager/PFSearch.vue'
 
 export default {
   data() {
     return {
       loading: false,
-      propertymanagers: [
-
-      ]
+      propertymanagers: [],
     }
   },
   components: {
-    PFSearch
+    PFSearch,
   },
   watch: {
-    loading: function() {
-      if(this.loading){
-        console.log(document);
+    loading: function () {
+      if (this.loading) {
+        console.log(document)
         document.documentElement.style.overflow = 'hidden'
         return
       }
       document.documentElement.style.overflow = 'auto'
-    }
+    },
   },
   mounted() {
-    this.getPropertyManagers();
+    this.getPropertyManagers()
   },
   methods: {
     async getPropertyManagers() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=1&limit=8&offset=0').catch(e => e);
-      if (this.$error(status, data.message, data.errors)) return;
-      this.$nextTick(function() {
-        this.propertymanagers = data;
-        console.log(this.propertymanagers);
+      let { data, status } = await this.$http
+        .get(
+          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=1&limit=8&offset=0'
+        )
+        .catch((e) => e)
+      if (this.$error(status, data.message, data.errors)) return
+      this.$nextTick(function () {
+        this.propertymanagers = data
+        console.log(this.propertymanagers)
       })
     },
   },
@@ -117,58 +329,20 @@ export default {
 </script>
 
 <style scoped>
-.sphero {
-  background: url("https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg");
-  width: 100%;
-  display: flex;
-  height:auto;
-  margin-top:-200px;
-  background-size: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.sphero h1{
-  font-size: 55px;
-}
-.sphero p{
-  font-size: 23px;
-}
-.sphero svg {
-  width: 100%;
-  height: 9vh;
-  fill: #A61C00;
-}
-.sphero .spherobox {
-  background: rgb(0, 0, 0, 0.55);
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 0px 20px 0px;
-  border-radius: 20px;
-  margin: 250px 0px 250px 0px;
-  color: white;
-}
-.spherobox .buttonflex {
-  display: flex;
-  width: 80%;
-  justify-content: center;
+.device--mac >>> .v-image__image.v-image__image--cover {
+  background-size: 170% !important;
 }
 
-.spherobox button {
-  background: #A61C00;
-  border-radius: 20px;
-  padding: 15px 0px 15px 0px;
-  margin: 0 auto;
-  width: 45%;
-  font-size: 20px;
+.device--iphone {
+  position: absolute;
+  width: 75%;
+  bottom: -20%;
+  left: -25%;
 }
 
 .splist {
   width: 100%;
-  background: #A61C00;
+  background: #a61c00;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,10 +378,10 @@ export default {
   font-size: 14px;
   width: 50%;
 }
-.splistcontainer div button{
+.splistcontainer div button {
   width: 80%;
   margin: 0 auto;
-  background: #A61C00;
+  background: #a61c00;
   color: white;
   border-radius: 20px;
   padding: 5px 0px 5px 0px;
@@ -225,15 +399,15 @@ export default {
 .splistcontainer div h3 {
   font-size: 18px;
 }
-.aboutdescription{
-  background: #47494E;
+.aboutdescription {
+  background: #47494e;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: auto;
 }
-.aboutdescriptionflex{
+.aboutdescriptionflex {
   display: flex;
   width: 90%;
   justify-content: center;
@@ -257,7 +431,7 @@ export default {
   left: -560px;
   top: -230px;
 }
-.aboutdescriptiontext{
+.aboutdescriptiontext {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -266,10 +440,10 @@ export default {
   margin-left: 10px;
   margin-top: 20px;
 }
-.aboutdescriptiontext h1{
+.aboutdescriptiontext h1 {
   font-size: 35px;
 }
-.aboutdescriptiontext p{
+.aboutdescriptiontext p {
   font-size: 18px;
 }
 .aboutbuttoncontainer {
@@ -287,7 +461,7 @@ export default {
   margin: 0 auto;
 }
 
-.joinservicetraits{
+.joinservicetraits {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -305,18 +479,17 @@ export default {
   border-radius: 20px;
   margin: 50px 5px 50px 5px;
 }
-.joinservicetraits div h3{
+.joinservicetraits div h3 {
   font-size: 22px;
   margin: 15px 0px 15px 0px;
 }
-.joinservicetraits div p{
+.joinservicetraits div p {
   font-size: 18px;
   width: 90%;
   text-align: center;
 }
-.joinservicetraits div img{
+.joinservicetraits div img {
   width: 50%;
   margin-top: 20px;
 }
-
 </style>

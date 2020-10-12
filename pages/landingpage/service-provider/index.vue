@@ -1,6 +1,21 @@
 <template>
   <div>
-    <section class="sphero">
+    <!-- HERO -->
+    <!-- Need to add tape-measure background in hero -->
+    <v-row style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; --webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 80vh; max-height: 1200px" align="center" justify="center" class="pt-12">
+      <v-card max-height="400px" height="50vh" :width="$vuetify.breakpoint.lgAndUp ?'60%' : '100%'"  style="border-radius: 16px; " class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
+        <v-card-text style="width: 100%">
+          <p class="white--text text-h4 text-md-h3 text-center font-weight-bold">Get Connected Now</p>
+          <p class="white--text text-center text-h6 text-md-h5">Search SOWerk's Nationwide Database</p>
+        </v-card-text>
+       <div style="display: flex; max-width: 500px; width: 90%">
+          <v-text-field solo style="max-width: 500px; width: 100%;">
+          </v-text-field>
+          <v-btn type="submit" style="background: #A61C00" class="white--text py-6">Search Now</v-btn>
+        </div>
+      </v-card>
+    </v-row>
+    <!-- <section class="sphero">
       <div class="spherobox">
         <h1>Get Connected Now</h1>
         <p>Search SOWerk’s Nationwide Database</p>
@@ -9,10 +24,7 @@
           <button type="submit">Search Now</button>
         </form>
       </div>
-<!--      <svg viewBox="0 0 100 100" preserveAspectRatio="none">-->
-<!--        <polygon points="0,100 110,0 100,100"/>-->
-<!--      </svg>-->
-    </section>
+    </section> -->
 
 <!--    <section class="splist">-->
 <!--      <div class="splistcontainer">&lt;!&ndash;This will be a request to /companies/limit/type/:type SERVICE PROVIDER TYPE 0&ndash;&gt;-->

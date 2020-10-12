@@ -2,18 +2,47 @@
   <div id="aboutcontainer">
     <section class="abouthero">
       <h1>About SOWerk</h1>
-      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg> -->
     </section>
 
-    <section class="aboutdescription">
+<v-container fluid style="background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%);" class="py-16">
+  <v-row justify="center">
+      <v-flex sm11>
+        <v-row >
+          <v-col cols="12" md="6" style="position: relative;">
+            <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png" class="device--mac"></v-img>
+            <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png" class="device--iphone"></v-img>
+          </v-col>
+          <v-col cols="12" md="6" class="mt-16 px-16 px-md-3 text-center text-md-left" align-self="center" style="color: white;">
+            <p class="text-h4 font-weight-bold">It all started with "What if..."</p>
+            <p> What if we could simplify the business connection between service providers and property & facility managers?</p>
+             <p>
+            Could we make it easier for both parties to manage relationships and
+            do business?
+          </p>
+          <p>
+            Today, SOWerk is proud to empower relationships, make life easier
+            and complete the link between property/facility owners and approved
+            vendors.
+          </p>
+            <v-row >
+              <v-flex sm11 offset-sm-1 text-center text-md-left>
+                <v-btn  class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/service-provider"> Learn More - Service Provider</v-btn>
+                <v-btn class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/property-manager"> Learn More - Property & Facility</v-btn>
+              </v-flex>
+            </v-row>
+          </v-col>
+        </v-row>
+    </v-flex>
+    </v-row>
+    </v-container>
+
+    <!-- <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <!-- <img
+          <img
             class="aboutdescriptionimg1"
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"
-          /> -->
+          />
           <img
             class="aboutdescriptionimg2"
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"
@@ -41,164 +70,97 @@
           </div>
         </div>
       </div>
-      <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg> -->
-    </section>
+    </section> -->
+<v-flex style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;">
+  <div>
 
-    <section class="aboutplatform">
-      <div class="aboutplatformcontainer">
-        <h1>The Approved Vendor Platform</h1>
-        <div class="aboutplatformcontainerfleximg">
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork3copy.png"
-          />
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/red-arrow-icon-vector-eps-600w-1715070490.webp"
-          />
-          <img
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/Untitled_Artwork2copy2.png"
-          />
-        </div>
-        <p>
-          SOWerk is the link between service providers (local or national) and
+      <v-row align-content="center" justify="center">
+      <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '70%' : '80%'" class="py-16 my-12" style="border-radius: 20px;" align="center">
+        <v-card-title class="mx-auto text-md-h4 text-h6" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e; word-wrap: break-word"><p class="mx-auto mb-0 text-center white--text"  >The Approved Vendor Platform</p></v-card-title>
+        <v-card-text style="width: 80%">
+          <v-row >
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
+              <v-img  src="https://sowerk-images.s3.us-east-2.amazonaws.com/property_managers_red_sketch.png" contain ></v-img>
+            </v-col>
+            <v-col cols="4" class="d-flex flex-column justify-center pa-sm-0" position="center">
+              <v-icon size="16vw" color="primary">mdi-swap-horizontal</v-icon>
+            </v-col>
+            <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
+              <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/service_provider_red_sketch.png" contain></v-img>
+            </v-col>
+          </v-row>
+          <v-row style="width: 100%;" class="mx-auto mt-8">
+            <p class="text-center text-md-h6">SOWerk is the link between service providers (local or national) and
           property & facility managers. Our business to business platform
           provides companies and property managers the tools to effiecently
           identify, vet, and manage service providers for each of their
           locations. For service providers, SOWerk makes it possible for you to
           become an approved vendor, recieve job request, and communicate with
-          business owners.
-        </p>
-        <button @click="$router.push('/register')">JOIN SOWERK</button>
-      </div>
-    </section>
+          business owners.</p>
+            <v-btn color="primary" class="mx-auto mt-5" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '50%'" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+    </div>
+    </v-flex>
 
-    <section class="aboutfaq">
-      <h1>Property and Facility Managers Often Ask</h1>
-      <div class="aboutfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Is This Going To Create More Work For Me?
-          </h4>
-          <p>
-            Actually, we designed SOWerk to be less work for you. Think of
-            SOWerk like connecting with service providers on social media,
-            except they have to meet your approved provider requirements. From
-            here you can easily manage and communicate with your approved
-            service providers.
-          </p>
-        </div>
-      </div>
-      <div class="aboutfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Will SOWerk Save Us Money? Will It Protect Our Investments?
-            </h4>
-          <p>
-            If time is money and quality is everything then yes SOWerk can help.
-            SOWerk makes it efficent for any staff member to vet & manage
-            local/national service providers, such as getting bids for projects
-            and communicating details. If it’s easy to get bids from multiple
-            vetted providers then it might just save you both time and money.
-            Additionally, we make service providers requalify annualy on things
-            like insurance coverage and licenses so you don’t have to.
-          </p>
-        </div>
-      </div>
-      <div class="aboutfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Will SOWerk Help Shield Me From Cold Calls?
-            </h4>
-          <p>
-            Sales is part of any business but sometimes you just need place to
-            send the salesman where they can apply for your approved service
-            program. SOWerk is your solution.
-          </p>
-        </div>
-      </div>
-      <button @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY LEARN MORE</button>
-      <h1>Service Providers Generally Ask</h1>
-      <div class="aboutfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Do I Seriously Get More Jobs?
-            </h4>
-          <p>
-            Yes, Property & Facility managers of all sizes use SOWerk to manage
-            their approved vendor program. We make it easy for them to vet
-            service providers request bids.
-          </p>
-          <p></p>
-          <p>
-            SOWerk also helps you look good when applying for approved vendor
-            programs, but we also make it easy to share those good looks with
-            others. Next time your bidding a job show off your resume by
-            emailing or texting your SOWerk profile.
-          </p>
-        </div>
-      </div>
-      <div class="aboutfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Is SOWerk Time Consuming and Hard To Use?
-            </h4>
-          <p id="pfaq">Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
-          <p>
-            With only a click or two on your computer or mobile device you can
-            use your SOWerk Profile to apply for approved vendor programs
-          </p>
-          <p>
-            Automatic Updates: When you become an approved vendor for a company
-            we automaticly display it on your profile.
-          </p>
-        </div>
-      </div>
-      <div class="aboutfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Will I Get Charged All The Time & Get Junk Leads?
-            </h4>
-          <p>
-            Unlike other websites, SOWerk service providers receive
-            communications from their approved vendor programs, direct leads, or
-            new businesses inviting them to apply for approved vendor program.
-          </p>
-          <p></p>
-          <p>
-            Being on SOWerk and promoting your business is free. If you wish to
-            apply for an approved vendor program or utilize other SOWerk
-            features we offer a few packages. Details can be found on our
-            Approved Provider Pricing page.
-          </p>
-        </div>
-      </div>
-      <button @click="$router.push('/landingpage/service-provider')">SERVICE PROVIDER LEARN MORE</button>
-    </section>
+    <OftenAskPF></OftenAskPF>
+    <OftenAskSP></OftenAskSP/>
+
   </div>
 </template>
 
-<script></script>
+<script>
+import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
+import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
+
+export default {
+  components: {
+    OftenAskPF,
+    OftenAskSP,
+  },
+}
+</script>
 
 <style scoped>
+.device--mac >>> .v-image__image.v-image__image--cover {
+  background-size: 170% !important;
+}
+
+.device--iphone {
+  position: absolute;
+  width: 75%;
+  bottom: -20%;
+  left: -25%;
+}
+
+.wrap-text {
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: unset !important;
+  line-height: 1.5rem;
+}
+
+/* .skew-top{
+  position: relative;
+  z-index: 30;
+}
+
+.skew-top:before{
+  position: absolute;
+  content: '';
+  background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -20;
+  transform-origin: top left;
+  transform: skewY(-2deg);
+} */
+
 #aboutcontainer {
   width: 100%;
   padding: 0px !important;
@@ -206,16 +168,18 @@
 
 .abouthero {
   width: 100%;
-  height: 60vh;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
+  height: 70vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
   background-size: cover;
   object-fit: contain;
   /* background-size: 100%; */
-  margin-top:-100px;
+  margin-top: -100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .abouthero h1 {
   color: white;
@@ -225,11 +189,7 @@
   margin: 200px 0px 200px 0px;
   font-size: 55px;
 }
-/* .abouthero svg {
-  width: 100%;
-  height: 9vh;
-  fill: #a61c00;
-} */
+
 .aboutdescription {
   background: #a61c00;
   width: 100%;
@@ -254,7 +214,7 @@
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg)
+  transform: skewY(-2deg);
 }
 .aboutdescriptionflex {
   display: flex;
@@ -262,8 +222,7 @@
   justify-content: center;
   border-radius: 20px;
   margin: -50px 0px 100px 0px;
-    z-index: 100;
-
+  z-index: 100;
 }
 
 .aboutdescriptionflex .aboutdescriptionimg {
@@ -319,140 +278,6 @@
   margin: 0px 2.5% 0px 2.5%;
 }
 
-.aboutplatform {
-  background-image:  url('https://sowerk-images.s3.us-east-2.amazonaws.com/Background Texture-155.png'),
-    linear-gradient(#2b2b2b, #444444);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  position: relative;
-  padding-bottom: 150px;
-}
-
-.aboutplatform:after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content:'';
-  background:inherit;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /* z-index: -1; */
-  transform-origin: top left;
-  transform: skewY(-2deg)
-}
-
-.aboutplatform .aboutplatformcontainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: white;
-  width: 65%;
-  border-radius: 20px;
-  margin-top: -150px;
-  margin-bottom: 50px;
-  z-index: 5;
-}
-.aboutplatformcontainer h1 {
-  background: #47494e;
-  width: 70%;
-  border-radius: 20px;
-  text-align: center;
-  padding: 10px 0px 10px 0px;
-  margin-top: -40px;
-  margin-bottom: 20px;
-  font-size: 50px;
-  color: white;
-}
-.aboutplatformcontainerfleximg {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.aboutplatformcontainerfleximg img {
-  width: 32%;
-  margin: 0 auto;
-}
-.aboutplatformcontainerfleximg img:first-child {
-  border: 1px solid #a61c00;
-  border-radius: 20px;
-  padding-top: 150px;
-  padding-bottom: 0px;
-}
-.aboutplatformcontainerfleximg img:last-child {
-  border: 1px solid #a61c00;
-  border-radius: 20px;
-  padding-bottom: 150px;
-}
-.aboutplatformcontainer p {
-  width: 70%;
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.aboutplatformcontainer button {
-  background: #a61c00;
-  border-radius: 20px;
-  padding: 10px 0px 10px 0px;
-  width: 50%;
-  margin: 20px 0px 40px 0px;
-  font-size: 16px;
-  color: white;
-}
-.aboutfaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.aboutfaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin-top: 20px;
-}
-
-.aboutfaq .aboutfaqflex {
-  display: flex;
-  width: 65%;
-  justify-content: center;
-}
-
-.aboutfaq .aboutfaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.aboutfaq .aboutfaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.aboutfaq h4 {
-  font-size: 25px;
-  margin-top: 20px;
-}
-.aboutfaq p {
-  font-size: 18px;
-  margin-left: 30px;
-}
-.aboutfaq button {
-  background: #a61c00;
-  color: white;
-  width: 40%;
-  border-radius: 20px;
-  padding: 10px 0px 10px 0px;
-}
-.aboutfaqflex img{
-  margin-left: -10%;
-  margin-right: unset !important;
-  width: 5% !important;
-  height:auto;
-}
 @media (max-width: 800px) {
   .abouthero h1 {
     font-size: 50px;
@@ -512,76 +337,6 @@
     font-size: 16px;
     padding: 5px 10px;
   }
-
-  .aboutplatform .aboutplatformcontainer[data-v-75c9003b] {
-    width: 90%;
-    margin-top: 25px;
-  }
-
-  .aboutplatformcontainer h1 {
-    margin-bottom: 30px;
-    font-size: 48px;
-  }
-
-  .aboutplatformcontainer p {
-    font-size: 19px;
-    width: 80%;
-    margin: 25px 0 20px 0;
-    text-align: justify;
-  }
-
-  .aboutplatformcontainer button {
-    width: 80%;
-    font-size: 17px;
-  }
-
-  .aboutfaq .aboutfaqflex[data-v-75c9003b] {
-    width: 100%;
-  }
-
-#pfaq {
-  width: 100%;
-}
-  .aboutfaqflex {
-    margin: 20px 0;
-    width: 90%;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .aboutfaq .aboutfaqflex img[data-v-75c9003b] {
-    height: 100px;
-    margin-right: 0%;
-  }
-
-  .aboutfaqflex h4 {
-    text-align: center;
-    margin: 20px 0px;
-    width: 100%;
-  }
-
-  .aboutfaqflex p {
-    margin: 5px auto;
-    text-align: justify;
-    font-size: 17px;
-    line-height: 30px;
-  }
-
-  h1 {
-    text-align: center;
-  }
-
-  .aboutfaq h1 {
-    font-size: 35px;
-    max-width: 100%;
-    margin: 50px 0 20px 0;
-  }
-
-  .aboutfaq button {
-    margin: 35px;
-    width: 85%;
-    font-size: 17px;
-  }
 }
 
 @media (max-width: 680px) {
@@ -606,35 +361,6 @@
   .aboutdescriptionflex button[data-v-75c9003b] {
     font-size: 15px;
   }
-
-  .aboutplatformcontainer h1 {
-    font-size: 43px;
-  }
-
-  .aboutplatformcontainer p {
-    font-size: 16px;
-  }
-
-  .aboutplatformcontainer button {
-    font-size: 16px;
-  }
-
-  .aboutplatformcontainerfleximg {
-    width: 75%;
-  }
-
-  .aboutfaq h1 {
-    font-size: 32px;
-    max-width: 100%;
-  }
-
-  .aboutfaq p {
-    font-size: 17px;
-  }
-
-  .aboutfaq button[data-v-75c9003b] {
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 580px) {
@@ -646,9 +372,7 @@
     width: 100%;
   }
 
-  .aboutdescriptionflex
-    .aboutdescriptionimg
-    .aboutdescriptionimg2 {
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
     left: -110px;
   }
 
@@ -661,34 +385,6 @@
 
   .aboutdescriptionflex button {
     font-size: 13px;
-  }
-
-  .aboutplatformcontainer h1{
-    font-size: 40px;
-  }
-
-  .aboutplatformcontainerfleximg {
-    width: 80%;
-  }
-
-  .aboutplatformcontainer p {
-    font-size: 16px;
-  }
-
-  .aboutfaq h1 {
-    font-size: 30px;
-    width: 100%;
-  }
-  .aboutfaqflex h4 {
-    font-size: 23px;
-  }
-
-  .aboutfaq p{
-    font-size: 15px;
-  }
-
-  .aboutfaq button[data-v-75c9003b][data-v-75c9003b] {
-    font-size: 15px;
   }
 }
 </style>
