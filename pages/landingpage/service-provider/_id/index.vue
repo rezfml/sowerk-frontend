@@ -42,13 +42,19 @@
     </div>
 
     <div class="spaccountsecondcolumn">
+      
       <div class="retailLocations">
         <p class="locationNum" v-if="this.serviceproviderVal.locations"><span style="color: #A61C00;">{{serviceproviderVal.locations.length}}</span> Retail Locations</p>
+        
         <div v-for='location in locationSlice2' class="spaccountlocationflexrow2">
-          <p>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
+          <p v-if="location.address==null">Retail locations unavaiable</p>
+          <p v-else>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}<span>
           <a :href="'/landingpage/service-provider/' + serviceproviderVal.id + '/location/' + location.id">></a>
+          </span>
+          </p>
         </div>
       </div>
+
       <div class="featuredbusiness">
         <h2>Featured Businesses Near You</h2>
         <div>

@@ -44,8 +44,10 @@
     <section class="aboutdescription">
       <div class="aboutdescriptionflex">
         <div class="aboutdescriptionimg">
-          <img class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
-          <img class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+          <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+          <img v-else  class="aboutdescriptionimg1" id="IphoneMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+          <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+          <img v-else  class="aboutdescriptionimg2" id="MacMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
         </div>
         <div class="aboutdescriptiontext">
           <h1>It all started with “What If…”</h1>
@@ -54,13 +56,13 @@
           <p>Today, SOWerk is proud to empower relationships, make life easier and complete the link between property/facility owners and approved vendors.</p>
           <p>More work and better work get done through SOWerk.</p>
           <div class="aboutbuttoncontainer">
-            <button @click="$router.push('/landingpage/service-provider')">LEARN MORE - SERVICE PROVIDER </button>
+            <button @click="$router.push('/landingpage/service-provider')" >LEARN MORE - SERVICE PROVIDER </button>
             <button @click="$router.push('/landingpage/property-manager')">LEARN MORE - PROPERTY & FACILITY</button>
           </div>
         </div>
       </div>
 
-      <section class="joinservicetraits">
+      <section class="joinservicetraits" v-if="!$vuetify.breakpoint.xs" >
         <div>
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"/>
           <h3>Simple & Fast</h3>
@@ -81,6 +83,33 @@
           <h3>Convenient</h3>
           <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
         </div>
+      </section>
+
+      <section v-else class="joinservicetraits">
+        <section class="joinservicetraitsMobile">
+        <div>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"/>
+          <h3>Simple & Fast</h3>
+          <p>Our simple design makes connecting with other companies quick and painless while using either the desktop or mobile app.</p>
+        </div>
+        <div>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"/>
+          <h3>Powerful Tools</h3>
+          <p>SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.</p>
+        </div>
+        </section>
+        <section class="joinservicetraitsMobile">
+        <div>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"/>
+          <h3>Automated</h3>
+          <p>SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status. </p>
+        </div>
+        <div>
+          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"/>
+          <h3>Convenient</h3>
+          <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
+        </div>
+      </section>
       </section>
     </section>
   </div>
@@ -250,7 +279,7 @@ export default {
   height: 300px;
   z-index: 1;
   position: relative;
-  top: 250px;
+  top: 10px;
 }
 .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
   width: 150%;
@@ -319,5 +348,155 @@ export default {
   width: 50%;
   margin-top: 20px;
 }
+.flexCompanies a button[data-v-2b34ea88]{
+  margin:10% -10%;
+  font-size: 2vh;
+}
+@media (max-width:1500px) {
+  .aboutdescriptionflex .aboutdescriptionimg{
+    margin-bottom: -20%;
+    margin-left: 30%;
+    width:70%;
+  }
+}
+@media (max-width:960px) {
+  .sphero{
+    margin-top: -8%;
+  }
+  .joinservicetraits{
+    width:100%;
+  }
+    .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1 {
+    width: 100%;
+    height: 250px;
+    z-index: 1;
+    position: relative;
+    left:-20%;
+    top: 50px;
+  }
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
+      width: 175%;
+      left: -140%;
+      top: -25%;
+  }
+  .joinservicetraits{
+    margin-top:unset ;
+  }
+  .joinservicetraits div{
+    width:25%;
+  }
+  .joinservicetraits div p{
+    font-size: 1.75vh;
+  }
+  .joinservicetraits div h3{
+    font-size:2vh;
+  }
+   .sphero h1{
+    font-size: 3.5vh !important;
+  }
+  .sphero p{
+    font-size: 2vh !important;
+  }
+}
+@media screen and (max-width:650px) {
+  .sphero{
+    margin-top: -12%;
+  }
+  .flexCompanies a button[data-v-2b34ea88]{
+    margin-left:-20px ;
+    width:200px ;
+  }
+  .joinservicetraits div[data-v-202217e4]{
+    width:300px ;
+    height:400px ;
+  }
+  .joinservicetraits div p{
+    font-size: 1.5vh;
+  }
+    .sphero h1{
+    font-size: 3vh !important;
+  }
+  .sphero p{
+    font-size: 2vh !important;
+  }
+}
 
+@media (max-width:550px) {
+    .sphero{
+    margin-top: -12%;
+  }
+  #IphoneMockup{
+    display: none;
+  }
+  #MacMockup{
+    display:none;
+  }
+    .joinservicetraits div p{
+    font-size: 1.2vh;
+  }
+  .joinservicetraits div[data-v-202217e4]{
+    width:200px ;
+    height: 300px;
+  }
+  .aboutdescriptiontext{
+    margin-left:-30%;
+  }
+
+  .sphero h1{
+    font-size: 3vh !important;
+  }
+  .sphero p{
+    font-size: 1.75vh !important;
+    margin-left: 5%;
+
+  }
+  .spherobox form button{
+    margin-right:-50% ;
+    font-size: 1.8vh;
+  }
+  .spherobox form input{
+    padding-right: 10%;
+    margin-left:3%;
+    width:65%;
+  }
+} 
+@media (max-width:450px) {
+  .sphero{
+    margin-top: -15%;
+  }
+  .v-toolbar__content{
+    width: auto !important;
+  }
+  .aboutdescriptionflex{
+    width:unset;
+    margin: unset;
+  }
+  .aboutdescriptionflex button{
+    font-size: 1.5vh;
+  }
+  .aboutdescriptiontext h1{
+    font-size: 3.5vh;
+  }
+  .joinservicetraits div[data-v-202217e4]{
+    width:150px !important ;
+    height: 220px;
+  }
+  .joinservicetraits div img{
+    width:20%;
+  }
+  .joinservicetraits div p{
+    font-size: 1vh;
+  }
+  .spherobox form input{
+    width:70%;
+  }
+  .spherobox form input{
+    width:90%;
+    margin: 0 5%;
+  }
+  .spherobox form button{
+    width:90%;
+    margin: 0 5%;
+  }
+}
 </style>
