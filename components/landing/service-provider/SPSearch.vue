@@ -146,11 +146,51 @@ export default {
   .searchSection h1{
   font-size: 36px;
 }
+  .flexCompanies a button[data-v-2b34ea88]{
+    margin-left:-30px ;
+    width:100px ;
+    font-size: 1.5vh;
+  }
+  .flexCompanies div h1[data-v-2b34ea88]{
+    font-size:2.5vh;
+  }
+    .flexCompanies div p{
+    font-size: 1.75vh !important;
+  }
 }
 
 @media (max-width: 680px) {
   .searchSection h1{
   font-size: 32px;
 }
+}
+@media (max-width:550px) {
+    .flexCompanies a button{
+    width: 20%;
+    margin: 20% -70% !important;
+    font-size: 1.5vh !important;
+  }
+  .flexCompanies div p{
+    margin-left: -25%;
+    font-size: 2vh !important;
+  }
+  .flexCompanies div h1[data-v-2b34ea88]{
+    margin-left: -25%;
+    font-size:2.75vh;
+  }
+  .flexCompanies img{
+    width:0 !important;
+  }
+
+}
+@media (max-width:450px){ 
+  .searchSection h1{
+      font-size: 3vh;
+  }
+  .flexCompanies a button{
+    width: 20%;
+    margin: 20% -100% !important;
+    font-size: 1.2vh !important;
+  }
 }
 </style>
