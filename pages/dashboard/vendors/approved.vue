@@ -9,8 +9,32 @@
           ></FilterCard>
         </v-col>
         <v-col cols="9">
+          <v-row class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
+            <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
+            <v-btn
+              style=""
+              class="px-16 mb-4"
+              large
+              outlined
+              rounded
+              color="white"
+              href="/dashboard/vendors/invite"
+            >View All</v-btn>
+          </v-row>
+          <v-row class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
+            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
+            <v-btn
+              style=""
+              class="px-16 mb-4"
+              large
+              outlined
+              rounded
+              color="primary"
+              href="/dashboard/vendors/invite"
+            >Invite Them Now</v-btn>
+          </v-row>
           <HomeCard
-            title="Approved Vendors"
+            title="My Approved Vendors"
             :items="companies"
             :tableProperties="headers"
             :viewAll="false"
@@ -176,17 +200,12 @@
           'Location'
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
-          { text: 'Facility', value: 'company_name', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Company', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'approved_name', class: 'primary--text font-weight-regular' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'location', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         applications: null,
@@ -211,6 +230,7 @@
       async getApprovedCompanies(user) {
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + user.companies_id).catch(e => e);
         this.companies.push(data);
+        console.log(this.companies, 'approvedVendors');
       }
     }
   }
