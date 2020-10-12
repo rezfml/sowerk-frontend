@@ -255,7 +255,7 @@
                         </div>
                         <v-list>
                           <template v-for="(insurance, index) in insurances">
-                            <InsuranceForm :insurance="insurance" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index"></InsuranceForm>
+                            <InsuranceForm :insurance="insurance" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectInsuranceFile" :index="index"></InsuranceForm>
                           </template>
                         </v-list>
                       </v-col>
@@ -274,7 +274,7 @@
                         </div>
                         <v-list>
                           <template v-for="(license, index) in licenses">
-                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index"></LicenseForm>
+                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index"></LicenseForm>
                           </template>
                         </v-list>
                       </v-col>
@@ -479,6 +479,11 @@
           documentVisible: false,
           companies_id: null
         },
+        insuranceFiles: [
+          {
+            file: null
+          }
+        ],
         licenses: [
           {
             type: '',
@@ -499,6 +504,11 @@
           documentVisible: false,
           companies_id: null
         },
+        licenseFiles: [
+          {
+            file: null
+          }
+        ],
         options: {
           adminLevel: [
             {
@@ -568,6 +578,20 @@
       }
     },
     methods: {
+      selectInsuranceFile(file, index) {
+        console.log('hello world');
+        console.log(file);
+        console.log(index);
+        this.insuranceFiles[index].file = file;
+        console.log(this.insuranceFiles);
+      },
+      selectLicenseFile(file, index) {
+        console.log('hello world');
+        console.log(file);
+        console.log(index);
+        this.licenseFiles[index].file = file;
+        console.log('this.licenseFiles: ', this.licenseFiles);
+      },
       nextPageIfNotLast() {
         if(this.tab === 3) return;
         this.tab += 1;
@@ -673,6 +697,12 @@
           companies_id: null
         };
         this.insurances.push(newInsurance);
+
+        let newInsuranceFile = {
+          file: null
+        }
+
+        this.insuranceFiles.push(newInsuranceFile);
       },
       addLicense() {
         this.editingLicense = true;
@@ -695,18 +725,60 @@
       },
       async register() {
         this.loading = true;
+
+        this.loopInsuranceFilesForUpload();
+        this.loopLicenseFilesForUpload();
+
+
+
         console.log(this.company);
         console.log(this.locations);
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
-        console.log('post company: ', data);
-        this.user.companies_id = data.companies.id;
-        await this.registerUser(data.companies.id);
+        // let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
+        // console.log('post company: ', data);
+        // this.user.companies_id = data.companies.id;
+        // await this.registerUser(data.companies.id);
         // await this.postLocations(data.user.id);
         // await this.$router.push('/login');
         // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
         //   .then(response => {
         //     console.log(response);
         //   })
+
+      },
+      loopInsuranceFilesForUpload() {
+        this.insuranceFiles.forEach((insuranceFile, index) =>{
+          const formData = new FormData();
+          formData.append('file', insuranceFile.file);
+          this.uploadInsuranceFile(formData, index);
+        })
+
+      },
+      async uploadInsuranceFile(formData, index) {
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        console.log(data);
+        this.insurances[index].documentUrl = data.data.Location;
+        this.loading = false;
+        console.log(this.insurances);
+        return this.insurances;
+      },
+      loopLicenseFilesForUpload() {
+        this.licenseFiles.forEach((licenseFile, index) =>{
+          const formData = new FormData();
+          formData.append('file', licenseFile.file);
+          this.uploadLicenseFile(formData, index);
+        })
+
+      },
+      async uploadLicenseFile(formData, index) {
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        console.log(data);
+        this.licenses[index].documentUrl = data.data.Location;
+        this.loading = false;
+        console.log(this.licenses);
+        return this.licenses;
+
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;

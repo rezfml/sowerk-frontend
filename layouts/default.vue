@@ -9,7 +9,7 @@
             menu
           </v-icon>
         </v-btn>
-      </v-row>
+      </v-row>e
     </v-container>
     <v-navigation-drawer v-model="drawer" absolute temporary style="height:400px;max-width:none; background-color:rgba(21, 21, 21, 1);">
       <v-list-item>

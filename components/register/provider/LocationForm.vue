@@ -66,7 +66,7 @@
           <div class="v-input__control">
             <div class="v-input__slot">
               <div class="v-text-field__slot" style="width: 100%;">
-                <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 1.4em">Address*</p></label>
+                <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
                 <client-only>
                   <vue-google-autocomplete
                     :id="'location-address--' + index"
@@ -100,38 +100,50 @@
       </v-row>
     </v-col>
 
-    <!--    <v-col cols="12" md="7" class="v-input">-->
+    <template v-if="fullAddress">
+      <v-col cols="12" md="6" class="d-flex flex-column">
 
-    <!--    </v-col>-->
+        <span class="mb-12 font-weight-bold" style="font-size: 15px;">Location Service Radius</span>
+        <v-slider
+          min="0"
+          max="200"
+          thumb-label="always"
+          :thumb-size="36"
+          track-color="grey"
+          track-fill-color="primary"
+          step="10"
+          ticks
+          :tick-labels="miles"
+          :readonly="false"
+          v-model="location.radius"
+          v-on:input="emitRadiusSlider"
+          class="d-flex align-end"
+        >
+        </v-slider>
+      </v-col>
 
-    <!--    <v-col cols="12" md="5">-->
-    <!--      <span>Where would you like to accept vendor applications?</span>-->
-    <!--      <v-select-->
-    <!--        class="mb-8"-->
-    <!--        label="Applicant Range"-->
-    <!--        :items="memberships"-->
-    <!--        v-model="location.membership_id"-->
-    <!--      >-->
-    <!--      </v-select>-->
-    <!--      <template v-if="location.membership_id === 1">-->
-    <!--        <span class="mb-12">Please select a range (miles).</span>-->
-    <!--        <v-slider-->
-    <!--          min="0"-->
-    <!--          max="200"-->
-    <!--          thumb-label="always"-->
-    <!--          :thumb-size="36"-->
-    <!--          track-color="grey"-->
-    <!--          track-fill-color="primary"-->
-    <!--          step="10"-->
-    <!--          ticks-->
-    <!--          :tick-labels="miles"-->
-    <!--          :readonly="false"-->
-    <!--          v-model="location.radius"-->
-    <!--          v-on:change="emitRadiusSlider(index)"-->
-    <!--        >-->
-    <!--        </v-slider>-->
-    <!--      </template>-->
-    <!--    </v-col>-->
+      <v-col cols="12" md="6">
+        <client-only>
+          <GmapMap
+            id="locations-map"
+            :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
+            :zoom="location.latitude ? 12 : 4"
+            style="height: 250px; border-radius: 10px; overflow: hidden;"
+            ref="locationMap"
+          >
+            <GmapMarker
+              :position="{lat: location.latitude, lng: location.longitude}"
+              :clickable="true"
+            />
+            <GmapCircle
+              :center="{lat: location.latitude, lng: location.longitude}"
+              :radius="radius * 1609.344"
+              ref="mapCircle"
+            />
+          </GmapMap>
+        </client-only>
+      </v-col>
+    </template>
 
     <v-col cols="12" class="my-8 d-flex justify-center">
       <span class="text-h6 mb-0">Add Location Manager or Franchisee</span>
@@ -275,7 +287,8 @@ export default {
           value: 3
         },
       ],
-      fullAddress: null
+      fullAddress: null,
+      radius: null
     }
   },
   mounted() {
@@ -283,6 +296,15 @@ export default {
   },
   methods: {
     emitRadiusSlider(e) {
+      console.log('hello');
+      console.log(e);
+      this.radius = e;
+
+      this.$refs.mapCircle.$circlePromise.then(() => {
+        const {$circleObject} = this.$refs.mapCircle; //get google.maps.Circle object
+        const map = $circleObject.getMap(); //get map instance
+        map.fitBounds($circleObject.getBounds());
+      })
     },
     emitPlaceChanged(e) {
 
@@ -312,10 +334,12 @@ export default {
       this.location.zipcode = addressData.postal_code;
       this.location.latitude = addressData.latitude;
       this.location.longitude = addressData.longitude;
+      this.formatFullAddress();
     },
     formatFullAddress() {
       if(!this.location.address) return;
       this.fullAddress = this.location.address + ', ' + this.location.city + ', ' + this.location.state + ' ' + this.location.zipcode;
+      console.log(this.fullAddress);
     },
     saveLocationAddress(addressObj, placeObj, id, locationIndex) {
       this.location.address = addressObj.street_number + ' ' + addressObj.route;
