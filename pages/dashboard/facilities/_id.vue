@@ -3,7 +3,7 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
         <v-col cols="4" class="py-12">
-          <ProfileCard :location="location" v-if="location"></ProfileCard>
+          <ProfileCard :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
         </v-col>
         <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">
           <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location"></ProfileEditCard>
@@ -223,6 +223,21 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.location = data;
       },
+      deleteLocation(locationParam) {
+        console.log(locationParam, 'params');
+        let confirmDelete = confirm('Are you sure you want to delete this location? Cannot be undone.');
+        if (confirmDelete === true) {
+          this.$http.delete('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + locationParam.id)
+            .then(response => {
+              alert('Location successfully deleted');
+              this.$router.push({path:"/dashboard/facilities"})
+            })
+            .catch(err => {
+              console.log(err, 'err');
+              alert('Error - could not delete location. Do you have any active bid applications with this location?');
+            })
+        }
+      }
     }
   }
 </script>

@@ -74,8 +74,9 @@
       </template>
     </v-card-text>
     <v-spacer></v-spacer>
-    <v-card-actions>
-      <v-btn @click="logout">Logout</v-btn>
+    <v-card-actions class="d-flex justify-center">
+      <v-btn color="blue" @click="logout">Logout</v-btn>
+      <v-btn color="primary" @click="deleteLocation(location)" v-if="location">DELETE THIS LOCATION</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -85,8 +86,12 @@
     name: "ProfileCard",
     props: [
       'location',
-      'company'
+      'company',
+      'deleteLocation'
     ],
+    mounted() {
+      console.log(this.location);
+    },
     methods: {
       async logout() {
         await this.$store.dispatch('user/logout');
