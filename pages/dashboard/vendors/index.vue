@@ -8,6 +8,27 @@
       ></v-progress-circular>
     </div>
     <v-container class="px-0" style="max-width: 95%;">
+      <v-row class="d-flex align-center" style="width: 100%">
+        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />
+        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">
+          <v-slide-item
+            v-for="(item, index) in quickLookUps"
+            :key="index"
+            v-slot:default="{ active, toggle }"
+            class="px-4 d-flex align-center"
+            style=" background: #E0E0E0; width: 70%; border-radius: 50px;"
+          >
+            <v-card width="300" elevation="0">
+              <v-row>
+                <v-col class="d-flex flex-column align-center justify-center py-0">
+                  <p class="text-center primary--text title">{{ item.name }}</p>
+                  <v-icon color="primary" size="100">{{ item.icon }}</v-icon>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-row>
       <v-row>
         <v-col cols="3">
           <FilterCard
@@ -72,6 +93,46 @@
             email: 'test@test.com',
             phone: '(347) 522-7496',
             location: 'Springfield, MO',
+          },
+        ],
+        prevIcon: true,
+        nextIcon: true,
+        showArrows: true,
+        quickLookUps: [
+          {
+            name: 'HVAC',
+            icon: 'hvac',
+            link: '#'
+          },
+          {
+            name: 'Landscaping',
+            icon: 'mdi-rake',
+            link: '#'
+          },
+          {
+            name: 'Plumber',
+            icon: 'mdi-pipe',
+            link: '#'
+          },
+          {
+            name: 'Electrician',
+            icon: 'mdi-power-plug',
+            link: '#'
+          },
+          {
+            name: 'Painter',
+            icon: 'mdi-format-paint',
+            link: '#'
+          },
+          {
+            name: 'Paving',
+            icon: 'mdi-tractor',
+            link: '#'
+          },
+          {
+            name: 'Pest Control',
+            icon: 'mdi-bug-outline',
+            link: '#'
           },
         ],
         services: [],

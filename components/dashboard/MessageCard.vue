@@ -17,7 +17,7 @@
         <v-data-table
           :headers="tableProperties"
           :items="items"
-          :items-per-page="10"
+          :items-per-page="5"
         >
           <template v-slot:item.full_name="{ item }">
             <v-icon color="primary">mdi-account</v-icon>

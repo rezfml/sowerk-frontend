@@ -33,6 +33,9 @@ export default {
       loading: false,
       messages: [
       ],
+      company: {
+
+      },
       headers: [
         { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
         { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
@@ -55,6 +58,7 @@ export default {
     }
   },
   async mounted() {
+    await this.getCompany();
     await this.getMessages();
   },
   computed: {
@@ -63,8 +67,16 @@ export default {
     },
   },
   methods: {
+    async getCompany() {
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+      if (this.$error(status, data.message, data.errors)) return;
+      this.$nextTick(function() {
+        this.company = data;
+        console.log(this.company, 'company');
+      })
+    },
     async getMessages() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byUserId/' + this.currentUser.id).catch(e => e);
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byRecieverId/' + this.company.id).catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.messages = data;
