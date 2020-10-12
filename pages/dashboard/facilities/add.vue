@@ -120,6 +120,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                   <v-col cols="12" md="6">
                     <v-select
                       :items="adminOptions"
+                      v-model="form.adminLevel"
                       placeholder=" "
                     >
                       <template v-slot:label>
@@ -166,7 +167,9 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           latitude: null,
           longitude: null,
           radius: 0,
-          year_founded: '',
+          year_founded: 0,
+          adminLevel: false,
+          imageUrl: ''
         },
         filters: [
           {
@@ -292,11 +295,11 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         adminOptions: [
           {
             text: 'Super Admin',
-            value: 'superuser'
+            value: 1
           },
           {
             text: 'Staff Account',
-            value: 'staff'
+            value: 0
           }
         ]
       }
@@ -315,7 +318,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         this.form.address = addressData.street_number + ' ' + addressData.route;
         this.form.city = addressData.locality;
         this.form.state = addressData.administrative_area_level_1;
-        this.form.zipcode = addressData.postal_code;
+        this.form.zipcode = Number(addressData.postal_code);
         this.form.latitude = addressData.latitude;
         this.form.longitude = addressData.longitude;
         this.formatFullAddress();
@@ -327,7 +330,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       async submit() {
         console.log(this.currentUser);
         console.log(this.form);
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + this.currentUser.companies_id, this.form).catch(e => e);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form).catch(e => e);
         console.log(data);
       }
     }
