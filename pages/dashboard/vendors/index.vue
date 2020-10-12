@@ -16,7 +16,7 @@
           ></FilterCard>
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-space-between">
-          <HomeCard
+          <FacilitiesCard
             v-if="vendors"
             :title="'All SOWerk Vendors'"
             :items="vendors"
@@ -24,7 +24,7 @@
             :viewAll="false"
             action="View"
             slug="/dashboard/businesses/"
-          ></HomeCard>
+          ></FacilitiesCard>
         </v-col>
       </v-row>
     </v-container>
@@ -32,14 +32,14 @@
 </template>
 
 <script>
-  import HomeCard from '~/components/dashboard/HomeCard'
   import FilterCard from '~/components/dashboard/FilterCard'
+  import FacilitiesCard from '@/components/dashboard/FacilitiesCard'
 
   export default {
     name: 'facilities',
     layout: 'app',
     components: {
-      HomeCard,
+      FacilitiesCard,
       FilterCard
     },
     data() {

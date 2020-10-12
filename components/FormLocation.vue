@@ -270,7 +270,7 @@
       user: {
         type: Object,
         required: true
-      }
+      },
     },
     components: {
       VImageInput

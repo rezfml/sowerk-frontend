@@ -662,5 +662,24 @@ export default {
     font-size: 40px;
     width: 100%;
   }
+
+}
+.jointraits div {
+  flex: 0 50%;
+}
+.joinconnection h1 {
+  font-size: 42px;
+}
+.joinconnection {
+  flex-direction: column;
+}
+
+.joinconnection .joinconnectioncolumn {
+  width: 80%;
+}
+
+.joinconnection h1 {
+  font-size: 40px;
+  width: 100%;
 }
 </style>

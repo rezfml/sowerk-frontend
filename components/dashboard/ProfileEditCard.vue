@@ -8,7 +8,7 @@
             <v-row>
 
               <v-col cols="12" class="pb-0 mt-3">
-                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Facility</v-subheader>
+                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Details</v-subheader>
               </v-col>
 
               <v-col cols="12" class="pt-0">
@@ -18,7 +18,7 @@
                   v-model="locationEdit.name"
                 >
                   <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Facility Name</p>
+                    <p class="grey--text text--darken-4 font-weight-bold">Property Name</p>
                   </template>
                 </v-text-field>
               </v-col>
@@ -30,7 +30,7 @@
 <!--                  v-model="locationEdit.address"-->
 <!--                >-->
 <!--                  <template v-slot:label>-->
-<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Facility Address</p>-->
+<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Property Address</p>-->
 <!--                  </template>-->
 <!--                </v-text-field>-->
                 <div class="v-input theme--light v-text-field v-text-field--is-booted">
@@ -66,7 +66,7 @@
                   type="number"
                 >
                   <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Facility Opened</p>
+                    <p class="grey--text text--darken-4 font-weight-bold">Property Opened</p>
                   </template>
                 </v-text-field>
               </v-col>
@@ -78,7 +78,7 @@
                   v-model="locationEdit.description"
                 >
                   <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Facility Description</p>
+                    <p class="grey--text text--darken-4 font-weight-bold">Property Description</p>
                   </template>
                 </v-text-field>
               </v-col>
@@ -87,7 +87,7 @@
             <v-row>
 
               <v-col cols="12" class="py-0 mt-0">
-                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Facility Manager</v-subheader>
+                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Manager</v-subheader>
               </v-col>
 
               <v-col cols="12" md="6" class="pt-0">
@@ -136,6 +136,15 @@
                 ><template v-slot:label>
                   <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
                 </template></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="py-0">
+                <v-select id="location-Admin"
+                          label="Admin Level"
+                          :items="adminLevels"
+                          v-model="location.adminLevel">
+
+                </v-select>
               </v-col>
 
 <!--              <v-col cols="12" md="4" class="py-0">-->
@@ -267,7 +276,6 @@
                   <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
                 </template></v-text-field>
               </v-col>
-
             </v-row>
 
           </v-form>
@@ -290,7 +298,8 @@
     },
     props: [
       'location',
-      'company'
+      'company',
+      'adminLevels'
     ],
     data() {
       return {
@@ -306,6 +315,7 @@
         description: null,
         image: null,
         fullAddress: null,
+        adminLevel: null,
         locationEdit: {
           name: null,
           address: null,
@@ -320,7 +330,8 @@
           contact_last_name: null,
           phone: null,
           email: null,
-          year_founded: null
+          year_founded: null,
+          adminLevel: null
         }
       }
     },
@@ -340,6 +351,7 @@
         this.locationEdit.phone = this.location.phone;
         this.locationEdit.email = this.location.email;
         this.locationEdit.year_founded = this.location.year_founded;
+        this.locationEdit.adminLevel = this.location.adminLevel;
         this.formatFullAddress(this.locationEdit);
       } else if(this.company) {
         this.formatFullAddress(this.company);

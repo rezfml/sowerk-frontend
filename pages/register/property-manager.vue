@@ -49,6 +49,8 @@
             :animateAddressFieldOnFocus="animateAddressFieldOnFocus"
             :animateAddressFieldOnFilled="animateAddressFieldOnFilled"
             :user="user"
+            :bestSelection="bestSelection"
+            :fullAddress="fullAddress"
           ></CompanyDetails>
 
           <CompanyLocations
@@ -153,8 +155,14 @@ export default {
       tab: 0,
       items: ['Company', 'Locations', 'Review'],
       bestSelection: [
-        '- I own this brand',
-        '- I am a franchisee of this brand',
+        {
+          text: '- I own this brand',
+          value: 0
+        },
+        {
+          text: '- I am a franchisee of this brand',
+          value: 1
+        }
       ],
       company: {
         email: '',
