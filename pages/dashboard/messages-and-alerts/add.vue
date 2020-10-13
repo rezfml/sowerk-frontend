@@ -2,9 +2,13 @@
   <div style="width: 100%;" class="d-flex flex-column align-center">
     <v-row class="mt-10 d-flex flex-column" style="width: 80%;">
       <v-text-field v-model="search" placeholder="Search companies here..." label="Search Company And Select To Send Message:"/>
-      <v-card v-for="company in filteredCompanies" class="d-flex justify-center">
-          <v-btn @click="selectCompany(company)" class="py-2 my-2">{{company.account_name}} - #{{company.id}}</v-btn>
-      </v-card>
+      <MessageCompanyCard
+        :items="filteredCompanies"
+        title="Companies"
+        :tableProperties="headers"
+        slug="/dashboard/messages-and-alerts/add"
+        :selectCompany="selectCompany"
+      ></MessageCompanyCard>
     </v-row>
     <v-form class="mt-10" style="width: 80%;" v-if="companySelection === true">
       <v-text-field placeholder="Service Goes Here" v-model="messageForm.service"></v-text-field>
@@ -19,11 +23,13 @@
 </template>
 
 <script>
+  import MessageCompanyCard from '@/components/dashboard/MessageCompanyCard'
+
   export default {
     name: 'addMessage',
     layout: 'app',
     components: {
-
+      MessageCompanyCard
     },
     data() {
       return {
@@ -43,6 +49,12 @@
         company: {
 
         },
+        headers: [
+          { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
+          { text: 'Services Offered', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
+          { text: 'Address', value: 'full_address', class: 'primary--text font-weight-regular' },
+        ]
       }
     },
     async mounted() {

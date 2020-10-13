@@ -47,7 +47,7 @@ export default {
       ]
     }
   },
-  wwatch: {
+  watch: {
     loading: function() {
       if(this.loading){
         console.log(document);
