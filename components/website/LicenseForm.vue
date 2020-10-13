@@ -13,14 +13,16 @@
                 <v-file-input class="insurance-upload my-8" :class="{'insurance-upload--selected' : file}" v-model="file" v-on:change.native="readFile"></v-file-input>
                 <v-img :src="url" :aspect-ratio="1" style="position: absolute; max-width: 300px; height: 100%; width: 100%; max-height: 288px; bottom: 0;" class="my-8 pt-3" v-if="file"></v-img>
               </div>
-              <v-checkbox label="Allow Uploaded Document to be Visible to Others"></v-checkbox>
+              <v-checkbox label="Allow Uploaded Document to be Visible to Others" v-model="license.documentVisible"></v-checkbox>
             </v-col>
             <v-col cols="12" md="6" class="d-flex flex-column justify-space-around">
               <v-text-field label="License Name" class="license__input flex-grow-0" placeholder=" " v-model="license.name" hint="An Label For Your Own Internal Naming Purposes"></v-text-field>
-              <v-text-field label="License Number" class="license__input flex-grow-0" placeholder=" " v-model="license.number"></v-text-field>
-              <v-select label="License Type" class="license__input flex-grow-0" placeholder=" " v-model="license.type"></v-select>
-              <v-select label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation"></v-select>
-              <v-text-field label="Expiration Date" class="license__input flex-grow-0" placeholder=" " v-model="license.expirationDate"></v-text-field>
+              <v-text-field label="License Number" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseNumber"></v-text-field>
+<!--              <v-select label="License Type" class="license__input flex-grow-0" placeholder=" " v-model="license.type"></v-select>-->
+              <v-text-field label="License Type" placeholder=" " class="license__input flex-grow-0" v-model="license.type"></v-text-field>
+<!--              <v-select label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation" :items="locations" item-text="state" item-value="state"></v-select>-->
+              <v-text-field label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation"></v-text-field>
+              <v-text-field label="Expiration Date" class="license__input flex-grow-0" placeholder=" " v-model="license.expirationDate" type="date"></v-text-field>
             </v-col>
           </v-row>
         </v-form>
@@ -31,7 +33,7 @@
 
 <script>
   export default {
-    name: 'InsuranceForm',
+    name: 'LicenseForm',
     props: {
       index: {
         type: Number,
@@ -43,14 +45,22 @@
       backgroundColor: {
         type: String,
         required: true
+      },
+      locations: {
+        type: Array,
+        required: true,
       }
     },
     data() {
       return {
         file: null,
         selectedFile: null,
-        url: null
+        url: null,
+        locationsList: this.$props.locations
       }
+    },
+    mounted() {
+      console.log(this.license);
     },
     methods: {
       readFile(e) {

@@ -50,7 +50,7 @@
                 <v-form class="mx-auto register-form">
                   <v-container>
                     <v-row>
-                      <v-col cols="12" sm="6">
+                      <v-col cols="12" sm="5" md="6">
                         <v-row fill-height class="pl-2 fill-height">
                           <v-col cols="12" md="6" class="d-flex justify-center align-center">
                             <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
@@ -76,7 +76,7 @@
                         </v-row>
                       </v-col>
 
-                      <v-col cols="12" md="6">
+                      <v-col cols="12" sm="7" md="6">
                         <v-text-field
                           label="First Name (Your SOWerk Admin Account)*"
                           type="text"
@@ -325,7 +325,7 @@
                         </div>
                         <v-list>
                           <template v-for="(license, index) in licenses">
-                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index"></LicenseForm>
+                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index" :locations="locations"></LicenseForm>
                           </template>
                         </v-list>
                       </v-col>
@@ -353,12 +353,22 @@
                   <v-form class="mx-auto">
                     <v-container>
                       <v-row>
-                        <v-col cols="12">
+                        <v-col cols="12" md="6">
                           <p class="grey--text text--darken-4 font-weight-bold mb-0">First Name*</p>
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="user.firstName"
+                            v-model="user.first_name"
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Last Name*</p>
+                          <v-text-field
+                            placeholder=" "
+                            readonly
+                            v-model="user.last_name"
                           >
                           </v-text-field>
                         </v-col>
@@ -524,7 +534,7 @@
           {
             name: '',
             policyNumber: '',
-            expirationDate: '',
+            expirationDateVal: '',
             documentUrl: '',
             documentVisible: false,
             companies_id: null
@@ -534,7 +544,7 @@
           name: '',
           insuranceCompany: '',
           policyNumber: '',
-          expirationDate: '',
+          expirationDateVal: '',
           documentUrl: '',
           documentVisible: false,
           companies_id: null
@@ -616,6 +626,9 @@
           longitude: null,
           radius: 0,
           year_founded: '',
+          pfLogoCheckbox: false,
+          imageUrl: null,
+          companies_id: null
         },
         formattedServicesProvided: [],
         editingIndex: 0,
@@ -657,9 +670,9 @@
         this.licenseFiles[index].file = file;
       },
       selectCompanyImage(e) {
-        let companyImageFile = e.target.files[0];
-        console.log(companyImageFile);
-        this.companyImageUrl = URL.createObjectURL(companyImageFile);
+        this.companyImageFile = e.target.files[0];
+        console.log(this.companyImageFile);
+        this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
         console.log(this.companyImageUrl);
       },
       clickCompanyImageUpload() {
@@ -757,6 +770,7 @@
           longitude: null,
           radius: 0,
           year_founded: '',
+          companies_id: null
         };
         this.locations.push(newLocation);
         this.location = this.locations[this.locations.length - 1];
@@ -769,7 +783,7 @@
           name: '',
           insuranceCompany: '',
           policyNumber: '',
-          expirationDate: '',
+          expirationDateVal: '',
           documentUrl: '',
           documentVisible: false,
           companies_id: null
@@ -808,74 +822,137 @@
         this.loopInsuranceFilesForUpload();
         this.loopLicenseFilesForUpload();
 
-        console.log(this.company);
-        console.log(this.locations);
+        await this.loopLocationImages();
 
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
-        console.log('post company: ', data);
-        this.user.companies_id = data.companies.id;
-        await this.registerUser(data.companies.id);
-        await this.postLocations(data.user.id);
-        await this.$router.push('/login');
-        await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+        console.log(this.company, 'this.company');
+        console.log(this.locations, 'this.locations');
+
+        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company)
           .then(response => {
-            console.log(response);
+            console.log('post company:', response)
+            this.user.companies_id = response.data.companies.id;
+            this.registerUser(response.data.companies.id);
+            this.postLicenses(response.data.companies.id);
+            this.postInsurances(response.data.companies.id);
+            this.postLocations(response.data.user.id);
+            this.$router.push('/login');
           })
+          .catch(err => {
+            console.log('error in posting companies registering', err)
+          })
+        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+        //   .then(response => {
+        //     console.log(response);
+        //   })
 
+      },
+      async postLicenses(companyId) {
+        for (const license of this.licenses) {
+          license.companies_id = companyId;
+          let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
+          console.log(data);
+        }
+      },
+      async postInsurances(companyId) {
+        for (const insurance of this.insurances) {
+          insurance.companies_id = companyId;
+          let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
+          console.log(data);
+        }
       },
       async uploadCompanyImage() {
         const formData = new FormData();
         formData.append('file', this.companyImageFile);
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
-        console.log(data.data.Location);
-
-        this.company.imgUrl = data.data.Location;
+        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading company image', response)
+            this.company.imgUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading company image', err);
+          })
       },
       loopInsuranceFilesForUpload() {
         this.insuranceFiles.forEach((insuranceFile, index) =>{
-          const formData = new FormData();
-          formData.append('file', insuranceFile.file);
-          this.uploadInsuranceFile(formData, index);
+          this.uploadInsuranceFile(insuranceFile, index);
         })
 
       },
-      async uploadInsuranceFile(formData, index) {
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
-        console.log(data);
-        this.insurances[index].documentUrl = data.data.Location;
-        this.loading = false;
-        console.log(this.insurances);
-        return this.insurances;
+      async uploadInsuranceFile(insuranceFile, index) {
+        let formData = new FormData();
+        formData.append('file', insuranceFile.file);
+        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading insurance file', response)
+            this.insurances[index].documentUrl = response.data.data.Location;
+            this.loading = false;
+            console.log(this.insurances);
+            return this.insurances;
+          })
+          .catch(err => {
+            console.log('error in uploading insurance file', err);
+          })
       },
       loopLicenseFilesForUpload() {
         this.licenseFiles.forEach((licenseFile, index) =>{
-          const formData = new FormData();
-          formData.append('file', licenseFile.file);
-          this.uploadLicenseFile(formData, index);
+          this.uploadLicenseFile(licenseFile, index);
         })
 
       },
-      async uploadLicenseFile(formData, index) {
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
-        console.log(data);
-        this.licenses[index].documentUrl = data.data.Location;
-        this.loading = false;
-        console.log(this.licenses);
-        return this.licenses;
-
+      async uploadLicenseFile(licenseFile, index) {
+        let formData = new FormData();
+        formData.append('file', licenseFile.file);
+        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+          .then(response => {
+            console.log('successfully uploaded license file', response)
+            this.licenses[index].documentUrl = response.data.data.Location;
+            this.loading = false;
+            console.log(this.licenses);
+            return this.licenses;
+          })
+          .catch(err => {
+            console.log(err, 'error in uploading license files')
+          })
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
         let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register', this.user).catch(e => e);
         await this.postLocations(data.user.companies_id);
       },
+      async loopLocationImages() {
+        this.locations.forEach((location, index) => {
+          const formData = new FormData();
+          console.log(location);
+          formData.append('file', location.imageUrl);
+          this.uploadLocationImage(formData, index);
+        });
+        console.log(this.locations);
+      },
+      async uploadLocationImage(formData, index) {
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+          .then(response => {
+            console.log(response, 'success in uploading location image')
+            console.log(response.data.Location);
+            this.locations[index].imageUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading location image', err)
+          })
+      },
       async postLocations(userId) {
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
+        for(let i = 0; i < this.locations.length; i++) {
+          this.locations[i].companies_id = userId;
+          this.locations[i].zipcode = Number(this.locations[i].zipcode)
+        }
+        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+          .then(response => {
+            console.log('success in posting group locations', response)
+          })
+          .catch(err => {
+            console.log('error in posting group locations', err, this.locations)
+          })
         // this.loading = false;
         // if (this.$error(status, message, errors)) return;
-        console.log('user locations post: ', data);
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
