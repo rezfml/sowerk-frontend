@@ -53,6 +53,9 @@
             placeholder=" "
             v-model="location.service"
             class="flex-grow-0 mb-12"
+            :items="serviceOptions"
+            multiple
+            chips
           >
             <template v-slot:label>
               <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
@@ -286,6 +289,22 @@ export default {
           text: 'National',
           value: 3
         },
+      ],
+      serviceOptions: [
+        'HVAC',
+        'Roofing',
+        'General Contractor',
+        'Plumbing',
+        'Window/Glass Repair',
+        'Electrician',
+        'Landscaper',
+        'Painting',
+        'Paving',
+        'Excavation',
+        'Pest Control',
+        'Waste Management',
+        'Engineering',
+        'Water Damage Repair'
       ],
       fullAddress: null,
       radius: null

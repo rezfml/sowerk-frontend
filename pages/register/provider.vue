@@ -51,20 +51,28 @@
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="6">
-                        <v-row fill-height class="pl-2">
-                          <client-only>
-                            <v-image-input
-                              v-model="company.image"
-                              image-quality="0.85"
-                              clearable
-                              image-format="png"
-                              uploadIcon="person"
-                              fullWidth
-                              overlayPadding="10px"
-                              scalingSliderColor="red"
-                              :readonly="false"
-                            />
-                          </client-only>
+                        <v-row fill-height class="pl-2 fill-height">
+                          <v-col cols="12" md="6" class="d-flex justify-center align-center">
+                            <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
+                            <v-icon v-else :size="100">person</v-icon>
+                          </v-col>
+                          <v-col cols="12" md="6" class="d-flex flex-column justify-space-between">
+                            <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+                            <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
+                            <p class="text-center mb-0">Or</p>
+
+                            <v-checkbox class="mt-0">
+                              <template v-slot:label>
+                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>
+                              </template>
+                            </v-checkbox>
+                          </v-col>
+<!--                            <v-file-input-->
+<!--                              clearable-->
+<!--                              full-width-->
+<!--                              v-on:input.native="selectCompanyImage"-->
+<!--                            />-->
+
                         </v-row>
                       </v-col>
 
@@ -73,14 +81,14 @@
                           label="First Name (Your SOWerk Admin Account)*"
                           type="text"
                           placeholder=" "
-                          v-model="user.firstName"
+                          v-model="user.first_name"
                         ></v-text-field>
 
                         <v-text-field
                           label="Last Name*"
                           type="text"
                           placeholder=" "
-                          v-model="user.lastName"
+                          v-model="user.last_name"
                         ></v-text-field>
 
                         <v-text-field
@@ -117,13 +125,36 @@
                         ></v-text-field>
                       </v-col>
 
+                      <v-col cols="12">
+                        <p class="font-weight-bold text-h6">Company Details</p>
+                      </v-col>
+
+                      <v-col cols="12" sm="6">
+                        <v-text-field
+                          id="account-name"
+                          label="Account Name*"
+                          placeholder=" "
+                          v-model="company.account_name"></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" sm="6">
+                        <v-text-field
+                          id="brand-name"
+                          label="Brand Name*"
+                          type="text"
+                          placeholder=" "
+                          v-model="company.brand_name"></v-text-field>
+                      </v-col>
+
                       <v-col cols="12" sm="6">
                         <v-select
                           id="company-best"
                           label="What Best Describes You*"
                           placeholder=" "
+                          :item-text="bestSelection.text"
+                          :item-value="bestSelection.value"
                           :items="bestSelection"
-                          v-model="company.bestDescription"></v-select>
+                          v-model="company.isFranchise"></v-select>
                       </v-col>
 
                       <v-col cols="12" sm="6">
@@ -135,34 +166,54 @@
                           v-model="company.llcName"></v-text-field>
                       </v-col>
 
-<!--                      <v-col cols="12" class="v-input">-->
-<!--                        <div class="v-input__control">-->
-<!--                          <div class="v-input__slot">-->
-<!--                            <div class="v-text-field__slot" style="width: 100%;">-->
-<!--                              <label class="v-label theme&#45;&#45;light form__label&#45;&#45;address" style="left: 0px; right: auto; position: absolute;">Corporate Address*</label>-->
-<!--                              <client-only>-->
-<!--                                <vue-google-autocomplete-->
-<!--                                  id="company-address"-->
-<!--                                  name="company_address"-->
-<!--                                  classname="form-control"-->
-<!--                                  v-on:placechanged="getAddressData"-->
-<!--                                  placeholder=" "-->
-<!--                                  style="width: 100%;"-->
-<!--                                  v-on:focus.native="animateAddressFieldOnFocus"-->
-<!--                                  v-on:blur.native="animateAddressFieldOnFocus"-->
-<!--                                  v-on:input.native="animateAddressFieldOnFilled"-->
-<!--                                >-->
-<!--                                </vue-google-autocomplete>-->
-<!--                              </client-only>-->
-<!--                            </div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </v-col>-->
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          label="Email Address*"
+                          type="email"
+                          placeholder=" "
+                          class="card__input black--text"
+                          v-model="company.email"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" md="6">
+                        <v-text-field
+                          label="Phone*"
+                          type="text"
+                          placeholder=" "
+                          class="card__input black--text"
+                          v-model="company.phone"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12">
+                        <div class="v-input__control">
+                          <div class="v-input__slot">
+                            <div class="v-text-field__slot" style="width: 100%;">
+                              <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
+                              <client-only>
+                                <vue-google-autocomplete
+                                  id="company-address"
+                                  classname="form-control"
+                                  v-on:placechanged="getAddressData"
+                                  placeholder=""
+                                  style="width: 100%; font-size: 16px; padding: 2px 0"
+                                  v-on:focus.native="animateAddressFieldOnFocus"
+                                  v-on:blur.native="animateAddressFieldOnFocus"
+                                  v-on:input.native="animateAddressFieldOnFilled"
+                                  v-model="fullAddress"
+                                >
+                                </vue-google-autocomplete>
+                              </client-only>
+                            </div>
+                          </div>
+                        </div>
+                      </v-col>
 
                       <v-col cols="12" md="6">
                         <v-select
                           :items="serviceOptions"
-                          v-model="servicesProvided"
+                          v-model="company.servicesOffered"
                           multiple
                           chips
                           label="What Services Do You Offer?"
@@ -307,7 +358,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="user.rep_name"
+                            v-model="user.firstName"
                           >
                           </v-text-field>
                         </v-col>
@@ -414,7 +465,7 @@
   // })
 
   export default {
-    name: 'property-manager',
+    name: 'provider',
     layout: 'fullwidth',
     components: {
       FormLocation,
@@ -436,7 +487,8 @@
         ],
         company: {
           email: '',
-          company_name: '',
+          account_name: '',
+          brand_name: '',
           address: '',
           city: '',
           state: '',
@@ -446,14 +498,22 @@
           year_founded: '',
           company_type: false,
           isFranchise: false,
+          servicesOffered: [],
+          imgUrl: null
         },
         bestSelection: [
-          "- I own this brand",
-          "- I am a franchisee of this brand"
+          {
+            text: "- I own this brand",
+            value: false
+          },
+          {
+            text: "- I am a franchisee of this brand",
+            value: true
+          }
         ],
         user: {
-          firstName: '',
-          lastName: '',
+          first_name: '',
+          last_name: '',
           email: '',
           password: '',
           is_superuser: true,
@@ -509,6 +569,8 @@
             file: null
           }
         ],
+        companyImageFile: null,
+        companyImageUrl: null,
         options: {
           adminLevel: [
             {
@@ -524,9 +586,19 @@
         servicesProvided: [],
         serviceOptions: [
           'HVAC',
-          'Landscaping',
-          'Plumber',
+          'Roofing',
+          'General Contractor',
+          'Plumbing',
+          'Window/Glass Repair',
           'Electrician',
+          'Landscaper',
+          'Painting',
+          'Paving',
+          'Excavation',
+          'Pest Control',
+          'Waste Management',
+          'Engineering',
+          'Water Damage Repair'
         ],
         fullAddress: null,
         locations: [],
@@ -579,18 +651,23 @@
     },
     methods: {
       selectInsuranceFile(file, index) {
-        console.log('hello world');
-        console.log(file);
-        console.log(index);
         this.insuranceFiles[index].file = file;
-        console.log(this.insuranceFiles);
       },
       selectLicenseFile(file, index) {
-        console.log('hello world');
-        console.log(file);
-        console.log(index);
         this.licenseFiles[index].file = file;
-        console.log('this.licenseFiles: ', this.licenseFiles);
+      },
+      selectCompanyImage(e) {
+        let companyImageFile = e.target.files[0];
+        console.log(companyImageFile);
+        this.companyImageUrl = URL.createObjectURL(companyImageFile);
+        console.log(this.companyImageUrl);
+      },
+      clickCompanyImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyImage').click();
       },
       nextPageIfNotLast() {
         if(this.tab === 3) return;
@@ -643,6 +720,7 @@
       formatFullAddress() {
         if(!this.company.address) return;
         this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
+        console.log(this.fullAddress);
       },
       onRadiusSlide(value, index) {
 
@@ -726,24 +804,32 @@
       async register() {
         this.loading = true;
 
+        await this.uploadCompanyImage();
         this.loopInsuranceFilesForUpload();
         this.loopLicenseFilesForUpload();
 
-
-
         console.log(this.company);
         console.log(this.locations);
-        // let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
-        // console.log('post company: ', data);
-        // this.user.companies_id = data.companies.id;
-        // await this.registerUser(data.companies.id);
-        // await this.postLocations(data.user.id);
-        // await this.$router.push('/login');
-        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
-        //   .then(response => {
-        //     console.log(response);
-        //   })
 
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch(e => e);
+        console.log('post company: ', data);
+        this.user.companies_id = data.companies.id;
+        await this.registerUser(data.companies.id);
+        await this.postLocations(data.user.id);
+        await this.$router.push('/login');
+        await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+          .then(response => {
+            console.log(response);
+          })
+
+      },
+      async uploadCompanyImage() {
+        const formData = new FormData();
+        formData.append('file', this.companyImageFile);
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
+        console.log(data.data.Location);
+
+        this.company.imgUrl = data.data.Location;
       },
       loopInsuranceFilesForUpload() {
         this.insuranceFiles.forEach((insuranceFile, index) =>{
@@ -849,6 +935,81 @@
 </script>
 
 <style scoped>
+
+  /*.company-image-upload {*/
+  /*  height: 100vh;*/
+  /*  max-height: 300px;*/
+  /*  width: 100%;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__control {*/
+  /*  height: 100%;*/
+  /*  position: relative;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__control:before {*/
+  /*  position: absolute;*/
+  /*  width: 100%;*/
+  /*  height: 100%;*/
+  /*  content: '+';*/
+  /*  font-weight: bold;*/
+  /*  color: white;*/
+  /*  font-size: 100px;*/
+  /*  z-index: 1;*/
+  /*  display: flex;*/
+  /*  justify-content: center;*/
+  /*  align-items: center;*/
+  /*  pointer-events: none;*/
+  /*}*/
+
+  /*.company-image-upload--selected >>> .v-input__control:before {*/
+  /*  content: '';*/
+  /*}*/
+
+  /*.company-image-upload--selected >>> .v-input__icon.v-input__icon--clear {*/
+  /*  z-index: 10;*/
+  /*  background-color: white;*/
+  /*  border-radius: 0!important;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__append-inner {*/
+  /*  margin-top: 0!important;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__icon.v-input__icon--clear > button {*/
+  /*  color: #333;*/
+
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__slot {*/
+  /*  height: 100%;*/
+  /*  background-color: transparent;*/
+  /*  border-radius: 10px;*/
+  /*  border: 2px dotted grey;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__slot:hover {*/
+  /*  cursor: pointer;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__prepend-outer {*/
+  /*  display: none;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__slot:before {*/
+  /*  height: 100%;*/
+  /*  border-width: 0;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-text-field__slot {*/
+  /*  height: 100%;*/
+  /*  width: 100%;*/
+  /*}*/
+
+  /*.company-image-upload >>> .v-input__slot:after {*/
+  /*  display: none;*/
+  /*}*/
+
   .form__address::v-deep input {
     border: 2px solid red!important;
     width: 600px;
