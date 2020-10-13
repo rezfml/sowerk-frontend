@@ -31,11 +31,18 @@
             {{ item.contact_first_name }}
             {{ item.contact_last_name }}</template
           >
-          <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
-            <v-btn block color="primary" :to="slug + item.application_id"
-              >Review</v-btn
-            >
+          <template v-slot:item.approved_name="{ item }">
+            <v-icon color="primary">mdi-account</v-icon>
+            {{ item.contact_first_name }}
+            {{ item.contact_last_name }}
           </template>
+
+          <template v-slot:item.phone="{ item }">{{ item.phone }}</template>
+
+          <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+            <v-btn block color="primary" :to="slug + item.application_id">Review</v-btn>
+          </template>
+
           <template
             v-slot:item.actions="{ item }"
             v-else-if="action === 'Apply'"
@@ -47,9 +54,11 @@
               >Apply</v-btn
             >
           </template>
+
           <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
             <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
           </template>
+
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
               <v-btn icon>
@@ -62,7 +71,7 @@
 <!--              mdi-delete-->
 <!--            </v-icon>-->
           </template>
-          <template v-slot:footer>
+          <template v-slot:footer v-if="action != 'View'">
             <v-row class="d-flex justify-end" style="width: 100%;">
               <v-btn to='/dashboard/facilities/add' color="primary" class="px-16" rounded outlined large>Add New Facility</v-btn>
               <v-btn to='/dashboard/facilities/' color="primary" class="px-12 ml-8" rounded outlined large>View All</v-btn>
