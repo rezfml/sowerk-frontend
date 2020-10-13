@@ -32,8 +32,11 @@
       <div class="retailLocations">
         <p class="locationNum" v-if="this.propertymanagerVal.locations"><span style="color: #A61C00;">{{propertymanagerVal.locations.length}}</span> Retail Locations</p>
         <div v-for='location in locationSlice2' class="pfaccountlocationflexrow2">
-          <p>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
+          <p v-if="location.address==null">Retail locations unavaiable</p>
+          <p v-else>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}<span>
           <a :href="'/landingpage/property-manager/' + propertymanagerVal.id + '/location/' + location.id">></a>
+          </span>
+          </p>
         </div>
       </div>
       <div class="featuredbusiness">
