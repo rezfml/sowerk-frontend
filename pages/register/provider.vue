@@ -50,7 +50,7 @@
                 <v-form class="mx-auto register-form">
                   <v-container>
                     <v-row>
-                      <v-col cols="12" sm="6">
+                      <v-col cols="12" sm="5" md="6">
                         <v-row fill-height class="pl-2 fill-height">
                           <v-col cols="12" md="6" class="d-flex justify-center align-center">
                             <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
@@ -76,7 +76,7 @@
                         </v-row>
                       </v-col>
 
-                      <v-col cols="12" md="6">
+                      <v-col cols="12" sm="7" md="6">
                         <v-text-field
                           label="First Name (Your SOWerk Admin Account)*"
                           type="text"
@@ -325,7 +325,7 @@
                         </div>
                         <v-list>
                           <template v-for="(license, index) in licenses">
-                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index"></LicenseForm>
+                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index" :locations="locations"></LicenseForm>
                           </template>
                         </v-list>
                       </v-col>
@@ -616,6 +616,8 @@
           longitude: null,
           radius: 0,
           year_founded: '',
+          pfLogoCheckbox: false,
+          imageUrl: null,
         },
         formattedServicesProvided: [],
         editingIndex: 0,
@@ -657,9 +659,9 @@
         this.licenseFiles[index].file = file;
       },
       selectCompanyImage(e) {
-        let companyImageFile = e.target.files[0];
-        console.log(companyImageFile);
-        this.companyImageUrl = URL.createObjectURL(companyImageFile);
+        this.companyImageFile = e.target.files[0];
+        console.log(this.companyImageFile);
+        this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
         console.log(this.companyImageUrl);
       },
       clickCompanyImageUpload() {
@@ -808,6 +810,8 @@
         this.loopInsuranceFilesForUpload();
         this.loopLicenseFilesForUpload();
 
+        await this.loopLocationImages();
+
         console.log(this.company);
         console.log(this.locations);
 
@@ -815,20 +819,35 @@
         console.log('post company: ', data);
         this.user.companies_id = data.companies.id;
         await this.registerUser(data.companies.id);
+        await this.postLicenses(data.companies.id);
+        await this.postInsurances(data.companies.id);
         await this.postLocations(data.user.id);
         await this.$router.push('/login');
-        await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
-          .then(response => {
-            console.log(response);
-          })
+        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+        //   .then(response => {
+        //     console.log(response);
+        //   })
 
+      },
+      async postLicenses(companyId) {
+        for (const license of this.licenses) {
+          license.companies_id = companyId;
+          let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
+          console.log(data);
+        }
+      },
+      async postInsurances(companyId) {
+        for (const insurance of this.insurances) {
+          insurance.companies_id = companyId;
+          let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
+          console.log(data);
+        }
       },
       async uploadCompanyImage() {
         const formData = new FormData();
         formData.append('file', this.companyImageFile);
         let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
-        console.log(data.data.Location);
-
+        console.log(data);
         this.company.imgUrl = data.data.Location;
       },
       loopInsuranceFilesForUpload() {
@@ -870,6 +889,21 @@
         this.user.companies_id = company_id;
         let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register', this.user).catch(e => e);
         await this.postLocations(data.user.companies_id);
+      },
+      async loopLocationImages() {
+        this.locations.forEach((location, index) => {
+          const formData = new FormData();
+          console.log(location);
+          formData.append('file', location.imageUrl);
+          this.uploadLocationImage(formData, index);
+        });
+        console.log(this.locations);
+      },
+      async uploadLocationImage(formData, index) {
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
+        if (this.$error(status, data.message, data.err)) return;
+        console.log(data.data.Location);
+        this.locations[index].imageUrl = data.data.location;
       },
       async postLocations(userId) {
         let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/bycompaniesid/' + userId, this.locations).catch(e => e);
