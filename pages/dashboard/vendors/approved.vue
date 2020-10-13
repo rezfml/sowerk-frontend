@@ -18,7 +18,7 @@
               outlined
               rounded
               color="white"
-              href="/dashboard/vendors/invite"
+              href="/dashboard/vendors/"
             >View All</v-btn>
           </v-row>
           <v-row class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">

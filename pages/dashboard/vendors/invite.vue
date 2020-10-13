@@ -49,11 +49,16 @@
                 <template v-slot:item.property="{ item }">
                   <v-select
                     :items="properties"
-                    item-text="text"
-                    item-value="value"
+                    item-text="name"
                     v-model="item.property"
                     class="text-caption"
                   >
+                    <template slot="selection" slot-scope="data">
+                      {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+                    </template>
                   </v-select>
                 </template>
               </v-data-table>
@@ -63,7 +68,7 @@
             </v-col>
             <v-col class="d-flex justify-space-between my-12">
               <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
-              <v-btn color="primary" rounded class="px-12">Invite Service Providers</v-btn>
+              <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -97,168 +102,16 @@
           }
         ],
         vendors: [
-          {
-            id: '1',
-            service: 'HVAC',
-            companyName: "John's HVAC",
-            firstName: 'John',
-            lastName: 'Smith',
-            email: 'test@test.com',
-            phone: '(347) 522-7496',
-            preapproved: true,
-            property: null,
-          },
-          {
-            id: '2',
-            service: 'Plumbing',
-            companyName: "Rez's Plumbing",
-            firstName: 'Rez',
-            lastName: 'Smith',
-            email: 'test@test.com',
-            phone: '(347) 522-7496',
-            preapproved: true,
-            property: null,
-          },
-          {
-            id: '3',
-            service: 'Welding',
-            companyName: "Adam's Welding",
-            firstName: 'Adam',
-            lastName: 'Smith',
-            email: 'test@test.com',
-            phone: '(347) 522-7496',
-            preapproved: true,
-            property: null,
-          },
+
         ],
         properties: [
-          {
-            text: 'Springfield, MO',
-            value: 'Springfield, MO',
-          },
-          {
-            text: 'St. Louis, MO',
-            value: 'St. Louis, MO',
-          },
-          {
-            text: 'Ozark, MO',
-            value: 'Ozark, MO',
-          }
+
         ],
+        company: {
+
+        },
         services: [],
-        filters: [
-          {
-            name: 'Location',
-          items: [
-              'State',
-              'National',
-              'Under 10 Miles',
-              'Under 25 Miles',
-              'Under 50 Miles',
-              'Under 100 Miles',
-              'Under 150 Miles',
-              'Under 200 Miles',
-              '200+ Miles',
-            ]
-          },
-          {
-            name: 'State',
-            items: [
-              "Alaska",
-              "Alabama",
-              "Arkansas",
-              "American Samoa",
-              "Arizona",
-              "California",
-              "Colorado",
-              "Connecticut",
-              "District of Columbia",
-              "Delaware",
-              "Florida",
-              "Georgia",
-              "Guam",
-              "Hawaii",
-              "Iowa",
-              "Idaho",
-              "Illinois",
-              "Indiana",
-              "Kansas",
-              "Kentucky",
-              "Louisiana",
-              "Massachusetts",
-              "Maryland",
-              "Maine",
-              "Michigan",
-              "Minnesota",
-              "Missouri",
-              "Mississippi",
-              "Montana",
-              "North Carolina",
-              " North Dakota",
-              "Nebraska",
-              "New Hampshire",
-              "New Jersey",
-              "New Mexico",
-              "Nevada",
-              "New York",
-              "Ohio",
-              "Oklahoma",
-              "Oregon",
-              "Pennsylvania",
-              "Puerto Rico",
-              "Rhode Island",
-              "South Carolina",
-              "South Dakota",
-              "Tennessee",
-              "Texas",
-              "Utah",
-              "Virginia",
-              "Virgin Islands",
-              "Vermont",
-              "Washington",
-              "Wisconsin",
-              "West Virginia",
-              "Wyoming"
-            ]
-          },
-          {
-            name: 'Service Needs',
-            items: [
-              'HVAC',
-              'Electrical',
-              'Plumbing',
-              'Cleaning',
-              'Landscaping'
-            ]
-          },
-          {
-            name: 'Years in Business',
-            items: [
-              'Less Than 1 Year',
-              '1 - 3 Years',
-              '3 - 5 Years',
-              '5 - 10 Years',
-              '10+ Years',
-            ]
-          },
-          {
-            name: 'Approved Applications',
-            items: [
-              'Less than 5',
-              '6 - 15',
-              '16 - 24',
-              '25+',
-            ]
-          }
-        ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'First Name', value: 'firstName', class: 'primary--text font-weight-regular' },
@@ -282,6 +135,7 @@
       }
     },
     async mounted() {
+      await this.getCompany();
       await this.getBusinesses();
     },
     computed: {
@@ -290,6 +144,12 @@
       },
     },
     methods: {
+      async getCompany() {
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.$store.state.user.user.user.companies_id).catch(e => e);
+        this.company = data;
+        this.properties = data.locations;
+        console.log(this.company, 'company');
+      },
       async getBusinesses() {
         this.loading = true;
         this.locations = [];
@@ -315,6 +175,40 @@
         }
         await this.getServices();
       },
+      async inviteProviders() {
+        let providersObject = {
+          companies_id: this.$store.state.user.user.user.companies_id,
+          service: [],
+          companyName: [],
+          first_name: [],
+          last_name: [],
+          phone: [],
+          toEmail: [],
+          pre_approved: [],
+          property: []
+        }
+        for (let i = 0; i < this.vendors.length; i++) {
+          providersObject.service.push(this.vendors[i].service)
+          providersObject.companyName.push(this.vendors[i].companyName)
+          providersObject.first_name.push(this.vendors[i].firstName)
+          providersObject.last_name.push(this.vendors[i].lastName)
+          providersObject.phone.push(this.vendors[i].phone)
+          providersObject.toEmail.push(this.vendors[i].email)
+          providersObject.pre_approved.push(this.vendors[i].preapproved)
+          providersObject.property.push(this.vendors[i].property)
+        }
+        console.log(providersObject, 'yay')
+        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/email', providersObject)
+          .then(response => {
+            console.log(response, 'success')
+            this.$router.go();
+            alert('SUCCESSFULLY INVITED MEMBERS TO OUR PLATFORM!')
+          })
+          .catch(err => {
+            console.log('err', err)
+            alert('error in inviting service providers to our platform')
+          })
+      },
       async getServices() {
         for (const location of this.locations) {
           let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/bylocationid/' + location.id).catch(e => e);
@@ -339,7 +233,7 @@
       },
       addInvitee() {
         let newVendor = {
-            id: '',
+            companies_id: this.$store.state.user.user.user.companies_id,
             service: '',
             companyName: "",
             firstName: '',
