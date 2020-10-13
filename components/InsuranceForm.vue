@@ -10,7 +10,10 @@
                 <li class="text-body-1 font-weight-regular">Proof of Policy</li>
                 <li class="text-body-1 font-weight-regular">Certificate of Coverage</li>
               </ul>
-              <v-file-input class="insurance-upload my-8"></v-file-input>
+              <div style="width: 100%; position: relative;" class="d-flex justify-center">
+                <v-file-input class="insurance-upload my-8" :class="{'insurance-upload--selected' : file}" v-model="file" v-on:change.native="readFile"></v-file-input>
+                <v-img :src="url" :aspect-ratio="1" style="position: absolute; max-width: 300px; height: 100%; width: 100%; max-height: 288px; bottom: 0;" class="my-8 pt-3" v-if="file"></v-img>
+              </div>
               <v-checkbox label="Allow Uploaded Document to be Visible to Others"></v-checkbox>
             </v-col>
             <v-col cols="12" md="6" class="d-flex flex-column justify-space-around">
@@ -40,8 +43,26 @@
       backgroundColor: {
         type: String,
         required: true
+      },
+    },
+    data() {
+      return {
+        selectedFile: null,
+        file: null,
+        url: null,
       }
     },
+    methods: {
+      readFile(e) {
+        this.selectedFile = e.target.files[0];
+
+        this.url = URL.createObjectURL(this.selectedFile);
+        console.log(this.url);
+
+        this.$emit('selectFile', this.selectedFile, this.index);
+
+      },
+    }
   }
 </script>
 
@@ -71,6 +92,25 @@
     justify-content: center;
     align-items: center;
     pointer-events: none;
+  }
+
+  .insurance-upload--selected >>> .v-input__control:before {
+    content: '';
+  }
+
+  .insurance-upload--selected >>> .v-input__icon.v-input__icon--clear {
+    z-index: 10;
+    background-color: white;
+    border-radius: 0!important;
+  }
+
+  .insurance-upload >>> .v-input__append-inner {
+    margin-top: 0!important;
+  }
+
+  .insurance-upload >>> .v-input__icon.v-input__icon--clear > button {
+    color: #333;
+
   }
 
   .insurance-upload >>> .v-input__slot {
@@ -104,7 +144,7 @@
     display: none;
   }
 
-  .insurance__input >>> .v-label {
+  .license__input >>> .v-label {
     color: black;
     font-weight: bold;
     font-size: 1.25em;
