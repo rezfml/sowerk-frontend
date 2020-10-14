@@ -46,8 +46,6 @@
           <CompanyDetails
             :company="company"
             :getAddressData="getAddressData"
-            :animateAddressFieldOnFocus="animateAddressFieldOnFocus"
-            :animateAddressFieldOnFilled="animateAddressFieldOnFilled"
             :user="user"
             :bestSelection="bestSelection"
             :fullAddress="fullAddress"

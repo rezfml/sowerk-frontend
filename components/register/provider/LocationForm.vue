@@ -18,51 +18,50 @@
     <!--      </v-row>-->
     <!--    </v-col>-->
 
-    <v-col cols="12">
-      <v-row class="d-flex align-center">
-        <v-col cols="12" md="6">
-          <client-only >
-            <v-image-input
-              v-model="location.imageUrl"
-              image-quality="0.85"
-              clearable
-              fullWidth
-              image-format="png"
-              uploadIcon="person"
-              overlayPadding="10px"
-              scalingSliderColor="red"
-              :readonly="false"
-              style=""
-            />
-          </client-only>
-        </v-col>
-        <v-col cols="12" md="6" class="d-flex flex-column justify-center">
-          <v-text-field
-            placeholder=" "
-            id="location"
-            type="text"
-            v-model="location.name"
-            class="flex-grow-0 mb-12"
-          >
-            <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
-            </template>
-          </v-text-field>
+      <v-col cols="12" md="6">
+        <v-row fill-height class="pl-2 fill-height">
+          <v-col cols="12" md="6" class="d-flex justify-center align-center">
+            <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="location.imageUrl"></v-img>
+            <v-icon v-else :size="100">person</v-icon>
+          </v-col>
+          <v-col cols="12" md="6" class="d-flex flex-column justify-space-between">
+            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+            <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
+            <p class="text-center mb-0">Or</p>
 
-          <v-select
-            placeholder=" "
-            v-model="location.service"
-            class="flex-grow-0 mb-12"
-            :items="serviceOptions"
-            multiple
-            chips
-          >
-            <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
-            </template>
-          </v-select>
-        </v-col>
-      </v-row>
+            <v-checkbox class="mt-0">
+              <template v-slot:label>
+                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>
+              </template>
+            </v-checkbox>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12" md="6" class="d-flex flex-column justify-center">
+        <v-text-field
+          placeholder=" "
+          id="location"
+          type="text"
+          v-model="location.name"
+          class="flex-grow-0 mb-12"
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
+          </template>
+        </v-text-field>
+
+        <v-select
+          placeholder=" "
+          class="flex-grow-0 mb-12"
+          :items="serviceOptions"
+          multiple
+          chips
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
+          </template>
+        </v-select>
+      </v-col>
 
       <v-row>
         <v-col cols="12" md="6">
@@ -74,7 +73,7 @@
                   <vue-google-autocomplete
                     :id="'location-address--' + index"
                     classname="form-control"
-                    v-on:placechanged="getAddressData"
+                    v-on:placechanged="getAddressDapta"
                     placeholder=""
                     style="width: 100%; font-size: 16px; padding: 2px 0"
                     v-on:focus.native="animateAddressFieldOnFocus"
@@ -90,17 +89,37 @@
         </v-col>
 
         <v-col cols="12" md="6">
+          <!--      <v-checkbox v-model="location.pfLogoCheckbox"-->
+          <!--                  :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">-->
+          <!--        <template v-slot:label>-->
+          <!--          <p class="grey&#45;&#45;text text&#45;&#45;darken-4 mb-0">This location will be managed by: <span class="primary&#45;&#45;text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>-->
+          <!--        </template>-->
+          <!--      </v-checkbox>-->
+
+
           <v-text-field
-            id="description"
-            v-model="location.description"
             placeholder=" "
+            id="year-founded"
+            type="number"
+            v-model="location.year_founded"
           >
             <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Business Description*</p>
+              <p class="grey--text text--darken-4 font-weight-bold">Year Founded*</p>
             </template>
           </v-text-field>
         </v-col>
       </v-row>
+
+    <v-col cols="12">
+      <v-text-field
+        id="description"
+        v-model="location.description"
+        placeholder=" "
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Business Description*</p>
+        </template>
+      </v-text-field>
     </v-col>
 
     <template v-if="fullAddress">
@@ -151,30 +170,8 @@
     <v-col cols="12" class="my-8 d-flex justify-center">
       <span class="text-h6 mb-0">Add Location Manager or Franchisee</span>
     </v-col>
-    <v-col cols="12" md="6">
-      <v-checkbox v-model="location.pfLogoCheckbox"
-                  :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 mb-0">This location will be managed by: <span class="primary--text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>
-        </template>
-      </v-checkbox>
-    </v-col>
 
-    <v-col cols="12" md="6">
-      <v-select
-        id="admin-level"
-        label="Admin Level*"
-        :items="adminLevel"
-        v-model="location.adminLevel"
-        placeholder=" "
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">Admin Level*</p>
-        </template>
-      </v-select>
-    </v-col>
-
-    <v-col cols="12" md="6">
+    <v-col cols="12" md="5">
       <v-text-field
         placeholder=" "
         id="first_name"
@@ -187,7 +184,7 @@
       </v-text-field>
     </v-col>
 
-    <v-col cols="12" md="6">
+    <v-col cols="12" md="5">
       <v-text-field
         placeholder=" "
         id="last_name"
@@ -198,6 +195,31 @@
           <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
         </template>
       </v-text-field>
+    </v-col>
+
+    <v-col cols="12" md="2">
+      <v-select
+        id="admin-level"
+        label="Admin Level*"
+        :items="adminLevel"
+        :item-text="adminLevel.text"
+        :item-value="adminLevel.value"
+        v-model="location.adminLevel"
+        placeholder=" "
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Admin Level*</p>
+        </template>
+      </v-select>
+    </v-col>
+
+    <v-col cols="12" md="6">
+      <!--      <v-checkbox v-model="location.pfLogoCheckbox"-->
+      <!--                  :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">-->
+      <!--        <template v-slot:label>-->
+      <!--          <p class="grey&#45;&#45;text text&#45;&#45;darken-4 mb-0">This location will be managed by: <span class="primary&#45;&#45;text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>-->
+      <!--        </template>-->
+      <!--      </v-checkbox>-->
     </v-col>
 
     <v-col cols="12" md="6">
@@ -271,8 +293,14 @@ export default {
         '','','','','','','','','','','100','','','','','150','','','','','200'
       ],
       adminLevel: [
-        1,
-        0
+        {
+          text: 'Super Admin',
+          value: 1,
+        },
+        {
+          text: 'Staff Account',
+          value: 0,
+        }
       ],
       checkbox1: false,
       checkbox: false,
@@ -307,7 +335,9 @@ export default {
         'Water Damage Repair'
       ],
       fullAddress: null,
-      radius: null
+      radius: null,
+      locationImageFile: null,
+      locationImageUrl: null,
     }
   },
   mounted() {
@@ -327,6 +357,19 @@ export default {
     },
     emitPlaceChanged(e) {
 
+    },
+    selectLocationImage(e) {
+      this.location.imageUrl = e.target.files[0];
+      console.log(this.location.imageUrl);
+      this.locationImageUrl = URL.createObjectURL(this.location.imageUrl);
+      console.log(this.locationImageUrl);
+    },
+    clickLocationImageUpload() {
+      console.log(this);
+      // let imageInput = this.$refs.companyImage;
+      // console.log(imageInput);
+      // imageInput.$el.click();
+      document.getElementById('locationImage').click();
     },
     animateAddressFieldOnFocus(e) {
       let addressLabel = e.target.previousElementSibling;
