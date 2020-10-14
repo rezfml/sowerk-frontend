@@ -28,7 +28,8 @@
       }
     },
     async mounted() {
-      console.log(this.currentUser);
+      this.feedbackForm.email = this.currentUser.email;
+      this.feedbackForm.name = this.currentUser.first_name + " " + this.currentUser.last_name;
       this.getCompany();
     },
     computed: {
@@ -42,8 +43,6 @@
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.feedbackForm.company_name = response.data.account_name;
-            this.feedbackForm.email = this.$store.state.user.user.user.email;
-            this.feedbackForm.name = this.$store.state.user.user.user.first_name + " " + this.$store.state.user.user.user.last_name;
             console.log(response.data, 'company');
           })
           .catch(err => {
