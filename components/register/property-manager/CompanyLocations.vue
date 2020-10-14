@@ -84,6 +84,14 @@ export default {
         type: Object,
         return: true
     },
+    locations: {
+      type: Array,
+      return: true
+    },
+    headers: {
+      type: Array,
+      return: true
+    },
     editingIndex: 0,
   },
 }

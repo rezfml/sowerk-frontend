@@ -59,6 +59,7 @@
             :location="location"
             :editingIndex="editingIndex"
             :headers="headers"
+            :locations="locations"
           ></CompanyLocations>
 
           <CompanyReview
