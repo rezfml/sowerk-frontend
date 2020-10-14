@@ -73,7 +73,7 @@
                   <vue-google-autocomplete
                     :id="'location-address--' + index"
                     classname="form-control"
-                    v-on:placechanged="getAddressDapta"
+                    v-on:placechanged="getAddressData"
                     placeholder=""
                     style="width: 100%; font-size: 16px; padding: 2px 0"
                     v-on:focus.native="animateAddressFieldOnFocus"
