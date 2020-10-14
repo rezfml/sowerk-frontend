@@ -5,6 +5,7 @@
     <v-form style="width: 80%;">
       <v-text-field placeholder="Company Name" v-model="feedbackForm.company_name"></v-text-field>
       <v-text-field placeholder="Your Name" v-model="feedbackForm.name"></v-text-field>
+      <v-text-field placeholder="Your Email" v-model="feedbackForm.email"></v-text-field>
       <v-text-field placeholder="Message" v-model="feedbackForm.message"></v-text-field>
       <v-btn @click="submitFeedback">Send Feedback</v-btn>
     </v-form>
@@ -21,11 +22,34 @@
         feedbackForm: {
           company_name: '',
           name: '',
+          email: '',
           message: ''
         }
       }
     },
+    async mounted() {
+      console.log(this.currentUser);
+      this.getCompany();
+    },
+    computed: {
+      currentUser() {
+        console.log(this.$store.state.user.user.user, 'user')
+        return this.$store.state.user.user.user;
+      }
+    },
     methods: {
+      async getCompany() {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
+          .then(response => {
+            this.feedbackForm.company_name = response.data.account_name;
+            this.feedbackForm.email = this.$store.state.user.user.user.email;
+            this.feedbackForm.name = this.$store.state.user.user.user.first_name + " " + this.$store.state.user.user.user.last_name;
+            console.log(response.data, 'company');
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      },
       async submitFeedback() {
         console.log(this.feedbackForm, 'feedbackForm on submit');
         await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/feedbackform', this.feedbackForm)
@@ -35,7 +59,8 @@
           .catch(err => {
             console.log(err, 'error');
           })
-        this.$router.push('/dashboard');
+        alert('SUCCESSFUL! We will take into account this feedback and make the appropriate changes as soon as possible. We thank you so much for letting us know your issue')
+        this.$router.push('/dashboard/home');
       }
     }
   }
