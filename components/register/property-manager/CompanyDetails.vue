@@ -202,15 +202,75 @@ export default {
     getAddressData: {
       type: Function
     },
-    animateAddressFieldOnFocus: {
-      type: Function
-    },
-    animateAddressFieldOnFilled: {
-      type: Function
-    },
   },
+  methods: {
+    animateAddressFieldOnFocus(e) {
+      let addressLabel = e.target.previousElementSibling
+      addressLabel.classList.toggle('v-label--focus')
+    },
+    animateAddressFieldOnFilled(e) {
+      if (e.target != '') {
+        if (
+          e.target.previousElementSibling.classList.contains('v-label--filled')
+        ) {
+          return
+        } else {
+          e.target.previousElementSibling.classList.add('v-label--filled')
+        }
+      } else {
+        e.target.previousElementSibling.classList.remove('v-label--filled')
+      }
+    },
+  }
 }
 </script>
 
 <style>
+.form__address::v-deep input {
+  border: 2px solid red !important;
+  width: 600px;
+}
+
+.v-input__slot:before {
+  border-color: rgba(0, 0, 0, 0.42);
+  border-style: solid;
+  border-width: thin 0 0 0;
+  bottom: -2px;
+  content: '';
+  left: 0;
+  position: absolute;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  width: 100%;
+}
+
+.form-control {
+  padding: 2px 0;
+  position: relative;
+  z-index: 3;
+}
+
+.v-label {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  top: 0;
+}
+
+.v-label--focus {
+  top: -1.5em;
+  color: #a61c00;
+  font-size: 0.75em;
+}
+
+.v-label--filled {
+  top: -1.5em;
+  font-size: 0.75em;
+}
+
+/* TRANSITIONS */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
