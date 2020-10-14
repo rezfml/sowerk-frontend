@@ -76,12 +76,14 @@ export default {
       })
     },
     async getMessages() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byRecieverId/' + this.company.id).catch(e => e);
-      if (this.$error(status, data.message, data.errors)) return;
-      this.$nextTick(function() {
-        this.messages = data;
-        console.log(this.messages, 'messages');
-      })
+      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byRecieverId/' + this.company.id)
+        .then(response => {
+          console.log('messages', response)
+          this.messages = response.data
+        })
+        .catch(err => {
+          console.log('cannot get messages', err)
+        })
     }
   }
 };

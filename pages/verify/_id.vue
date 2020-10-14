@@ -46,6 +46,7 @@ export default {
     async getVerification() {
       let {data, status} = await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/verify/' + this.verificationId, this.payload).catch(e => e);
       if (this.$error(status)) return;
+      console.log(data);
       this.verification = data;
       setTimeout(function() {
         window.location.href = '/login';
