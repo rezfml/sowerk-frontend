@@ -73,13 +73,14 @@
                   <vue-google-autocomplete
                     :id="'location-address--' + index"
                     classname="form-control"
-                    v-on:placechanged="getAddressDapta"
+                    v-on:placechanged="getAddressData"
                     placeholder=""
                     style="width: 100%; font-size: 16px; padding: 2px 0"
                     v-on:focus.native="animateAddressFieldOnFocus"
                     v-on:blur.native="animateAddressFieldOnFocus"
                     v-on:input.native="animateAddressFieldOnFilled"
                     v-model="fullAddress"
+                    autocomplete="none"
                   >
                   </vue-google-autocomplete>
                 </client-only>
@@ -253,7 +254,7 @@
 
 <script>
 import VImageInput from 'vuetify-image-input'
-import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+// import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
 import Vue from 'vue';

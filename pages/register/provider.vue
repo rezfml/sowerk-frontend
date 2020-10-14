@@ -457,7 +457,7 @@
 
 <script>
   import VImageInput from 'vuetify-image-input'
-  import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+  // import * as VueGoogleMaps from '~/node_modules/gmap-vue'
   import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
 
@@ -929,15 +929,11 @@
         console.log(this.locations);
       },
       async uploadLocationImage(formData, index) {
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
-          .then(response => {
-            console.log(response, 'success in uploading location image')
-            console.log(response.data.Location);
-            this.locations[index].imageUrl = response.data.data.Location;
-          })
-          .catch(err => {
-            console.log('error in uploading location image', err)
-          })
+        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(err => {
+          console.log('error in uploading location image', err)
+        })
+
+        this.locations[index].imageUrl = data.data.Location;
       },
       async postLocations(userId) {
         for(let i = 0; i < this.locations.length; i++) {
