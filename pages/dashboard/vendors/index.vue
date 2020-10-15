@@ -38,7 +38,7 @@
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-space-between">
           <FacilitiesCard
-            v-if="vendors"
+            v-if="vendors.length > 0"
             :title="'All SOWerk Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -67,43 +67,6 @@
       return {
         loading: false,
         vendors: [
-          {
-            account_name: "",
-            address: "",
-            brand_name: "",
-            city: "",
-            company_type: "",
-            creationDate: "",
-            currentConnections: Number,
-            description: "",
-            email: "",
-            id: Number,
-            imgUrl: "",
-            isFranchise: true,
-            llcName: "",
-            maxConnections: Number,
-            modifiedDate: "",
-            phone: "",
-            servicesOffered: "",
-            state: "",
-            user: {
-              companies_id: Number,
-              created: "",
-              email: "",
-              first_name: "",
-              id: Number,
-              isVerified: true,
-              is_superuser: true,
-              last_name: "",
-              modified: "",
-              password: "",
-              phone: "",
-              rep_name: null,
-              uuid: "",
-            },
-            year_founded: Number,
-            zipcode: Number,
-          }
         ],
         prevIcon: true,
         nextIcon: true,
@@ -296,7 +259,20 @@
           .then(response => {
             console.log(response, 'response company type 1')
             this.vendors = response.data;
-            this.getUsers();
+            for(let i=0; i<this.vendors.length; i++) {
+              this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered);
+              this.vendors[i].servicesOffered = this.vendors[i].servicesOffered.replace(/"/g,"").replace("{", '').replace("}", '');
+              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + this.vendors[i].id)
+                .then(response => {
+                  console.log(response.data, 'hey')
+                  this.vendors[i]["name"] = response.data.user.first_name + " " + response.data.user.last_name;
+                  console.log('WOW', this.vendors)
+                })
+                .catch(err => {
+                  console.log('err', err);
+                })
+            }
+            console.log(this.vendors, 'yee');
           })
           .catch(e => console.log(e, 'error'));
         // this.businesses = data.users.filter(function(user) {
@@ -304,16 +280,6 @@
         // })
         // console.log(this.businesses);
       },
-      async getUsers() {
-        for(let i=0; i<this.vendors.length; i++) {
-          this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + this.vendors[i].id)
-            .then(response => {
-              console.log(response.data, 'hey')
-              this.vendors[i]["user"] = response.data.user;
-              console.log('WOW', this.vendors)
-            })
-        }
-      }
     },
   }
 </script>

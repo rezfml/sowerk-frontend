@@ -52,6 +52,11 @@
             {{ item.contact_last_name }}
           </template>
 
+          <template v-slot:item.user_full_name="{ item }">
+            <v-icon color="primary">mdi-account</v-icon>
+            {{ item.name }}
+          </template>
+
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
             <v-btn block color="primary" :to="slug + item.application_id"
             >Review</v-btn
@@ -108,7 +113,9 @@ export default {
       locations: null
     }
   },
-  mounted() {}
+  mounted() {
+    console.log(this.items, 'yayyy');
+  }
 }
 </script>
 

@@ -221,10 +221,10 @@
       }
     },
     methods: {
-      getConnectionTable(id) {
-        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + id)
+      async getConnectionTable(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + id)
           .then(response => {
-            console.log(response.data, 'yoooo');
+            console.log(response, 'yoooo');
           })
           .catch(err => {
             console.log(err, 'err');
