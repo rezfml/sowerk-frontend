@@ -212,11 +212,13 @@
         companies: [],
       }
     },
-    async created() {
-      await this.getConnectionTable(this.currentUser.companies_id);
+    mounted() {
+      console.log(this.currentUser.companies_id);
+      this.getConnectionTable(this.currentUser.companies_id);
     },
     computed: {
       currentUser() {
+        console.log(this.$store.state.user.user.user);
         return this.$store.state.user.user.user;
       }
     },
