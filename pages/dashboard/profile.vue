@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols="8" class="pb-12 d-flex flex-column">
           <ProfileEditCard :company="currentUser"></ProfileEditCard>
-          <CustomFormCard></CustomFormCard>
+          <CustomFormCard :company="currentUser"></CustomFormCard>
         </v-col>
       </v-row>
     </v-container>

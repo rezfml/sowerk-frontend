@@ -9,7 +9,7 @@
             menu
           </v-icon>
         </v-btn>
-      </v-row>e
+      </v-row>
     </v-container>
     <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none; background-color:rgba(21, 21, 21, 1);">
       <v-list-item>
@@ -58,20 +58,7 @@
           -->
       </v-row>
     </v-container>
-    <!--
-      legacy code that can be removed. I am keeping in till we are ready to remove
-      <v-container>
-        <v-row>
-          <v-toolbar-title v-text="title" style="color: white!important; font-weight: bold;"/>
-          <v-spacer></v-spacer>
-          <v-btn href="/landingpage/landinghome" text color="white">Home</v-btn>
-          <v-btn href="/landingpage/about" text color="white">About</v-btn>
-          <v-btn href="#" text color="white">Features</v-btn>
-          <v-btn to="/register" text color="white">Register</v-btn>
-          <v-btn to="/login" text color="white">Login</v-btn>
-        </v-row>
-      </v-container>
-      -->
+
     </v-app-bar>
     <v-content>
         <nuxt />
@@ -83,8 +70,6 @@
 </template>
 
 <script>
-//working to get this to import so that I we will be able to use the nav bar across multiple docs and only needing to pass in the arguments for the actual nav
-//import navBar from '~/components/landing/navBar';
 export default {
   data() {
     return {
