@@ -7,7 +7,7 @@
         :size="50"
       ></v-progress-circular>
     </div>
-    <v-container class="px-0" style="max-width: 95%;">
+    <v-container class="px-0" style="max-width: 95%;" v-else>
       <v-row class="d-flex align-center" style="width: 100%">
         <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />
         <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">
@@ -243,8 +243,8 @@
     //     document.documentElement.style.overflow = 'auto'
     //   }
     // },
-    async mounted() {
-      await this.getBusinesses();
+    mounted() {
+      this.getBusinesses();
     },
     computed: {
       currentUser() {
@@ -253,33 +253,32 @@
     },
     methods: {
       async getBusinesses() {
-        // this.loading = true;
-        this.locations = [];
+
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/false')
           .then(response => {
-            console.log(response, 'response company type 1')
             this.vendors = response.data;
-            for(let i=0; i<this.vendors.length; i++) {
-              this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered);
-              this.vendors[i].servicesOffered = this.vendors[i].servicesOffered.replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
-              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + this.vendors[i].id)
-                .then(response => {
-                  console.log(response.data, 'hey')
-                  this.vendors[i]["name"] = response.data.user.first_name + " " + response.data.user.last_name;
-                  console.log('WOW', this.vendors)
-                })
-                .catch(err => {
-                  console.log('err', err);
-                })
-            }
-            console.log(this.vendors, 'yee');
           })
           .catch(e => console.log(e, 'error'));
+        for(let i=0; i< this.vendors.length; i++) {
+          console.log(this.vendors[i], 'hi');
+          this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
+          this.getUsers(this.vendors[i].id, i);
+        }
         // this.businesses = data.users.filter(function(user) {
         //   return user.user_type == 1;
         // })
         // console.log(this.businesses);
       },
+      async getUsers(id, i) {
+        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + id)
+          .then(response => {
+            this.vendors[i]["first_name"] = response.data.user.first_name;
+            this.vendors[i]["last_name"] = response.data.user.last_name;
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
+      }
     },
   }
 </script>

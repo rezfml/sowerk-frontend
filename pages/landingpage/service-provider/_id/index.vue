@@ -1,5 +1,5 @@
 <template>
-  <div class="spaccountlocationcontainer">
+  <div class="spaccountlocationcontainer mt-16">
     <div class="spaccountlocation" v-if="loading">
       <img :src="serviceproviderVal.imgUrl" class="profilepic"/>
       <h1 class="companyName">{{serviceproviderVal.account_name}}</h1>
@@ -42,10 +42,10 @@
     </div>
 
     <div class="spaccountsecondcolumn">
-      
+
       <div class="retailLocations">
         <p class="locationNum" v-if="this.serviceproviderVal.locations"><span style="color: #A61C00;">{{serviceproviderVal.locations.length}}</span> Retail Locations</p>
-        
+
         <div v-for='location in locationSlice2' class="spaccountlocationflexrow2">
           <p v-if="location.address==null">Retail locations unavaiable</p>
           <p v-else>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}<span>
@@ -80,6 +80,7 @@
 
 <script>
 export default {
+  layout: 'fullwidth',
   data() {
     return {
       loading: false,

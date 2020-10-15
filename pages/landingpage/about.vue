@@ -116,6 +116,7 @@ import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
 import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
 
 export default {
+  layout: 'fullwidth',
   components: {
     OftenAskPF,
     OftenAskSP,

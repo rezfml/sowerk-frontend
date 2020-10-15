@@ -1,5 +1,5 @@
 <template>
-  <div class="pfaccountlocationcontainer">
+  <div class="pfaccountlocationcontainer mt-16">
     <div class="pfaccountlocation" v-if="loading">
       <img :src="propertymanagerVal.imgUrl" class="profilepic"/>
       <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
@@ -61,6 +61,7 @@
 
 <script>
 export default {
+  layout: 'fullwidth',
   data() {
     return {
       loading: false,

@@ -119,6 +119,7 @@
 import SPSearch from "~/components/landing/service-provider/SPSearch.vue";
 
 export default {
+  layout: 'fullwidth',
   data() {
     return {
       loading: false,
@@ -145,11 +146,11 @@ export default {
   },
   methods: {
     async getServiceProviders() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=0&limit=8&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=false0&limit=8&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.serviceproviders = data;
-        console.log(this.serviceproviders);
+        console.log(this.serviceproviders, data);
         console.log(this.currentUser);
       })
     },
@@ -459,7 +460,7 @@ export default {
     margin-left:3%;
     width:65%;
   }
-} 
+}
 @media (max-width:450px) {
   .sphero{
     margin-top: -15%;

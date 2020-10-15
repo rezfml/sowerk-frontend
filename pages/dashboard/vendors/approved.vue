@@ -213,8 +213,14 @@
       }
     },
     mounted() {
-      console.log(this.currentUser.companies_id);
-      this.getConnectionTable(this.currentUser.companies_id);
+      console.log();
+      this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + this.$store.state.user.user.user.companies_id)
+        .then(response => {
+          console.log(response, 'yoooo');
+        })
+        .catch(err => {
+          console.log(err, 'err');
+        })
     },
     computed: {
       currentUser() {
