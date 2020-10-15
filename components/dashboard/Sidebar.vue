@@ -215,7 +215,7 @@
             to: '/dashboard/feedback/',
             slug: 'feedback',
             icon: 'mdi-comment-question',
-            text: 'Feedback'
+            text: 'Support & Feedback'
           },
           {
             to: '/dashboard/profile/',
@@ -260,7 +260,7 @@
             to: '/dashboard/feedback/',
             slug: 'feedback',
             icon: 'mdi-comment-question',
-            text: 'Feedback'
+            text: 'Support & Feedback'
           },
           {
             to: '/dashboard/profile/',
