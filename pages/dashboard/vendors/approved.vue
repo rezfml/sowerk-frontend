@@ -212,26 +212,41 @@
         companies: [],
       }
     },
-    async mounted() {
-      await this.getApprovedApplications();
+    async created() {
+      await this.getConnectionTable(this.currentUser.companies_id);
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      }
     },
     methods: {
-      async getApprovedApplications() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/type/1').catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
-        await this.getApprovedUsers(data);
+      getConnectionTable(id) {
+        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + id)
+          .then(response => {
+            console.log(response.data, 'yoooo');
+          })
+          .catch(err => {
+            console.log(err, 'err');
+          })
+        console.log(this.currentUser);
       },
-      async getApprovedUsers(applications) {
-        for (const application of applications) {
-          let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
-          await this.getApprovedCompanies(data);
-        }
-      },
-      async getApprovedCompanies(user) {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + user.companies_id).catch(e => e);
-        this.companies.push(data);
-        console.log(this.companies, 'approvedVendors');
-      }
+      // async getApprovedApplications() {
+      //   let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/type/1').catch(e => e);
+      //   if (this.$error(status, data.message, data.errors)) return;
+      //   await this.getApprovedUsers(data);
+      // },
+      // async getApprovedUsers(applications) {
+      //   for (const application of applications) {
+      //     let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
+      //     await this.getApprovedCompanies(data);
+      //   }
+      // },
+      // async getApprovedCompanies(user) {
+      //   let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + user.companies_id).catch(e => e);
+      //   this.companies.push(data);
+      //   console.log(this.companies, 'approvedVendors');
+      // }
     }
   }
 </script>

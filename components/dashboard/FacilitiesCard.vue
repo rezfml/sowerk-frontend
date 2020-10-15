@@ -24,17 +24,34 @@
               <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
             </v-row>
           </template>
+          <template v-slot:item.addressCityState="{item}">
+            <v-row class="d-flex" cols="12" md="6">
+              <p>{{item.city}}, {{item.state}}</p>
+            </v-row>
+          </template>
+          <template v-slot:item.service="{item}">
+            <v-row class="d-flex" cols="12" md="6">
+              <p>{{item.servicesOffered}}</p>
+            </v-row>
+          </template>
+          <template v-slot:item.companyName="{item}">
+            <v-row class="d-flex" cols="12" md="6">
+              <p>{{item.account_name}}</p>
+            </v-row>
+          </template>
           <template v-slot:item.name="{ item }">
             <v-row class="d-flex" cols="12" md="6">
               <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
               <p>{{item.name}}</p>
             </v-row>
           </template>
-          <template v-slot:item.full_name="{ item }"
-          ><v-icon color="primary">mdi-account</v-icon>
+
+          <template v-slot:item.full_name="{ item }">
+            <v-icon color="primary">mdi-account</v-icon>
             {{ item.contact_first_name }}
-            {{ item.contact_last_name }}</template
-          >
+            {{ item.contact_last_name }}
+          </template>
+
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
             <v-btn block color="primary" :to="slug + item.application_id"
             >Review</v-btn
