@@ -212,6 +212,12 @@
             text: 'Messages & Alerts'
           },
           {
+            to: '/dashboard/feedback/',
+            slug: 'feedback',
+            icon: 'mdi-comment-question',
+            text: 'Feedback'
+          },
+          {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
@@ -251,12 +257,18 @@
             text: 'Messages & Alerts'
           },
           {
+            to: '/dashboard/feedback/',
+            slug: 'feedback',
+            icon: 'mdi-comment-question',
+            text: 'Feedback'
+          },
+          {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
             class: 'fixed-bottom'
-          }
+          },
         ],
       }
     },
