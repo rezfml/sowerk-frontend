@@ -261,7 +261,7 @@
             this.vendors = response.data;
             for(let i=0; i<this.vendors.length; i++) {
               this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered);
-              this.vendors[i].servicesOffered = this.vendors[i].servicesOffered.replace(/"/g,"").replace("{", '').replace("}", '');
+              this.vendors[i].servicesOffered = this.vendors[i].servicesOffered.replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
               this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + this.vendors[i].id)
                 .then(response => {
                   console.log(response.data, 'hey')
