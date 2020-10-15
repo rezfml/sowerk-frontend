@@ -53,8 +53,10 @@
           </template>
 
           <template v-slot:item.user_full_name="{ item }">
-            <v-icon color="primary">mdi-account</v-icon>
-            {{ item.name }}
+            <div>
+              <v-icon color="primary">mdi-account</v-icon>
+              {{ item.first_name }} {{ item.last_name }}
+            </div>
           </template>
 
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
@@ -107,10 +109,10 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug',],
   data() {
     return {
-      locations: null
+      locations: null,
     }
   },
   mounted() {

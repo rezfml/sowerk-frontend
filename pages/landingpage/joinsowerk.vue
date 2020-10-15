@@ -35,7 +35,7 @@
           <p class="white--text text-center text-h6 text-md-h5">
             The Link Between Service Providers & Businesses
           </p>
-       
+
          <div class="text-center">
             <v-btn
               class=" primary ma-3"
@@ -55,7 +55,7 @@
               to="/landingpage/property-manager"
               >Property & Facility Managers</v-btn
             >
-        
+
           </div>
         </v-card-text>
       </v-card>
@@ -453,6 +453,7 @@ import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
 import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
 
 export default {
+  layout: 'fullwidth',
   data: () => ({
     allReviews: [],
     reviews: [],

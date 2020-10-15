@@ -183,7 +183,11 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  export default {
+    layout: 'fullwidth',
+  }
+</script>
 
 <style scoped>
 .joinproductcontainer {
@@ -690,7 +694,7 @@
   .joinproductdescription p {
     font-size: 16px;
   }
-  
+
   .joinproductdescription button {
     font-size: 17px;
   }

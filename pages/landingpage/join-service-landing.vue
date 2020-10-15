@@ -168,9 +168,9 @@
         </div>
       </div>
       <div class="joinservicefaqflex">
-        
+
         <div>
-          <h4> 
+          <h4>
             <span>
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
             </span>
@@ -194,7 +194,11 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  export default {
+    layout: 'fullwidth',
+  }
+</script>
 
 <style scoped>
 .joinservicecontainer {
@@ -553,7 +557,7 @@
   }
 
   .joinservicesteps button {
- padding: 10px 0px 10px 0px;    
+ padding: 10px 0px 10px 0px;
  width: 80%;
   }
 
@@ -660,7 +664,7 @@
   .joinservicefaq p {
     font-size: 16px;
   }
-  
+
 }
 
 
@@ -687,7 +691,7 @@
 
   .joinservicefaq button {
     font-size: 17px;
-   
+
   }
 }
 
