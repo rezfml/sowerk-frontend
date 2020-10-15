@@ -19,6 +19,11 @@
           :items="items"
           :items-per-page="10"
         >
+          <template v-slot:item.address="{item}">
+            <v-row class="d-flex" cols="12" md="6">
+              <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+            </v-row>
+          </template>
           <template v-slot:item.name="{ item }">
             <v-row class="d-flex" cols="12" md="6">
               <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
