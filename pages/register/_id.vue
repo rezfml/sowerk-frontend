@@ -91,6 +91,7 @@
                                 type="text"
                                 placeholder=" "
                                 v-model="user.first_name"
+                                readonly
                               ></v-text-field>
 
                               <v-text-field
@@ -98,6 +99,7 @@
                                 type="text"
                                 placeholder=" "
                                 v-model="user.last_name"
+                                readonly
                               ></v-text-field>
 
                               <v-text-field
@@ -106,6 +108,7 @@
                                 placeholder=" "
                                 class="card__input black--text"
                                 v-model="user.email"
+                                readonly
                               ></v-text-field>
 
                               <v-text-field
@@ -114,6 +117,7 @@
                                 placeholder=" "
                                 class="card__input black--text"
                                 v-model="user.phone"
+                                readonly
                               ></v-text-field>
                             </v-col>
 
@@ -143,7 +147,8 @@
                                 id="account-name"
                                 label="Account Name*"
                                 placeholder=" "
-                                v-model="company.account_name"></v-text-field>
+                                v-model="company.account_name"
+                                readonly></v-text-field>
                             </v-col>
 
                             <v-col cols="12" sm="6">
@@ -152,7 +157,8 @@
                                 label="Brand Name*"
                                 type="text"
                                 placeholder=" "
-                                v-model="company.brand_name"></v-text-field>
+                                v-model="company.brand_name"
+                                readonly></v-text-field>
                             </v-col>
 
                             <v-col cols="12" sm="6">
@@ -182,6 +188,7 @@
                                 placeholder=" "
                                 class="card__input black--text"
                                 v-model="company.email"
+                                readonly
                               ></v-text-field>
                             </v-col>
 
@@ -192,6 +199,7 @@
                                 placeholder=" "
                                 class="card__input black--text"
                                 v-model="company.phone"
+                                readonly
                               ></v-text-field>
                             </v-col>
 
