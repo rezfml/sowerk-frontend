@@ -99,37 +99,37 @@ export default {
         {
           icon: 'join SOW',
           title: 'Join SOW',
-          path: 'landingpage/joinsowerk'
+          path: '../landingpage/joinsowerk'
         }
         ,
         {
           icon: 'about',
           title: 'Service Providers',
-          path: '/landingpage/service-provider'
+          path: '../landingpage/service-provider'
         }
         ,
         {
           icon: 'Businesses',
           title: 'Businesses',
-          path: '/landingpage/property-manager'
+          path: '../landingpage/property-manager'
         }
         ,
         {
           icon: 'About SOW',
           title: 'About SOW',
-          path: '/landingpage/about'
+          path: '../landingpage/about'
         }
         ,
         {
           icon: 'Register',
           title: 'Register',
-          path: '/register'
+          path: '../register'
         }
         ,
         {
           icon: 'Login',
           title: 'Login',
-          path: '/login'
+          path: '../login'
         }
       ],
       miniVariant: false,
