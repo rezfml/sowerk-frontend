@@ -1,5 +1,12 @@
 <template>
   <v-card class="d-flex flex-column align-center justify-center mt-16" style="width: 100%;">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </div>
     <v-card-title style="width: 70%; border-radius: 3px; font-size: 18px;"
                   class="primary white--text justify-center font-weight-regular red-gradient mb-10 mt-n8">Hello, do you need support or would you like to leave some feedback?</v-card-title>
     <v-card-subtitle>We are constantly trying to improve and grow, and would love to hear any comments, questions, concerns, or feedback that you would love to share with us. We really appreciate it!</v-card-subtitle>
@@ -25,7 +32,8 @@
           name: '',
           email: '',
           message: ''
-        }
+        },
+        loading: false
       }
     },
     async mounted() {
@@ -45,6 +53,7 @@
           .then(response => {
             this.feedbackForm.company_name = response.data.account_name;
             console.log(response.data, 'company');
+            this.loading = true;
           })
           .catch(err => {
             console.log(err);
