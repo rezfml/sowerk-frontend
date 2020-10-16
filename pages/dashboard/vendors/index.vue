@@ -1,13 +1,13 @@
 <template>
   <v-app class="grey lighten-3">
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
       <v-progress-circular
         indeterminate
         color="primary"
         :size="50"
       ></v-progress-circular>
     </div>
-    <v-container class="px-0" style="max-width: 95%;">
+    <v-container class="px-0" style="max-width: 95%;" v-else>
       <v-row class="d-flex align-center" style="width: 100%">
         <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />
         <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">
@@ -38,7 +38,7 @@
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-space-between">
           <FacilitiesCard
-            v-if="vendors"
+            v-if="vendors.length > 0 && loading === true"
             :title="'All SOWerk Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -67,33 +67,6 @@
       return {
         loading: false,
         vendors: [
-          {
-            id: '1',
-            service: 'HVAC',
-            companyName: "John's HVAC",
-            name: 'John Smith',
-            email: 'test@test.com',
-            phone: '(347) 522-7496',
-            location: 'Springfield, MO',
-          },
-          {
-            id: '2',
-            service: 'Plumbing',
-            companyName: "Rez's Plumbing",
-            name: 'Rez Smith',
-            email: 'test@test.com',
-            phone: '(347) 522-7496',
-            location: 'Springfield, MO',
-          },
-          {
-            id: '3',
-            service: 'Welding',
-            companyName: "Adam's Welding",
-            name: 'Adam Smith',
-            email: 'test@test.com',
-            phone: '(347) 522-7496',
-            location: 'Springfield, MO',
-          },
         ],
         prevIcon: true,
         nextIcon: true,
@@ -251,10 +224,10 @@
           },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
+          { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         businesses: null
@@ -273,58 +246,34 @@
     async mounted() {
       await this.getBusinesses();
     },
-    computed: {
-      currentUser() {
-        return this.$store.state.user.user.user;
-      },
-    },
     methods: {
       async getBusinesses() {
-        // this.loading = true;
-        this.locations = [];
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/1').catch(e => e);
-        // this.businesses = data.users.filter(function(user) {
-        //   return user.user_type == 1;
-        // })
-        // console.log(this.businesses);
-        await this.getLocations(data);
-      },
-      async getLocations(companies) {
-        for (const company of companies) {
-          let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + company.id).catch(e => e);
-          if (this.$error(status, data.message, data.errors)) return;
-          if(data.locations[0] !== 'There are no locations') {
-            for (const location of data.locations) {
-              this.$nextTick(function() {
-                this.locations.push(location);
-              })
-            }
-          } else {
-          }
-        }
-        await this.getServices();
-      },
-      async getServices() {
-        for (const location of this.locations) {
-          let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/bylocationid/' + location.id).catch(e => e);
-          if(data) {
-            if(data.message) continue;
-            for (const service of data) {
-              let serviceObj = {
-                id: service.id,
-                location_id: location.id,
-                service: service.name,
-                name: location.name,
-                address: location.address + ' ' + location.city + ', ' + location.state + ' ' + location.zipcode,
-                primary_contact: location.contact_first_name + ' ' + location.contact_last_name,
-                phone: location.phone
-              };
 
-              this.services.push(serviceObj);
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/false')
+          .then(response => {
+            this.vendors = response.data;
+          })
+          .then(res => {
+            for(let i=0; i< this.vendors.length; i++) {
+              this.getUsers(this.vendors[i].id, i);
+              this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
             }
-          }
-        }
-        this.loading = false;
+          })
+          .catch(e => console.log(e, 'error'));
+      },
+      async getUsers(id, index) {
+        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + id)
+          .then(response => {
+            console.log(response.data);
+            this.vendors[index].name = `${response.data.user.first_name} ${response.data.user.last_name}`;
+            if(index === (this.vendors.length - 1)) {
+              this.loading = true;
+              console.log("YAY", this.loading)
+            }
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
       },
     },
   }

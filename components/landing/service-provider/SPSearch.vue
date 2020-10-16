@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async getPropertyManagers() {
-      let {data, status} = await this.$http.get(`http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/0`).catch(e => e);
+      let {data, status} = await this.$http.get(`http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/false`).catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.serviceproviders = data;
@@ -183,7 +183,7 @@ export default {
   }
 
 }
-@media (max-width:450px){ 
+@media (max-width:450px){
   .searchSection h1{
       font-size: 3vh;
   }

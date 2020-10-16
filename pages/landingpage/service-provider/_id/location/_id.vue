@@ -1,5 +1,5 @@
 <template>
-  <div class="pfaccountlocationcontainer">
+  <div class="pfaccountlocationcontainer mt-16">
     <div class="pfaccountlocation">
       <img class="coverpic"/>
       <img :src="locationVal.imageUrl" class="profilepic"/>
@@ -44,6 +44,7 @@
 <script>
 
 export default {
+  layout: 'fullwidth',
   data() {
     return {
       loading: false,

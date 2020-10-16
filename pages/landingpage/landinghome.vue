@@ -148,6 +148,7 @@ import Reviews from '../../components/landing/general/Reviews';
 import PreviewSliderSectionPF from '~/components/landing/property-manager/PreviewSliderSectionPF';
 import PreviewSliderSectionSP from '~/components/landing/service-provider/PreviewSliderSectionSP';
 export default {
+  layout: 'fullwidth',
   data: () => ({
     carouselPropertyManagers: [
 
@@ -501,7 +502,7 @@ export default {
     align-items: center;
     justify-content: center;
     margin-top: 100px;
-  }  
+  }
   .landinghomeherotext img {
     width: 50%;
     margin-top: -200px;
@@ -919,7 +920,7 @@ export default {
     justify-content: center;
     /*width:70%;*/
   }
-  /*the buttons will either need to have a change to the mobile view or wording the property and facility learn more goes to two  lines 
+  /*the buttons will either need to have a change to the mobile view or wording the property and facility learn more goes to two  lines
       this may be fixed needs to be tested.
   */
   .landinghomejoincolumn div button {
@@ -973,8 +974,8 @@ export default {
   .row{
     margin-right: 0;
   }
-  
-  /*we will need to fix this whenever we actually get the hamberger menu added. will it go horizontal or vertical? 
+
+  /*we will need to fix this whenever we actually get the hamberger menu added. will it go horizontal or vertical?
   .v-btn__content{
   }
   */

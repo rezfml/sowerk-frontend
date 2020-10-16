@@ -280,7 +280,7 @@
           <h3>Convenient</h3>
           <p>For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient. </p>
         </div>
-     
+
     </section> -->
   </div>
 </template>
@@ -289,6 +289,7 @@
 import PFSearch from '~/components/landing/property-manager/PFSearch.vue'
 
 export default {
+  layout: 'fullwidth',
   data() {
     return {
       loading: false,
@@ -313,16 +314,14 @@ export default {
   },
   methods: {
     async getPropertyManagers() {
-      let { data, status } = await this.$http
+      await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=1&limit=8&offset=0'
+          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=true&limit=8&offset=0'
         )
+        .then(response => {
+          console.log(response, 'hey');
+        })
         .catch((e) => e)
-      if (this.$error(status, data.message, data.errors)) return
-      this.$nextTick(function () {
-        this.propertymanagers = data
-        console.log(this.propertymanagers)
-      })
     },
   },
 }

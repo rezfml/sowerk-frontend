@@ -1,13 +1,14 @@
 <template>
-  <v-card class="d-flex flex-column align-center">
-    <v-card-title>Hello, would you like to leave some feedback?</v-card-title>
+  <v-card class="d-flex flex-column align-center justify-center mt-16" style="width: 100%;">
+    <v-card-title style="width: 70%; border-radius: 3px; font-size: 18px;"
+                  class="primary white--text justify-center font-weight-regular red-gradient mb-10 mt-n8">Hello, do you need support or would you like to leave some feedback?</v-card-title>
     <v-card-subtitle>We are constantly trying to improve and grow, and would love to hear any comments, questions, concerns, or feedback that you would love to share with us. We really appreciate it!</v-card-subtitle>
-    <v-form style="width: 80%;">
-      <v-text-field placeholder="Company Name" v-model="feedbackForm.company_name"></v-text-field>
-      <v-text-field placeholder="Your Name" v-model="feedbackForm.name"></v-text-field>
-      <v-text-field placeholder="Your Email" v-model="feedbackForm.email"></v-text-field>
-      <v-text-field placeholder="Message" v-model="feedbackForm.message"></v-text-field>
-      <v-btn @click="submitFeedback">Send Feedback</v-btn>
+    <v-form style="width: 80%;" class="justify-center d-flex flex-column align-center">
+      <v-text-field style="width: 80%;" label="Company Name"  class="pt-6" placeholder="Company Name" v-model="feedbackForm.company_name"></v-text-field>
+      <v-text-field style="width: 80%;" label="Your Name"  class="pt-6" placeholder="Your Name" v-model="feedbackForm.name"></v-text-field>
+      <v-text-field style="width: 80%;" label="Your Email"  class="pt-6" placeholder="Your Email" v-model="feedbackForm.email"></v-text-field>
+      <v-text-field style="width: 80%;" label="Message" class="pt-6" placeholder="Message" v-model="feedbackForm.message"></v-text-field>
+      <v-btn large outlined color="primary" rounded @click="submitFeedback" class="mb-4">Send Feedback</v-btn>
     </v-form>
   </v-card>
 </template>

@@ -5,7 +5,7 @@
       <div>
         <form>
           <input type="text" placeholder="" value="" /> <input type="submit"/>
-         
+
           <select class="select">
             <option>Property & Facility</option>
             <option>Option 2</option>
@@ -19,7 +19,7 @@
             <option>Service</option>
             <option>Name</option>
           </select>
-          
+
         </form>
       </div>
     </section>
@@ -85,7 +85,7 @@ export default {
     async getPropertyManagers() {
       let { data, status } = await this.$http
         .get(
-          `http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/1`
+          `http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/true`
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
