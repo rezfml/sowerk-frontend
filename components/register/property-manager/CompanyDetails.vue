@@ -4,33 +4,38 @@
   >
     <v-container style="max-width: 80%;" mx-auto>
       <v-card-text class="pa-0">
-        <v-form class="mx-auto">
+        <v-form class="mx-auto register-form" ref="register">
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6">
-                <v-row fill-height class="pl-2">
-                  <client-only>
-                    <v-image-input
-                      v-model="company.imgUrl"
-                      image-quality="0.85"
-                      clearable
-                      image-format="png"
-                      uploadIcon="person"
-                      fullWidth
-                      overlayPadding="10px"
-                      scalingSliderColor="red"
-                      :readonly="false"
-                    />
-                  </client-only>
+              <v-col cols="12" sm="5" md="6">
+                <v-row fill-height class="pl-2 fill-height">
+                  <v-col cols="12" class="d-flex flex-column justify-space-between align-center">
+                    <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="companyImageUrl"></v-img>
+                    <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
+                    <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+                    <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0 px-6">Upload Logo</v-btn>
+                  </v-col>
+<!--                  <v-col cols="12" md="6" class="d-flex flex-column justify-center">-->
+<!--                    <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload&#45;&#45;selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>-->
+<!--                    <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>-->
+<!--                  </v-col>-->
+                  <!--                            <v-file-input-->
+                  <!--                              clearable-->
+                  <!--                              full-width-->
+                  <!--                              v-on:input.native="selectCompanyImage"-->
+                  <!--                            />-->
+
                 </v-row>
               </v-col>
 
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="6" class="d-flex flex-column justify-space-between">
                 <v-text-field
                   id="first_name"
                   label="First Name*"
                   type="text"
                   v-model="user.first_name"
+                  placeholder=" "
+                  :rules="rules.requiredRules"
                 ></v-text-field>
 
                 <v-text-field
@@ -38,6 +43,8 @@
                   label="Last Name*"
                   type="text"
                   v-model="user.last_name"
+                  placeholder=" "
+                  :rules="rules.requiredRules"
                 ></v-text-field>
 
                 <v-text-field
@@ -45,6 +52,8 @@
                   type="email"
                   class="card__input black--text"
                   v-model="user.email"
+
+                  placeholder=" "
                 ></v-text-field>
 
                 <v-text-field
@@ -52,6 +61,8 @@
                   type="text"
                   class="card__input black--text"
                   v-model="user.phone"
+
+                  placeholder=" "
                 ></v-text-field>
               </v-col>
 
@@ -61,6 +72,8 @@
                   label="Password*"
                   type="password"
                   v-model="user.password"
+
+                  placeholder=" "
                 ></v-text-field>
               </v-col>
 
@@ -69,6 +82,8 @@
                   id="confirm"
                   label="Confirm Password*"
                   type="password"
+
+                  placeholder=" "
                 ></v-text-field>
               </v-col>
 
@@ -83,6 +98,8 @@
                   label="Account Name*"
                   type="text"
                   v-model="company.account_name"
+
+                  placeholder=" "
                 ></v-text-field>
               </v-col>
 
@@ -91,7 +108,9 @@
                   id="company-brand"
                   label="Brand Name*"
                   type="text"
-                  v-model="company.brand_name"></v-text-field>
+                  v-model="company.brand_name"
+                  placeholder=" "
+                ></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6">
@@ -100,8 +119,9 @@
                   label="What Best Describes You*"
                   :item-text="bestSelection.text"
                   :item-value="bestSelection.value"
+                  placeholder=" "
                   :items="bestSelection"
-                  v-model="company.bestDescription"></v-select>
+                  v-model="company.isFranchise"></v-select>
               </v-col>
 
               <v-col cols="12" sm="6">
@@ -109,7 +129,9 @@
                   id="company-llc"
                   label="List your LLC Name (If Applicable)"
                   type="text"
-                  v-model="company.llcName"></v-text-field>
+                  v-model="company.llcName"
+                  placeholder=" "
+                ></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6">
@@ -118,6 +140,7 @@
                   label="Company Email*"
                   type="text"
                   v-model="company.email"
+                  placeholder=" "
                 ></v-text-field>
               </v-col>
 
@@ -127,14 +150,15 @@
                   label="Company Phone*"
                   type="number"
                   v-model="company.phone"
+                  placeholder=" "
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" class="v-input">
+              <v-col cols="12" class="v-input address">
                 <div class="v-input__control">
                   <div class="v-input__slot">
                     <div class="v-text-field__slot" style="width: 100%;">
-                      <label class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
+                      <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Company Address*</p></label>
                       <client-only>
                         <vue-google-autocomplete
                           id="company-address"
@@ -160,6 +184,7 @@
                   id="company-description"
                   label="Company Description*"
                   v-model="company.description"
+                  placeholder=" "
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -181,6 +206,33 @@ export default {
     VImageInput,
     GmapCluster,
     VueGoogleMaps
+  },
+  data() {
+    return {
+      companyImageUrl: null,
+      companyImageFile: null,
+      rules: {
+        requiredRules: [
+          v => !!v || v === 0 || 'Field is required',
+        ],
+        usernameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 100) || 'Name must be less than 100 characters'
+        ],
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+/.test(v) || 'E-mail must be valid',
+          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+        ],
+        emailNotRequiredRules: [
+          v => /.+@.+/.test(v) || 'E-mail must be valid',
+          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+        ],
+        phoneRules: [
+          v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+        ],
+      },
+    }
   },
   props: {
     company: {
@@ -204,15 +256,37 @@ export default {
     },
   },
   methods: {
+    selectCompanyImage(e) {
+      this.companyImageFile = e.target.files[0];
+      console.log(this.companyImageFile);
+      this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
+      console.log(this.companyImageUrl);
+      this.$emit('selectFile', this.companyImageFile);
+    },
+
+    readFile(e) {
+      this.selectedFile = e.target.files[0];
+
+      this.url = URL.createObjectURL(this.selectedFile);
+      console.log(this.url);
+
+      this.$emit('selectFile', this.selectedFile, this.index);
+
+    },
+    clickCompanyImageUpload() {
+      console.log(this);
+      // let imageInput = this.$refs.companyImage;
+      // console.log(imageInput);
+      // imageInput.$el.click();
+      document.getElementById('companyImage').click();
+    },
     animateAddressFieldOnFocus(e) {
       let addressLabel = e.target.previousElementSibling
       addressLabel.classList.toggle('v-label--focus')
     },
     animateAddressFieldOnFilled(e) {
       if (e.target != '') {
-        if (
-          e.target.previousElementSibling.classList.contains('v-label--filled')
-        ) {
+        if (e.target.previousElementSibling.classList.contains('v-label--filled')) {
           return
         } else {
           e.target.previousElementSibling.classList.add('v-label--filled')
@@ -221,26 +295,23 @@ export default {
         e.target.previousElementSibling.classList.remove('v-label--filled')
       }
     },
+    validate() {
+      if (!this.$refs.register.validate()) {
+        this.$nextTick(() => {
+          this.$vuetify.goTo('.error--text');
+        });
+        return false;
+      }
+      return true;
+    },
   }
 }
 </script>
 
-<style>
+<style scoped>
 .form__address::v-deep input {
   border: 2px solid red !important;
   width: 600px;
-}
-
-.v-input__slot:before {
-  border-color: rgba(0, 0, 0, 0.42);
-  border-style: solid;
-  border-width: thin 0 0 0;
-  bottom: -2px;
-  content: '';
-  left: 0;
-  position: absolute;
-  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-  width: 100%;
 }
 
 .form-control {
@@ -272,5 +343,24 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.register-form >>> .v-label {
+  color: black;
+  font-weight: bold;
+  font-size: 1.25em;
+  top: 0;
+}
+
+.address .v-input__slot:before {
+  border-color: rgba(0,0,0,0.42);
+  border-style: solid;
+  border-width: thin 0 0 0;
+  bottom: -2px;
+  content: "";
+  left: 0;
+  position: absolute;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  width: 100%;
 }
 </style>

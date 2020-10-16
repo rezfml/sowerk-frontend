@@ -88,6 +88,10 @@ export default {
     locations: {
       type: Array,
       required: true
+    },
+    headers: {
+      type: Array,
+      required: true
     }
   },
 }
