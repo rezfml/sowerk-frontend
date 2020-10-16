@@ -52,6 +52,7 @@
             v-slot:item.actions="{ item }"
             v-else-if="action === 'Apply'"
           >
+            <v-btn block color="blue" :to="slug + item.location_id">View</v-btn>
             <v-btn
               block
               color="primary"
@@ -107,7 +108,9 @@ export default {
       locations: null
     }
   },
-  mounted() {}
+  mounted() {
+    console.log(this.items, 'items');
+  }
 }
 </script>
 

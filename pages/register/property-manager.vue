@@ -62,7 +62,6 @@
             :locations="locations"
             :editingIndex="editingIndex"
             :headers="headers"
-            :locations="locations"
           ></CompanyLocations>
 
           <CompanyReview
@@ -434,14 +433,14 @@ export default {
       //     console.log(response);
       //   })
     },
-    async registerUser(company_id) {
-      this.user.companies_id = company_id
+    async registerUser(companyId) {
       let { data, status } = await this.$http
         .post(
           'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register',
           this.user
         )
         .catch((e) => e)
+      console.log('user', data)
       await this.postLocations(data.user.companies_id)
     },
     async loopLocationImages() {
@@ -461,7 +460,7 @@ export default {
       this.locations[index].imageUrl = data.data.Location;
     },
     async postLocations(userId) {
-      console.log(this.locations)
+      console.log(this.locations, 'this.locations');
       let { data, status } = await this.$http
         .post(
           'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' +
@@ -475,27 +474,24 @@ export default {
       await this.getUserLocations(userId)
     },
     async getUserLocations(userId) {
-      let { data, status } = await this.$http
-        .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' +
-            userId
-        )
+      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + userId)
+        .then(async (response) => {
+          console.log('get companys locations: ', response.data.location)
+          await this.postServicesPerLocation(response.data.location)
+        })
         .catch((e) => e)
-      console.log('get companys locations: ', data)
-      await this.postServicesPerLocation(data)
     },
-    async postServicesPerLocation(locations) {
-      for (const location of locations) {
+    async postServicesPerLocation(locationsVal) {
+      console.log(locationsVal, 'locations');
+      for (const locationVal of locationsVal) {
+        console.log(locationVal, 'location', locationsVal, 'locations');
         for (const service of this.services) {
+          console.log(service, 'service', this.services, 'this.services');
           let serviceObject = {
             name: service,
-          }
-          let { data, status } = await this.$http
-            .post(
-              'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' +
-                location.id,
-              serviceObject
-            )
+            locations_id: locationVal.id
+          };
+          let { data, status } = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + locationVal.id, serviceObject)
             .catch((e) => e)
           console.log(data)
         }

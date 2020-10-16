@@ -33,7 +33,7 @@
 <script>
   import VendorSlider from '~/components/dashboard/VendorSlider'
   export default {
-    name: 'vendor',
+    name: 'approved',
     layout: 'app',
     components: {
       VendorSlider
@@ -47,11 +47,11 @@
     },
     async mounted() {
       console.log(this.$route.params.id, 'hey')
-      await this.getLocation();
+      await this.getCompany();
     },
     methods: {
-      async getLocation() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.$route.params.id)
+      async getCompany() {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.$route.params.id)
           .then(response => {
             console.log(response.data, 'response.data');
             this.company = response.data;

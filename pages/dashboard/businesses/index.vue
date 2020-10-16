@@ -202,7 +202,7 @@
       async getBusinesses() {
         this.loading = true;
         this.locations = [];
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/1').catch(e => e);
+        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/true').catch(e => e);
         // this.businesses = data.users.filter(function(user) {
         //   return user.user_type == 1;
         // })
