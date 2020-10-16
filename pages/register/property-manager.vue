@@ -49,6 +49,8 @@
             :user="user"
             :bestSelection="bestSelection"
             :fullAddress="fullAddress"
+            v-on:selectFile="selectCompanyFile"
+            ref="companyDetails"
           ></CompanyDetails>
 
           <CompanyLocations
@@ -57,6 +59,7 @@
             :editLocation="editLocation"
             :editingLocation="editingLocation"
             :location="location"
+            :locations="locations"
             :editingIndex="editingIndex"
             :headers="headers"
             :locations="locations"
@@ -152,6 +155,7 @@ export default {
     return {
       loading: false,
       tab: 0,
+      companyImageFile: {},
       items: ['Company', 'Locations', 'Review'],
       bestSelection: [
         {
@@ -167,7 +171,7 @@ export default {
         email: '',
         account_name: '',
         brand_name: '',
-        bestDescription: '',
+        isFranchise: '',
         llcName: '',
         imgUrl: '',
         address: '',
@@ -221,7 +225,7 @@ export default {
         year_founded: 0,
         description: null,
         adminLevel: 0,
-        imageUrl: '',
+        imageUrl: null,
         pfLogoCheckbox: false,
         companies_id: Number,
       },
@@ -282,19 +286,55 @@ export default {
       document.documentElement.style.overflow = 'auto'
     },
   },
+  mounted() {
+    console.log(this.$children);
+  },
   methods: {
     nextPageIfNotLast() {
-      if (this.tab === 2) return
+      if (this.tab === 2) return;
+      if(!this.validate(this.tab)) return;
       this.tab += 1
       console.log(this.locations)
+    },
+    validate(tab) {
+      if (!this.$refs.companyDetails.$refs.register.validate()) {
+        this.$nextTick(() => {
+          this.$vuetify.goTo('.error--text');
+        });
+        return false;
+      }
+      return true;
+      console.log(tab);
+      console.log(this.$refs.companyDetails.$refs.register);
     },
     prevPageIfNotFirst() {
       if (this.tab === 0) return
       this.tab -= 1
     },
+    selectCompanyFile(file) {
+      this.companyImageFile = file;
+      console.log(this.companyImageFile);
+    },
+    async uploadCompanyImage() {
+      let formData = new FormData();
+      formData.append('file', this.companyImageFile);
+      // await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+      //   .then(response => {
+      //     console.log('success in uploading insurance file', response)
+      //     this.insurances[index].documentUrl = response.data.data.Location;
+      //     this.loading = false;
+      //     console.log(this.insurances);
+      //     return this.insurances;
+      //   })
+      //   .catch(err => {
+      //     console.log('error in uploading insurance file', err);
+      //   })
+      let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
+      this.company.imgUrl = data.data.Location;
+    },
     finishEditing() {
       this.editingLocation = false
-      console.log(this.location, location)
+      console.log(this.location, 'location')
       this.locations[this.editingIndex] = this.location
       this.editingIndex = null
     },
@@ -362,7 +402,7 @@ export default {
         year_founded: null,
         description: null,
         adminLevel: null,
-        imageUrl: '',
+        imageUrl: null,
         pfLogoCheckbox: false,
         companies_id: this.user.companies_id,
       }
@@ -382,12 +422,8 @@ export default {
       this.loading = true
       console.log(this.company)
       console.log(this.locations)
-      let { data, status } = await this.$http
-        .post(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies',
-          this.company
-        )
-        .catch((e) => e)
+      await this.uploadCompanyImage();
+      let { data, status } = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company).catch((e) => e)
       console.log('post company: ', data)
       this.user.companies_id = data.companies.id
       await this.registerUser(data.companies.id)
@@ -407,6 +443,22 @@ export default {
         )
         .catch((e) => e)
       await this.postLocations(data.user.companies_id)
+    },
+    async loopLocationImages() {
+      this.locations.forEach((location, index) => {
+        const formData = new FormData();
+        console.log(location);
+        formData.append('file', location.imageUrl);
+        this.uploadLocationImage(formData, index);
+      });
+      console.log(this.locations);
+    },
+    async uploadLocationImage(formData, index) {
+      let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(err => {
+        console.log('error in uploading location image', err)
+      })
+
+      this.locations[index].imageUrl = data.data.Location;
     },
     async postLocations(userId) {
       console.log(this.locations)
