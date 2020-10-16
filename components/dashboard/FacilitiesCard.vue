@@ -52,10 +52,10 @@
             {{ item.contact_last_name }}
           </template>
 
-          <template v-slot:item.user_full_name="{ item }">
+          <template v-slot:item.fullname="{ item }">
             <div>
               <v-icon color="primary">mdi-account</v-icon>
-              {{ item.first_name }} {{ item.last_name }}
+              <p>{{ item.name }}</p>
             </div>
           </template>
 
@@ -113,10 +113,16 @@ export default {
   data() {
     return {
       locations: null,
+      users: [
+
+      ]
     }
   },
-  mounted() {
-    console.log(this.items, 'yayyy');
+  async mounted() {
+    console.log(this.items, 'yayyy',);
+  },
+  methods: {
+
   }
 }
 </script>

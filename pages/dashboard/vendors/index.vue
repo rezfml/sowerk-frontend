@@ -1,6 +1,6 @@
 <template>
   <v-app class="grey lighten-3">
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
       <v-progress-circular
         indeterminate
         color="primary"
@@ -38,7 +38,7 @@
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-space-between">
           <FacilitiesCard
-            v-if="vendors.length > 0"
+            v-if="vendors.length > 0 && loading === true"
             :title="'All SOWerk Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -224,7 +224,7 @@
           },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'user_full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
@@ -243,13 +243,8 @@
     //     document.documentElement.style.overflow = 'auto'
     //   }
     // },
-    mounted() {
-      this.getBusinesses();
-    },
-    computed: {
-      currentUser() {
-        return this.$store.state.user.user.user;
-      },
+    async mounted() {
+      await this.getBusinesses();
     },
     methods: {
       async getBusinesses() {
@@ -258,27 +253,28 @@
           .then(response => {
             this.vendors = response.data;
           })
+          .then(res => {
+            for(let i=0; i< this.vendors.length; i++) {
+              this.getUsers(this.vendors[i].id, i);
+              this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
+            }
+          })
           .catch(e => console.log(e, 'error'));
-        for(let i=0; i< this.vendors.length; i++) {
-          console.log(this.vendors[i], 'hi');
-          this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
-          this.getUsers(this.vendors[i].id, i);
-        }
-        // this.businesses = data.users.filter(function(user) {
-        //   return user.user_type == 1;
-        // })
-        // console.log(this.businesses);
       },
-      async getUsers(id, i) {
+      async getUsers(id, index) {
         this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + id)
           .then(response => {
-            this.vendors[i]["first_name"] = response.data.user.first_name;
-            this.vendors[i]["last_name"] = response.data.user.last_name;
+            console.log(response.data);
+            this.vendors[index].name = `${response.data.user.first_name} ${response.data.user.last_name}`;
+            if(index === (this.vendors.length - 1)) {
+              this.loading = true;
+              console.log("YAY", this.loading)
+            }
           })
           .catch(err => {
             console.log('err', err);
           })
-      }
+      },
     },
   }
 </script>

@@ -78,18 +78,23 @@
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies')
           .then(response => {
             this.companiesFilter = response.data;
+            console.log(response.data, 'response.data', this.companiesFilter);
             console.log(this.companiesFilter, 'companiesFilter', response.data, 'data');
           })
           .catch(err => {
             console.log(err);
           })
+        for(let i=0; i< this.companiesFilter.length; i++) {
+          console.log(this.companiesFilter[i], 'hi');
+          this.companiesFilter[i].servicesOffered = String(this.companiesFilter[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
+        }
       },
       async getCompany() {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.company = response.data;
             this.messageForm.company = response.data.account_name;
-            this.messageForm.service = response.data.servicesOffered;
+            this.messageForm.service = String(response.data.servicesOffered);
             console.log(this.company, 'company');
           })
           .catch(err => {
