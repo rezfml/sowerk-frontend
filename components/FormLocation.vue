@@ -46,7 +46,7 @@
     <v-col cols="12">
       <v-row class="d-flex align-center">
         <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
-          <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageFile"></v-img>
+          <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageUrl"></v-img>
           <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
           <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
           <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>

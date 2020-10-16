@@ -47,25 +47,25 @@
           >
             <v-container style="max-width: 80%;" mx-auto>
               <v-card-text class="pa-0">
-                <v-form class="mx-auto register-form">
+                <v-form class="mx-auto register-form" ref="companyDetails">
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="5" md="6">
                         <v-row fill-height class="pl-2 fill-height">
-                          <v-col cols="12" md="6" class="d-flex justify-center align-center">
+                          <v-col cols="12" class="d-flex justify-center align-center">
                             <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
                             <v-icon v-else :size="100">person</v-icon>
                           </v-col>
-                          <v-col cols="12" md="6" class="d-flex flex-column justify-space-between">
+                          <v-col cols="12" class="d-flex flex-column justify-center">
                             <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                            <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
-                            <p class="text-center mb-0">Or</p>
+                            <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
+<!--                            <p class="text-center mb-0">Or</p>-->
 
-                            <v-checkbox class="mt-0">
-                              <template v-slot:label>
-                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>
-                              </template>
-                            </v-checkbox>
+<!--                            <v-checkbox class="mt-0">-->
+<!--                              <template v-slot:label>-->
+<!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
+<!--                              </template>-->
+<!--                            </v-checkbox>-->
                           </v-col>
 <!--                            <v-file-input-->
 <!--                              clearable-->
@@ -82,6 +82,8 @@
                           type="text"
                           placeholder=" "
                           v-model="user.first_name"
+                          :rules="rules.requiredRules"
+                          class="mb-6"
                         ></v-text-field>
 
                         <v-text-field
@@ -89,22 +91,28 @@
                           type="text"
                           placeholder=" "
                           v-model="user.last_name"
+                          :rules="rules.requiredRules"
+                          class="mb-6"
                         ></v-text-field>
 
                         <v-text-field
                           label="Email Address*"
                           type="email"
                           placeholder=" "
-                          class="card__input black--text"
+                          class="card__input black--text mb-6"
                           v-model="user.email"
+                          :rules="rules.emailRules"
+                          validate-on-blur
                         ></v-text-field>
 
                         <v-text-field
                           label="Phone*"
                           type="text"
                           placeholder=" "
-                          class="card__input black--text"
+                          class="card__input black--text mb-6"
                           v-model="user.phone"
+                          :rules="rules.phoneRules"
+                          validate-on-blur
                         ></v-text-field>
                       </v-col>
 
@@ -114,6 +122,7 @@
                           type="password"
                           placeholder=" "
                           v-model="user.password"
+                          :rules="rules.passwordRules"
                         ></v-text-field>
                       </v-col>
 
@@ -122,6 +131,8 @@
                           label="Confirm Password*"
                           type="password"
                           placeholder=" "
+                          v-model="confirmPassword"
+                          :rules="confirmPasswordRules"
                         ></v-text-field>
                       </v-col>
 
@@ -134,7 +145,9 @@
                           id="account-name"
                           label="Account Name*"
                           placeholder=" "
-                          v-model="company.account_name"></v-text-field>
+                          v-model="company.account_name"
+                          :rules="rules.requiredRules"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="6">
@@ -143,7 +156,9 @@
                           label="Brand Name*"
                           type="text"
                           placeholder=" "
-                          v-model="company.brand_name"></v-text-field>
+                          v-model="company.brand_name"
+                          :rules="rules.requiredRules"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" sm="6">
@@ -154,7 +169,9 @@
                           :item-text="bestSelection.text"
                           :item-value="bestSelection.value"
                           :items="bestSelection"
-                          v-model="company.isFranchise"></v-select>
+                          v-model="company.isFranchise"
+                          :rules="rules.requiredRules"
+                        ></v-select>
                       </v-col>
 
                       <v-col cols="12" sm="6">
@@ -163,7 +180,9 @@
                           label="List your LLC Name (If Applicable)"
                           type="text"
                           placeholder=" "
-                          v-model="company.llcName"></v-text-field>
+                          v-model="company.llcName"
+                          :rules="rules.requiredRules"
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" md="6">
@@ -173,6 +192,7 @@
                           placeholder=" "
                           class="card__input black--text"
                           v-model="company.email"
+                          :rules="rules.emailRules"
                         ></v-text-field>
                       </v-col>
 
@@ -183,6 +203,7 @@
                           placeholder=" "
                           class="card__input black--text"
                           v-model="company.phone"
+                          :rules="rules.phoneRules"
                         ></v-text-field>
                       </v-col>
 
@@ -202,6 +223,8 @@
                                   v-on:blur.native="animateAddressFieldOnFocus"
                                   v-on:input.native="animateAddressFieldOnFilled"
                                   v-model="fullAddress"
+                                  :rules="rules.requiredRules"
+                                  required
                                 >
                                 </vue-google-autocomplete>
                               </client-only>
@@ -218,6 +241,7 @@
                           chips
                           label="What Services Do You Offer?"
                           placeholder=" "
+                          :rules="rules.requiredRules"
                         ></v-select>
                       </v-col>
 
@@ -228,6 +252,7 @@
                           placeholder=" "
                           v-model="company.year_founded"
                           class="pt-5"
+                          :rules="rules.requiredRules"
                         ></v-text-field>
                       </v-col>
 
@@ -237,6 +262,7 @@
                           label="Describe Your Business* (A Short Sales Pitch Used In Your Profile)"
                           v-model="company.description"
                           placeholder=" "
+                          :rules="rules.requiredRules"
                         ></v-textarea>
                       </v-col>
 
@@ -511,6 +537,7 @@
           servicesOffered: [],
           imgUrl: null
         },
+        confirmPassword: null,
         bestSelection: [
           {
             text: "- I own this brand",
@@ -648,6 +675,35 @@
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
+        rules: {
+          requiredRules: [
+            v => !!v || v === 0 || 'Field is required',
+          ],
+          usernameRules: [
+            v => !!v || 'Name is required',
+            v => (v && v.length <= 100) || 'Name must be less than 100 characters'
+          ],
+          emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          emailNotRequiredRules: [
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          phoneRules: [
+            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+          ],
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ]
+        },
         headerInsurance: [
           {
             text: 'ID',
@@ -660,6 +716,14 @@
           { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-regular'},
           { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-regular'},
         ]
+      }
+    },
+    computed: {
+      confirmPasswordRules() {
+        return [
+          () => (this.user.password === this.confirmPassword) || 'Password must match',
+          v => !!v || 'Confirmation Password is required'
+        ];
       }
     },
     methods: {
@@ -683,9 +747,25 @@
         document.getElementById('companyImage').click();
       },
       nextPageIfNotLast() {
-        if(this.tab === 3) return;
-        this.tab += 1;
-        console.log(this.locations);
+        if (this.tab === 2) return;
+        if(!this.validate(this.tab)) return;
+        this.tab += 1
+        console.log(this.locations)
+      },
+      validate(tab) {
+        console.log(this.$refs.companyDetails);
+        if(tab == 0) {
+          if (!this.$refs.companyDetails.validate()) {
+            this.$nextTick(() => {
+              this.$vuetify.goTo('.error--text');
+            });
+            return false;
+          }
+          return true;
+        }
+
+        console.log(tab);
+        console.log(this.$refs.companyDetails.$refs.register);
       },
       prevPageIfNotFirst() {
         if(this.tab === 0) return;
