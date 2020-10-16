@@ -128,7 +128,7 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.items, 'yayyy', this.company);
+    console.log(this.items, 'yayyy');
   },
   methods: {
 

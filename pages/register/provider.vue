@@ -834,8 +834,8 @@
             this.registerUser(response.data.companies.id);
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
-            this.postLocations(response.data.user.id);
-            this.$router.push('/login');
+            this.postLocations(response.data.companies.id);
+            this.$router.push('/verify');
           })
           .catch(err => {
             console.log('error in posting companies registering', err)
