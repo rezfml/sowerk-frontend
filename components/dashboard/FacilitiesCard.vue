@@ -31,12 +31,18 @@
           </template>
           <template v-slot:item.service="{item}">
             <v-row class="d-flex" cols="12" md="6">
-              <p>{{item.servicesOffered}}</p>
+              <p v-if="company.company_type != 'false'">{{item.services}}</p>
+              <p v-else>{{item.servicesOffered}}</p>
+            </v-row>
+          </template>
+          <template v-slot:item.services="{item}">
+            <v-row class="d-flex" cols="12" md="6">
+              <p>{{item.services}}</p>
             </v-row>
           </template>
           <template v-slot:item.companyName="{item}">
             <v-row class="d-flex" cols="12" md="6">
-              <p>{{item.account_name}}</p>
+              <p>{{item.name}}</p>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -46,16 +52,16 @@
             </v-row>
           </template>
 
-          <template v-slot:item.full_name="{ item }">
+          <template class="d-flex" v-slot:item.full_name="{ item }">
             <v-icon color="primary">mdi-account</v-icon>
-            {{ item.contact_first_name }}
-            {{ item.contact_last_name }}
+            <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
           </template>
 
-          <template v-slot:item.fullname="{ item }">
+          <template class="d-flex" v-slot:item.fullname="{ item }">
             <div>
               <v-icon color="primary">mdi-account</v-icon>
-              <p>{{ item.name }}</p>
+              <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+              <p v-else>{{ item.name }}</p>
             </div>
           </template>
 
@@ -77,6 +83,9 @@
           </template>
           <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
             <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+          </template>
+          <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+            <v-btn block color="primary" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
@@ -109,7 +118,7 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug',],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company'],
   data() {
     return {
       locations: null,
@@ -119,7 +128,7 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.items, 'yayyy',);
+    console.log(this.items, 'yayyy', this.company);
   },
   methods: {
 

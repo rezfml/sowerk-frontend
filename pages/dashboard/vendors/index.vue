@@ -222,9 +222,9 @@
             value: 'id',
             class: 'primary--text font-weight-regular'
           },
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Service', value: 'services', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
@@ -248,28 +248,32 @@
     },
     methods: {
       async getBusinesses() {
-
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/false')
           .then(response => {
-            this.vendors = response.data;
-          })
-          .then(res => {
-            for(let i=0; i< this.vendors.length; i++) {
-              this.getUsers(this.vendors[i].id, i);
-              this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
+            console.log(response.data.length);
+            for(let i=0; i< response.data.length; i++) {
+              this.getLocations(response.data[i].id, response.data[i].account_name);
             }
+            this.loading = true;
+            console.log("YAY", this.loading)
           })
           .catch(e => console.log(e, 'error'));
       },
-      async getUsers(id, index) {
-        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + id)
+      async getLocations(id, account_name) {
+        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + id)
           .then(response => {
-            console.log(response.data);
-            this.vendors[index].name = `${response.data.user.first_name} ${response.data.user.last_name}`;
-            if(index === (this.vendors.length - 1)) {
-              this.loading = true;
-              console.log("YAY", this.loading)
-            }
+            console.log(response.data.location, 'locations');
+            response.data.location.forEach((location) => {
+              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + location.id)
+                .then(res => {
+                  console.log(res.data, 'individual location')
+                  this.vendors.push(res.data);
+                })
+                .catch(err => {
+                  console.log('err', err);
+                })
+            })
+            console.log('this.vendors', 'vendors');
           })
           .catch(err => {
             console.log('err', err);

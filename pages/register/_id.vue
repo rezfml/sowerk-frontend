@@ -1048,13 +1048,14 @@
       async getUserLocations(userId) {
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
-        await this.postServicesPerLocation(data);
+        await this.postServicesPerLocation(data.location);
       },
       async postServicesPerLocation(locations) {
         for (const location of locations) {
           for (const service of this.servicesProvided) {
             let serviceObject = {
               name: service,
+              locations_id: location.id
             }
             let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
