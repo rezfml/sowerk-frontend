@@ -461,17 +461,12 @@ export default {
     },
     async postLocations(userId) {
       console.log(this.locations, 'this.locations');
-      let { data, status } = await this.$http
-        .post(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' +
-            userId,
-          this.locations
-        )
-        .catch((e) => e)
-      // this.loading = false;
-      // if (this.$error(status, message, errors)) return;
-      console.log('user locations post: ', data)
-      await this.getUserLocations(userId)
+      await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+        .then(async (response) => {
+          console.log('user locations post: ', response.data);
+          await this.getUserLocations(userId)
+        })
+        .catch((e) => console.log('err', e));
     },
     async getUserLocations(userId) {
       await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + userId)

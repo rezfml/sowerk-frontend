@@ -91,6 +91,7 @@ export default {
         })
         .catch(err => {
           console.log('cannot get messages', err)
+          this.loading = true;
         })
     }
   }
