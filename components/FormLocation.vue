@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-row style="position: relative;">
         <v-col cols="12" style="width: 100%;">
-          <client-only>
+<!--          <client-only>-->
             <GmapMap
               id="locations-map"
               :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
@@ -16,7 +16,7 @@
                 :clickable="true"
               />
             </GmapMap>
-          </client-only>
+<!--          </client-only>-->
         </v-col>
       </v-row>
     </v-col>
@@ -45,25 +45,11 @@
 
     <v-col cols="12">
       <v-row class="d-flex align-center">
-        <v-col cols="12" md="6">
-          <client-only >
-            <v-image-input
-              v-model="location.imageUrl"
-              image-quality="0.85"
-              clearable
-              fullWidth
-              image-format="png"
-              uploadIcon="person"
-              overlayPadding="10px"
-              scalingSliderColor="red"
-              :readonly="false"
-              style=""
-            />
-          </client-only>
-          <v-checkbox
-            v-model="checkbox1"
-            :label="`Use Brand Logo For This Facility`"
-          ></v-checkbox>
+        <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
+          <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageFile"></v-img>
+          <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
+          <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+          <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
         </v-col>
         <v-col cols="12" md="6" class="d-flex flex-column justify-center
 ">
@@ -93,7 +79,7 @@
         </v-col>
       </v-row>
 
-      <div class="v-input__control mt-10 mb-8">
+      <div class="v-input__control mt-10 mb-8" id="address">
         <div class="v-input__slot">
           <div class="v-text-field__slot" style="width: 100%;">
             <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 1.1em">Location Address*</p></label>
@@ -167,22 +153,22 @@
       <span class="headline mb-0">Location Manager</span>
     </v-col>
     <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
-    <v-col cols="12" md="6">
-      <v-checkbox v-model="location.pfLogoCheckbox"
-      :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">
+    <v-col cols="12" class="mb-6">
+      <v-checkbox v-model="managerIsUser" @click="setManagerToUser" hide-details>
         <template v-slot:label>
-          <p class="grey--text text--darken-4 mb-0">This location will be managed by: <span class="primary--text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>
+          <p class="grey--text text--darken-4 mb-0">This location will be managed by: {{ user.first_name }} {{ user.last_name }}</p>
         </template>
       </v-checkbox>
+<!--      <p class="primary&#45;&#45;text font-weight-bold text-h6 mt-2 ml-8">{{ user.first_name }} {{ user.last_name }}</p>-->
     </v-col>
 
-    <v-col cols="12" md="6">
-      <v-select
-        id="admin-level"
-        label="Admin Level*"
-        :items="adminLevel"
-        v-model="location.adminLevel"></v-select>
-    </v-col>
+<!--    <v-col cols="12" md="6">-->
+<!--      <v-select-->
+<!--        id="admin-level"-->
+<!--        label="Admin Level*"-->
+<!--        :items="adminLevel"-->
+<!--        v-model="location.adminLevel"></v-select>-->
+<!--    </v-col>-->
 
     <v-col cols="12" md="6">
       <v-text-field
@@ -190,6 +176,7 @@
         id="first_name"
         type="text"
         v-model="location.contact_first_name"
+        :readonly="managerIsUser"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
@@ -203,6 +190,7 @@
         id="last_name"
         type="text"
         v-model="location.contact_last_name"
+        :readonly="managerIsUser"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
@@ -216,6 +204,7 @@
         id="phone"
         type="number"
         v-model="location.phone"
+        :readonly="managerIsUser"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
@@ -229,6 +218,7 @@
         id="email"
         type="email"
         v-model="location.email"
+        :readonly="managerIsUser"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
@@ -284,6 +274,7 @@
           1,
           0
         ],
+        managerIsUser: false,
         checkbox1: false,
         checkbox: false,
         memberships: [
@@ -300,13 +291,45 @@
             value: 3
           },
         ],
-        fullAddress: null
+        fullAddress: null,
+        locationImageUrl: null,
+        locationImageFile: null,
       }
     },
     mounted() {
       this.formatFullAddress();
     },
     methods: {
+      // selectCompanyImage(e) {
+      //   this.companyImageFile = e.target.files[0];
+      //   console.log(this.companyImageFile);
+      //   this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
+      //   console.log(this.companyImageUrl);
+      //   this.location.imageUrl = e.target.files[0];
+      //   console.log('hello');
+      // },
+      setManagerToUser() {
+        console.log(this.managerIsUser)
+        if(this.managerIsUser) {
+          this.location.contact_first_name = this.user.first_name;
+          this.location.contact_last_name  = this.user.last_name;
+          this.location.phone              = this.user.phone;
+          this.location.email              = this.user.email;
+        }
+      },
+      selectLocationImage(e) {
+        this.location.imageUrl = e.target.files[0];
+        console.log(this.location.imageUrl);
+        this.locationImageUrl = URL.createObjectURL(this.location.imageUrl);
+        console.log(this.locationImageUrl);
+      },
+      clickLocationImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('locationImage').click();
+      },
       emitRadiusSlider(e) {
       },
       emitPlaceChanged(e) {
@@ -433,12 +456,12 @@
     width: 600px;
   }
 
-  .v-input__slot:before {
-    border-color: rgba(0,0,0,0.42);
+  #address .v-input__slot:before {
+    border-color: rgba(0, 0, 0, 0.42);
     border-style: solid;
     border-width: thin 0 0 0;
     bottom: -2px;
-    content: "";
+    content: '';
     left: 0;
     position: absolute;
     transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
