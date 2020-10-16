@@ -230,4 +230,7 @@
     background: rgb(166,28,0);
     background: linear-gradient(90deg, rgba(166,28,0,1) 0%, rgba(116,21,2,1) 100%);
   }
+  .v-application--wrap{
+    min-height: unset !important;
+  }
 </style>

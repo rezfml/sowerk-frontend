@@ -57,6 +57,10 @@
 
       <div class="featuredbusiness">
         <h2>Featured Businesses Near You</h2>
+        <!-- this will be added in it currently is not working when it comes to the data. 
+        <div>
+         <HomeCard></HomeCard>
+        </div>-->
         <div>
           <img alt="Cabela's"/>
           <h3>Cabela’s</h3>
@@ -79,6 +83,7 @@
 </template>
 
 <script>
+import HomeCard from '~/components/dashboard/FacilitiesCard'
 export default {
   layout: 'fullwidth',
   data() {
@@ -104,6 +109,10 @@ export default {
       locationSlice1: [],
       locationSlice2: [],
     }
+  },
+  components: {
+    HomeCard
+   // props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug']
   },
   watch: {
 
