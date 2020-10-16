@@ -34,9 +34,14 @@
               <p>{{item.servicesOffered}}</p>
             </v-row>
           </template>
+          <template v-slot:item.services="{item}">
+            <v-row class="d-flex" cols="12" md="6">
+              <p>{{item.services}}</p>
+            </v-row>
+          </template>
           <template v-slot:item.companyName="{item}">
             <v-row class="d-flex" cols="12" md="6">
-              <p>{{item.account_name}}</p>
+              <p>{{item.name}}</p>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -77,6 +82,9 @@
           </template>
           <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
             <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+          </template>
+          <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+            <v-btn block color="primary" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>

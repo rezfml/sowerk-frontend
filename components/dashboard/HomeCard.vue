@@ -107,7 +107,9 @@ export default {
       locations: null
     }
   },
-  mounted() {}
+  mounted() {
+    console.log(this.items, 'items');
+  }
 }
 </script>
 

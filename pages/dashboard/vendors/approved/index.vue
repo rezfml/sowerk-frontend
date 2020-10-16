@@ -47,7 +47,7 @@
             :tableProperties="headers"
             :viewAll="false"
             slug="/dashboard/approved-vendors/"
-            action="View"
+            action="ViewApproved"
           ></FacilitiesCard>
         </v-col>
       </v-row>
@@ -239,6 +239,7 @@
     },
     methods: {
       async getConnectionTable(id) {
+        console.log('user current', this.currentUser);
         if(this.currentUser.company_type === true) {
           console.log('true');
           await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + id)
@@ -246,7 +247,7 @@
               console.log(response.data, 'yoooo');
               for(let i = 0; i<response.data.length; i++) {
                 this.connections.push(response.data[i]);
-                this.getBusinesses(this.connections[i].serviceprovider_id);
+                this.getLocations(this.connections[i].serviceprovider_id);
                 console.log(this.connections, 'connections');
               }
             })
@@ -269,17 +270,33 @@
             })
         }
       },
-      async getBusinesses(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+      async getLocations(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + id)
           .then(response => {
-            this.vendors.push(response.data.company);
+            this.vendors.push(response.data.location);
             console.log(this.vendors, 'vendors');
           })
           .then(res => {
             console.log(this.vendors, 'yay');
             for(let i=0; i< this.vendors.length; i++) {
               console.log(this.vendors[i], 'vendors i')
-              this.getUsers(this.vendors[i].id, i);
+              this.getUsers(this.vendors[i].companies_id, i);
+              console.log(this.vendors, 'vendors 2x');
+            }
+          })
+          .catch(e => console.log(e, 'error'));
+      },
+      async getBusinesses(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+          .then(response => {
+            this.vendors.push(response.data);
+            console.log(this.vendors, 'vendors');
+          })
+          .then(res => {
+            console.log(this.vendors, 'yay');
+            for(let i=0; i< this.vendors.length; i++) {
+              console.log(this.vendors[i], 'vendors i')
+              this.getUsers(this.vendors[i].companies_id, i);
               this.vendors[i].servicesOffered = String(this.vendors[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
               console.log(this.vendors, 'vendors 2x');
             }
