@@ -93,6 +93,14 @@ export default {
       return: true
     },
     editingIndex: 0,
+    locations: {
+      type: Array,
+      required: true
+    },
+    headers: {
+      type: Array,
+      required: true
+    }
   },
 }
 </script>

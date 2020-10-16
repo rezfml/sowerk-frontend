@@ -80,6 +80,7 @@
                     v-on:blur.native="animateAddressFieldOnFocus"
                     v-on:input.native="animateAddressFieldOnFilled"
                     v-model="fullAddress"
+                    autocomplete="none"
                   >
                   </vue-google-autocomplete>
                 </client-only>
@@ -253,7 +254,7 @@
 
 <script>
 import VImageInput from 'vuetify-image-input'
-import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+// import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
 import Vue from 'vue';
