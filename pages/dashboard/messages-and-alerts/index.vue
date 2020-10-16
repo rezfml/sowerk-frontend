@@ -5,6 +5,13 @@
     class="mx-auto py-12"
     style="width: 90%;"
   >
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </div>
     <v-col cols="12">
       <h1 class="font-weight-regular">Messages & Alerts</h1>
     </v-col>
@@ -80,6 +87,7 @@ export default {
         .then(response => {
           console.log('messages', response)
           this.messages = response.data
+          this.loading = true;
         })
         .catch(err => {
           console.log('cannot get messages', err)
