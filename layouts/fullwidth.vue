@@ -37,16 +37,17 @@
   </v-sheet>
   </v-app-bar>
 
-  <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0.5)" flat v-else>
-    <v-container>
-        <v-row>
-          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 15vw;" alt="SOWerk"></v-img></v-btn>
+  <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0.5)" flat v-else >
+    <v-container >
+        <v-row >
+          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;" alt="SOWerk"></v-img></v-btn>
           <v-spacer></v-spacer>
         <v-btn :href=item.path
           v-for="item in items"
           :key="item.title"
           path
           text color="white"
+          style="text-transform: capitalize; letter-spacing: 1px; font-size: 16px; font-weight: 500;"
         >
         {{ item.title }}
         </v-btn>
