@@ -1,5 +1,5 @@
 <template>
-  <v-container style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/typing-690856.jpg') background-size: cover; background-position: center;">
+  <v-container style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/typing-690856.jpg');  background-size: cover; background-position: center;">
     <v-row
       align="center"
       justify="center"
