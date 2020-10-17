@@ -10,7 +10,7 @@
         :selectCompany="selectCompany"
       ></MessageCompanyCard>
     </v-row>
-    <v-form class="mt-10" style="width: 80%;" v-if="companySelection === true">
+    <v-form class="my-10" style="width: 80%;" v-if="companySelection === true">
       <v-text-field placeholder="Service Goes Here" v-model="messageForm.service"></v-text-field>
       <v-text-field placeholder="Company Goes Here" v-model="messageForm.company"></v-text-field>
       <v-text-field placeholder="First Name Goes Here" v-model="messageForm.primary_contact_first_name"></v-text-field>
