@@ -99,25 +99,25 @@ export default {
         {
           icon: 'join SOW',
           title: 'Join SOW',
-          path: '../landingpage/joinsowerk'
+          path: '../../landingpage/joinsowerk'
         }
         ,
         {
           icon: 'about',
           title: 'Service Providers',
-          path: '../landingpage/join-service-landing'
+          path: '../../landingpage/join-service-landing'
         }
         ,
         {
           icon: 'Businesses',
           title: 'Businesses',
-          path: '../landingpage/join-product-landing'
+          path: '../../landingpage/join-product-landing'
         }
         ,
         {
           icon: 'About SOW',
           title: 'About SOW',
-          path: '../landingpage/about'
+          path: '../../landingpage/about'
         }
         ,
         {
