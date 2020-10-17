@@ -30,7 +30,7 @@
           <p
             class="white--text text-h4 text-md-h3 text-center font-weight-bold"
           >
-            The Approved Vendor Platform
+            The Approved Vendor 
           </p>
           <p class="white--text text-center text-h6 text-md-h5">
             The Link Between Service Providers & Businesses

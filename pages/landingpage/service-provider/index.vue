@@ -2,8 +2,8 @@
   <div>
     <!-- HERO -->
     <!-- Need to add tape-measure background in hero -->
-    <v-row style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; --webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 80vh; max-height: 1200px" align="center" justify="center" class="pt-12">
-      <v-card max-height="400px" height="50vh" :width="$vuetify.breakpoint.lgAndUp ?'60%' : '100%'"  style="border-radius: 16px; " class="d-flex flex-column justify-center align-center" color="rgba(0,0,0,0.7)">
+    <v-row style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/tape-measure-1726546copy.jpg') no-repeat center center; --webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 90vh; max-height: 1200px" align="center" justify="center" class="pt-12">
+      <v-card max-height="400px" height="auto" :width="$vuetify.breakpoint.lgAndUp ?'50%' : '100%'"  style="border-radius: 16px; " class="d-flex flex-column justify-center align-center py-6" color="rgba(0,0,0,0.7)">
         <v-card-text style="width: 100%">
           <p class="white--text text-h4 text-md-h3 text-center font-weight-bold">Get Connected Now</p>
           <p class="white--text text-center text-h6 text-md-h5">Search SOWerk's Nationwide Database</p>

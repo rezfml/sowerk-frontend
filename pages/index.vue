@@ -1057,7 +1057,7 @@
         class="text-lg-h3 text-h4 font-weight-bold white--text"
         style="word-break: break-word; width: 80%; opacity: .8;"
       >
-        SOWerk Is The Link Between Service Providers and Property & Facility
+        The Link Between Service Providers and Property & Facility
         Managers
       </p>
 
@@ -1069,8 +1069,8 @@
             class="ma-1"
             style="border-radius: 20px; height: 100%"
           >
-            <v-card-title>
-              <p class="mx-auto text-center">Property & Facility Manager</p>
+            <v-card-title class="pb-0">
+              <p class="mx-auto mb-0 text-center">Property & Facility Manager</p>
             </v-card-title>
 
             <v-card-text>
@@ -1082,6 +1082,13 @@
                   ></v-img>
                 </v-col>
 
+                <v-col cols="12" class="py-2">
+                <v-card-title class="py-0">
+                  <p class="mx-auto my-0 text-center" style="color: black;">Find Vet & Manage Vendors</p>
+            </v-card-title>
+            </v-col>
+
+
                 <v-col cols="12">
                   <p
                     class="text-justify mx-auto my-2"
@@ -1090,6 +1097,7 @@
                     Our business to business platform provides companies and
                     property managers the tools to effiecently identify, vet,
                     and manage service providers for each of their locations.
+                    <span style="font-weight: bold">SOWerk is FREE & Powerful</span>
                   </p>
                 </v-col>
 
@@ -1099,6 +1107,12 @@
                     style="width: 80%; border: .8px solid #A61C00"
                   ></v-divider>
                 </v-col>
+
+                <v-col cols="12" class="py-2">
+                <v-card-title class="py-0">
+                  <p class="mx-auto my-0 text-center" style="color: black;">Any Property or Facility Business</p>
+            </v-card-title>
+            </v-col>
 
                 <v-col class="12 mx-auto" style="max-width: 350px;">
                   <ul style="list-style: none; text-align: left">
@@ -1142,8 +1156,8 @@
             class="ma-1"
             style="border-radius: 20px; height: 100%"
           >
-            <v-card-title>
-              <p class="mx-auto text-center">Service Providers</p>
+            <v-card-title class="pb-0">
+              <p class="mx-auto mb-0 text-center">Service Providers</p>
             </v-card-title>
 
             <v-card-text>
@@ -1155,6 +1169,12 @@
                   ></v-img>
                 </v-col>
 
+                <v-col cols="12" class="py-2">
+                <v-card-title class="py-0">
+                  <p class="mx-auto my-0 text-center" style="color: black;">Approved Vendors Local & National</p>
+            </v-card-title>
+            </v-col>
+
                 <v-col cols="12">
                   <p
                     class="text-justify mx-auto my-2"
@@ -1162,7 +1182,7 @@
                   >
                     For service providers, SOWerk makes it possible for you to
                     become an approved vendor, receive job request, and
-                    communicate with business owners
+                    communicate with business owners. <span style="font-weight: bold">It's FREE To Get Started</span>
                   </p>
                 </v-col>
 
@@ -1172,6 +1192,12 @@
                     style="width: 80%; border: .8px solid #A61C00"
                   ></v-divider>
                 </v-col>
+
+                <v-col cols="12" class="py-2">
+                <v-card-title class="py-0">
+                  <p class="mx-auto my-0 text-center" style="color: black;">Tools For Every Service Provider</p>
+            </v-card-title>
+            </v-col>
 
                 <v-col cols="12 mx-auto" style="max-width: 350px;">
                   <ul
