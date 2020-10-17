@@ -112,13 +112,13 @@ export default {
         {
           icon: 'Register',
           title: 'Register',
-          path: '../register'
+          path: '../../register'
         }
         ,
         {
           icon: 'Login',
           title: 'Login',
-          path: '../login'
+          path: '../../login'
         }
       ],
       miniVariant: false,
