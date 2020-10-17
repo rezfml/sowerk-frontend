@@ -1,125 +1,127 @@
 <template>
-  <v-row
-    align="center"
-    justify="center"
-    style="max-width: 1440px;"
-    class="mx-auto py-12"
-  >
-    <v-col
-      cols="12"
-      style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;"
-      v-if="loading"
+  <v-container style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/typing-690856.jpg');  background-size: cover; background-position: center;">
+    <v-row
+      align="center"
+      justify="center"
+      style="max-width: 1440px;"
+      class="mx-auto py-12"
     >
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </v-col>
-    <v-col cols="12">
-      <v-card class="elevation-12 card--has-floating" light>
-        <v-card-title class="justify-center headline font-weight-bold"
+      <v-col
+        cols="12"
+        style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;"
+        v-if="loading"
+      >
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          :size="50"
+        ></v-progress-circular>
+      </v-col>
+      <v-col cols="12">
+        <v-card class="elevation-12 card--has-floating" light>
+          <v-card-title class="justify-center headline font-weight-bold"
           >Step 1 -
-          <span class="primary--text ml-2 py-6"
+            <span class="primary--text ml-2 py-6"
             >Company Information</span
-          ></v-card-title
-        >
-        <v-tabs
-          v-model="tab"
-          background-color="grey lighten-2"
-          color="black"
-          grow
-          active-class="primary white--text elevation-10"
-          hide-slider
-          style="position: relative;"
-        >
-          <v-tab
-            v-for="item in items"
-            :key="item"
-            :disabled="item !== tab"
-            style="opacity: 1!important;"
+            ></v-card-title
           >
-            {{ item }}
-          </v-tab>
-        </v-tabs>
-        <v-tabs-items v-model="tab" class="white" light eager>
-          <CompanyDetails
-            :company="company"
-            :getAddressData="getAddressData"
-            :user="user"
-            :bestSelection="bestSelection"
-            :fullAddress="fullAddress"
-            v-on:selectFile="selectCompanyFile"
-            ref="companyDetails"
-          ></CompanyDetails>
+          <v-tabs
+            v-model="tab"
+            background-color="grey lighten-2"
+            color="black"
+            grow
+            active-class="primary white--text elevation-10"
+            hide-slider
+            style="position: relative;"
+          >
+            <v-tab
+              v-for="item in items"
+              :key="item"
+              :disabled="item !== tab"
+              style="opacity: 1!important;"
+            >
+              {{ item }}
+            </v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="tab" class="white" light eager>
+            <CompanyDetails
+              :company="company"
+              :getAddressData="getAddressData"
+              :user="user"
+              :bestSelection="bestSelection"
+              :fullAddress="fullAddress"
+              v-on:selectFile="selectCompanyFile"
+              ref="companyDetails"
+            ></CompanyDetails>
 
-          <CompanyLocations
-            :company="company"
-            :user="user"
-            :editLocation="editLocation"
-            :editingLocation="editingLocation"
-            :location="location"
-            :locations="locations"
-            :editingIndex="editingIndex"
-            :headers="headers"
-          ></CompanyLocations>
+            <CompanyLocations
+              :company="company"
+              :user="user"
+              :editLocation="editLocation"
+              :editingLocation="editingLocation"
+              :location="location"
+              :locations="locations"
+              :editingIndex="editingIndex"
+              :headers="headers"
+            ></CompanyLocations>
 
-          <CompanyReview
-            :company="company"
-            :user="user"
-            :setPage="setPage"
-            :fullAddress="fullAddress"
-          ></CompanyReview>
-        </v-tabs-items>
-        <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-          <v-btn
-            style="background-color: #e0e0e0;"
-            outlined
-            class="px-8"
-            text
-            @click="prevPageIfNotFirst"
-            v-show="tab !== 0 && !editingLocation"
-          >
-            < Back</v-btn
-          >
-          <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
-          <v-btn
-            color="primary"
-            class="px-8"
-            @click="nextPageIfNotLast"
-            v-if="tab === 0"
+            <CompanyReview
+              :company="company"
+              :user="user"
+              :setPage="setPage"
+              :fullAddress="fullAddress"
+            ></CompanyReview>
+          </v-tabs-items>
+          <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
+            <v-btn
+              style="background-color: #e0e0e0;"
+              outlined
+              class="px-8"
+              text
+              @click="prevPageIfNotFirst"
+              v-show="tab !== 0 && !editingLocation"
+            >
+              < Back</v-btn
+            >
+            <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+            <v-btn
+              color="primary"
+              class="px-8"
+              @click="nextPageIfNotLast"
+              v-if="tab === 0"
             >Next >
-          </v-btn>
-          <v-btn
-            color="primary"
-            outlined
-            class="px-8 mx-8"
-            style="flex-grow: 1; border-width: 2px;"
-            @click="addLocation"
-            v-if="!editingLocation && tab === 1"
+            </v-btn>
+            <v-btn
+              color="primary"
+              outlined
+              class="px-8 mx-8"
+              style="flex-grow: 1; border-width: 2px;"
+              @click="addLocation"
+              v-if="!editingLocation && tab === 1"
             >+ Save and Add Another Location
-          </v-btn>
-          <v-btn
-            color="primary"
-            class="px-8"
-            @click="nextPageIfNotLast"
-            v-if="!editingLocation && tab === 1"
+            </v-btn>
+            <v-btn
+              color="primary"
+              class="px-8"
+              @click="nextPageIfNotLast"
+              v-if="!editingLocation && tab === 1"
             >Next >
-          </v-btn>
-          <v-btn
-            color="primary"
-            class="px-8"
-            @click="finishEditing"
-            v-else-if="editingLocation && tab === 1"
+            </v-btn>
+            <v-btn
+              color="primary"
+              class="px-8"
+              @click="finishEditing"
+              v-else-if="editingLocation && tab === 1"
             >Finish Location
-          </v-btn>
-          <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2"
+            </v-btn>
+            <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2"
             >Submit</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+            >
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -142,6 +144,7 @@ import CompanyReview from '~/components/register/property-manager/CompanyReview'
 
 export default {
   name: 'property-manager',
+  layout: 'fullwidth',
   components: {
     FormLocation,
     VImageInput,
@@ -461,17 +464,12 @@ export default {
     },
     async postLocations(userId) {
       console.log(this.locations, 'this.locations');
-      let { data, status } = await this.$http
-        .post(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' +
-            userId,
-          this.locations
-        )
-        .catch((e) => e)
-      // this.loading = false;
-      // if (this.$error(status, message, errors)) return;
-      console.log('user locations post: ', data)
-      await this.getUserLocations(userId)
+      await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+        .then(async (response) => {
+          console.log('user locations post: ', response.data);
+          await this.getUserLocations(userId)
+        })
+        .catch((e) => console.log('err', e));
     },
     async getUserLocations(userId) {
       await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + userId)

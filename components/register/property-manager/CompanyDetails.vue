@@ -271,7 +271,6 @@ export default {
       console.log(this.url);
 
       this.$emit('selectFile', this.selectedFile, this.index);
-
     },
     clickCompanyImageUpload() {
       console.log(this);
