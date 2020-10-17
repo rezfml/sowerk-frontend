@@ -40,7 +40,7 @@
   <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0.5)" flat v-else>
     <v-container>
         <v-row>
-          <v-toolbar-title v-text="title" style="color: white!important; font-weight: bold;"/>
+          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 15vw;" alt="SOWerk"></v-img></v-btn>
           <v-spacer></v-spacer>
         <v-btn :href=item.path
           v-for="item in items"
@@ -91,17 +91,6 @@ export default {
       drawer: false,
       fixed: false,
       items: [
-        {
-          icon: 'home',
-          title: 'Home',
-          path: '/'
-        },
-        {
-          icon: 'join SOW',
-          title: 'Join SOW',
-          path: '../../landingpage/joinsowerk'
-        }
-        ,
         {
           icon: 'about',
           title: 'Service Providers',
