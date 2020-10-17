@@ -1,484 +1,486 @@
 <template>
-  <v-row
-    align="center"
-    justify="center"
-    style="max-width: 1440px;"
-    class="mx-auto py-12"
-  >
-    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </v-col>
-    <v-col
-      cols="12"
-      class="pt-12 mt-12"
+  <v-container style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/building-1080602.jpg') ; background-size: cover; background-position: center;">
+    <v-row
+      align="center"
+      justify="center"
+      style="max-width: 1440px;"
+      class="mx-auto py-12"
     >
-      <v-card class="elevation-12 card--has-floating" light>
-        <v-card-title class="justify-center headline font-weight-bold">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
-        <v-tabs
-          v-model="tab"
-          background-color="grey lighten-2"
-          color="black"
-          grow
-          active-class="primary white--text elevation-10"
-          hide-slider
-          style="position: relative;"
-        >
-          <v-tab
-            v-for="(item, index) in items"
-            :key="index"
-            style="opacity: 1!important;"
-            v-on:click.native="setTab(index)"
+      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          :size="50"
+        ></v-progress-circular>
+      </v-col>
+      <v-col
+        cols="12"
+        class="pt-12 mt-12"
+      >
+        <v-card class="elevation-12 card--has-floating" light>
+          <v-card-title class="justify-center headline font-weight-bold">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
+          <v-tabs
+            v-model="tab"
+            background-color="grey lighten-2"
+            color="black"
+            grow
+            active-class="primary white--text elevation-10"
+            hide-slider
+            style="position: relative;"
           >
-            {{ item }}
-          </v-tab>
-        </v-tabs>
-        <v-tabs-items
-          v-model="tab"
-          class="white"
-          light
-          eager
-        >
-          <v-tab-item
+            <v-tab
+              v-for="(item, index) in items"
+              :key="index"
+              style="opacity: 1!important;"
+              v-on:click.native="setTab(index)"
+            >
+              {{ item }}
+            </v-tab>
+          </v-tabs>
+          <v-tabs-items
+            v-model="tab"
+            class="white"
+            light
             eager
           >
-            <v-container style="max-width: 80%;" mx-auto>
-              <v-card-text class="pa-0">
-                <v-form class="mx-auto register-form" ref="companyDetails">
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" sm="5" md="6">
-                        <v-row fill-height class="pl-2 fill-height">
-                          <v-col cols="12" class="d-flex justify-center align-center">
-                            <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
-                            <v-icon v-else :size="100">person</v-icon>
-                          </v-col>
-                          <v-col cols="12" class="d-flex flex-column justify-center">
-                            <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                            <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
-<!--                            <p class="text-center mb-0">Or</p>-->
-
-<!--                            <v-checkbox class="mt-0">-->
-<!--                              <template v-slot:label>-->
-<!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
-<!--                              </template>-->
-<!--                            </v-checkbox>-->
-                          </v-col>
-<!--                            <v-file-input-->
-<!--                              clearable-->
-<!--                              full-width-->
-<!--                              v-on:input.native="selectCompanyImage"-->
-<!--                            />-->
-
-                        </v-row>
-                      </v-col>
-
-                      <v-col cols="12" sm="7" md="6">
-                        <v-text-field
-                          label="First Name (Your SOWerk Admin Account)*"
-                          type="text"
-                          placeholder=" "
-                          v-model="user.first_name"
-                          :rules="rules.requiredRules"
-                          class="mb-6"
-                        ></v-text-field>
-
-                        <v-text-field
-                          label="Last Name*"
-                          type="text"
-                          placeholder=" "
-                          v-model="user.last_name"
-                          :rules="rules.requiredRules"
-                          class="mb-6"
-                        ></v-text-field>
-
-                        <v-text-field
-                          label="Email Address*"
-                          type="email"
-                          placeholder=" "
-                          class="card__input black--text mb-6"
-                          v-model="user.email"
-                          :rules="rules.emailRules"
-                          validate-on-blur
-                        ></v-text-field>
-
-                        <v-text-field
-                          label="Phone*"
-                          type="text"
-                          placeholder=" "
-                          class="card__input black--text mb-6"
-                          v-model="user.phone"
-                          :rules="rules.phoneRules"
-                          validate-on-blur
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Password*"
-                          type="password"
-                          placeholder=" "
-                          v-model="user.password"
-                          :rules="rules.passwordRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Confirm Password*"
-                          type="password"
-                          placeholder=" "
-                          v-model="confirmPassword"
-                          :rules="confirmPasswordRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <p class="font-weight-bold text-h6">Company Details</p>
-                      </v-col>
-
-                      <v-col cols="12" sm="6">
-                        <v-text-field
-                          id="account-name"
-                          label="Account Name*"
-                          placeholder=" "
-                          v-model="company.account_name"
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" sm="6">
-                        <v-text-field
-                          id="brand-name"
-                          label="Brand Name*"
-                          type="text"
-                          placeholder=" "
-                          v-model="company.brand_name"
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" sm="6">
-                        <v-select
-                          id="company-best"
-                          label="What Best Describes You*"
-                          placeholder=" "
-                          :item-text="bestSelection.text"
-                          :item-value="bestSelection.value"
-                          :items="bestSelection"
-                          v-model="company.isFranchise"
-                          :rules="rules.requiredRules"
-                        ></v-select>
-                      </v-col>
-
-                      <v-col cols="12" sm="6">
-                        <v-text-field
-                          id="company-llc"
-                          label="List your LLC Name (If Applicable)"
-                          type="text"
-                          placeholder=" "
-                          v-model="company.llcName"
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Email Address*"
-                          type="email"
-                          placeholder=" "
-                          class="card__input black--text"
-                          v-model="company.email"
-                          :rules="rules.emailRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Phone*"
-                          type="text"
-                          placeholder=" "
-                          class="card__input black--text"
-                          v-model="company.phone"
-                          :rules="rules.phoneRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <div class="v-input__control">
-                          <div class="v-input__slot">
-                            <div class="v-text-field__slot" style="width: 100%;">
-                              <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
-                              <client-only>
-                                <vue-google-autocomplete
-                                  id="company-address"
-                                  classname="form-control"
-                                  v-on:placechanged="getAddressData"
-                                  placeholder=""
-                                  style="width: 100%; font-size: 16px; padding: 2px 0"
-                                  v-on:focus.native="animateAddressFieldOnFocus"
-                                  v-on:blur.native="animateAddressFieldOnFocus"
-                                  v-on:input.native="animateAddressFieldOnFilled"
-                                  v-model="fullAddress"
-                                  :rules="rules.requiredRules"
-                                  required
-                                >
-                                </vue-google-autocomplete>
-                              </client-only>
-                            </div>
-                          </div>
-                        </div>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-select
-                          :items="serviceOptions"
-                          v-model="company.servicesOffered"
-                          multiple
-                          chips
-                          label="What Services Do You Offer?"
-                          placeholder=" "
-                          :rules="rules.requiredRules"
-                        ></v-select>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          label="Year Business Was Founded*"
-                          type="text"
-                          placeholder=" "
-                          v-model="company.year_founded"
-                          class="pt-5"
-                          :rules="rules.requiredRules"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-textarea
-                          id="description"
-                          label="Describe Your Business* (A Short Sales Pitch Used In Your Profile)"
-                          v-model="company.description"
-                          placeholder=" "
-                          :rules="rules.requiredRules"
-                        ></v-textarea>
-                      </v-col>
-
-                    </v-row>
-                  </v-container>
-                </v-form>
-              </v-card-text>
-            </v-container>
-          </v-tab-item>
-          <v-tab-item eager>
-            <v-container style="max-width: 80%;" mx-auto>
-              <v-card-text class="pa-0 pt-12">
-                <template v-if="editingLocation">
-                  <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about your first location</span>
-                  <v-form class="mx-auto">
-                    <v-container>
-                      <LocationForm
-                        :location="location"
-                        :index="editingIndex"
-                        :user="user"
-                      />
-                    </v-container>
-                  </v-form>
-                </template>
-                <template v-else>
-                  <v-data-table
-                    :headers="headers"
-                    :items="locations"
-                    :items-per-page="10"
-                  >
-                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>
-                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
-                    <template v-slot:item.actions="{ item }">
-                      <v-btn icon @click="editLocation(locations.indexOf(item))">
-                        <v-icon
-                          small
-                          class="mr-2"
-                        >
-                          mdi-pencil
-                        </v-icon>
-                      </v-btn>
-                      <v-icon
-                        small
-                        @click="deleteItem(item)"
-                      >
-                        mdi-delete
-                      </v-icon>
-                    </template>
-                  </v-data-table>
-                </template>
-              </v-card-text>
-            </v-container>
-          </v-tab-item>
-
-          <v-tab-item eager>
-            <v-container style="max-width: 100%;" class="mx-auto mb-12">
-              <v-card-text class="pa-0">
-                <v-row>
-                  <v-col cols="12">
-                    <v-row>
-                      <v-col cols="12">
-                        <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6 mr-2">Optional - </span> SOWerk highly encourages you to upload Company Documents</v-card-title>
-                        <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
-                        <v-card-subtitle class="justify-center headline text-center text-body-1">*Note: These documents are not public and will only be included when you apply to be an approved vendor.</v-card-subtitle>
-                        <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
-                          <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Insurance</p>
-                        </div>
-                        <v-list>
-                          <template v-for="(insurance, index) in insurances">
-                            <InsuranceForm :insurance="insurance" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectInsuranceFile" :index="index"></InsuranceForm>
-                          </template>
-                        </v-list>
-                      </v-col>
-                    </v-row>
-                    <v-row justify="center" class="mt-6">
-                      <v-btn color="primary" outlined @click="addInsurance">+ Add Another Document</v-btn>
-                    </v-row>
-                  </v-col>
-                </v-row>
-                <v-row class="mt-12 pt-12">
-                  <v-col cols="12">
-                    <v-row>
-                      <v-col cols="12">
-                        <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
-                          <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Licenses</p>
-                        </div>
-                        <v-list>
-                          <template v-for="(license, index) in licenses">
-                            <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index" :locations="locations"></LicenseForm>
-                          </template>
-                        </v-list>
-                      </v-col>
-                    </v-row>
-                    <v-row justify="center" class="mt-6">
-                      <v-btn color="primary" outlined @click="addLicense">+ Add Another License</v-btn>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-container>
-          </v-tab-item>
-
-          <v-tab-item eager>
-            <v-container style="max-width: 80%;" mx-auto>
-              <v-card-text class="pa-0">
-                <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Review Company Information</p>
-                <v-col cols="12" class="align-center text-center mx-auto">
-                  <!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
-                  <v-icon color="grey" style="font-size: 100px; text-align: center" class="mx-auto">person</v-icon>
-                  <p class="headline font-weight-bold">{{ company.company_name }}</p>
-                </v-col>
-
-                <v-col cols="12" style="max-width: 720px;" class="mx-auto d-flex flex-column align-center">
-                  <v-form class="mx-auto">
+            <v-tab-item
+              eager
+            >
+              <v-container style="max-width: 80%;" mx-auto>
+                <v-card-text class="pa-0">
+                  <v-form class="mx-auto register-form" ref="companyDetails">
                     <v-container>
                       <v-row>
-                        <v-col cols="12" md="6">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0">First Name*</p>
+                        <v-col cols="12" sm="5" md="6">
+                          <v-row fill-height class="pl-2 fill-height">
+                            <v-col cols="12" class="d-flex justify-center align-center">
+                              <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
+                              <v-icon v-else :size="100">person</v-icon>
+                            </v-col>
+                            <v-col cols="12" class="d-flex flex-column justify-center">
+                              <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
+  <!--                            <p class="text-center mb-0">Or</p>-->
+
+  <!--                            <v-checkbox class="mt-0">-->
+  <!--                              <template v-slot:label>-->
+  <!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
+  <!--                              </template>-->
+  <!--                            </v-checkbox>-->
+                            </v-col>
+  <!--                            <v-file-input-->
+  <!--                              clearable-->
+  <!--                              full-width-->
+  <!--                              v-on:input.native="selectCompanyImage"-->
+  <!--                            />-->
+
+                          </v-row>
+                        </v-col>
+
+                        <v-col cols="12" sm="7" md="6">
                           <v-text-field
+                            label="First Name (Your SOWerk Admin Account)*"
+                            type="text"
                             placeholder=" "
-                            readonly
                             v-model="user.first_name"
-                          >
-                          </v-text-field>
-                        </v-col>
+                            :rules="rules.requiredRules"
+                            class="mb-6"
+                          ></v-text-field>
 
-                        <v-col cols="12" md="6">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Last Name*</p>
                           <v-text-field
+                            label="Last Name*"
+                            type="text"
                             placeholder=" "
-                            readonly
                             v-model="user.last_name"
-                          >
-                          </v-text-field>
-                        </v-col>
+                            :rules="rules.requiredRules"
+                            class="mb-6"
+                          ></v-text-field>
 
-                        <v-col cols="12" md="6">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Email*</p>
                           <v-text-field
+                            label="Email Address*"
+                            type="email"
                             placeholder=" "
-                            readonly
+                            class="card__input black--text mb-6"
                             v-model="user.email"
-                          >
-                          </v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="6">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Phone*</p>
+                            :rules="rules.emailRules"
+                            validate-on-blur
+                          ></v-text-field>
+
                           <v-text-field
+                            label="Phone*"
+                            type="text"
                             placeholder=" "
-                            readonly
+                            class="card__input black--text mb-6"
                             v-model="user.phone"
-                          >
-                          </v-text-field>
+                            :rules="rules.phoneRules"
+                            validate-on-blur
+                          ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
+                        <v-col cols="12" md="6">
                           <v-text-field
-                            v-model="fullAddress"
+                            label="Password*"
+                            type="password"
                             placeholder=" "
-                            readonly
-                          >
-                          </v-text-field>
+                            v-model="user.password"
+                            :rules="rules.passwordRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Confirm Password*"
+                            type="password"
+                            placeholder=" "
+                            v-model="confirmPassword"
+                            :rules="confirmPasswordRules"
+                          ></v-text-field>
                         </v-col>
 
                         <v-col cols="12">
-                          <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
-                          <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
-                          <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
+                          <p class="font-weight-bold text-h6">Company Details</p>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="account-name"
+                            label="Account Name*"
+                            placeholder=" "
+                            v-model="company.account_name"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="brand-name"
+                            label="Brand Name*"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.brand_name"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-select
+                            id="company-best"
+                            label="What Best Describes You*"
+                            placeholder=" "
+                            :item-text="bestSelection.text"
+                            :item-value="bestSelection.value"
+                            :items="bestSelection"
+                            v-model="company.isFranchise"
+                            :rules="rules.requiredRules"
+                          ></v-select>
+                        </v-col>
+
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            id="company-llc"
+                            label="List your LLC Name (If Applicable)"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.llcName"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Email Address*"
+                            type="email"
+                            placeholder=" "
+                            class="card__input black--text"
+                            v-model="company.email"
+                            :rules="rules.emailRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Phone*"
+                            type="text"
+                            placeholder=" "
+                            class="card__input black--text"
+                            v-model="company.phone"
+                            :rules="rules.phoneRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <div class="v-input__control">
+                            <div class="v-input__slot">
+                              <div class="v-text-field__slot" style="width: 100%;">
+                                <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
+                                <client-only>
+                                  <vue-google-autocomplete
+                                    id="company-address"
+                                    classname="form-control"
+                                    v-on:placechanged="getAddressData"
+                                    placeholder=""
+                                    style="width: 100%; font-size: 16px; padding: 2px 0"
+                                    v-on:focus.native="animateAddressFieldOnFocus"
+                                    v-on:blur.native="animateAddressFieldOnFocus"
+                                    v-on:input.native="animateAddressFieldOnFilled"
+                                    v-model="fullAddress"
+                                    :rules="rules.requiredRules"
+                                    required
+                                  >
+                                  </vue-google-autocomplete>
+                                </client-only>
+                              </div>
+                            </div>
+                          </div>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-select
+                            :items="serviceOptions"
+                            v-model="company.servicesOffered"
+                            multiple
+                            chips
+                            label="What Services Do You Offer?"
+                            placeholder=" "
+                            :rules="rules.requiredRules"
+                          ></v-select>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Year Business Was Founded*"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.year_founded"
+                            class="pt-5"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <v-textarea
+                            id="description"
+                            label="Describe Your Business* (A Short Sales Pitch Used In Your Profile)"
+                            v-model="company.description"
+                            placeholder=" "
+                            :rules="rules.requiredRules"
+                          ></v-textarea>
                         </v-col>
 
                       </v-row>
                     </v-container>
                   </v-form>
-                  <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
-                </v-col>
+                </v-card-text>
+              </v-container>
+            </v-tab-item>
+            <v-tab-item eager>
+              <v-container style="max-width: 80%;" mx-auto>
+                <v-card-text class="pa-0 pt-12">
+                  <template v-if="editingLocation">
+                    <span class="title font-weight-regular text-center my-12 grey--text text--darken-2">Now tell us about your first location</span>
+                    <v-form class="mx-auto">
+                      <v-container>
+                        <LocationForm
+                          :location="location"
+                          :index="editingIndex"
+                          :user="user"
+                        />
+                      </v-container>
+                    </v-form>
+                  </template>
+                  <template v-else>
+                    <v-data-table
+                      :headers="headers"
+                      :items="locations"
+                      :items-per-page="10"
+                    >
+                      <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>
+                      <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+                      <template v-slot:item.actions="{ item }">
+                        <v-btn icon @click="editLocation(locations.indexOf(item))">
+                          <v-icon
+                            small
+                            class="mr-2"
+                          >
+                            mdi-pencil
+                          </v-icon>
+                        </v-btn>
+                        <v-icon
+                          small
+                          @click="deleteItem(item)"
+                        >
+                          mdi-delete
+                        </v-icon>
+                      </template>
+                    </v-data-table>
+                  </template>
+                </v-card-text>
+              </v-container>
+            </v-tab-item>
 
-                <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
+            <v-tab-item eager>
+              <v-container style="max-width: 100%;" class="mx-auto mb-12">
+                <v-card-text class="pa-0">
+                  <v-row>
+                    <v-col cols="12">
+                      <v-row>
+                        <v-col cols="12">
+                          <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6 mr-2">Optional - </span> SOWerk highly encourages you to upload Company Documents</v-card-title>
+                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
+                          <v-card-subtitle class="justify-center headline text-center text-body-1">*Note: These documents are not public and will only be included when you apply to be an approved vendor.</v-card-subtitle>
+                          <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
+                            <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Insurance</p>
+                          </div>
+                          <v-list>
+                            <template v-for="(insurance, index) in insurances">
+                              <InsuranceForm :insurance="insurance" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectInsuranceFile" :index="index"></InsuranceForm>
+                            </template>
+                          </v-list>
+                        </v-col>
+                      </v-row>
+                      <v-row justify="center" class="mt-6">
+                        <v-btn color="primary" outlined @click="addInsurance">+ Add Another Document</v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                  <v-row class="mt-12 pt-12">
+                    <v-col cols="12">
+                      <v-row>
+                        <v-col cols="12">
+                          <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
+                            <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Licenses</p>
+                          </div>
+                          <v-list>
+                            <template v-for="(license, index) in licenses">
+                              <LicenseForm :license="license" :backgroundColor="(index + 1) % 2 == 0 ? 'grey lighten-4' : 'white'" :key="index" v-on:selectFile="selectLicenseFile" :index="index" :locations="locations"></LicenseForm>
+                            </template>
+                          </v-list>
+                        </v-col>
+                      </v-row>
+                      <v-row justify="center" class="mt-6">
+                        <v-btn color="primary" outlined @click="addLicense">+ Add Another License</v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-container>
+            </v-tab-item>
 
-                <!--                <v-col cols="12" class="mt-2">-->
-                <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
-                <!--                  <v-data-table-->
-                <!--                    :headers="headers"-->
-                <!--                    :items.sync="locations"-->
-                <!--                    :items-per-page="10"-->
-                <!--                  >-->
-                <!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
-                <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
-                <!--                  </v-data-table>-->
-                <!--                </v-col>-->
+            <v-tab-item eager>
+              <v-container style="max-width: 80%;" mx-auto>
+                <v-card-text class="pa-0">
+                  <p class="title font-weight-regular text-center my-12 grey--text text--darken-2">Review Company Information</p>
+                  <v-col cols="12" class="align-center text-center mx-auto">
+                    <!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
+                    <v-icon color="grey" style="font-size: 100px; text-align: center" class="mx-auto">person</v-icon>
+                    <p class="headline font-weight-bold">{{ company.company_name }}</p>
+                  </v-col>
 
-                <!--                <v-col cols="12">-->
-                <!--                  <v-checkbox-->
-                <!--                    label="I agree to the Terms of Service"-->
-                <!--                    v-on:change="getTosDate"-->
-                <!--                  >-->
-                <!--                  </v-checkbox>-->
-                <!--                </v-col>-->
+                  <v-col cols="12" style="max-width: 720px;" class="mx-auto d-flex flex-column align-center">
+                    <v-form class="mx-auto">
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12" md="6">
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">First Name*</p>
+                            <v-text-field
+                              placeholder=" "
+                              readonly
+                              v-model="user.first_name"
+                            >
+                            </v-text-field>
+                          </v-col>
 
-              </v-card-text>
-            </v-container>
-          </v-tab-item>
-        </v-tabs-items>
-        <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-          <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
-          <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
-          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
-          <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
-          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
-          <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
-          <v-btn color="primary" class="px-8" @click="nextPageIfNotLast; editingLocation = false" v-else-if="tab === 2">Review</v-btn>
-          <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+                          <v-col cols="12" md="6">
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Last Name*</p>
+                            <v-text-field
+                              placeholder=" "
+                              readonly
+                              v-model="user.last_name"
+                            >
+                            </v-text-field>
+                          </v-col>
+
+                          <v-col cols="12" md="6">
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Email*</p>
+                            <v-text-field
+                              placeholder=" "
+                              readonly
+                              v-model="user.email"
+                            >
+                            </v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="6">
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Phone*</p>
+                            <v-text-field
+                              placeholder=" "
+                              readonly
+                              v-model="user.phone"
+                            >
+                            </v-text-field>
+                          </v-col>
+
+                          <v-col cols="12">
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
+                            <v-text-field
+                              v-model="fullAddress"
+                              placeholder=" "
+                              readonly
+                            >
+                            </v-text-field>
+                          </v-col>
+
+                          <v-col cols="12">
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
+                            <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
+                            <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
+                          </v-col>
+
+                        </v-row>
+                      </v-container>
+                    </v-form>
+                    <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
+                  </v-col>
+
+                  <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
+
+                  <!--                <v-col cols="12" class="mt-2">-->
+                  <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
+                  <!--                  <v-data-table-->
+                  <!--                    :headers="headers"-->
+                  <!--                    :items.sync="locations"-->
+                  <!--                    :items-per-page="10"-->
+                  <!--                  >-->
+                  <!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
+                  <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
+                  <!--                  </v-data-table>-->
+                  <!--                </v-col>-->
+
+                  <!--                <v-col cols="12">-->
+                  <!--                  <v-checkbox-->
+                  <!--                    label="I agree to the Terms of Service"-->
+                  <!--                    v-on:change="getTosDate"-->
+                  <!--                  >-->
+                  <!--                  </v-checkbox>-->
+                  <!--                </v-col>-->
+
+                </v-card-text>
+              </v-container>
+            </v-tab-item>
+          </v-tabs-items>
+          <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
+            <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
+            <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
+            <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
+            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
+            <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
+            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast; editingLocation = false" v-else-if="tab === 2">Review</v-btn>
+            <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
