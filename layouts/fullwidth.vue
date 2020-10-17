@@ -11,7 +11,7 @@
         </v-btn>
       </v-row>
     </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none; background-color:rgba(21, 21, 21, 1);">
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none;">
       <v-list-item>
         <v-list-item-content style="overflow: visable;color:white;">
           <v-list-item-title text>SOWerk</v-list-item-title>
@@ -23,13 +23,13 @@
           :key="item.title"
           path
         >
-          <!-- if we want icons this will allow for icons we will need to find the icons needed. 
+          <!-- if we want icons this will allow for icons we will need to find the icons needed.
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           -->
           <v-list-item-content>
-              <a :href=item.path style="color:white;text-decoration:none;"><v-list-item-title>{{ item.title }}</v-list-item-title></a>
+              <a :href=item.path style="color:white;text-decoration:none; font-size:16px;"><v-list-item-title>{{ item.title }}</v-list-item-title></a>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -50,7 +50,7 @@
         >
         {{ item.title }}
         </v-btn>
-          <!-- if we want icons this will allow for icons we will need to find the icons needed. 
+          <!-- if we want icons this will allow for icons we will need to find the icons needed.
             <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -105,13 +105,13 @@ export default {
         {
           icon: 'about',
           title: 'Service Providers',
-          path: '../landingpage/service-provider'
+          path: '../landingpage/join-service-landing'
         }
         ,
         {
           icon: 'Businesses',
           title: 'Businesses',
-          path: '../landingpage/property-manager'
+          path: '../landingpage/join-product-landing'
         }
         ,
         {
@@ -140,3 +140,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  header {
+    background-color: transparent !important;
+  }
+</style>
