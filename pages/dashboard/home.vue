@@ -1,6 +1,13 @@
 <template>
   <v-app class="grey lighten-3">
     <v-container class="px-8" fluid>
+      <v-row v-if="hidden !== true">
+        <v-card color="primary" class="d-flex" style="width: 100%;">
+          <v-card-text class="ml-16" style="color: white; font-size: 24px;">New to SOWerk - Learn More About Whats New!</v-card-text>
+          <v-btn color="white" class="mt-2 mr-16" outlined rounded >Learn More</v-btn>
+          <v-btn @click="exit" color="white" class="mt-2" text depressed>X</v-btn>
+        </v-card>
+      </v-row>
       <HomeCard
         v-if="locations"
         :items="locations"
@@ -81,6 +88,7 @@
     data() {
       return {
         loading: false,
+        hidden: false,
         items: [
           {
             id: 1,
@@ -110,22 +118,22 @@
         stats: [
           {
             title: 'Approved Service Providers',
-            value: '2,438',
-            link: '#'
+            value: 0,
+            link: '/dashboard/vendors/approved'
           },
           {
             title: 'Requests For Bids',
-            value: '243',
+            value: 0,
             link: '#'
           },
           {
             title: 'All Pending Applications',
-            value: '21',
+            value: 0,
             link: '#'
           },
           {
             title: 'Recently Approved Applications',
-            value: '12',
+            value: 0,
             link: '#'
           }
         ],
@@ -195,7 +203,9 @@
         if(!this.currentUser) this.$router.go();
         this.loading = true;
         await this.getUser();
+        await this.getCompany();
         await this.getLocations();
+        await this.getApprovedProviderConnections();
       }, 1000)
     },
     computed: {
@@ -212,6 +222,17 @@
           console.log(data);
         })
       },
+      async getCompany() {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'company');
+            this.company = response.data;
+            this.stats[0].value = response.data.currentConnections;
+          })
+          .catch(err => {
+            console.log('err company', err)
+          })
+      },
       async getLocations() {
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
@@ -221,6 +242,26 @@
         })
         this.loading = false;
       },
+      exit() {
+        this.hidden = true;
+      },
+      async getApprovedProviderConnections() {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log('response approvedproviderconnections', response.data);
+            console.log (prev30Day, 'previous month');
+            if(response.data.length !== 0) {
+              for(let i=0; i<response.data.length; i++) {
+                if(response.data[i].created > prev30Day) {
+                  this.stats[3].value += 1;
+                }
+              }
+            }
+          })
+          .catch(err => {
+            console.log('err in getting approved provider connections', err);
+          })
+      }
     }
   };
 </script>
