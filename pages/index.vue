@@ -1491,7 +1491,7 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/property-manager')">
+          <button @click="$router.push('/landingpage/join-product-landing')">
             See All Features
           </button>
         </div>
@@ -1575,7 +1575,7 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/service-provider')">
+          <button @click="$router.push('/landingpage/join-service-landing')">
             See All Features
           </button>
         </div>
@@ -1602,7 +1602,8 @@
               class="mx-auto"
               style="background: #EDEDED"
             >
-              <!-- <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"></v-img> -->
+
+          
               <v-list-item class="mt-8 mb-12">
                 <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
@@ -1683,7 +1684,7 @@
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
               style="border-radius: 20px; font-weight: bold; font-size: 15px;"
-              to="/landingpage/property-manager"
+              to="/landingpage/join-product-landing"
               >Provider Facility - Learn More</v-btn
             >
           </v-col>
@@ -1813,7 +1814,7 @@
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
               style="border-radius: 20px; font-weight: bold; font-size: 15px;"
-              to="/landingpage/service-provider"
+              to="/landingpage/join-service-landing"
               >Service Provider - Learn More</v-btn
             >
           </v-col>
