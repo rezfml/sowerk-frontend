@@ -1285,12 +1285,13 @@
       </v-row>
     </v-container>
 
-    <!-- All Reviews Section ->>> hidden per colin pastel notes -->
+    <!-- NEW SECTION - All Reviews Section -->
+    <!-- hidden for now per colin -->
     <!-- <section class="joincaroselreview">
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
     </section> -->
 
-    <!-- Join Traits Section -->
+    <!-- NEW SECTION - Join Traits Section -->
     <v-container
       fluid
       grid-list-md
@@ -1433,11 +1434,12 @@
       </v-layout>
     </v-container>
 
-<!-- Per Colin hide for now -->
+    <!-- Per Colin hide for now -->
     <!-- <section class="joinvideo">
       <video></video>
     </section> -->
 
+    <!-- NEW SECTION - JOIN CONNECTION -->
     <section class="joinconnection">
       <div class="joinconnectioncolumn">
         <h1>Property & Facility</h1>
@@ -1446,23 +1448,45 @@
             <img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
             />
-            <h3>1. Create Account and Vet Vendors</h3>
-            <p>
-              In less than 15 minutes, you can have multiple locations setup
-              with dedicated staff accounts and live questionnaires vetting
-              local & national service providers.
-            </p>
+            <div class="joinconnectiontext">
+              <h3>1. Create Account and Vet Vendors</h3>
+              <p>
+                In less than 15 minutes, you can have multiple locations setup
+                with dedicated staff accounts and live questionnaires vetting
+                local & national service providers.
+              </p>
+            </div>
           </div>
+
+          <!-- RED ARROW -->
+          <svg
+            width="50%"
+            x="0px"
+            y="0px"
+            viewBox="0 0 600 300"
+            style="enable-background:new 0 0 600 300;"
+            xml:space="preserve"
+          >
+            <path
+              id="Polygon_24"
+              class="st0"
+              d="M302.6,185.8c-1.7,0.2-3.5,0.2-5.2,0l-277.3-30c-28.3-3.1-25.9-42.1,2.6-42.1h554.7
+	        c28.5,0,31,39.1,2.6,42.1L302.6,185.8z"
+            />
+          </svg>
+
           <div class="joinconnectioncontainerbox">
             <img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
             />
-            <h3>2. Vendor Management & RFP</h3>
-            <p>
-              When you need a service at one of your properties, SOWerk makes it
-              easy to communicate in one click to your approved vendors the
-              request for a bid.
-            </p>
+            <div class="joinconnectiontext">
+              <h3>2. Vendor Management & RFP</h3>
+              <p>
+                When you need a service at one of your properties, SOWerk makes
+                it easy to communicate in one click to your approved vendors the
+                request for a bid.
+              </p>
+            </div>
           </div>
           <button @click="$router.push('/landingpage/property-manager')">
             See All Features
@@ -1477,34 +1501,76 @@
             <img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_1_copy.png"
             />
-            <h3>1. Build A Profile</h3>
-            <p>
-              SOWerk makes it easy & quick for you to show off your brand,
-              company background, and we help promote all companies where you
-              are an approved vendor. Your SOWerk profile is both easy and
-              powerful.
-            </p>
+            <div class="joinconnectiontext">
+              <h3>1. Build A Profile</h3>
+              <p>
+                SOWerk makes it easy & quick for you to show off your brand,
+                company background, and we help promote all companies where you
+                are an approved vendor. Your SOWerk profile is both easy and
+                powerful.
+              </p>
+            </div>
           </div>
+
+          <!-- RED ARROW -->
+          <svg
+            width="50%"
+            x="0px"
+            y="0px"
+            viewBox="0 0 600 300"
+            style="enable-background:new 0 0 600 300;"
+            xml:space="preserve"
+          >
+            <path
+              id="Polygon_24"
+              class="st0"
+              d="M302.6,185.8c-1.7,0.2-3.5,0.2-5.2,0l-277.3-30c-28.3-3.1-25.9-42.1,2.6-42.1h554.7
+	        c28.5,0,31,39.1,2.6,42.1L302.6,185.8z"
+            />
+          </svg>
+
           <div class="joinconnectioncontainerbox">
             <img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/profilecopy.png"
             />
-            <h3>2. Approved Vendor Status</h3>
-            <p>
-              Use your profile to qualify for approve vendor status in as little
-              as one click.
-            </p>
+            <div class="joinconnectiontext">
+              <h3>2. Approved Vendor Status</h3>
+              <p>
+                Use your profile to qualify for approve vendor status in as
+                little as one click.
+              </p>
+            </div>
           </div>
+
+          <!-- RED ARROW -->
+          <svg
+            width="50%"
+            x="0px"
+            y="0px"
+            viewBox="0 0 600 300"
+            style="enable-background:new 0 0 600 300;"
+            xml:space="preserve"
+          >
+            <path
+              id="Polygon_24"
+              class="st0"
+              d="M302.6,185.8c-1.7,0.2-3.5,0.2-5.2,0l-277.3-30c-28.3-3.1-25.9-42.1,2.6-42.1h554.7
+	        c28.5,0,31,39.1,2.6,42.1L302.6,185.8z"
+            />
+          </svg>
+
           <div class="joinconnectioncontainerbox">
             <img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/appcopy.png"
             />
-            <h3>3. Get The Job</h3>
-            <p>
-              We make it easy and powerful for businesses to communicate their
-              needs to approved vendors. We also make it easy for you to react
-              quickly with a bid.
-            </p>
+            <div class="joinconnectiontext">
+              <h3>3. Get The Job</h3>
+              <p>
+                We make it easy and powerful for businesses to communicate their
+                needs to approved vendors. We also make it easy for you to react
+                quickly with a bid.
+              </p>
+            </div>
           </div>
           <button @click="$router.push('/landingpage/service-provider')">
             See All Features
@@ -1612,11 +1678,16 @@ export default {
   height: 30vh;
 }
 
+.joinconnection[data-v-2a183b29] {
+  flex-direction: row;
+}
+
 .joinconnection {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
   background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
     linear-gradient(#444444, #2b2b2b);
   background-size: cover;
@@ -1624,8 +1695,14 @@ export default {
 .joinconnection h1 {
   color: white;
   font-size: 50px;
+  font-weight: 400;
   text-align: center;
   margin: 0px 0px 20px 0px;
+}
+
+.joinconnectiontext {
+  width: 100%;
+  padding: 10px 20px 10px 30px;
 }
 
 .joinconnection .joinconnectioncolumn {
@@ -1636,16 +1713,16 @@ export default {
   margin: 20px 10px 20px 10px;
 }
 .border1 {
-  border-top: 1px solid #a61c00;
-  border-left: 1px solid #a61c00;
+  border-top: 5px solid #a61c00;
+  border-left: 5px solid #a61c00;
   border-right: none !important;
-  border-bottom: 1px solid #a61c00;
+  border-bottom: 5px solid #a61c00;
   padding: 20px 10px 20px 10px;
 }
 .border2 {
-  border-top: 1px solid #a61c00;
-  border-right: 1px solid #a61c00;
-  border-bottom: 1px solid #a61c00;
+  border-top: 5px solid #a61c00;
+  border-right: 5px solid #a61c00;
+  border-bottom: 5px solid #a61c00;
   padding: 20px 10px 20px 10px;
 }
 .joinconnectioncolumn .joinconnectioncontainer {
@@ -1657,6 +1734,7 @@ export default {
   background: white;
   border-radius: 20px;
   width: 90%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1666,6 +1744,9 @@ export default {
 }
 .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
   font-size: 23px;
+  width: 100%;
+  font-weight: 400;
+  text-align: left;
   margin: 10px 0px 20px 0px;
 }
 .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
@@ -1681,6 +1762,20 @@ export default {
   padding: 10px 0px 10px 0px;
   width: 60%;
   font-size: 18px;
+}
+
+.joinconnectionarrow {
+  /* height: 150px;
+width: 100%;
+background:#A61C00;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;
+border-bottom-left-radius: 200px;
+border-bottom-right-radius: 200px; */
+}
+
+.st0 {
+  fill: #a52022;
 }
 
 .landinghomereview {
@@ -1713,6 +1808,10 @@ export default {
 }
 
 @media (max-width: 950px) {
+  .joinconnection[data-v-2a183b29] {
+    flex-direction: column;
+  }
+
   .joinconnection h1 {
     font-size: 48px;
   }
