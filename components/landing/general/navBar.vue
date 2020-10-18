@@ -1,6 +1,6 @@
 <template>
     <v-app dark width="auto">
-    <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
+    <v-app-bar :clipped-left="clipped" app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;"  >
     <v-container class="fill-height" >
       <v-row align="center" justify="center">

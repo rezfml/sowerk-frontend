@@ -1300,7 +1300,7 @@
       style="background:#2B2B2B; display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
       <p
-        class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 mb-0 pb-10"
+        class="text-lg-h3 text-sm-h4 font-weight-bold white--text pl-4 pr-4 pt-10 mb-0 pb-10"
         style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%; line-height: 1.25em"
       >
         Four Reasons Why SOWERK Wins
@@ -1491,7 +1491,7 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/property-manager')">
+          <button @click="$router.push('/landingpage/join-product-landing')">
             See All Features
           </button>
         </div>
@@ -1575,7 +1575,7 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/service-provider')">
+          <button @click="$router.push('/landingpage/join-service-landing')">
             See All Features
           </button>
         </div>
@@ -1598,11 +1598,12 @@
             </p>
             <v-list
               max-width="950px"
-              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '100%'"
+              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
               class="mx-auto"
               style="background: #EDEDED"
             >
-              <!-- <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"></v-img> -->
+
+          
               <v-list-item class="mt-8 mb-12">
                 <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
@@ -1683,7 +1684,7 @@
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
               style="border-radius: 20px; font-weight: bold; font-size: 15px;"
-              to="/landingpage/property-manager"
+              to="/landingpage/join-product-landing"
               >Provider Facility - Learn More</v-btn
             >
           </v-col>
@@ -1705,7 +1706,7 @@
             <v-list
               max-width="950px"
               style="background: #EDEDED"
-              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '100%'"
+              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
               class="mx-auto"
             >
               <v-list-item class="mt-8 mb-12">
@@ -1813,7 +1814,7 @@
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
               style="border-radius: 20px; font-weight: bold; font-size: 15px;"
-              to="/landingpage/service-provider"
+              to="/landingpage/join-service-landing"
               >Service Provider - Learn More</v-btn
             >
           </v-col>
@@ -1997,7 +1998,7 @@ export default {
 .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
   font-size: 23px;
   width: 100%;
-  font-weight: 400;
+  font-weight: 500;
   text-align: left;
   margin: 10px 0px 20px 0px;
 }
@@ -2059,8 +2060,10 @@ export default {
   }
 
   .joinconnection .joinconnectioncolumn {
-    width: 40%;
+    width: 50%;
   }
+
+
   .joinconnectioncontainerbox img {
     width: 40%;
   }
@@ -2071,9 +2074,6 @@ export default {
     column-count: 1!important;
   }
 
-  .joinconnection h1 {
-    font-size: 42px;
-  }
   .joinconnection {
     flex-direction: column;
     background: linear-gradient(
@@ -2091,6 +2091,11 @@ export default {
     font-size: 32px;
     width: 100%;
   }
+
+  .joinconnectiontext {
+  padding: 10px 10px 10px 20px;
+}
+
 }
 </style>
 
