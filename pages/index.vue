@@ -1440,7 +1440,7 @@
     </section> -->
 
     <!-- NEW SECTION - JOIN CONNECTION -->
-    <section class="joinconnection">
+    <section class="joinconnection" style="flex-direction: row;">
       <div class="joinconnectioncolumn">
         <h1>Property & Facility</h1>
         <div class="joinconnectioncontainer border1">
@@ -1678,10 +1678,6 @@ export default {
   height: 30vh;
 }
 
-.joinconnection[data-v-2a183b29] {
-  flex-direction: row;
-}
-
 .joinconnection {
   width: 100%;
   display: flex;
@@ -1764,16 +1760,6 @@ export default {
   padding: 10px 0px 10px 0px;
   width: 60%;
   font-size: 18px;
-}
-
-.joinconnectionarrow {
-  /* height: 150px;
-width: 100%;
-background:#A61C00;
-border-top-left-radius: 20px;
-border-top-right-radius: 20px;
-border-bottom-left-radius: 200px;
-border-bottom-right-radius: 200px; */
 }
 
 .st0 {
