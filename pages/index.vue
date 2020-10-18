@@ -1090,7 +1090,7 @@
               <v-row justify-center>
                 <v-col>
                   <v-img
-                    class="d-none d-sm-flex"
+                  
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
                     style="object-fit: contain; width: 60%;"
                   ></v-img>
@@ -1140,7 +1140,7 @@
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
                     style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
-                    class="pl-0 pl-sm-12"
+                    class="pl-12 pl-sm-12 list1"
                   >
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate</li>
@@ -1196,7 +1196,7 @@
               >
                 <v-col>
                   <v-img
-                    class="d-none d-sm-flex"
+                    
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
                     style="object-fit: contain; width: 60%;"
                   ></v-img>
@@ -1246,7 +1246,7 @@
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
                     style="column-count: 2; list-style: none; text-align: left; font-weight: 500; font-size: 17px;"
-                    class="pl-0 pl-sm-12"
+                    class="pl-10 pl-sm-12 list2"
                   >
                     <li>- Electrician</li>
                     <li>- HVAC</li>
@@ -2067,6 +2067,10 @@ export default {
 }
 
 @media (max-width: 680px) {
+  .list1 {
+    column-count: 1!important;
+  }
+
   .joinconnection h1 {
     font-size: 42px;
   }
