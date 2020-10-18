@@ -1305,7 +1305,7 @@
         Four Reasons Why SOWERK Wins
       </p>
 
-      <v-layout row style="max-width: 1280px;">
+      <v-layout row style="max-width: 1280px; flex-wrap: wrap;">
         <!-- CARD 1 -->
         <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
