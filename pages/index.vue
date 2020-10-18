@@ -1057,7 +1057,7 @@
       fluid
       text-center
       pb-8
-      style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
+      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%);; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
       class="skew-top"
     >
       <v-row align="center" justify="center">
@@ -1547,7 +1547,7 @@ export default {
   font-family: Roboto;
 }
 
-/* .skew-top {
+.skew-top {
     position: relative;
     z-index: 30;
   }
@@ -1555,7 +1555,7 @@ export default {
   .skew-top:before {
     position: absolute;
     content: '';
-    background-color: #a61c00;
+    background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%);;
     top: 0;
     right: 0;
     bottom: 0;
@@ -1563,7 +1563,7 @@ export default {
     z-index: -20;
     transform-origin: top left;
     transform: skewY(-2deg);
-  } */
+  }
 
 .joincaroselreview {
   background: #151515;
