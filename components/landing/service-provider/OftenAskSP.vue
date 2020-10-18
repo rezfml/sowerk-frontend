@@ -6,7 +6,7 @@
           <p
             class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
           >
-            Service Providers Often Ask
+            Service Providers Generally Ask
           </p>
           <v-list
             max-width="950px"
