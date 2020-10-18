@@ -1086,8 +1086,8 @@
               <p style="width: 100%;">Property & Facility Manager</p>
             </v-card-title>
 
-            <v-card-text>
-              <v-row justify-center>
+            <v-card-text >
+              <v-row justify-center >
                 <v-col>
                   <v-img
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
@@ -1104,11 +1104,11 @@
                 </v-col>
 
                 <v-col cols="12">
-                  <p class="text-justify" style="max-width: 80%; width: 80%">
+                  <p class="text-center" style="max-width: 80%; width: 80%; font-size: 17px; font-weight: 500">
                     Our business to business platform provides companies and
                     property managers the tools to effiecently identify, vet,
                     and manage service providers for each of their locations.
-                    <span style="font-weight: bold"
+                    <span style="font-weight: 800"
                       >SOWerk is FREE & Powerful</span
                     >
                   </p>
@@ -1129,9 +1129,9 @@
                   </v-card-title>
                 </v-col>
 
-                <v-col cols="12" class="pt-1" style="max-width: 90%;">
+                <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
-                    style="column-count: 2; list-style: none; text-align: left"
+                    style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
                     class="pl-0 pl-sm-12"
                   >
                     <li>- Retail & Hospitality Chains</li>
@@ -1175,14 +1175,14 @@
           <v-card
             align="center"
             class="ma-0"
-            style="border-radius: 20px; height: 100%;"
+            style="border-radius: 20px; height: 100%; "
           >
             <v-card-title class="px-0">
               <p style="width: 100%">Service Providers</p>
             </v-card-title>
 
             <v-card-text>
-              <v-row>
+              <v-row style="display: flex; flex-direction: column; flex-wrap: no-wrap">
                 <v-col>
                   <v-img
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
@@ -1199,11 +1199,11 @@
                 </v-col>
 
                 <v-col cols="12">
-                  <p class="text-justify" style="max-width: 80%; width: 80%">
+                  <p class="text-center" style="max-width: 80%; width: 80%; font-size: 17px; font-weight: 500">
                     For service providers, SOWerk makes it possible for you to
                     become an approved vendor, receive job request, and
                     communicate with business owners.
-                    <span style="font-weight: bold"
+                    <span style="font-weight: 800"
                       >It's FREE To Get Started</span
                     >
                   </p>
@@ -1226,7 +1226,7 @@
 
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
-                    style="column-count: 2; list-style: none; text-align: left"
+                    style="column-count: 2; list-style: none; text-align: left; font-weight: 500; font-size: 17px;"
                     class="pl-0 pl-sm-12"
                   >
                     <li>- Electrician</li>
@@ -1250,7 +1250,7 @@
                   </ul>
                 </v-col>
 
-                <v-col cols="12 mt-4" >
+                <v-col cols="12 mt-4" align-self-end>
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
