@@ -10,26 +10,19 @@
     <v-card-title class="text-center mt-12 pt-12">
 
       <v-row v-if="location">
-        <v-col cols="12" class="py-1">
-          <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ location.name }}</p>
-        </v-col>
-        <v-col cols="12" class="py-1">
-          <p class="mb-2" style="word-break: break-word!important;"><span class="primary--text">142</span> Approved SOWerk Providers At This Facility</p>
-        </v-col>
-        <v-col cols="12" md="6" class="py-1">
-          <v-btn outlined rounded block color="primary" class="px-5">View Facility Dashboard</v-btn>
-        </v-col><v-col cols="12" md="6" class="py-1">
-          <v-btn outlined rounded block color="primary" class="px-10">Share This Property</v-btn>
-        </v-col>
+          <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ location.name }}</v-card-text>
+          <v-card-text class="mb-2" style="word-break: break-word!important;"><span class="primary--text">142</span> Approved SOWerk Providers At This Facility</v-card-text>
+          <v-btn outlined rounded block color="primary" class="px-5" style="font-size: 18px;">View Facility Dashboard</v-btn>
+          <v-btn outlined rounded block color="primary" class="px-10 my-4" style="font-size: 18px;">Share This Property</v-btn>
       </v-row>
 
-      <v-row v-else-if="company">
+      <v-row v-else-if="user">
         <v-col cols="12" class="py-1">
-          <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ company.company_name }}</p>
+          <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ company.account_name }}</p>
         </v-col>
         <v-col cols="12" class="py-1">
-          <p class="mb-2"><span class="primary--text">2,438</span> Approved SOWerk Providers</p>
-          <p><span class="primary--text">169</span> Facilities Nationwide</p>
+          <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
+          <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Facilities Nationwide</p>
           <v-btn outlined rounded color="primary" class="px-10">Share</v-btn>
         </v-col>
       </v-row>
@@ -47,10 +40,10 @@
       </template>
       <template v-else>
         <p class="title text-center primary--text">About</p>
-        <p class="body-2">BPS Direct, LLC is an American privately held retailer of hunting, fishing, camping and other related outdoor recreation merchandise. Bass Pro Shops supports and sells merchandise for the National Audubon Society.</p>
-        <p class="body-2">Address: 1935 S Campbell Ave, Springfield, MO 65807</p>
-        <p class="body-2">Founded: 1971</p>
-        <p class="body-2">Joined SOWerk: 2020</p>
+        <p class="body-2">{{company.description}}</p>
+        <p class="body-2">Address: {{company.address}} {{company.city}}, {{company.state}} {{company.zipcode}}</p>
+        <p class="body-2">Founded: {{company.year_founded}}</p>
+        <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
       </template>
     </v-card-text>
 
@@ -65,12 +58,11 @@
         <p class="body-2" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Staff Admin</p>
         <p class="body-2" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Super Admin</p>
       </template>
-      <template v-else-if="company">
+      <template v-else-if="user">
         <p class="title text-center primary--text">Profile Contact</p>
-        <p class="body-2">{{company.description}}</p>
-        <p class="body-2">{{company.first_name}} {{company.last_name}}</p>
-        <p class="body-2">{{company.email}}</p>
-        <p class="body-2">{{company.phone}}</p>
+        <p class="body-2">{{user.first_name}} {{user.last_name}}</p>
+        <p class="body-2">{{user.email}}</p>
+        <p class="body-2">{{user.phone}}</p>
       </template>
     </v-card-text>
     <v-spacer></v-spacer>
@@ -86,16 +78,34 @@
     name: "ProfileCard",
     props: [
       'location',
-      'company',
+      'user',
       'deleteLocation'
     ],
+    data() {
+      return {
+        company: {}
+      }
+    },
     mounted() {
       console.log(this.location);
+      if(this.user) {
+        this.getCompany(this.user.companies_id)
+      }
     },
     methods: {
       async logout() {
         await this.$store.dispatch('user/logout');
-      }
+      },
+      async getCompany(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'company');
+            this.company = response.data;
+          })
+          .catch(err => {
+            console.log('err company', err)
+          })
+      },
     }
   };
 </script>
