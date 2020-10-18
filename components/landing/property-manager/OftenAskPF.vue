@@ -1,17 +1,18 @@
 <template>
-  <v-flex class="my-12 pt-5">
-    <v-container>
-      <v-row>
-        <v-col cols="12" class="d-flex flex-column">
+  <v-flex class="my-12 pt-5" style="background: #EDEDED">
+    <v-container >
+      <v-row >
+        <v-col cols="12" class="d-flex flex-column" >
           <p
             class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
           >
-            Property and Facility Managers Often Ask
+            Property and Facility Managers Often
           </p>
           <v-list
             max-width="950px"
             :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
             class="mx-auto"
+            style="background: #EDEDED"
           >
             <v-list-item class="mt-8 mb-12">
               <v-list-item-icon
