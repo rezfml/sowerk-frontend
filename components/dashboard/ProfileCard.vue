@@ -10,17 +10,10 @@
     <v-card-title class="text-center mt-12 pt-12">
 
       <v-row v-if="location">
-        <v-col cols="12" class="py-1">
-          <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ location.name }}</p>
-        </v-col>
-        <v-col cols="12" class="py-1">
-          <p class="mb-2" style="word-break: break-word!important;"><span class="primary--text">142</span> Approved SOWerk Providers At This Facility</p>
-        </v-col>
-        <v-col cols="12" md="6" class="py-1">
-          <v-btn outlined rounded block color="primary" class="px-5">View Facility Dashboard</v-btn>
-        </v-col><v-col cols="12" md="6" class="py-1">
-          <v-btn outlined rounded block color="primary" class="px-10">Share This Property</v-btn>
-        </v-col>
+          <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ location.name }}</v-card-text>
+          <v-card-text class="mb-2" style="word-break: break-word!important;"><span class="primary--text">142</span> Approved SOWerk Providers At This Facility</v-card-text>
+          <v-btn outlined rounded block color="primary" class="px-5" style="font-size: 18px;">View Facility Dashboard</v-btn>
+          <v-btn outlined rounded block color="primary" class="px-10 my-4" style="font-size: 18px;">Share This Property</v-btn>
       </v-row>
 
       <v-row v-else-if="user">
