@@ -1589,7 +1589,7 @@
     <v-flex class="pt-16" style="background: #EDEDED">
       <v-container>
         <v-row>
-          <v-col cols="12" class="d-flex flex-column">
+          <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
               style="font-size: 30px"
               class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
