@@ -194,12 +194,6 @@
             ]
           },
           {
-            to: '/dashboard/vendor-applications/',
-            slug: 'vendor-applications',
-            icon: 'mdi-file-account',
-            text: 'Vendor Applications'
-          },
-          {
             to: '/dashboard/requests-for-bids/',
             slug: 'requests-for-bids',
             icon: 'mdi-frequently-asked-questions',

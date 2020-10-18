@@ -1,0 +1,162 @@
+<template>
+  <v-container>
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </div>
+    <v-card>
+      <v-card-title>Applications for All Locations</v-card-title>
+      <template>
+        <v-simple-table>
+          <thead >
+          <tr class="d-flex justify-start">
+            <th style="width: 6%; text-align: center">Id</th>
+            <th style="width: 15%; text-align: center">Location Name</th>
+            <th style="width: 15%; text-align: center">Location Address</th>
+            <th style="width: 15%; text-align: center">Service</th>
+            <th style="width: 15%; text-align: center">Application</th>
+            <th style="width: 25%; text-align: center">#Questions</th>
+            <th style="width: 9%;"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(location, index) in locations">
+            <div v-for="(service, indexService) in location.services">
+              <div class="d-flex justify-start" style="border-bottom: 1px solid gray" v-for="(userform, indexUserForm) in service.userforms">
+                <td style="width: 6%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.id}}</td>
+                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{location.name}}</td>
+                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{service.name}}</td>
+                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.name}}</td>
+                <td style="width: 20%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.formfields.length}} FormFields for userform</td>
+                <td style="width: 9%" class="d-flex">
+                  <v-btn :to="'/dashboard/vendors/applications/' + userform.id" text><v-icon color="primary">mdi-eye</v-icon></v-btn>
+                  <v-btn text><v-icon color="primary">mdi-pencil</v-icon></v-btn>
+                </td>
+              </div>
+            </div>
+          </tr>
+          </tbody>
+        </v-simple-table>
+      </template>
+    </v-card>
+  </v-container>
+</template>
+
+<script>
+  export default {
+    name: 'applications',
+    layout: 'app',
+    data () {
+      return {
+        locations: [],
+        services: [],
+        userForms: [],
+        finishedFormFields: false,
+        totalLength: 0,
+        valueServices: 0,
+        valueUserForms: 0,
+        valueFormFields: 0,
+        loading: false,
+      }
+    },
+    mounted() {
+      this.getLocations(this.currentUser.companies_id);
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
+    },
+    methods: {
+      async getLocations(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + id)
+          .then(async (response) => {
+            console.log(response.data.location, 'locations');
+            for(let i=0; i<response.data.location.length; i++) {
+              this.locations.push(response.data.location[i]);
+              console.log(this.locations, 'this.locations');
+              console.log(this.valueServices, 'this.valueServices')
+              await this.getServices(response.data.location[i].id)
+              this.valueServices++;
+            }
+          })
+          .catch(err => {
+            console.log('err get locations', err);
+          })
+        console.log(this.userForms, 'userForms with formfields Locations');
+        console.log(this.locations, 'locations Locations');
+        this.loading = true;
+      },
+      async getServices(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + id)
+          .then(async (response) => {
+            console.log(response.data, 'services');
+            for(let i=0; i<response.data.length; i++) {
+              let service = {
+                id: response.data[i].id,
+                name: response.data[i].name,
+                userforms: []
+              }
+              this.services.push(service)
+              this.locations[this.valueServices].services[i] = service;
+              console.log(this.services, 'this.services', this.locations, 'this.locations');
+              console.log(this.valueUserForms, 'valueUserForms');
+              await this.getUserforms(response.data[i].id)
+              this.valueUserForms++
+            }
+          })
+          .catch(err => {
+            console.log('err get services', err);
+          })
+      },
+      async getUserforms(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/byServiceId/' + id)
+          .then(async (response) => {
+            console.log(response.data, 'userforms response.data');
+            for(let i=0; i<response.data.length; i++) {
+              let userForm = {
+                active: response.data[i].active,
+                id: response.data[i].id,
+                name: response.data[i].name,
+                service_id: response.data[i].service_id,
+                formfields: []
+              }
+              await this.userForms.push(userForm);
+              console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+              await this.locations[this.valueServices].services[this.valueUserForms].userforms.push(userForm);
+              console.log(this.userForms, 'userForms', this.locations, 'this.locations');
+              await this.getFormFields(response.data[i].id);
+            }
+            this.finishedFormFields = true;
+            console.log(this.userForms, 'userForms with formfields');
+          })
+          .catch(err => {
+            console.log('err get userforms', err);
+          })
+      },
+      async getFormFields(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/formfields/byUserFormId/' + id)
+          .then(response => {
+            console.log(response.data, 'formfields for userform', id);
+            this.userForms[this.valueFormFields].formfields = response.data;
+            this.valueFormFields++
+            console.log(this.valueFormFields, 'valueFormFields');
+            this.totalLength += response.data.length;
+            console.log(this.totalLength, 'totalLength');
+          })
+          .catch(err => {
+            console.log('err get form fields', err);
+          })
+      }
+    }
+  }
+
+</script>
+
+<style>
+
+</style>

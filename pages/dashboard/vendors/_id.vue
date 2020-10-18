@@ -3,29 +3,48 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
         <v-col cols="4">
-          <v-card>
-            <img :src="location.imageUrl" />
+          <v-card class="mt-16 d-flex flex-column align-center">
+            <img :src="location.imageUrl" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"/>
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
-            <v-card-text>Approved at <span style="color:#A61C00;">23</span> Properties</v-card-text>
-            <v-card-text style="color:#A61C00;">Radius Provider ({{location.radius}}mi)</v-card-text>
-            <v-btn outlined color="primary" rounded large>Share</v-btn>
-            <v-divider></v-divider>
+            <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">23</span> Properties</v-card-text>
+            <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
+            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>
+            <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">About</v-card-title>
             <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
             <v-card-text>Founded: {{location.year_founded}}</v-card-text>
             <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
+            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+            <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
+            <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+            <v-card-text>{{location.email}}</v-card-text>
+            <v-card-text>{{location.phone}}</v-card-text>
+            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+            <v-card-title style="color:#A61C00;">Insurances</v-card-title>
+            <div v-for="(insurance, index) in insurances">
+              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
+              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
+            </div>
+            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>
+            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+            <v-card-title style="color:#A61C00;">Licenses</v-card-title>
+            <div v-for="(license, index) in licenses">
+              <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
+              <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
+            </div>
+            <v-btn class="mb-4" color="primary" outlined rounded style="width: 50%">View Licenses</v-btn>
           </v-card>
         </v-col>
         <v-col cols="8">
-          <v-card>
-            <v-card-title>Recently Approved Properties</v-card-title>
+          <v-card class="d-flex flex-column align-center">
+            <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
             <v-card-subtitle>Past 30 days</v-card-subtitle>
-            <v-card-title>23</v-card-title>
-            <v-card-text>You will request this Vendor to fill out your HVAC specialized application for Bass Pro Shops (Memphis, TN).</v-card-text>
-            <v-btn outlined color="primary" rounded width="100%">Request Application</v-btn>
+            <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">23</v-card-title>
+            <v-card-text style="text-align: center">You will request this Vendor to fill out your HVAC specialized application for Bass Pro Shops (Memphis, TN).</v-card-text>
+            <v-btn outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
           </v-card>
-          <v-card>
-            <v-card-title>Businesses Portfolio</v-card-title>
+          <v-card class="d-flex flex-column align-center mt-10">
+            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>
             <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>
             <VendorSlider></VendorSlider>
           </v-card>
@@ -48,20 +67,52 @@
         location: {
 
         },
+        insurances: [],
+        licenses: []
       }
     },
     async mounted() {
       console.log(this.$route.params.id, 'hey')
       await this.getLocation();
+      await this.getInsurances();
+      await this.getLicenses();
     },
     methods: {
       async getLocation() {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.$route.params.id)
           .then(response => {
-            console.log(response.data, 'response.data');
+            console.log(response.data, 'response.data location');
             this.location = response.data;
           })
-      }
+          .catch(err => {
+            console.log('err', err);
+          })
+      },
+      async getInsurances() {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api//insurance/byCompanyId/' + this.location.companies_id)
+          .then(response => {
+            console.log(response.data, 'response.data insurances');
+            for(let i = 0; i<response.data.length; i++) {
+              this.insurances.push(response.data[0]);
+            }
+            console.log(this.insurances, 'this.insurances')
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
+      },async getLicenses() {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api//license/byCompanyId/' + this.location.companies_id)
+          .then(response => {
+            console.log(response.data, 'response.data licenses');
+            for(let i = 0; i<response.data.length; i++) {
+              this.licenses.push(response.data[0]);
+            }
+            console.log(this.licenses, 'this.licenses')
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
+      },
     }
   }
 </script>
