@@ -1016,16 +1016,16 @@
           ></v-card-title>
           <v-card-text class="d-flex flex-column justify-center">
             <p
-              style="font-size: 26px;"
+              style="font-size: 26px; line-height: 1.25em; word-break: break-word"
               class="white--text text-sm-h4 text-md-h3 text-center font-weight-bold"
             >
               The Approved Vendor Platform
             </p>
             <p
-              style="font-size: 15px"
+              style="font-size: 18px; line-height: 1.25em; word-break: break-word;"
               class="white--text text-center text-sm-h6 text-md-h5"
             >
-              The Link Between Service Providers & Businesses
+              Between Service Providers & Businesses
             </p>
 
             <div class="text-center">
@@ -1035,7 +1035,7 @@
                 width="90%"
                 max-width="350"
                 style="border-radius: 16px"
-                to="/landingpage/service-provider"
+                to="/landingpage/join-service-landing"
                 >Service Providers</v-btn
               >
               <v-btn
@@ -1044,7 +1044,7 @@
                 width="90%"
                 max-width="350"
                 style="border-radius: 16px"
-                to="/landingpage/property-manager"
+                to="/landingpage/join-product-landing"
                 >Property & Facility Managers</v-btn
               >
             </div>
@@ -1161,7 +1161,7 @@
                     block
                     large
                     class="flex-grow-1"
-                    to="/landingpage/property-manager"
+                    to="/landingpage/join-product-landing"
                     >Property & Facility Managers</v-btn
                   >
                 </v-col>
@@ -1275,7 +1275,7 @@
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
                     large
-                    to="/landingpage/service-provider"
+                    to="/landingpage/join-service-landing"
                     >Service Providers</v-btn
                   >
                 </v-col>
@@ -1434,9 +1434,10 @@
       </v-layout>
     </v-container>
 
-    <section class="joinvideo">
+<!-- Per Colin hide for now -->
+    <!-- <section class="joinvideo">
       <video></video>
-    </section>
+    </section> -->
 
     <section class="joinconnection">
       <div class="joinconnectioncolumn">
