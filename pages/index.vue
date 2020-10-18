@@ -1296,7 +1296,7 @@
       fluid
       grid-list-md
       text-center
-      pb-8
+      pb-16
       style="background:#2B2B2B; display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
       <p
@@ -1440,7 +1440,7 @@
     </section> -->
 
     <!-- NEW SECTION - JOIN CONNECTION -->
-    <section class="joinconnection" style="flex-direction: row;">
+    <section class="joinconnection pt-10" style="flex-direction: row; padding-bottom: 125px;">
       <div class="joinconnectioncolumn">
         <h1>Property & Facility</h1>
         <div class="joinconnectioncontainer border1">
@@ -1582,201 +1582,229 @@
     <!-- per colin hide reviews for now will get reviews in the next couple weeks. 10/18 -->
     <!-- <Reviews v-bind:reviews="reviews"></Reviews> -->
 
-<!-- PROPERTY FACILITY OFTEN ASK -->
-  <v-flex class="pt-5" style="background: #EDEDED">
-    <v-container >
-      <v-row >
-        <v-col cols="12" class="d-flex flex-column" >
-          <p
-            class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
-          >
-            Property and Facility Managers Often
-          </p>
-          <v-list
-            max-width="950px"
-            :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
-            class="mx-auto"
-            style="background: #EDEDED"
-          >
-            <v-list-item class="mt-8 mb-12">
-              <v-list-item-icon
-                ><v-icon color="primary" size="40"
-                  >mdi-check-circle-outline</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
-                  >Is this going to create more work for me?</v-list-item-title
+    <!-- PROPERTY FACILITY OFTEN ASK -->
+    <v-flex class="pt-5" style="background: #EDEDED">
+      <v-container>
+        <v-row>
+          <v-col cols="12" class="d-flex flex-column">
+            <p
+              class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+            >
+              Property and Facility Managers Often
+            </p>
+            <v-list
+              max-width="950px"
+              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
+              class="mx-auto"
+              style="background: #EDEDED"
+            >
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon
+                  ><v-icon color="primary" size="40"
+                    >mdi-check-circle-outline</v-icon
+                  ></v-list-item-icon
                 >
-                <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
-                  >Actually, we designed SOWerk to be less work for you. Think of SOWerk like connecting with service providers on social media, except they have to meet your approved provider requirements. From here you can easily manage and communicate with your approved service providers.  </v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    >Is this going to create more work for
+                    me?</v-list-item-title
+                  >
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
+                    >Actually, we designed SOWerk to be less work for you. Think
+                    of SOWerk like connecting with service providers on social
+                    media, except they have to meet your approved provider
+                    requirements. From here you can easily manage and
+                    communicate with your approved service providers.
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
 
-            <v-list-item class="mt-8 mb-12">
-              <v-list-item-icon
-                ><v-icon color="primary" size="40"
-                  >mdi-check-circle-outline</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
-                  >Will SOWerk Save Us Money? Will It Protect Our
-                  Investments?</v-list-item-title
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon
+                  ><v-icon color="primary" size="40"
+                    >mdi-check-circle-outline</v-icon
+                  ></v-list-item-icon
                 >
-                <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
-                  >If time is money and quality is everything then yes SOWerk can help. SOWerk makes it efficent for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers requalify annualy on things like insurance coverage and licenses so you don’t have to.</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    >Will SOWerk Save Us Money? Will It Protect Our
+                    Investments?</v-list-item-title
+                  >
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
+                    >If time is money and quality is everything then yes SOWerk
+                    can help. SOWerk makes it efficent for any staff member to
+                    vet & manage local/national service providers, such as
+                    getting bids for projects and communicating details. If it’s
+                    easy to get bids from multiple vetted providers then it
+                    might just save you both time and money. Additionally, we
+                    make service providers requalify annualy on things like
+                    insurance coverage and licenses so you don’t have
+                    to.</v-list-item-subtitle
+                  >
+                </v-list-item-content>
+              </v-list-item>
 
-            <v-list-item class="mt-8 mb-12">
-              <v-list-item-icon
-                ><v-icon color="primary" size="40"
-                  >mdi-check-circle-outline</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
-                  >Will SOWerk Help Shield Me From Cold
-                  Calls?</v-list-item-title
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon
+                  ><v-icon color="primary" size="40"
+                    >mdi-check-circle-outline</v-icon
+                  ></v-list-item-icon
                 >
-                <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
-                  >Sales is part of any business but sometimes you just need place to send the salesman where they can apply for your approved service program. SOWerk is your solution. Find us on SOWerk to become an approved vendor.
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-btn
-            class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
-            x-large
-            :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
-            style="border-radius: 20px; font-weight: bold"
-            to="/landingpage/property-manager"
-            >Provider Facility - Learn More</v-btn
-          >
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-flex>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    >Will SOWerk Help Shield Me From Cold
+                    Calls?</v-list-item-title
+                  >
+                  <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
+                    >Sales is part of any business but sometimes you just need
+                    place to send the salesman where they can apply for your
+                    approved service program. SOWerk is your solution. Find us
+                    on SOWerk to become an approved vendor.
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-btn
+              class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
+              style="border-radius: 20px; font-weight: bold"
+              to="/landingpage/property-manager"
+              >Provider Facility - Learn More</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-flex>
 
-<!-- SERVICE PROVIDER OFTERN ASK -->
+    <!-- SERVICE PROVIDER OFTERN ASK -->
     <v-flex class="pb-2" style="background: #EDEDED">
-    <v-container>
-      <v-row class="mt-12">
-        <v-col cols="12" class="d-flex flex-column">
-          <p
-            class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
-          >
-            Service Providers Generally Ask
-          </p>
-          <v-list
-            max-width="950px"
-            style="background: #EDEDED"
-            :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
-            class="mx-auto"
-          >
-            <v-list-item class="mt-8 mb-12">
-              <v-list-item-icon
-                ><v-icon color="primary" size="40"
-                  >mdi-check-circle-outline</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
-                  >Do I Seriously Get More Jobs?</v-list-item-title
+      <v-container>
+        <v-row class="mt-12">
+          <v-col cols="12" class="d-flex flex-column">
+            <p
+              class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+            >
+              Service Providers Generally Ask
+            </p>
+            <v-list
+              max-width="950px"
+              style="background: #EDEDED"
+              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
+              class="mx-auto"
+            >
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon
+                  ><v-icon color="primary" size="40"
+                    >mdi-check-circle-outline</v-icon
+                  ></v-list-item-icon
                 >
-                <v-list-item-subtitle
-                  class="text-subtitle-1 wrap-text"
-                  style="line-height: 23px"
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    >Do I Seriously Get More Jobs?</v-list-item-title
+                  >
+                  <v-list-item-subtitle
+                    class="text-subtitle-1 wrap-text"
+                    style="line-height: 23px"
+                  >
+                    <p>
+                      Yes, Property & Facility managers of all sizes use SOWerk
+                      to manage their approved vendor program. We make it easy
+                      for them to vet service providers request bids.
+                    </p>
+                    <p class="mb-0">
+                      SOWerk also helps you look good when applying for approved
+                      vendor programs, but we also make it easy to share those
+                      good looks with others. Next time your bidding a job show
+                      off your resume by emailing or texting your SOWerk
+                      profile.
+                    </p>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon
+                  ><v-icon color="primary" size="40"
+                    >mdi-check-circle-outline</v-icon
+                  ></v-list-item-icon
                 >
-                  <p>
-                    Yes, Property & Facility managers of all sizes use SOWerk to
-                    manage their approved vendor program. We make it easy for
-                    them to vet service providers request bids.
-                  </p>
-                  <p class="mb-0">
-                    SOWerk also helps you look good when applying for approved vendor programs, but we also make it easy to share those good looks with others. Next time your bidding a job show off your resume by emailing or texting your SOWerk profile. 
-                  </p>
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    >Is SOWerk Time Consuming and Hard To
+                    Use?</v-list-item-title
+                  >
+                  <v-list-item-subtitle
+                    class="text-subtitle-1 wrap-text"
+                    style="line-height: 23px"
+                  >
+                    <p>
+                      Not at all, a SOWerk profile only takes 10 minuets to
+                      setup.
+                    </p>
+                    <p>
+                      With only a click or two on your computer or mobile device
+                      you can use your SOWerk Profile to apply for approved
+                      vendor programs
+                    </p>
+                    <p class="mb-0">
+                      Automatic Updates: When you become an approved vendor for
+                      a company we automaticly display it on your profile.
+                    </p>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
 
-            <v-list-item class="mt-8 mb-12">
-              <v-list-item-icon
-                ><v-icon color="primary" size="40"
-                  >mdi-check-circle-outline</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
-                  >Is SOWerk Time Consuming and Hard To Use?</v-list-item-title
+              <v-list-item class="mt-8 mb-12">
+                <v-list-item-icon
+                  ><v-icon color="primary" size="40"
+                    >mdi-check-circle-outline</v-icon
+                  ></v-list-item-icon
                 >
-                <v-list-item-subtitle
-                  class="text-subtitle-1 wrap-text"
-                  style="line-height: 23px"
-                >
-                  <p>
-Not at all, a SOWerk profile only takes 10 minuets to setup. 
-                  </p>
-                  <p>
-                    With only a click or two on your computer or mobile device you can use your SOWerk Profile to apply for approved vendor programs
-
-                  </p>
-                  <p class="mb-0">
-                    Automatic Updates: When you become an approved vendor for a company we automaticly display it on your profile.
-                  </p>
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item class="mt-8 mb-12">
-              <v-list-item-icon
-                ><v-icon color="primary" size="40"
-                  >mdi-check-circle-outline</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
-                  >Will I Get Charged All The Time & Get Junk Leads?</v-list-item-title
-                >
-                <v-list-item-subtitle
-                  class="text-subtitle-1 wrap-text"
-                  style="line-height: 23px"
-                >
-                  <p>
-                    Unlike other websites, SOWerk service providers receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program. 
-                  </p>
-                  <p class="mb-0">
-                    Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features we offer a few packages. Details can be found on our Approved Provider Pricing page.
-
-                  </p>
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-btn
-            class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
-            x-large
-            :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
-            style="border-radius: 20px; font-weight: bold"
-            to="/landingpage/service-provider"
-            >Service Provider - Learn More</v-btn
-          >
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-flex>
-
-
-
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    >Will I Get Charged All The Time & Get Junk
+                    Leads?</v-list-item-title
+                  >
+                  <v-list-item-subtitle
+                    class="text-subtitle-1 wrap-text"
+                    style="line-height: 23px"
+                  >
+                    <p>
+                      Unlike other websites, SOWerk service providers receive
+                      communications from their approved vendor programs, direct
+                      leads, or new businesses inviting them to apply for
+                      approved vendor program.
+                    </p>
+                    <p class="mb-0">
+                      Being on SOWerk and promoting your business is free. If
+                      you wish to apply for an approved vendor program or
+                      utilize other SOWerk features we offer a few packages.
+                      Details can be found on our Approved Provider Pricing
+                      page.
+                    </p>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-btn
+              class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
+              style="border-radius: 20px; font-weight: bold"
+              to="/landingpage/service-provider"
+              >Service Provider - Learn More</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-flex>
 
     <!-- <OftenAskPF></OftenAskPF>
     <OftenAskSP></OftenAskSP> -->
@@ -1835,7 +1863,6 @@ export default {
 </script>
 
 <style scoped>
-
 .wrap-text {
   -webkit-line-clamp: unset !important;
   overflow: visible !important;
@@ -1890,9 +1917,10 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
-    linear-gradient(#444444, #2b2b2b);
-  background-size: cover;
+  background: linear-gradient(180deg, rgba(68,68,68,1) 35%, rgba(43,43,43,0.9) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
 }
 .joinconnection h1 {
   color: white;
@@ -2003,7 +2031,7 @@ export default {
 
 @media (max-width: 950px) {
   .joinconnection {
-    flex-direction: column!important;
+    flex-direction: column !important;
   }
 
   .joinconnection h1 {
@@ -2024,6 +2052,7 @@ export default {
   }
   .joinconnection {
     flex-direction: column;
+     background: linear-gradient(180deg, rgba(68,68,68,1) 35%, rgba(43,43,43,0.9) 100%);
   }
 
   .joinconnection .joinconnectioncolumn {
