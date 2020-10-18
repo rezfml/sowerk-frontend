@@ -1694,8 +1694,10 @@ export default {
 }
 .joinconnection h1 {
   color: white;
+  width: 100%;
   font-size: 50px;
   font-weight: 400;
+  line-height: 1.25em;
   text-align: center;
   margin: 0px 0px 20px 0px;
 }
@@ -1813,7 +1815,7 @@ border-bottom-right-radius: 200px; */
   }
 
   .joinconnection h1 {
-    font-size: 48px;
+    font-size: 43px;
   }
 
   .joinconnection .joinconnectioncolumn {
@@ -1833,31 +1835,13 @@ border-bottom-right-radius: 200px; */
   }
 
   .joinconnection .joinconnectioncolumn {
-    width: 80%;
+    width: 90%;
   }
 
   .joinconnection h1 {
-    font-size: 40px;
+    font-size: 32px;
     width: 100%;
   }
-}
-.jointraits div {
-  flex: 0 50%;
-}
-.joinconnection h1 {
-  font-size: 42px;
-}
-.joinconnection {
-  flex-direction: column;
-}
-
-.joinconnection .joinconnectioncolumn {
-  width: 80%;
-}
-
-.joinconnection h1 {
-  font-size: 40px;
-  width: 100%;
 }
 </style>
 
