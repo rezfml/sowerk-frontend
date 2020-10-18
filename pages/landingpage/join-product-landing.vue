@@ -59,6 +59,8 @@
     </section>
 
     <section class="joinproductdescription">
+      <h2>Built By Property & Facility Managers</h2>
+      <p></p>
       <p>
         SOWerk is built from the ground up as a software for businesses that
         own/manage properties & facilites.
@@ -70,10 +72,6 @@
         empowers you to easily establish approved vendors at each of your
         locations, request quotes from approved providers, and much more.
       </p>
-      <p>
-        A team at your headquarters or designated local manager can use a
-        computer to access SOWerk or the SOWerk mobile app.
-      </p>
       <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
     </section>
 
@@ -81,23 +79,69 @@
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
-          <div>
-            <h1>Step 1 <span>- Company Account & Locations</span></h1>
+          <div class="getStarted">
+            <h1>Step 1 <span>-Register Company Account & Locations</span></h1>
             <p>
               After setting up your account and locations, SOWerk makes it easy
               to filter approved service providers quickly and easily for any
               location across the country.
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Manage One Or Thousands Of Locations
+              </p>
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Add Staff Accounts Per Location or Multiple
+              </p>
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Invite Existing Vendors To Connect For Free
+              </p>
+
             </p>
           </div>
         </div>
         <div class="joinproductstepcontainerstep step-left">
-          <div>
-            <h1>Step 2 <span>- Approve Service Providers</span></h1>
+          <div class="getStarted">
+            <h1>Step 2 <span>- Find Or Invite Service Providers</span></h1>
             <p>
+              Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. 
+              Additionally, Service Providers already on SOWerk can be found using the detailed search tool.
               Use one of SOWerk’s pre-made vendor application or customize your
               own questions. This allows you to acquire adequate information
               from them during the application process to ensure they will
               represent your brand well no matter how close or far away.
+
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Customize Vendor Application By Location
+              </p>
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Mange Applications By Service Category
+              </p>
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Easily Toggle Application Status On or Off
+              </p>
+              <p class="innerList">
+                <span>
+                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                </span>
+                Location Staff Account or Headquarters Can Review Applicants Quickly 
+              </p>
             </p>
           </div>
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
@@ -106,7 +150,7 @@
           <!--we will need to replace these with higher quality images eventually-->
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
           <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
-          <div>
+          <div class="getStarted">
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
               What’s the point of great power if you can’t manage it? SOWerk’s
@@ -115,6 +159,31 @@
               mobile platform. Manage staff, vet vendors, or even be one click
               away from your approved service providers… that’s the power of
               SOWerk.
+                
+                <p class="innerList">
+                  <span>
+                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  </span>
+                  Request Service or Bids From Approved Vendors Quickly
+                </p>
+                <p class="innerList">
+                  <span>
+                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  </span>
+                  SOWerk Empowers Staff To Up Your Facility Management Game
+                </p>
+                <p class="innerList">
+                  <span>
+                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  </span>
+                  Filter & Find New Service Providers
+                </p>
+                <p class="innerList">
+                  <span>
+                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  </span>
+                  SOWerk Makes Annual Vendor Requalifying Easy & Automated
+                </p>
             </p>
           </div>
         </div>
@@ -183,11 +252,7 @@
   </div>
 </template>
 
-<script>
-  export default {
-    layout: 'fullwidth',
-  }
-</script>
+<script></script>
 
 <style scoped>
 .joinproductcontainer {
@@ -362,6 +427,9 @@
   p {
   font-size: 20px;
 }
+.joinproductsteps {
+    background: linear-gradient(180deg,#444 5%,rgba(43,43,43,.9)),url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
+}
 .joinproductsteps svg {
   width: 100%;
   height: 9vh;
@@ -390,8 +458,8 @@
 #profileDash{
   margin-left: -15% !important;
   margin-right:-10%;
-  margin-bottom:25%;
-  margin-top:-10%;
+  margin-bottom:10%;
+  margin-top:5%;
   width:50%!important;
 }
 #iphoneMock{
@@ -450,7 +518,30 @@
   width: 5% !important;
   height:auto;
 }
+.stepList li{
+  list-style-image:url('https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png');
+  max-width: 90%;
+  max-height: 90%;
 
+}
+.getStarted img{
+  width: 5% !important;
+  height: auto;
+  padding-top: 2%;
+  align-items: center;
+  padding-right: 5px;
+  margin-left: -10%;
+}
+.innerList{
+  margin-left:10%;
+  margin-top:-2%;
+  margin-bottom: 2%;
+  padding-right:-20% ;
+}
+.innerList span{
+  margin: auto 0;
+  
+}
 
 @media (max-width: 1700px) {
   .joinproducttraits div img {
@@ -469,6 +560,7 @@
   }
   .joinproducttraits div h3 {
     font-size: 20px;
+    font-weight: 400;
   }
 
   .joinproducttraits div p {
@@ -524,6 +616,7 @@
 
   .joinproducttraits div h3 {
     font-size: 20px;
+    font-weight: 400;
   }
 
   .joinproducttraits div p {
@@ -634,7 +727,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 20px 0
+    margin: 20px 0;
   }
 
   .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep:nth-child(2) {
@@ -694,7 +787,7 @@
   .joinproductdescription p {
     font-size: 16px;
   }
-
+  
   .joinproductdescription button {
     font-size: 17px;
   }

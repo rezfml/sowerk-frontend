@@ -7,7 +7,9 @@
         <v-slide-item :key='i' v-for="(company, i) in carouselServiceProviders" style="width: 50vw">
           <v-row>
             <v-col class="d-flex flex-column align-center">
-              <img style="width: 100%; padding:0 2%" :src="company.imgUrl" />
+              <div class="imgContainer">
+                <img style="width: 100%; padding:0 2%" :src="company.imgUrl" />
+              </div>
               <p class="font-weight-bold white--text text-body-2 text-md-h6">{{company.account_name}}</p>
             </v-col>
           </v-row>
@@ -18,7 +20,9 @@
         <v-slide-item :key='i' v-for="(company, i) in carouselServiceProviders" style="width: 25vw">
           <v-row>
             <v-col class="d-flex flex-column align-center">
-              <img style="width: 100%; padding:0px 10px 0px 10px" :src="company.imgUrl" />
+               <div class="imgContainer">
+                <img style="width: 100%; padding:0px 10px 0px 10px" :src="company.imgUrl" />
+              </div>
               <p class="font-weight-bold white--text text-h6">{{company.account_name}}</p>
             </v-col>
           </v-row>
@@ -29,7 +33,9 @@
         <v-slide-item :key='i' v-for="(company, i) in carouselServiceProviders" style="width: 22.5vw">
           <v-row>
             <v-col class="d-flex flex-column align-center">
-              <img :src="company.imgUrl" />
+               <div class="imgContainer">
+                <img :src="company.imgUrl" />
+              </div>
               <h1 class="font-weight-bold white--text text-h5">{{company.account_name}}</h1>
             </v-col>
           </v-row>
