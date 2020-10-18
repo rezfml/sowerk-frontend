@@ -991,7 +991,7 @@
   -o-background-size: cover;
   background-size: cover; height: 80vh; max-height: 1200px;"
       align-content="center"
-      class="pt-12"
+      class="pt-12 ma-0"
     >
       <v-card
         max-height="400px"
@@ -1017,7 +1017,7 @@
           >
             The Approved Vendor Platform
           </p>
-          <p style="font-size: 15px;" class="white--text text-center text-sm-h6 text-md-h5">
+          <p style="font-size: 15px" class="white--text text-center text-sm-h6 text-md-h5">
             The Link Between Service Providers & Businesses
           </p>
 
@@ -1052,49 +1052,54 @@
       fluid
       text-center
       pb-8
-      style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center"
+      style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
       class="skew-top"
     >
+    <v-row align="center" justify="center">
+      <v-col cols="11" >
       <p
-        class="text-lg-h3 text-h4 font-weight-bold white--text"
-        style="word-break: break-word; width: 80%; opacity: .8;"
+        class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10"
+        style="word-break: break-word; opacity: .8; font-size: 24px; width: 100%;"
+       
       >
         The Link Between Service Providers and Property & Facility
         Managers
       </p>
+      </v-col>
+    </v-row>
 
-      <v-row style="max-width: 1280px;" class="justify-center">
+      <v-row class="justify-space-around" style="width: 100%; max-width: 1400px;">
         <!-- CARD 1 -->
-        <v-col cols="12" sm="8" md="5">
+        <v-col cols="12" sm="10" md="5" class="" >
           <v-card
             align="center"
-            class="ma-1"
-            style="border-radius: 20px; height: 100%"
+            class="ma-0"
+            style="border-radius: 20px; height: 100%; width: 100% "
           >
-            <v-card-title class="pb-0">
-              <p class="mx-auto mb-0 text-center">Property & Facility Manager</p>
+            <v-card-title class="px-0">
+              <p style="width: 100%;">Property & Facility Manager</p>
             </v-card-title>
 
             <v-card-text>
-              <v-row>
-                <v-col cols="6" offset="3">
+              <v-row justify-center>
+                <v-col >
                   <v-img
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
-                    style="object-fit: contain; width: 100%;"
+                    style="object-fit: contain; width: 60%;"
                   ></v-img>
                 </v-col>
 
                 <v-col cols="12" class="py-2">
-                <v-card-title class="py-0">
-                  <p class="mx-auto my-0 text-center" style="color: black;">Find Vet & Manage Vendors</p>
+                <v-card-title class="pa-0">
+                  <p style="color: black; width: 100%">Find Vet & Manage Vendors</p>
             </v-card-title>
             </v-col>
 
 
                 <v-col cols="12">
                   <p
-                    class="text-justify mx-auto my-2"
-                    style="max-width: 350px; width: 80%"
+                    class="text-justify"
+                    style="max-width: 80%; width: 80%"
                   >
                     Our business to business platform provides companies and
                     property managers the tools to effiecently identify, vet,
@@ -1112,11 +1117,11 @@
 
                 <v-col cols="12" class="py-2">
                 <v-card-title class="py-0">
-                  <p class="mx-auto my-0 text-center" style="color: black;">Any Property or Facility Business</p>
+                  <p style="color: black; width: 100%">Any Property or Facility Business</p>
             </v-card-title>
             </v-col>
 
-                <v-col class="12 mx-auto" style="max-width: 350px;">
+                <v-col cols="12" class="pt-1" style="max-width: 90%;">
                   <ul style="list-style: none; text-align: left">
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate Properties</li>
@@ -1129,7 +1134,7 @@
 
                 <v-col cols="12">
                   <v-btn
-                    style="color: white; background:#A61C00; border-radius: 16px"
+                    style="color: white; background:#A61C00; border-radius: 16px;"
                     block
                     large
                     to="/landingpage/property-manager"
@@ -1152,35 +1157,35 @@
         </v-col>
 
         <!-- CARD 2 -->
-        <v-col cols="12" sm="8" md="5">
+        <v-col cols="12" sm="10" md="5">
           <v-card
             align="center"
-            class="ma-1"
-            style="border-radius: 20px; height: 100%"
+            class="ma-0"
+            style="border-radius: 20px; height: 100%;"
           >
-            <v-card-title class="pb-0">
-              <p class="mx-auto mb-0 text-center">Service Providers</p>
+            <v-card-title class="px-0">
+              <p style="width: 100%">Service Providers</p>
             </v-card-title>
 
             <v-card-text>
               <v-row>
-                <v-col cols="6" offset="3">
+                <v-col>
                   <v-img
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
-                    style="object-fit: contain; width: 100%;"
+                    style="object-fit: contain; width: 60%;"
                   ></v-img>
                 </v-col>
 
                 <v-col cols="12" class="py-2">
                 <v-card-title class="py-0">
-                  <p class="mx-auto my-0 text-center" style="color: black;">Approved Vendors Local & National</p>
+                  <p style="color: black; width: 100%">Approved Vendors Local & National</p>
             </v-card-title>
             </v-col>
 
                 <v-col cols="12">
                   <p
-                    class="text-justify mx-auto my-2"
-                    style="max-width: 350px; width: 80%"
+                    class="text-justify"
+                    style="max-width: 80%; width: 80%"
                   >
                     For service providers, SOWerk makes it possible for you to
                     become an approved vendor, receive job request, and
@@ -1195,13 +1200,13 @@
                   ></v-divider>
                 </v-col>
 
-                <v-col cols="12" class="py-2">
+                <v-col cols="12" class="pa-0">
                 <v-card-title class="py-0">
-                  <p class="mx-auto my-0 text-center" style="color: black;">Tools For Every Service Provider</p>
+                  <p style="color: black; width: 100%">Tools For Every Service Provider</p>
             </v-card-title>
             </v-col>
 
-                <v-col cols="12 mx-auto" style="max-width: 350px;">
+                <v-col cols="12" class="pt-1" style="max-width: 90%;">
                   <ul
                     style="column-count: 2; list-style: none; text-align: left"
                   >
@@ -1516,7 +1521,7 @@
     font-family: Roboto;
   }
 
-  .skew-top {
+  /* .skew-top {
     position: relative;
     z-index: 30;
   }
@@ -1532,7 +1537,7 @@
     z-index: -20;
     transform-origin: top left;
     transform: skewY(-2deg);
-  }
+  } */
 
   .joincaroselreview {
     background: #151515;
