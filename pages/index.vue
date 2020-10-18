@@ -1007,7 +1007,6 @@
         >
           <v-card-title
             ><v-img
-              class="d-none d-sm-flex"
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
               alt="SOWerk Logo"
               contain
