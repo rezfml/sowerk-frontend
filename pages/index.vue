@@ -1579,7 +1579,8 @@
       </div>
     </section>
 
-    <Reviews v-bind:reviews="reviews"></Reviews>
+    <!-- per colin hide reviews for now will get reviews in the next couple weeks. 10/18 -->
+    <!-- <Reviews v-bind:reviews="reviews"></Reviews> -->
 
     <OftenAskPF></OftenAskPF>
     <OftenAskSP></OftenAskSP>
@@ -1796,8 +1797,8 @@ export default {
 }
 
 @media (max-width: 950px) {
-  .joinconnection[data-v-2a183b29] {
-    flex-direction: column;
+  .joinconnection {
+    flex-direction: column!important;
   }
 
   .joinconnection h1 {
