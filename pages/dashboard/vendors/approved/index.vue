@@ -41,7 +41,7 @@
             >Invite Them Now</v-btn>
           </v-row>
           <FacilitiesCard
-            v-if="vendors.length > 0 && loading != false"
+            v-if="loading != false"
             :title="'My Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -258,6 +258,9 @@
           await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
+              if(response.data.length === 0) {
+                this.loading = true;
+              }
               while(response.data.length !== 0) {
                 for(let i = 0; i<response.data.length; i++) {
                   this.connections.push(response.data[i]);

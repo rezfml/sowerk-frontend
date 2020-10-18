@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3">
     <v-container>
-      <v-card>
+      <v-card v-if="success === false">
         <v-container class="px-12">
           <v-row>
             <v-col cols="12">
@@ -73,6 +73,11 @@
           </v-row>
         </v-container>
       </v-card>
+      <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
+        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+        <v-card-title class="mt-n16" color="primary">Your SOWerk Invite Has Been Sent!</v-card-title>
+        <v-btn color="primary" :href="'../../dashboard/vendors/invite'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
+      </v-card>
     </v-container>
   </v-app>
 </template>
@@ -121,7 +126,8 @@
           { text: 'Pre-Approved', value: 'preapproved', class: 'primary--text font-weight-regular' },
           { text: 'Property', value: 'property', class: 'primary--text font-weight-regular' },
         ],
-        businesses: null
+        businesses: null,
+        success: false
       }
     },
     watch: {
@@ -201,8 +207,7 @@
         await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/email', providersObject)
           .then(response => {
             console.log(response, 'success')
-            this.$router.go();
-            alert('SUCCESSFULLY INVITED MEMBERS TO OUR PLATFORM!')
+            this.success=true;
           })
           .catch(err => {
             console.log('err', err)

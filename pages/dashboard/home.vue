@@ -4,7 +4,7 @@
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">
           <v-card-text class="ml-16" style="color: white; font-size: 24px;">New to SOWerk - Learn More About Whats New!</v-card-text>
-          <v-btn color="white" class="mt-2 mr-16" outlined rounded >Learn More</v-btn>
+          <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" outlined rounded >Learn More</v-btn>
           <v-btn @click="exit" color="white" class="mt-2" text depressed>X</v-btn>
         </v-card>
       </v-row>
