@@ -33,10 +33,10 @@
                     <td style="width: 30%;">{{ form.name }}</td>
                     <td style="width: 50%;" v-if="finishedFormFields === true">{{ form.formfields.length }} Specific Application Questions</td>
                     <td class="d-flex" style="width: 100%;">
-                      <v-btn style="width: 50%;" icon color="primary">
+                      <v-btn :href="'../../dashboard/userForms/' + form.id" style="width: 50%;" icon color="primary">
                         <v-icon>mdi-eye</v-icon>
                       </v-btn>
-                      <v-btn style="width: 50%;" icon color="primary">
+                      <v-btn :href="'../../dashboard/userForms/edit' + form.id" style="width: 50%;" icon color="primary">
                         <v-icon>edit</v-icon>
                       </v-btn>
                     </td>

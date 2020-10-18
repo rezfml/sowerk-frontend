@@ -4,11 +4,16 @@
       <v-row style="height: 100%;">
         <v-col cols="4">
           <v-card>
-            <img :src="company.imgUrl" />
-            <v-card-title>{{company.account_name}}</v-card-title>
-            <v-card-text>Approved at 23 Properties</v-card-text>
-            <v-card-text>Radius Provider ({{company.radius}}mi)</v-card-text>
+            <img :src="location.imageUrl" />
+            <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
+            <v-card-text>Approved at <span style="color:#A61C00;">23</span> Properties</v-card-text>
+            <v-card-text style="color:#A61C00;">Radius Provider ({{location.radius}}mi)</v-card-text>
             <v-btn outlined color="primary" rounded large>Share</v-btn>
+            <v-divider></v-divider>
+            <v-card-title style="color:#A61C00;">About</v-card-title>
+            <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+            <v-card-text>Founded: {{location.year_founded}}</v-card-text>
+            <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
           </v-card>
         </v-col>
         <v-col cols="8">
@@ -40,7 +45,7 @@
     },
     data() {
       return {
-        company: {
+        location: {
 
         },
       }
@@ -54,7 +59,7 @@
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.$route.params.id)
           .then(response => {
             console.log(response.data, 'response.data');
-            this.company = response.data;
+            this.location = response.data;
           })
       }
     }
