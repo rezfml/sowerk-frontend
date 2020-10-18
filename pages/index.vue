@@ -996,13 +996,14 @@
       <v-card
         max-height="400px"
         height="50vh"
-        :width="$vuetify.breakpoint.lgAndUp ? '70%' : '100%'"
+        :width="$vuetify.breakpoint.lgAndUp ? '60%' : '100%'"
         max-width="1200px"
         style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
-        class="d-flex flex-column justify-center align-center"
+        class="d-flex flex-column justify-center"
         color="rgba(0,0,0,0.7)"
       >
-        <v-card-title style="width: 100%;"
+        <div style="width: 100%; display: flex; flex-direction: column; flex-wrap: no-wrap;">
+        <v-card-title 
         ><v-img
           src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
           alt="SOWerk Logo"
@@ -1012,11 +1013,11 @@
         ></v-card-title>
         <v-card-text class="d-flex flex-column justify-center">
           <p
-            class="white--text text-h4 text-md-h3 text-center font-weight-bold"
+            style="font-size: 26px;" class="white--text text-sm-h4 text-md-h3 text-center font-weight-bold"
           >
             The Approved Vendor Platform
           </p>
-          <p class="white--text text-center text-h6 text-md-h5">
+          <p style="font-size: 15px;" class="white--text text-center text-sm-h6 text-md-h5">
             The Link Between Service Providers & Businesses
           </p>
 
@@ -1042,6 +1043,7 @@
 
           </div>
         </v-card-text>
+        </div>
       </v-card>
     </v-row>
 
