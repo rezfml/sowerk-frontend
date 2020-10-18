@@ -1002,47 +1002,52 @@
         class="d-flex flex-column justify-center"
         color="rgba(0,0,0,0.7)"
       >
-        <div style="width: 100%; display: flex; flex-direction: column; flex-wrap: no-wrap;">
-        <v-card-title 
-        ><v-img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
-          alt="SOWerk Logo"
-          contain
-          height="80"
-        ></v-img
-        ></v-card-title>
-        <v-card-text class="d-flex flex-column justify-center">
-          <p
-            style="font-size: 26px;" class="white--text text-sm-h4 text-md-h3 text-center font-weight-bold"
-          >
-            The Approved Vendor Platform
-          </p>
-          <p style="font-size: 15px" class="white--text text-center text-sm-h6 text-md-h5">
-            The Link Between Service Providers & Businesses
-          </p>
-
-          <div class="text-center">
-            <v-btn
-              class=" primary ma-3"
-              large
-              width="90%"
-              max-width="350"
-              style="border-radius: 16px"
-              to="/landingpage/service-provider"
-            >Service Providers</v-btn
+        <div
+          style="width: 100%; display: flex; flex-direction: column; flex-wrap: no-wrap;"
+        >
+          <v-card-title
+            ><v-img
+              src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
+              alt="SOWerk Logo"
+              contain
+              height="80"
+            ></v-img
+          ></v-card-title>
+          <v-card-text class="d-flex flex-column justify-center">
+            <p
+              style="font-size: 26px;"
+              class="white--text text-sm-h4 text-md-h3 text-center font-weight-bold"
             >
-            <v-btn
-              class=" primary ma-3"
-              large
-              width="90%"
-              max-width="350"
-              style="border-radius: 16px"
-              to="/landingpage/property-manager"
-            >Property & Facility Managers</v-btn
+              The Approved Vendor Platform
+            </p>
+            <p
+              style="font-size: 15px"
+              class="white--text text-center text-sm-h6 text-md-h5"
             >
+              The Link Between Service Providers & Businesses
+            </p>
 
-          </div>
-        </v-card-text>
+            <div class="text-center">
+              <v-btn
+                class=" primary ma-3"
+                large
+                width="90%"
+                max-width="350"
+                style="border-radius: 16px"
+                to="/landingpage/service-provider"
+                >Service Providers</v-btn
+              >
+              <v-btn
+                class=" primary ma-3"
+                large
+                width="90%"
+                max-width="350"
+                style="border-radius: 16px"
+                to="/landingpage/property-manager"
+                >Property & Facility Managers</v-btn
+              >
+            </div>
+          </v-card-text>
         </div>
       </v-card>
     </v-row>
@@ -1055,22 +1060,23 @@
       style="background:#a61c00; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
       class="skew-top"
     >
-    <v-row align="center" justify="center">
-      <v-col cols="11" >
-      <p
-        class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10"
-        style="word-break: break-word; opacity: .8; font-size: 24px; width: 100%;"
-       
-      >
-        The Link Between Service Providers and Property & Facility
-        Managers
-      </p>
-      </v-col>
-    </v-row>
+      <v-row align="center" justify="center">
+        <v-col cols="11">
+          <p
+            class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10"
+            style="word-break: break-word; opacity: .8; font-size: 24px; width: 100%;"
+          >
+            The Link Between Service Providers and Property & Facility Managers
+          </p>
+        </v-col>
+      </v-row>
 
-      <v-row class="justify-space-around" style="width: 100%; max-width: 1400px;">
+      <v-row
+        class="justify-space-around"
+        style="width: 100%; max-width: 1400px;"
+      >
         <!-- CARD 1 -->
-        <v-col cols="12" sm="10" md="5" class="" >
+        <v-col cols="12" sm="10" md="5" class="px-0 px-sm-3">
           <v-card
             align="center"
             class="ma-0"
@@ -1082,7 +1088,7 @@
 
             <v-card-text>
               <v-row justify-center>
-                <v-col >
+                <v-col>
                   <v-img
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
                     style="object-fit: contain; width: 60%;"
@@ -1090,21 +1096,21 @@
                 </v-col>
 
                 <v-col cols="12" class="py-2">
-                <v-card-title class="pa-0">
-                  <p style="color: black; width: 100%">Find Vet & Manage Vendors</p>
-            </v-card-title>
-            </v-col>
-
+                  <v-card-title class="pa-0">
+                    <p style="color: black; width: 100%">
+                      Find Vet & Manage Vendors
+                    </p>
+                  </v-card-title>
+                </v-col>
 
                 <v-col cols="12">
-                  <p
-                    class="text-justify"
-                    style="max-width: 80%; width: 80%"
-                  >
+                  <p class="text-justify" style="max-width: 80%; width: 80%">
                     Our business to business platform provides companies and
                     property managers the tools to effiecently identify, vet,
                     and manage service providers for each of their locations.
-                    <span style="font-weight: bold">SOWerk is FREE & Powerful</span>
+                    <span style="font-weight: bold"
+                      >SOWerk is FREE & Powerful</span
+                    >
                   </p>
                 </v-col>
 
@@ -1116,19 +1122,27 @@
                 </v-col>
 
                 <v-col cols="12" class="py-2">
-                <v-card-title class="py-0">
-                  <p style="color: black; width: 100%">Any Property or Facility Business</p>
-            </v-card-title>
-            </v-col>
+                  <v-card-title class="py-0">
+                    <p style="color: black; width: 100%">
+                      Any Property or Facility Business
+                    </p>
+                  </v-card-title>
+                </v-col>
 
                 <v-col cols="12" class="pt-1" style="max-width: 90%;">
-                  <ul style="list-style: none; text-align: left">
+                  <ul
+                    style="column-count: 2; list-style: none; text-align: left"
+                    class="pl-0 pl-sm-12"
+                  >
                     <li>- Retail & Hospitality Chains</li>
-                    <li>- Commercial Real Estate Properties</li>
+                    <li>- Commercial Real Estate</li>
                     <li>- Manufacturing Facilities</li>
                     <li>- Warehouse & Distribution</li>
                     <li>- Governments</li>
                     <li>- Restaurant Groups</li>
+                    <li>- School Districts</li>
+                    <li>- Residential Investments</li>
+                    <li>- Military</li>
                   </ul>
                 </v-col>
 
@@ -1138,7 +1152,7 @@
                     block
                     large
                     to="/landingpage/property-manager"
-                  >Property & Facility Managers</v-btn
+                    >Property & Facility Managers</v-btn
                   >
                 </v-col>
               </v-row>
@@ -1157,7 +1171,7 @@
         </v-col>
 
         <!-- CARD 2 -->
-        <v-col cols="12" sm="10" md="5">
+        <v-col cols="12" sm="10" md="5" class="px-0 px-sm-3">
           <v-card
             align="center"
             class="ma-0"
@@ -1177,19 +1191,21 @@
                 </v-col>
 
                 <v-col cols="12" class="py-2">
-                <v-card-title class="py-0">
-                  <p style="color: black; width: 100%">Approved Vendors Local & National</p>
-            </v-card-title>
-            </v-col>
+                  <v-card-title class="py-0">
+                    <p style="color: black; width: 100%">
+                      Approved Vendors Local & National
+                    </p>
+                  </v-card-title>
+                </v-col>
 
                 <v-col cols="12">
-                  <p
-                    class="text-justify"
-                    style="max-width: 80%; width: 80%"
-                  >
+                  <p class="text-justify" style="max-width: 80%; width: 80%">
                     For service providers, SOWerk makes it possible for you to
                     become an approved vendor, receive job request, and
-                    communicate with business owners. <span style="font-weight: bold">It's FREE To Get Started</span>
+                    communicate with business owners.
+                    <span style="font-weight: bold"
+                      >It's FREE To Get Started</span
+                    >
                   </p>
                 </v-col>
 
@@ -1201,14 +1217,17 @@
                 </v-col>
 
                 <v-col cols="12" class="pa-0">
-                <v-card-title class="py-0">
-                  <p style="color: black; width: 100%">Tools For Every Service Provider</p>
-            </v-card-title>
-            </v-col>
+                  <v-card-title class="py-0">
+                    <p style="color: black; width: 100%">
+                      Tools For Every Service Provider
+                    </p>
+                  </v-card-title>
+                </v-col>
 
-                <v-col cols="12" class="pt-1" style="max-width: 90%;">
+                <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
                     style="column-count: 2; list-style: none; text-align: left"
+                    class="pl-0 pl-sm-12"
                   >
                     <li>- Electrician</li>
                     <li>- HVAC</li>
@@ -1221,16 +1240,23 @@
                     <li>- Waste</li>
                     <li>- Engineer</li>
                     <li>- Contractor</li>
+                    <li>- Glass & Window</li>
+                    <li>- Enviormental</li>
+                    <li>- Survey</li>
+                    <li>- Cleaning</li>
+                    <li>- Event</li>
+                    <li>- Security</li>
+                    <li>- Consultant</li>
                   </ul>
                 </v-col>
 
-                <v-col cols="12 mt-4">
+                <v-col cols="12 mt-4" >
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
                     large
                     to="/landingpage/service-provider"
-                  >Service Providers</v-btn
+                    >Service Providers</v-btn
                   >
                 </v-col>
               </v-row>
@@ -1240,10 +1266,10 @@
       </v-row>
     </v-container>
 
-    <!-- All Reviews Section -->
-    <section class="joincaroselreview">
+    <!-- All Reviews Section ->>> hidden per colin pastel notes -->
+    <!-- <section class="joincaroselreview">
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
-    </section>
+    </section> -->
 
     <!-- Join Traits Section -->
     <v-container
@@ -1271,7 +1297,7 @@
             </div>
             <v-card-text
               style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Simple & Fast</v-card-text
+              >Simple & Fast</v-card-text
             >
             <div
               class="my-4"
@@ -1300,7 +1326,7 @@
             </div>
             <v-card-text
               style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Powerful Tools</v-card-text
+              >Powerful Tools</v-card-text
             >
             <div
               class="my-6"
@@ -1330,7 +1356,7 @@
             </div>
             <v-card-text
               style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Automated</v-card-text
+              >Automated</v-card-text
             >
             <div
               class="my-4"
@@ -1361,7 +1387,7 @@
             </div>
             <v-card-text
               style="font-size: 17px; font-weight:bold; color: black; letter-spacing: 1px;"
-            >Convenient</v-card-text
+              >Convenient</v-card-text
             >
             <div
               class="my-4"
@@ -1464,64 +1490,64 @@
 </template>
 
 <script>
-  import Reviews from '../components/landing/general/Reviews'
-  import AllReviews from '../components/landing/general/AllReviews'
-  import OftenAskPF from '../components/landing/property-manager/OftenAskPF'
-  import OftenAskSP from '../components/landing/service-provider/OftenAskSP'
+import Reviews from '../components/landing/general/Reviews'
+import AllReviews from '../components/landing/general/AllReviews'
+import OftenAskPF from '../components/landing/property-manager/OftenAskPF'
+import OftenAskSP from '../components/landing/service-provider/OftenAskSP'
 
-  export default {
-    layout: 'fullwidth',
-    data: () => ({
-      allReviews: [],
-      reviews: [],
-    }),
-    components: {
-      Reviews,
-      AllReviews,
-      OftenAskPF,
-      OftenAskSP,
+export default {
+  layout: 'fullwidth',
+  data: () => ({
+    allReviews: [],
+    reviews: [],
+  }),
+  components: {
+    Reviews,
+    AllReviews,
+    OftenAskPF,
+    OftenAskSP,
+  },
+  mounted() {
+    this.getReviews()
+    this.getAllReviews()
+  },
+  methods: {
+    async getAllReviews() {
+      let { data, status } = await this.$http
+        .get(
+          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimit?limit=20&offset=0'
+        )
+        .catch((e) => e)
+      if (this.$error(status, data.message, data.errors)) return
+      this.$nextTick(function () {
+        this.allReviews = data
+        console.log(this.allReviews, 'allReviews')
+      })
     },
-    mounted() {
-      this.getReviews()
-      this.getAllReviews()
+    async getReviews() {
+      let { data, status } = await this.$http
+        .get(
+          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0'
+        )
+        .catch((e) => e)
+      if (this.$error(status, data.message, data.errors)) return
+      this.$nextTick(function () {
+        this.reviews = data
+        console.log(this.reviews, 'reviews')
+      })
     },
-    methods: {
-      async getAllReviews() {
-        let { data, status } = await this.$http
-          .get(
-            'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimit?limit=20&offset=0'
-          )
-          .catch((e) => e)
-        if (this.$error(status, data.message, data.errors)) return
-        this.$nextTick(function () {
-          this.allReviews = data
-          console.log(this.allReviews, 'allReviews')
-        })
-      },
-      async getReviews() {
-        let { data, status } = await this.$http
-          .get(
-            'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0'
-          )
-          .catch((e) => e)
-        if (this.$error(status, data.message, data.errors)) return
-        this.$nextTick(function () {
-          this.reviews = data
-          console.log(this.reviews, 'reviews')
-        })
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style scoped>
-  #joincontainer {
-    width: 100%;
-    padding: 0px !important;
-    font-family: Roboto;
-  }
+#joincontainer {
+  width: 100%;
+  padding: 0px !important;
+  font-family: Roboto;
+}
 
-  /* .skew-top {
+/* .skew-top {
     position: relative;
     z-index: 30;
   }
@@ -1539,152 +1565,132 @@
     transform: skewY(-2deg);
   } */
 
-  .joincaroselreview {
-    background: #151515;
-    height: auto;
-    width: 100%;
-    padding: 0px 0px 100px 0px;
-  }
+.joincaroselreview {
+  background: #151515;
+  height: auto;
+  width: 100%;
+  padding: 0px 0px 100px 0px;
+}
 
-  .joinvideo {
-    background: #151515;
-    height: 30vh;
-  }
+.joinvideo {
+  background: #151515;
+  height: 30vh;
+}
 
-  .joinconnection {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
+.joinconnection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
     linear-gradient(#444444, #2b2b2b);
-    background-size: cover;
-  }
-  .joinconnection h1 {
-    color: white;
-    font-size: 50px;
-    text-align: center;
-    margin: 0px 0px 20px 0px;
-  }
+  background-size: cover;
+}
+.joinconnection h1 {
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  margin: 0px 0px 20px 0px;
+}
 
-  .joinconnection .joinconnectioncolumn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-    margin: 20px 10px 20px 10px;
-  }
-  .border1 {
-    border-top: 1px solid #a61c00;
-    border-left: 1px solid #a61c00;
-    border-right: none !important;
-    border-bottom: 1px solid #a61c00;
-    padding: 20px 10px 20px 10px;
-  }
-  .border2 {
-    border-top: 1px solid #a61c00;
-    border-right: 1px solid #a61c00;
-    border-bottom: 1px solid #a61c00;
-    padding: 20px 10px 20px 10px;
-  }
-  .joinconnectioncolumn .joinconnectioncontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox {
-    background: white;
-    border-radius: 20px;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    margin: 10px 0px 10px 0px;
-  }
-  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
-    font-size: 23px;
-    margin: 10px 0px 20px 0px;
-  }
-  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
-    font-size: 20px;
-  }
-  .joinconnectioncontainerbox img {
-    width: 50%;
-  }
-  .joinconnectioncolumn .joinconnectioncontainer button {
-    background: #a61c00;
-    color: white;
-    border-radius: 20px;
-    padding: 10px 0px 10px 0px;
-    width: 60%;
-    font-size: 18px;
-  }
+.joinconnection .joinconnectioncolumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  margin: 20px 10px 20px 10px;
+}
+.border1 {
+  border-top: 1px solid #a61c00;
+  border-left: 1px solid #a61c00;
+  border-right: none !important;
+  border-bottom: 1px solid #a61c00;
+  padding: 20px 10px 20px 10px;
+}
+.border2 {
+  border-top: 1px solid #a61c00;
+  border-right: 1px solid #a61c00;
+  border-bottom: 1px solid #a61c00;
+  padding: 20px 10px 20px 10px;
+}
+.joinconnectioncolumn .joinconnectioncontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 10px 0px 10px 0px;
+}
+.joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
+  font-size: 23px;
+  margin: 10px 0px 20px 0px;
+}
+.joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
+  font-size: 20px;
+}
+.joinconnectioncontainerbox img {
+  width: 50%;
+}
+.joinconnectioncolumn .joinconnectioncontainer button {
+  background: #a61c00;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 0px 10px 0px;
+  width: 60%;
+  font-size: 18px;
+}
 
-  .landinghomereview {
-    background: #a61c00;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-  .landinghomereview h1 {
-    font-size: 55px;
-  }
-  .landinghomereview p {
-    font-size: 18px;
-  }
+.landinghomereview {
+  background: #a61c00;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.landinghomereview h1 {
+  font-size: 55px;
+}
+.landinghomereview p {
+  font-size: 18px;
+}
 
-  @media (max-width: 1060px) {
-    .joinconnectioncolumn
+@media (max-width: 1060px) {
+  .joinconnectioncolumn
     .joinconnectioncontainer
     .joinconnectioncontainerbox
     h3 {
-      font-size: 20px;
-    }
-
-    .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
-      font-size: 16px;
-    }
+    font-size: 20px;
   }
 
-  @media (max-width: 950px) {
-    .joinconnection h1 {
-      font-size: 48px;
-    }
+  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
+    font-size: 16px;
+  }
+}
 
-    .joinconnection .joinconnectioncolumn {
-      width: 40%;
-    }
-    .joinconnectioncontainerbox img {
-      width: 40%;
-    }
+@media (max-width: 950px) {
+  .joinconnection h1 {
+    font-size: 48px;
   }
 
-  @media (max-width: 680px) {
-    .joinconnection h1 {
-      font-size: 42px;
-    }
-    .joinconnection {
-      flex-direction: column;
-    }
-
-    .joinconnection .joinconnectioncolumn {
-      width: 80%;
-    }
-
-    .joinconnection h1 {
-      font-size: 40px;
-      width: 100%;
-    }
-
+  .joinconnection .joinconnectioncolumn {
+    width: 40%;
   }
-  .jointraits div {
-    flex: 0 50%;
+  .joinconnectioncontainerbox img {
+    width: 40%;
   }
+}
+
+@media (max-width: 680px) {
   .joinconnection h1 {
     font-size: 42px;
   }
@@ -1700,6 +1706,25 @@
     font-size: 40px;
     width: 100%;
   }
+}
+.jointraits div {
+  flex: 0 50%;
+}
+.joinconnection h1 {
+  font-size: 42px;
+}
+.joinconnection {
+  flex-direction: column;
+}
+
+.joinconnection .joinconnectioncolumn {
+  width: 80%;
+}
+
+.joinconnection h1 {
+  font-size: 40px;
+  width: 100%;
+}
 </style>
 
 
