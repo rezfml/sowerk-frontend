@@ -1063,7 +1063,7 @@
       <v-row align="center" justify="center">
         <v-col cols="11">
           <p
-            class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10"
+            class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
             style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
           >
             The Link Between Service Providers and Property & Facility Managers
@@ -1090,7 +1090,7 @@
               <v-row justify-center>
                 <v-col>
                   <v-img
-                    class="d-none d-sm-flex"
+                  
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
                     style="object-fit: contain; width: 60%;"
                   ></v-img>
@@ -1140,7 +1140,7 @@
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
                     style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
-                    class="pl-0 pl-sm-12"
+                    class="pl-12 pl-sm-12 list1"
                   >
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate</li>
@@ -1196,7 +1196,7 @@
               >
                 <v-col>
                   <v-img
-                    class="d-none d-sm-flex"
+                    
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
                     style="object-fit: contain; width: 60%;"
                   ></v-img>
@@ -1246,7 +1246,7 @@
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
                     style="column-count: 2; list-style: none; text-align: left; font-weight: 500; font-size: 17px;"
-                    class="pl-0 pl-sm-12"
+                    class="pl-10 pl-sm-12 list2"
                   >
                     <li>- Electrician</li>
                     <li>- HVAC</li>
@@ -1300,7 +1300,7 @@
       style="background:#2B2B2B; display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
       <p
-        class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 mb-0 pb-10"
+        class="text-lg-h3 text-sm-h4 font-weight-bold white--text pl-4 pr-4 pt-10 mb-0 pb-10"
         style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%; line-height: 1.25em"
       >
         Four Reasons Why SOWERK Wins
@@ -1440,7 +1440,10 @@
     </section> -->
 
     <!-- NEW SECTION - JOIN CONNECTION -->
-    <section class="joinconnection pt-10" style="flex-direction: row; padding-bottom: 125px;">
+    <section
+      class="joinconnection pt-10"
+      style="flex-direction: row; padding-bottom: 125px;"
+    >
       <div class="joinconnectioncolumn">
         <h1>Property & Facility</h1>
         <div class="joinconnectioncontainer border1">
@@ -1488,7 +1491,7 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/property-manager')">
+          <button @click="$router.push('/landingpage/join-product-landing')">
             See All Features
           </button>
         </div>
@@ -1572,7 +1575,7 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/service-provider')">
+          <button @click="$router.push('/landingpage/join-service-landing')">
             See All Features
           </button>
         </div>
@@ -1583,14 +1586,15 @@
     <!-- <Reviews v-bind:reviews="reviews"></Reviews> -->
 
     <!-- PROPERTY FACILITY OFTEN ASK -->
-    <v-flex class="pt-5" style="background: #EDEDED">
+    <v-flex class="pt-16" style="background: #EDEDED">
       <v-container>
         <v-row>
-          <v-col cols="12" class="d-flex flex-column">
+          <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
-              class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+              style="font-size: 30px"
+              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
-              Property and Facility Managers Often
+              Property and Facility Managers Often Ask
             </p>
             <v-list
               max-width="950px"
@@ -1598,19 +1602,23 @@
               class="mx-auto"
               style="background: #EDEDED"
             >
+
+          
               <v-list-item class="mt-8 mb-12">
-                <v-list-item-icon
+                <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
                     >mdi-check-circle-outline</v-icon
                   ></v-list-item-icon
                 >
                 <v-list-item-content>
                   <v-list-item-title
-                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    style="line-height: 1.25em; font-size: 20px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text"
                     >Is this going to create more work for
                     me?</v-list-item-title
                   >
-                  <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
+                  <v-list-item-subtitle
+                    class="text-subtitle-1 wrap-text pl-0 pl-sm-12"
                     >Actually, we designed SOWerk to be less work for you. Think
                     of SOWerk like connecting with service providers on social
                     media, except they have to meet your approved provider
@@ -1621,18 +1629,20 @@
               </v-list-item>
 
               <v-list-item class="mt-8 mb-12">
-                <v-list-item-icon
+                <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
                     >mdi-check-circle-outline</v-icon
                   ></v-list-item-icon
                 >
                 <v-list-item-content>
                   <v-list-item-title
-                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    style="line-height: 1.25em; font-size: 20px"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text"
                     >Will SOWerk Save Us Money? Will It Protect Our
                     Investments?</v-list-item-title
                   >
-                  <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
+                  <v-list-item-subtitle
+                    class="text-subtitle-1 wrap-text pl-0 pl-sm-12"
                     >If time is money and quality is everything then yes SOWerk
                     can help. SOWerk makes it efficent for any staff member to
                     vet & manage local/national service providers, such as
@@ -1647,18 +1657,20 @@
               </v-list-item>
 
               <v-list-item class="mt-8 mb-12">
-                <v-list-item-icon
+                <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
                     >mdi-check-circle-outline</v-icon
                   ></v-list-item-icon
                 >
                 <v-list-item-content>
                   <v-list-item-title
-                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    style="line-height: 1.25em; font-size: 20px"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text"
                     >Will SOWerk Help Shield Me From Cold
                     Calls?</v-list-item-title
                   >
-                  <v-list-item-subtitle class="text-subtitle-1 wrap-text pl-12"
+                  <v-list-item-subtitle
+                    class="text-subtitle-1 wrap-text pl-0 pl-sm-12"
                     >Sales is part of any business but sometimes you just need
                     place to send the salesman where they can apply for your
                     approved service program. SOWerk is your solution. Find us
@@ -1668,11 +1680,11 @@
               </v-list-item>
             </v-list>
             <v-btn
-              class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+              class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
-              :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
-              style="border-radius: 20px; font-weight: bold"
-              to="/landingpage/property-manager"
+              :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              to="/landingpage/join-product-landing"
               >Provider Facility - Learn More</v-btn
             >
           </v-col>
@@ -1686,7 +1698,8 @@
         <v-row class="mt-12">
           <v-col cols="12" class="d-flex flex-column">
             <p
-              class="text-h4 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+              style="font-size: 30px;"
+              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
               Service Providers Generally Ask
             </p>
@@ -1697,26 +1710,27 @@
               class="mx-auto"
             >
               <v-list-item class="mt-8 mb-12">
-                <v-list-item-icon
+                <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
                     >mdi-check-circle-outline</v-icon
                   ></v-list-item-icon
                 >
                 <v-list-item-content>
                   <v-list-item-title
-                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    style="line-height: 1.25em; font-size: 20px"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text"
                     >Do I Seriously Get More Jobs?</v-list-item-title
                   >
                   <v-list-item-subtitle
                     class="text-subtitle-1 wrap-text"
                     style="line-height: 23px"
                   >
-                    <p>
+                    <p class="pl-0 pl-sm-12">
                       Yes, Property & Facility managers of all sizes use SOWerk
                       to manage their approved vendor program. We make it easy
                       for them to vet service providers request bids.
                     </p>
-                    <p class="mb-0">
+                    <p class="mb-0 pl-0 pl-sm-12">
                       SOWerk also helps you look good when applying for approved
                       vendor programs, but we also make it easy to share those
                       good looks with others. Next time your bidding a job show
@@ -1728,14 +1742,15 @@
               </v-list-item>
 
               <v-list-item class="mt-8 mb-12">
-                <v-list-item-icon
+                <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
                     >mdi-check-circle-outline</v-icon
                   ></v-list-item-icon
                 >
                 <v-list-item-content>
                   <v-list-item-title
-                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    style="line-height: 1.25em; font-size: 20px"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text"
                     >Is SOWerk Time Consuming and Hard To
                     Use?</v-list-item-title
                   >
@@ -1743,16 +1758,16 @@
                     class="text-subtitle-1 wrap-text"
                     style="line-height: 23px"
                   >
-                    <p>
+                    <p class="pl-0 pl-sm-12">
                       Not at all, a SOWerk profile only takes 10 minuets to
                       setup.
                     </p>
-                    <p>
+                    <p class="pl-0 pl-sm-12">
                       With only a click or two on your computer or mobile device
                       you can use your SOWerk Profile to apply for approved
                       vendor programs
                     </p>
-                    <p class="mb-0">
+                    <p class="mb-0 pl-0 pl-sm-12">
                       Automatic Updates: When you become an approved vendor for
                       a company we automaticly display it on your profile.
                     </p>
@@ -1761,14 +1776,15 @@
               </v-list-item>
 
               <v-list-item class="mt-8 mb-12">
-                <v-list-item-icon
+                <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
                     >mdi-check-circle-outline</v-icon
                   ></v-list-item-icon
                 >
                 <v-list-item-content>
                   <v-list-item-title
-                    class="text-capitalize text-h5 font-weight-bold mb-3 wrap-text"
+                    style="line-height: 1.25em; font-size: 20px"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text"
                     >Will I Get Charged All The Time & Get Junk
                     Leads?</v-list-item-title
                   >
@@ -1776,13 +1792,13 @@
                     class="text-subtitle-1 wrap-text"
                     style="line-height: 23px"
                   >
-                    <p>
+                    <p class="pl-0 pl-sm-12">
                       Unlike other websites, SOWerk service providers receive
                       communications from their approved vendor programs, direct
                       leads, or new businesses inviting them to apply for
                       approved vendor program.
                     </p>
-                    <p class="mb-0">
+                    <p class="mb-0 pl-0 pl-sm-12">
                       Being on SOWerk and promoting your business is free. If
                       you wish to apply for an approved vendor program or
                       utilize other SOWerk features we offer a few packages.
@@ -1794,11 +1810,11 @@
               </v-list-item>
             </v-list>
             <v-btn
-              class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+              class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
-              :width="$vuetify.breakpoint.mdAndUp ? '50%' : '70%'"
-              style="border-radius: 20px; font-weight: bold"
-              to="/landingpage/service-provider"
+              :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              to="/landingpage/join-service-landing"
               >Service Provider - Learn More</v-btn
             >
           </v-col>
@@ -1917,7 +1933,12 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background: linear-gradient(180deg, rgba(68,68,68,1) 35%, rgba(43,43,43,0.9) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+  background: linear-gradient(
+      180deg,
+      rgba(68, 68, 68, 1) 35%,
+      rgba(43, 43, 43, 0.9) 100%
+    ),
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
   background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;
@@ -1977,7 +1998,7 @@ export default {
 .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
   font-size: 23px;
   width: 100%;
-  font-weight: 400;
+  font-weight: 500;
   text-align: left;
   margin: 10px 0px 20px 0px;
 }
@@ -2039,20 +2060,27 @@ export default {
   }
 
   .joinconnection .joinconnectioncolumn {
-    width: 40%;
+    width: 50%;
   }
+
+
   .joinconnectioncontainerbox img {
     width: 40%;
   }
 }
 
 @media (max-width: 680px) {
-  .joinconnection h1 {
-    font-size: 42px;
+  .list1 {
+    column-count: 1!important;
   }
+
   .joinconnection {
     flex-direction: column;
-     background: linear-gradient(180deg, rgba(68,68,68,1) 35%, rgba(43,43,43,0.9) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(68, 68, 68, 1) 35%,
+      rgba(43, 43, 43, 0.9) 100%
+    );
   }
 
   .joinconnection .joinconnectioncolumn {
@@ -2063,6 +2091,11 @@ export default {
     font-size: 32px;
     width: 100%;
   }
+
+  .joinconnectiontext {
+  padding: 10px 10px 10px 20px;
+}
+
 }
 </style>
 
