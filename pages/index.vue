@@ -1679,10 +1679,10 @@
               </v-list-item>
             </v-list>
             <v-btn
-              class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+              class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
-              style="border-radius: 20px; font-weight: bold; "
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
               to="/landingpage/property-manager"
               >Provider Facility - Learn More</v-btn
             >
@@ -1809,10 +1809,10 @@
               </v-list-item>
             </v-list>
             <v-btn
-              class="text-uppercase primary mx-auto text-md-body-2 text-sm-body-2"
+              class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '50%' : '90%'"
-              style="border-radius: 20px; font-weight: bold"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
               to="/landingpage/service-provider"
               >Service Provider - Learn More</v-btn
             >
