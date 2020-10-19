@@ -209,7 +209,7 @@
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/' + id)
           .then(async (response) => {
             console.log('response for service', response.data, id, 'id')
-            this.applications[this.applicationsCount].serviceName = response.data.name;
+            this.applications[this.applicationsCount].serviceName = response.data.service.name;
           })
           .catch(err => {
             console.log('err in getting pm service', err);

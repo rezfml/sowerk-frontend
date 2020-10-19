@@ -130,12 +130,12 @@
           {
             title: 'All Pending Applications',
             value: 0,
-            link: '#'
+            link: '/dashboard/vendors/applicants'
           },
           {
             title: 'Recently Approved Applications',
             value: 0,
-            link: '#'
+            link: '/dashboard/vendors/approved'
           }
         ],
         quickLookUps: [

@@ -290,24 +290,29 @@
       async getLocations(id) {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + id)
           .then(response => {
-            console.log('locations', response.data.location);
-            console.log(this.vendors, 'vendors');
             for(let i=0; i< response.data.location.length; i++) {
-              console.log(this.vendors[i], 'vendors i')
-              console.log('this.vendors.id', response.data.location[i].companies_id)
               response.data.location[i].services = response.data.location[i].services.join(', ')
+              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + response.data.location[i].companies_id)
+                .then(res => {
+                  response.data.location[i].name = `${res.data.account_name}`;
+                  response.data.location[i].imageUrl = res.data.imgUrl;
+                })
+                .catch(err => {
+                  console.log('err in getting company for location', err);
+                })
+              response.data.location[i].fullname = `${response.data.location[i].contact_first_name} ${response.data.location[i].contact_last_name}`;
+              setTimeout(function() {
+
+              }, 300)
               this.vendors.push(response.data.location[i]);
               //this.getUsers(response.data.location[i].companies_id, i);
-              this.vendors[i].fullname = `${response.data.location[i].contact_first_name} ${response.data.location[i].contact_last_name}`;
-              if(i === this.vendors.length - 1) {
-                this.loading = true;
-                console.log("YAY", this.loading)
-                console.log('vendor', this.vendors);
-              }
+              console.log(i, 'i value', response.data.location.length);
               console.log(this.vendors, 'vendors 2x');
             }
           })
           .catch(e => console.log(e, 'error'));
+        this.loading = true;
+        console.log('loading', this.loading)
       },
       async getBusinesses(id) {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
