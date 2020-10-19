@@ -261,13 +261,11 @@
               if(response.data.length === 0) {
                 this.loading = true;
               }
-              while(response.data.length !== 0) {
-                for(let i = 0; i<response.data.length; i++) {
-                  this.connections.push(response.data[i]);
-                  console.log('response.data', response.data)
-                  this.getLocations(response.data[i].serviceprovider_id);
-                  console.log(this.connections, 'connections');
-                }
+              for(let i = 0; i<response.data.length; i++) {
+                this.connections.push(response.data[i]);
+                console.log('response.data', response.data)
+                this.getLocations(response.data[i].serviceprovider_id);
+                console.log(this.connections, 'connections');
               }
             })
             .catch(err => {
