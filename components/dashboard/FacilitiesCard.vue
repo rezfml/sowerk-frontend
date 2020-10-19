@@ -1,6 +1,12 @@
 <template>
   <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
-    <v-container class="pt-0" fluid>
+    <v-progress-circular
+      v-if="loading != true"
+      indeterminate
+      color="primary"
+      :size="20"
+    ></v-progress-circular>
+    <v-container class="pt-0" fluid v-if="loading === true">
       <v-card-title
         style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient"
@@ -14,6 +20,12 @@
         </v-row>
       </v-card-actions>
       <v-card-text class="pt-0 pb-2">
+        <v-progress-circular
+          v-if="loading != true"
+          indeterminate
+          color="primary"
+          :size="20"
+        ></v-progress-circular>
         <v-data-table
           :headers="tableProperties"
           :items="items"
@@ -42,7 +54,14 @@
           </template>
           <template v-slot:item.companyName="{item}">
             <v-row class="d-flex" cols="12" md="6">
-              <p>{{item.name}}</p>
+              <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+              <p v-else>
+                <v-progress-circular
+                  indeterminate
+                  color="primary"
+                  :size="20"
+                ></v-progress-circular>
+              </p>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -85,7 +104,7 @@
             <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-            <v-btn block color="primary" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+            <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
@@ -124,14 +143,20 @@ export default {
       locations: null,
       users: [
 
-      ]
+      ],
+      loading: false,
     }
   },
-  async mounted() {
-    console.log(this.items, 'yayyy');
+  async created() {
+    console.log(this.items, 'yayyy FACILITIES CARD');
+    this.loadingFunc(this.items);
   },
   methods: {
-
+    async loadingFunc(val) {
+      if(val) {
+        this.loading = true
+      }
+    }
   }
 }
 </script>
