@@ -14,7 +14,7 @@
     <section class="joinservicetraits">
       <div>
         <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
         />
         <h3>Simple & Fast</h3>
         <p>
@@ -24,7 +24,7 @@
       </div>
       <div>
         <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
         />
         <h3>Powerful Tools</h3>
         <p>
@@ -60,6 +60,8 @@
     </section>
 
     <section class="joinservicedescription">
+      <h2>Tools To Grow Your Business</h2>
+      <p></p>
       <p>
         SOWerk makes it possible for a service providers like you to connect
         with prorperty & facility managers, become an approved vendor, and
@@ -210,7 +212,7 @@
   width: 100%;
   height: 70vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg');
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/tape-measure-1726546copy.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -329,6 +331,7 @@
 
 .joinservicesteps {
   background: #47494e;
+  background: linear-gradient(180deg,#444 5%,rgba(43,43,43,.9)),url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
   width: 100%;
   display: flex;
   flex-direction: column;
