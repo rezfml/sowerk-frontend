@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="d-flex justify-center" style="width: 100%;">
       <v-col style="width: 55%;">
-        <v-card class="d-flex flex-column align-center">
+        <v-card v-if="finishedFormFields === true" class="d-flex flex-column align-center">
           <v-card-title>UserForm - #{{userForms.id}} {{userForms.name}}</v-card-title>
           <v-card style="width: 100%;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in userForms.formfields">
             <v-card-text style="text-align: center">{{form.name}}</v-card-text>
@@ -29,7 +29,7 @@
 <script>
 
   export default {
-    name: 'application',
+    name: 'userFormsSingle',
     layout: 'app',
     data () {
       return {
@@ -38,24 +38,30 @@
         totalLength: 0
       }
     },
-    created() {
+    mounted() {
       this.getUserforms(this.$route.params.id)
       console.log(this.$route.params.id)
     },
     methods: {
       async getUserforms(id) {
-        console.log(id, 'id')
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/' + id)
-          .then(response => {
-            console.log(response, 'userforms');
-            this.userForms = response.data;
-            this.getFormFields(response.data.id);
+          .then(async (response) => {
+            console.log(response.data, 'userforms');
+            let userForm = {
+              active: response.data.active,
+              id: response.data.id,
+              name: response.data.name,
+              service_id: response.data.service_id,
+              formfields: []
+            }
+            this.userForms = userForm;
+            await this.getFormFields(response.data.id);
             this.finishedFormFields = true;
+            console.log(this.userForms, 'userForms');
           })
           .catch(err => {
             console.log('err get services', err);
           })
-        console.log('this.userForms', this.userForms)
       },
       async getFormFields(id) {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/formfields/byUserFormId/' + id)
@@ -63,6 +69,7 @@
             console.log(response.data, 'formfields for userform', id);
             this.userForms.formfields = response.data;
             this.totalLength += response.data.length;
+            console.log(this.totalLength, 'totalLength');
           })
           .catch(err => {
             console.log('err get services', err);

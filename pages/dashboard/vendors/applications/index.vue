@@ -19,7 +19,7 @@
             <th style="width: 15%; text-align: center">Service</th>
             <th style="width: 15%; text-align: center">Application</th>
             <th style="width: 25%; text-align: center">#Questions</th>
-            <th style="width: 9%;"></th>
+            <th style="width: 9%;">Actions</th>
           </tr>
           </thead>
           <tbody>
@@ -31,10 +31,10 @@
                 <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
                 <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{service.name}}</td>
                 <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 20%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.formfields.length}} FormFields for userform</td>
-                <td style="width: 9%" class="d-flex">
-                  <v-btn :to="'/dashboard/vendors/applications/' + userform.id" text><v-icon color="primary">mdi-eye</v-icon></v-btn>
-                  <v-btn text><v-icon color="primary">mdi-pencil</v-icon></v-btn>
+                <td style="width: 20%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.formfields.length}} Questions for userform</td>
+                <td style="width: 9%;" class="d-flex justify-center">
+                  <v-btn :to="'/dashboard/vendors/applications/' + userform.id" text class="ml-16" style="width: 50%;"><v-icon color="primary">mdi-eye</v-icon></v-btn>
+                  <v-btn text style="width: 50%;"><v-icon color="primary">mdi-pencil</v-icon></v-btn>
                 </td>
               </div>
             </div>
