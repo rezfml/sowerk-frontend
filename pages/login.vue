@@ -20,6 +20,7 @@
             elevation="8"
           >
             <v-card-title class="card__title justify-center pa-0 mb-5">Login</v-card-title>
+            <!--
             <v-card-actions style="display: flex; justify-content: center;">
               <v-btn icon style="margin: 0 2.5%">
                 <v-icon>lock</v-icon>
@@ -31,8 +32,9 @@
                 <v-icon>lock</v-icon>
               </v-btn>
             </v-card-actions>
+            -->
           </v-card>
-          <v-card-title class="justify-center" style="font-weight: normal;">Or Be Classical</v-card-title>
+          <!--<v-card-title class="justify-center" style="font-weight: normal;">Or Be Classical</v-card-title>-->
           <v-card-text class="pb-0 px-6">
             <v-form v-on:submit="login">
               <v-text-field

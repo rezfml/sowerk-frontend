@@ -3,15 +3,19 @@
     <v-container class="px-8" fluid>
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">
-          <v-card-text class="ml-16" style="color: white; font-size: 24px;">New to SOWerk - Learn More About Whats New!</v-card-text>
-          <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" outlined rounded >Learn More</v-btn>
+          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?
+            <span>
+                <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>
+            </span>
+          </v-card-text>
+          
           <v-btn @click="exit" color="white" class="mt-2" text depressed>X</v-btn>
         </v-card>
       </v-row>
       <HomeCard
         v-if="locations"
         :items="locations"
-        :title="'Your Facilities - ' + locations.length"
+        :title="'Facilities You Manage - ' + locations.length"
         :tableProperties="headers"
         slug="/dashboard/facilities/"
       ></HomeCard>
