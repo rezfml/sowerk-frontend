@@ -62,8 +62,8 @@
 
       <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
         <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-        <v-card-title class="mt-n16" color="primary">Your SOWerk Invite Has Been Sent!</v-card-title>
-        <v-btn color="primary" :href="'../../dashboard/vendors/applicants'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
+        <v-card-title class="mt-2" color="primary">Your SOWerk Application Has Been Approved!</v-card-title>
+        <v-btn color="primary" :href="'../../../dashboard/vendors/applicants'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
       </v-card>
 
       <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">
