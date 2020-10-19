@@ -23,6 +23,12 @@
           <template v-slot:item.address="{item}">
             <v-row class="d-flex" cols="12" md="6">
               <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              <v-progress-circular
+                v-if="loading === false"
+                indeterminate
+                color="primary"
+                :size="20"
+              ></v-progress-circular>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -102,7 +108,7 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'loading'],
   data() {
     return {
       locations: null

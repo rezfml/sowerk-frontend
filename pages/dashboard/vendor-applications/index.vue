@@ -1,12 +1,5 @@
 <template>
   <v-app class="grey lighten-3">
-    <div cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
     <v-container class="px-0" style="max-width: 95%;">
       <v-row>
         <v-col cols="12">
@@ -17,6 +10,7 @@
             :viewAll="false"
             action="Review"
             slug="/dashboard/vendor-applications/"
+            :loading="loading"
           ></HomeCard>
         </v-col>
       </v-row>

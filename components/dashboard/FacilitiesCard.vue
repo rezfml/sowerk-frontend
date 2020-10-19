@@ -20,12 +20,6 @@
         </v-row>
       </v-card-actions>
       <v-card-text class="pt-0 pb-2">
-        <v-progress-circular
-          v-if="loading != true"
-          indeterminate
-          color="primary"
-          :size="20"
-        ></v-progress-circular>
         <v-data-table
           :headers="tableProperties"
           :items="items"
