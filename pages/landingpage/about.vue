@@ -3,9 +3,8 @@
     <section class="abouthero">
       <h1>About SOWerk</h1>
     </section>
-
-<v-container fluid style="background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%);" class="py-16">
-  <v-row justify="center">
+<v-container fluid style="background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%); " class="py-16">
+  <v-row justify="center" >
       <v-flex sm11>
         <v-row >
           <v-col cols="12" md="6" style="position: relative;">
@@ -71,7 +70,7 @@
         </div>
       </div>
     </section> -->
-<v-flex style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x;">
+<v-flex style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x; ">
   <div>
 
       <v-row align-content="center" justify="center">
@@ -104,22 +103,23 @@
     </v-row>
     </div>
     </v-flex>
-
+<!--
     <OftenAskPF></OftenAskPF>
     <OftenAskSP></OftenAskSP/>
-
+-->
   </div>
 </template>
 
 <script>
-import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
-import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
+
+//import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
+//import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
 
 export default {
   layout: 'fullwidth',
   components: {
-    OftenAskPF,
-    OftenAskSP,
+    //OftenAskPF,
+    //OftenAskSP,
   },
 }
 </script>
@@ -171,7 +171,7 @@ export default {
   width: 100%;
   height: 70vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://sowerk-images.s3.us-east-2.amazonaws.com/write-593333.jpg');
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/handshake.png');
   background-size: cover;
   object-fit: contain;
   /* background-size: 100%; */
@@ -202,6 +202,7 @@ export default {
   height: auto;
   color: white;
   padding-bottom: 100px;
+  
 }
 
 .aboutdescription:before {

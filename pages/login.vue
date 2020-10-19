@@ -19,7 +19,7 @@
             class="card--floating"
             elevation="8"
           >
-            <v-card-title class="card__title justify-center pa-0 mb-5">Login</v-card-title>
+            <v-card-title class="card__title justify-center pa-0 mb-3">Login</v-card-title>
             <!--
             <v-card-actions style="display: flex; justify-content: center;">
               <v-btn icon style="margin: 0 2.5%">
@@ -115,7 +115,7 @@
     position: absolute;
     width: 90%;
     top: -5vh; left: 5%;
-    height: 15vh;
+    height: 12vh;
     max-height: 150px;
     display: flex;
     flex-direction: column;
@@ -124,8 +124,5 @@
 
   .card__input .v-icon {
     color: black;
-  }
-
-  .card__title {
   }
 </style>
