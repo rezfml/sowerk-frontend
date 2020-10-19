@@ -1640,7 +1640,7 @@
 
               <!-- QUESTION THREE -->
                <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0" style="text-align: center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
                   <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
                 </v-col>
 
@@ -1684,7 +1684,7 @@
             >
             <!-- QUESTION ONE -->
             <v-row class="pt-8 " style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0" style="text-align: center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
                   <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
                 </v-col>
 
@@ -1702,7 +1702,7 @@
 
             <!-- QUESTION TWO -->
               <v-row class="pt-6" style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0" style="text-align: center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
                   <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
                 </v-col>
 
@@ -1720,7 +1720,7 @@
 
               <!-- QUESTION THREE -->
                <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0" style="text-align: center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
                   <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
                 </v-col>
 
