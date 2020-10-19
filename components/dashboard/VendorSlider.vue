@@ -1,8 +1,8 @@
 <template>
-  <v-row style="" class="py-12 ">
+  <v-row style="width: 100%;" class="py-12 ">
     <v-col class="d-flex flex-column align-center">
       <!-- phone view-->
-      <v-slide-group  style="width: 50vw;" class="mx-auto my-12" multiple show-arrows v-if="$vuetify.breakpoint.mobile" >
+      <v-slide-group  style="width: 80%;" class="mx-auto my-12" multiple show-arrows v-if="$vuetify.breakpoint.mobile" >
         <v-slide-item :key="i" v-for="(company, i) in companies" style="width: 35vw; margin: auto;">
           <v-row class="mobileSlider">
             <v-col class="d-flex flex-column align-center">
@@ -13,7 +13,7 @@
         </v-slide-item>
       </v-slide-group>
       <!-- tablet-mobile view-->
-      <v-slide-group style="width: 40vw;" class="mx-auto my-12" multiple show-arrows prev-icon="true" next-icon="true" v-else-if="$vuetify.breakpoint.sm"  >
+      <v-slide-group style="width: 80%;" class="mx-auto my-12" multiple show-arrows v-else-if="$vuetify.breakpoint.sm"  >
         <v-slide-item :key="i" v-for="(company, i) in companies" style="width: 30vw; margin: auto;">
           <v-row class="tabletSlider">
             <v-col class="d-flex flex-column align-center">
@@ -24,7 +24,7 @@
         </v-slide-item>
       </v-slide-group>
       <!-- computer and above view-->
-      <v-slide-group style="width: 35vw;" class="mx-auto my-6" multiple :show-arrows="showArrows" :prev-icon="prevIcon" :next-icon="nextIcon" v-else>
+      <v-slide-group style="width: 90%;" class="mx-auto my-6" multiple show-arrows v-else>
         <v-slide-item :key="i" v-for="(company, i) in companies" style="width: 10vw">
           <v-row>
             <v-col class="d-flex flex-column align-center">
