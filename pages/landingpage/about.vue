@@ -1,10 +1,16 @@
 <template>
-  <div id="aboutcontainer">
+  <div class="head" id="aboutcontainer">
     <section class="abouthero">
       <h1>About SOWerk</h1>
     </section>
-<v-container fluid style="background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%); " class="py-16">
-  <v-row justify="center" >
+<v-container fluid style="
+    background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%); 
+    transform-origin: top left;
+    transform: skewY(-2deg); 
+    margin-top:-9%;" class="py-16">
+  <v-row justify="center"
+  style="
+    transform: skewY(2deg); ">
       <v-flex sm11>
         <v-row >
           <v-col cols="12" md="6" style="position: relative;">
@@ -70,10 +76,14 @@
         </div>
       </div>
     </section> -->
-<v-flex style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 75%; background-repeat: repeat-x; ">
-  <div>
 
-      <v-row align-content="center" justify="center">
+<v-flex style="background-image: linear-gradient(rgba(43,43,43,1) 0%, rgba(68,68,68,0.93) 100%), url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'); background-position: bottom; background-size: 100%; background-repeat: repeat-x;
+margin-top: -15%;
+background-size: contain;
+padding-top: 5%;">
+
+      <v-row align-content="center" justify="center" 
+      style="margin-top:10%">
       <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '70%' : '80%'" class="py-16 my-12" style="border-radius: 20px;" align="center">
         <v-card-title class="mx-auto text-md-h4 text-h6" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e; word-wrap: break-word"><p class="mx-auto mb-0 text-center white--text"  >The Approved Vendor Platform</p></v-card-title>
         <v-card-text style="width: 80%">
@@ -101,8 +111,9 @@
         </v-card-text>
       </v-card>
     </v-row>
-    </div>
+
     </v-flex>
+</v-container>
 <!--
     <OftenAskPF></OftenAskPF>
     <OftenAskSP></OftenAskSP/>
@@ -181,6 +192,7 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-bottom: 5%;
 }
 .abouthero h1 {
   color: white;
@@ -279,8 +291,16 @@ export default {
   border-radius: 20px;
   margin: 0px 2.5% 0px 2.5%;
 }
+@media (max-width: 1350px) {
+  .abouthero{
+    margin-bottom: -12.5%;
+  }
+  }
 
 @media (max-width: 800px) {
+  .abouthero{
+    margin-bottom: -20%;
+  }
   .abouthero h1 {
     font-size: 50px;
   }
@@ -342,6 +362,9 @@ export default {
 }
 
 @media (max-width: 680px) {
+    .abouthero{
+    margin-bottom: -30%;
+  }
   .abouthero h1 {
     font-size: 42px;
   }
@@ -366,6 +389,9 @@ export default {
 }
 
 @media (max-width: 580px) {
+  .abouthero{
+    margin-bottom: -20%;
+  }
   .abouthero h1 {
     font-size: 38px;
   }
