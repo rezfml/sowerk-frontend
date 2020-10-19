@@ -41,25 +41,25 @@
 
     <SPSearch></SPSearch>
 
-    <section class="aboutdescription">
-      <div class="aboutdescriptionflex">
-        <div class="aboutdescriptionimg">
-          <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
-          <img v-else  class="aboutdescriptionimg1" id="IphoneMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
-          <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
-          <img v-else  class="aboutdescriptionimg2" id="MacMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
-        </div>
-        <div class="aboutdescriptiontext">
-          <h1>It all started with “What If…”</h1>
-          <p>What if we could simplify the business connection between service providers and property & facility managers?</p>
-          <p>Could we make it easier for both parties to manage relationships and do business?</p>
-          <p>Today, SOWerk is proud to empower relationships, make life easier and complete the link between property/facility owners and approved vendors.</p>
-          <p>More work and better work get done through SOWerk.</p>
-          <div class="aboutbuttoncontainer">
-            <button @click="$router.push('/landingpage/service-provider')" >LEARN MORE - SERVICE PROVIDER </button>
-            <button @click="$router.push('/landingpage/property-manager')">LEARN MORE - PROPERTY & FACILITY</button>
-          </div>
-        </div>
+    <section class="aboutdescription row">
+      <div class="aboutdescriptionflex ">
+            <div class="aboutdescriptionimg col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-0">
+              <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg1" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+              <img v-else  class="aboutdescriptionimg1" id="IphoneMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
+              <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+              <img v-else  class="aboutdescriptionimg2" id="MacMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
+            </div>  
+            <div class="aboutdescriptiontext col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
+              <h1>It all started with “What If…”</h1>
+              <p>What if we could simplify the business connection between service providers and property & facility managers?</p>
+              <p>Could we make it easier for both parties to manage relationships and do business?</p>
+              <p>Today, SOWerk is proud to empower relationships, make life easier and complete the link between property/facility owners and approved vendors.</p>
+              <p>More work and better work get done through SOWerk.</p>
+              <div class="aboutbuttoncontainer">
+                <button @click="$router.push('/landingpage/service-provider')" >LEARN MORE - SERVICE PROVIDER </button>
+                <button @click="$router.push('/landingpage/property-manager')">LEARN MORE - PROPERTY & FACILITY</button>
+              </div>
+            </div>
       </div>
 
       <section class="joinservicetraits" v-if="!$vuetify.breakpoint.xs" >
@@ -269,7 +269,7 @@ export default {
   width: 90%;
   justify-content: center;
   border-radius: 20px;
-  margin: 50px 0px 50px 0px;
+  margin: 50px 10px 50px 10px;
 }
 .aboutdescriptionflex .aboutdescriptionimg {
   width: 40%;
@@ -280,13 +280,13 @@ export default {
   height: 300px;
   z-index: 1;
   position: relative;
-  top: 10px;
+  top: 15%;
 }
 .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
-  width: 150%;
+  height: 150%;
   position: relative;
-  left: -560px;
-  top: -230px;
+  right: 70%;
+  top: -15%;
 }
 .aboutdescriptiontext{
   display: flex;
@@ -323,7 +323,7 @@ export default {
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: -250px;
+  margin-top: 2%;
 }
 .joinservicetraits div {
   width: 20%;
@@ -341,7 +341,7 @@ export default {
   margin: 15px 0px 15px 0px;
 }
 .joinservicetraits div p{
-  font-size: 18px;
+  font-size: 1.65vh;
   width: 90%;
   text-align: center;
 }
@@ -354,11 +354,38 @@ export default {
   font-size: 2vh;
 }
 @media (max-width:1500px) {
-  .aboutdescriptionflex .aboutdescriptionimg{
-    margin-bottom: -20%;
-    margin-left: 30%;
-    width:70%;
-  }
+  .aboutdescriptionflex .aboutdescriptionimg {
+  margin-right: 5%;
+}
+.aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2{
+  height:120%;
+  left:-100%;
+}
+.aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1{
+  height:60%;
+  width: 110%;
+}
+.aboutdescriptiontext{
+  margin-right:10%;
+  padding-left: 90px;
+}
+}
+@media (max-width:1220px) {
+  .aboutdescriptionflex .aboutdescriptionimg {
+  margin-right: 5%;
+}
+.aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2{
+  height:90%;
+  left:-135%;
+}
+.aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1{
+  height:60%;
+  width: 110%;
+}
+.aboutdescriptiontext{
+  margin-right:10%;
+  padding-left: 90px;
+}
 }
 @media (max-width:960px) {
   .sphero{
@@ -368,16 +395,15 @@ export default {
     width:100%;
   }
     .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1 {
-    width: 100%;
-    height: 250px;
+    width: 70%;
+    height: 30%;
     z-index: 1;
     position: relative;
-    left:-20%;
-    top: 50px;
+    left:35%;
+    top: 110px;
   }
-  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
-      width: 175%;
-      left: -140%;
+  .aboutdescriptionflex .aboutdescriptionimg  {
+      left: -150%;
       top: -25%;
   }
   .joinservicetraits{
@@ -387,7 +413,7 @@ export default {
     width:25%;
   }
   .joinservicetraits div p{
-    font-size: 1.75vh;
+    font-size: 1.5vh;
   }
   .joinservicetraits div h3{
     font-size:2vh;
@@ -398,7 +424,25 @@ export default {
   .sphero p{
     font-size: 2vh !important;
   }
+
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2{
+    left: -100%;
+    top: 0;
+    height: 80%;
+  }
+  .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptiontext{
+  margin-left:20%;
+  padding-left: 10px;
 }
+}
+@media screen and (max-width:890px) {
+    .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2{
+    left: -120%;
+    top: 0;
+    height: 45%;
+  }
+}
+
 @media screen and (max-width:650px) {
   .sphero{
     margin-top: -12%;
@@ -412,13 +456,21 @@ export default {
     height:400px ;
   }
   .joinservicetraits div p{
-    font-size: 1.5vh;
+    font-size: 1.2vh;
   }
     .sphero h1{
     font-size: 3vh !important;
   }
   .sphero p{
     font-size: 2vh !important;
+  }
+      .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2{
+    height: 0%;}
+        .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg1{
+    height: 0%;}
+    .aboutdescriptiontext{
+    margin-left:-30%;
+    width:100%;
   }
 }
 
@@ -433,7 +485,7 @@ export default {
     display:none;
   }
     .joinservicetraits div p{
-    font-size: 1.2vh;
+    font-size: 1vh;
   }
   .joinservicetraits div[data-v-202217e4]{
     width:200px ;
@@ -486,7 +538,7 @@ export default {
     width:20%;
   }
   .joinservicetraits div p{
-    font-size: 1vh;
+    font-size: .8vh;
   }
   .spherobox form input{
     width:70%;
