@@ -27,7 +27,7 @@
   import ActiveApplicationsCard from '~/components/dashboard/ActiveApplicationsCard'
 
   export default {
-    name: 'activeapplicants',
+    name: 'activeapplicant',
     layout: 'app',
     components: {
       ActiveApplicationsCard,

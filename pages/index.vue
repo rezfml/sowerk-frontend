@@ -1000,6 +1000,7 @@
         max-width="1200px"
         style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
         class="d-flex flex-column justify-center"
+        id="herocorners"
         color="rgba(0,0,0,0.7)"
       >
         <div
@@ -1052,7 +1053,7 @@
       </v-card>
     </v-row>
 
-    <!-- SOWERK LINK SECTION -->
+    <!--NEW SECTION SOWERK LINK SECTION -->
     <v-container
       fluid
       text-center
@@ -1090,7 +1091,6 @@
               <v-row justify-center>
                 <v-col>
                   <v-img
-                  
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png"
                     style="object-fit: contain; width: 60%;"
                   ></v-img>
@@ -1196,7 +1196,6 @@
               >
                 <v-col>
                   <v-img
-                    
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
                     style="object-fit: contain; width: 60%;"
                   ></v-img>
@@ -1491,7 +1490,10 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/join-product-landing')">
+          <button
+            style="margin-top: 15px"
+            @click="$router.push('/landingpage/join-product-landing')"
+          >
             See All Features
           </button>
         </div>
@@ -1575,7 +1577,10 @@
               </p>
             </div>
           </div>
-          <button @click="$router.push('/landingpage/join-service-landing')">
+          <button
+            style="margin-top: 15px"
+            @click="$router.push('/landingpage/join-service-landing')"
+          >
             See All Features
           </button>
         </div>
@@ -1602,8 +1607,6 @@
               class="mx-auto"
               style="background: #EDEDED"
             >
-
-          
               <v-list-item class="mt-8 mb-12">
                 <v-list-item-icon class="d-none d-sm-flex"
                   ><v-icon color="primary" size="40"
@@ -1699,7 +1702,7 @@
           <v-col cols="12" class="d-flex flex-column">
             <p
               style="font-size: 30px;"
-              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center pl-3 pr-3 pl-sm-0 pr-sm-0"
             >
               Service Providers Generally Ask
             </p>
@@ -2063,15 +2066,19 @@ export default {
     width: 50%;
   }
 
-
   .joinconnectioncontainerbox img {
     width: 40%;
   }
 }
 
 @media (max-width: 680px) {
+  /* #herocorners {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  } */
+
   .list1 {
-    column-count: 1!important;
+    column-count: 1 !important;
   }
 
   .joinconnection {
@@ -2093,9 +2100,8 @@ export default {
   }
 
   .joinconnectiontext {
-  padding: 10px 10px 10px 20px;
-}
-
+    padding: 10px 10px 10px 20px;
+  }
 }
 </style>
 

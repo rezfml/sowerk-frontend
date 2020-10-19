@@ -76,6 +76,7 @@
   import Sidebar from "~/components/dashboard/Sidebar";
   import HomeCard from '~/components/dashboard/HomeCard'
   import StatCard from "~/components/dashboard/StatCard";
+  import * as moment from 'moment'
 
   export default {
     name: "home",
@@ -129,12 +130,12 @@
           {
             title: 'All Pending Applications',
             value: 0,
-            link: '#'
+            link: '/dashboard/vendors/applicants'
           },
           {
             title: 'Recently Approved Applications',
             value: 0,
-            link: '#'
+            link: '/dashboard/vendors/approved'
           }
         ],
         quickLookUps: [
@@ -203,9 +204,10 @@
         if(!this.currentUser) this.$router.go();
         this.loading = true;
         await this.getUser();
-        await this.getCompany();
         await this.getLocations();
         await this.getApprovedProviderConnections();
+        await this.getApplications(this.currentUser.companies_id);
+
       }, 1000)
     },
     computed: {
@@ -214,6 +216,20 @@
       },
     },
     methods: {
+      async getApplications(id) {
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byPmId/' + id)
+          .then(async (response) => {
+            console.log(response.data, 'response for applications by Pm id');
+            for(let i = 0; i<response.data.length; i++) {
+              if(response.data[i].approval_status === 0) {
+                this.stats[2].value++
+              }
+            }
+          })
+          .catch(err => {
+            console.log('err in getting applications', err);
+          })
+      },
       async getUser() {
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
@@ -221,17 +237,6 @@
           this.user = data;
           console.log(data);
         })
-      },
-      async getCompany() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
-          .then(response => {
-            console.log(response.data, 'company');
-            this.company = response.data;
-            this.stats[0].value = response.data.currentConnections;
-          })
-          .catch(err => {
-            console.log('err company', err)
-          })
       },
       async getLocations() {
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
@@ -249,11 +254,12 @@
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
           .then(response => {
             console.log('response approvedproviderconnections', response.data);
-            console.log (prev30Day, 'previous month');
+            this.stats[0].value = response.data.length
             if(response.data.length !== 0) {
               for(let i=0; i<response.data.length; i++) {
-                if(response.data[i].created > prev30Day) {
-                  this.stats[3].value += 1;
+                console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
+                if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
+                  this.stats[3].value++;
                 }
               }
             }
