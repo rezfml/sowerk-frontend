@@ -570,6 +570,17 @@
   .joinproductfaq h1 {
     margin: 40px 0px 40px 20px;
   }
+  .joinproductstepscontainer{
+    margin-bottom:10%;
+    padding-bottom: 5%;
+  }
+  .getStarted img{
+  margin-left: -10% !important;
+  margin-right: unset !important;
+  width: 8% !important;
+  height: auto !important;
+  border: none !important;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -588,6 +599,22 @@
 
   .joinproducttraits div p {
     font-size: 15px;
+  }
+  .joinproductstepscontainer{
+    margin-bottom:10%;
+    padding-bottom: 5%;
+  }
+  .getStarted img{
+  margin-left: -10% !important;
+  margin-right: unset !important;
+  width: 8% !important;
+  height: auto !important;
+  border: none !important;
+  }
+}
+@media (max-width: 960px) {
+  .joinproducthero{
+    margin-top:-10%;
   }
 }
 
@@ -691,6 +718,20 @@
   .joinproductfaq button {
     width: 80%;
   }
+  .getStarted img{
+  margin-left: -10% !important;
+  margin-right: unset !important;
+  width: 8% !important;
+  height: auto !important;
+  border: none !important;
+  }
+  .innerList{
+    font-size:1.5vh !important;
+  }
+  .joinproductstepscontainer{
+    margin-bottom:10%;
+    padding-bottom: 5%;
+  }
 }
 @media (max-width: 750px) {
   .joinproducthero div h1 {
@@ -768,6 +809,13 @@
   .joinproductfaq p {
     font-size: 16px;
   }
+  .getStarted img{
+  margin-left: -10% !important;
+  margin-right: unset !important;
+  width: 8% !important;
+  height: auto !important;
+  border: none !important;
+  }
 }
 
 @media (max-width: 680px) {
@@ -802,6 +850,13 @@
 
   .joinproductfaq button {
     font-size: 17px;
+  }
+  .getStarted img{
+  margin-left: -10% !important;
+  margin-right: unset !important;
+  width: 8% !important;
+  height: auto !important;
+  border: none !important;
   }
 }
 
