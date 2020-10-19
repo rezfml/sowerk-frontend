@@ -104,7 +104,7 @@
             <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-            <v-btn block color="primary" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+            <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
           </template>
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
