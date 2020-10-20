@@ -252,10 +252,15 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  export default {
+    layout: 'fullwidth',
+  }
+</script>
 
 <style scoped>
 .joinproductcontainer {
+  margin-top:-5%;
   display: flex;
   flex-direction: column;
   width: 100%;

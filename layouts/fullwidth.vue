@@ -14,8 +14,8 @@
     <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none; background:black">
       <v-list-item>
         <v-list-item-content style="overflow: visable;color:white;">
-          <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/">SOWerk</a></v-list-item-title>
-          <!-- <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"></img> -->
+          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px;" alt="SOWerkHome"></v-img></v-btn>
+          <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/"></a></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list dense>
