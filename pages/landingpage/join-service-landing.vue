@@ -76,7 +76,7 @@
     <section class="joinservicesteps">
       <div class="joinservicestepscontainer">
         <div class="joinservicestepcontainerstep">
-          <img />
+          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
           <div>
             <h1>Step 1 <span>- Build a Profile</span></h1>
             <p>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="joinservicestepcontainerstep">
-          <div>
+          <div class="stepTwo"> 
             <h1>Step 2 <span>- Apply With Buyers</span></h1>
             <p>Apply For Businesses Looking For You With One Click.</p>
             <p>
@@ -101,10 +101,11 @@
               hassle free.
             </p>
           </div>
-          <img />
+          <img class="containerImg" id="profileDash"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Buyer dashboard mockup"/>
         </div>
         <div class="joinservicestepcontainerstep">
-          <img />
+          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
+          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png" id="notificationMock" alt="iphoneMockup" />
           <div>
             <h1>Step 3 <span>- Generate Leads</span></h1>
             <p>
@@ -203,6 +204,25 @@
 </script>
 
 <style scoped>
+#notificationMock{
+  margin-left:-10%;
+  margin-bottom:-5%;
+  margin-top: 5%;
+  bottom:15%;
+  width:15% !important;
+  height: 5%;
+}
+.stepTwo{
+  margin-left: 5%;
+}
+.containerImg{
+  margin-left:-10%;
+  margin-right:5%;
+}
+#profileDash{
+  margin-left:10%;
+  margin-right:-5% !important;
+}
 .joinservicecontainer {
   display: flex;
   flex-direction: column;
@@ -590,6 +610,9 @@
 
 
 @media (max-width: 750px) {
+   .containerImg{
+    display:none;
+  }
     .joinservicehero div h1 {
     font-size: 45px;
   }
