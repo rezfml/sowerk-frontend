@@ -8,30 +8,32 @@
       ></v-progress-circular>
     </div>
     <v-container class="px-0" style="max-width: 95%;" v-else>
-      <v-row class="d-flex align-center" style="width: 100%">
-        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />
-        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">
-          <v-slide-item
-            v-for="(item, index) in quickLookUps"
-            :key="index"
-            v-slot:default="{ active, toggle }"
-            class="px-4 d-flex align-center"
-            style=" background: #E0E0E0; width: 70%; border-radius: 50px;"
-          >
-            <v-card width="300" elevation="0">
-              <v-row>
-                <v-col class="d-flex flex-column align-center justify-center py-0">
-                  <p class="text-center primary--text title">{{ item.name }}</p>
-                  <v-icon color="primary" size="100">{{ item.icon }}</v-icon>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-slide-item>
-        </v-slide-group>
-      </v-row>
+<!--      <v-row class="d-flex align-center" style="width: 100%">-->
+<!--        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
+<!--        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">-->
+<!--          <v-slide-item-->
+<!--            v-for="(item, index) in quickLookUps"-->
+<!--            :key="index"-->
+<!--            v-slot:default="{ active, toggle }"-->
+<!--            class="px-4 d-flex align-center"-->
+<!--            style=" background: #E0E0E0; width: 70%; border-radius: 50px;"-->
+<!--          >-->
+<!--            <v-card width="300" elevation="0">-->
+<!--              <v-row>-->
+<!--                <v-col class="d-flex flex-column align-center justify-center py-0">-->
+<!--                  <p class="text-center primary&#45;&#45;text title">{{ item.name }}</p>-->
+<!--                  <v-icon color="primary" size="100">{{ item.icon }}</v-icon>-->
+<!--                </v-col>-->
+<!--              </v-row>-->
+<!--            </v-card>-->
+<!--          </v-slide-item>-->
+<!--        </v-slide-group>-->
+<!--      </v-row>-->
       <v-row>
         <v-col cols="3">
+          <img style="width: 100%;" class="mb-n16 mt-n16" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />
           <FilterCard
+            class="mt-n4"
             title="Filter"
             :filters="filters"
           ></FilterCard>
@@ -39,7 +41,7 @@
         <v-col cols="9" class="d-flex flex-column justify-space-between">
           <FacilitiesCard
             v-if="vendors.length > 0 && loading === true"
-            :title="'All SOWerk Vendors'"
+            :title="'Find A SOWerk Vendor'"
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
@@ -185,7 +187,7 @@
             ]
           },
           {
-            name: 'Service Needs',
+            name: 'Category of Service',
             items: [
               'HVAC',
               'Electrical',
@@ -205,7 +207,7 @@
             ]
           },
           {
-            name: 'Approved Applications',
+            name: 'Approved Vendor Connections',
             items: [
               'Less than 5',
               '6 - 15',
@@ -230,7 +232,7 @@
           { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
-        businesses: null
+        businesses: null,
       }
     },
     // watch: {
@@ -278,7 +280,7 @@
           .catch(err => {
             console.log('err', err);
           })
-      },
+      }
     },
   }
 </script>
