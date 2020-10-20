@@ -9,11 +9,12 @@
               <client-only>
                 <GmapMap
                   id="locations-map"
-                  style="height: 100%"
+                  style="width: 100%; height: 100%"
                   ref="location-map"
                   :center="{lat:38, lng:-95.5}"
                   :zoom="4"
-                ></GmapMap>
+                >
+                </GmapMap>
               </client-only>
             </v-col>
             <v-col cols="12" class="mt-4">
@@ -145,12 +146,14 @@ on your account dashboard. Example: SOWerk Cafe #013)"
 <script>
   import * as VueGoogleMaps from '~/node_modules/gmap-vue'
   import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
+  import * as GmapVue from 'gmap-vue'
 
   export default {
     name: 'add',
     layout: 'app',
     components: {
-      GmapCluster
+      GmapCluster,
+      GmapVue
     },
     data() {
       return {
@@ -305,6 +308,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       }
     },
     async mounted() {
+      vueGoogleMapsInit();
       console.log(this.currentUser);
     },
     computed: {
