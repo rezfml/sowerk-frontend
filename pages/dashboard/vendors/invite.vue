@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-3">
+  <v-app class="grey lighten-3" overflow-y-auto>
     <v-container>
       <v-card v-if="success === false">
         <v-container class="px-12">

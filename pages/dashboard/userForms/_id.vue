@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container overflow-y-auto>
     <v-row class="d-flex justify-center" style="width: 100%;">
       <v-col style="width: 55%;">
         <v-card v-if="finishedFormFields === true" class="d-flex flex-column align-center">
