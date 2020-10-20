@@ -5,6 +5,13 @@
               style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
               class="primary white--text font-weight-regular red-gradient"
       >{{ title }}</v-card-title>
+      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadingRequests === false">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          :size="50"
+        ></v-progress-circular>
+      </v-col>
       <v-card-actions class="d-flex justify-end px-4 py-0">
         <v-row class="py-0">
           <v-spacer></v-spacer>
@@ -13,11 +20,11 @@
           </v-col>
         </v-row>
       </v-card-actions>
-      <v-card-text class="pt-0 pb-2">
+      <v-card-text class="pt-0 pb-2" v-if="items.length > 0">
         <v-data-table
                 :items="items"
                 :headers="tableProperties"
-                :items-per-page="10"
+                :items-per-page="5"
                 style="font-size: 14px;"
         >
           <template v-slot:item.services="{item}">
@@ -62,8 +69,8 @@
           </template>
           <template v-slot:item.actions="{ item }" class="d-flex">
             <v-btn color="green" outlined @click="Approve(item)">Approve</v-btn>
-            <v-btn block color="primary" outlined>Deny</v-btn>
-            <v-btn block color="primary" >Review</v-btn>
+            <v-btn block color="primary" outlined @click="Deny(item)">Deny</v-btn>
+            <v-btn block color="primary" @click="Review(item)">Review</v-btn>
           </template>
         </v-data-table>
       </v-card-text>
@@ -74,26 +81,26 @@
 <script>
   export default {
     name:'activeapplicationscard',
-    props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "getPMService", "getSPCompany", "getSPLocation"],
+    props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
     data() {
       return {
 
       }
     },
-    async created() {
+    async mounted() {
       console.log(this.items, 'yayyy');
     },
     methods: {
       async Approve(itemVal) {
         console.log(itemVal, 'itemVal');
-        const changes = {
+        const approvalChanges = {
           approval_status: 1
         };
         const approvedproviderconnection = {
           propertymanager_id: itemVal.pmcompanies_id,
           serviceprovider_id: itemVal.spcompanies_id
         }
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + itemVal.id, changes)
+        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + itemVal.id, approvalChanges)
           .then(response => {
             console.log('success in changes', response)
           })
@@ -108,6 +115,24 @@
           .catch(err => {
             console.log('err', err)
           })
+      },
+      async Deny(itemVal) {
+        console.log(itemVal, 'itemVal deny');
+        const denialChanges = {
+          approval_status: 2
+        }
+        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + itemVal.id, denialChanges)
+          .then(response => {
+            console.log('success in changes', response)
+            this.$router.go();
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
+      },
+      async Review(itemVal) {
+        console.log(itemVal)
+        this.$router.push('/dashboard/vendors/applicants/' + itemVal.id)
       }
     }
   }

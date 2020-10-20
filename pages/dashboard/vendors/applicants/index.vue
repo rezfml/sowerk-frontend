@@ -9,22 +9,13 @@
           ></FilterCard>
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-start">
-          <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="!loading">
-            <v-progress-circular
-              indeterminate
-              color="primary"
-              :size="50"
-            ></v-progress-circular>
-          </v-col>
           <ActiveApplicationsCard
-            v-if="applications.length > 0 && loading === true"
+            v-if="applications.length > 0"
             :title="'My Active Applications'"
             :tableProperties="headers"
             :viewAll="false"
             :items="applications"
-            :getPMService="getPMService"
-            :getSPCompany="getSPCompany"
-            :getSPLocation="getSPLocation"
+            :loadingRequests="loading"
             slug="/dashboard/vendors/applicants"
           ></ActiveApplicationsCard>
         </v-col>
@@ -196,6 +187,7 @@
                 await this.getSPCompany(this.companyId);
                 await this.getSPLocation(this.locationId);
                 this.applicationsCount++;
+                this.loading = true;
               }
             }
           })
@@ -203,7 +195,6 @@
             console.log('err in getting applications', err);
           })
         console.log(this.applications, 'wow so done')
-        this.loading = true;
       },
       async getPMService(id) {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/' + id)
