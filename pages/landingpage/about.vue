@@ -7,7 +7,7 @@
     background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%); 
     transform-origin: top left;
     transform: skewY(-2deg); 
-    margin-top:-9%;" class="py-16">
+    margin-top:-12%;" class="py-16">
   <v-row justify="center"
   style="
     transform: skewY(2deg); ">
@@ -85,7 +85,8 @@ padding-top: 5%;">
       <v-row align-content="center" justify="center" 
       style="margin-top:10%">
       <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '70%' : '80%'" class="py-16 my-12" style="border-radius: 20px;" align="center">
-        <v-card-title class="mx-auto text-md-h4 text-h6" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e; word-wrap: break-word"><p class="mx-auto mb-0 text-center white--text"  >The Approved Vendor Platform</p></v-card-title>
+        <v-card-title v-if="!$vuetify.breakpoint.mobile" class="mx-auto text-md-h4 text-h6" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e; word-wrap: break-word"><p class="mx-auto mb-0 text-center white--text"  >The Approved Vendor Platform</p></v-card-title>
+        <v-card-title v-else class="mx-auto text-md-h4 text-h6" style="width: 80%; position: absolute; top: -30px; left: 10%; border-radius: 20px; background: #47494e; word-wrap: break-word;"><p class="mx-auto mb-0 text-center white--text"  >The Approved <br/>Vendor Platform</p></v-card-title>
         <v-card-text style="width: 80%">
           <v-row >
             <v-col cols="4" class="d-flex flex-column justify-center" position="center" style="border: 2.5px solid #a61c00; border-radius: 20px;">
@@ -390,7 +391,7 @@ export default {
 
 @media (max-width: 580px) {
   .abouthero{
-    margin-bottom: -20%;
+    margin-bottom: -30%;
   }
   .abouthero h1 {
     font-size: 38px;

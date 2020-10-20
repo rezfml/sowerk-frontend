@@ -18,7 +18,10 @@
         class="pt-12 mt-12"
       >
         <v-card class="elevation-12 card--has-floating" light>
-          <v-card-title class="justify-center headline font-weight-bold">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
+            <v-row>
+              <img xl-2 lg-2 md-2 sm-2 xs-2 class="serviceProviderIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png" alt="service Provider Icon">
+              <v-card-title class="justify-center headline font-weight-bold" xl-10 lg-10 md-10 sm-10 xs-10 style="margin-left:30%;">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
+            </v-row>
           <v-tabs
             v-model="tab"
             background-color="grey lighten-2"
@@ -468,14 +471,16 @@
             </v-tab-item>
           </v-tabs-items>
           <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
+            <v-col xs="12" sm="12" class="bottomNav">
             <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
-            <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+            <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>     
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
-            <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
+            <v-btn color="primary" outlined class="px-8 mx-8 saveBtn" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add <br v-if="$vuetify.breakpoint.mobile"/> Another Location </v-btn>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
             <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast; editingLocation = false" v-else-if="tab === 2">Review</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
+            </v-col>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -1241,5 +1246,28 @@
       font-size: 1.25em;
       top: 0;
    }
-
+.serviceProviderIcon{
+  width:10%;
+  top:-20;
+}
+@media (max-width: 790px) {
+.saveBtn{
+    margin-left:0 !important;
+    margin-top:1%;
+    margin-bottom: 1%;
+  }
+.serviceProviderIcon{
+  width:15%;
+  top:-20;
+}
+}
+@media (max-width: 680px) {
+.serviceProviderIcon{
+  width:20% !important;
+  top:-40;
+  margin-bottom:-50px;
+  margin-top: 50px;
+  margin-left: 7%;
+}
+}
 </style>
