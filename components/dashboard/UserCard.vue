@@ -35,6 +35,9 @@
             <p v-if="item.is_superuser === true">Super Admin</p>
             <p v-else>Staff Account</p>
           </template>
+          <template v-slot:item.userverify="{item}">
+            <p>{{item.isVerified}}</p>
+          </template>
           <template v-slot:item.useractions="{item}">
             <div class="d-flex flex-column align-center">
               <v-btn @click="editStart" class="my-1" style="width: 90%;" color="green" v-if="currentUser.is_superuser === true">Edit</v-btn>
