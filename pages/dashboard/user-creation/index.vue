@@ -67,7 +67,7 @@ export default {
       loading: false,
       users: [],
       headers: [
-        { text: 'Primary Contact', value: 'userfull_name', class: 'primary--text font-weight-regular' },
+        { text: 'Primary Contact', value: 'userfull_name', class: 'primary--text font-weight-regular', },
         { text: 'Email', value: 'useremail', class: 'primary--text font-weight-regular' },
         { text: 'Phone', value: 'userphone', class: 'primary--text font-weight-regular' },
         { text: 'Created', value: 'usercreated', class: 'primary--text font-weight-regular' },
