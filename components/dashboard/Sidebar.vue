@@ -167,29 +167,29 @@
             text: 'Vendors',
             children: [
               {
-                to: '/dashboard/vendors/',
-                slug: 'vendors',
-                text: 'SOWerk Vendor Directory',
-              },
-              {
                 to: '/dashboard/vendors/approved',
                 slug: 'approved',
-                text: 'Approved Vendors',
-              },
-              {
-                to: '/dashboard/vendors/invite',
-                slug: 'invite',
-                text: 'Invite Vendors',
+                text: 'My Approved Vendors',
               },
               {
                 to: '/dashboard/vendors/applicants',
                 slug: 'applicants',
-                text: 'Vendor Applicants',
+                text: 'Pending Vendor Applicants',
+              },
+              {
+                to: '/dashboard/vendors/',
+                slug: 'vendors',
+                text: 'Find A SOWerk Vendor',
+              },
+              {
+                to: '/dashboard/vendors/invite',
+                slug: 'invite',
+                text: 'Vendor Invite Tool',
               },
               {
                 to: '/dashboard/vendors/applications',
                 slug: 'applications',
-                text: 'Applications',
+                text: 'Edit Vendor Requirements',
               },
             ]
           },
