@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-3">
+  <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-8" fluid>
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">
@@ -8,7 +8,7 @@
                 <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>
             </span>
           </v-card-text>
-          
+
           <v-btn @click="exit" color="white" class="mt-2" text depressed>X</v-btn>
         </v-card>
       </v-row>

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-3">
+  <v-app class="grey lighten-3" overflow-y-auto>
     <v-container style="max-width: 95%;" mt-12 mx-auto>
       <v-card>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Location</v-card-title>

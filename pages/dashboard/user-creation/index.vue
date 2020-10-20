@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 100vw; height: 100%;">
+  <v-container style="width: 100vw; height: 100%;" overflow-y-auto>
 
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
       <v-progress-circular
@@ -67,12 +67,12 @@ export default {
       loading: false,
       users: [],
       headers: [
-        { text: 'Primary Contact', value: 'userfull_name', class: 'primary--text font-weight-regular', },
+        { text: 'Name', value: 'userfull_name', class: 'primary--text font-weight-regular' },
+        { text: 'Admin Level', value: 'useradmin', class: 'primary--text font-weight-regular' },
         { text: 'Email', value: 'useremail', class: 'primary--text font-weight-regular' },
         { text: 'Phone', value: 'userphone', class: 'primary--text font-weight-regular' },
         { text: 'Created', value: 'usercreated', class: 'primary--text font-weight-regular' },
-        { text: 'Admin Level', value: 'useradmin', class: 'primary--text font-weight-regular' },
-        { text: 'Verified', value: 'userverify', class: 'primary--text font-weight-regular'},
+        { text: 'Accepted Invite', value: 'userverify', class: 'primary--text font-weight-regular'},
         { text: 'Actions', value: 'useractions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
       company: {},

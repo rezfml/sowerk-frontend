@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-3">
+  <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height d-flex flex-column align-center justify-center" style="text-align: center;">
         <v-card class="d-flex flex-column align-center mb-10">
           <v-card-title>Message #{{individualMessage.id}}</v-card-title>

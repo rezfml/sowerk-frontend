@@ -41,8 +41,8 @@
           </template>
           <template v-slot:item.useractions="{item}">
             <div class="d-flex flex-column align-center">
-              <v-btn @click="editStart(item)" class="my-1" style="width: 90%;" color="green" v-if="currentUser.is_superuser === true">Edit</v-btn>
-              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" v-if="currentUser.is_superuser === true">Delete</v-btn>
+              <v-btn @click="editStart(item)" class="my-1" style="width: 90%;" color="green" outlined v-if="currentUser.is_superuser === true">Edit</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
             </div>
           </template>
 

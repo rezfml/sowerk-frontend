@@ -175,17 +175,26 @@
             text: 'Support & Feedback'
           },
           {
-            to: '/dashboard/user-creation',
-            slug: 'user-creation',
-            icon: 'mdi-account',
-            text: 'User Creation'
-          },
-          {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
-            class: 'fixed-bottom'
+            class: 'fixed-bottom',
+            children: [
+              {
+                to: '/dashboard/profile/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'Manage Company Profile',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/user-creation',
+                slug: 'user-creation',
+                icon: 'mdi-account',
+                text: 'Manage Users'
+              },
+            ]
           }
         ],
         providerItems: [

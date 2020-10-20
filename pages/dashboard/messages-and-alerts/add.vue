@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;" class="d-flex flex-column align-center">
+  <div style="width: 100%;" class="d-flex flex-column align-center" overflow-y-auto>
     <v-row class="mt-10 d-flex flex-column" style="width: 80%;">
       <v-text-field v-model="search" placeholder="Search companies here..." label="Search Company And Select To Send Message:"/>
       <MessageCompanyCard

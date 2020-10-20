@@ -1,5 +1,5 @@
 <template>
-  <p>Hi</p>
+  <p overflow-y-auto>Hi</p>
 </template>
 
 <script>
