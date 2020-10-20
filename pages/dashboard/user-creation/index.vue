@@ -146,6 +146,9 @@ export default {
         })
       console.log(this.addUserForm);
       this.successAddUserForm = true;
+      setTimeout(() => {
+        this.$router.go();
+      }, 3000)
     }
   }
 }
