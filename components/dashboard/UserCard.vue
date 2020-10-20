@@ -49,15 +49,19 @@
         </v-data-table>
       </v-card-text>
     </v-container>
-    <v-card v-if="this.editStartLoad === true" class="mt-n8 d-flex flex-column align-center">
-      <v-card-title style="color: #a61c00">Edit User #{{this.userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
+    <v-card v-if="editStartLoad === true" class="mt-n8 d-flex flex-column align-center">
+      <v-card-title style="color: #a61c00">Edit User #{{userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
       <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
-        <v-text-field :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-        <v-text-field :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-        <v-text-field :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-        <v-text-field :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.first_name" :placeholder="userEdit.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.last_name" :placeholder="userEdit.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.phone" :placeholder="userEdit.phone" :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.email" :placeholder="userEdit.email" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-select v-model="userEditForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
       </v-form>
+      <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
       <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
+      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successUserEditForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
     </v-card>
   </div>
 </template>
@@ -71,8 +75,18 @@ export default {
       editStartLoad: false,
       userEdit: {},
       userEditForm: {
-
-      }
+        email: "",
+        is_superuser: false,
+        first_name: "",
+        last_name: "",
+        phone: "",
+        password: ""
+      },
+      selectOptions: [
+        'Super Admin',
+        'Staff Account'
+      ],
+      successUserEditForm: false,
     }
   },
   mounted() {
@@ -85,6 +99,25 @@ export default {
     },
     async editExit() {
       this.editStartLoad = false;
+    },
+    async submitEditUser() {
+      if(this.userEditForm.is_superuser === 'Super Admin') {
+        this.userEditForm.is_superuser = true;
+      } else {
+        this.userEditForm.is_superuser = false;
+      }
+      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.userEdit.id, this.userEditForm)
+        .then(response => {
+          console.log(response, 'SUCCESS IN EDITING')
+          this.successUserEditForm = true;
+        })
+        .catch(err => {
+          console.log(err, 'ERROR IN EDITING')
+        })
+      console.log(this.userEditForm);
+      setTimeout(() => {
+        this.$router.go();
+      }, 3000)
     },
     async deleteStart(id) {
       let confirmDelete = confirm('Are you sure you want to delete this account? Cannot be undone');
