@@ -94,8 +94,13 @@ export default {
   },
   methods: {
     async editStart(user) {
-      this.editStartLoad = true;
       this.userEdit = user;
+      this.userEditForm.email = user.email
+      this.userEditForm.is_superuser = user.is_superuser
+      this.userEditForm.first_name = user.first_name
+      this.userEditForm.last_name = user.last_name
+      this.userEditForm.phone = user.phone
+      this.editStartLoad = true;
     },
     async editExit() {
       this.editStartLoad = false;
@@ -117,7 +122,7 @@ export default {
       console.log(this.userEditForm);
       setTimeout(() => {
         this.$router.go();
-      }, 3000)
+      }, 1500)
     },
     async deleteStart(id) {
       let confirmDelete = confirm('Are you sure you want to delete this account? Cannot be undone');
