@@ -78,7 +78,7 @@
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
+          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
           <div class="getStarted">
             <h1>Step 1 <span>-Register Company Account & Locations</span></h1>
             <p>
@@ -144,12 +144,12 @@
               </p>
             </p>
           </div>
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
+          <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
         </div>
         <div class="joinproductstepcontainerstep step-right">
           <!--we will need to replace these with higher quality images eventually-->
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
-          <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
+          <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
+          <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
           <div class="getStarted">
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
@@ -734,6 +734,9 @@
   }
 }
 @media (max-width: 750px) {
+ .containerImg{
+    display:none;
+  }
   .joinproducthero div h1 {
     font-size: 45px;
   }
