@@ -1,6 +1,6 @@
 <template>
 <v-app>
-  <v-navigation-drawer app class="px-2" color="grey darken-4" width="300px" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+  <v-navigation-drawer app class="px-2" color="grey darken-4" width="300px" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading === false">
       <v-progress-circular
         indeterminate
