@@ -48,7 +48,23 @@
       <v-divider class="my-4"></v-divider>
 
       <div v-if="company && company.company_type === 'true'">
-        <template v-for="(link, index) in items">
+        <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems">
+          <v-list-item v-if="!link.children" :key="index" :to="link.to">
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+          <v-list-group v-else :key="index" class="list-group">
+            <template v-slot:activator>
+              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+              <v-list-item-title>{{ link.text }}</v-list-item-title>
+            </template>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact">
+              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
+            </v-list-item>
+          </v-list-group>
+        </template>
+        <template v-if="user.is_superuser === false" v-for="(link, index) in pmStaffitems">
           <v-list-item v-if="!link.children" :key="index" :to="link.to">
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
@@ -83,6 +99,11 @@
         </template>
       </div>
 
+      <v-list-item @click="logout">
+        <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
+        <v-list-item-title style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;" >Logout</v-list-item-title>
+      </v-list-item>
+
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -98,7 +119,7 @@
         company: {
         },
         loading: false,
-        items: [
+        pmitems: [
           {
             to: '/dashboard/home',
             slug: 'home',
@@ -121,6 +142,106 @@
                 slug: 'add_facilities',
                 text: 'Add New Property'
               }
+            ]
+          },
+          {
+            to: '/dashboard/vendors/',
+            slug: 'vendors',
+            icon: 'mdi-account-check',
+            text: 'Vendors',
+            children: [
+              {
+                to: '/dashboard/vendors/approved',
+                slug: 'approved',
+                text: 'My Approved Vendors',
+              },
+              {
+                to: '/dashboard/vendors/applicants',
+                slug: 'applicants',
+                text: 'Pending Vendor Applicants',
+              },
+              {
+                to: '/dashboard/vendors/',
+                slug: 'vendors',
+                text: 'Find A SOWerk Vendor',
+              },
+              {
+                to: '/dashboard/vendors/invite',
+                slug: 'invite',
+                text: 'Vendor Invite Tool',
+              },
+              {
+                to: '/dashboard/vendors/applications',
+                slug: 'applications',
+                text: 'Edit Vendor Requirements',
+              },
+            ]
+          },
+          {
+            to: '/dashboard/requests-for-bids/',
+            slug: 'requests-for-bids',
+            icon: 'mdi-frequently-asked-questions',
+            text: 'Requests For Bids'
+          },
+          {
+            to: '/dashboard/messages-and-alerts/',
+            slug: 'messages-and-alerts',
+            icon: 'mdi-bell-alert',
+            text: 'Messages & Alerts'
+          },
+          {
+            to: '/dashboard/feedback/',
+            slug: 'feedback',
+            icon: 'mdi-comment-question',
+            text: 'Support & Feedback'
+          },
+          {
+            to: '/dashboard/profile/',
+            slug: 'profile',
+            icon: 'settings',
+            text: 'Settings',
+            class: 'fixed-bottom',
+            children: [
+              {
+                to: '/dashboard/profile/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'Manage Company Profile',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/user-creation',
+                slug: 'user-creation',
+                icon: 'mdi-account',
+                text: 'Manage Users'
+              },
+              {
+                to: '/dashboard/user-creation/add',
+                slug: 'add_user',
+                icon: 'mdi-account',
+                text: 'Add Users'
+              },
+            ]
+          }
+        ],
+        pmStaffitems: [
+          {
+            to: '/dashboard/home',
+            slug: 'home',
+            icon: 'dashboard',
+            text: 'Dashboard'
+          },
+          {
+            to: '/dashboard/facilities/',
+            slug: 'facilities',
+            icon: 'store',
+            text: 'My Properties',
+            children: [
+              {
+                to: '/dashboard/facilities/',
+                slug: 'facilities',
+                text: 'My Properties'
+              },
             ]
           },
           {
@@ -264,6 +385,9 @@
       },
     },
     methods: {
+      async logout() {
+        await this.$store.dispatch('user/logout');
+      },
       async getUser() {
         // this.loading = true;
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
