@@ -373,7 +373,6 @@
     watch: {
       loading: function() {
         if(this.loading){
-          document.documentElement.style.overflow = 'hidden'
           return
         }
         document.documentElement.style.overflow = 'auto'
