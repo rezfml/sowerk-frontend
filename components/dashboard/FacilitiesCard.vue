@@ -102,6 +102,9 @@
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
               <v-btn class="my-1" style="width: 90%;" color="green" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
+            <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+              <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
+            </template>
             <template v-slot:item.actions="{ item }" v-else>
               <nuxt-link :to="slug + item.id" append>
                 <v-btn class="my-1" style="width: 90%;" color="green" outlined>
@@ -141,7 +144,7 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser'],
   data() {
     return {
       locations: null,
@@ -161,11 +164,13 @@ export default {
       sendToId: Number,
       loadModal: false,
       idForMessage: Number,
-      locationForMessage: {}
+      locationForMessage: {},
+      successAssign: false,
     }
   },
   async created() {
     console.log(this.items, 'yayyy FACILITIES CARD');
+    console.log(this.locationAssignUser, 'user for location assign')
     this.loadingFunc(this.items);
   },
   methods: {
@@ -199,6 +204,26 @@ export default {
             .catch(err => {
               console.log(err);
             })
+        })
+    },
+    async assignUserToLocation(location) {
+      console.log('location', location, 'this.locationAssignUser', this.locationAssignUser)
+      let assign = {
+        email: this.locationAssignUser.email,
+        phone: this.locationAssignUser.phone,
+        contact_first_name: this.locationAssignUser.first_name,
+        contact_last_name: this.locationAssignUser.last_name,
+        adminLevel: this.locationAssignUser.is_superuser
+      }
+      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + location.id, assign)
+        .then(response => {
+          console.log('success', response)
+          this.successAssign = true;
+          alert(`Successfully assigned location #${location.id} - ${location.name} to be managed by user #${this.locationAssignUser.id} - ${this.locationAssignUser.first_name} ${this.locationAssignUser.last_name}`)
+        })
+        .catch(err => {
+          console.log(err, 'err')
+          alert('Error in assigning user to this location')
         })
     },
     async closeModal() {

@@ -81,6 +81,7 @@
 <!--              mdi-delete-->
 <!--            </v-icon>-->
           </template>
+          <temp
           <template v-slot:footer v-if="action != 'View'">
             <v-row class="d-flex justify-end" style="width: 100%;">
               <v-btn to='/dashboard/facilities/add' color="primary" class="px-16" rounded outlined large>Add New Facility</v-btn>
