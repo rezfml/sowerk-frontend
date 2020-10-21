@@ -89,7 +89,7 @@
       async login() {
         try {
           await this.$store.dispatch('user/login', {
-            email: this.loginData.email,
+            email: this.loginData.email.toLowerCase(),
             password: this.loginData.password
           })
           console.log(this.$store.state.user);
