@@ -52,8 +52,8 @@
                   type="email"
                   class="card__input black--text"
                   v-model="user.email"
-
                   placeholder=" "
+                  :rules="rules.emailRules"
                 ></v-text-field>
 
                 <v-text-field
@@ -61,8 +61,8 @@
                   type="text"
                   class="card__input black--text"
                   v-model="user.phone"
-
                   placeholder=" "
+                  :rules="rules.phoneRules"
                 ></v-text-field>
               </v-col>
 
@@ -72,8 +72,8 @@
                   label="Password*"
                   type="password"
                   v-model="user.password"
-
                   placeholder=" "
+                  :rules="rules.passwordRules"
                 ></v-text-field>
               </v-col>
 
@@ -82,8 +82,9 @@
                   id="confirm"
                   label="Confirm Password*"
                   type="password"
-
                   placeholder=" "
+                  v-model="confirmPassword"
+                  :rules="confirmPasswordRules"
                 ></v-text-field>
               </v-col>
 
@@ -98,8 +99,8 @@
                   label="Account Name*"
                   type="text"
                   v-model="company.account_name"
-
                   placeholder=" "
+                  :rules="rules.requiredRules"
                 ></v-text-field>
               </v-col>
 
@@ -110,6 +111,7 @@
                   type="text"
                   v-model="company.brand_name"
                   placeholder=" "
+                  :rules="rules.requiredRules"
                 ></v-text-field>
               </v-col>
 
@@ -117,8 +119,8 @@
                 <v-select
                   id="company-best"
                   label="What Best Describes You*"
-                  :item-text="bestSelection.text"
-                  :item-value="bestSelection.value"
+                  item-text="text"
+                  item-value="value"
                   placeholder=" "
                   :items="bestSelection"
                   v-model="company.isFranchise"></v-select>
@@ -141,6 +143,7 @@
                   type="text"
                   v-model="company.email"
                   placeholder=" "
+                  :rules="rules.emailRules"
                 ></v-text-field>
               </v-col>
 
@@ -151,6 +154,7 @@
                   type="number"
                   v-model="company.phone"
                   placeholder=" "
+                  :rules="rules.phoneRules"
                 ></v-text-field>
               </v-col>
 
@@ -185,6 +189,7 @@
                   label="Company Description*"
                   v-model="company.description"
                   placeholder=" "
+                  :rules="rules.requiredRules"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -232,6 +237,15 @@ export default {
           v => (v && v.length === 10) || 'Phone Number must be 11 digits',
         ],
       },
+      confirmPassword: null
+    }
+  },
+  computed: {
+    confirmPasswordRules() {
+      return [
+        () => (this.user.password === this.confirmPassword) || 'Password must match',
+        v => !!v || 'Confirmation Password is required'
+      ];
     }
   },
   props: {

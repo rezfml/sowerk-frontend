@@ -63,6 +63,7 @@
               :locations="locations"
               :editingIndex="editingIndex"
               :headers="headers"
+              ref="companyLocations"
             ></CompanyLocations>
 
             <CompanyReview
@@ -294,20 +295,20 @@ export default {
   methods: {
     nextPageIfNotLast() {
       if (this.tab === 2) return;
-      if(!this.validate(this.tab)) return;
+      if(!this.validate()) return;
       this.tab += 1
       console.log(this.locations)
     },
-    validate(tab) {
-      if (!this.$refs.companyDetails.$refs.register.validate()) {
-        this.$nextTick(() => {
-          this.$vuetify.goTo('.error--text');
-        });
-        return false;
+    validate() {
+      if(this.tab === 0) {
+        if (!this.$refs.companyDetails.$refs.register.validate()) {
+          this.$nextTick(() => {
+            this.$vuetify.goTo('.error--text');
+          });
+          return false;
+        }
       }
       return true;
-      console.log(tab);
-      console.log(this.$refs.companyDetails.$refs.register);
     },
     prevPageIfNotFirst() {
       if (this.tab === 0) return
@@ -316,10 +317,14 @@ export default {
     selectCompanyFile(file) {
       this.companyImageFile = file;
       console.log(this.companyImageFile);
+      console.log('wtf mate');
     },
     async uploadCompanyImage() {
       let formData = new FormData();
-      formData.append('file', this.companyImageFile);
+      let file = this.companyImageFile;
+      console.log('this.companyImageFile: ', file)
+      formData.append('file', file);
+      console.log(formData);
       // await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
       //   .then(response => {
       //     console.log('success in uploading insurance file', response)
@@ -331,14 +336,22 @@ export default {
       //   .catch(err => {
       //     console.log('error in uploading insurance file', err);
       //   })
-      let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(e => e);
-      this.company.imgUrl = data.data.Location;
+      await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+        .then(response => {
+          console.log('success in uploading company image', response)
+          this.company.imgUrl = response.data.data.Location;
+          console.log(this.company);
+        })
+        .catch(err => {
+          console.log('error in uploading company image', err);
+        })
     },
     finishEditing() {
+      if(!this.validate()) return false;
       this.editingLocation = false
       console.log(this.location, 'location')
       this.locations[this.editingIndex] = this.location
-      this.editingIndex = null
+      this.editingIndex = null;
     },
     editLocation(index) {
       console.log(index)

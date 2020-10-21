@@ -1,9 +1,10 @@
 <template>
-  <v-row class="mb-12" :class="{'pt-12': index != 0 }">
-    <v-col cols="12">
-      <v-row style="position: relative;">
-        <v-col cols="12" style="width: 100%;">
-<!--          <client-only>-->
+  <v-form ref="register">
+    <v-row class="mb-12" :class="{'pt-12': index != 0 }">
+      <v-col cols="12">
+        <v-row style="position: relative;">
+          <v-col cols="12" style="width: 100%;">
+            <!--          <client-only>-->
             <GmapMap
               id="locations-map"
               :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
@@ -16,217 +17,224 @@
                 :clickable="true"
               />
             </GmapMap>
-<!--          </client-only>-->
-        </v-col>
-      </v-row>
-    </v-col>
+            <!--          </client-only>-->
+          </v-col>
+        </v-row>
+      </v-col>
 
-    <v-col cols="12">
-      <span class="headline">Location {{ index + 1 }}</span>
-      <v-divider></v-divider>
-    </v-col>
+      <v-col cols="12">
+        <span class="headline">Location {{ index + 1 }}</span>
+        <v-divider></v-divider>
+      </v-col>
 
-<!--    <v-col cols="12" sm="5">-->
-<!--      <v-row fill-height class="pl-3">-->
-<!--        <client-only>-->
-<!--          <v-image-input-->
-<!--            image-quality="0.85"-->
-<!--            clearable-->
-<!--            image-format="png"-->
-<!--            uploadIcon="person"-->
-<!--            fullWidth-->
-<!--            overlayPadding="10px"-->
-<!--            scalingSliderColor="red"-->
-<!--            :readonly="false"-->
-<!--          />-->
-<!--        </client-only>-->
-<!--      </v-row>-->
-<!--    </v-col>-->
+      <!--    <v-col cols="12" sm="5">-->
+      <!--      <v-row fill-height class="pl-3">-->
+      <!--        <client-only>-->
+      <!--          <v-image-input-->
+      <!--            image-quality="0.85"-->
+      <!--            clearable-->
+      <!--            image-format="png"-->
+      <!--            uploadIcon="person"-->
+      <!--            fullWidth-->
+      <!--            overlayPadding="10px"-->
+      <!--            scalingSliderColor="red"-->
+      <!--            :readonly="false"-->
+      <!--          />-->
+      <!--        </client-only>-->
+      <!--      </v-row>-->
+      <!--    </v-col>-->
 
-    <v-col cols="12">
-      <v-row class="d-flex align-center">
-        <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
-          <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageUrl"></v-img>
-          <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
-          <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-          <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
-        </v-col>
-        <v-col cols="12" md="6" class="d-flex flex-column justify-center
+      <v-col cols="12">
+        <v-row class="d-flex align-center">
+          <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
+            <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageUrl"></v-img>
+            <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
+            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+            <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
+          </v-col>
+          <v-col cols="12" md="6" class="d-flex flex-column justify-center
 ">
-          <v-text-field
-            placeholder=" "
-            id="location"
-            type="text"
-            v-model="location.name"
-            class="flex-grow-0 mb-12"
-          >
-            <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
-            </template>
-          </v-text-field>
+            <v-text-field
+              placeholder=" "
+              id="location"
+              type="text"
+              v-model="location.name"
+              class="flex-grow-0 mb-12"
+              :rules="rules.requiredRules"
+            >
+              <template v-slot:label>
+                <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
+              </template>
+            </v-text-field>
 
-<!--          <v-select-->
-<!--            placeholder=" "-->
-<!--            id="location"-->
-<!--            type="text"-->
-<!--            v-model="location.service"-->
-<!--            class="flex-grow-0"-->
-<!--          >-->
-<!--            <template v-slot:label>-->
-<!--              <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Service Provided</p>-->
-<!--            </template>-->
-<!--          </v-select>-->
-        </v-col>
-      </v-row>
+            <!--          <v-select-->
+            <!--            placeholder=" "-->
+            <!--            id="location"-->
+            <!--            type="text"-->
+            <!--            v-model="location.service"-->
+            <!--            class="flex-grow-0"-->
+            <!--          >-->
+            <!--            <template v-slot:label>-->
+            <!--              <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Service Provided</p>-->
+            <!--            </template>-->
+            <!--          </v-select>-->
+          </v-col>
+        </v-row>
 
-      <div class="v-input__control mt-10 mb-8" id="address">
-        <div class="v-input__slot">
-          <div class="v-text-field__slot" style="width: 100%;">
-            <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 1.1em">Location Address*</p></label>
-            <client-only>
-              <vue-google-autocomplete
-                :id="'location-address--' + index"
-                classname="form-control"
-                v-on:placechanged="getAddressData"
-                placeholder=""
-                style="width: 100%; font-size: 16px"
-                v-on:focus.native="animateAddressFieldOnFocus"
-                v-on:blur.native="animateAddressFieldOnFocus"
-                v-on:input.native="animateAddressFieldOnFilled"
-                v-model="fullAddress"
-              >
-              </vue-google-autocomplete>
-            </client-only>
+        <div class="v-input__control mt-10 mb-8" id="address">
+          <div class="v-input__slot">
+            <div class="v-text-field__slot" style="width: 100%;">
+              <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 1.1em">Location Address*</p></label>
+              <client-only>
+                <vue-google-autocomplete
+                  :id="'location-address--' + index"
+                  classname="form-control"
+                  v-on:placechanged="getAddressData"
+                  placeholder=""
+                  style="width: 100%; font-size: 16px"
+                  v-on:focus.native="animateAddressFieldOnFocus"
+                  v-on:blur.native="animateAddressFieldOnFocus"
+                  v-on:input.native="animateAddressFieldOnFilled"
+                  v-model="fullAddress"
+                >
+                </vue-google-autocomplete>
+              </client-only>
+            </div>
           </div>
         </div>
-      </div>
 
-      <v-row>
-        <v-col>
-          <v-textarea
-            id="description"
-            v-model="location.description"
-            placeholder=" "
-          >
-            <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>
-            </template>
-          </v-textarea>
-        </v-col>
-      </v-row>
-    </v-col>
+        <v-row>
+          <v-col>
+            <v-textarea
+              id="description"
+              v-model="location.description"
+              placeholder=" "
+              :rules="rules.requiredRules"
+            >
+              <template v-slot:label>
+                <p class="grey--text text--darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>
+              </template>
+            </v-textarea>
+          </v-col>
+        </v-row>
+      </v-col>
 
-<!--    <v-col cols="12" md="7" class="v-input">-->
+      <!--    <v-col cols="12" md="7" class="v-input">-->
 
-<!--    </v-col>-->
+      <!--    </v-col>-->
 
-<!--    <v-col cols="12" md="5">-->
-<!--      <span>Where would you like to accept vendor applications?</span>-->
-<!--      <v-select-->
-<!--        class="mb-8"-->
-<!--        label="Applicant Range"-->
-<!--        :items="memberships"-->
-<!--        v-model="location.membership_id"-->
-<!--      >-->
-<!--      </v-select>-->
-<!--      <template v-if="location.membership_id === 1">-->
-<!--        <span class="mb-12">Please select a range (miles).</span>-->
-<!--        <v-slider-->
-<!--          min="0"-->
-<!--          max="200"-->
-<!--          thumb-label="always"-->
-<!--          :thumb-size="36"-->
-<!--          track-color="grey"-->
-<!--          track-fill-color="primary"-->
-<!--          step="10"-->
-<!--          ticks-->
-<!--          :tick-labels="miles"-->
-<!--          :readonly="false"-->
-<!--          v-model="location.radius"-->
-<!--          v-on:change="emitRadiusSlider(index)"-->
-<!--        >-->
-<!--        </v-slider>-->
-<!--      </template>-->
-<!--    </v-col>-->
+      <!--    <v-col cols="12" md="5">-->
+      <!--      <span>Where would you like to accept vendor applications?</span>-->
+      <!--      <v-select-->
+      <!--        class="mb-8"-->
+      <!--        label="Applicant Range"-->
+      <!--        :items="memberships"-->
+      <!--        v-model="location.membership_id"-->
+      <!--      >-->
+      <!--      </v-select>-->
+      <!--      <template v-if="location.membership_id === 1">-->
+      <!--        <span class="mb-12">Please select a range (miles).</span>-->
+      <!--        <v-slider-->
+      <!--          min="0"-->
+      <!--          max="200"-->
+      <!--          thumb-label="always"-->
+      <!--          :thumb-size="36"-->
+      <!--          track-color="grey"-->
+      <!--          track-fill-color="primary"-->
+      <!--          step="10"-->
+      <!--          ticks-->
+      <!--          :tick-labels="miles"-->
+      <!--          :readonly="false"-->
+      <!--          v-model="location.radius"-->
+      <!--          v-on:change="emitRadiusSlider(index)"-->
+      <!--        >-->
+      <!--        </v-slider>-->
+      <!--      </template>-->
+      <!--    </v-col>-->
 
-    <v-col cols="12" class="mt-8 d-flex justify-center">
-      <span class="headline mb-0">Location Manager</span>
-    </v-col>
-    <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
-    <v-col cols="12" class="mb-6">
-      <v-checkbox v-model="managerIsUser" @click="setManagerToUser" hide-details>
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 mb-0">This location will be managed by: {{ user.first_name }} {{ user.last_name }}</p>
-        </template>
-      </v-checkbox>
-<!--      <p class="primary&#45;&#45;text font-weight-bold text-h6 mt-2 ml-8">{{ user.first_name }} {{ user.last_name }}</p>-->
-    </v-col>
+      <v-col cols="12" class="mt-8 d-flex justify-center">
+        <span class="headline mb-0">Location Manager</span>
+      </v-col>
+      <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
+      <v-col cols="12" class="mb-6">
+        <v-checkbox v-model="managerIsUser" @click="setManagerToUser" hide-details>
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 mb-0">This location will be managed by: {{ user.first_name }} {{ user.last_name }}</p>
+          </template>
+        </v-checkbox>
+        <!--      <p class="primary&#45;&#45;text font-weight-bold text-h6 mt-2 ml-8">{{ user.first_name }} {{ user.last_name }}</p>-->
+      </v-col>
 
-<!--    <v-col cols="12" md="6">-->
-<!--      <v-select-->
-<!--        id="admin-level"-->
-<!--        label="Admin Level*"-->
-<!--        :items="adminLevel"-->
-<!--        v-model="location.adminLevel"></v-select>-->
-<!--    </v-col>-->
+      <!--    <v-col cols="12" md="6">-->
+      <!--      <v-select-->
+      <!--        id="admin-level"-->
+      <!--        label="Admin Level*"-->
+      <!--        :items="adminLevel"-->
+      <!--        v-model="location.adminLevel"></v-select>-->
+      <!--    </v-col>-->
 
-    <v-col cols="12" md="6">
-      <v-text-field
-        placeholder=" "
-        id="first_name"
-        type="text"
-        v-model="location.contact_first_name"
-        :readonly="managerIsUser"
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
-        </template>
-      </v-text-field>
-    </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          placeholder=" "
+          id="first_name"
+          type="text"
+          v-model="location.contact_first_name"
+          :readonly="managerIsUser"
+          :rules="rules.requiredRules"
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
+          </template>
+        </v-text-field>
+      </v-col>
 
-    <v-col cols="12" md="6">
-      <v-text-field
-        placeholder=" "
-        id="last_name"
-        type="text"
-        v-model="location.contact_last_name"
-        :readonly="managerIsUser"
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
-        </template>
-      </v-text-field>
-    </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          placeholder=" "
+          id="last_name"
+          type="text"
+          v-model="location.contact_last_name"
+          :readonly="managerIsUser"
+          :rules="rules.requiredRules"
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
+          </template>
+        </v-text-field>
+      </v-col>
 
-    <v-col cols="12" md="6">
-      <v-text-field
-        placeholder=" "
-        id="phone"
-        type="number"
-        v-model="location.phone"
-        :readonly="managerIsUser"
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
-        </template>
-      </v-text-field>
-    </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          placeholder=" "
+          id="phone"
+          type="number"
+          v-model="location.phone"
+          :readonly="managerIsUser"
+          :rules="rules.phoneRules"
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
+          </template>
+        </v-text-field>
+      </v-col>
 
-    <v-col cols="12" md="6">
-      <v-text-field
-        placeholder=" "
-        id="email"
-        type="email"
-        v-model="location.email"
-        :readonly="managerIsUser"
-      >
-        <template v-slot:label>
-          <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
-        </template>
-      </v-text-field>
-    </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          placeholder=" "
+          id="email"
+          type="email"
+          v-model="location.email"
+          :readonly="managerIsUser"
+          :rules="rules.emailRules"
+        >
+          <template v-slot:label>
+            <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
+          </template>
+        </v-text-field>
+      </v-col>
 
-  </v-row>
+    </v-row>
+  </v-form>
 </template>
 
 <script>
@@ -294,6 +302,27 @@
         fullAddress: null,
         locationImageUrl: null,
         locationImageFile: null,
+        rules: {
+          requiredRules: [
+            v => !!v || v === 0 || 'Field is required',
+          ],
+          usernameRules: [
+            v => !!v || 'Name is required',
+            v => (v && v.length <= 100) || 'Name must be less than 100 characters'
+          ],
+          emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          emailNotRequiredRules: [
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          phoneRules: [
+            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+          ],
+        },
       }
     },
     mounted() {

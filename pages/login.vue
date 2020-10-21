@@ -1,9 +1,9 @@
 <template>
-  <v-container style="max-width: none!important; background-image:url('https://sowerk-images.s3.us-east-2.amazonaws.com/test+photo-1530124566582-a618bc2615dc.jpeg');background-size: cover; background-position: center;">
+  <v-container style="height: 100%; max-width: none!important; background-image:url('https://sowerk-images.s3.us-east-2.amazonaws.com/test+photo-1530124566582-a618bc2615dc.jpeg');background-size: cover; background-position: center;">
     <v-row
       align="center"
       justify="center"
-      style="height: 100vh; width: 100%;"
+      style="height: 100%; width: 100%;"
     >
       <v-col
         cols="12"
