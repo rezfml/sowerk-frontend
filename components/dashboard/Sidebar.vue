@@ -106,47 +106,48 @@
       </v-list-item>
 
     </v-list>
+    
   </v-navigation-drawer>
-  <v-app-bar v-else style="z-index:1;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" fla>
+  <v-app-bar v-else style="z-index:1;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.75);margin:auto 0;padding: 0;"  >
-    <v-container class="fill-height" >
-      <v-row align="center" justify="center">
-        <v-btn text color="white" @click.stop="drawer = !drawer">
-          <v-icon >
-            menu
-          </v-icon>
-        </v-btn>
-      </v-row>
-    </v-container>
-
+      <v-container class="fill-height" >
+        <v-row align="center" justify="center">
+          <v-btn text color="white" @click.stop="drawer = !drawer">
+            <v-icon >
+              menu
+            </v-icon>
+          </v-btn>
+        </v-row>
+      </v-container>
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none;background-color:rgba(0,0,0,1); ">
      <div v-if="company && company.company_type === 'true'">
-        <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to">
-            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
-            <v-list-item-title>{{ link.text }}</v-list-item-title>
+        <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems" >
+          <v-list-item v-if="!link.children" :key="index" :to="link.to" style="color:white;">
+            <v-list-item-icon><v-icon style="color:white;">{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title style="color:white;">{{ link.text }}</v-list-item-title>
           </v-list-item>
           <v-list-group v-else :key="index" class="list-group">
             <template v-slot:activator>
-              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
-              <v-list-item-title>{{ link.text }}</v-list-item-title>
+              <v-list-item-icon><v-icon style="color:white;">{{ link.icon }}</v-icon></v-list-item-icon>
+              <v-list-item-title style="color:white;">{{ link.text }}</v-list-item-title>
             </template>
-            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact">
-              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
-              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5);color:white;" :to="child.to" exact-active-class="v-list-item--exact">
+              <v-list-item-title v-if="j < link.children.length - 1" style="color:white;">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; color:white;">{{ child.text }}</v-list-item-title>
             </v-list-item>
           </v-list-group>
         </template>
         <template v-if="user.is_superuser === false" v-for="(link, index) in pmStaffitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to">
+          <v-list-item v-if="!link.children" :key="index" :to="link.to" style="color:white;">
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
-          <v-list-group v-else :key="index" class="list-group">
+          <v-list-group v-else :key="index" class="list-group" style="color:white;"> 
             <template v-slot:activator>
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title>{{ link.text }}</v-list-item-title>
             </template>
-            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact">
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5);color:white;" :to="child.to" exact-active-class="v-list-item--exact">
               <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
               <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
             </v-list-item>
@@ -155,7 +156,7 @@
       </div>
 
 
-   <div v-else-if="company && company.company_type === 'false'">
+      <div v-else-if="company && company.company_type === 'false'">
         <template>
           <nuxt-link
             v-for="(link) in providerItems"
@@ -171,12 +172,11 @@
           </nuxt-link>
         </template>
       </div>
-  </v-sheet>
+      </v-navigation-drawer>
+    </v-sheet>
 
   </v-app-bar>
 </v-app>
-
-  
 </template>
 
 
@@ -192,6 +192,12 @@
         company: {
         },
         loading: false,
+        clipped: false,
+        drawer: false,
+        fixed: false,
+        miniVariant: false,
+        right: true,
+        rightDrawer: false,
         pmitems: [
           {
             to: '/dashboard/home',
