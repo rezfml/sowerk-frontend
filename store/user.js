@@ -38,7 +38,7 @@ export const actions = {
       const { data } = await axios.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/login', { email, password })
       console.log(data.user);
       commit('login', data.user)
-      this.$router.push('/dashboard/home');
+      this.$router.push('/dashboard');
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')
