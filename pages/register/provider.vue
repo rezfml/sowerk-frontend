@@ -170,8 +170,8 @@
                             id="company-best"
                             label="What Best Describes You*"
                             placeholder=" "
-                            :item-text="bestSelection.text"
-                            :item-value="bestSelection.value"
+                            item-text="text"
+                            item-value="value"
                             :items="bestSelection"
                             v-model="company.isFranchise"
                             :rules="rules.requiredRules"
@@ -473,7 +473,7 @@
           <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
             <v-col xs="12" sm="12" class="bottomNav">
             <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
-            <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>     
+            <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
             <v-btn color="primary" outlined class="px-8 mx-8 saveBtn" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add <br v-if="$vuetify.breakpoint.mobile"/> Another Location </v-btn>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
@@ -1248,7 +1248,7 @@
    }
 .serviceProviderIcon{
   width:10%;
-  top:-20;
+  top:-20px;
 }
 @media (max-width: 790px) {
 .saveBtn{
@@ -1258,13 +1258,13 @@
   }
 .serviceProviderIcon{
   width:15%;
-  top:-20;
+  top:-20px;
 }
 }
 @media (max-width: 680px) {
 .serviceProviderIcon{
   width:20% !important;
-  top:-40;
+  top:-40px;
   margin-bottom:-50px;
   margin-top: 50px;
   margin-left: 7%;

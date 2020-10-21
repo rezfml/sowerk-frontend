@@ -1,5 +1,5 @@
 <template>
-    <v-app dark width="auto">
+  <v-app dark width="auto" class="d-flex flex-column" style="min-height: 100vh;">
     <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;"  >
     <v-container class="fill-height" >
@@ -11,9 +11,9 @@
         </v-btn>
       </v-row>
     </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none; background:black">
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400px;max-width:none; background:black">
       <v-list-item>
-        <v-list-item-content style="overflow: visable;color:white;">
+        <v-list-item-content style="overflow: visible;color:white;">
           <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px;" alt="SOWerkHome"></v-img></v-btn>
           <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/"></a></v-list-item-title>
         </v-list-item-content>
@@ -23,7 +23,7 @@
           v-for="item in items"
           :key="item.title"
           path
-   
+
         >
           <!-- if we want icons this will allow for icons we will need to find the icons needed.
             <v-list-item-icon>
@@ -39,8 +39,8 @@
   </v-sheet>
   </v-app-bar>
 
-  <v-app-bar :clipped-left="clipped" hide-on-scroll
- app color="rgba(0,0,0,0.5)" flat v-else >
+    <v-app-bar :clipped-left="clipped" hide-on-scroll
+ app color="rgba(0,0,0,0.5)" flat v-else class="desktop-navbar">
     <v-container style="padding-top:35px;">
         <v-row >
           <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;" alt="SOWerk"></v-img></v-btn>
@@ -61,16 +61,16 @@
           -->
       </v-row>
     </v-container>
- 
+
     </v-app-bar>
-    <v-content class="py-0">
+    <v-content class="py-0 flex-grow-1">
       <nuxt />
     </v-content>
 
 <!-- -----------FOOTER----------- -->
     <v-footer style="background:#a61c00; color: white; height: auto; width: 100%">
       <v-row style="text-align: center" align="center">
-      
+
       <!-- SOWERK IMAGE LOGO -->
       <v-col cols="4">
         <div style="text-align: right;">
@@ -98,7 +98,7 @@
         </li>
         </ul>
       </v-col>
-     
+
       </v-row>
     </v-footer>
   </v-app>
@@ -150,6 +150,21 @@ export default {
 <style scoped>
 header {
   background-color: transparent !important;
+}
+
+.desktop-navbar:before {
+  background: rgb(34,34,34);
+  background: linear-gradient(180deg, rgba(30,30,30,0.8) 0%, rgba(0,0,0,0) 100%);
+  position: absolute;
+  content: "";
+  height: 200%;
+  width: 100%;
+  top: 0;
+  transform: translateY(0px);
+}
+
+.desktop-navbar.v-app-bar--is-scrolled:before {
+  transform: translateY(-64px);
 }
 
 </style>
