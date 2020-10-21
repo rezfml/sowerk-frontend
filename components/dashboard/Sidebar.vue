@@ -110,6 +110,7 @@
   </v-navigation-drawer>
 
   <v-app-bar v-else style="z-index:1;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
+    
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.75);margin:auto 0;padding: 0;"  >
       <v-container class="fill-height" >
         <v-row align="center" justify="center">
