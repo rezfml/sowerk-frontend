@@ -109,7 +109,7 @@
     
   </v-navigation-drawer>
 
-  <v-app-bar v-else style="z-index:1;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
+  <v-app-bar v-else style="z-index:1;height:90%;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
     
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.75);margin:auto 0;padding: 0;"  >
       <v-container class="fill-height" >
@@ -195,7 +195,7 @@
       </div>
 
 
-      <div v-else-if="company && company.company_type === 'false'">
+      <div v-else-if="company && company.company_type === 'false'" >
         <template>
           <nuxt-link
             v-for="(link) in providerItems"
@@ -211,6 +211,10 @@
           </nuxt-link>
         </template>
       </div>
+        <v-list-item @click="logout">
+        <v-list-item-icon><v-icon style="color:white;">mdi-logout</v-icon></v-list-item-icon>
+        <v-list-item-title style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;color:white;" >Logout</v-list-item-title>
+      </v-list-item>
       </v-navigation-drawer>
     </v-sheet>
 
