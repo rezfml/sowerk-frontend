@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-if="this.editStartLoad === false">
+    <v-container v-if="this.editStartLoad === false && this.locationAssignLoad === false">
       <v-card-title
         style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient"
@@ -41,6 +41,7 @@
           </template>
           <template v-slot:item.useractions="{item}">
             <div class="d-flex flex-column align-center">
+              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;" color="blue" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;" color="green" outlined v-if="currentUser.is_superuser === true">Edit</v-btn>
               <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
             </div>
@@ -49,6 +50,7 @@
         </v-data-table>
       </v-card-text>
     </v-container>
+
     <v-card v-if="editStartLoad === true" class="mt-n8 d-flex flex-column align-center">
       <v-card-title style="color: #a61c00">Edit User #{{userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
       <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
@@ -63,13 +65,32 @@
       <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
       <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successUserEditForm === true">SUCCESS! You have edited a user # {{userEdit.id}}</v-card-title>
     </v-card>
+
+    <v-card v-if="locationAssignLoad === true" class="mt-n8 d-flex flex-column align-center" style="width: 95%;">
+      <FacilitiesCard
+        v-if="locations && locationAssignLoad === true"
+        :items="locations"
+        :title="'Facilities'"
+        :tableProperties="headers"
+        slug="/dashboard/facilities/"
+        :viewLocation="true"
+        :locationAssignUser="locationAssignUser"
+      ></FacilitiesCard>
+      <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
+    </v-card>
   </div>
 </template>
 
 <script>
+  import HomeCard from '~/components/dashboard/HomeCard'
+  import FacilitiesCard from '~/components/dashboard/FacilitiesCard'
 export default {
   name: 'UserCard',
   props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'currentUser'],
+  components: {
+    HomeCard,
+    FacilitiesCard
+  },
   data() {
     return {
       editStartLoad: false,
@@ -87,12 +108,40 @@ export default {
         'Staff Account'
       ],
       successUserEditForm: false,
+      locationAssignUser: {},
+      locationAssignLoad: false,
+      locations: [],
+      headers: [
+        { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
+        { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
+        { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+        { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
+        { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+        { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+      ],
     }
   },
   mounted() {
     console.log(this.items, 'this.items')
   },
   methods: {
+    async assignLocation(user) {
+      this.locationAssignUser = user;
+      this.locationAssignLoad = true;
+      this.getLocations();
+    },
+    async getLocations() {
+      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+      if (this.$error(status, data.message, data.errors)) return;
+      this.$nextTick(function() {
+        this.locations = data.location;
+        console.log(this.locations, 'locations', data, 'data')
+      })
+    },
+    async assignExit() {
+      this.locationAssignLoad = false;
+    },
     async editStart(user) {
       this.userEdit = user;
       this.userEditForm.email = user.email
