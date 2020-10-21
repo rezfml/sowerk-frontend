@@ -137,7 +137,7 @@
         <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
         <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
       </v-form>
-      <v-btn @click="closeModal" style="position: absolute; top: 5px; right: 0px; font-size: 30px;" text>X</v-btn>
+      <v-btn v-if="locationAssignUser" @click="closeModal" style="position: absolute; top: 5px; right: 0px; font-size: 30px;" text>X</v-btn>
     </v-card>
   </div>
 </template>
@@ -208,14 +208,14 @@ export default {
     },
     async assignUserToLocation(location) {
       console.log('location', location, 'this.locationAssignUser', this.locationAssignUser)
-      let assign = {
+      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + location.id,
+        {
         email: this.locationAssignUser.email,
         phone: this.locationAssignUser.phone,
         contact_first_name: this.locationAssignUser.first_name,
         contact_last_name: this.locationAssignUser.last_name,
         adminLevel: this.locationAssignUser.is_superuser
-      }
-      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + location.id, assign)
+        })
         .then(response => {
           console.log('success', response)
           this.successAssign = true;
