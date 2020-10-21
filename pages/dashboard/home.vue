@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-3" overflow-y-auto>
+  <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
     <v-container class="px-8" fluid>
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">
@@ -196,7 +196,6 @@
       loading: function() {
         if(this.loading){
           console.log(document);
-          document.documentElement.style.overflow = 'hidden'
           return
         }
         document.documentElement.style.overflow = 'auto'
