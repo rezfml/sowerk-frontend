@@ -3,7 +3,7 @@
     <section class="joinservicehero">
       <div>
         <h1>Service Providers</h1>
-        <p>Approved Providers Get the Job</p>
+        <p>Your Tools For Business Relationships</p>
         <button @click='$router.push("/register/provider")'>Get Started Now</button>
       </div>
       <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
