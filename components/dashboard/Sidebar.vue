@@ -108,6 +108,7 @@
     </v-list>
     
   </v-navigation-drawer>
+
   <v-app-bar v-else style="z-index:1;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.75);margin:auto 0;padding: 0;"  >
       <v-container class="fill-height" >
@@ -119,7 +120,44 @@
           </v-btn>
         </v-row>
       </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none;background-color:rgba(0,0,0,1); ">
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400;max-width:none;background-color:#212121; ">
+      <v-list-item>
+        <v-list-item-content style="overflow: visable;color:white;">
+          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px;" alt="SOWerkHome"></v-img></v-btn>
+          <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/"></a></v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-avatar class="mx-auto mr-3" size="80px" >
+          <v-img :src="company.imgUrl" aspect-ratio="1"/>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
+            <v-col cols="12" class="pa-0 ma-0" >
+              <template v-if="company">
+                <v-list-item-title style="font-size: 1rem;color:white;">{{company.account_name}}</v-list-item-title>
+              </template>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
+            </v-col>
+            <v-col cols="12" class="px-0 py-2" style="width: 100%;"><v-divider style="border-color: rgba(255,255,255,0.3);"></v-divider></v-col>
+            <v-col cols="12" class="pa-0 ma-0">
+              <template v-if="currentUser">
+                <v-list-item-title style="font-size: 1rem;color:white;" v-if="currentUser.first_name">{{ currentUser.first_name }} {{ currentUser.last_name }}</v-list-item-title
+                >
+                <v-list-item-title style="font-size: 1rem;color:white;" v-else-if="currentUser.rep_name">{{ currentUser.rep_name }}</v-list-item-title
+                >
+              </template>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="currentUser">{{ currentUser.is_superuser == true ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access -
+                {{ company.locations.length }}
+              </v-list-item-subtitle>
+            </v-col>
+          </v-row>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider class="my-4" style="color:white;"></v-divider>
+
      <div v-if="company && company.company_type === 'true'">
         <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems" >
           <v-list-item v-if="!link.children" :key="index" :to="link.to" style="color:white;">
