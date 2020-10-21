@@ -73,10 +73,8 @@
 
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
-              <v-btn icon>
-                <v-icon small class="mr-2">
-                  mdi-pencil
-                </v-icon>
+              <v-btn class="my-1" style="width: 90%;" color="green" outlined>
+                View
               </v-btn>
             </nuxt-link>
 <!--            <v-icon small @click="deleteItem(item)">-->
