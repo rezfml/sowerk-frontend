@@ -4,6 +4,7 @@
     justify="center"
     class="mx-auto py-12"
     style="width: 90%;"
+    overflow-y-auto
   >
     <v-col cols="12" md="7">
       <v-card class="px-8 py-4 fill-height" style="background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;">

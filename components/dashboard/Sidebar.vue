@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer app class="px-2" color="grey darken-4" width="300px">
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading === false">
       <v-progress-circular
         indeterminate
         color="primary"
@@ -18,7 +18,7 @@
 
       <v-list-item>
         <v-list-item-avatar class="mx-auto mr-3" size="80px" >
-          <v-img src="https://randomuser.me/api/portraits/women/81.jpg" aspect-ratio="1"/>
+          <v-img :src="company.imgUrl" aspect-ratio="1"/>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
@@ -26,7 +26,7 @@
               <template v-if="company">
                 <v-list-item-title style="font-size: 1rem;">{{company.account_name}}</v-list-item-title>
               </template>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
             </v-col>
             <v-col cols="12" class="px-0 py-2" style="width: 100%;"><v-divider style="border-color: rgba(255,255,255,0.3);"></v-divider></v-col>
             <v-col cols="12" class="pa-0 ma-0">
@@ -36,8 +36,8 @@
                 <v-list-item-title style="font-size: 1rem;" v-else-if="currentUser.rep_name">{{ currentUser.rep_name }}</v-list-item-title
                 >
               </template>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="currentUser">{{ currentUser.is_superuser == '1' ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access -
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="currentUser">{{ currentUser.is_superuser == true ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access -
                 {{ company.locations.length }}
               </v-list-item-subtitle>
             </v-col>
@@ -47,8 +47,24 @@
 
       <v-divider class="my-4"></v-divider>
 
-      <div v-if="company && company.company_type === 1">
-        <template v-for="(link, index) in items">
+      <div v-if="company && company.company_type === 'true'">
+        <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems">
+          <v-list-item v-if="!link.children" :key="index" :to="link.to">
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+          <v-list-group v-else :key="index" class="list-group">
+            <template v-slot:activator>
+              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+              <v-list-item-title>{{ link.text }}</v-list-item-title>
+            </template>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact">
+              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
+            </v-list-item>
+          </v-list-group>
+        </template>
+        <template v-if="user.is_superuser === false" v-for="(link, index) in pmStaffitems">
           <v-list-item v-if="!link.children" :key="index" :to="link.to">
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
@@ -66,13 +82,8 @@
         </template>
       </div>
 
-      <div v-else-if="company">
-        <template v-if="company.company_type === 1">
-          <v-list-item>
-
-          </v-list-item>
-        </template>
-        <template v-else>
+      <div v-else-if="company && company.company_type === 'false'">
+        <template>
           <nuxt-link
             v-for="(link) in providerItems"
             :to="link.to"
@@ -88,6 +99,11 @@
         </template>
       </div>
 
+      <v-list-item @click="logout">
+        <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
+        <v-list-item-title style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;" >Logout</v-list-item-title>
+      </v-list-item>
+
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -99,43 +115,11 @@
       return {
         activeSlug: '/',
         user: {
-          id: 1,
-          companies_id: 1,
-          rep_name: null,
-          email: "jay@frontierml.com",
-          password: "$2a$10$Eq6IQ6r1ipDu9fbDJ4mEWerB5VhBYLzfHSyuomZcDmWzmnaK0iBbe",
-          is_superuser: 0,
-          created: "2020-09-17 20:52:36",
-          modified: "2020-09-17 20:52:36",
-          first_name: "Jay",
-          last_name: "Leach",
-          phone: "1234567890",
-          uuid: "2fa35ebb-ea5d-4129-93c0-f2223c95d679",
-          isVerified: 0
         },
         company: {
-          id: 1,
-          email: "1234@email.com",
-          address: "1234 Location St",
-          city: "Springfield",
-          state: "MO",
-          zipcode: 12345,
-          account_name: "Account Name here",
-          brand_name: "Brand Name here",
-          bestDescription: "Best Description Here",
-          llcName: "LLC Name Here",
-          services: "['HVAC', 'Plumbing', 'Electrical']",
-          description: "Lorem Ipsum Dolor Imet",
-          year_founded: 1970,
-          phone: "1234567890",
-          company_type: 1,
-          imgUrl: "https://www.unsplash.com/img-test",
-          currentConnections: null,
-          maxConnections: null,
-          locations: []
         },
         loading: false,
-        items: [
+        pmitems: [
           {
             to: '/dashboard/home',
             slug: 'home',
@@ -216,7 +200,122 @@
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
-            class: 'fixed-bottom'
+            class: 'fixed-bottom',
+            children: [
+              {
+                to: '/dashboard/profile/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'Manage Company Profile',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/user-creation',
+                slug: 'user-creation',
+                icon: 'mdi-account',
+                text: 'Manage Users'
+              },
+              {
+                to: '/dashboard/user-creation/add',
+                slug: 'add_user',
+                icon: 'mdi-account',
+                text: 'Add Users'
+              },
+            ]
+          }
+        ],
+        pmStaffitems: [
+          {
+            to: '/dashboard/home',
+            slug: 'home',
+            icon: 'dashboard',
+            text: 'Dashboard'
+          },
+          {
+            to: '/dashboard/facilities/',
+            slug: 'facilities',
+            icon: 'store',
+            text: 'My Properties',
+            children: [
+              {
+                to: '/dashboard/facilities/',
+                slug: 'facilities',
+                text: 'My Properties'
+              },
+            ]
+          },
+          {
+            to: '/dashboard/vendors/',
+            slug: 'vendors',
+            icon: 'mdi-account-check',
+            text: 'Vendors',
+            children: [
+              {
+                to: '/dashboard/vendors/approved',
+                slug: 'approved',
+                text: 'My Approved Vendors',
+              },
+              {
+                to: '/dashboard/vendors/applicants',
+                slug: 'applicants',
+                text: 'Pending Vendor Applicants',
+              },
+              {
+                to: '/dashboard/vendors/',
+                slug: 'vendors',
+                text: 'Find A SOWerk Vendor',
+              },
+              {
+                to: '/dashboard/vendors/invite',
+                slug: 'invite',
+                text: 'Vendor Invite Tool',
+              },
+              {
+                to: '/dashboard/vendors/applications',
+                slug: 'applications',
+                text: 'Edit Vendor Requirements',
+              },
+            ]
+          },
+          {
+            to: '/dashboard/requests-for-bids/',
+            slug: 'requests-for-bids',
+            icon: 'mdi-frequently-asked-questions',
+            text: 'Requests For Bids'
+          },
+          {
+            to: '/dashboard/messages-and-alerts/',
+            slug: 'messages-and-alerts',
+            icon: 'mdi-bell-alert',
+            text: 'Messages & Alerts'
+          },
+          {
+            to: '/dashboard/feedback/',
+            slug: 'feedback',
+            icon: 'mdi-comment-question',
+            text: 'Support & Feedback'
+          },
+          {
+            to: '/dashboard/profile/',
+            slug: 'profile',
+            icon: 'settings',
+            text: 'Settings',
+            class: 'fixed-bottom',
+            children: [
+              {
+                to: '/dashboard/profile/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'Manage Company Profile',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/user-creation',
+                slug: 'user-creation',
+                icon: 'mdi-account',
+                text: 'Manage Users'
+              },
+            ]
           }
         ],
         providerItems: [
@@ -268,7 +367,7 @@
     },
     async mounted () {
       setTimeout(async () => {
-        // await this.getUser();
+        await this.getUser();
       }, 1000)
     },
     watch: {
@@ -286,6 +385,9 @@
       },
     },
     methods: {
+      async logout() {
+        await this.$store.dispatch('user/logout');
+      },
       async getUser() {
         // this.loading = true;
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
@@ -300,7 +402,8 @@
         let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
-        this.loading = false;
+        this.loading = true;
+        console.log(this.user, this.company, 'user and company')
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column">
+  <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column" max-height="auto">
     <v-img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>
     <div style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center">
       <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10">
@@ -67,8 +67,8 @@
     </v-card-text>
     <v-spacer></v-spacer>
     <v-card-actions class="d-flex justify-center">
-      <v-btn color="blue" @click="logout">Logout</v-btn>
-      <v-btn color="primary" @click="deleteLocation(location)" v-if="location">DELETE THIS LOCATION</v-btn>
+      <v-btn v-if="this.user" color="blue" @click="logout">Logout</v-btn>
+      <v-btn color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE THIS LOCATION</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -91,6 +91,11 @@
       if(this.user) {
         this.getCompany(this.user.companies_id)
       }
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
     },
     methods: {
       async logout() {
