@@ -87,9 +87,9 @@
     methods: {
       async reset() {
         try {
-          await this.$store.put('user/login', {
+          await this.$store.put('user/', {
             email: this.loginData.email.toLowerCase(),
-            password: this.loginData.password,
+            //password: this.loginData.password,
             confirmPassword: this.loginData.password==this.loginData.confirmPassword
           })
           console.log(this.$store.state.user);

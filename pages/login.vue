@@ -65,7 +65,7 @@
               </v-text-field>
 
               <v-btn text type="submit" value="LET'S GO" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="login" >LET'S GO</v-btn>
-              <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="reset" >Forgot Password?</v-btn>-->
+              <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="sendReset" >Forgot Password?</v-btn>-->
             </v-form>
           </v-card-text>
         </v-card>
