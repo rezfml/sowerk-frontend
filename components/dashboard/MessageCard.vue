@@ -26,15 +26,9 @@
           </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="slug + item.id" append>
-              <v-btn icon>
-                <v-icon small class="mr-2">
-                  mdi-pencil
-                </v-icon>
-              </v-btn>
+              <v-btn class="my-1" style="width: 90%; text-decoration: none!important;" color="green" outlined>View/Edit</v-btn>
             </nuxt-link>
-            <v-icon small @click="deleteMessage(item)">
-              mdi-delete
-            </v-icon>
+            <v-btn class="my-1" style="width: 90%;" color="primary" outlined @click="deleteMessage(item)">Delete</v-btn>
           </template>
           <template v-slot:footer>
             <v-row class="d-flex justify-center my-4" style="width: 100%;">
