@@ -87,14 +87,22 @@
     methods: {
       async reset() {
         try {
+          //put request to change the users password based of id/email
           await this.$store.put('user/', {
+            //email input
             email: this.loginData.email.toLowerCase(),
+
             //password: this.loginData.password,
+
+            //password verification = confirmation password.
             confirmPassword: this.loginData.password==this.loginData.confirmPassword
+
+            //add New Password to DB
           })
           console.log(this.$store.state.user);
         } catch (e) {
           console.log(e);
+          //alerts failure if the passwords do not match.
           alert('Failed to change password, please check your email or password to ensure it is correct!')
         }
 

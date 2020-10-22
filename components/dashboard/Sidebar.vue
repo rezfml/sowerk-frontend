@@ -9,7 +9,7 @@
       ></v-progress-circular>
     </div>
     <v-list height="100%" style="position: relative" dark class="list">
-      <v-list-item>
+      <v-list-item >
         <v-list-item-content class="py-0">
           <v-list-item-title class="title text-center">
             <v-img src="/SoWerk-Logo.png" style="height: 50px; width: 100%; object-fit: cover; object-position: center;"></v-img>
@@ -109,8 +109,7 @@
     
   </v-navigation-drawer>
 
-  <v-app-bar v-else style="z-index:1;height:90%;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
-    
+  <v-app-bar v-else style="height:unset; width:unset;z-index:6;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
     <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.75);margin:auto 0;padding: 0;"  >
       <v-container class="fill-height" >
         <v-row align="center" justify="center">
@@ -121,10 +120,10 @@
           </v-btn>
         </v-row>
       </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:100vh;max-width:none;background-color:#212121; overflow:scroll;">
-      <v-list-item>
-        <v-list-item-content style="overflow: scroll;color:white;">
-          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px;" alt="SOWerkHome"></v-img></v-btn>
+    <v-navigation-drawer v-model="drawer" absolute temporary style="height:100vh;max-width:none;background-color:#212121; overflow:scroll; overflow-x: hidden;">
+      <v-list-item style="">
+        <v-list-item-content style="color:white;">
+          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px; overflow:hidden !important;" alt="SOWerkHome"></v-img></v-btn>
           <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/"></a></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -217,7 +216,6 @@
       </v-list-item>
       </v-navigation-drawer>
     </v-sheet>
-
   </v-app-bar>
 </v-app>
 </template>

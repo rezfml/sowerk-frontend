@@ -99,6 +99,10 @@
           alert('Failed to login, please check your username or password to ensure it is correct!')
         }
 
+        //requests id for user based off email
+
+        //send email with id and link to email in DB
+
         // let {data, status} = await this.$http.post('https://sowerk-backend.herokuapp.com/api/auth/login', this.loginData).catch(e => e);
         // console.log(data);
         // if(!data.token) return;
