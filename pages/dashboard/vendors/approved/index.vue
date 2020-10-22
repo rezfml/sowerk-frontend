@@ -8,7 +8,47 @@
       ></v-progress-circular>
     </div>
     <v-container class="px-0" style="max-width: 95%;">
-      <v-row>
+      <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
+
+        <v-col cols="12">
+          <v-row class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
+            <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
+            <v-btn
+              style=""
+              class="px-16 mb-4"
+              large
+              outlined
+              rounded
+              color="white"
+              href="/dashboard/vendors/"
+            >View All</v-btn>
+          </v-row>
+          <v-row class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
+            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
+            <v-btn
+              style=""
+              class="px-16 mb-4"
+              large
+              outlined
+              rounded
+              color="primary"
+              href="/dashboard/vendors/invite"
+            >Invite Them Now</v-btn>
+          </v-row>
+          <FacilitiesCard
+            v-if="loading != false"
+            :title="'My Approved Vendors'"
+            :items="vendors"
+            :tableProperties="headers"
+            :viewAll="false"
+            slug="/dashboard/approved-vendors/"
+            action="ViewApproved"
+            :company="company"
+          ></FacilitiesCard>
+        </v-col>
+      </v-row>
+
+      <v-row v-else>
         <v-col cols="3">
           <FilterCard
             title="Filter"
@@ -52,6 +92,7 @@
           ></FacilitiesCard>
         </v-col>
       </v-row>
+
     </v-container>
   </v-app>
 </template>
