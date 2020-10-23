@@ -317,5 +317,10 @@
 </script>
 
 <style scoped>
+  @media (max-width:1264px ){
+    #app{
+      margin-top:-22px;
+    }
+  }
 
 </style>

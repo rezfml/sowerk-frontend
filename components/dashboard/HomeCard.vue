@@ -1,7 +1,7 @@
 <template>
   <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
     <v-container class="pt-0" fluid>
-      <v-card-title v-if="!$vuetify.breakpoint.xs || !$vuetify.breakpoint.sm "
+      <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm "
         style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient TitleCard"
         >{{ title }}</v-card-title>
@@ -104,10 +104,10 @@
           </template>
         </v-data-table>
       </v-card-text>
-      <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+      <v-card-actions class="d-flex justify-end space-around px-4" v-if="viewAll">
         <v-btn
           color="primary"
-          class="px-8"
+          class="px-8 "
           rounded
           outlined
           small
@@ -117,11 +117,7 @@
       </v-card-actions>
     </v-container>
 
-
-
       <v-container  v-else >
-           
-
         <v-data-table
           :headers="tableProperties"
           :items="items"
@@ -195,8 +191,10 @@
             <template v-slot:footer v-if="action != 'View'">
               <v-row class="d-flex justify-end" style="width: 100%;">
                 
-                <v-btn to='/dashboard/facilities/add' color="primary" style="width:50%;" class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
-                <v-btn to='/dashboard/facilities/' color="primary" style="width:50%;"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
+                <v-btn to='/dashboard/facilities/add' color="primary" v-if="$vuetify.breakpoint.xs" style="width:100%;" class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
+                <v-btn to='/dashboard/facilities/add' color="primary" v-else style="width:50%;" class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
+                <v-btn to='/dashboard/facilities/' color="primary" v-if="$vuetify.breakpoint.xs" style="width:100%;"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
+                <v-btn to='/dashboard/facilities/' color="primary" v-else style="width:50%;"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
               </v-row>
             </template>
           </v-data-table>

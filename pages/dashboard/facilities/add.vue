@@ -5,11 +5,11 @@
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Location</v-card-title>
         <v-card-text class="px-6 pt-12 pb-0 mx-auto">
           <v-row class="px-3 pt-3">
-            <v-col cols="12" class="pa-0 elevation-2" style="width: 100%; top: 0; border-radius: 10px; overflow: hidden; height: 50vh; max-height: 500px; z-index: 10;">
+            <v-col cols="12" class="pa-0 elevation-2" style="width: 100%; top: 0; border-radius: 10px; overflow: hidden; height: 50vh; max-height: 500px; z-index: 4;">
               <client-only>
                 <GmapMap
                   id="locations-map"
-                  style="width: 100%; height: 100%"
+                  style="width: 100%; height: 100%; "
                   ref="location-map"
                   :center="{lat:38, lng:-95.5}"
                   :zoom="4"
@@ -345,5 +345,10 @@ on your account dashboard. Example: SOWerk Cafe #013)"
   .red-gradient {
     background: rgb(166,28,0);
     background: linear-gradient(90deg, rgba(166,28,0,1) 0%, rgba(116,21,2,1) 100%);
+  }
+    @media (max-width:1264px ){
+    #app{
+      margin-top:-22px;
+    }
   }
 </style>
