@@ -6,7 +6,7 @@
           <ProfileCard :user="currentUser"></ProfileCard>
         </v-col>
         <v-col cols="8" class="pb-12 d-flex flex-column">
-          <ProfileEditCard :company="currentUser"></ProfileEditCard>
+          <ProfileEditCard :user="currentUser"></ProfileEditCard>
         </v-col>
       </v-row>
     </v-container>

@@ -144,7 +144,7 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation'],
   data() {
     return {
       locations: null,
@@ -204,26 +204,6 @@ export default {
             .catch(err => {
               console.log(err);
             })
-        })
-    },
-    async assignUserToLocation(location) {
-      console.log('location', location, 'this.locationAssignUser', this.locationAssignUser)
-      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + location.id,
-        {
-        email: this.locationAssignUser.email,
-        phone: this.locationAssignUser.phone,
-        contact_first_name: this.locationAssignUser.first_name,
-        contact_last_name: this.locationAssignUser.last_name,
-        adminLevel: this.locationAssignUser.is_superuser
-        })
-        .then(response => {
-          console.log('success', response)
-          this.successAssign = true;
-          alert(`Successfully assigned location #${location.id} - ${location.name} to be managed by user #${this.locationAssignUser.id} - ${this.locationAssignUser.first_name} ${this.locationAssignUser.last_name}`)
-        })
-        .catch(err => {
-          console.log(err, 'err')
-          alert('Error in assigning user to this location')
         })
     },
     async closeModal() {

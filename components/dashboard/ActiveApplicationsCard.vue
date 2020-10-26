@@ -107,6 +107,13 @@
           .catch(err => {
             console.log('err', err);
           })
+        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + itemVal.pmcompanies_id, approvalChanges)
+          .then(response => {
+            console.log('success in changes', response)
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
         await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection', approvedproviderconnection)
           .then(response => {
             console.log('success', response);
