@@ -7,8 +7,8 @@
             class="title font-weight-regular text-center my-12 grey--text text--darken-2"
             >Complete The Below Details For Each Location. All progress is saved
             automatically and you can view your list of locations after every
-            add. Need Help Uploading Multiple Locations? Contact SOWERK
-            Here</span
+            add. Need Help Uploading Multiple Locations? Contact <a href="mailto:Support@SOWerk.com">SOWERK 
+            Here </a ></span
           >
           <v-form class="mx-auto">
             <v-container>

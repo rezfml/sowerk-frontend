@@ -1,6 +1,22 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container class="px-0" style="max-width: 95%;">
+    <v-container class="px-0" style="max-width: 95%;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
+      <v-row>
+        <v-col cols="12" class="d-flex flex-column justify-start">
+          <ActiveApplicationsCard
+            v-if="applications.length > 0"
+            :title="'My Active Applications'"
+            :tableProperties="headers"
+            :viewAll="false"
+            :items="applications"
+            :loadingRequests="loading"
+            slug="/dashboard/vendors/applicants"
+          ></ActiveApplicationsCard>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container class="px-0" style="max-width: 95%;" v-else>
       <v-row>
         <v-col cols="3">
           <FilterCard
@@ -238,5 +254,11 @@
 </script>
 
 <style>
+    @media (max-width:1264px ){
+    #app{
+      margin-top:-22px;
+    }
+  }
+
 
 </style>
