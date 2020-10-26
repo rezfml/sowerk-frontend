@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
         v-if="loading != true"

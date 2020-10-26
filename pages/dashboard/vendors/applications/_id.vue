@@ -49,8 +49,8 @@
       </v-col>
     </v-row>
 
-    <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 98%; height: 50vh; position: absolute; top: 50px; left: 10px;">
-      <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{userForms.name}}</v-card-text>
+    <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
+      <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
       <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
         <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
         <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
@@ -60,7 +60,7 @@
         <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
         <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="green" outlined>Update Form Field</v-btn>
       </div>
-      <v-btn text style="position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
+      <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
     </v-card>
 
   </v-container>
@@ -227,8 +227,9 @@
       },
       async openEditFormField(formfieldVal, position) {
         console.log(formfieldVal, 'openEditFormField formfield', Number(position));
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        // window.scrollTo({top: 0, behavior: 'smooth'});
         this.openEditFormFieldVal = formfieldVal;
+        this.openEditFormFieldVal.order =  Number(position);
         this.openEditFormFieldLoad = true
       },
       async closeEditFormField() {
