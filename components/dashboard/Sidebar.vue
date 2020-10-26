@@ -106,7 +106,7 @@
       </v-list-item>
 
     </v-list>
-    
+
   </v-navigation-drawer>
 
   <v-app-bar v-else style="height:unset; width:unset;z-index:6;" :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat>
@@ -180,7 +180,7 @@
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
-          <v-list-group v-else :key="index" class="list-group" style="color:white;"> 
+          <v-list-group v-else :key="index" class="list-group" style="color:white;">
             <template v-slot:activator>
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title>{{ link.text }}</v-list-item-title>
@@ -307,7 +307,19 @@
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
-            text: 'Messages & Alerts'
+            text: 'Messages & Alerts',
+            children: [
+              {
+                to: '/dashboard/messages-and-alerts/',
+                slug: 'messages-and-alerts',
+                text: 'Inbox',
+              },
+              {
+                to: '/dashboard/messages-and-alerts/sent',
+                slug: 'messages-and-alerts-sent',
+                text: 'Sent',
+              },
+            ]
           },
           {
             to: '/dashboard/feedback/',
@@ -407,7 +419,19 @@
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
-            text: 'Messages & Alerts'
+            text: 'Messages & Alerts',
+            children: [
+              {
+                to: '/dashboard/messages-and-alerts/inbox',
+                slug: 'messages-and-alerts',
+                text: 'Inbox',
+              },
+              {
+                to: '/dashboard/messages-and-alerts/sent',
+                slug: 'messages-and-alerts-sent',
+                text: 'Sent',
+              },
+            ]
           },
           {
             to: '/dashboard/feedback/',

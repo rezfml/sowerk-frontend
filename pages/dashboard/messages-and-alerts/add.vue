@@ -16,7 +16,14 @@
       <v-text-field placeholder="First Name Goes Here" v-model="messageForm.primary_contact_first_name"></v-text-field>
       <v-text-field placeholder="Last Name Goes Here" v-model="messageForm.primary_contact_last_name"></v-text-field>
       <v-text-field placeholder="Message Goes Here" v-model="messageForm.message"></v-text-field>
-      <v-select placeholder="Location Goes Here" v-model="messageForm.location" :items="company.locations" item-text="name"></v-select>
+        <v-select  placeholder="Location Goes Here" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption">
+          <template slot="selection" slot-scope="data">
+            {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+          </template>
+          <template slot="item" slot-scope="data">
+            {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+          </template>
+        </v-select>
       <v-btn @click="submit">Send Message</v-btn>
     </v-form>
   </div>
@@ -49,6 +56,7 @@
         company: {
 
         },
+        locations: [],
         headers: [
           { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
           { text: 'Services Offered', value: 'service', class: 'primary--text font-weight-regular' },
@@ -59,8 +67,8 @@
     },
     async mounted() {
       console.log(this.currentUser);
-      this.getCompanies();
-      this.getCompany();
+      await this.getCompanies();
+      await this.getCompany();
     },
     computed: {
       currentUser() {
@@ -93,6 +101,7 @@
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.company = response.data;
+            this.locations = response.data.locations
             this.messageForm.company = response.data.account_name;
             this.messageForm.service = String(response.data.servicesOffered);
             console.log(this.company, 'company');
@@ -102,7 +111,9 @@
           })
       },
       async submit() {
-        console.log(this.messageForm)
+        console.log(this.messageForm, 'this.messageForm')
+        this.messageForm.location = `${this.messageForm.location.name} - ${this.messageForm.location.address} ${this.messageForm.location.city}, ${this.messageForm.location.state} ${this.messageForm.location.zipcode}`
+        console.log(this.messageForm, 'after location change')
         await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
           .then(response => {
             console.log('SUCCESS', response)
