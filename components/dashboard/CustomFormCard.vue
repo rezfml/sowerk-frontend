@@ -1,5 +1,5 @@
 <template>
-  <v-card class="white pt-0 mt-9" max-height="50%;">
+  <v-card class="white pt-0 mt-9" style="width: 100%;" max-height="50%;">
     <v-container>
       <v-card-title style="position: absolute; top: -25px; left: 25px;border-radius: 3px;" class="primary body-2" ><v-icon>mdi-account</v-icon></v-card-title>
       <v-card-text class="py-0">
