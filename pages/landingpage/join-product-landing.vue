@@ -107,7 +107,7 @@
             </p>
           </div>
         </div>
-        <div class="joinproductstepcontainerstep step-left">
+        <div class="joinproductstepcontainerstep step-left" style="padding-left:3%">
           <div class="getStarted">
             <h1>Step 2 <span>- Find Or Invite Service Providers</span></h1>
             <p>
@@ -146,11 +146,11 @@
           </div>
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
         </div>
-        <div class="joinproductstepcontainerstep step-right">
+        <div class="joinproductstepcontainerstep step-right" >
           <!--we will need to replace these with higher quality images eventually-->
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
-          <div class="getStarted">
+          <div class="getStarted" style="padding-right:2%;">
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
               What’s the point of great power if you can’t manage it? SOWerk’s
