@@ -31,7 +31,7 @@
           <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
           <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>
           <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
-          <LocationEditCard v-if="editLocationDetails === true"></LocationEditCard>
+          <ProfileEditCard :location="location" v-if="editLocationDetails === true"></ProfileEditCard>
         </v-col>
       </v-row>
     </v-container>
@@ -62,7 +62,7 @@
       FacilitiesCard,
       ApplicationAcceptCard,
       ActiveApplicationsCard,
-      LocationActiveApplications
+      LocationActiveApplications,
     },
     data() {
       return {
