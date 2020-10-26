@@ -75,6 +75,7 @@
         slug="/dashboard/facilities/"
         :viewLocation="true"
         :locationAssignUser="locationAssignUser"
+        :assignUserToLocation="assignUserToLocation"
       ></FacilitiesCard>
       <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
     </v-card>
@@ -186,6 +187,48 @@ export default {
             alert('Error - could not delete account.')
           })
       }
+    },
+    async assignUserToLocation(location) {
+      console.log('location', location, 'this.locationAssignUser on ASSIGN', this.locationAssignUser)
+      let locationId = location.id;
+      console.log(locationId);
+      let locationAssign = {
+        email: "",
+        phone: "",
+        contact_first_name: "",
+        contact_last_name: "",
+        adminLevel: Number
+      };
+      if(this.locationAssignUser.is_superuser === true) {
+        locationAssign = {
+          email: this.locationAssignUser.email,
+          phone: this.locationAssignUser.phone,
+          contact_first_name: this.locationAssignUser.first_name,
+          contact_last_name: this.locationAssignUser.last_name,
+          adminLevel: 1
+        }
+      } else {
+        locationAssign = {
+          email: this.locationAssignUser.email,
+          phone: this.locationAssignUser.phone,
+          contact_first_name: this.locationAssignUser.first_name,
+          contact_last_name: this.locationAssignUser.last_name,
+          adminLevel: 0
+        }
+      }
+      await setTimeout(async () => {
+        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + locationId, locationAssign)
+          .then(response => {
+            console.log('success', response)
+            this.successAssign = true;
+            alert(`Successfully assigned location #${location.id} - ${location.name} to be managed by user #${this.locationAssignUser.id} - ${this.locationAssignUser.first_name} ${this.locationAssignUser.last_name}`)
+            this.locationAssignLoad = false;
+          })
+          .catch(err => {
+            console.log(err, 'err')
+            alert('Error in assigning user to this location')
+          })
+      }, 500)
     },
   }
 }

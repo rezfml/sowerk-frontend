@@ -10,34 +10,33 @@
               <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Vendor Forms</v-subheader>
             </v-col>
 
-            <v-col cols="12" class="py-0">
-              <p class="mb-2">General</p>
-              <v-divider color="grey"></v-divider>
-              <v-list>
-                <v-list-item class="px-0">
-                  <v-list-item-content class="py-0" v-if="finishedFormFields === true">{{ totalLength }} General Application Questions</v-list-item-content>
-                  <v-list-item-action class="my-0">
-                    <v-btn icon color="primary" class="px-12">
-                      <v-icon>edit</v-icon>
-                    </v-btn>
-                  </v-list-item-action>
-                </v-list-item>
-              </v-list>
-            </v-col>
+<!--            <v-col cols="12" class="py-0">-->
+<!--              <p class="mb-2">General</p>-->
+<!--              <v-divider color="grey"></v-divider>-->
+<!--              <v-list>-->
+<!--                <v-list-item class="px-0">-->
+<!--                  <v-list-item-content class="py-0" v-if="finishedFormFields === true">{{ totalLength }} General Application Questions</v-list-item-content>-->
+<!--                  <v-list-item-action class="my-0">-->
+<!--                    <v-btn icon color="primary" class="px-12">-->
+<!--                      <v-icon>edit</v-icon>-->
+<!--                    </v-btn>-->
+<!--                  </v-list-item-action>-->
+<!--                </v-list-item>-->
+<!--              </v-list>-->
+<!--            </v-col>-->
             <v-col cols="12" style="width: 100%;">
-              <p class="mb-2">Service Forms</p>
               <v-divider color="grey"></v-divider>
               <v-simple-table style="width: 100%;">
                 <tbody style="width: 100%;">
                   <tr v-for="(form, i) in userForms" :key="i" style="width: 100%;">
                     <td style="width: 30%;">{{ form.name }}</td>
                     <td style="width: 50%;" v-if="finishedFormFields === true">{{ form.formfields.length }} Specific Application Questions</td>
-                    <td class="d-flex" style="width: 100%;">
-                      <v-btn :href="'../../dashboard/vendors/applications/' + form.id" style="width: 50%;" icon color="primary">
-                        <v-icon>mdi-eye</v-icon>
+                    <td class="d-flex flex-column" style="width: 100%; height: auto;">
+                      <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%;" color="green" outlined>
+                        View/Edit
                       </v-btn>
-                      <v-btn :href="'../../dashboard/userForms/edit' + form.id" style="width: 50%;" icon color="primary">
-                        <v-icon>edit</v-icon>
+                      <v-btn class="my-1" style="width: 100%;" outlined color="primary">
+                        Delete
                       </v-btn>
                     </td>
                   </tr>

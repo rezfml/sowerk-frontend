@@ -7,34 +7,34 @@
         :size="50"
       ></v-progress-circular>
     </div>
-    <v-card>
-      <v-card-title>Applications for All Locations</v-card-title>
+    <v-card class="mt-8">
+      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Applications for All Locations</v-card-title>
       <template>
-        <v-simple-table>
+        <v-simple-table class="pt-16">
           <thead >
           <tr class="d-flex justify-start">
-            <th style="width: 6%; text-align: center">Id</th>
-            <th style="width: 15%; text-align: center">Location Name</th>
-            <th style="width: 15%; text-align: center">Location Address</th>
-            <th style="width: 15%; text-align: center">Service</th>
-            <th style="width: 15%; text-align: center">Application</th>
-            <th style="width: 25%; text-align: center">#Questions</th>
-            <th style="width: 9%;">Actions</th>
+            <th style="color: #a61c00; width: 6%; text-align: center">Id</th>
+            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
+            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
+            <th style="color: #a61c00; width: 15%; text-align: center">Service</th>
+            <th style="color: #a61c00; width: 15%; text-align: center">Application</th>
+            <th style="color: #a61c00; width: 25%; text-align: center">#Questions</th>
+            <th style="color: #a61c00; width: 9%;">Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(location, index) in locations">
+          <tr  v-for="(location, index) in locations" style="background: none !important;">
             <div v-for="(service, indexService) in location.services">
-              <div class="d-flex justify-start" style="border-bottom: 1px solid gray" v-for="(userform, indexUserForm) in service.userforms">
-                <td style="width: 6%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.id}}</td>
-                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 15%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 20%; border-right: 1px solid gray; text-align: center" class="py-1">{{userform.formfields.length}} Questions for userform</td>
-                <td style="width: 9%;" class="d-flex justify-center">
-                  <v-btn :to="'/dashboard/vendors/applications/' + userform.id" text class="ml-16" style="width: 50%;"><v-icon color="primary">mdi-eye</v-icon></v-btn>
-                  <v-btn text style="width: 50%;"><v-icon color="primary">mdi-pencil</v-icon></v-btn>
+              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
+                <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>
+                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>
+                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
+                <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>
+                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}} Questions for userform</td>
+                <td style="width: 9%; margin: 0 auto;" class="d-flex flex-column align-center">
+                  <v-btn class="my-1" color="green" outlined :to="'/dashboard/vendors/applications/' + userform.id" style="width: 100%;">View/Edit</v-btn>
+                  <v-btn class="my-1" color="primary" outlined style="width: 100%;">Delete</v-btn>
                 </td>
               </div>
             </div>
@@ -157,6 +157,8 @@
 
 </script>
 
-<style>
-
+<style scoped>
+  .hover-select:hover {
+    background-color: lightgrey !important;
+  }
 </style>
