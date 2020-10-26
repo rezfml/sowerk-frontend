@@ -1,8 +1,8 @@
 <template>
-  <v-app class="grey lighten-3" overflow-y-auto>
+  <v-app class="grey lighten-3 ml-n4" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="width: 100%; height: 100%;">
-        <v-col cols="3" class="">
+        <v-col cols="3">
           <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
         </v-col>
         <v-col cols="9" class="pb-12 d-flex flex-column align-center">
@@ -21,12 +21,13 @@
           ></v-progress-circular>
           <FacilitiesCard
             v-if="loading != false && company.company_type==='true' && locationApproved===true"
-            :title="'My Approved Vendors'"
+            :title="'Location Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
             action="ViewApproved"
             :company="company"
+            :locationApproved="locationApproved"
           ></FacilitiesCard>
           <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
           <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>

@@ -80,7 +80,7 @@
     <v-spacer></v-spacer>
     <v-card-actions class="d-flex justify-center">
       <v-btn v-if="this.user" color="blue" @click="logout">Logout</v-btn>
-      <v-btn color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE THIS LOCATION</v-btn>
+      <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE LOCATION</v-btn>
     </v-card-actions>
   </v-card>
 </template>

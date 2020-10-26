@@ -2,7 +2,7 @@
   <div class="joinservicecontainer">
     <section class="joinservicehero">
       <div>
-        <h1>Service Providers</h1>
+        <h1>Service & Product Vendors</h1>
         <p>Your Tools For Business Relationships</p>
         <button @click='$router.push("/register/provider")'>Get Started Now</button>
       </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="joinservicestepcontainerstep">
-          <div class="stepTwo"> 
+          <div class="stepTwo">
             <h1>Step 2 <span>- Apply With Buyers</span></h1>
             <p>Apply For Businesses Looking For You With One Click.</p>
             <p>
