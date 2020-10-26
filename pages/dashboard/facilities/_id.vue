@@ -1,14 +1,12 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;">
-        <v-col cols="4" class="">
+      <v-row style="width: 100%; height: 100%;">
+        <v-col cols="3" class="">
           <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
         </v-col>
-        <v-col cols="8" class="pb-12 d-flex flex-column align-center">
+        <v-col cols="9" class="pb-12 d-flex flex-column align-center">
           <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true"></ProfileEditCard>
-          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>
-          <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
 <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
 <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
 <!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
@@ -19,7 +17,7 @@
             v-if="loading != true"
             indeterminate
             color="primary"
-            :size="20"
+            :size="50"
           ></v-progress-circular>
           <FacilitiesCard
             v-if="loading != false && company.company_type==='true' && locationApproved===true"
@@ -30,6 +28,10 @@
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>
+          <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
+          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>
+          <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
+          <LocationEditCard v-if="editLocationDetails === true"></LocationEditCard>
         </v-col>
       </v-row>
     </v-container>
@@ -44,6 +46,8 @@
   import CustomFormCard from "~/components/dashboard/CustomFormCard";
   import FacilitiesCard from '~/components/dashboard/FacilitiesCard';
   import ApplicationAcceptCard from '~/components/dashboard/ApplicationAcceptCard'
+  import ActiveApplicationsCard from '~/components/dashboard/ActiveApplicationsCard'
+  import LocationActiveApplications from '@/components/dashboard/LocationActiveApplications'
   import * as moment from 'moment'
 
   export default {
@@ -56,7 +60,9 @@
       ProfileEditCard,
       CustomFormCard,
       FacilitiesCard,
-      ApplicationAcceptCard
+      ApplicationAcceptCard,
+      ActiveApplicationsCard,
+      LocationActiveApplications
     },
     data() {
       return {
@@ -400,7 +406,7 @@
             if(this.company.company_type === "true") {
               console.log('true');
               await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmLocationId/' + id)
-                .then(response => {
+                .then(async (response) => {
                   console.log(response.data, 'yoooo approved');
                   if(response.data.length === 0) {
                     this.loading = true;
@@ -412,7 +418,7 @@
                       this.connections.push(response.data[i]);
                       console.log(response.data[i], 'approved')
                       console.log('response.data', response.data)
-                      this.getLocations(response.data[i].spcompanies_id);
+                      await this.getLocations(response.data[i].spcompanies_id);
                       console.log(this.connections, 'connections');
                     }
                   }
