@@ -13,13 +13,6 @@
             style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
             class="primary white--text font-weight-regular red-gradient"
           >My Pending Applicants</v-card-title>
-          <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading === false">
-            <v-progress-circular
-              indeterminate
-              color="primary"
-              :size="50"
-            ></v-progress-circular>
-          </v-col>
           <v-card-actions class="d-flex justify-end px-4 py-0">
             <v-row class="py-0">
               <v-spacer></v-spacer>
@@ -29,6 +22,12 @@
             </v-row>
           </v-card-actions>
           <v-card-text class="pt-0 pb-2" v-if="applications.length > 0">
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              :size="50"
+              v-if="loading === false"
+            ></v-progress-circular>
             <v-data-table
               :items="applications"
               :headers="headers"
