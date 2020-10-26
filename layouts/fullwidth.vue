@@ -114,7 +114,7 @@ export default {
       items: [
         {
           icon: 'about',
-          title: 'Service Providers',
+          title: 'Vendors',
           path: '../../landingpage/join-service-landing',
         },
         {
