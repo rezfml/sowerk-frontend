@@ -2,19 +2,19 @@
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
-        <v-col cols="4" class="py-12">
-          <ProfileCard :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
+        <v-col cols="4" class="">
+          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
         </v-col>
         <v-col cols="8" class="pb-12 d-flex flex-column align-center">
-          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && edit === false"></ProfileEditCard>
-          <ApplicationAcceptCard v-if="edit === true"></ApplicationAcceptCard>
-          <CustomFormCard v-if="edit === true"></CustomFormCard>
-          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">
-            <v-card color="primary" class="d-flex" style="width: 100%;">
-              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>
-              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>
-            </v-card>
-          </v-row>
+          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true"></ProfileEditCard>
+          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>
+          <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
+<!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
+<!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
+<!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
+<!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
+<!--            </v-card>-->
+<!--          </v-row>-->
           <v-progress-circular
             v-if="loading != true"
             indeterminate
@@ -22,7 +22,7 @@
             :size="20"
           ></v-progress-circular>
           <FacilitiesCard
-            v-if="loading != false && company.company_type==='true' && edit === false"
+            v-if="loading != false && company.company_type==='true' && locationApproved===true"
             :title="'My Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -44,6 +44,7 @@
   import CustomFormCard from "~/components/dashboard/CustomFormCard";
   import FacilitiesCard from '~/components/dashboard/FacilitiesCard';
   import ApplicationAcceptCard from '~/components/dashboard/ApplicationAcceptCard'
+  import * as moment from 'moment'
 
   export default {
     name: 'facility',
@@ -255,12 +256,19 @@
         loading: false,
         hidden: false,
         edit: false,
+        approvedProviders: 0,
+        editLocation: false,
+        locationCondition: false,
+        locationApproved: true,
+        pendingApplicants: false,
+        editVendorRequirements: false,
+        editLocationDetails: false,
       }
     },
     mounted() {
       this.locationId = this.$route.params.id;
+
       this.getCompany(this.currentUser.companies_id);
-      this.getLocation();
     },
     computed: {
       currentUser() {
@@ -269,11 +277,15 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
-            await this.getConnectionTable(this.company.id)
+            if(this.locationCondition === true) {
+              await this.getConnectionTable(this.company.id)
+            } else {
+              await this.getLocation();
+            }
           })
           .catch(err => {
             console.log('error in getting company', err)
@@ -283,7 +295,7 @@
         console.log('user current', this.currentUser, 'current company', this.company);
         if(this.company.company_type === "true") {
           console.log('true');
-          await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + id)
+          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
@@ -301,7 +313,7 @@
             })
         } else {
           console.log('false');
-          await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/bySpId/' + id)
+          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               for(let i = 0; i<response.data.length; i++) {
@@ -316,11 +328,11 @@
         }
       },
       async getLocations(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(response => {
             for(let i=0; i< response.data.location.length; i++) {
               response.data.location[i].services = response.data.location[i].services.join(', ')
-              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + response.data.location[i].companies_id)
+              this.$http.get('http://www.sowerkbackend.com/api/companies/' + response.data.location[i].companies_id)
                 .then(res => {
                   response.data.location[i].name = `${res.data.account_name}`;
                   response.data.location[i].imageUrl = res.data.imgUrl;
@@ -340,10 +352,11 @@
           })
           .catch(e => console.log(e, 'error'));
         this.loading = true;
+        this.locationApproved = true;
         console.log('loading', this.loading)
       },
       async getBusinesses(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             this.vendors.push(response.data);
             console.log(this.vendors, 'vendors');
@@ -361,7 +374,7 @@
       },
       async getUsers(id, index) {
         console.log('id', id)
-        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + id)
+        this.$http.get('http://www.sowerkbackend.com/api/auth/users/company/' + id)
           .then(response => {
             console.log(response.data, 'user response.data');
             console.log(this.vendors[index], 'index vendor', this.vendors, 'vendors');
@@ -376,15 +389,63 @@
           })
       },
       async getLocation() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.locationId).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
+        data.created = moment(data.created).format('l').slice(6,10);
         this.location = data;
+        console.log(this.location, 'getLocation this.location')
+        await this.getApprovedLocationConnections(this.location.id)
+      },
+      async getApprovedLocationConnections(id) {
+            if(this.company.company_type === "true") {
+              console.log('true');
+              await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmLocationId/' + id)
+                .then(response => {
+                  console.log(response.data, 'yoooo approved');
+                  if(response.data.length === 0) {
+                    this.loading = true;
+                  }
+                  for(let i = 0; i<response.data.length; i++) {
+                    if(response.data[i].approval_status === 1) {
+                      this.approvedProviders++
+                      console.log('i', i, 'approvedproviders', this.approvedProviders)
+                      this.connections.push(response.data[i]);
+                      console.log(response.data[i], 'approved')
+                      console.log('response.data', response.data)
+                      this.getLocations(response.data[i].spcompanies_id);
+                      console.log(this.connections, 'connections');
+                    }
+                  }
+                })
+                .catch(err => {
+                  console.log(err, 'err');
+                })
+            } else {
+              console.log('false');
+              await this.$http.get('http://www.sowerkbackend.com/api/applications/bySpLocationId/' + id)
+                .then(response => {
+                  console.log(response.data, 'yoooo');
+                  for(let i = 0; i<response.data.length; i++) {
+                    if(response.data[i].approval_status === 1) {
+                      console.log(response.data[i], 'approved')
+                      this.approvedProviders++
+                      this.connections.push(response.data[i]);
+                      console.log('response.data', response.data)
+                      this.getLocations(response.data[i].spcompanies_id);
+                      console.log(this.connections, 'connections');
+                    }
+                  }
+                })
+                .catch(err => {
+                  console.log(err, 'err');
+                })
+            }
       },
       deleteLocation(locationParam) {
         console.log(locationParam, 'params');
         let confirmDelete = confirm('Are you sure you want to delete this location? Cannot be undone.');
         if (confirmDelete === true) {
-          this.$http.delete('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + locationParam.id)
+          this.$http.delete('http://www.sowerkbackend.com/api/locations/' + locationParam.id)
             .then(response => {
               alert('Location successfully deleted');
               this.$router.push({path:"/dashboard/facilities"})
@@ -397,7 +458,35 @@
       },
       async editFunction() {
         this.edit = true;
-      }
+      },
+      async locationApproval() {
+        this.locationApproved = true;
+        this.pendingApplicants = false;
+        this.editVendorRequirements = false;
+        this.editLocationDetails = false;
+        console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
+      },
+      async pendingApplication() {
+        this.locationApproved = false;
+        this.pendingApplicants = true;
+        this.editVendorRequirements = false;
+        this.editLocationDetails = false;
+        console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
+      },
+      async editVendorRequirement() {
+        this.locationApproved = false;
+        this.pendingApplicants = false;
+        this.editVendorRequirements = true;
+        this.editLocationDetails = false;
+        console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
+      },
+      async editLocationDetail() {
+        this.locationApproved = false;
+        this.pendingApplicants = false;
+        this.editVendorRequirements = false;
+        this.editLocationDetails = true;
+        console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
+      },
     }
   }
 </script>

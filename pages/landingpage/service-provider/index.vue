@@ -48,7 +48,7 @@
               <img v-else  class="aboutdescriptionimg1" id="IphoneMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/IphoneMockupcopy.png"/>
               <img v-if="!$vuetify.breakpoint.mobile"  class="aboutdescriptionimg2" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
               <img v-else  class="aboutdescriptionimg2" id="MacMockup" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Cropthispiccopy.png"/>
-            </div>  
+            </div>
             <div class="aboutdescriptiontext col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
               <h1>It all started with “What If…”</h1>
               <p>What if we could simplify the business connection between service providers and property & facility managers?</p>
@@ -135,7 +135,6 @@ export default {
     loading: function() {
       if(this.loading){
         console.log(document);
-        document.documentElement.style.overflow = 'hidden'
         return
       }
       document.documentElement.style.overflow = 'auto'

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-3" overflow-y-auto>
+  <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
     <v-container class="px-8" fluid>
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">
@@ -9,7 +9,7 @@
             </span>
           </v-card-text>
 
-          <v-btn @click="exit" color="white" class="mt-2" text depressed>X</v-btn>
+          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>
         </v-card>
       </v-row>
       <HomeCard
@@ -27,17 +27,20 @@
             :size="50"
           ></v-progress-circular>
         </v-col>
-        <v-col cols="3" v-for="(stat, index) in stats" :key="index">
+        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
           <StatCard :stat="stat"></StatCard>
         </v-col>
       </v-row>
       <v-card class="white pt-0 mt-12">
-        <v-container fluid>
-          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Approved Vendors - Quick Look Up</v-card-title>
-          <v-card-actions class="d-flex justify-end px-4 py-0">
+        <v-container fluid >
+          <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white--text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>
+          <v-card-title v-else-if="$vuetify.breakpoint.md||$vuetify.breakpoint.sm "  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14.5px; line-height:1.2;" class="primary white--text font-weight-regular red-gradient " >Approved Vendors - Quick Look Up</v-card-title>
+          <v-card-title v-else style="position: absolute; top: -30px; left: 25px; width: 35%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient " >Approved Vendors - <br v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md"/> Quick Look Up</v-card-title>
+          
+          <v-card-actions v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" class="d-flex justify-end px-0 py-0">
             <v-row class="py-0">
               <v-spacer></v-spacer>
-              <v-col cols="4" class="py-0">
+              <v-col cols="12" class="mt-1">
                 <v-text-field
                   label="Search"
                   light
@@ -45,7 +48,46 @@
               </v-col>
             </v-row>
           </v-card-actions>
-          <v-card-text class="pt-0">
+
+          <v-card-actions v-else class="d-flex justify-end px-4 py-0">
+            <v-row class="py-0">
+              <v-spacer></v-spacer>
+              <v-col cols="6" class="py-0">
+                <v-text-field
+                  label="Search"
+                  light
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+          
+          <v-card-text class="pt-0" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" >
+            <v-sheet
+              class="mx-auto"
+              max-width="100%"
+            >
+              <v-slide-group multiple show-arrows>
+                <v-slide-item
+                  v-for="(item, index) in quickLookUps"
+                  :key="index"
+                  v-slot:default="{ active, toggle }"
+                  class ="px-3"
+                >
+                  <v-card width="200" elevation="0">
+                    <v-row>
+                      <v-col class="d-flex flex-column justify-center py-0">
+                        <p class="text-center primary--text title" size="50">{{ item.name }}</p>
+                        <v-icon color="primary" size="50">{{ item.icon }}</v-icon>
+                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="70%">View All</v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-slide-item>
+              </v-slide-group>
+            </v-sheet>
+          </v-card-text>
+
+          <v-card-text class="pt-0" v-else>
             <v-sheet
               class="mx-auto"
               max-width="100%"
@@ -196,7 +238,6 @@
       loading: function() {
         if(this.loading){
           console.log(document);
-          document.documentElement.style.overflow = 'hidden'
           return
         }
         document.documentElement.style.overflow = 'auto'
@@ -277,11 +318,17 @@
 </script>
 
 <style lang="scss" scoped>
+
   .red-gradient {
     background: rgb(166,28,0);
     background: linear-gradient(90deg, rgba(166,28,0,1) 0%, rgba(116,21,2,1) 100%);
   }
   .v-application--wrap{
     min-height: unset !important;
+  }
+  @media (max-width:1264px ){
+    #app{
+  margin-top:-65px;
+}
   }
 </style>

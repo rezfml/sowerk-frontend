@@ -283,7 +283,6 @@ export default {
     loading: function () {
       if (this.loading) {
         console.log(document)
-        document.documentElement.style.overflow = 'hidden'
         return
       }
       document.documentElement.style.overflow = 'auto'
