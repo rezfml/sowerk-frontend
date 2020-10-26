@@ -39,7 +39,7 @@
         </draggable>
         <rawDisplayer title="List 2" :value="formTypes" />
         <v-btn @click="saveUserForm" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-        <v-btn :href="'../vendors/applicants'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
+        <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
         <v-progress-circular
           v-if="saveLoad === false"
           indeterminate
@@ -254,7 +254,7 @@
           }
         }
         this.openEditFormFieldLoad = false;
-        this.saveUserForm();
+        // this.saveUserForm();
       },
       async updateSingleFormfield(formfieldVal) {
         console.log('updateSingleFormfield', formfieldVal);

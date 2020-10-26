@@ -81,22 +81,28 @@
       await this.getInsurances();
       await this.getLicenses();
       await this.getConnections(this.location);
-      await this.getCompanies();
     },
     methods: {
       async getConnections(location) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/bySpId/' + location.companies_id)
+        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/bySpId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections');
             if(response.data.length !== 0) {
               for(let i=0; i<response.data.length; i++) {
-                this.connections.push(response.data[i]);
-                if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
-                  this.connectionsPast30Days.push(response.data[i]);
+                if(location.id === response.data[i].splocations_id && response.data[i].approval_status === 1) {
+                  this.connections.push(response.data[i]);
+                  if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
+                    this.connectionsPast30Days.push(response.data[i]);
+                  }
                 }
               }
             }
           })
+          .catch(err => {
+            console.log(err, 'err in connections');
+          })
+        console.log(this.connections, 'this.connections')
+        await this.getCompanies();
       },
       async getLocation() {
         await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.$route.params.id)
@@ -135,7 +141,7 @@
       },
       async getCompanies() {
         for(let i=0; i<this.connections.length; i++) {
-          await this.getCompany(this.connections[i].propertymanager_id);
+          await this.getCompany(this.connections[i].pmcompanies_id);
         }
       },
       async getCompany(id) {

@@ -17,7 +17,7 @@
             <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
             <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
             <th style="color: #a61c00; width: 15%; text-align: center">Service</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Application</th>
+            <th style="color: #a61c00; width: 15%; text-align: center">Application Name</th>
             <th style="color: #a61c00; width: 25%; text-align: center">#Questions</th>
             <th style="color: #a61c00; width: 9%;">Actions</th>
           </tr>
@@ -31,7 +31,7 @@
                 <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}} Questions for userform</td>
+                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
                 <td style="width: 9%; margin: 0 auto;" class="d-flex flex-column align-center">
                   <v-btn class="my-1" color="green" outlined :to="'/dashboard/vendors/applications/' + userform.id" style="width: 100%;">View/Edit</v-btn>
                   <v-btn class="my-1" color="primary" outlined style="width: 100%;">Delete</v-btn>
