@@ -86,7 +86,7 @@
 
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
-              <v-btn class="my-1" style="width: 90%;" color="green" outlined>
+              <v-btn class="my-1" style="width: 90%;background-color:#707070" color="white" outlined>
                 View
               </v-btn>
             </nuxt-link>

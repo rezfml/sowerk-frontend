@@ -5,7 +5,7 @@
                 <p
                   class="title font-weight-regular text-center my-12 grey--text text--darken-2"
                 >
-                  Review Company Information
+                  Let's Review Your Details
                 </p>
                 <v-col cols="12" class="align-center text-center mx-auto">
                   <!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
@@ -29,6 +29,8 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" md="6">
+                          <v-title>Your Information</v-title>
+                          <v-divider ></v-divider>
                           <p
                             class="grey--text text--darken-4 font-weight-bold mb-0"
                           >
@@ -82,8 +84,10 @@
                           >
                           </v-text-field>
                         </v-col>
-
+                      
                         <v-col cols="12">
+                          <v-title style="font-size:1.2vw;">Company Account Information</v-title>
+                         <v-divider  ></v-divider>
                           <p
                             class="grey--text text--darken-4 font-weight-bold mb-0"
                           >
