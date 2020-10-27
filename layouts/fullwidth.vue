@@ -74,8 +74,10 @@
       <!-- SOWERK IMAGE LOGO -->
       <v-col cols="4">
         <div style="text-align: right;">
-        <img width="120px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk"></img>
-      </div>
+          <img width="120px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk" />
+          <p style="color: white;"><a href="/terms&conditions" style="text-decoration: none; color: white; font-size: 12px;">Terms & Conditions</a></p>
+          <p style="color: white; margin-top: -10px;"><a href="/privacypolicy" style="text-decoration: none; color: white; font-size: 12px;">Privacy Policy</a></p>
+        </div>
       </v-col>
 
         <!-- TRADEMARK -->

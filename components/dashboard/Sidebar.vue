@@ -116,7 +116,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-list-item @click="logout" class="fixed-bottom">
+      <v-list-item @click="logout" class="">
         <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
         <v-list-item-title style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;" >Logout</v-list-item-title>
       </v-list-item>

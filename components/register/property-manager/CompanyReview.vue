@@ -67,7 +67,7 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.email"
+                            v-model="user.email"
                           >
                           </v-text-field>
                         </v-col>
@@ -80,11 +80,11 @@
                           <v-text-field
                             placeholder=" "
                             readonly
-                            v-model="company.phone"
+                            v-model="user.phone"
                           >
                           </v-text-field>
                         </v-col>
-                      
+
                         <v-col cols="12">
                           <v-title style="font-size:1.2vw;">Company Account Information</v-title>
                          <v-divider  ></v-divider>
@@ -96,6 +96,26 @@
                           <v-text-field
                             v-model="fullAddress"
                             placeholder=" "
+                            readonly
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            v-model="company.account_name"
+                            placeholder=""
+                            label="Company Account Name"
+                            readonly
+                          >
+                          </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            v-model="company.year_founded"
+                            placeholder=""
+                            label="Company Year Founded"
                             readonly
                           >
                           </v-text-field>
