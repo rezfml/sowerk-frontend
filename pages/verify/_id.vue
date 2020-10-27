@@ -1,6 +1,6 @@
 <template>
-  <v-app class="grey lighten-3">
-    <v-container class="px-0 fill-height" style="max-width: 95%;">
+  <div class="grey lighten-3">
+    <v-container class="px-0 fill-height" style="max-width: 95%; height: 100vh;">
       <v-row>
         <v-col>
           <p v-if="this.verification">Thanks for verifying! You will be redirected to the login page momentarily.</p>
@@ -8,7 +8,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-app>
+  </div>
 </template>
 
 <script>
