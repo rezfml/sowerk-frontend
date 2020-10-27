@@ -50,7 +50,7 @@
 
       <div v-if="company && company.company_type === 'true'">
         <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to">
+          <v-list-item v-if="!link.children" :key="index" :to="link.to" exact>
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
@@ -84,23 +84,39 @@
       </div>
 
       <div v-else-if="company && company.company_type === 'false'">
-        <template>
-          <nuxt-link
-            v-for="(link) in providerItems"
-            :to="link.to"
-            style="text-decoration: none;"
-            v-on:click="setActiveLink(link.slug)"
-            :class="link.class"
-          >
-            <v-list-item>
+        <template v-for="(link, index) in providerItems">
+<!--          <nuxt-link-->
+<!--            v-for="(link) in providerItems"-->
+<!--            :to="link.to"-->
+<!--            style="text-decoration: none;"-->
+<!--            v-on:click="setActiveLink(link.slug)"-->
+<!--            :class="link.class"-->
+<!--          >-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>-->
+<!--              <v-list-item-title>{{ link.text }}</v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--          </nuxt-link>-->
+          <v-list-item v-if="!link.children" :key="index" :to="link.to" exact>
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+          <v-list-group v-else :key="index" class="list-group" exact>
+            <template v-slot:activator>
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title>{{ link.text }}</v-list-item-title>
+            </template>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact" exact>
+              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
             </v-list-item>
-          </nuxt-link>
+          </v-list-group>
         </template>
       </div>
 
-      <v-list-item @click="logout">
+      <v-spacer></v-spacer>
+
+      <v-list-item @click="logout" class="fixed-bottom">
         <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
         <v-list-item-title style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;" >Logout</v-list-item-title>
       </v-list-item>
@@ -241,7 +257,7 @@
         rightDrawer: false,
         pmitems: [
           {
-            to: '/dashboard/home',
+            to: '/dashboard',
             slug: 'home',
             icon: 'dashboard',
             text: 'Dashboard'
@@ -358,7 +374,7 @@
         ],
         pmStaffitems: [
           {
-            to: '/dashboard/home',
+            to: '/dashboard',
             slug: 'home',
             icon: 'dashboard',
             text: 'Dashboard'
@@ -464,7 +480,7 @@
         ],
         providerItems: [
           {
-            to: '/dashboard/home',
+            to: '/dashboard',
             slug: 'home',
             icon: 'dashboard',
             text: 'Dashboard'
@@ -473,19 +489,48 @@
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
-            text: 'Facilities'
+            text: 'My Locations',
+            children: [
+              {
+                to: '/dashboard/facilities/',
+                slug: 'facilities',
+                text: 'My Locations'
+              },
+              {
+                to: '/dashboard/facilities/add',
+                slug: 'add_facilities',
+                text: 'Add New Property'
+              }
+            ]
           },
           {
             to: '/dashboard/businesses/',
             slug: 'businesses',
             icon: 'mdi-account',
-            text: 'Businesses'
+            text: 'Businesses',
+            children: [
+              {
+                to: '/dashboard/businesses/',
+                slug: 'businesses',
+                text: 'My SOWerk Connections'
+              },
+              {
+                to: '/dashboard/businesses/requesting',
+                slug: 'requesting_businesses',
+                text: 'Requesting Businesses'
+              },
+              {
+                to: '/dashboard/businesses/search',
+                slug: 'search_businesses',
+                text: 'All Business Search'
+              }
+            ]
           },
           {
-            to: '/dashboard/sowerk-bids/',
-            slug: 'sowerk-bids',
+            to: '/dashboard/sowerk-leads/',
+            slug: 'sowerk-leads',
             icon: 'mdi-file-account',
-            text: 'Sowerk Bids'
+            text: 'SOWerk Leads'
           },
           {
             to: '/dashboard/messages-and-alerts/',
@@ -533,7 +578,7 @@
       },
       async getUser() {
         // this.loading = true;
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           // this.locations = data;
@@ -542,7 +587,7 @@
         })
       },
       async getUserCompany() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
         this.loading = true;

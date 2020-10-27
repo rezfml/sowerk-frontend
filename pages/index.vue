@@ -172,7 +172,7 @@
 <!--    },-->
 <!--    methods: {-->
 <!--      async getCarouselPropertyManagers() {-->
-<!--        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);-->
+<!--        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);-->
 <!--        if (this.$error(status, data.message, data.errors)) return;-->
 <!--        this.$nextTick(function() {-->
 <!--          this.carouselPropertyManagers = data;-->
@@ -180,7 +180,7 @@
 <!--        })-->
 <!--      },-->
 <!--      async getCarouselServiceProviders() {-->
-<!--        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);-->
+<!--        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);-->
 <!--        if (this.$error(status, data.message, data.errors)) return;-->
 <!--        this.$nextTick(function() {-->
 <!--          this.carouselServiceProviders = data;-->
@@ -188,7 +188,7 @@
 <!--        })-->
 <!--      },-->
 <!--      async getReviews() {-->
-<!--        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);-->
+<!--        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);-->
 <!--        if (this.$error(status, data.message, data.errors)) return;-->
 <!--        this.$nextTick(function() {-->
 <!--          this.reviews = data;-->
@@ -1004,7 +1004,7 @@
         color="rgba(0,0,0,0.7)"
       >
         <div
-          style="width: 100%; display: flex; flex-direction: column; flex-wrap: no-wrap;"
+          style="width: 100%; display: flex; flex-direction: column; flex-wrap: nowrap;"
         >
           <v-card-title
             ><v-img
@@ -1186,7 +1186,7 @@
 
             <v-card-text>
               <v-row
-                style="display: flex; flex-direction: column; flex-wrap: no-wrap"
+                style="display: flex; flex-direction: column; flex-wrap: nowrap"
               >
                 <v-col>
                   <v-img
@@ -1768,7 +1768,7 @@ export default {
     async getAllReviews() {
       let { data, status } = await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimit?limit=20&offset=0'
+          'http://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
@@ -1780,7 +1780,7 @@ export default {
     async getReviews() {
       let { data, status } = await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0'
+          'http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return

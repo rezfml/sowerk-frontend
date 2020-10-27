@@ -23,76 +23,39 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="6">
-                <v-text-field
-                  light
-                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"
-                  v-model="locationEdit.address"
-                >
-                  <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Property Address</p>
-                  </template>
-                </v-text-field>
+              <v-col cols="12" class="pt-0">
+<!--                <v-text-field-->
+<!--                  light-->
+<!--                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"-->
+<!--                  v-model="locationEdit.address"-->
+<!--                >-->
 <!--                  <template v-slot:label>-->
 <!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Property Address</p>-->
 <!--                  </template>-->
 <!--                </v-text-field>-->
-<!--                <div class="v-input theme&#45;&#45;light v-text-field v-text-field&#45;&#45;is-booted">-->
-<!--                  <div class="v-input__control">-->
-<!--                    <div class="v-input__slot" style="width: 100%;">-->
-<!--                      <label for="company_address" class="v-label theme&#45;&#45;light form__label&#45;&#45;address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>-->
-<!--                      <client-only>-->
-<!--                        <vue-google-autocomplete-->
-<!--                          id="company-address"-->
-<!--                          classname="form-control"-->
-<!--                          v-on:placechanged="getAddressData"-->
-<!--                          placeholder=""-->
-<!--                          style="width: 100%;"-->
-<!--                          v-on:focus.native="animateAddressFieldOnFocus"-->
-<!--                          v-on:blur.native="animateAddressFieldOnFocus"-->
-<!--                          v-on:input.native="animateAddressFieldOnFilled"-->
-<!--                          validate-on-blur-->
-<!--                          v-model="fullAddress"-->
-<!--                        >-->
-<!--                        </vue-google-autocomplete>-->
-<!--                      </client-only>-->
-<!--                    </div>-->
-<!--                    <div class="v-text-field__details"><div class="v-messages theme&#45;&#45;light"><div class="v-messages__wrapper"></div></div></div>-->
-<!--                  </div>-->
-<!--                </div>-->
-              </v-col>
-              <v-col cols="12" md="3">
-                <v-text-field
-                  light
-                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"
-                  v-model="locationEdit.city"
-                >
-                  <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Property City</p>
-                  </template>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field
-                  light
-                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"
-                  v-model="locationEdit.state"
-                >
-                  <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Property State</p>
-                  </template>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" md="1">
-                <v-text-field
-                  light
-                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"
-                  v-model="locationEdit.zipcode"
-                >
-                  <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Property Zipcode</p>
-                  </template>
-                </v-text-field>
+                <div class="v-input theme--light v-text-field v-text-field--is-booted">
+                  <div class="v-input__control">
+                    <div class="v-input__slot" style="width: 100%;">
+                      <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
+                      <client-only>
+                        <vue-google-autocomplete
+                          id="company-address"
+                          classname="form-control"
+                          v-on:placechanged="getAddressData"
+                          placeholder=""
+                          style="width: 100%;"
+                          v-on:focus.native="animateAddressFieldOnFocus"
+                          v-on:blur.native="animateAddressFieldOnFocus"
+                          v-on:input.native="animateAddressFieldOnFilled"
+                          validate-on-blur
+                          v-model="fullAddress"
+                        >
+                        </vue-google-autocomplete>
+                      </client-only>
+                    </div>
+                    <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
+                  </div>
+                </div>
               </v-col>
 
               <v-col cols="12" md="3" class="py-0">
@@ -100,6 +63,7 @@
                   light
                   placeholder="1971"
                   v-model="locationEdit.year_founded"
+                  type="number"
                 >
                   <template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Property Opened</p>
@@ -120,85 +84,85 @@
               </v-col>
             </v-row>
 
-<!--            <v-row>-->
+            <v-row>
 
-<!--              <v-col cols="12" class="py-0 mt-0">-->
-<!--                <v-subheader class="px-0 headline font-weight-bold primary&#45;&#45;text" light>Edit Property Manager</v-subheader>-->
-<!--              </v-col>-->
+              <v-col cols="12" class="py-0 mt-0">
+                <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Manager</v-subheader>
+              </v-col>
 
-<!--              <v-col cols="12" md="6" class="pt-0">-->
-<!--                <v-text-field-->
-<!--                  label="First Name"-->
+              <v-col cols="12" md="6" class="pt-0">
+                <v-text-field
+                  label="First Name"
+                  light
+                  placeholder="John"
+                  v-model="locationEdit.contact_first_name"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="pt-0">
+                <v-text-field
+                  label="Last Name"
+                  light
+                  placeholder="Smith"
+                  v-model="locationEdit.contact_last_name"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="py-0">
+                <v-text-field
+                  light
+                  placeholder="johnsmith@example.com"
+                  v-model="locationEdit.email"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Email</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="py-0">
+                <v-text-field
+                  light
+                  placeholder="(123) 456-7890"
+                  v-model="locationEdit.phone"
+                ><template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
+                </template></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="py-0">
+                <v-select id="location-Admin"
+                          label="Admin Level"
+                          :items="adminLevels"
+                          v-model="location.adminLevel">
+
+                </v-select>
+              </v-col>
+
+<!--              <v-col cols="12" md="4" class="py-0">-->
+<!--                <v-select-->
 <!--                  light-->
-<!--                  placeholder="John"-->
-<!--                  v-model="locationEdit.contact_first_name"-->
-<!--                >-->
-<!--                  <template v-slot:label>-->
-<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>-->
-<!--                  </template>-->
-<!--                </v-text-field>-->
-<!--              </v-col>-->
-
-<!--              <v-col cols="12" md="6" class="pt-0">-->
-<!--                <v-text-field-->
-<!--                  label="Last Name"-->
-<!--                  light-->
-<!--                  placeholder="Smith"-->
-<!--                  v-model="locationEdit.contact_last_name"-->
-<!--                >-->
-<!--                  <template v-slot:label>-->
-<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>-->
-<!--                  </template>-->
-<!--                </v-text-field>-->
-<!--              </v-col>-->
-
-<!--              <v-col cols="12" md="6" class="py-0">-->
-<!--                <v-text-field-->
-<!--                  light-->
-<!--                  placeholder="johnsmith@example.com"-->
-<!--                  v-model="locationEdit.email"-->
-<!--                >-->
-<!--                  <template v-slot:label>-->
-<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>-->
-<!--                  </template>-->
-<!--                </v-text-field>-->
-<!--              </v-col>-->
-
-<!--              <v-col cols="12" md="6" class="py-0">-->
-<!--                <v-text-field-->
-<!--                  light-->
-<!--                  placeholder="(123) 456-7890"-->
-<!--                  v-model="locationEdit.phone"-->
+<!--                  placeholder="Staff Account"-->
+<!--                  v-model="location.admin_level"-->
 <!--                ><template v-slot:label>-->
-<!--                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
-<!--                </template></v-text-field>-->
+<!--                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>-->
+<!--                </template></v-select>-->
 <!--              </v-col>-->
 
-<!--              <v-col cols="12" md="6" class="py-0">-->
-<!--                <v-select id="location-Admin"-->
-<!--                          label="Admin Level"-->
-<!--                          :items="adminLevels"-->
-<!--                          v-model="location.adminLevel">-->
-
-<!--                </v-select>-->
-<!--              </v-col>-->
-
-<!--&lt;!&ndash;              <v-col cols="12" md="4" class="py-0">&ndash;&gt;-->
-<!--&lt;!&ndash;                <v-select&ndash;&gt;-->
-<!--&lt;!&ndash;                  light&ndash;&gt;-->
-<!--&lt;!&ndash;                  placeholder="Staff Account"&ndash;&gt;-->
-<!--&lt;!&ndash;                  v-model="location.admin_level"&ndash;&gt;-->
-<!--&lt;!&ndash;                ><template v-slot:label>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                </template></v-select>&ndash;&gt;-->
-<!--&lt;!&ndash;              </v-col>&ndash;&gt;-->
-
-<!--            </v-row>-->
+            </v-row>
 
           </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-end px-4">
-          <v-btn color="primary" class="px-8" @click="updateLocation()">Update Location Profile</v-btn>
+          <v-btn color="primary" class="px-8" @click="updateLocation">Update Profile</v-btn>
         </v-card-actions>
       </template>
       <template v-else-if="company">
@@ -216,7 +180,7 @@
                 <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Profile</v-subheader>
               </v-col>
 
-              <v-col cols="12" md="4" class="pt-0">
+              <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
                 <v-text-field
                   light
                   placeholder=""
@@ -228,7 +192,19 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="4" class="pt-0">
+              <v-col cols="12" md="12" class="pt-0" v-else>
+                <v-text-field
+                  light
+                  placeholder=""
+                  v-model="company.account_name"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Company Account Name</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
                 <v-text-field
                   light
                   placeholder=""
@@ -240,7 +216,7 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="4" class="pt-0">
+              <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
                 <v-text-field
                   light
                   placeholder=""
@@ -313,27 +289,27 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="6" class="py-0">
+              <v-col cols="12" md="12" class="py-0">
                 <v-text-field
                   light
                   placeholder=""
-                  v-model="company.email"
+                  v-model="company.website"
                 >
                   <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Email</p>
+                    <p class="grey--text text--darken-4 font-weight-bold">Website</p>
                   </template>
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="6" class="py-0">
-                <v-text-field
-                  light
-                  placeholder=""
-                  v-model="company.phone"
-                ><template v-slot:label>
-                  <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                </template></v-text-field>
-              </v-col>
+<!--              <v-col cols="12" md="6" class="py-0">-->
+<!--                <v-text-field-->
+<!--                  light-->
+<!--                  placeholder=""-->
+<!--                  v-model="company.phone"-->
+<!--                ><template v-slot:label>-->
+<!--                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
+<!--                </template></v-text-field>-->
+<!--              </v-col>-->
 
               <v-col cols="12" md="3" class="py-0">
                 <v-text-field
@@ -418,8 +394,8 @@
           </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-end px-4">
-          <v-btn v-if="location" color="primary" class="px-8" @click="updateLocation()">Update Location Profile</v-btn>
-          <v-btn v-else color="primary" class="px-8" @click="updateCompany()">Update Company Profile</v-btn>
+          <v-btn v-if="location" color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
+          <v-btn v-else color="primary" class="px-8" @click="updateCompany()">Update Profile</v-btn>
           <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadUpdateCompany != true">
             <v-progress-circular
               indeterminate
@@ -515,7 +491,7 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             console.log(response.data, 'company');
             this.getUser(this.currentUser.id);
@@ -527,7 +503,7 @@
           })
       },
       async getUser(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + id)
           .then(response => {
             this.currentUserVal = response.data;
             console.log(response.data, 'user');
@@ -537,14 +513,7 @@
           })
       },
       async updateLocation() {
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.location.id, this.locationEdit)
-          .then(response => {
-            console.log(response, 'SUCCESS IN UPDATING LOCATION')
-            this.$router.go();
-          })
-          .catch(err => {
-            console.log(err, 'ERR IN UPDATING LOCATION')
-          })
+        let {data, status} = await this.$http.put('http://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
 
         // this.$nextTick(function() {
         //   this.locationEdit = data;
@@ -607,14 +576,14 @@
           year_founded: this.company.year_founded,
           description: this.company.description
         }
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUserVal.id, userChanges)
+        await this.$http.put('http://www.sowerkbackend.com/api/auth/users/' + this.currentUserVal.id, userChanges)
           .then(response => {
             console.log(response, 'SUCCESS IN EDITING USER')
           })
           .catch(err => {
             console.log(err, 'ERROR IN EDITING USER')
           })
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.company.id, companyChanges)
+        await this.$http.put('http://www.sowerkbackend.com/api/companies/' + this.company.id, companyChanges)
           .then(response => {
             console.log(response, 'SUCCESS IN EDITING COMPANY')
             this.loadUpdateCompany = true;

@@ -30,7 +30,7 @@
           <p
             class="white--text text-h4 text-md-h3 text-center font-weight-bold"
           >
-            The Approved Vendor 
+            The Approved Vendor
           </p>
           <p class="white--text text-center text-h6 text-md-h5">
             The Link Between Service Providers & Businesses
@@ -472,7 +472,7 @@ export default {
     async getAllReviews() {
       let { data, status } = await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimit?limit=20&offset=0'
+          'http://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
@@ -484,7 +484,7 @@ export default {
     async getReviews() {
       let { data, status } = await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0'
+          'http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return

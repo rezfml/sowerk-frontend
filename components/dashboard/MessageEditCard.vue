@@ -85,7 +85,7 @@
     methods: {
       async updateMessage() {
         console.log('messageEdit', this.messageEdit)
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/' + this.individualMessage.id, this.messageEdit)
+        await this.$http.put('http://www.sowerkbackend.com/api/messages/' + this.individualMessage.id, this.messageEdit)
           .then(response => {
             console.log('updateMessage', response);
             this.updateSuccess = true;

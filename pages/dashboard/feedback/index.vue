@@ -26,7 +26,7 @@
       <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-card-title style="color: #A61C00">Feedback Submitted</v-card-title>
       <v-card-subtitle color="primary">We will take into account this feedback and make the appropriate changes as soon as possible. We thank you so much for letting us know your issue.</v-card-subtitle>
-      <v-btn class="my-4" color="primary" :href="'../../../dashboard/home'" rounded>Return To SOWerk Request Dashboard</v-btn>
+      <v-btn class="my-4" color="primary" :href="'../../../dashboard'" rounded>Return To SOWerk Request Dashboard</v-btn>
     </v-card>
   </div>
 </template>
@@ -61,7 +61,7 @@
     },
     methods: {
       async getCompany() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.feedbackForm.company_name = response.data.account_name;
             console.log(response.data, 'company');
@@ -73,7 +73,7 @@
       },
       async submitFeedback() {
         console.log(this.feedbackForm, 'feedbackForm on submit');
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/feedbackform', this.feedbackForm)
+        await this.$http.post('http://www.sowerkbackend.com/api/feedbackform', this.feedbackForm)
           .then(response => {
             console.log('successfully left feedback', response);
             this.feedbackSuccess = true

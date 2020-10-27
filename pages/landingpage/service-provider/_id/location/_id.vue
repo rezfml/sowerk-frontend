@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     async getPropertyManagerLocation() {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + this.$route.params.id)
+      await this.$http.get('http://www.sowerkbackend.com/api/locations/' + this.$route.params.id)
         .then(res => {
           this.locationVal = res.data;
           console.log(this.locationVal, 'location');

@@ -18,10 +18,8 @@
         class="pt-12 mt-12"
       >
         <v-card class="elevation-12 card--has-floating" light>
-            <v-row>
-              <img xl-2 lg-2 md-2 sm-2 xs-2 class="serviceProviderIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png" alt="service Provider Icon">
-              <v-card-title class="justify-center headline font-weight-bold" xl-10 lg-10 md-10 sm-10 xs-10 style="margin-left:30%;">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
-            </v-row>
+          <v-card-title class="justify-center headline font-weight-bold" xl-10 lg-10 md-10 sm-10 xs-10 style=""><img class="serviceProviderIcon" style="height:10vh; margin-right: 10px;"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png" alt="service Provider Icon"> <span class="primary--text ml-2 py-6">Vendor Information</span></v-card-title>
+
           <v-tabs
             v-model="tab"
             background-color="grey lighten-2"
@@ -914,7 +912,7 @@
         console.log(this.company, 'this.company');
         console.log(this.locations, 'this.locations');
 
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies', this.company)
+        await this.$http.post('http://www.sowerkbackend.com/api/companies', this.company)
           .then(response => {
             console.log('post company:', response)
             this.user.companies_id = response.data.companies.id;
@@ -936,21 +934,21 @@
       async postLicenses(companyId) {
         for (const license of this.licenses) {
           license.companies_id = companyId;
-          let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
+          let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
           console.log(data);
         }
       },
       async postInsurances(companyId) {
         for (const insurance of this.insurances) {
           insurance.companies_id = companyId;
-          let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
+          let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
           console.log(data);
         }
       },
       async uploadCompanyImage() {
         const formData = new FormData();
         formData.append('file', this.companyImageFile);
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+        await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
           .then(response => {
             console.log('success in uploading company image', response)
             this.company.imgUrl = response.data.data.Location;
@@ -968,7 +966,7 @@
       async uploadInsuranceFile(insuranceFile, index) {
         let formData = new FormData();
         formData.append('file', insuranceFile.file);
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+        await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
           .then(response => {
             console.log('success in uploading insurance file', response)
             this.insurances[index].documentUrl = response.data.data.Location;
@@ -989,7 +987,7 @@
       async uploadLicenseFile(licenseFile, index) {
         let formData = new FormData();
         formData.append('file', licenseFile.file);
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData)
+        await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
           .then(response => {
             console.log('successfully uploaded license file', response)
             this.licenses[index].documentUrl = response.data.data.Location;
@@ -1003,7 +1001,7 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register', this.user).catch(e => e);
+        let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/auth/register', this.user).catch(e => e);
         await this.postLocations(data.user.companies_id);
       },
       async loopLocationImages() {
@@ -1016,7 +1014,7 @@
         console.log(this.locations);
       },
       async uploadLocationImage(formData, index) {
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/upload', formData).catch(err => {
+        let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/upload', formData).catch(err => {
           console.log('error in uploading location image', err)
         })
 
@@ -1027,7 +1025,7 @@
           this.locations[i].companies_id = userId;
           this.locations[i].zipcode = Number(this.locations[i].zipcode)
         }
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+        await this.$http.post('http://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
           .then(response => {
             console.log('success in posting group locations', response)
           })
@@ -1039,7 +1037,7 @@
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data);
       },
@@ -1049,7 +1047,7 @@
             let serviceObject = {
               name: service,
             }
-            let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
           }
         }
@@ -1246,28 +1244,28 @@
       font-size: 1.25em;
       top: 0;
    }
-.serviceProviderIcon{
-  width:10%;
-  top:-20px;
-}
+/*.serviceProviderIcon{*/
+/*  width:10%;*/
+/*  top:-20px;*/
+/*}*/
 @media (max-width: 790px) {
 .saveBtn{
     margin-left:0 !important;
     margin-top:1%;
     margin-bottom: 1%;
   }
-.serviceProviderIcon{
-  width:15%;
-  top:-20px;
-}
+/*.serviceProviderIcon{*/
+/*  width:15%;*/
+/*  top:-20px;*/
+/*}*/
 }
 @media (max-width: 680px) {
-.serviceProviderIcon{
-  width:20% !important;
-  top:-40px;
-  margin-bottom:-50px;
-  margin-top: 50px;
-  margin-left: 7%;
-}
+/*.serviceProviderIcon{*/
+/*  width:20% !important;*/
+/*  top:-40px;*/
+/*  margin-bottom:-50px;*/
+/*  margin-top: 50px;*/
+/*  margin-left: 7%;*/
+/*}*/
 }
 </style>
