@@ -3,9 +3,8 @@
     <v-container class="px-0 fill-height d-flex flex-column align-center justify-center" style="text-align: center;">
       <v-card class="d-flex flex-column align-center mb-10">
         <v-card-title>Message #{{individualMessage.id}}</v-card-title>
-        <v-card-text>Company: {{individualMessage.company}} - {{individualMessage.location}}</v-card-text>
+        <v-card-text>To: {{individualMessage.primary_contact_first_name}} {{individualMessage.primary_contact_last_name}} - {{individualMessage.company}} - {{individualMessage.location}}</v-card-text>
         <v-card-text>Service: {{individualMessage.service}}</v-card-text>
-        <v-card-text>Name: {{individualMessage.primary_contact_first_name}} {{individualMessage.primary_contact_last_name}}</v-card-text>
         <v-card-text>Message: {{individualMessage.message}}</v-card-text>
       </v-card>
       <MessageEditCard :locations="locations" :editFormLoad="editFormLoad" :individualMessage="individualMessage" v-if="individualMessage && editFormLoad"></MessageEditCard>
