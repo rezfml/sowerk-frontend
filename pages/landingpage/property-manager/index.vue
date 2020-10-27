@@ -315,7 +315,7 @@ export default {
     async getPropertyManagers() {
       await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=true&limit=8&offset=0'
+          'http://www.sowerkbackend.com/api/companies/byType?type=true&limit=8&offset=0'
         )
         .then(response => {
           console.log(response, 'hey');

@@ -17,7 +17,6 @@
     <v-btn @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
     <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
   </v-card>
-  </v-container>
 </template>
 
 <script>
@@ -55,7 +54,7 @@
     },
     methods: {
       async getCompany() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response.data, 'company');
             this.company = response.data
@@ -68,7 +67,7 @@
         } else {
           this.addUserForm.is_superuser = false;
         }
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/register', this.addUserForm)
+        await this.$http.post('http://www.sowerkbackend.com/api/auth/register', this.addUserForm)
           .then(response => {
             console.log(response, 'SUCCESS IN REGISTERING')
           })

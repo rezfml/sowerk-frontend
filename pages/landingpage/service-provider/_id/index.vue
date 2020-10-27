@@ -57,7 +57,7 @@
 
       <div class="featuredbusiness">
         <h2>Featured Businesses Near You</h2>
-        <!-- this will be added in it currently is not working when it comes to the data. 
+        <!-- this will be added in it currently is not working when it comes to the data.
         <div>
          <HomeCard></HomeCard>
         </div>-->
@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     async getServiceProvider() {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.$route.params.id)
+      await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.$route.params.id)
         .then(res => {
           this.serviceproviderVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);

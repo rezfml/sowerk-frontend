@@ -84,7 +84,7 @@ export default {
     async getPropertyManagers() {
       let { data, status } = await this.$http
         .get(
-          `http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/true`
+          `http://www.sowerkbackend.com/api/companies/type/true`
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
