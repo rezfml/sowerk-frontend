@@ -61,7 +61,7 @@
 
   <div class="PricingContainer  d-flex justify-space-around" v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
     
-    <section class="packages">
+    <section class="packages" v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
       
       <v-row>
         <v-col cols="12"  >
