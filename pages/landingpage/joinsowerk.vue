@@ -374,8 +374,8 @@
             />
             <h3>1. Create Account and Vet Vendors</h3>
             <p>
-              In less than 15 minutes, you can have multiple locations setup
-              with dedicated staff accounts and live questionnaires vetting
+              In less than 15 minutes, you can have multiple locations set up
+              with dedicated staff accounts and live questionnaires to vet
               local & national service providers.
             </p>
           </div>
