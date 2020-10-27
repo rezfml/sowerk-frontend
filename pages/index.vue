@@ -1106,10 +1106,10 @@
                     class="text-center"
                     style="max-width: 80%; width: 80%; font-size: 17px; font-weight: 500"
                   >
-                    Our business to business platform provides companies the tools to efficiently identify, vet,
+                    Our business-to-business platform provides companies the tools to efficiently identify, vet,
                     and manage 3rd party providers for each of their locations.<br/>
                     <span style="font-weight: 800"
-                      >SOWerk is FREE & Powerful</span
+                      >SOWerk is FREE & Powerful!</span
                     >
                   </p>
                 </v-col>
@@ -1200,7 +1200,7 @@
                     <p
                       style="word-break: break-word; color: black; width: 100%; line-height: 1.25em"
                     >
-                      Approved Vendors Local & National
+                      Approved Local & National Vendors
                     </p>
                   </v-card-title>
                 </v-col>
@@ -1214,7 +1214,7 @@
                     become an approved vendor, receive job/project requests, and
                     communicate with business owners.<br/>
                     <span style="font-weight: 800"
-                      >It's FREE To Get Started</span
+                      >It's FREE To Get Started!</span
                     >
                   </p>
                 </v-col>
@@ -1380,7 +1380,7 @@
             </div>
             <v-card-text
               style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
-              >Automated</v-card-text
+              >Automations</v-card-text
             >
             <div
               class="py-3"
@@ -1421,7 +1421,7 @@
               For the facility manager in the middle of the night that needs to
               contact all your approved plumbers for help or a local service
               provider that powers his business through a smart phone, SOWerk is
-              design to be convenient.
+              designed to be convenient.
             </div>
           </v-card>
         </v-col>
@@ -1563,7 +1563,7 @@
             <div class="joinconnectiontext">
               <h3>3. Get The Job</h3>
               <p>
-                Every day SOWerk staff are working hard to give Vendors the tools to grow their relationships and business.
+                Every day, the SOWerk staff is working hard to give Vendors the tools to grow their relationships and business.
               </p>
             </div>
           </div>
@@ -1610,7 +1610,7 @@
                   <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Actually, we designed SOWerk to be less work for you. Think
                     of SOWerk like connecting with vendors on social
                     media, except they have to meet your approved provider
-                    requirements. From here you can easily manage and
+                    requirements. From here, you can easily manage and
                     communicate with your approved vendors.</p>
                 </v-col>
             </v-row>
