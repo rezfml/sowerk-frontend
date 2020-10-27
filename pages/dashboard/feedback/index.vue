@@ -58,7 +58,7 @@
     },
     methods: {
       async getCompany() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.feedbackForm.company_name = response.data.account_name;
             console.log(response.data, 'company');
@@ -70,7 +70,7 @@
       },
       async submitFeedback() {
         console.log(this.feedbackForm, 'feedbackForm on submit');
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/feedbackform', this.feedbackForm)
+        await this.$http.post('http://www.sowerkbackend.com/api/feedbackform', this.feedbackForm)
           .then(response => {
             console.log('successfully left feedback', response);
             this.feedbackSuccess = true

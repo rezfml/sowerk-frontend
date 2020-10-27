@@ -95,7 +95,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/'
+    baseURL: 'http://www.sowerkbackend.com/api/'
   },
   toast: {
     position: 'bottom-right',

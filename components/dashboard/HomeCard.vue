@@ -25,8 +25,8 @@
         </v-row>
       </v-card-actions>
 
-    <v-container  v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.md">
-      <v-card-text class="pt-0 pb-2 px-9 ml-2 mr-2 " >
+    <v-container  v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.md" style="max-width: none;">
+      <v-card-text class="pt-0 pb-2">
         <v-data-table
           :headers="tableProperties"
           :items="items"
@@ -50,7 +50,7 @@
               <p>{{item.name}}</p>
             </v-row>
           </template>
-          <template v-slot:item.full_name="{ item }" 
+          <template v-slot:item.full_name="{ item }"
             ><v-icon color="primary">mdi-account</v-icon>
             {{ item.contact_first_name }}
             {{ item.contact_last_name }}</template
@@ -96,8 +96,8 @@
           </template>
 
           <template v-slot:footer v-if="action != 'View'">
-            <v-row class="d-flex justify-end" style="width: 100%;">
-              
+            <v-row class="d-flex justify-end mt-4" style="width: 100%;">
+
               <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
               <v-btn to='/dashboard/facilities/' color="primary"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
             </v-row>
@@ -120,14 +120,14 @@
 
 
       <v-container  v-else >
-           
+
 
         <v-data-table
           :headers="tableProperties"
           :items="items"
           :items-per-page="10"
           :hide-default-footer="true"
-          
+
         >
           <template v-slot:item.address="{item}">
             <v-row class="d-flex  flex-column flex-wrap justify-end "  >
@@ -147,7 +147,7 @@
               <p>{{item.name}}</p>
             </v-row>
           </template>
-          <template v-slot:item.full_name="{ item }" 
+          <template v-slot:item.full_name="{ item }"
             ><v-icon color="primary">mdi-account</v-icon>
             {{ item.contact_first_name }}
             {{ item.contact_last_name }}</template
@@ -176,7 +176,7 @@
               >Apply</v-btn
             >
           </template>
-        
+
 
           <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
             <v-btn block color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
@@ -194,13 +194,13 @@
           </template>
             <template v-slot:footer v-if="action != 'View'">
               <v-row class="d-flex justify-end" style="width: 100%;">
-                
+
                 <v-btn to='/dashboard/facilities/add' color="primary" style="width:50%;" class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
                 <v-btn to='/dashboard/facilities/' color="primary" style="width:50%;"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
               </v-row>
             </template>
           </v-data-table>
-   
+
         <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
           <v-btn
             color="primary"
@@ -247,7 +247,7 @@ export default {
 
 }
 .mobileTable p{
-  font-size: .5 vw;
+  font-size: .5vw;
 
 }
 </style>

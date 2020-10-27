@@ -250,7 +250,7 @@
     },
     methods: {
       async getBusinesses() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/false')
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/type/false')
           .then(response => {
             console.log(response.data.length);
             for(let i=0; i< response.data.length; i++) {
@@ -262,11 +262,11 @@
           .catch(e => console.log(e, 'error'));
       },
       async getLocations(id, account_name) {
-        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + id)
+        this.$http.get('http://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(response => {
             console.log(response.data.location, 'locations');
             response.data.location.forEach((location) => {
-              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + location.id)
+              this.$http.get('http://www.sowerkbackend.com/api/locations/' + location.id)
                 .then(res => {
                   console.log(res.data, 'individual location')
                   this.vendors.push(res.data);

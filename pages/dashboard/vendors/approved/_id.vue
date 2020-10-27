@@ -51,7 +51,7 @@
     },
     methods: {
       async getCompany() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.$route.params.id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.$route.params.id)
           .then(response => {
             console.log(response.data, 'response.data');
             this.company = response.data;

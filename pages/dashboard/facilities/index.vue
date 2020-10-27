@@ -18,7 +18,7 @@
             :viewAll="false"
             slug="/dashboard/facilities/"
           ></FacilitiesCard>
-          <v-row class="d-flex justify-space-between align-center flex-wrap"style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+          <v-row class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
             <v-btn
               style=""
@@ -39,7 +39,7 @@
             :viewAll="false"
             slug="/dashboard/facilities/"
           ></FacilitiesCard>
-          <v-row class="d-flex justify-space-between align-center"style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+          <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
             <v-btn
               style=""
@@ -120,7 +120,7 @@
             :viewAll="false"
             slug="/dashboard/facilities/"
           ></FacilitiesCard>
-          <v-row class="d-flex justify-space-between align-center"style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+          <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
             <v-btn
               style=""
@@ -306,7 +306,7 @@
     },
     methods: {
       async getLocations() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.locations = data.location;

@@ -19,7 +19,7 @@
         :tableProperties="headers"
         slug="/dashboard/facilities/"
       ></HomeCard>
-      <v-row>
+      <v-row v-if="company && company.company_type !== 'false'">
         <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
           <v-progress-circular
             indeterminate
@@ -31,12 +31,24 @@
           <StatCard :stat="stat"></StatCard>
         </v-col>
       </v-row>
-      <v-card class="white pt-0 mt-12">
+      <v-row v-if="company && company.company_type === 'false'">
+        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            :size="50"
+          ></v-progress-circular>
+        </v-col>
+        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
+          <StatCard :stat="stat"></StatCard>
+        </v-col>
+      </v-row>
+      <v-card class="white pt-0 mt-12" v-if="company && company.company_type !== 'false'">
         <v-container fluid >
           <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white--text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>
           <v-card-title v-else-if="$vuetify.breakpoint.md||$vuetify.breakpoint.sm "  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14.5px; line-height:1.2;" class="primary white--text font-weight-regular red-gradient " >Approved Vendors - Quick Look Up</v-card-title>
           <v-card-title v-else style="position: absolute; top: -30px; left: 25px; width: 35%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient " >Approved Vendors - <br v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md"/> Quick Look Up</v-card-title>
-          
+
           <v-card-actions v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" class="d-flex justify-end px-0 py-0">
             <v-row class="py-0">
               <v-spacer></v-spacer>
@@ -60,7 +72,7 @@
               </v-col>
             </v-row>
           </v-card-actions>
-          
+
           <v-card-text class="pt-0" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" >
             <v-sheet
               class="mx-auto"
@@ -184,6 +196,28 @@
             link: '/dashboard/vendors/approved'
           }
         ],
+        providerStats: [
+          {
+            title: 'Approved Applications',
+            value: 0,
+            link: '/dashboard/vendors/approved'
+          },
+          {
+            title: 'Requested Applications',
+            value: 0,
+            link: '#'
+          },
+          {
+            title: 'Service Provider Plan',
+            value: '',
+            link: '/dashboard/vendors/applicants'
+          },
+          {
+            title: 'Service Provider Connections',
+            value: 0,
+            link: '/dashboard/vendors/approved'
+          }
+        ],
         quickLookUps: [
           {
             name: 'HVAC',
@@ -231,7 +265,8 @@
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         locations: [],
-        user: null
+        user: null,
+        company: null
       }
     },
     watch: {
@@ -262,7 +297,7 @@
     },
     methods: {
       async getApplications(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byPmId/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
             for(let i = 0; i<response.data.length; i++) {
@@ -276,15 +311,21 @@
           })
       },
       async getUser() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
           console.log(data);
         })
+        await this.getCompany();
+      },
+      async getCompany() {
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.company = data;
       },
       async getLocations() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.locations = data.location;
@@ -296,7 +337,7 @@
         this.hidden = true;
       },
       async getApprovedProviderConnections() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
           .then(response => {
             console.log('response approvedproviderconnections', response.data);
             this.stats[0].value = response.data.length

@@ -172,7 +172,7 @@
     },
     methods: {
       async getApplications(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byPmId/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
             for(let i=0; i<response.data.length; i++){
@@ -197,7 +197,7 @@
         console.log(this.applications, 'wow so done')
       },
       async getPMService(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/services/' + id)
           .then(async (response) => {
             console.log('response for service', response.data, id, 'id')
             this.applications[this.applicationsCount].serviceName = response.data.service.name;
@@ -207,7 +207,7 @@
           })
       },
       async getSPCompany(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log('response.data for company', response.data)
             this.applications[this.applicationsCount].img = response.data.imgUrl;
@@ -218,7 +218,7 @@
           })
       },
       async getSPLocation(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/locations/' + id)
           .then(async (response) => {
             console.log('response.data for location', response.data)
             this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;

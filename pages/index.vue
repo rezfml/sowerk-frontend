@@ -172,7 +172,7 @@
 <!--    },-->
 <!--    methods: {-->
 <!--      async getCarouselPropertyManagers() {-->
-<!--        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);-->
+<!--        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);-->
 <!--        if (this.$error(status, data.message, data.errors)) return;-->
 <!--        this.$nextTick(function() {-->
 <!--          this.carouselPropertyManagers = data;-->
@@ -180,7 +180,7 @@
 <!--        })-->
 <!--      },-->
 <!--      async getCarouselServiceProviders() {-->
-<!--        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);-->
+<!--        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);-->
 <!--        if (this.$error(status, data.message, data.errors)) return;-->
 <!--        this.$nextTick(function() {-->
 <!--          this.carouselServiceProviders = data;-->
@@ -188,7 +188,7 @@
 <!--        })-->
 <!--      },-->
 <!--      async getReviews() {-->
-<!--        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);-->
+<!--        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);-->
 <!--        if (this.$error(status, data.message, data.errors)) return;-->
 <!--        this.$nextTick(function() {-->
 <!--          this.reviews = data;-->
@@ -1004,7 +1004,7 @@
         color="rgba(0,0,0,0.7)"
       >
         <div
-          style="width: 100%; display: flex; flex-direction: column; flex-wrap: no-wrap;"
+          style="width: 100%; display: flex; flex-direction: column; flex-wrap: nowrap;"
         >
           <v-card-title
             ><v-img
@@ -1192,7 +1192,7 @@
 
             <v-card-text>
               <v-row
-                style="display: flex; flex-direction: column; flex-wrap: no-wrap"
+                style="display: flex; flex-direction: column; flex-wrap: nowrap"
               >
                 <v-col>
                   <v-img
@@ -1610,7 +1610,7 @@
             <!-- QUESTION ONE -->
             <v-row class="pt-8 " style="max-width: 950px;" justify="center">
                 <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align:center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
                 </v-col>
 
                 <v-col cols="11" class="pa-0">
@@ -1628,7 +1628,7 @@
             <!-- QUESTION TWO -->
               <v-row class="pt-6" style="max-width: 950px;" justify="center">
                 <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align:center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
                 </v-col>
 
                 <v-col cols="11" class="pa-0">
@@ -1641,7 +1641,7 @@
               <!-- QUESTION THREE -->
                <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
                 <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
                 </v-col>
 
                 <v-col cols="11" class="pa-0">
@@ -1685,7 +1685,7 @@
             <!-- QUESTION ONE -->
             <v-row class="pt-8 " style="max-width: 950px;" justify="center">
                 <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
                 </v-col>
 
                 <v-col cols="11" class="pa-0">
@@ -1703,7 +1703,7 @@
             <!-- QUESTION TWO -->
               <v-row class="pt-6" style="max-width: 950px;" justify="center">
                 <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
                 </v-col>
 
                 <v-col cols="11" class="pa-0">
@@ -1721,7 +1721,7 @@
               <!-- QUESTION THREE -->
                <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
                 <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>  
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
                 </v-col>
 
                 <v-col cols="11" class="pa-0">
@@ -1778,7 +1778,7 @@ export default {
     async getAllReviews() {
       let { data, status } = await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimit?limit=20&offset=0'
+          'http://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
@@ -1790,7 +1790,7 @@ export default {
     async getReviews() {
       let { data, status } = await this.$http
         .get(
-          'http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0'
+          'http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return

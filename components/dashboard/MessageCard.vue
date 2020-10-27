@@ -116,7 +116,7 @@ export default {
     deleteMessage(messageParam) {
       let confirmDelete = confirm('Are you sure you want to delete this message? Cannot be undone.');
       if (confirmDelete === true) {
-        this.$http.delete('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/' + messageParam.id)
+        this.$http.delete('http://www.sowerkbackend.com/api/messages/' + messageParam.id)
         .then(response => {
           alert('Message successfully deleted');
           this.$router.go()

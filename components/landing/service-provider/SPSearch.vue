@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     async getPropertyManagers() {
-      let {data, status} = await this.$http.get(`http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/false`).catch(e => e);
+      let {data, status} = await this.$http.get(`http://www.sowerkbackend.com/api/companies/type/false`).catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.serviceproviders = data;

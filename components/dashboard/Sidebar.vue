@@ -50,7 +50,7 @@
 
       <div v-if="company && company.company_type === 'true'">
         <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to">
+          <v-list-item v-if="!link.children" :key="index" :to="link.to" exact>
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
@@ -578,7 +578,7 @@
       },
       async getUser() {
         // this.loading = true;
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           // this.locations = data;
@@ -587,7 +587,7 @@
         })
       },
       async getUserCompany() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
         this.loading = true;
