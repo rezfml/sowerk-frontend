@@ -422,7 +422,7 @@
             text: 'Messages & Alerts',
             children: [
               {
-                to: '/dashboard/messages-and-alerts/inbox',
+                to: '/dashboard/messages-and-alerts/',
                 slug: 'messages-and-alerts',
                 text: 'Inbox',
               },

@@ -51,6 +51,8 @@
                 </template>
               </v-text-field>
 
+              <v-btn class="mb-n2" style="align-self: flex-end;" text>Forgot Password?</v-btn>
+
               <v-text-field
                 id="password"
                 label="Password"
@@ -64,10 +66,19 @@
                 </template>
               </v-text-field>
 
-              <v-btn text type="submit" value="LET'S GO" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="login" >LET'S GO</v-btn>
+              <v-btn rounded color="primary" type="submit" value="LET'S GO" style="text-align: center;" class="px-10 mb-4 mx-auto center" v-on:click="login" >LET'S GO</v-btn>
+
+              <v-btn to="../register" class="mb-4" text>Not On SOWerk? Setup Your Business Here</v-btn>
               <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="sendReset" >Forgot Password?</v-btn>-->
             </v-form>
           </v-card-text>
+        </v-card>
+
+        <v-card class="d-flex flex-column align-center justify-center" v-if="errorLoad" style="width: 50vw; height: 50vh; position:fixed; top: 25vh; left: 25vw">
+          <v-card-title style="color: #a61c00; font-size: 60px;">Failed to login</v-card-title>
+          <v-card-subtitle class="mt-6">Please check your username or password to ensure it is correct!</v-card-subtitle>
+          <v-btn @click="errorLoad = false" color="primary" rounded class="px-10 py-4">Try Again</v-btn>
+          <v-btn @click="errorLoad = false" text style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -84,6 +95,7 @@
           email: '',
           password: '',
         },
+        errorLoad: false
       }
     },
     methods: {
@@ -96,7 +108,7 @@
           console.log(this.$store.state.user);
         } catch (e) {
           console.log(e);
-          alert('Failed to login, please check your username or password to ensure it is correct!')
+          this.errorLoad=true;
         }
 
         //requests id for user based off email
