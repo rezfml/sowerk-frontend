@@ -48,87 +48,87 @@
       </template>
     </v-card>
 
-    <v-row class="d-flex" style="width: 100%;" v-if="loadApplicationTemplates">
-      <v-btn @click="loadApplicationTemplatesFunction" class="py-4 px-10 mx-4" color="#707070" style="color:white; width: 30%; border-radius: 10px;" >Application Templates</v-btn>
-      <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 px-10 mx-4" color="primary width: 50%; border-radius: 10px;"  >Your Company Application Templates</v-btn>
-    </v-row>
-    <v-card class="mt-8" v-if="loadApplicationTemplates">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Applications for All Locations</v-card-title>
-      <template v-if="loading">
-        <v-simple-table class="pt-16">
-          <thead >
-          <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 6%; text-align: center">Id</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Service</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Application Name</th>
-            <th style="color: #a61c00; width: 25%; text-align: center">#Questions</th>
-            <th style="color: #a61c00; width: 9%;">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr  v-for="(location, index) in locations" style="background: none !important;">
-            <div v-for="(service, indexService) in location.services">
-              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
-                <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
-                <td style="width: 9%; margin: 0 auto;" class="d-flex flex-column align-center">
-                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">View/Edit</v-btn>
-                  <v-btn class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
-                </td>
-              </div>
-            </div>
-          </tr>
-          </tbody>
-        </v-simple-table>
-      </template>
-    </v-card>
+<!--    <v-row class="d-flex" style="width: 100%;" v-if="loadApplicationTemplates">-->
+<!--      <v-btn @click="loadApplicationTemplatesFunction" class="py-4 px-10 mx-4" color="#707070" style="color:white; width: 30%; border-radius: 10px;" >Application Templates</v-btn>-->
+<!--      <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 px-10 mx-4" color="primary width: 50%; border-radius: 10px;"  >Your Company Application Templates</v-btn>-->
+<!--    </v-row>-->
+<!--    <v-card class="mt-8" v-if="loadApplicationTemplates">-->
+<!--      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Applications for All Locations</v-card-title>-->
+<!--      <template v-if="loading">-->
+<!--        <v-simple-table class="pt-16">-->
+<!--          <thead >-->
+<!--          <tr class="d-flex justify-start">-->
+<!--            <th style="color: #a61c00; width: 6%; text-align: center">Id</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Service</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Application Name</th>-->
+<!--            <th style="color: #a61c00; width: 25%; text-align: center">#Questions</th>-->
+<!--            <th style="color: #a61c00; width: 9%;">Actions</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
+<!--            <div v-for="(service, indexService) in location.services">-->
+<!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
+<!--                <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>-->
+<!--                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
+<!--                <td style="width: 9%; margin: 0 auto;" class="d-flex flex-column align-center">-->
+<!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">View/Edit</v-btn>-->
+<!--                  <v-btn class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
+<!--                </td>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </v-simple-table>-->
+<!--      </template>-->
+<!--    </v-card>-->
 
-    <v-row class="d-flex" style="width: 100%;" v-if="loadYourCompanyTemplates">
-      <v-btn @click="loadApplicationTemplatesFunction" class="py-4 px-10 mx-4" color="#707070" style="color:white; width: 30%; border-radius: 10px;" >Application Templates</v-btn>
-      <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 px-10 mx-4" color="primary width: 50%; border-radius: 10px;"  >Your Company Application Templates</v-btn>
-    </v-row>
-    <v-card class="mt-8" v-if="loadApplicationLocations">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Applications for All Locations</v-card-title>
-      <template v-if="loading">
-        <v-simple-table class="pt-16">
-          <thead >
-          <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 6%; text-align: center">Id</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Service</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Application Name</th>
-            <th style="color: #a61c00; width: 25%; text-align: center">#Questions</th>
-            <th style="color: #a61c00; width: 9%;">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr  v-for="(location, index) in locations" style="background: none !important;">
-            <div v-for="(service, indexService) in location.services">
-              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
-                <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
-                <td style="width: 9%; margin: 0 auto;" class="d-flex flex-column align-center">
-                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">View/Edit</v-btn>
-                  <v-btn class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
-                </td>
-              </div>
-            </div>
-          </tr>
-          </tbody>
-        </v-simple-table>
-      </template>
-    </v-card>
+<!--    <v-row class="d-flex" style="width: 100%;" v-if="loadYourCompanyTemplates">-->
+<!--      <v-btn @click="loadApplicationTemplatesFunction" class="py-4 px-10 mx-4" color="#707070" style="color:white; width: 30%; border-radius: 10px;" >Application Templates</v-btn>-->
+<!--      <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 px-10 mx-4" color="primary width: 50%; border-radius: 10px;"  >Your Company Application Templates</v-btn>-->
+<!--    </v-row>-->
+<!--    <v-card class="mt-8" v-if="loadApplicationLocations">-->
+<!--      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Applications for All Locations</v-card-title>-->
+<!--      <template v-if="loading">-->
+<!--        <v-simple-table class="pt-16">-->
+<!--          <thead >-->
+<!--          <tr class="d-flex justify-start">-->
+<!--            <th style="color: #a61c00; width: 6%; text-align: center">Id</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Service</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Application Name</th>-->
+<!--            <th style="color: #a61c00; width: 25%; text-align: center">#Questions</th>-->
+<!--            <th style="color: #a61c00; width: 9%;">Actions</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
+<!--            <div v-for="(service, indexService) in location.services">-->
+<!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
+<!--                <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>-->
+<!--                <td style="width: 20%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
+<!--                <td style="width: 9%; margin: 0 auto;" class="d-flex flex-column align-center">-->
+<!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">View/Edit</v-btn>-->
+<!--                  <v-btn class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
+<!--                </td>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </v-simple-table>-->
+<!--      </template>-->
+<!--    </v-card>-->
   </v-container>
 </template>
 
