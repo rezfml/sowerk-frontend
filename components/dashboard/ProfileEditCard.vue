@@ -216,7 +216,18 @@
                 <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Profile</v-subheader>
               </v-col>
 
-              <v-col cols="12" md="4" class="pt-0">
+              <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
+                <v-text-field
+                  light
+                  placeholder=""
+                  v-model="company.account_name"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Company Account Name</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" md="12" class="pt-0" v-else>
                 <v-text-field
                   light
                   placeholder=""
@@ -228,7 +239,7 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="4" class="pt-0">
+              <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
                 <v-text-field
                   light
                   placeholder=""
@@ -240,7 +251,7 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="4" class="pt-0">
+              <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
                 <v-text-field
                   light
                   placeholder=""
@@ -313,27 +324,27 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="6" class="py-0">
+              <v-col cols="12" md="12" class="py-0">
                 <v-text-field
                   light
                   placeholder=""
-                  v-model="company.email"
+                  v-model="company.website"
                 >
                   <template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Email</p>
+                    <p class="grey--text text--darken-4 font-weight-bold">Website</p>
                   </template>
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" md="6" class="py-0">
-                <v-text-field
-                  light
-                  placeholder=""
-                  v-model="company.phone"
-                ><template v-slot:label>
-                  <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                </template></v-text-field>
-              </v-col>
+<!--              <v-col cols="12" md="6" class="py-0">-->
+<!--                <v-text-field-->
+<!--                  light-->
+<!--                  placeholder=""-->
+<!--                  v-model="company.phone"-->
+<!--                ><template v-slot:label>-->
+<!--                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
+<!--                </template></v-text-field>-->
+<!--              </v-col>-->
 
               <v-col cols="12" md="3" class="py-0">
                 <v-text-field
@@ -602,8 +613,7 @@
           city: this.company.city,
           state: this.company.state,
           zipcode: this.company.zipcode,
-          email: this.company.email,
-          phone: this.company.phone,
+          website: this.company.website,
           year_founded: this.company.year_founded,
           description: this.company.description
         }

@@ -37,6 +37,7 @@
       <v-row v-else-if="user">
         <v-col cols="12" class="py-1">
           <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ company.account_name }}</p>
+            <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
         </v-col>
         <v-col cols="12" class="py-1">
           <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
@@ -131,6 +132,9 @@
           .catch(err => {
             console.log('err company', err)
           })
+      },
+      async websiteLink() {
+        this.$router.push('../../../../' + this.company.website)
       }
     }
   };

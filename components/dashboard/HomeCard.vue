@@ -98,7 +98,7 @@
           <template v-slot:footer v-if="action != 'View'">
             <v-row class="d-flex justify-end" style="width: 100%;">
 
-              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
+              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined large>Add New Location</v-btn>
               <v-btn to='/dashboard/facilities/' color="primary"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
             </v-row>
           </template>
@@ -189,9 +189,8 @@
           </template>
             <template v-slot:footer v-if="action != 'View'">
               <v-row class="d-flex justify-end" style="width: 100%;">
-
-                <v-btn to='/dashboard/facilities/add' color="primary" v-if="$vuetify.breakpoint.xs" style="width:100%;" class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
-                <v-btn to='/dashboard/facilities/add' color="primary" v-else style="width:50%;" class="px-16 mt-2" rounded outlined large>Add New Facility</v-btn>
+                <v-btn to='/dashboard/facilities/add' color="primary" v-if="$vuetify.breakpoint.xs" style="width:100%;" class="px-16 mt-2" rounded outlined large>Add New Location</v-btn>
+                <v-btn to='/dashboard/facilities/add' color="primary" v-else style="width:50%;" class="px-16 mt-2" rounded outlined large>Add New Location</v-btn>
                 <v-btn to='/dashboard/facilities/' color="primary" v-if="$vuetify.breakpoint.xs" style="width:100%;"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
                 <v-btn to='/dashboard/facilities/' color="primary" v-else style="width:50%;"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
               </v-row>

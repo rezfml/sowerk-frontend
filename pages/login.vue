@@ -51,7 +51,7 @@
                 </template>
               </v-text-field>
 
-              <v-btn class="mb-n2" style="align-self: flex-end;" text>Forgot Password?</v-btn>
+              <v-btn to="../passwordreset" class="mb-n2" style="align-self: flex-end;" text>Forgot Password?</v-btn>
 
               <v-text-field
                 id="password"

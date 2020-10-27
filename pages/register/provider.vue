@@ -18,10 +18,8 @@
         class="pt-12 mt-12"
       >
         <v-card class="elevation-12 card--has-floating" light>
-            <v-row>
-              <img xl-2 lg-2 md-2 sm-2 xs-2 class="serviceProviderIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png" alt="service Provider Icon">
-              <v-card-title class="justify-center headline font-weight-bold" xl-10 lg-10 md-10 sm-10 xs-10 style="margin-left:30%;">Step 1 - <span class="primary--text ml-2 py-6">Company Information</span></v-card-title>
-            </v-row>
+          <v-card-title class="justify-center headline font-weight-bold" xl-10 lg-10 md-10 sm-10 xs-10 style=""><img class="serviceProviderIcon" style="height:10vh; margin-right: 10px;"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png" alt="service Provider Icon"> <span class="primary--text ml-2 py-6">Vendor Information</span></v-card-title>
+
           <v-tabs
             v-model="tab"
             background-color="grey lighten-2"
@@ -1246,28 +1244,28 @@
       font-size: 1.25em;
       top: 0;
    }
-.serviceProviderIcon{
-  width:10%;
-  top:-20px;
-}
+/*.serviceProviderIcon{*/
+/*  width:10%;*/
+/*  top:-20px;*/
+/*}*/
 @media (max-width: 790px) {
 .saveBtn{
     margin-left:0 !important;
     margin-top:1%;
     margin-bottom: 1%;
   }
-.serviceProviderIcon{
-  width:15%;
-  top:-20px;
-}
+/*.serviceProviderIcon{*/
+/*  width:15%;*/
+/*  top:-20px;*/
+/*}*/
 }
 @media (max-width: 680px) {
-.serviceProviderIcon{
-  width:20% !important;
-  top:-40px;
-  margin-bottom:-50px;
-  margin-top: 50px;
-  margin-left: 7%;
-}
+/*.serviceProviderIcon{*/
+/*  width:20% !important;*/
+/*  top:-40px;*/
+/*  margin-bottom:-50px;*/
+/*  margin-top: 50px;*/
+/*  margin-left: 7%;*/
+/*}*/
 }
 </style>
