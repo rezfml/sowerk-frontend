@@ -15,7 +15,7 @@
       <HomeCard
         v-if="locations"
         :items="locations"
-        :title="'Facilities You Manage - ' + locations.length"
+        :title="'Locations You Manage - ' + locations.length"
         :tableProperties="headers"
         slug="/dashboard/facilities/"
       ></HomeCard>

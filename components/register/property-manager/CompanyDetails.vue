@@ -6,6 +6,10 @@
       <v-card-text class="pa-0">
         <v-form class="mx-auto register-form" ref="register">
           <v-container>
+            <v-col cols="12">
+              <h2 class="mt-8 mb-4">Your Information</h2>
+              <v-divider></v-divider>
+            </v-col>
             <v-row>
               <v-col cols="12" sm="5" md="6">
                 <v-row fill-height class="pl-2 fill-height">
@@ -94,28 +98,6 @@
               </v-col>
 
               <v-col cols="12" sm="6">
-                <v-text-field
-                  id="company-name"
-                  label="Account Name*"
-                  type="text"
-                  v-model="company.account_name"
-                  placeholder=" "
-                  :rules="rules.requiredRules"
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  id="company-brand"
-                  label="Brand Name*"
-                  type="text"
-                  v-model="company.brand_name"
-                  placeholder=" "
-                  :rules="rules.requiredRules"
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12" sm="6">
                 <v-select
                   id="company-best"
                   label="What Best Describes You*"
@@ -128,6 +110,28 @@
 
               <v-col cols="12" sm="6">
                 <v-text-field
+                  id="company-name"
+                  label="Account Name*"
+                  type="text"
+                  v-model="company.account_name"
+                  placeholder="Account Name: The name shown publicly to vendors and platform users"
+                  :rules="rules.requiredRules"
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
+                <v-text-field
+                  id="company-brand"
+                  label="Brand Name*"
+                  type="text"
+                  v-model="company.brand_name"
+                  placeholder=" "
+                  :rules="rules.requiredRules"
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
+                <v-text-field
                   id="company-llc"
                   label="List your LLC Name (If Applicable)"
                   type="text"
@@ -136,27 +140,26 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="12">
                 <v-text-field
-                  id="company-email"
-                  label="Company Email*"
+                  id="company-website"
+                  label="Company Website*"
                   type="text"
-                  v-model="company.email"
+                  v-model="company.website"
                   placeholder=" "
-                  :rules="rules.emailRules"
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  id="company-phone"
-                  label="Company Phone*"
-                  type="number"
-                  v-model="company.phone"
-                  placeholder=" "
-                  :rules="rules.phoneRules"
-                ></v-text-field>
-              </v-col>
+<!--              <v-col cols="12" sm="6">-->
+<!--                <v-text-field-->
+<!--                  id="company-phone"-->
+<!--                  label="Company Phone*"-->
+<!--                  type="number"-->
+<!--                  v-model="company.phone"-->
+<!--                  placeholder=" "-->
+<!--                  :rules="rules.phoneRules"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
 
               <v-col cols="12" class="v-input address">
                 <div class="v-input__control">
@@ -186,9 +189,9 @@
               <v-col cols="12">
                 <v-textarea
                   id="company-description"
-                  label="Company Description*"
+                  label="Company Profile Description*"
                   v-model="company.description"
-                  placeholder=" "
+                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors. "
                   :rules="rules.requiredRules"
                 ></v-textarea>
               </v-col>

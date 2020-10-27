@@ -20,9 +20,9 @@
       <v-col cols="12">
         <v-card class="elevation-12 card--has-floating" light>
           <v-card-title class="justify-center headline font-weight-bold"
-          >Step 1 -
+          ><img src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png" style="height:10vh; margin-right: 10px;"alt="property and facility manager Icon">
             <span class="primary--text ml-2 py-6"
-            >Company Information</span
+            >Property Manager Information</span
             ></v-card-title
           >
           <v-tabs
@@ -171,7 +171,7 @@ export default {
         }
       ],
       company: {
-        email: '',
+        website: '',
         account_name: '',
         brand_name: '',
         isFranchise: '',
@@ -182,7 +182,7 @@ export default {
         state: '',
         zipcode: Number,
         description: '',
-        phone: '',
+        // phone: '',
         year_founded: Number,
         company_type: true,
         currentConnections: Number,
