@@ -68,9 +68,9 @@
             </v-row>
           </template>
           <template v-slot:item.actions="{ item }" class="d-flex">
-            <v-btn color="green" outlined @click="Approve(item)">Approve</v-btn>
-            <v-btn block color="primary" outlined @click="Deny(item)">Deny</v-btn>
-            <v-btn block color="primary" @click="Review(item)">Review</v-btn>
+            <v-btn color="#707070" outlined  @click="Approve(item)">Approve</v-btn>
+            <v-btn block color="#802525" outlined @click="Deny(item)">Deny</v-btn>
+            <v-btn block color="primary"  @click="Review(item)">Review</v-btn>
           </template>
         </v-data-table>
       </v-card-text>

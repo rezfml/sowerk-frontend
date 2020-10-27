@@ -237,18 +237,18 @@
               >
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
-              <v-btn class="my-1" style="width: 90%;" color="green" outlined @click="submit(item.companies_id, item)">Message</v-btn>
-              <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+              <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-              <v-btn class="my-1" style="width: 90%;" color="green" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
               <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
               <nuxt-link :to="slug + item.id" append>
-                <v-btn class="my-1" style="width: 90%;" color="green" outlined>
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined>
                   View
                 </v-btn>
               </nuxt-link>

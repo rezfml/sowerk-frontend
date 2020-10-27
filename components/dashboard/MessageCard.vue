@@ -26,9 +26,9 @@
           </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="slug + item.id" append>
-              <v-btn class="my-1" style="width: 90%; text-decoration: none!important;" color="green" outlined>View</v-btn>
+              <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070;" color="white" outlined>View</v-btn>
             </nuxt-link>
-            <v-btn class="my-1" style="width: 90%;" color="primary" outlined @click="deleteMessage(item)">Delete</v-btn>
+            <v-btn class="my-1" style="width: 90%;background-color:rgba(166,29,0,1);" color="white" outlined @click="deleteMessage(item)">Delete</v-btn>
           </template>
           <template v-slot:footer>
             <v-row class="d-flex justify-center my-4" style="width: 100%;">
@@ -75,9 +75,9 @@
           </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="'../../../dashboard/messages-and-alerts/sent/' + item.id" append>
-              <v-btn class="my-1" style="width: 90%; text-decoration: none!important;" color="green" outlined>Edit</v-btn>
+              <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070" color="white" outlined>View</v-btn>
             </nuxt-link>
-            <v-btn class="my-1" style="width: 90%;" color="primary" outlined @click="deleteMessage(item)">Delete</v-btn>
+            <v-btn class="my-1" style="width: 90%;" color="primary"  @click="deleteMessage(item)">Delete</v-btn>
           </template>
           <template v-slot:footer>
             <v-row class="d-flex justify-center my-4" style="width: 100%;">

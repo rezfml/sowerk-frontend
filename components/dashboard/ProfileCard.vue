@@ -71,15 +71,15 @@
     </v-card-text>
 
       <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Location Approved Vendors</v-btn>
-      <v-btn @click="pendingApplication" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="blue" outlined rounded v-if="location">Pending Applicants</v-btn>
+      <v-btn @click="pendingApplication" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Pending Applicants</v-btn>
 
       <v-btn @click="editVendorRequirement" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Vendor Requirements</v-btn>
-      <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="blue" outlined rounded v-if="location">Edit Location Details</v-btn>
+      <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Location Details</v-btn>
 
 
     <v-spacer></v-spacer>
     <v-card-actions class="d-flex justify-center">
-      <v-btn v-if="this.user" color="blue" @click="logout">Logout</v-btn>
+      <v-btn v-if="this.user" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
       <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE LOCATION</v-btn>
     </v-card-actions>
   </v-card>
