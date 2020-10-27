@@ -7,27 +7,47 @@
         :size="50"
       ></v-progress-circular>
     </div>
-    <v-container class="px-0" style="max-width: 95%;">
-      <v-row>
-        <v-col cols="3">
-          <FilterCard
-            title="Filter"
-            :filters="filters"
-          ></FilterCard>
-        </v-col>
-        <v-col cols="9" class="d-flex flex-column justify-space-between">
-          <HomeCard
-            v-if="services"
-            :title="'Businesses'"
-            :items="services"
-            :tableProperties="headers"
-            :viewAll="false"
-            action="Apply"
-            slug="/dashboard/businesses/"
-          ></HomeCard>
-        </v-col>
-      </v-row>
-    </v-container>
+    <div v-else>
+      <template v-if="company && company.company_type === 'true'">
+        <v-container class="px-0" style="max-width: 95%;">
+          <v-row>
+            <v-col cols="3">
+              <FilterCard
+                title="Filter"
+                :filters="filters"
+              ></FilterCard>
+            </v-col>
+            <v-col cols="9" class="d-flex flex-column justify-space-between">
+              <HomeCard
+                v-if="services"
+                :title="'Businesses'"
+                :items="services"
+                :tableProperties="headers"
+                :viewAll="false"
+                action="Apply"
+                slug="/dashboard/businesses/"
+              ></HomeCard>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
+      <template v-else-if="company && company.company_type === 'false'">
+        <v-container class="px-0" style="max-width: 95%;">
+          <v-row>
+            <v-col cols="12" class="d-flex flex-column justify-space-between">
+              <v-card class="white">
+                <v-data-table
+                  :items="businesses"
+                  :headers="providerHeaders"
+                >
+
+                </v-data-table>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
+    </div>
   </v-app>
 </template>
 
@@ -177,7 +197,38 @@
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
-        businesses: null
+        providerHeaders: [
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+            class: 'primary--text font-weight-regular'
+          },
+          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
+        // connectionsHeaders: [
+        //   {
+        //     text: 'ID',
+        //     align: 'start',
+        //     sortable: false,
+        //     value: 'id',
+        //     class: 'primary--text font-weight-regular'
+        //   },
+        //   { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+        //   { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+        //   { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+        //   { text: 'Primary Contact', value: 'primary_contact', class: 'primary--text font-weight-regular' },
+        //   { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+        //   { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        // ],
+        businesses: [],
+        company: null,
+        connections: null,
       }
     },
     watch: {
@@ -190,7 +241,8 @@
       }
     },
     async mounted() {
-      await this.getBusinesses();
+      await this.getCompany();
+
     },
     computed: {
       currentUser() {
@@ -198,20 +250,64 @@
       },
     },
     methods: {
-      async getBusinesses() {
+      async getBusinesses(companyType) {
+        if(companyType === 'true') {
+          this.locations = [];
+          let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/type/' + companyType).catch(e => e);
+          this.businesses = data;
+          console.log(data);
+          // this.businesses = data.users.filter(function(user) {
+          //   return user.user_type == 1;
+          // })
+          // console.log(this.businesses);
+          await this.getLocations(data);
+        } else if(companyType === 'false') {
+          let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id).catch(e => e);
+          console.log(data);
+          this.connections = data.filter(connection => connection.approval_status === 1);
+          console.log(this.connections);
+          await this.getConnectedCompaniesLocations();
+          this.loading = false;
+        }
+      },
+      async getCompany() {
         this.loading = true;
-        this.locations = [];
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/type/true').catch(e => e);
-        // this.businesses = data.users.filter(function(user) {
-        //   return user.user_type == 1;
-        // })
-        // console.log(this.businesses);
-        await this.getLocations(data);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        console.log('company from business/index: ', data.company_type);
+        this.company = data;
+        await this.getBusinesses(data.company_type);
+      },
+      async getConnectedCompaniesLocations() {
+        let filters = [];
+        this.connections.forEach(function(connection) {
+          filters.push(connection.pmlocations_id);
+        });
+
+        let uniqueFilters = [...new Set(filters)];
+
+        console.log(uniqueFilters);
+
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/').catch(e => e);
+
+        let businesses = [];
+
+        data.forEach(function(company) {
+          uniqueFilters.forEach(function(filter) {
+            if(company.id === filter) {
+              businesses.push(company);
+            }
+          })
+        })
+
+        this.businesses = businesses;
+        console.log(this.businesses)
+
       },
       async getLocations(companies) {
         for (const company of companies) {
-          let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + company.id).catch(e => e);
+          let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + company.id).catch(e => e);
           if (this.$error(status, data.message, data.errors)) return;
+          console.log('locations: ',data);
           if(data.locations[0] !== 'There are no locations') {
             for (const location of data.locations) {
               this.$nextTick(function() {
@@ -225,7 +321,7 @@
       },
       async getServices() {
         for (const location of this.locations) {
-          let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/bylocationid/' + location.id).catch(e => e);
+          let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/services/bylocationid/' + location.id).catch(e => e);
           if(data) {
             if(data.message) continue;
             for (const service of data) {

@@ -1,12 +1,11 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0; " v-if="loading != true">
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
       <v-progress-circular
         indeterminate
         color="primary"
         :size="50"
       ></v-progress-circular>
-
     </div>
     <v-container class="px-0" style="max-width: 95%;">
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
@@ -49,12 +48,11 @@
         </v-col>
       </v-row>
 
-      <v-row v-else class="mobileView">
+      <v-row v-else>
         <v-col cols="3">
           <FilterCard
             title="Filter"
             :filters="filters"
-            :locationApproved="locationApproved"
           ></FilterCard>
         </v-col>
         <v-col cols="9">
@@ -267,8 +265,7 @@
         connectionsLen: Number,
         vendors: [],
         vendorsLength: Number,
-        loading: false,
-        locationApproved: true,
+        loading: false
       }
     },
     async mounted() {
@@ -285,7 +282,7 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
@@ -299,26 +296,17 @@
         console.log('user current', this.currentUser, 'current company', this.company);
         if(this.company.company_type === "true") {
           console.log('true');
-          await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byPmId/' + id)
+          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
                 this.loading = true;
               }
               for(let i = 0; i<response.data.length; i++) {
-                if(response.data[i].approval_status === 1 && this.currentUser.is_superuser === true) {
-                  this.connections.push(response.data[i]);
-                  console.log('response.data', response.data)
-                  this.getLocations(response.data[i].spcompanies_id);
-                  console.log(this.connections, 'connections');
-                } else if ((response.data[i].approval_status === 1) && (this.currentUser.is_superuser === false) && (response.data[i].pmuserprofiles_id === this.currentUser.id) ) {
-                    this.connections.push(response.data[i]);
-                    console.log('response.data', response.data)
-                    this.getLocations(response.data[i].spcompanies_id);
-                    console.log(this.connections, 'connections');
-                } else {
-                  this.loading = true;
-                }
+                this.connections.push(response.data[i]);
+                console.log('response.data', response.data)
+                this.getLocations(response.data[i].serviceprovider_id);
+                console.log(this.connections, 'connections');
               }
             })
             .catch(err => {
@@ -326,21 +314,13 @@
             })
         } else {
           console.log('false');
-          await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/bySpId/' + id)
+          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               for(let i = 0; i<response.data.length; i++) {
-                if(response.data[i].approval_status === 1 && this.currentUser.is_superuser) {
-                  this.connections.push(response.data[i]);
-                  this.getBusinesses(response.data[i].pmcompanies_id);
-                  console.log(this.connections, 'connections');
-                } else if(response.data[i].approval_status === 1 && this.currentUser.is_superuser === false && response.data[i].pmuserprofiles_id === this.currentUser.id) {
-                    this.connections.push(response.data[i]);
-                    this.getBusinesses(response.data[i].pmcompanies_id);
-                    console.log(this.connections, 'connections');
-                } else {
-                  this.loading = true;
-                }
+                this.connections.push(response.data[i]);
+                this.getBusinesses(response.data[i].propertymanager_id);
+                console.log(this.connections, 'connections');
               }
             })
             .catch(err => {
@@ -349,11 +329,11 @@
         }
       },
       async getLocations(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/byCompaniesId/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(response => {
             for(let i=0; i< response.data.location.length; i++) {
               response.data.location[i].services = response.data.location[i].services.join(', ')
-              this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + response.data.location[i].companies_id)
+              this.$http.get('http://www.sowerkbackend.com/api/companies/' + response.data.location[i].companies_id)
                 .then(res => {
                   response.data.location[i].name = `${res.data.account_name}`;
                   response.data.location[i].imageUrl = res.data.imgUrl;
@@ -376,7 +356,7 @@
         console.log('loading', this.loading)
       },
       async getBusinesses(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             this.vendors.push(response.data);
             console.log(this.vendors, 'vendors');
@@ -394,7 +374,7 @@
       },
       async getUsers(id, index) {
         console.log('id', id)
-        this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/company/' + id)
+        this.$http.get('http://www.sowerkbackend.com/api/auth/users/company/' + id)
           .then(response => {
             console.log(response.data, 'user response.data');
             console.log(this.vendors[index], 'index vendor', this.vendors, 'vendors');
@@ -409,18 +389,18 @@
           })
       },
       // async getApprovedApplications() {
-      //   let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/type/1').catch(e => e);
+      //   let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/applications/type/1').catch(e => e);
       //   if (this.$error(status, data.message, data.errors)) return;
       //   await this.getApprovedUsers(data);
       // },
       // async getApprovedUsers(applications) {
       //   for (const application of applications) {
-      //     let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
+      //     let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
       //     await this.getApprovedCompanies(data);
       //   }
       // },
       // async getApprovedCompanies(user) {
-      //   let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + user.companies_id).catch(e => e);
+      //   let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + user.companies_id).catch(e => e);
       //   this.companies.push(data);
       //   console.log(this.companies, 'approvedVendors');
       // }
@@ -429,10 +409,5 @@
 </script>
 
 <style scoped>
-  @media (max-width:1264px ){
-    #app{
-      margin-top:-56px;
-    }
-  }
 
 </style>

@@ -124,7 +124,7 @@ import * as moment from 'moment'
     },
     methods: {
       async getApplication(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/applications/' + id)
           .then(response => {
             console.log(response.data, 'response application');
             this.application = response.data;
@@ -146,7 +146,7 @@ import * as moment from 'moment'
           })
       },
       async getSPLocation(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/locations/' + id)
           .then(async (response) => {
             console.log(response.data, 'response sp location');
             this.location = response.data;
@@ -159,7 +159,7 @@ import * as moment from 'moment'
           })
       },
       async getPMLocation(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/locations/' + id)
           .then(async (response) => {
             console.log(response.data, 'response pm location');
             this.pmlocation = response.data;
@@ -171,7 +171,7 @@ import * as moment from 'moment'
           })
       },
       async getPMCompany(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log(response.data, 'response pm company');
             this.pmcompany = response.data;
@@ -183,7 +183,7 @@ import * as moment from 'moment'
           })
       },
       async getPMUserForm(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/userforms/' + id)
           .then(async (response) => {
             console.log(response.data, 'response pm userform');
             this.userform = response.data;
@@ -193,7 +193,7 @@ import * as moment from 'moment'
           })
       },
       async getPMService(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/services/' + id)
           .then(async (response) => {
             console.log(response.data.service, 'response pm service');
             this.service = response.data.service;
@@ -204,7 +204,7 @@ import * as moment from 'moment'
           })
       },
       async getInsurances() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/insurance/byCompanyId/' + this.location.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/insurance/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data insurances');
             for(let i = 0; i<response.data.length; i++) {
@@ -216,7 +216,7 @@ import * as moment from 'moment'
             console.log('err', err);
           })
       },async getLicenses() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/license/byCompanyId/' + this.location.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/license/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data licenses');
             for(let i = 0; i<response.data.length; i++) {
@@ -229,7 +229,7 @@ import * as moment from 'moment'
           })
       },
       async getConnections(location) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection/bySpId/' + location.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections');
               for(let i=0; i<response.data.length; i++) {
@@ -248,14 +248,14 @@ import * as moment from 'moment'
           propertymanager_id: this.application.pmcompanies_id,
           serviceprovider_id: this.application.spcompanies_id
         }
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + this.application.id, approvalChanges)
+        await this.$http.put('http://www.sowerkbackend.com/api/applications/' + this.application.id, approvalChanges)
           .then(response => {
             console.log('success in changes', response)
           })
           .catch(err => {
             console.log('err', err);
           })
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection', approvedproviderconnection)
+        await this.$http.post('http://www.sowerkbackend.com/api/approvedproviderconnection', approvedproviderconnection)
           .then(response => {
             console.log('success', response);
             this.success = true;
@@ -268,7 +268,7 @@ import * as moment from 'moment'
         const denialChanges = {
           approval_status: 2
         }
-        await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + this.application.id, denialChanges)
+        await this.$http.put('http://www.sowerkbackend.com/api/applications/' + this.application.id, denialChanges)
           .then(response => {
             console.log('success in changes', response)
             this.failure = true;
@@ -279,7 +279,7 @@ import * as moment from 'moment'
       },
       async submit() {
         console.log(this.messageForm)
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
+        await this.$http.post('http://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
           .then(response => {
             console.log('SUCCESS', response)
           })

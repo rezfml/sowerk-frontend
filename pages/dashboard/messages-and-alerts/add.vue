@@ -83,7 +83,7 @@
     },
     methods: {
       async getCompanies() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies')
+        await this.$http.get('http://www.sowerkbackend.com/api/companies')
           .then(response => {
             this.companiesFilter = response.data;
             console.log(response.data, 'response.data', this.companiesFilter);
@@ -98,7 +98,7 @@
         }
       },
       async getCompany() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + this.currentUser.companies_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.company = response.data;
             this.locations = response.data.locations
@@ -114,7 +114,7 @@
         console.log(this.messageForm, 'this.messageForm')
         this.messageForm.location = `${this.messageForm.location.name} - ${this.messageForm.location.address} ${this.messageForm.location.city}, ${this.messageForm.location.state} ${this.messageForm.location.zipcode}`
         console.log(this.messageForm, 'after location change')
-        await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
+        await this.$http.post('http://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
           .then(response => {
             console.log('SUCCESS', response)
           })

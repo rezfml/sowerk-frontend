@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     async getCarouselPropertyManagers() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.carouselPropertyManagers = data;
@@ -180,7 +180,7 @@ export default {
       })
     },
     async getCarouselServiceProviders() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.carouselServiceProviders = data;
@@ -188,7 +188,7 @@ export default {
       })
     },
     async getReviews() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.reviews = data;
@@ -220,7 +220,7 @@ export default {
   fill: #151515;
 }
 .landinghomeherotext{
-  background: rgb(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.65);
   border-radius: 25px;
   width: 80%;
   display: flex;
@@ -230,7 +230,7 @@ export default {
   margin-top: 300px;
 }
 .landinghomeherotext h1, .landinghomeherotext p, .landinghomeherotext button {
-  color: rgb(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
 }
 .landinghomeherotext img {
   width: 50%;
@@ -308,7 +308,7 @@ export default {
   background-size: cover;
 }
 .landinghomelinktext {
-  background: rgb(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 1);
   border-radius: 20px;
   width: 60%;
   margin: 50px 0px 50px 0px;
@@ -531,7 +531,7 @@ export default {
   }
   .landinghomepf h4 {
     margin-top: 20px;
-    font-size: 1 rem !important;
+    font-size: 1rem !important;
   }
   .landinghomepf button {
     width: 45%;
@@ -980,4 +980,4 @@ export default {
   }
   */
 }
-</style scoped>
+</style>

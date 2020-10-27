@@ -90,7 +90,7 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
@@ -101,7 +101,7 @@
           })
       },
       async getUserform() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/userforms/byServiceId/' + this.form_id)
+        await this.$http.get('http://www.sowerkbackend.com/api/userforms/byServiceId/' + this.form_id)
           .then(response => {
             console.log('response.data userform', response.data)
             this.userforms = response.data;
@@ -116,7 +116,7 @@
           .catch(e => console.log(e));
       },
       async getFormFields(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/formfields/byUserFormId/' + id)
+        await this.$http.get('http://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(response => {
             console.log('formfield', response.data);
             for(let i = 0; i<response.data.length; i++) {
@@ -137,7 +137,7 @@
         this.application.userforms_id = this.form_id;
         this.application.userprofiles_id = this.currentUser.id;
         this.application.subData = arrayString;
-        let {data, status} = await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byUserformid/' + this.form_id, this.application).catch(e => e);
+        let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/applications/byUserformid/' + this.form_id, this.application).catch(e => e);
       }
     }
   }

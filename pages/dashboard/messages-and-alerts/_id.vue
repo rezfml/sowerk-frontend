@@ -35,7 +35,7 @@ export default {
     },
     methods: {
       async getMessage() {
-        let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/messages/' + this.messageId).catch(e => e);
+        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/messages/' + this.messageId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.individualMessage = data;
         console.log(this.individualMessage, 'message');

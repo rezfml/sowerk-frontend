@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     async getServiceProviders() {
-      let {data, status} = await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/byType?type=false0&limit=8&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=false0&limit=8&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.serviceproviders = data;
@@ -178,7 +178,7 @@ export default {
   fill: #A61C00;
 }
 .sphero .spherobox {
-  background: rgb(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.55);
   width: 50%;
   display: flex;
   flex-direction: column;
