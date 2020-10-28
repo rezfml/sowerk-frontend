@@ -55,29 +55,16 @@
     <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Application Templates</v-card-title>
       <template v-if="loading" style="width: 100%;">
-        <v-simple-table class="pt-16" style="width: 100%;">
-          <thead style="width: 100%; max-width: 100%;">
-          <tr class="d-flex " style="width: 100%; max-width: 100%;">
-            <th style="color: #a61c00;  text-align: center">Id</th>
-            <th style="color: #a61c00;  text-align: center">Service</th>
-            <th style="color: #a61c00;  text-align: center">Application Name</th>
-            <th style="color: #a61c00;  text-align: center">#Questions</th>
-            <th style="color: #a61c00; ">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr   v-for="(app, index) in applicationTemplates" style="width: 100%; background: none !important;">
-                <td style="width: 10%; text-align: center" class="py-1">{{app.id}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{app.service_name}}</td>
-                <td style="width: 20%; text-align: center" class="py-1">{{app.service_name}}</td>
-                <td v-if="app.applicationtemplatesformfields" style="width: 25%; text-align: center" class="py-1">{{app.applicationtemplatesformfields.length}}</td>
-                <td style="width: 30%; margin: 0 auto;" class="d-flex align-center">
-                  <v-btn class="mx-2" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 100%;">View/Edit</v-btn>
-                  <v-btn class="mx-2" color="primary" style="width: 100%;">Delete</v-btn>
-                </td>
-          </tr>
-          </tbody>
-        </v-simple-table>
+        <v-data-table
+          :headers="headers"
+          :items="applicationTemplates"
+          :items-per-page="10"
+        >
+          <template v-slot:item.actions="{item}">
+              <v-btn class="mx-2" color="#707070" :to="'/dashboard/vendors/applications/' + item.id" style="color: white; width: 100%;">View/Edit</v-btn>
+              <v-btn class="mx-2" color="primary" style="width: 100%;">Delete</v-btn>
+          </template>
+        </v-data-table>
       </template>
     </v-card>
 
@@ -145,7 +132,20 @@
         loadYourCompanyTemplates: false,
         applicationTemplates: [],
         companyTemplates: [],
-      }
+        headers: [
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+            class: 'primary--text font-weight-regular'
+          },
+          { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
+          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
+          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ]
+        }
     },
     mounted() {
       this.getLocations(this.currentUser.companies_id);
