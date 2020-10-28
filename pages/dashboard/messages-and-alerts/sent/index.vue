@@ -75,7 +75,7 @@
     },
     methods: {
       async getCompany() {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.company = data;
@@ -83,7 +83,7 @@
         })
       },
       async getMessages() {
-        await this.$http.get('https://www.sowerkbackend.com//api/messages/byUserId/' + this.currentUser.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/messages/byUserId/' + this.currentUser.id)
           .then(response => {
             console.log('messages', response)
             this.messages = response.data

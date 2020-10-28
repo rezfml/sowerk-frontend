@@ -284,7 +284,7 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
@@ -298,7 +298,7 @@
         console.log('user current', this.currentUser, 'current company', this.company);
         if(this.company.company_type === "true") {
           console.log('true');
-          await this.$http.get('https://www.sowerkbackend.com//api/applications/byPmId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
@@ -325,7 +325,7 @@
             })
         } else {
           console.log('false');
-          await this.$http.get('https://www.sowerkbackend.com//api/applications/bySpId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               for(let i = 0; i<response.data.length; i++) {
@@ -348,11 +348,11 @@
         }
       },
       async getLocations(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/locations/byCompaniesId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(response => {
             for(let i=0; i< response.data.location.length; i++) {
               response.data.location[i].services = response.data.location[i].services.join(', ')
-              this.$http.get('https://www.sowerkbackend.com//api/companies/' + response.data.location[i].companies_id)
+              this.$http.get('https://www.sowerkbackend.com/api/companies/' + response.data.location[i].companies_id)
                 .then(res => {
                   response.data.location[i].name = `${res.data.account_name}`;
                   response.data.location[i].imageUrl = res.data.imgUrl;
@@ -375,7 +375,7 @@
         console.log('loading', this.loading)
       },
       async getBusinesses(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             this.vendors.push(response.data);
             console.log(this.vendors, 'vendors');
@@ -393,7 +393,7 @@
       },
       async getUsers(id, index) {
         console.log('id', id)
-        this.$http.get('https://www.sowerkbackend.com//api/auth/users/company/' + id)
+        this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + id)
           .then(response => {
             console.log(response.data, 'user response.data');
             console.log(this.vendors[index], 'index vendor', this.vendors, 'vendors');
@@ -408,18 +408,18 @@
           })
       },
       // async getApprovedApplications() {
-      //   let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/applications/type/1').catch(e => e);
+      //   let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/applications/type/1').catch(e => e);
       //   if (this.$error(status, data.message, data.errors)) return;
       //   await this.getApprovedUsers(data);
       // },
       // async getApprovedUsers(applications) {
       //   for (const application of applications) {
-      //     let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/auth/users/' + application.userprofiles_id).catch(e => e);
+      //     let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + application.userprofiles_id).catch(e => e);
       //     await this.getApprovedCompanies(data);
       //   }
       // },
       // async getApprovedCompanies(user) {
-      //   let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/' + user.companies_id).catch(e => e);
+      //   let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + user.companies_id).catch(e => e);
       //   this.companies.push(data);
       //   console.log(this.companies, 'approvedVendors');
       // }

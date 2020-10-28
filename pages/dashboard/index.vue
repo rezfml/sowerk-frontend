@@ -297,7 +297,7 @@
     },
     methods: {
       async getApplications(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/applications/byPmId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
             if(this.currentUser.is_superuser === false) {
@@ -319,7 +319,7 @@
           })
       },
       async getUser() {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
@@ -328,12 +328,12 @@
         await this.getCompany();
       },
       async getCompany() {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
       },
       async getLocations() {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           if(this.currentUser.is_superuser === false) {
@@ -353,7 +353,7 @@
         this.hidden = true;
       },
       async getApprovedProviderConnections() {
-        await this.$http.get('https://www.sowerkbackend.com//api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
           .then(response => {
             console.log('response approvedproviderconnections', response.data);
             if(this.currentUser.is_superuser === false) {

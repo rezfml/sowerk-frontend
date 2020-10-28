@@ -253,7 +253,7 @@
       async getBusinesses(companyType) {
         if(companyType === 'true') {
           this.locations = [];
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/type/' + companyType).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/type/' + companyType).catch(e => e);
           this.businesses = data;
           console.log(data);
           // this.businesses = data.users.filter(function(user) {
@@ -262,7 +262,7 @@
           // console.log(this.businesses);
           await this.getLocations(data);
         } else if(companyType === 'false') {
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/applications/bySpId/' + this.currentUser.companies_id).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id).catch(e => e);
           console.log(data);
           this.connections = data.filter(connection => connection.approval_status === 1);
           console.log(this.connections);
@@ -272,7 +272,7 @@
       },
       async getCompany() {
         this.loading = true;
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         console.log('company from business/index: ', data.company_type);
         this.company = data;
         await this.getBusinesses(data.company_type);
@@ -287,7 +287,7 @@
 
         console.log(uniqueFilters);
 
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/locations/').catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/').catch(e => e);
 
         let businesses = [];
 
@@ -305,7 +305,7 @@
       },
       async getLocations(companies) {
         for (const company of companies) {
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/' + company.id).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + company.id).catch(e => e);
           if (this.$error(status, data.message, data.errors)) return;
           console.log('locations: ',data);
           if(data.locations[0] !== 'There are no locations') {
@@ -321,7 +321,7 @@
       },
       async getServices() {
         for (const location of this.locations) {
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/services/bylocationid/' + location.id).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/services/bylocationid/' + location.id).catch(e => e);
           if(data) {
             if(data.message) continue;
             for (const service of data) {

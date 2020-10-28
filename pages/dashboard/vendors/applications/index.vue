@@ -157,7 +157,7 @@
     },
     methods: {
       async getLocations(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/locations/byCompaniesId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(async (response) => {
             console.log(response.data.location, 'locations');
             for(let i=0; i<response.data.location.length; i++) {
@@ -176,7 +176,7 @@
         this.loading = true;
       },
       async getServices(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/services/byLocationId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(async (response) => {
             console.log(response.data, 'services');
             for(let i=0; i<response.data.length; i++) {
@@ -198,7 +198,7 @@
           })
       },
       async getUserforms(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/userforms/byServiceId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
           .then(async (response) => {
             console.log(response.data, 'userforms response.data');
             for(let i=0; i<response.data.length; i++) {
@@ -223,7 +223,7 @@
           })
       },
       async getFormFields(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/formfields/byUserFormId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for userform', id);
             this.userForms[this.valueFormFields].formfields = response.data;
@@ -254,7 +254,7 @@
         await this.getApplicationTemplates();
       },
       async getApplicationTemplates() {
-        await this.$http.get('https://www.sowerkbackend.com//api/applicationtemplates')
+        await this.$http.get('https://www.sowerkbackend.com/api/applicationtemplates')
           .then(async(response) => {
             console.log(response, 'applicationtemplates');
             this.applicationTemplates = response.data;
@@ -277,7 +277,7 @@
       },
       async getApplicationTemplatesFormFields(id) {
 
-        await this.$http.get('https://www.sowerkbackend.com//api/applicationtemplatesformfields/byApplicationTemplatesId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applicationtemplatesformfields/byApplicationTemplatesId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for userform', id);
             this.applicationTemplates[this.valueApplicationFormFields].applicationtemplatesformfields = response.data;

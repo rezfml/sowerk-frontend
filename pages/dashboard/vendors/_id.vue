@@ -84,7 +84,7 @@
     },
     methods: {
       async getConnections(location) {
-        await this.$http.get('https://www.sowerkbackend.com//api/applications/bySpId/' + location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections');
             if(response.data.length !== 0) {
@@ -105,7 +105,7 @@
         await this.getCompanies();
       },
       async getLocation() {
-        await this.$http.get('https://www.sowerkbackend.com//api/locations/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.$route.params.id)
           .then(response => {
             console.log(response.data, 'response.data location');
             this.location = response.data;
@@ -115,7 +115,7 @@
           })
       },
       async getInsurances() {
-        await this.$http.get('https://www.sowerkbackend.com//api/insurance/byCompanyId/' + this.location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data insurances');
             for(let i = 0; i<response.data.length; i++) {
@@ -127,7 +127,7 @@
             console.log('err', err);
           })
       },async getLicenses() {
-        await this.$http.get('https://www.sowerkbackend.com//api/license/byCompanyId/' + this.location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/license/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data licenses');
             for(let i = 0; i<response.data.length; i++) {
@@ -145,7 +145,7 @@
         }
       },
       async getCompany(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             console.log(response.data, 'companies')
             this.companies.push(response.data);
