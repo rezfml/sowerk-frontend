@@ -5,13 +5,13 @@
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; height: 87vh; max-height: 1200px; padding-top: 100px;"
+  background-size: cover; height: 88vh; max-height: 1200px; padding-top: 300px; padding-bottom: 100px"
       align-content="center"
       class="pt-md-16 ma-0"
     >
       <v-card
         max-height="400px"
-         :height="$vuetify.breakpoint.mdAndUp ? '50vh' : '40vh'"
+         :height="$vuetify.breakpoint.mdAndUp ? '50vh' : '45vh'"
         :width="$vuetify.breakpoint.lgAndUp ? '60%' : '100%'"
         max-width="1200px"
         style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
@@ -27,12 +27,12 @@
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
               alt="SOWerk Logo"
               contain
-              :height="$vuetify.breakpoint.mdAndUp ? '80px' : '60px'"
+              :height="$vuetify.breakpoint.mdAndUp ? '80px' : '55px'"
             ></v-img
           ></v-card-title>
           <v-card-text class="d-flex flex-column justify-center">
             <p
-              style="font-size: 26px; line-height: 1.25em; word-break: break-word"
+              style="font-size: 22px; line-height: 1.25em; word-break: break-word"
               class="white--text text-sm-h4 text-md-h3 text-center font-weight-bold"
             >
               The Approved Vendor Platform
