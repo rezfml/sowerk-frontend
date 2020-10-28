@@ -29,10 +29,16 @@
             and complete the link between property/facility owners and approved
             vendors.
           </p>
-            <v-row >
+            <v-row v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" >
               <v-flex sm11 offset-sm-1 text-center text-md-left>
                 <v-btn  class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/service-provider"> Learn More - Service Provider</v-btn>
                 <v-btn class="white--text py-5 my-1 mx-1 text-subtitle-2 px-lg-10 px-15" small outlined rounded to="/landingpage/property-manager"> Learn More - Property & Facility</v-btn>
+              </v-flex>
+            </v-row>
+            <v-row v-else>
+              <v-flex sm11 offset-sm-1 text-center >
+                <v-btn style="width:100%;" class="white--text py-5 my-1 mx-1 text-subtitle-2 px-sm-10 px-15" small outlined rounded to="/landingpage/service-provider"> Learn More- <br/> Service Provider</v-btn>
+                <v-btn style="width:100%;" class="white--text py-5 my-1 mx-1 text-subtitle-2 px-sm-10 px-15" small outlined rounded to="/landingpage/property-manager"> Learn More -<br/> Property & Facility</v-btn>
               </v-flex>
             </v-row>
           </v-col>
@@ -107,7 +113,8 @@ padding-top: 5%;">
           locations. For service providers, SOWerk makes it possible for you to
           become an approved vendor, recieve job requests, and communicate with
           business owners.</p>
-            <v-btn color="primary" class="mx-auto mt-5" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '50%'" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
+            <v-btn color="primary" v-if="!$vuetify.breakpoint.xs && !$Vuetify.breakpoint.sm" class="mx-auto mt-5" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '50%'" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
+             <v-btn color="primary" v-else class="mx-auto mt-5" style="width:100%;" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
           </v-row>
         </v-card-text>
       </v-card>
