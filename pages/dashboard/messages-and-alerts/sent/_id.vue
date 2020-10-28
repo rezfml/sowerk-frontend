@@ -39,14 +39,14 @@
     },
     methods: {
       async getMessage() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/messages/' + this.messageId).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/messages/' + this.messageId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.individualMessage = data;
         console.log(this.individualMessage, 'message');
         this.editFormLoad = true;
       },
       async getCompany() {
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/name/' + this.individualMessage.company)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + this.individualMessage.company)
           .then(async (response) => {
             console.log('company', response.data[0])
             this.company = response.data[0];
@@ -57,7 +57,7 @@
           })
       },
       async getLocations() {
-        await this.$http.get('http://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.company.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.company.id)
           .then(response => {
             console.log('locations', response.data.location)
             this.locations = response.data.location;

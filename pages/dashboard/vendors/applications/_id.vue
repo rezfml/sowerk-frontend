@@ -135,7 +135,7 @@
 
       async getUserforms(id) {
         console.log(id, 'id')
-        await this.$http.get('http://www.sowerkbackend.com/api/userforms/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
             console.log(response, 'userforms');
             this.userForms = {...response.data };
@@ -152,7 +152,7 @@
         console.log('this.userForms', this.userForms)
       },
        async getFormFields(id) {
-         await this.$http.get('http://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
+         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
            .then(response => {
              console.log(response.data, 'formfields for userform', id);
              this.originalUserForms = response.data;
@@ -180,7 +180,7 @@
               value: formfield.value
             }
             this.filteredUniqueUserForms.push(formfield)
-            await this.$http.post('http://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
+            await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
               .then(response => {
                 console.log(response, 'posting new formfield for userform');
               })
@@ -197,7 +197,7 @@
               type: formfield.type,
               value: formfield.value
             }
-            await this.$http.put('http://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+            await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
               .then(response => {
                 console.log(response, 'updating formfield ', formfield.id)
               })
@@ -245,7 +245,7 @@
           if(confirmDelete === true) {
             this.userForms.formfields.splice(formfieldVal.order, 1);
             console.log('this.userForms on delete', this.userForms);
-            this.$http.delete('http://www.sowerkbackend.com/api/formfields/' + formfieldVal.id)
+            this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + formfieldVal.id)
               .then(response => {
                 console.log('response for delete formfield', response)
               })

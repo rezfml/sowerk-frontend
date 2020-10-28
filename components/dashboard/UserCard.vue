@@ -133,7 +133,7 @@ export default {
       this.getLocations();
     },
     async getLocations() {
-      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+      let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.locations = data.location;
@@ -161,7 +161,7 @@ export default {
       } else {
         this.userEditForm.is_superuser = false;
       }
-      await this.$http.put('http://www.sowerkbackend.com/api/auth/users/' + this.userEdit.id, this.userEditForm)
+      await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.userEdit.id, this.userEditForm)
         .then(response => {
           console.log(response, 'SUCCESS IN EDITING')
           this.successUserEditForm = true;
@@ -177,7 +177,7 @@ export default {
     async deleteStart(id) {
       let confirmDelete = confirm('Are you sure you want to delete this account? Cannot be undone');
       if(confirmDelete === true) {
-        this.$http.delete('http://www.sowerkbackend.com/api/auth/users/' + id)
+        this.$http.delete('https://www.sowerkbackend.com/api/auth/users/' + id)
           .then(response => {
             alert('Account successfully deleted');
             this.$router.go()
@@ -217,7 +217,7 @@ export default {
         }
       }
       await setTimeout(async () => {
-        await this.$http.put('http://www.sowerkbackend.com/api/locations/' + locationId, locationAssign)
+        await this.$http.put('https://www.sowerkbackend.com/api/locations/' + locationId, locationAssign)
           .then(response => {
             console.log('success', response)
             this.successAssign = true;

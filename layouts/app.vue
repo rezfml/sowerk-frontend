@@ -28,7 +28,7 @@
       }
     },
     async mounted() {
-      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+      let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
       this.companyType = data.company_type;
       console.log(this.companyType);
     },

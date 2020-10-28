@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     async getUsers() {
-      await this.$http.get('http://www.sowerkbackend.com/api/auth/users/company/' + this.currentUser.companies_id)
+      await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + this.currentUser.companies_id)
         .then(response => {
           console.log(response.data, 'response.data users of company');
           for(let i=0; i<response.data.user.length; i++) {
@@ -81,7 +81,7 @@ export default {
         })
     },
     async getCompany() {
-      await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
         .then(response => {
           console.log(response.data, 'company');
           this.company = response.data

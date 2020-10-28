@@ -37,7 +37,7 @@
         </div>
       </v-card>
     </v-row>
-    
+
 
     <SPSearch></SPSearch>
 
@@ -271,7 +271,7 @@ export default {
     async getServiceProviders() {
       let { data, status } = await this.$http
         .get(
-          'http://www.sowerkbackend.com/api/companies/byType?type=false0&limit=8&offset=0'
+          'https://www.sowerkbackend.com/api/companies/byType?type=false0&limit=8&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
@@ -437,7 +437,7 @@ export default {
   .joinservicetraits {
     width: 100%;
   }
-  
+
   .joinservicetraits {
     margin-top: unset;
   }
@@ -499,7 +499,7 @@ export default {
     width: 200px;
     height: 300px;
   }
-  
+
   .sphero h1 {
     font-size: 3vh !important;
   }

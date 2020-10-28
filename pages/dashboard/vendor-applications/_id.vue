@@ -351,7 +351,7 @@
     },
     methods: {
       async getApplication() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/applications/' + this.applicationId).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/applications/' + this.applicationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.application = data;
         this.application.subData = JSON.parse(data.subData);
@@ -364,7 +364,7 @@
           subData: JSON.stringify(this.application.subData),
           approval_status: 1
         }
-        let {data, status} = await this.$http.put('http://www.sowerkbackend.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
+        let {data, status} = await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
         console.log(data);
       },
       async deny() {
@@ -374,7 +374,7 @@
           subData: JSON.stringify(this.application.subData),
           approval_status: 2
         }
-        let {data, status} = await this.$http.put('http://www.sowerkbackend.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
+        let {data, status} = await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.application.id, applicationObject).catch(e => e);
         console.log(data);
       }
 

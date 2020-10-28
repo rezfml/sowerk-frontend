@@ -44,7 +44,7 @@
     },
     methods: {
       async getUserforms(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/userforms/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(async (response) => {
             console.log(response.data, 'userforms');
             let userForm = {
@@ -64,7 +64,7 @@
           })
       },
       async getFormFields(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for userform', id);
             this.userForms.formfields = response.data;

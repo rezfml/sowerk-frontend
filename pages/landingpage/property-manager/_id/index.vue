@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     async getPropertyManager() {
-      await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.$route.params.id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$route.params.id)
         .then(res => {
           this.propertymanagerVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);
