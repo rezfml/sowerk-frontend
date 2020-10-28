@@ -120,7 +120,7 @@
             :viewAll="false"
             slug="/dashboard/facilities/"
           ></FacilitiesCard>
-          <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+          <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
             <v-btn
               style=""
@@ -154,16 +154,6 @@
       return {
         loading: false,
         locations: [
-          {
-            id: '...',
-            companyName: '...',
-            name: '...',
-            phone: '...',
-            email: '...',
-            city: '...',
-            state: '...',
-            address: '...'
-          },
         ],
         filters: [
           {
@@ -309,7 +299,15 @@
         let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
-          this.locations = data.location;
+          if(this.currentUser.is_superuser === false) {
+            for(let i=0; i<data.location.length; i++){
+              if(data.location[i].email === this.currentUser.email && data.location[i].phone === this.currentUser.phone) {
+                this.locations.push(data.location[i]);
+              }
+            }
+          } else {
+            this.locations = data.location;
+          }
         })
       },
     },
