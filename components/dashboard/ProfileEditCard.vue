@@ -491,7 +491,7 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + id)
           .then(response => {
             console.log(response.data, 'company');
             this.getUser(this.currentUser.id);
@@ -503,7 +503,7 @@
           })
       },
       async getUser(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + id)
+        await this.$http.get('https://www.sowerkbackend.com//api/auth/users/' + id)
           .then(response => {
             this.currentUserVal = response.data;
             console.log(response.data, 'user');
@@ -513,7 +513,7 @@
           })
       },
       async updateLocation() {
-        let {data, status} = await this.$http.put('http://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
+        let {data, status} = await this.$http.put('https://www.sowerkbackend.com//api/locations/' + this.location.id, this.locationEdit).catch(e => e);
 
         // this.$nextTick(function() {
         //   this.locationEdit = data;
@@ -576,14 +576,14 @@
           year_founded: this.company.year_founded,
           description: this.company.description
         }
-        await this.$http.put('http://www.sowerkbackend.com/api/auth/users/' + this.currentUserVal.id, userChanges)
+        await this.$http.put('https://www.sowerkbackend.com//api/auth/users/' + this.currentUserVal.id, userChanges)
           .then(response => {
             console.log(response, 'SUCCESS IN EDITING USER')
           })
           .catch(err => {
             console.log(err, 'ERROR IN EDITING USER')
           })
-        await this.$http.put('http://www.sowerkbackend.com/api/companies/' + this.company.id, companyChanges)
+        await this.$http.put('https://www.sowerkbackend.com//api/companies/' + this.company.id, companyChanges)
           .then(response => {
             console.log(response, 'SUCCESS IN EDITING COMPANY')
             this.loadUpdateCompany = true;

@@ -100,21 +100,21 @@
           propertymanager_id: itemVal.pmcompanies_id,
           serviceprovider_id: itemVal.spcompanies_id
         }
-        await this.$http.put('http://www.sowerkbackend.com/api/applications/' + itemVal.id, approvalChanges)
+        await this.$http.put('https://www.sowerkbackend.com//api/applications/' + itemVal.id, approvalChanges)
           .then(response => {
             console.log('success in changes', response)
           })
           .catch(err => {
             console.log('err', err);
           })
-        await this.$http.put('http://www.sowerkbackend.com/api/companies/' + itemVal.pmcompanies_id, approvalChanges)
+        await this.$http.put('https://www.sowerkbackend.com//api/companies/' + itemVal.pmcompanies_id, approvalChanges)
           .then(response => {
             console.log('success in changes', response)
           })
           .catch(err => {
             console.log('err', err);
           })
-        await this.$http.post('http://www.sowerkbackend.com/api/approvedproviderconnection', approvedproviderconnection)
+        await this.$http.post('https://www.sowerkbackend.com//api/approvedproviderconnection', approvedproviderconnection)
           .then(response => {
             console.log('success', response);
             this.$router.go();
@@ -128,7 +128,7 @@
         const denialChanges = {
           approval_status: 2
         }
-        await this.$http.put('http://www.sowerkbackend.com/api/applications/' + itemVal.id, denialChanges)
+        await this.$http.put('https://www.sowerkbackend.com//api/applications/' + itemVal.id, denialChanges)
           .then(response => {
             console.log('success in changes', response)
             this.$router.go();

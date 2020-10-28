@@ -84,7 +84,7 @@ export default {
     async getPropertyManagers() {
       let { data, status } = await this.$http
         .get(
-          `http://www.sowerkbackend.com/api/companies/type/true`
+          `https://www.sowerkbackend.com//api/companies/type/true`
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return

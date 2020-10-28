@@ -124,7 +124,7 @@
         await this.$store.dispatch('user/logout');
       },
       async getCompany(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + id)
           .then(response => {
             console.log(response.data, 'company');
             this.company = response.data;

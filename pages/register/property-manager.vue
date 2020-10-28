@@ -324,7 +324,7 @@ export default {
       console.log('this.companyImageFile: ', file)
       formData.append('file', file);
       console.log(formData);
-      // await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
+      // await this.$http.post('https://www.sowerkbackend.com//api/upload', formData)
       //   .then(response => {
       //     console.log('success in uploading insurance file', response)
       //     this.insurances[index].documentUrl = response.data.data.Location;
@@ -335,7 +335,7 @@ export default {
       //   .catch(err => {
       //     console.log('error in uploading insurance file', err);
       //   })
-      await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
+      await this.$http.post('https://www.sowerkbackend.com//api/upload', formData)
         .then(response => {
           console.log('success in uploading company image', response)
           this.company.imgUrl = response.data.data.Location;
@@ -437,7 +437,7 @@ export default {
       console.log(this.company)
       console.log(this.locations)
       await this.uploadCompanyImage();
-      let { data, status } = await this.$http.post('http://www.sowerkbackend.com/api/companies', this.company).catch((e) => e)
+      let { data, status } = await this.$http.post('https://www.sowerkbackend.com//api/companies', this.company).catch((e) => e)
       console.log('post company: ', data)
       this.user.companies_id = data.companies.id
       await this.registerUser(data.companies.id)
@@ -451,7 +451,7 @@ export default {
     async registerUser(companyId) {
       let { data, status } = await this.$http
         .post(
-          'http://www.sowerkbackend.com/api/auth/register',
+          'https://www.sowerkbackend.com//api/auth/register',
           this.user
         )
         .catch((e) => e)
@@ -468,7 +468,7 @@ export default {
       console.log(this.locations);
     },
     async uploadLocationImage(formData, index) {
-      let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/upload', formData).catch(err => {
+      let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/upload', formData).catch(err => {
         console.log('error in uploading location image', err)
       })
 
@@ -476,7 +476,7 @@ export default {
     },
     async postLocations(userId) {
       console.log(this.locations, 'this.locations');
-      await this.$http.post('http://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+      await this.$http.post('https://www.sowerkbackend.com//api/group-locations/byCompaniesId/' + userId, this.locations)
         .then(async (response) => {
           console.log('user locations post: ', response.data);
           await this.getUserLocations(userId)
@@ -484,7 +484,7 @@ export default {
         .catch((e) => console.log('err', e));
     },
     async getUserLocations(userId) {
-      await this.$http.get('http://www.sowerkbackend.com/api/locations/byCompaniesId/' + userId)
+      await this.$http.get('https://www.sowerkbackend.com//api/locations/byCompaniesId/' + userId)
         .then(async (response) => {
           console.log('get companys locations: ', response.data.location)
           await this.postServicesPerLocation(response.data.location)
@@ -501,7 +501,7 @@ export default {
             name: service,
             locations_id: locationVal.id
           };
-          let { data, status } = await this.$http.post('http://www.sowerkbackend.com/api/services/byLocationId/' + locationVal.id, serviceObject)
+          let { data, status } = await this.$http.post('https://www.sowerkbackend.com//api/services/byLocationId/' + locationVal.id, serviceObject)
             .catch((e) => e)
           console.log(data)
         }
@@ -511,7 +511,7 @@ export default {
     async getServicesPerLocation(id) {
       let { data, status } = await this.$http
         .get(
-          'http://www.sowerkbackend.com/api/services/byLocationId/' +
+          'https://www.sowerkbackend.com//api/services/byLocationId/' +
             id
         )
         .catch((e) => e)
@@ -520,7 +520,7 @@ export default {
     async getAllServices() {
       let { data, status } = await this.$http
         .get(
-          'http://www.sowerkbackend.com/api/companies/' +
+          'https://www.sowerkbackend.com//api/companies/' +
             this.user.companies_id
         )
         .catch((e) => e)
@@ -537,7 +537,7 @@ export default {
           }
           let { data, status } = await this.$http
             .post(
-              'http://www.sowerkbackend.com/api/userforms/byServiceId/' +
+              'https://www.sowerkbackend.com//api/userforms/byServiceId/' +
                 service.id,
               userformObject
             )
@@ -550,7 +550,7 @@ export default {
     async getUserforms(id) {
       let { data, status } = await this.$http
         .get(
-          'http://www.sowerkbackend.com/api/userforms/byServiceId/' +
+          'https://www.sowerkbackend.com//api/userforms/byServiceId/' +
             id
         )
         .catch((e) => e)
@@ -667,7 +667,7 @@ export default {
             },
           ];
           for (const field of fields) {
-            let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
+            let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
           }
         }
         this.loading = false;
