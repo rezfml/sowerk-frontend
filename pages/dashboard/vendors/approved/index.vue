@@ -53,6 +53,7 @@
           <FilterCard
             title="Filter"
             :filters="filters"
+            :locationApproved="locationApproved"
           ></FilterCard>
         </v-col>
         <v-col cols="9">
@@ -265,7 +266,8 @@
         connectionsLen: Number,
         vendors: [],
         vendorsLength: Number,
-        loading: false
+        loading: false,
+        locationApproved: true,
       }
     },
     async mounted() {
@@ -296,17 +298,26 @@
         console.log('user current', this.currentUser, 'current company', this.company);
         if(this.company.company_type === "true") {
           console.log('true');
-          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + id)
+          await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
                 this.loading = true;
               }
               for(let i = 0; i<response.data.length; i++) {
-                this.connections.push(response.data[i]);
-                console.log('response.data', response.data)
-                this.getLocations(response.data[i].serviceprovider_id);
-                console.log(this.connections, 'connections');
+                if(response.data[i].approval_status === 1 && this.currentUser.is_superuser === true) {
+                  this.connections.push(response.data[i]);
+                  console.log('response.data', response.data)
+                  this.getLocations(response.data[i].spcompanies_id);
+                  console.log(this.connections, 'connections');
+                } else if ((response.data[i].approval_status === 1) && (this.currentUser.is_superuser === false) && (response.data[i].pmuserprofiles_id === this.currentUser.id) ) {
+                  this.connections.push(response.data[i]);
+                  console.log('response.data', response.data)
+                  this.getLocations(response.data[i].spcompanies_id);
+                  console.log(this.connections, 'connections');
+                } else {
+                  this.loading = true;
+                }
               }
             })
             .catch(err => {
@@ -314,13 +325,21 @@
             })
         } else {
           console.log('false');
-          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + id)
+          await this.$http.get('http://www.sowerkbackend.com/api/applications/bySpId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               for(let i = 0; i<response.data.length; i++) {
-                this.connections.push(response.data[i]);
-                this.getBusinesses(response.data[i].propertymanager_id);
-                console.log(this.connections, 'connections');
+                if(response.data[i].approval_status === 1 && this.currentUser.is_superuser) {
+                  this.connections.push(response.data[i]);
+                  this.getBusinesses(response.data[i].pmcompanies_id);
+                  console.log(this.connections, 'connections');
+                } else if(response.data[i].approval_status === 1 && this.currentUser.is_superuser === false && response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                  this.connections.push(response.data[i]);
+                  this.getBusinesses(response.data[i].pmcompanies_id);
+                  console.log(this.connections, 'connections');
+                } else {
+                  this.loading = true;
+                }
               }
             })
             .catch(err => {
