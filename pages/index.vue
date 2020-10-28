@@ -5,7 +5,7 @@
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; height: 80vh; max-height: 1200px; padding-top: 100px;"
+  background-size: cover; height: 87vh; max-height: 1200px; padding-top: 100px;"
       align-content="center"
       class="pt-md-16 ma-0"
     >
@@ -755,6 +755,19 @@
 
     <!-- <OftenAskPF></OftenAskPF>
     <OftenAskSP></OftenAskSP> -->
+     <v-btn
+            v-scroll="onScroll"
+            v-show="fab"
+            fab
+            dark
+            fixed
+            bottom
+            right
+            color="primary"
+            @click="toTop"
+          >
+            <v-icon>keyboard_arrow_up</v-icon>
+          </v-btn>
   </div>
 </template>
 
@@ -769,6 +782,7 @@ export default {
   data: () => ({
     allReviews: [],
     reviews: [],
+    fab:false,
   }),
   components: {
     Reviews,
@@ -805,6 +819,14 @@ export default {
         console.log(this.reviews, 'reviews')
       })
     },
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    }
   },
 }
 </script>
