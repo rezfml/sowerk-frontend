@@ -20,7 +20,7 @@
       class="joinservicetraits"
       style="background:#a61c00; display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
-      <v-layout row style="max-width: 1280px; flex-wrap: wrap;">
+      <v-layout row style="max-width: 1280px; flex-wrap: wrap; margin-top:-120px">
         <!-- CARD 1 -->
         <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
@@ -452,7 +452,7 @@
 }
 .joinservicehero {
   width: 100%;
-  height: 80vh;
+  height: 90vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/tape-measure-1726546copy.jpg');
   background-size: cover;
