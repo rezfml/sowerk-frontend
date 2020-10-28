@@ -6,8 +6,6 @@
         <p>Find, Vet, and Manage Approved Vendors</p>
         <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
       </div>
-<<<<<<< HEAD
-=======
       <div v-else class="d-flex justify-center mt-6 px-2">
         <h1 style="font-size:10vw">Property & Facility Managers</h1>
         <p>Find, Vet, and Manage<br/> Approved Vendors</p>
@@ -16,7 +14,6 @@
       <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
       </svg> -->
->>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
     </section>
 
     <section v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="joinproducttraits">
