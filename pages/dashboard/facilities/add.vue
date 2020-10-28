@@ -70,7 +70,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                   </v-col>
                   <v-col cols="12" class="mt-12 mb-4">
                     <h2 class="mx-auto text-center">Location Manager</h2>
-                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location.</p>
+                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location.</p>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field

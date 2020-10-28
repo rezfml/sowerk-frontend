@@ -25,7 +25,7 @@
             do business?
           </p>
           <p>
-            Today, SOWerk is proud to empower relationships, make life easier
+            Today, SOWerk is proud to empower relationships, make life easier,
             and complete the link between property/facility owners and approved
             vendors.
           </p>
@@ -101,11 +101,11 @@ padding-top: 5%;">
           </v-row>
           <v-row style="width: 100%;" class="mx-auto mt-8">
             <p class="text-center text-md-h6">SOWerk is the link between service providers (local or national) and
-          property & facility managers. Our business to business platform
-          provides companies and property managers the tools to effiecently
+          property & facility managers. Our business-to-business platform
+          provides companies and property managers the tools to efficiently
           identify, vet, and manage service providers for each of their
           locations. For service providers, SOWerk makes it possible for you to
-          become an approved vendor, recieve job request, and communicate with
+          become an approved vendor, recieve job requests, and communicate with
           business owners.</p>
             <v-btn color="primary" class="mx-auto mt-5" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '50%'" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
           </v-row>
