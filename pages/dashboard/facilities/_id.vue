@@ -30,7 +30,7 @@
             :locationApproved="locationApproved"
           ></FacilitiesCard>
           <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
-          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>
+<!--          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
           <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
           <ProfileEditCard :location="location" v-if="editLocationDetails === true"></ProfileEditCard>
         </v-col>
