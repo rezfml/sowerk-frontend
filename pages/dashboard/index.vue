@@ -15,7 +15,7 @@
       <HomeCard
         v-if="locations"
         :items="locations"
-        :title="'Facilities You Manage - ' + locations.length"
+        :title="'Locations You Manage - ' + locations.length"
         :tableProperties="headers"
         slug="/dashboard/facilities/"
       ></HomeCard>
@@ -180,11 +180,11 @@
             value: 0,
             link: '/dashboard/vendors/approved'
           },
-          {
-            title: 'Requests For Bids',
-            value: 0,
-            link: '#'
-          },
+          // {
+          //   title: 'Requests For Bids',
+          //   value: 0,
+          //   link: '#'
+          // },
           {
             title: 'All Pending Applications',
             value: 0,
@@ -202,11 +202,11 @@
             value: 0,
             link: '/dashboard/vendors/approved'
           },
-          // {
-          //   title: 'Requested Applications',
-          //   value: 0,
-          //   link: '#'
-          // },
+           {
+             title: 'Requested Applications',
+             value: 0,
+             link: '#'
+           },
           {
             title: 'Service Provider Plan',
             value: '',
