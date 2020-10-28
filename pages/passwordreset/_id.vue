@@ -66,7 +66,7 @@
     },
     methods: {
       async getUser(id) {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/email/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + id)
           .then(response => {
             this.user = response.data.users[0]
           })
@@ -76,7 +76,7 @@
       },
       async submit() {
         if(this.userForm.password === this.userFormConfirm.confirmPassword) {
-          await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/' + this.user.id, this.userForm)
+          await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.user.id, this.userForm)
             .then(async (response) => {
               console.log(response.data, 'user changes')
               this.$router.push('../login')
