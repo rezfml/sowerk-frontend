@@ -549,7 +549,7 @@
       180deg,
       rgba(68, 68, 68, 1) 35%,
       rgba(43, 43, 43, 0.9) 100%
-    ),url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+    ),url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
     background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;

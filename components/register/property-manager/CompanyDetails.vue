@@ -64,11 +64,10 @@
                   label="Phone*"
                   type="text"
                   class="card__input black--text"
-                  v-model="phone"
+                  v-model="user.phone"
                   placeholder=""
                   :rules="rules.phoneRules"
                 ></v-text-field>
-                <span v-if="msg.phone">{{msg.phone}}</span>
               </v-col>
 
               <v-col cols="12" md="6">
