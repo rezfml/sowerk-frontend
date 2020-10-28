@@ -17,6 +17,9 @@
     </section>
 
 
+<!-- NEW SECTION POWERFUL BUSINESS TOOLS -->
+<!-- <PFPowerfulTools/> -->
+
     <!-- NEW SECTION - Join Traits Section -->
     <v-container
       fluid
@@ -503,9 +506,16 @@
 </template>
 
 <script>
+import PFPowerfulTools from '~/components/landing/property-manager/PFPowerfulTools';
+
+
 export default {
   layout: 'fullwidth',
+  components: {
+    PFPowerfulTools
+  }
 }
+
 </script>
 
 <style scoped>

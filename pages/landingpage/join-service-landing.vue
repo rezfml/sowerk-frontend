@@ -11,8 +11,6 @@
       </svg> -->
     </section>
 
-
-
    <!-- NEW SECTION - Join Traits Section -->
     <v-container
       fluid
