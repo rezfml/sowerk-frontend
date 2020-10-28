@@ -105,11 +105,24 @@
 
         <v-row>
           <v-col>
+            <v-checkbox @click="checkCompany" :label="'Want to use your company description here?'" v-model="companyLocationDescription"></v-checkbox>
             <v-textarea
               id="description"
               v-model="location.description"
               placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
               :rules="rules.requiredRules"
+              v-if="!companyLocationDescription"
+            >
+              <!--              <template v-slot:label>-->
+              <!--                <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>-->
+              <!--              </template>-->
+            </v-textarea>
+            <v-textarea
+              id="description"
+              v-model="company.description"
+              placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
+              :rules="rules.requiredRules"
+              v-if="companyLocationDescription"
             >
 <!--              <template v-slot:label>-->
 <!--                <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>-->
@@ -254,6 +267,10 @@
   export default {
     name: 'FormLocation',
     props: {
+      company: {
+        type: Object,
+        return: true,
+      },
       index: {
         type: Number,
         required: true
@@ -285,6 +302,7 @@
         managerIsUser: false,
         checkbox1: false,
         checkbox: false,
+        companyLocationDescription: false,
         memberships: [
           {
             text: 'Local',
@@ -412,6 +430,11 @@
 
         this.location = location;
       },
+      async checkCompany() {
+        if(this.companyLocationDescription === true) {
+          this.location.description = this.company.description;
+        }
+      }
       // async getStateData(i) {
       //
       //   let apiPath = "https://nominatim.openstreetmap.org/search.php";

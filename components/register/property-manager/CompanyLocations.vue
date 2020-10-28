@@ -7,8 +7,8 @@
             class="title font-weight-regular text-center my-12 grey--text text--darken-2"
             >Complete the below details for each location. All progress is saved
             automatically and you can view your list of locations after every
-            add. Need help uploading multiple locations? Contact <a href="mailto:Support@SOWerk.com">SOWERK 
-            Here. </a ></span
+            add. Need Help Uploading Multiple Locations? Contact <a href="mailto:Support@SOWerk.com">SOWERK
+            Here </a ></span
           >
           <v-form class="mx-auto">
             <v-container>
@@ -16,6 +16,7 @@
                 :location="location"
                 :index="editingIndex"
                 :user="user"
+                :company="company"
                 ref="formLocation"
               />
             </v-container>

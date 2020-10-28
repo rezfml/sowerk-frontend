@@ -140,7 +140,7 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="12">
+              <v-col cols="12" md="8">
                 <v-text-field
                   id="company-website"
                   label="Company Website*"
@@ -148,6 +148,17 @@
                   v-model="company.website"
                   placeholder=" "
                 ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <v-text-field
+                  id="company-founded"
+                  label="Company Year Founded*"
+                  type="number"
+                  v-model="company.year_founded"
+                  placeholder=" "
+                >
+                </v-text-field>
               </v-col>
 
 <!--              <v-col cols="12" sm="6">-->
