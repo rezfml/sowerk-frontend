@@ -16,7 +16,137 @@
       </svg> -->
     </section>
 
-    <section v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="joinproducttraits">
+
+    <!-- NEW SECTION - Join Traits Section -->
+    <v-container
+      fluid
+      grid-list-md
+      text-center
+      pb-16
+      class="joinproducttraits"
+      style="background:#a61c00; display: flex; justify-content: center; align-items:center; flex-direction: column"
+    >
+      <v-layout row style="max-width: 1280px; flex-wrap: wrap;">
+        <!-- CARD 1 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px; "
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Vet Vendors</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              We make it easy and powerful for you to vet any service provider, and re-qualify them annually. SOWerk's prebuilt vendor applications are easy and powerful, or customize your own to better fit.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 2 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px;"
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Powerful Tools</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              One facility or 1,000’s of properties, SOWerk has you covered. Assign staff and set approved vendors by location. Manage bids and completed jobs all in one clean powerful interface.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 3 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px;"
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Cold Call Shield</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              With your SOWerk account, you have the perfect place to direct any salesman calling to become your approved vendor.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 4 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px;"
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Convenient</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smartphone, SOWerk is designed to be convenient.
+            </div>
+          </v-card>
+        </v-col>
+      </v-layout>
+    </v-container>
+
+
+    <!-- <section v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="joinproducttraits">
       <div>
         <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
           src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
@@ -144,7 +274,7 @@
           designed to be convenient.
         </p>
       </div>
-    </section>
+    </section> -->
 
     <section class="joinproductdescription pt-13 pb-3">
       <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2>
@@ -426,12 +556,6 @@ export default {
   margin-bottom: -320px;
 }
 .joinproducttraits {
-  background: #a61c00;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
   position: relative;
 }
 
@@ -448,7 +572,7 @@ export default {
   transform-origin: top left;
   transform: skewY(-2deg);
 }
-.joinproducttraits div {
+/* .joinproducttraits div {
   width: 20%;
   height: 500px;
   display: flex;
@@ -471,7 +595,7 @@ export default {
 .joinproducttraits div p {
   width: 80%;
   font-size: 18px;
-}
+} */
 .joinproductdescription {
   width: 100%;
   background: #151515;
@@ -647,11 +771,11 @@ export default {
   margin: auto 0;
 }
 
-@media (max-width: 1700px) {
+/* @media (max-width: 1700px) {
   .joinproducttraits div img {
     height: 140px;
   }
-}
+} */
 
 @media (max-width: 1630px) {
   .joinproductsteps
@@ -673,7 +797,7 @@ export default {
 }
 
 @media (max-width: 1350px) {
-  .joinproducttraits div {
+  /* .joinproducttraits div {
     width: 21%;
     height: 450px;
   }
@@ -688,7 +812,7 @@ export default {
 
   .joinproducttraits div p {
     font-size: 16px;
-  }
+  } */
 
   .joinproductstepscontainer {
     margin-bottom: 10%;
@@ -704,7 +828,7 @@ export default {
 }
 
 @media (max-width: 1200px) {
-  .joinproducttraits div {
+  /* .joinproducttraits div {
     height: 425px;
   }
 
@@ -719,7 +843,7 @@ export default {
 
   .joinproducttraits div p {
     font-size: 15px;
-  }
+  } */
   .joinproductstepscontainer {
     margin-bottom: 10%;
     padding-bottom: 5%;
@@ -765,10 +889,10 @@ export default {
     font-size: 22px;
   }
 
-  .joinproducttraits {
+  /* .joinproducttraits {
     flex-wrap: wrap;
-  }
-  .joinproducttraits div {
+  } */
+  /* .joinproducttraits div {
     flex: 0 45%;
     height: 425px;
     max-width: 320px;
@@ -789,15 +913,15 @@ export default {
   }
 
   .joinproducttraits div:nth-child(1),
-  .joinproducttraits div:nth-child(2) {
+  .joinproducttraits div:nth-child(2) { */
     /* margin-bottom: 20px; */
-    margin: 50px 15px 20px 15px;
-  }
+    /* margin: 50px 15px 20px 15px;
+  } */
 
-  .joinproducttraits div:nth-child(3),
+  /* .joinproducttraits div:nth-child(3),
   .joinproducttraits div:nth-child(4) {
     margin: 20px 15px 50px 15px;
-  }
+  } */
 
   .joinproductdescription p {
     width: 80%;
@@ -960,9 +1084,9 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .joinproducttraits div {
     flex: 0 60%;
   }
-}
+} */
 </style>
