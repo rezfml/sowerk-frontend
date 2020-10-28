@@ -105,11 +105,24 @@
 
         <v-row>
           <v-col>
+            <v-checkbox @click="checkCompany" :label="'Want to use your company description here?'" v-model="companyLocationDescription"></v-checkbox>
             <v-textarea
               id="description"
               v-model="location.description"
               placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
               :rules="rules.requiredRules"
+              v-if="!companyLocationDescription"
+            >
+              <!--              <template v-slot:label>-->
+              <!--                <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>-->
+              <!--              </template>-->
+            </v-textarea>
+            <v-textarea
+              id="description"
+              v-model="company.description"
+              placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
+              :rules="rules.requiredRules"
+              v-if="companyLocationDescription"
             >
 <!--              <template v-slot:label>-->
 <!--                <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>-->
@@ -155,7 +168,7 @@
       <v-col cols="12" class="mt-8 d-flex justify-center">
         <span class="headline mb-0">Location Manager</span>
       </v-col>
-      <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
+      <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
       <v-col cols="12" class="mb-6">
         <v-checkbox v-model="managerIsUser" @click="setManagerToUser" hide-details>
           <template v-slot:label>
@@ -254,6 +267,10 @@
   export default {
     name: 'FormLocation',
     props: {
+      company: {
+        type: Object,
+        return: true,
+      },
       index: {
         type: Number,
         required: true
@@ -285,6 +302,7 @@
         managerIsUser: false,
         checkbox1: false,
         checkbox: false,
+        companyLocationDescription: false,
         memberships: [
           {
             text: 'Local',
@@ -412,6 +430,11 @@
 
         this.location = location;
       },
+      async checkCompany() {
+        if(this.companyLocationDescription === true) {
+          this.location.description = this.company.description;
+        }
+      }
       // async getStateData(i) {
       //
       //   let apiPath = "https://nominatim.openstreetmap.org/search.php";

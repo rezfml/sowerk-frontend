@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     async getCarouselPropertyManagers() {
-      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/byType?type=true&limit=20&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.carouselPropertyManagers = data;
@@ -180,7 +180,7 @@ export default {
       })
     },
     async getCarouselServiceProviders() {
-      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/byType?type=false&limit=20&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.carouselServiceProviders = data;
@@ -188,7 +188,7 @@ export default {
       })
     },
     async getReviews() {
-      let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);
+      let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0').catch(e => e);
       if (this.$error(status, data.message, data.errors)) return;
       this.$nextTick(function() {
         this.reviews = data;

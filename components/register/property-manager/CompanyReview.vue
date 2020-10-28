@@ -38,7 +38,6 @@
                           </p>
                           <v-text-field
                             placeholder=" "
-                            readonly
                             v-model="user.first_name"
                           >
                           </v-text-field>
@@ -52,7 +51,6 @@
                           </p>
                           <v-text-field
                             placeholder=" "
-                            readonly
                             v-model="user.last_name"
                           >
                           </v-text-field>
@@ -66,7 +64,6 @@
                           </p>
                           <v-text-field
                             placeholder=" "
-                            readonly
                             v-model="user.email"
                           >
                           </v-text-field>
@@ -79,7 +76,6 @@
                           </p>
                           <v-text-field
                             placeholder=" "
-                            readonly
                             v-model="user.phone"
                           >
                           </v-text-field>
@@ -106,7 +102,6 @@
                             v-model="company.account_name"
                             placeholder=""
                             label="Company Account Name"
-                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -116,26 +111,18 @@
                             v-model="company.year_founded"
                             placeholder=""
                             label="Company Year Founded"
-                            readonly
+                            type="number"
                           >
                           </v-text-field>
                         </v-col>
 
                         <v-col cols="12">
-                          <p
-                            class="grey--text text--darken-4 font-weight-bold mb-0"
-                            style="font-size: 14px;"
-                          >
-                            Corporate Description*
-                          </p>
-                          <p
-                            class="mb-1"
-                            style="font-size: 16px; min-height: 48px;"
-                          >
-                            {{
-                              company.description ? company.description : '\n'
-                            }}
-                          </p>
+                          <v-textarea
+                            id="company-description"
+                            label="Company Profile Description*"
+                            v-model="company.description"
+                            placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
+                          ></v-textarea>
                           <v-divider
                             style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"
                           ></v-divider>
@@ -180,7 +167,7 @@
 
 <script>
 export default {
-  name: "ComapnyReview",
+  name: "CompanyReview",
   props: {
     company: {
       type: Object,

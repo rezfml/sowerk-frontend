@@ -284,7 +284,7 @@
     },
     methods: {
       async getCompany(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
@@ -302,7 +302,7 @@
         console.log('user current', this.currentUser, 'current company', this.company);
         if(this.company.company_type === "true") {
           console.log('true');
-          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
@@ -320,7 +320,7 @@
             })
         } else {
           console.log('false');
-          await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               for(let i = 0; i<response.data.length; i++) {
@@ -335,11 +335,11 @@
         }
       },
       async getLocations(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(response => {
             for(let i=0; i< response.data.location.length; i++) {
               response.data.location[i].services = response.data.location[i].services.join(', ')
-              this.$http.get('http://www.sowerkbackend.com/api/companies/' + response.data.location[i].companies_id)
+              this.$http.get('https://www.sowerkbackend.com/api/companies/' + response.data.location[i].companies_id)
                 .then(res => {
                   response.data.location[i].name = `${res.data.account_name}`;
                   response.data.location[i].imageUrl = res.data.imgUrl;
@@ -363,7 +363,7 @@
         console.log('loading', this.loading)
       },
       async getBusinesses(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             this.vendors.push(response.data);
             console.log(this.vendors, 'vendors');
@@ -381,7 +381,7 @@
       },
       async getUsers(id, index) {
         console.log('id', id)
-        this.$http.get('http://www.sowerkbackend.com/api/auth/users/company/' + id)
+        this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + id)
           .then(response => {
             console.log(response.data, 'user response.data');
             console.log(this.vendors[index], 'index vendor', this.vendors, 'vendors');
@@ -396,7 +396,7 @@
           })
       },
       async getLocation() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         data.created = moment(data.created).format('l').slice(6,10);
         this.location = data;
@@ -406,7 +406,7 @@
       async getApprovedLocationConnections(id) {
             if(this.company.company_type === "true") {
               console.log('true');
-              await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmLocationId/' + id)
+              await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmLocationId/' + id)
                 .then(async (response) => {
                   console.log(response.data, 'yoooo approved');
                   if(response.data.length === 0) {
@@ -429,7 +429,7 @@
                 })
             } else {
               console.log('false');
-              await this.$http.get('http://www.sowerkbackend.com/api/applications/bySpLocationId/' + id)
+              await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + id)
                 .then(response => {
                   console.log(response.data, 'yoooo');
                   for(let i = 0; i<response.data.length; i++) {
@@ -452,7 +452,7 @@
         console.log(locationParam, 'params');
         let confirmDelete = confirm('Are you sure you want to delete this location? Cannot be undone.');
         if (confirmDelete === true) {
-          this.$http.delete('http://www.sowerkbackend.com/api/locations/' + locationParam.id)
+          this.$http.delete('https://www.sowerkbackend.com/api/locations/' + locationParam.id)
             .then(response => {
               alert('Location successfully deleted');
               this.$router.push({path:"/dashboard/facilities"})

@@ -440,13 +440,13 @@ export default {
       console.log(this.messageForm)
       console.log(businessId, location, 'messageVals', location.services.join(', '));
       // get company for message
-      await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id)
         .then(async (response) => {
           console.log('get company message', response.data)
           this.messageForm.company = response.data.account_name;
           this.messageForm.service = location.services.join(', ');
           this.messageForm.location = `${location.name} - ${location.address} ${location.city}, ${location.state} ${location.zipcode}`
-          await this.$http.post('http://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
+          await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
             .then(res => {
               console.log('SUCCESS', res)
               alert('Successfully sent message to ' + res.data.messageVal.location)

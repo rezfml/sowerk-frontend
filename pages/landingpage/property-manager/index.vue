@@ -63,8 +63,8 @@
     <!--    </section>-->
 
     <PFSearch></PFSearch>
-
-    <v-container fluid style="background:#2B2B2B" class="py-16">
+<v-container fluid style="background: linear-gradient(180deg, rgba(43,43,43,1) 35%, rgba(71,71,71,1) 100%);">
+    <v-container fluid class="py-16">
       <v-row justify="center">
         <v-flex sm11>
           <v-row>
@@ -81,7 +81,7 @@
             <v-col
               cols="12"
               md="6"
-              class="mt-16 px-16 px-md-3 text-center text-md-left"
+              class="mt-16 px-2 px-md-3 text-center text-md-left"
               align-self="center"
               style="color: white;"
             >
@@ -134,7 +134,7 @@
       grid-list-md
       text-center
       pb-8
-      style="background:#2B2B2B; display: flex; justify-content: center"
+      style="display: flex; justify-content: center"
     >
       <v-layout row style="max-width: 1280px;" class="my-12">
         <!-- CARD 1 -->
@@ -258,6 +258,7 @@
         </v-col>
       </v-layout>
     </v-container>
+    </v-container>
 
     <!-- <section class="joinservicetraits">
         <div>
@@ -315,10 +316,10 @@ export default {
     async getPropertyManagers() {
       await this.$http
         .get(
-          'http://www.sowerkbackend.com/api/companies/byType?type=true&limit=8&offset=0'
+          'https://www.sowerkbackend.com/api/companies/byType?type=true&limit=8&offset=0'
         )
-        .then(response => {
-          console.log(response, 'hey');
+        .then((response) => {
+          console.log(response, 'hey')
         })
         .catch((e) => e)
     },

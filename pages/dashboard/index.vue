@@ -15,7 +15,7 @@
       <HomeCard
         v-if="locations"
         :items="locations"
-        :title="'Facilities You Manage - ' + locations.length"
+        :title="'Locations You Manage - ' + locations.length"
         :tableProperties="headers"
         slug="/dashboard/facilities/"
       ></HomeCard>
@@ -180,11 +180,11 @@
             value: 0,
             link: '/dashboard/vendors/approved'
           },
-          {
-            title: 'Requests For Bids',
-            value: 0,
-            link: '#'
-          },
+          // {
+          //   title: 'Requests For Bids',
+          //   value: 0,
+          //   link: '#'
+          // },
           {
             title: 'All Pending Applications',
             value: 0,
@@ -202,11 +202,11 @@
             value: 0,
             link: '/dashboard/vendors/approved'
           },
-          {
-            title: 'Requested Applications',
-            value: 0,
-            link: '#'
-          },
+           {
+             title: 'Requested Applications',
+             value: 0,
+             link: '#'
+           },
           {
             title: 'Service Provider Plan',
             value: '',
@@ -297,12 +297,20 @@
     },
     methods: {
       async getApplications(id) {
-        await this.$http.get('http://www.sowerkbackend.com/api/applications/byPmId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
-            for(let i = 0; i<response.data.length; i++) {
-              if(response.data[i].approval_status === 0) {
-                this.stats[2].value++
+            if(this.currentUser.is_superuser === false) {
+              for(let i = 0; i<response.data.length; i++) {
+                if(response.data[i].approval_status === 0 && response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                  this.stats[1].value++
+                }
+              }
+            } else {
+              for(let i = 0; i<response.data.length; i++) {
+                if(response.data[i].approval_status === 0) {
+                  this.stats[1].value++
+                }
               }
             }
           })
@@ -311,7 +319,7 @@
           })
       },
       async getUser() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
@@ -320,15 +328,23 @@
         await this.getCompany();
       },
       async getCompany() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
       },
       async getLocations() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
-          this.locations = data.location;
+          if(this.currentUser.is_superuser === false) {
+            for(let i=0; i<data.location.length; i++){
+              if(data.location[i].email === this.currentUser.email && data.location[i].phone === this.currentUser.phone) {
+                this.locations.push(data.location[i]);
+              }
+            }
+          } else {
+            this.locations = data.location;
+          }
           console.log(this.locations, 'locations', data, 'data')
         })
         this.loading = false;
@@ -337,18 +353,31 @@
         this.hidden = true;
       },
       async getApprovedProviderConnections() {
-        await this.$http.get('http://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
           .then(response => {
             console.log('response approvedproviderconnections', response.data);
-            this.stats[0].value = response.data.length
-            if(response.data.length !== 0) {
+            if(this.currentUser.is_superuser === false) {
               for(let i=0; i<response.data.length; i++) {
-                console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
-                if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
-                  this.stats[3].value++;
+                  if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                    console.log(response.data[i], 'applications for staff account')
+                    this.stats[0].value ++
+                    console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
+                    if((response.data[i].pmuserprofiles_id === this.currentUser.id) && (moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar())) {
+                      this.stats[2].value++;
+                    }
+                  }
+                }
+              } else {
+                this.stats[0].value = response.data.length
+                if(response.data.length !== 0) {
+                  for(let i=0; i<response.data.length; i++) {
+                    console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
+                    if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
+                      this.stats[2].value++;
+                    }
+                  }
                 }
               }
-            }
           })
           .catch(err => {
             console.log('err in getting approved provider connections', err);

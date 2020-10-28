@@ -175,7 +175,7 @@
     },
     methods: {
       async getUser() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
@@ -183,7 +183,7 @@
         })
       },
       async getLocations() {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.locations = data;
         console.log(this.locations);
@@ -191,7 +191,7 @@
       },
       // async getLocations(companies) {
       //   for (const company of companies) {
-      //     let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+      //     let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
       //     console.log(data);
       //     if (this.$error(status, data.message, data.errors)) return;
       //     if(data.locations[0] !== 'There are no locations') {
@@ -210,7 +210,7 @@
       async getServices(locations) {
         console.log(locations);
         for (const location of locations) {
-          let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/services/bylocationid/' + location.id).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/services/bylocationid/' + location.id).catch(e => e);
           if(data) {
             if(data.message) continue;
             for (const service of data) {
@@ -234,7 +234,7 @@
       },
       async getUserforms() {
         for (const service of this.services) {
-          let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/userforms/' + service.id).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + service.id).catch(e => e);
           console.log(data);
           if(data.applications[0] != 'There are no applications') {
             for (const application of data.applications) {
@@ -257,12 +257,12 @@
         }
       },
       async getUserProfile(id) {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/auth/users/' + id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + id).catch(e => e);
         let company = await this.getUserCompany(data.companies_id);
         return company;
       },
       async getUserCompany(id) {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id).catch(e => e);
         return data;
       }
     }
