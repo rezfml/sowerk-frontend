@@ -108,12 +108,12 @@
             <v-textarea
               id="description"
               v-model="location.description"
-              placeholder=" "
+              placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
               :rules="rules.requiredRules"
             >
-              <template v-slot:label>
-                <p class="grey--text text--darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>
-              </template>
+<!--              <template v-slot:label>-->
+<!--                <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Location Description* (Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)</p>-->
+<!--              </template>-->
             </v-textarea>
           </v-col>
         </v-row>

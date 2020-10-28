@@ -19,7 +19,7 @@
         <h3>Vet Vendors</h3>
         <p>
           We make it easy and powerful for you to vet any service provider, and
-          re-qualify them annually. SOWerk prebuilt vendor applications are easy
+          re-qualify them annually. SOWerk's prebuilt vendor applications are easy
           and powerful, or customize your own to better fit.
         </p>
       </div>
@@ -52,27 +52,34 @@
         <p>
           For the facility manager in the middle of the night that needs to
           contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
+          provider that powers his business through a smartphone, SOWerk is
+          designed to be convenient.
         </p>
       </div>
     </section>
 
-    <section class="joinproductdescription">
-      <h2>Built By Property & Facility Managers</h2>
+    <section class="joinproductdescription pt-13 pb-3">
+      <h2 class="text-h4">Built By Property & Facility Managers</h2>
       <p></p>
       <p>
         SOWerk is built from the ground up as a software for businesses that
         own/manage properties & facilites.
       </p>
       <p>
-        We specifically designed our platform to help you identifying, qualify
+        We specifically designed our platform to help you identify, qualify,
         and manage just about any type of service provider, local or national.
         If you oversee one facility or own thousands of properties, SOWerk
         empowers you to easily establish approved vendors at each of your
         locations, request quotes from approved providers, and much more.
       </p>
-      <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
+       <v-btn
+              class="text-uppercase primary mx-auto text-sm-body-1"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              @click='$router.push("/register/property-manager")'
+              >Register Now</v-btn
+            >
     </section>
 
     <section class="joinproductsteps">
@@ -111,13 +118,16 @@
           <div class="getStarted">
             <h1>Step 2 <span>- Find Or Invite Service Providers</span></h1>
             <p>
-              Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. 
-              Additionally, Service Providers already on SOWerk can be found using the detailed search tool.
-              Use one of SOWerk’s pre-made vendor application or customize your
-              own questions. This allows you to acquire adequate information
-              from them during the application process to ensure they will
-              represent your brand well no matter how close or far away.
+              Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
+              <!-- <v-row style="max-width: 950px; flex-direction: row;flex-wrap: no-wrap;align-items:center;" justify="center">
+                <v-col cols="1" style="height: 50px" class="pa-0">
+                  <img width="29px"   src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
 
+                <v-col  cols="11">
+                  <p> Customize Vendor Application By Location</p>
+                </v-col>
+              </v-row> -->
               <p class="innerList">
                 <span>
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
@@ -154,10 +164,10 @@
             <h1>Step 3 <span>- Super Simple Management</span></h1>
             <p>
               What’s the point of great power if you can’t manage it? SOWerk’s
-              simple to use interface allows you to stay up to date and manage
+              simple-to-use interface allows you to stay up-to-date and manage
               all of your properties quickly and efficiently from a desktop or
               mobile platform. Manage staff, vet vendors, or even be one click
-              away from your approved service providers… that’s the power of
+              away from your approved service providers - that’s the power of
               SOWerk.
                 
                 <p class="innerList">
@@ -188,67 +198,94 @@
           </div>
         </div>
       </div>
-      <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
+      <v-btn
+              class="text-uppercase primary mx-auto text-sm-body-1"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              @click='$router.push("/register/property-manager")'
+              >Register Now</v-btn
+            >
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <polygon points="0,100 110,0 100,100" />
       </svg>
     </section>
 
-    <section class="joinproductfaq">
-      <h1>Property and Facility Managers Often Ask</h1>
-      <div class="joinproductfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Is This Going To Create More Work For Me?
-          </h4>
-          <p>
-            Actually, we designed SOWerk to be less work for you. Think of
-            SOWerk like connecting with service providers on social media,
-            except they have to meet your approved provider requirements. From
-            here you can easily manage and communicate with your approved
-            service providers.
-          </p>
-        </div>
-      </div>
-      <div class="joinproductfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Will SOWerk Save Us Money? Will It Protect Our Investments?
-          </h4>
-          <p>
-            If time is money and quality is everything then yes SOWerk can help.
-            SOWerk makes it efficent for any staff member to vet & manage
-            local/national service providers, such as getting bids for projects
-            and communicating details. If it’s easy to get bids from multiple
-            vetted providers then it might just save you both time and money.
-            Additionally, we make service providers requalify annualy on things
-            like insurance coverage and licenses so you don’t have to.
-          </p>
-        </div>
-      </div>
-      <div class="joinproductfaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Will SOWerk Help Shield Me From Cold Calls?
-          </h4>
-          <p>
-            Sales is part of any business but sometimes you just need place to
-            send the salesman where they can apply for your approved service
-            program. SOWerk is your solution.
-          </p>
-        </div>
-      </div>
-      <button @click='$router.push("/register/property-manager")'>REGISTER NOW</button>
-    </section>
+
+    <!-- PROPERTY FACILITY OFTEN ASK -->
+    <v-flex class="pt-16 pb-16" style="background: #EDEDED">
+      <v-container>
+        <v-row>
+          <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
+            <p
+              style="font-size: 30px"
+              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+            >
+              Property and Facility Managers Often Ask
+            </p>
+            <v-list
+              max-width="950px"
+              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
+              class="mx-auto"
+              style="background: #EDEDED"
+            >
+            <!-- QUESTION ONE -->
+            <v-row class="pt-8 " style="max-width: 950px;" justify="center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align:center">
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
+
+                <v-col cols="11" class="pa-0">
+                  <p style="line-height: 1.25em; font-size: 19px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Is this going to create more work for
+                    me?</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Actually, we designed SOWerk to be less work for you. Think
+                    of SOWerk like connecting with vendors on social
+                    media, except they have to meet your approved provider
+                    requirements. From here, you can easily manage and
+                    communicate with your approved service providers.</p>
+                </v-col>
+            </v-row>
+
+            <!-- QUESTION TWO -->
+              <v-row class="pt-6" style="max-width: 950px;" justify="center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align:center">
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
+
+                <v-col cols="11" class="pa-0">
+                  <p  style="line-height: 1.25em; font-size: 19px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Save Us Money? Will It Protect Our Investments?</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">If time is money and quality is everything, then yes, SOWerk can help. SOWerk makes it efficient for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers re-qualify annually on things like insurance coverage and licenses so you don’t have to.</p>
+                </v-col>
+            </v-row>
+
+              <!-- QUESTION THREE -->
+               <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
+
+                <v-col cols="11" class="pa-0">
+                  <p  style="line-height: 1.25em; font-size: 19px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Help Shield Me From Cold Calls?</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Sales is part of any business but sometimes, you just need a place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </p>
+                </v-col>
+            </v-row>
+            </v-list>
+            <!-- BUTTON -->
+            <v-btn
+              class="text-uppercase primary mx-auto text-sm-body-1"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '47%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              @click='$router.push("/register/property-manager")'
+              >Register Now</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-flex>
   </div>
 </template>
 
@@ -382,11 +419,16 @@
 }
 
 .joinproductsteps {
-  background: #47494e;
+  background: linear-gradient(180deg, rgba(68, 68, 68, 1) 35%,
+      rgba(43, 43, 43, 0.9) 100%),url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background-size:contain;
+  background-position:bottom;
+  background-repeat: no-repeat;
 }
 
 .joinproductsteps .joinproductstepscontainer {
@@ -432,13 +474,11 @@
   p {
   font-size: 20px;
 }
-.joinproductsteps {
-    background: linear-gradient(180deg,#444 5%,rgba(43,43,43,.9)),url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
-}
+
 .joinproductsteps svg {
   width: 100%;
   height: 9vh;
-  fill: white;
+  fill: rgb(237, 237, 237);
 }
 .joinproductsteps button {
   background: #a61c00;
@@ -475,54 +515,7 @@
   width:30% !important;
   height: auto;
 }
-.joinproductfaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinproductfaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin: 40px 0px 40px 0px;
-}
-.joinproductfaq h4 {
-  font-size: 25px;
-}
-.joinproductfaq p {
-  font-size: 18px;
-  margin: 20px 0px 30px 15px;
-}
-.joinproductfaq .joinproductfaqflex {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-.joinproductfaq .joinproductfaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinproductfaq .joinproductfaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinproductfaq button {
-  background: #a61c00;
-  color: white;
-  width: 40%;
-  font-size: 18px;
-  padding: 15px 0px 15px 0px;
-  border-radius: 20px;
-  margin: 30px 0px 30px 0px;
-}
-.joinproductfaqflex img{
-  margin-left: -10%;
-  margin-right: unset !important;
-  width: 5% !important;
-  height:auto;
-}
+
 .stepList li{
   list-style-image:url('https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png');
   max-width: 90%;
@@ -572,9 +565,6 @@
     font-size: 16px;
   }
 
-  .joinproductfaq h1 {
-    margin: 40px 0px 40px 20px;
-  }
   .joinproductstepscontainer{
     margin-bottom:10%;
     padding-bottom: 5%;
@@ -703,26 +693,6 @@
     width: 80%;
   }
 
-  .joinproductfaq h1 {
-    font-size: 38px;
-    text-align: center;
-    margin: 40px 5px;
-  }
-
-  .joinproductfaq .joinproductfaqflex {
-    width: 80%;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 23px;
-  }
-
-  .joinproductfaq p {
-    font-size: 17px;
-  }
-  .joinproductfaq button {
-    width: 80%;
-  }
   .getStarted img{
   margin-left: -10% !important;
   margin-right: unset !important;
@@ -803,20 +773,6 @@
     margin-top: 10px;
   }
 
-  .joinproductfaq h1 {
-    font-size: 34px;
-  }
-  .joinproductfaq .joinproductfaqflex {
-    width: 80%;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 21px;
-  }
-
-  .joinproductfaq p {
-    font-size: 16px;
-  }
   .getStarted img{
   margin-left: -10% !important;
   margin-right: unset !important;
@@ -848,17 +804,6 @@
     font-size: 17px;
   }
 
-  .joinproductfaq h1 {
-    font-size: 29px;
-  }
-
-  .joinproductfaq h4 {
-    font-size: 20px;
-  }
-
-  .joinproductfaq button {
-    font-size: 17px;
-  }
   .getStarted img{
   margin-left: -10% !important;
   margin-right: unset !important;
