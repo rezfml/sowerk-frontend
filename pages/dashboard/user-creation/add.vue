@@ -54,7 +54,7 @@
     },
     methods: {
       async getCompany() {
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response.data, 'company');
             this.company = response.data
@@ -67,7 +67,7 @@
         } else {
           this.addUserForm.is_superuser = false;
         }
-        await this.$http.post('http://www.sowerkbackend.com/api/auth/register', this.addUserForm)
+        await this.$http.post('https://www.sowerkbackend.com//api/auth/register', this.addUserForm)
           .then(response => {
             console.log(response, 'SUCCESS IN REGISTERING')
           })

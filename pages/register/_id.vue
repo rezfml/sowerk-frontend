@@ -682,7 +682,7 @@
     },
     methods: {
       async getVerification() {
-        await this.$http.get('http://www.sowerkbackend.com/api/preapproved/uuid/' + this.verificationId)
+        await this.$http.get('https://www.sowerkbackend.com//api/preapproved/uuid/' + this.verificationId)
         .then(response => {
           console.log(response, 'wow');
           if(response.data.invitation.length) {
@@ -868,7 +868,7 @@
         console.log(this.company, 'this.company');
         console.log(this.locations, 'this.locations');
 
-        await this.$http.post('http://www.sowerkbackend.com/api/companies', this.company)
+        await this.$http.post('https://www.sowerkbackend.com//api/companies', this.company)
           .then(response => {
             console.log('post company:', response)
             this.user.companies_id = response.data.companies.id;
@@ -890,21 +890,21 @@
       async postLicenses(companyId) {
         for (const license of this.licenses) {
           license.companies_id = companyId;
-          let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
+          let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/license/byCompanyId/' + companyId, license).catch(e => e);
           console.log(data);
         }
       },
       async postInsurances(companyId) {
         for (const insurance of this.insurances) {
           insurance.companies_id = companyId;
-          let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
+          let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
           console.log(data);
         }
       },
       async uploadCompanyImage() {
         const formData = new FormData();
         formData.append('file', this.companyImageFile);
-        await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
+        await this.$http.post('https://www.sowerkbackend.com//api/upload', formData)
           .then(response => {
             console.log('success in uploading company image', response)
             this.company.imgUrl = response.data.data.Location;
@@ -922,7 +922,7 @@
       async uploadInsuranceFile(insuranceFile, index) {
         let formData = new FormData();
         formData.append('file', insuranceFile.file);
-        await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
+        await this.$http.post('https://www.sowerkbackend.com//api/upload', formData)
           .then(response => {
             console.log('success in uploading insurance file', response)
             this.insurances[index].documentUrl = response.data.data.Location;
@@ -943,7 +943,7 @@
       async uploadLicenseFile(licenseFile, index) {
         let formData = new FormData();
         formData.append('file', licenseFile.file);
-        await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
+        await this.$http.post('https://www.sowerkbackend.com//api/upload', formData)
           .then(response => {
             console.log('successfully uploaded license file', response)
             this.licenses[index].documentUrl = response.data.data.Location;
@@ -957,7 +957,7 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
-        let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/auth/register', this.user).catch(e => e);
+        let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/auth/register', this.user).catch(e => e);
         await this.postLocations(data.user.companies_id);
         if(this.invitation.pre_approved === true) {
           await this.postConnectionTable(this.invitation.companies_id, data.user.companies_id);
@@ -967,7 +967,7 @@
         await this.deleteInviteTable(this.invitation.id);
       },
       async postConnectionTable(PmId, SpId) {
-        await this.$http.post('http://www.sowerkbackend.com/api/approvedproviderconnection', {
+        await this.$http.post('https://www.sowerkbackend.com//api/approvedproviderconnection', {
           propertymanager_id: PmId,
           serviceprovider_id: SpId
         })
@@ -979,7 +979,7 @@
           })
       },
       async deleteInviteTable(id) {
-        await this.$http.delete('http://www.sowerkbackend.com/api/preapproved/' + id)
+        await this.$http.delete('https://www.sowerkbackend.com//api/preapproved/' + id)
           .then(response => {
             console.log('successfully deleteted invitee table', response);
           })
@@ -992,7 +992,7 @@
           currentConnections: 0,
           maxConnections: 0
         }
-        await this.$http.get('http://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com//api/companies/' + id)
           .then(response => {
             console.log('success in getting company', response)
             connection.currentConnections = response.data.currentConnections + 1;
@@ -1001,7 +1001,7 @@
           .catch(err => {
             console.log('error in getting company', err);
           })
-        await this.$http.put('http://www.sowerkbackend.com/api/companies/' + id, connection)
+        await this.$http.put('https://www.sowerkbackend.com//api/companies/' + id, connection)
           .then(response => {
             console.log('successfully updated company #', id, response)
           })
@@ -1019,7 +1019,7 @@
         console.log(this.locations);
       },
       async uploadLocationImage(formData, index) {
-        let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/upload', formData)
+        let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/upload', formData)
           .then(response => {
             console.log(response, 'success in uploading location image')
             console.log(response.data.Location);
@@ -1034,7 +1034,7 @@
           this.locations[i].companies_id = userId;
           this.locations[i].zipcode = Number(this.locations[i].zipcode)
         }
-        await this.$http.post('http://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+        await this.$http.post('https://www.sowerkbackend.com//api/group-locations/byCompaniesId/' + userId, this.locations)
           .then(response => {
             console.log('success in posting group locations', response)
           })
@@ -1046,7 +1046,7 @@
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('http://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data.location);
       },
@@ -1057,7 +1057,7 @@
               name: service,
               locations_id: location.id
             }
-            let {data, status} = await this.$http.post('http://www.sowerkbackend.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            let {data, status} = await this.$http.post('https://www.sowerkbackend.com//api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
           }
         }

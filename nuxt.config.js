@@ -95,7 +95,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://www.sowerkbackend.com/api/'
+    baseURL: 'https://www.sowerkbackend.com//api/'
   },
   toast: {
     position: 'bottom-right',
