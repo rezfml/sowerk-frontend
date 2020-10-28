@@ -232,74 +232,88 @@
       </svg>
     </section>
 
-    <section class="joinservicefaq">
-      <h1>Service Providers Generally Ask</h1>
-      <div class="joinservicefaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Do I Seriously Get More Jobs?
-          </h4>
-          <p>
-            Yes, Property & Facility managers of all sizes use SOWerk to manage
-            their approved vendor program. We make it easy for them to vet
-            service providers request bids.
-          </p>
-          <p>
-            SOWerk also helps you look good when applying for approved vendor
-            programs, but we also make it easy to share those good looks with
-            others. Next time your bidding a job show off your resume by
-            emailing or texting your SOWerk profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinservicefaqflex">
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Is SOWerk Time Consuming and Hard To Use?
-          </h4>
-          <p>Not at all, a SOWerk profile only takes 10 minuets to setup.</p>
 
-          <p>
-            With only a click or two on your computer or mobile device you can
-            use your SOWerk Profile to apply for approved vendor programs
-          </p>
+    <!-- SERVICE PROVIDER OFTEN ASK -->
+ <v-flex class="pt-16 pb-16" style="background: #EDEDED">
+      <v-container>
+        <v-row>
+          <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
+            <p
+              style="font-size: 30px"
+              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+            >
+              Vendors Generally Ask
+            </p>
+            <v-list
+              max-width="950px"
+              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
+              class="mx-auto"
+              style="background: #EDEDED"
+            >
+            <!-- QUESTION ONE -->
+            <v-row class="pt-8 " style="max-width: 950px;" justify="center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
 
-          <p>
-            Automatic Updates: When you become an approved vendor for a company
-            we automaticly display it on your profile.
-          </p>
-        </div>
-      </div>
-      <div class="joinservicefaqflex">
+                <v-col cols="11" class="pa-0">
+                  <p style="line-height: 1.25em; font-size: 19px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Do I Seriously Get More Jobs?</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Yes, businesses of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet vendors' request bids.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">SOWerk helps you look good when applying for approved
+                      vendor programs within SOWerk, and we also make it easy to share those
+                      good looks with others. Next time you're bidding a job or working a potential customer who is not on SOWerk, show
+                      off your resume by emailing or texting your SOWerk
+                      profile.</p>
+                </v-col>
+            </v-row>
 
-        <div>
-          <h4>
-            <span>
-              <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon"/>
-            </span>
-            Will I Get Charged All The Time & Get Junk Leads?
-          </h4>
-          <p>
-            Unlike other websites, SOWerk service providers receive
-            communications from their approved vendor programs, direct leads, or
-            new businesses inviting them to apply for approved vendor program.
-          </p>
-          <p>
-            Being on SOWerk and promoting your business is free. If you wish to
-            apply for an approved vendor program or utilize other SOWerk
-            features we offer a few packages. Details can be found on our
-            Approved Provider Pricing page.
-          </p>
-        </div>
-      </div>
-      <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
-    </section>
+            <!-- QUESTION TWO -->
+              <v-row class="pt-6" style="max-width: 950px;" justify="center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
+
+                <v-col cols="11" class="pa-0">
+                  <p  style="line-height: 1.25em; font-size: 19px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Is SOWerk Time Consuming and Hard To
+                    Use?</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Not at all, a SOWerk profile only takes 10 minutes to
+                      set up.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">With only a click or two on your computer or mobile device,
+                      you can use your SOWerk profile to apply for approved
+                      vendor programs.</p>
+                </v-col>
+            </v-row>
+
+              <!-- QUESTION THREE -->
+               <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
+                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
+                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
+                </v-col>
+
+                <v-col cols="11" class="pa-0">
+                  <p  style="line-height: 1.25em; font-size: 19px;"
+                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will I Get Charged All The Time & Get Junk
+                    Leads?</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">SOWwerk is your business tool, kind of like an account software which is why we try to keep it distraction-free. We know you don't have time for junk mail or poor leads. Unlike other websites, SOWerk vendors receive communications from their approved vendor programs, specific inbound leads, or new businesses inviting them to apply for approved vendor programs. </p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features, we offer different packages. Details can be found on our Approved Provider Pricing page.</p>
+                </v-col>
+            </v-row>
+            </v-list>
+            <!-- BUTTON -->
+            <v-btn
+              class="text-uppercase primary mx-auto text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              @click='$router.push("/register/provider")'
+              >REGISTER NOW</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-flex>
   </div>
 </template>
 
@@ -524,7 +538,7 @@
 .joinservicesteps svg {
   width: 100%;
   height: 9vh;
-  fill: white;
+  fill: #EDEDED;
 }
 .joinservicesteps button {
   background: #a61c00;
@@ -537,54 +551,6 @@
   font-size: 18px;
 }
 
-.joinservicefaq {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinservicefaq h1 {
-  color: #a61c00;
-  font-size: 55px;
-  margin: 40px 0px 40px 0px;
-}
-.joinservicefaq h4 {
-  font-size: 25px;
-}
-.joinservicefaq p {
-  font-size: 18px;
-  margin: 20px 0px 30px 15px;
-}
-.joinservicefaq .joinservicefaqflex {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-.joinservicefaq .joinservicefaqflex img {
-  width: 10%;
-  margin-right: 3%;
-}
-.joinservicefaq .joinservicefaqflex div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-}
-.joinservicefaq button {
-  background: #a61c00;
-  color: white;
-  width: 40%;
-  font-size: 18px;
-  padding: 15px 0px 15px 0px;
-  border-radius: 20px;
-  margin: 30px 0px 30px 0px;
-}
-.joinservicefaqflex img{
-  margin-left: -10%;
-  margin-right: unset !important;
-  width: 5% !important;
-  height:auto;
-}
 
 @media (max-width: 1350px) {
   .joinservicetraits div {
@@ -703,29 +669,6 @@
  padding: 10px 0px 10px 0px;
  width: 80%;
   }
-
-  .joinservicefaq h1 {
-    font-size: 38px;
-    text-align: center;
-    margin: 40px 5px;
-  }
-
-   .joinservicefaq .joinservicefaqflex {
-    width: 80%;
-  }
-
-   .joinservicefaq h4 {
-    font-size: 23px;
-  }
-
-  .joinservicefaq p {
-    font-size: 17px;
-  }
-
-   .joinservicefaq button {
-    width: 80%;
-     padding: 10px 0px 10px 0px;
-  }
 }
 
 
@@ -794,23 +737,6 @@
    text-align: justify;
     margin-top: 10px;
   }
-
-  .joinservicefaq h1 {
-    font-size: 34px;
-  }
-
-  .joinservicefaq .joinservicefaqflex {
-    width: 80%;
-  }
-
-.joinservicefaq h4 {
-    font-size: 22px;
-  }
-
-  .joinservicefaq p {
-    font-size: 16px;
-  }
-
 }
 
 
@@ -829,15 +755,6 @@
 
   .joinservicedescription button {
     font-size: 17px;
-  }
-
-  .joinservicefaq h1 {
-    font-size: 33px;
-  }
-
-  .joinservicefaq button {
-    font-size: 17px;
-
   }
 }
 
