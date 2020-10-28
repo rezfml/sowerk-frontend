@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     async getPropertyManagerLocation() {
-      await this.$http.get('https://www.sowerkbackend.com//api/locations/' + this.$route.params.id)
+      await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.$route.params.id)
         .then(res => {
           this.locationVal = res.data;
           console.log(this.locationVal, 'location');

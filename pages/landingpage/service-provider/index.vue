@@ -271,7 +271,7 @@ export default {
     async getServiceProviders() {
       let { data, status } = await this.$http
         .get(
-          'https://www.sowerkbackend.com//api/companies/byType?type=false0&limit=8&offset=0'
+          'https://www.sowerkbackend.com/api/companies/byType?type=false0&limit=8&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return

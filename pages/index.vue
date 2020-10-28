@@ -784,7 +784,7 @@ export default {
     async getAllReviews() {
       let { data, status } = await this.$http
         .get(
-          'https://www.sowerkbackend.com//api/reviewsLimit?limit=20&offset=0'
+          'https://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
@@ -796,7 +796,7 @@ export default {
     async getReviews() {
       let { data, status } = await this.$http
         .get(
-          'https://www.sowerkbackend.com//api/reviewsLimitDesc?limit=2&offset=0'
+          'https://www.sowerkbackend.com/api/reviewsLimitDesc?limit=2&offset=0'
         )
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return

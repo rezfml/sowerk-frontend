@@ -35,7 +35,7 @@ export const getters = {
 export const actions = {
   async login ({ commit }, { email, password }) {
     try {
-      const { data } = await axios.post('https://www.sowerkbackend.com//api/auth/login', { email, password })
+      const { data } = await axios.post('https://www.sowerkbackend.com/api/auth/login', { email, password })
       console.log(data.user);
       commit('login', data.user)
       this.$router.push('/dashboard');

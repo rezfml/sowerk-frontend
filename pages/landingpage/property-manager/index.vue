@@ -316,7 +316,7 @@ export default {
     async getPropertyManagers() {
       await this.$http
         .get(
-          'https://www.sowerkbackend.com//api/companies/byType?type=true&limit=8&offset=0'
+          'https://www.sowerkbackend.com/api/companies/byType?type=true&limit=8&offset=0'
         )
         .then((response) => {
           console.log(response, 'hey')

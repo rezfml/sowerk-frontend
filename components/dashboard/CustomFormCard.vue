@@ -108,7 +108,7 @@
     },
     methods: {
       async getServices(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/services/byLocationId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(response => {
             console.log(response.data, 'services');
             if(response.data.length !== 0) {
@@ -123,7 +123,7 @@
         console.log(this.userForms, 'this.userForms');
       },
       async getUserforms(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/userforms/byServiceId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
           .then(async (response) => {
               console.log(response.data, 'userforms');
               if(response.data.length !== 0) {
@@ -147,7 +147,7 @@
           })
       },
       async getFormFields(id) {
-        await this.$http.get('https://www.sowerkbackend.com//api/formfields/byUserFormId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for userform', id);
             this.userForms[this.value].formfields = response.data;

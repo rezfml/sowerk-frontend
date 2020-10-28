@@ -578,7 +578,7 @@
       },
       async getUser() {
         // this.loading = true;
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/auth/users/' + this.currentUser.id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           // this.locations = data;
@@ -587,7 +587,7 @@
         })
       },
       async getUserCompany() {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com//api/companies/' + this.currentUser.companies_id).catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
         this.loading = true;
