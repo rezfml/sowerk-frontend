@@ -167,7 +167,7 @@
 
 <script>
 export default {
-  name: "ComapnyReview",
+  name: "CompanyReview",
   props: {
     company: {
       type: Object,
