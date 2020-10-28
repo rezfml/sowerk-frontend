@@ -64,7 +64,7 @@
         />
         <h3>Cold Call Shield</h3>
         <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-          With your SOWerk account you have the perfect place to direct any
+          With your SOWerk account, you have the perfect place to direct any
           salesman calling to become your approved vendor.
         </p>
         <p v-else style="font-size:4.25vw">
@@ -147,8 +147,12 @@
     </section>
 
     <section class="joinproductdescription pt-13 pb-3">
+<<<<<<< HEAD
+      <h2 class="text-h4 text-center">Built By Property & Facility Managers</h2>
+=======
       <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2>
       <h2 v-else class="text-h4 ml-3">Built By Property & Facility Managers</h2>
+>>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
       <p></p>
       <p>
         SOWerk is built from the ground up as a software for businesses that
@@ -171,6 +175,8 @@
             >
     </section>
 
+
+   
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
@@ -181,12 +187,18 @@
             <p>
               After setting up your account and locations, SOWerk makes it easy
               to filter approved service providers quickly and easily for any
+<<<<<<< HEAD
+              location across the country. </p>
+             
+      <p class="innerList">
+=======
               location across the country.
               <p class="innerList d-flex-row"  style="">
+>>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
                 <span>
                   <img class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
-                Manage One Or Thousands Of Locations
+               Manage One Or Thousands of Locations
               </p>
               <p class="innerList">
                 <span>
@@ -199,8 +211,12 @@
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Invite Existing Vendors To Connect For Free
+<<<<<<< HEAD
+              </p>           
+=======
               </p>
             </p>
+>>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
           </div>
         </div>
         <div class="joinproductstepcontainerstep step-left" style="padding-left:3%">
@@ -209,15 +225,6 @@
             <h1 v-else>Step 2 <span class="pr-2" style="width:90%;font-size:7vw"><br/>- Find Or Invite Service Providers</span></h1>
             <p>
               Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
-              <!-- <v-row style="max-width: 950px; flex-direction: row;flex-wrap: no-wrap;align-items:center;" justify="center">
-                <v-col cols="1" style="height: 50px" class="pa-0">
-                  <img width="29px"   src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
-                </v-col>
-
-                <v-col  cols="11">
-                  <p> Customize Vendor Application By Location</p>
-                </v-col>
-              </v-row> -->
               <p class="innerList">
                 <span>
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
@@ -228,7 +235,7 @@
                 <span>
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
-                Mange Applications By Service Category
+                Manage Applications By Service Category
               </p>
               <p class="innerList">
                 <span>
@@ -244,11 +251,10 @@
               </p>
             </p>
           </div>
-          <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
+          <img  class="containerImg second-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
         </div>
         <div class="joinproductstepcontainerstep step-right" >
-          <!--we will need to replace these with higher quality images eventually-->
-          <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
+          <img  class="containerImg third-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
           <div class="getStarted" style="padding-right:2%;">
             <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 3 <span>- Super Simple Management</span></h1>
@@ -381,14 +387,14 @@
 </template>
 
 <script>
-  export default {
-    layout: 'fullwidth',
-  }
+export default {
+  layout: 'fullwidth',
+}
 </script>
 
 <style scoped>
 .joinproductcontainer {
-  margin-top:-5%;
+  margin-top: -5%;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -448,13 +454,13 @@
   width: 100%;
   height: 100%;
   content: '';
-  background:inherit;
+  background: inherit;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg);
+  transform: skewY(-2deg);
 }
 .joinproducttraits div {
   width: 20%;
@@ -510,15 +516,19 @@
 }
 
 .joinproductsteps {
-  background: linear-gradient(180deg, rgba(68, 68, 68, 1) 35%,
-      rgba(43, 43, 43, 0.9) 100%),url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+  background: linear-gradient(
+      180deg,
+      rgba(68, 68, 68, 1) 35%,
+      rgba(43, 43, 43, 0.9) 100%
+    ),
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-size:contain;
-  background-position:bottom;
+  background-size: contain;
+  background-position: bottom;
   background-repeat: no-repeat;
 }
 
@@ -556,7 +566,8 @@
   .joinproductstepcontainerstep
   div
   h1 {
-  font-size: 35px;
+  font-size: 32px;
+  padding-bottom: 15px;
 }
 .joinproductsteps
   .joinproductstepscontainer
@@ -564,6 +575,7 @@
   div
   p {
   font-size: 20px;
+  font-weight: 400;
 }
 
 .joinproductsteps svg {
@@ -581,39 +593,38 @@
   width: 40%;
   font-size: 18px;
 }
-.joinproductstepcontainerstep img{
-  width:45% !important;
+.joinproductstepcontainerstep img {
+  width: 45% !important;
   height: auto;
-  margin-left:-10%;
-  margin-right:5%;
+  margin-left: -10%;
+  margin-right: 5%;
 }
-#stepTwo{
-  margin-left: 5%!important;
-  margin-right:-10%!important;
+#stepTwo {
+  margin-left: 5% !important;
+  margin-right: -10% !important;
 }
-#profileDash{
+#profileDash {
   margin-left: -15% !important;
-  margin-right:-10%;
-  margin-bottom:10%;
-  margin-top:5%;
-  width:50%!important;
+  margin-right: -10%;
+  margin-bottom: 10%;
+  margin-top: 5%;
+  width: 50% !important;
 }
-#iphoneMock{
-  margin-left:-10%;
-  margin-bottom:-5%;
+#iphoneMock {
+  margin-left: -10%;
+  margin-bottom: -5%;
   margin-top: 15%;
-  bottom:15%;
-  width:30% !important;
+  bottom: 15%;
+  width: 30% !important;
   height: auto;
 }
 
-.stepList li{
-  list-style-image:url('https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png');
+.stepList li {
+  list-style-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png');
   max-width: 90%;
   max-height: 90%;
-
 }
-.getStarted img{
+.getStarted img {
   width: 5% !important;
   height: auto;
   padding-top: 2%;
@@ -621,21 +632,58 @@
   padding-right: 5px;
   margin-left: -10%;
 }
-.innerList{
-  margin-left:10%;
-  margin-top:-2%;
-  margin-bottom: 2%;
-  padding-right:-20% ;
+
+.containerImg.second-img {
+  width: 55%!important;
 }
-.innerList span{
+
+/* .stepbullet {
+  margin-bottom: 0;
+  margin-left: 45px;
+}
+
+#stepbullet_img {
+  padding-top: 0!important;
+  padding-right: 5px;
+  position: relative;
+  top: 5px;
+  left: 10px;
+  width: 30px!important;
+} */ 
+
+.innerList {
+  margin-left: 10%;
+  margin-top: -2%;
+  margin-bottom: 2%;
+  padding-right: -20%;
+}
+.innerList span {
   margin: auto 0;
-  
 }
 
 @media (max-width: 1700px) {
   .joinproducttraits div img {
     height: 140px;
   }
+}
+
+@media (max-width: 1630px) {
+  .joinproductsteps
+  .joinproductstepscontainer
+  .joinproductstepcontainerstep
+  div
+  h1 {
+    font-size: 25px
+  }
+
+  .joinproductsteps
+  .joinproductstepscontainer
+  .joinproductstepcontainerstep
+  div
+  p {
+  font-size: 17px;
+}
+
 }
 
 @media (max-width: 1350px) {
@@ -656,16 +704,16 @@
     font-size: 16px;
   }
 
-  .joinproductstepscontainer{
-    margin-bottom:10%;
+  .joinproductstepscontainer {
+    margin-bottom: 10%;
     padding-bottom: 5%;
   }
-  .getStarted img{
-  margin-left: -10% !important;
-  margin-right: unset !important;
-  width: 8% !important;
-  height: auto !important;
-  border: none !important;
+  .getStarted img {
+    margin-left: -10% !important;
+    margin-right: unset !important;
+    width: 8% !important;
+    height: auto !important;
+    border: none !important;
   }
 }
 
@@ -686,21 +734,39 @@
   .joinproducttraits div p {
     font-size: 15px;
   }
-  .joinproductstepscontainer{
-    margin-bottom:10%;
+  .joinproductstepscontainer {
+    margin-bottom: 10%;
     padding-bottom: 5%;
   }
-  .getStarted img{
-  margin-left: -10% !important;
-  margin-right: unset !important;
-  width: 8% !important;
-  height: auto !important;
-  border: none !important;
+
+   .joinproductsteps
+  .joinproductstepscontainer
+  .joinproductstepcontainerstep
+  div
+  h1 {
+    font-size: 22px
+  }
+
+    .joinproductsteps
+  .joinproductstepscontainer
+  .joinproductstepcontainerstep
+  div
+  p {
+  font-size: 15px;
+}
+  .getStarted img {
+    margin-left: -10% !important;
+    margin-right: unset !important;
+    width: 8% !important;
+    height: auto !important;
+    border: none !important;
   }
 }
+
+
 @media (max-width: 960px) {
-  .joinproducthero{
-    margin-top:-10%;
+  .joinproducthero {
+    margin-top: -10%;
   }
 }
 
@@ -784,24 +850,24 @@
     width: 80%;
   }
 
-  .getStarted img{
-  margin-left: -10% !important;
-  margin-right: unset !important;
-  width: 8% !important;
-  height: auto !important;
-  border: none !important;
+  .getStarted img {
+    margin-left: -10% !important;
+    margin-right: unset !important;
+    width: 8% !important;
+    height: auto !important;
+    border: none !important;
   }
-  .innerList{
-    font-size:1.5vh !important;
+  .innerList {
+    font-size: 1.5vh !important;
   }
-  .joinproductstepscontainer{
-    margin-bottom:10%;
+  .joinproductstepscontainer {
+    margin-bottom: 10%;
     padding-bottom: 5%;
   }
 }
 @media (max-width: 750px) {
- .containerImg{
-    display:none;
+  .containerImg {
+    display: none;
   }
   .joinproducthero div h1 {
     font-size: 45px;
@@ -826,11 +892,13 @@
     font-size: 25px;
   }
 
-  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep img {
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    img {
     border: 1px solid #333;
     height: 250px;
     width: 80%;
-
   }
 
   .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep {
@@ -840,7 +908,9 @@
     margin: 20px 0;
   }
 
-  .joinproductsteps .joinproductstepscontainer .joinproductstepcontainerstep:nth-child(2) {
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep:nth-child(2) {
     flex-direction: column-reverse;
   }
   .joinproductsteps
@@ -860,16 +930,16 @@
     p {
     font-size: 18px;
     /* padding: 0 0 0 40px; */
-   text-align: justify;
+    text-align: justify;
     margin-top: 10px;
   }
 
-  .getStarted img{
-  margin-left: -10% !important;
-  margin-right: unset !important;
-  width: 8% !important;
-  height: auto !important;
-  border: none !important;
+  .getStarted img {
+    margin-left: -10% !important;
+    margin-right: unset !important;
+    width: 8% !important;
+    height: auto !important;
+    border: none !important;
   }
 }
 
@@ -884,23 +954,23 @@
 
   .joinproducthero div button {
     font-size: 17px;
-    padding: 8px  48px 8px 48px;
+    padding: 8px 48px 8px 48px;
   }
 
   .joinproductdescription p {
     font-size: 16px;
   }
-  
+
   .joinproductdescription button {
     font-size: 17px;
   }
 
-  .getStarted img{
-  margin-left: -10% !important;
-  margin-right: unset !important;
-  width: 8% !important;
-  height: auto !important;
-  border: none !important;
+  .getStarted img {
+    margin-left: -10% !important;
+    margin-right: unset !important;
+    width: 8% !important;
+    height: auto !important;
+    border: none !important;
   }
 }
 

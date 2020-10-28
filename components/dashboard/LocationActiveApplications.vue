@@ -243,21 +243,21 @@ export default {
         propertymanager_id: itemVal.pmcompanies_id,
         serviceprovider_id: itemVal.spcompanies_id
       }
-      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + itemVal.id, approvalChanges)
+      await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, approvalChanges)
         .then(response => {
           console.log('success in changes', response)
         })
         .catch(err => {
           console.log('err', err);
         })
-      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + itemVal.pmcompanies_id, approvalChanges)
+      await this.$http.put('https://www.sowerkbackend.com/api/companies/' + itemVal.pmcompanies_id, approvalChanges)
         .then(response => {
           console.log('success in changes', response)
         })
         .catch(err => {
           console.log('err', err);
         })
-      await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/approvedproviderconnection', approvedproviderconnection)
+      await this.$http.post('https://www.sowerkbackend.com/api/approvedproviderconnection', approvedproviderconnection)
         .then(response => {
           console.log('success', response);
           this.$router.go();
@@ -271,7 +271,7 @@ export default {
       const denialChanges = {
         approval_status: 2
       }
-      await this.$http.put('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/' + itemVal.id, denialChanges)
+      await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, denialChanges)
         .then(response => {
           console.log('success in changes', response)
           this.$router.go();
@@ -285,7 +285,7 @@ export default {
       this.$router.push('/dashboard/vendors/applicants/' + itemVal.id)
     },
     async getApplications(id) {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/applications/byPmLocationId/' + id)
+      await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmLocationId/' + id)
         .then(async (response) => {
           console.log(response.data, 'response for applications by Pm id');
           for(let i=0; i<response.data.length; i++){
@@ -309,7 +309,7 @@ export default {
       console.log(this.applications, 'wow so done for location pending applications')
     },
     async getPMService(id) {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/services/' + id)
+      await this.$http.get('https://www.sowerkbackend.com/api/services/' + id)
         .then(async (response) => {
           console.log('response for service', response.data, id, 'id')
           this.applications[this.applicationsCount].serviceName = response.data.service.name;
@@ -319,7 +319,7 @@ export default {
         })
     },
     async getSPCompany(id) {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/companies/' + id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
         .then(async (response) => {
           console.log('response.data for company', response.data)
           this.applications[this.applicationsCount].img = response.data.imgUrl;
@@ -330,7 +330,7 @@ export default {
         })
     },
     async getSPLocation(id) {
-      await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/locations/' + id)
+      await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
         .then(async (response) => {
           console.log('response.data for location', response.data)
           this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;

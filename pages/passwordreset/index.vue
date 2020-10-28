@@ -48,10 +48,10 @@
     },
     methods: {
       async submit() {
-        await this.$http.get('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/api/auth/users/email/' + this.user.email)
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + this.user.email)
           .then(async (response) => {
             console.log(response.data.users[0], 'user email')
-            await this.$http.post('http://node-express-env.eba-vhau3tcw.us-east-2.elasticbeanstalk.com/passwordforgot/' + this.user.email)
+            await this.$http.post('https://www.sowerkbackend.com/passwordforgot/' + this.user.email)
               .then(response => {
                 console.log(response, 'email')
               })
