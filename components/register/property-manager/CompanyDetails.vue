@@ -114,7 +114,7 @@
                   label="Account Name*"
                   type="text"
                   v-model="company.account_name"
-                  placeholder="Account Name: The name shown publicly to vendors and platform users"
+                  placeholder="The name shown publicly to vendors and platform users"
                   :rules="rules.requiredRules"
                 ></v-text-field>
               </v-col>
@@ -390,4 +390,5 @@ export default {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   width: 100%;
 }
+
 </style>
