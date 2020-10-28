@@ -155,7 +155,7 @@
       <v-col cols="12" class="mt-8 d-flex justify-center">
         <span class="headline mb-0">Location Manager</span>
       </v-col>
-      <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main point person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
+      <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
       <v-col cols="12" class="mb-6">
         <v-checkbox v-model="managerIsUser" @click="setManagerToUser" hide-details>
           <template v-slot:label>
