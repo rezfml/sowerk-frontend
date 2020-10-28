@@ -1,9 +1,14 @@
 <template>
   <div class="joinproductcontainer">
     <section class="joinproducthero">
-      <div>
+      <div v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
         <h1>Property & Facility Managers</h1>
         <p>Find, Vet, and Manage Approved Vendors</p>
+        <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
+      </div>
+      <div v-else class="d-flex justify-center mt-6 px-2">
+        <h1 style="font-size:10vw">Property & Facility Managers</h1>
+        <p>Find, Vet, and Manage<br/> Approved Vendors</p>
         <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
       </div>
       <!-- <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -11,45 +16,128 @@
       </svg> -->
     </section>
 
-    <section class="joinproducttraits">
+    <section v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="joinproducttraits">
       <div>
-        <img
+        <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+        />
+        <img v-else style="height:22vh;" class="mt-n6"
           src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
         />
         <h3>Vet Vendors</h3>
-        <p>
+        <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+          We make it easy and powerful for you to vet any service provider, and
+          re-qualify them annually. SOWerk's prebuilt vendor applications are easy
+          and powerful, or customize your own to better fit.
+        </p>
+        <p v-else style="font-size:4.25vw">
           We make it easy and powerful for you to vet any service provider, and
           re-qualify them annually. SOWerk's prebuilt vendor applications are easy
           and powerful, or customize your own to better fit.
         </p>
       </div>
       <div>
-        <img
+        <img  v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+        />
+        <img v-else style="height:22vh;" class="mt-n6"
           src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
         />
         <h3>Powerful Tools</h3>
-        <p>
+        <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+          One facility or 1,000’s of properties, SOWerk has you covered. Assign
+          staff and set approved vendors by location. Manage bids and completed
+          jobs all in one clean powerful interface.
+        </p>
+        <p v-else style="font-size:4.25vw">
           One facility or 1,000’s of properties, SOWerk has you covered. Assign
           staff and set approved vendors by location. Manage bids and completed
           jobs all in one clean powerful interface.
         </p>
       </div>
       <div>
-        <img
+        <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+        />
+        <img v-else style="height:22vh;" class="mt-n10"
           src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
         />
         <h3>Cold Call Shield</h3>
-        <p>
+        <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+          With your SOWerk account you have the perfect place to direct any
+          salesman calling to become your approved vendor.
+        </p>
+        <p v-else style="font-size:4.25vw">
           With your SOWerk account you have the perfect place to direct any
           salesman calling to become your approved vendor.
         </p>
       </div>
       <div>
-        <img
+        <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+        />
+        <img v-else style="height:22vh;" class="mt-8"
           src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
         />
         <h3>Convenient</h3>
-        <p>
+        <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+          For the facility manager in the middle of the night that needs to
+          contact all your approved plumbers for help or a local service
+          provider that powers his business through a smartphone, SOWerk is
+          designed to be convenient.
+        </p>
+        <p v-else style="font-size:4.25vw">
+          For the facility manager in the middle of the night that needs to
+          contact all your approved plumbers for help or a local service
+          provider that powers his business through a smartphone, SOWerk is
+          designed to be convenient.
+        </p>
+      </div>
+    </section>
+
+    <section v-else class="joinproducttraits d-flex ">
+      <div class="mb-3 mt-n0">
+
+        <img  style="height:22vh;" class="mt-n6"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
+        />
+        <h3>Vet Vendors</h3>
+
+        <p  style="font-size:4.25vw">
+          We make it easy and powerful for you to vet any service provider, and
+          re-qualify them annually. SOWerk's prebuilt vendor applications are easy
+          and powerful, or customize your own to better fit.
+        </p>
+      </div>
+      <div class="mb-3 mt-6">
+
+        <img style="height:22vh;" class="mt-n6"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
+        />
+        <h3>Powerful Tools</h3>
+        <p  style="font-size:4.25vw">
+          One facility or 1,000’s of properties, SOWerk has you covered. Assign
+          staff and set approved vendors by location. Manage bids and completed
+          jobs all in one clean powerful interface.
+        </p>
+      </div>
+      <div class="mb-3 mt-6">
+        <img  style="height:22vh;" class="mt-n10"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+        />
+        <h3>Cold Call Shield</h3>
+        <p  style="font-size:4.25vw">
+          With your SOWerk account you have the perfect place to direct any
+          salesman calling to become your approved vendor.
+        </p>
+      </div>
+      <div>
+        <img style="height:22vh;" class="mt-8"
+          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+        />
+        <h3>Convenient</h3>
+
+        <p style="font-size:4.25vw">
           For the facility manager in the middle of the night that needs to
           contact all your approved plumbers for help or a local service
           provider that powers his business through a smartphone, SOWerk is
@@ -59,7 +147,8 @@
     </section>
 
     <section class="joinproductdescription pt-13 pb-3">
-      <h2 class="text-h4">Built By Property & Facility Managers</h2>
+      <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2>
+      <h2 v-else class="text-h4 ml-3">Built By Property & Facility Managers</h2>
       <p></p>
       <p>
         SOWerk is built from the ground up as a software for businesses that
@@ -87,14 +176,15 @@
         <div class="joinproductstepcontainerstep step-right">
           <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
           <div class="getStarted">
-            <h1>Step 1 <span>-Register Company Account & Locations</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 1 <span>-Register Company Account & Locations</span></h1>
+            <h1 v-else >Step 1<br /> <span class="pr-2" style="width:90%;font-size:7vw">-Register Company Account & Locations</span></h1>
             <p>
               After setting up your account and locations, SOWerk makes it easy
               to filter approved service providers quickly and easily for any
               location across the country.
-              <p class="innerList">
+              <p class="innerList d-flex-row"  style="">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Manage One Or Thousands Of Locations
               </p>
@@ -102,7 +192,7 @@
                 <span>
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
-                Add Staff Accounts Per Location or Multiple
+                Add Staff Accounts For One Location Or Multiple
               </p>
               <p class="innerList">
                 <span>
@@ -110,13 +200,13 @@
                 </span>
                 Invite Existing Vendors To Connect For Free
               </p>
-
             </p>
           </div>
         </div>
         <div class="joinproductstepcontainerstep step-left" style="padding-left:3%">
           <div class="getStarted">
-            <h1>Step 2 <span>- Find Or Invite Service Providers</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 <span>- Find Or Invite Service Providers</span></h1>
+            <h1 v-else>Step 2 <span class="pr-2" style="width:90%;font-size:7vw"><br/>- Find Or Invite Service Providers</span></h1>
             <p>
               Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
               <!-- <v-row style="max-width: 950px; flex-direction: row;flex-wrap: no-wrap;align-items:center;" justify="center">
@@ -161,7 +251,8 @@
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
           <div class="getStarted" style="padding-right:2%;">
-            <h1>Step 3 <span>- Super Simple Management</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 3 <span>- Super Simple Management</span></h1>
+            <h1 v-else>Step 3 <span class="pr-2" style="width:90%;font-size:7vw"><br/>- Super Simple Management</span></h1>
             <p>
               What’s the point of great power if you can’t manage it? SOWerk’s
               simple-to-use interface allows you to stay up-to-date and manage
