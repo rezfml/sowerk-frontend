@@ -147,12 +147,8 @@
     </section>
 
     <section class="joinproductdescription pt-13 pb-3">
-<<<<<<< HEAD
-      <h2 class="text-h4 text-center">Built By Property & Facility Managers</h2>
-=======
       <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2>
       <h2 v-else class="text-h4 ml-3">Built By Property & Facility Managers</h2>
->>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
       <p></p>
       <p>
         SOWerk is built from the ground up as a software for businesses that
@@ -187,14 +183,8 @@
             <p>
               After setting up your account and locations, SOWerk makes it easy
               to filter approved service providers quickly and easily for any
-<<<<<<< HEAD
-              location across the country. </p>
-             
-      <p class="innerList">
-=======
               location across the country.
               <p class="innerList d-flex-row"  style="">
->>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
                 <span>
                   <img class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
@@ -211,12 +201,8 @@
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Invite Existing Vendors To Connect For Free
-<<<<<<< HEAD
-              </p>           
-=======
               </p>
             </p>
->>>>>>> f98e764b79f268f66896f5a01c0275b48abed076
           </div>
         </div>
         <div class="joinproductstepcontainerstep step-left" style="padding-left:3%">
@@ -401,7 +387,7 @@ export default {
 }
 .joinproducthero {
   width: 100%;
-  height: 60vh;
+  height: 80vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/macbook-336704copy.jpg');
   background-size: cover;

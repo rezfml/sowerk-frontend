@@ -11,54 +11,138 @@
       </svg> -->
     </section>
 
-    <section class="joinservicetraits">
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
-        />
-        <h3>Simple & Fast</h3>
-        <p>
-          Our simple design makes connecting with other companies quick and
-          painless while using either the desktop or mobile app.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
-        />
-        <h3>Powerful Tools</h3>
-        <p>
-          SOWerk is designed from it’s core to solve for property and facility
-          management by providing the tools to vet & communicate grow service
-          providers.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
-        />
-        <h3>Automated</h3>
-        <p>
-          SOWerk has many automated features that help make everyone’s life
-          easy, like automatically requiring service providers to requalify or
-          automatically updating a service provider’s profile every time they
-          achieve approved vendor status.
-        </p>
-      </div>
-      <div>
-        <img
-          src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
-        />
-        <h3>Convenient</h3>
-        <p>
-          For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
-          provider that powers his business through a smart phone, SOWerk is
-          design to be convenient.
-        </p>
-      </div>
-    </section>
 
+
+   <!-- NEW SECTION - Join Traits Section -->
+    <v-container
+      fluid
+      grid-list-md
+      text-center
+      pb-16
+      class="joinservicetraits"
+      style="background:#a61c00; display: flex; justify-content: center; align-items:center; flex-direction: column"
+    >
+      <v-layout row style="max-width: 1280px; flex-wrap: wrap;">
+        <!-- CARD 1 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px; "
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/checkmarkcopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Simple & Fast</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              Our simple design makes connecting with other companies quick and
+              painless while using either the desktop or mobile app.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 2 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px;"
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardcopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Powerful Tools</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 3 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px;"
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/networkcopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Automations</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status.
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- CARD 4 -->
+        <v-col cols="12" lg="3" sm="6" class="d-flex">
+          <v-card
+            align="center"
+            class="mx-1 py-3 flex-grow-1"
+            style="border-radius: 20px;"
+          >
+            <div
+              class="d-none d-sm-flex"
+              style="width: 150px; height: auto; padding-top:30px; padding-bottom: 15px;"
+            >
+              <v-img
+                src="https://sowerk-images.s3.us-east-2.amazonaws.com/opinioncopy.png"
+                style="object-fit: contain;"
+              ></v-img>
+            </div>
+            <v-card-text
+              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              >Convenient</v-card-text
+            >
+            <div
+              class="py-3"
+              style="width: 80%; font-size: 1rem; text-align: center"
+            >
+              For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient.
+            </div>
+          </v-card>
+        </v-col>
+      </v-layout>
+    </v-container>
+
+  <!-- NEW SECTION - PRICING LEVELS -->
   <div class="PricingContainer  d-flex justify-space-around" v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
     
     <section class="packages" v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
@@ -164,9 +248,11 @@
       </v-row>
     </section>
 
+
+<!-- NEW SECTION TOOLS TO GROW -->
   </div>
     <section class="joinservicedescription">
-      <h2>Tools To Grow Your Business</h2>
+      <h2 class="text-h4">Tools To Grow Your Business</h2>
       <p></p>
       <p>
         SOWerk makes it possible for a service providers like you to connect
@@ -179,6 +265,8 @@
       <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
     </section>
 
+
+<!-- NEW SECTION - JOIN STEPS -->
     <section class="joinservicesteps">
       <div class="joinservicestepscontainer">
         <div class="joinservicestepcontainerstep">
@@ -233,7 +321,7 @@
     </section>
 
 
-    <!-- SERVICE PROVIDER OFTEN ASK -->
+    <!-- NEW SECTION - SERVICE PROVIDER OFTEN ASK -->
  <v-flex class="pt-16 pb-16" style="background: #EDEDED">
       <v-container>
         <v-row>
@@ -337,6 +425,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 #notificationMock{
   margin-left:-10%;
@@ -364,7 +454,7 @@
 }
 .joinservicehero {
   width: 100%;
-  height: 70vh;
+  height: 80vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/tape-measure-1726546copy.jpg');
   background-size: cover;
@@ -407,12 +497,6 @@
   width: 80%;
 }
 .joinservicetraits {
-  background: #a61c00;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
   position: relative;
 }
 .joinservicetraits:before {
@@ -429,31 +513,6 @@
   transform:skewY(-2deg);
 }
 
-.joinservicetraits div {
-  width: 20%;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 20px;
-  margin: -125px 5px 50px 5px;
-    z-index: 5;
-
-}
-.joinservicetraits div img {
-  width: 50%;
-  /* height: 200px; */
-}
-.joinservicetraits div h3 {
-  font-size: 22px;
-  margin: 10px 0px 10px 0px;
-}
-.joinservicetraits div p {
-  width: 80%;
-  font-size: 18px;
-}
 .joinservicedescription {
   width: 100%;
   background: #151515;
@@ -462,6 +521,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 45px;
+  padding-bottom: 30px;
 }
 
 .joinservicedescription p {
@@ -484,8 +545,14 @@
 }
 
 .joinservicesteps {
-  background: #47494e;
-  background: linear-gradient(180deg,#444 5%,rgba(43,43,43,.9)),url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
+  background:linear-gradient(
+      180deg,
+      rgba(68, 68, 68, 1) 35%,
+      rgba(43, 43, 43, 0.9) 100%
+    ),url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+    background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -552,38 +619,6 @@
 }
 
 
-@media (max-width: 1350px) {
-  .joinservicetraits div {
-    width: 21%;
-    height: 450px;
-  }
-
-  .joinservicetraits div img {
-    height: 120px;
-    width: 120px;
-  }
-}
-
-@media (max-width: 1350px) {
-  .joinservicetraits div {
-    height: 425px;
-    width: 21%;
-  }
-
-  .joinservicetraits div img {
-    height: 110px;
-    width: 110px;
-  }
-
-  .joinservicetraits div h3 {
-    font-size: 19px;
-  }
-
-  .joinservicetraits div p {
-    font-size: 15.5px;
-  }
-}
-
 @media (max-width: 1080px) {
   .joinservicehero div h1 {
     font-size: 52px;
@@ -601,40 +636,6 @@
 
   .joinservicehero div p {
     font-size: 21px;
-  }
-
-  .joinservicetraits {
-    flex-wrap: wrap;
-  }
-
-  .joinservicetraits div {
-    flex: 0 45%;
-    height: 425px;
-    max-width: 320px;
-  }
-
-  .joinservicetraits div img {
-    height: 120px;
-    width: 120px;
-  }
-
-  .joinservicetraits div h3 {
-    font-size: 20px;
-  }
-
-  .joinservicetraits div p {
-    font-size: 16px;
-  }
-
-  .joinservicetraits div:nth-child(1),
-  .joinservicetraits div:nth-child(2) {
-    /* margin-bottom: 20px; */
-    margin: 50px 15px 20px 15px;
-  }
-
-  .joinservicetraits div:nth-child(3),
-  .joinservicetraits div:nth-child(4) {
-    margin: 20px 15px 50px 15px;
   }
 
   .joinservicedescription p {
@@ -758,10 +759,4 @@
   }
 }
 
-
-@media (max-width: 600px) {
-  .joinservicetraits div {
-    flex: 0 60%;
-  }
-}
 </style>
