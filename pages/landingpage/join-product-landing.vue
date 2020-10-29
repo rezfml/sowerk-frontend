@@ -15,7 +15,7 @@
 
 
 <!-- NEW SECTION POWERFUL BUSINESS TOOLS -->
-<!-- <PFPowerfulTools/> -->
+<PFPowerfulTools/>
 
 
     <!-- <section v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="joinproducttraits">
