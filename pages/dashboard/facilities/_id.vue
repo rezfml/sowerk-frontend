@@ -13,11 +13,11 @@
 <!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
 <!--            </v-card>-->
 <!--          </v-row>-->
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
           <transition name="slide-fade">
           <FacilitiesCard
             :title="'Location Approved Vendors'"
