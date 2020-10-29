@@ -9,7 +9,7 @@
         ></FilterCard>
       </v-col>
       <v-col cols="9" class="ml-n4">
-        <v-card class="white pt-0 mt-12 mb-4">
+        <v-card class="white pt-0 mt-4 mb-4">
           <v-progress-circular
             v-if="loading != true"
             indeterminate
