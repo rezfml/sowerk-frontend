@@ -17,7 +17,7 @@
     <v-card class="my-16 height:auto;">
       <UserCard
         v-if="users.length > 0 && loading === true"
-        :title="'List of Users For Company - ' + company.account_name"
+        :title="'List of Users - ' + company.account_name"
         :items="users"
         :tableProperties="headers"
         :viewAll="false"

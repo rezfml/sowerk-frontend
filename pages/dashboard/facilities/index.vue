@@ -231,7 +231,7 @@
             ]
           },
           {
-            name: 'Service Needs',
+            name: 'Vendor Category',
             items: [
               'HVAC',
               'Electrical',
