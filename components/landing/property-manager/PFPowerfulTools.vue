@@ -1,7 +1,7 @@
 <template>
 
 <v-container fluid style="background: #EDEDED; display: flex; flex-direction: column; justify-content: center; align-items: center;" class=skew-top>
-  <p class="text-h3 pt-10 pb-5" style="color: #9D1A00; text-align: center; font-weight:bold; z-index: 1">Powerful Business Tools - Absolutely Free</p>
+  <p class="text-h4 text-sm-h3 pt-10 pb-5" style="color: #9D1A00; text-align: center; font-weight:bold; z-index: 1;">Powerful Business Tools - Absolutely Free</p>
 
   <v-card class="elevation-0" style="max-width: 1400px; background:transparent; width: 90%; justify-content: center">
 
@@ -178,7 +178,16 @@
         <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">LOCATIONS & STAFF</p>
       </v-col>
     </v-row>
-
+  </v-card>
+  
+    <v-btn
+              class="text-uppercase primary mx-auto text-sm-body-1 mt-10 mb-16"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              @click='$router.push("/register/property-manager")'
+              >Register Now</v-btn
+            >
   </v-card>
 </v-container>
 
