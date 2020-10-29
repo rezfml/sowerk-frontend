@@ -3,14 +3,23 @@
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
         <v-card class="white">
+          <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              :size="50"
+            ></v-progress-circular>
+          </div>
           <v-data-table
             :items="requestingLocations"
             :headers="providerHeaders"
+            v-else
           >
             <template v-slot:item.actions="{ item }" class="d-flex">
               <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
             </template>
           </v-data-table>
+
 <!--          <v-simple-table>-->
 <!--            <thead>-->
 <!--              <tr>-->
@@ -75,6 +84,7 @@ export default {
         { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
       ],
+      loading: false,
     }
   },
   mounted() {
@@ -83,6 +93,7 @@ export default {
   },
   methods: {
     async getActiveUserforms() {
+        this.loading = true;
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/userforms/active').catch(e => e);
         this.activeUserforms = data;
     },
@@ -128,6 +139,7 @@ export default {
       let uniqueLocations = [...new Set(this.requestingLocations)];
       console.log(uniqueLocations);
       this.requestingLocations = uniqueLocations;
+      this.loading = false;
 
     },
     async getWholeCompanyObject(business_id) {
