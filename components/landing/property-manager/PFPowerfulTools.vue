@@ -1,17 +1,17 @@
 <template>
 
-<v-container fluid style="background: #EDEDED; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-  <p class="text-h3 pt-10 pb-5" style="color: #9D1A00; text-align: center; font-weight:bold;">Powerful Business Tools - Absolutely Free</p>
+<v-container fluid style="background: #EDEDED; display: flex; flex-direction: column; justify-content: center; align-items: center;" class=skew-top>
+  <p class="text-h3 pt-10 pb-5" style="color: #9D1A00; text-align: center; font-weight:bold; z-index: 1">Powerful Business Tools - Absolutely Free</p>
 
   <v-card class="elevation-0" style="max-width: 1400px; background:transparent; width: 90%; justify-content: center">
 
     <!-- FIRST ROW FIND VENDORS   -->
     <v-row class="py-10" style="height: 350px; min-height: 350px;">
-      <v-col cols="2" style="background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px;">
-        <img src=""/>
-        <p style="color: white; text-align: center; font-weight: bold">FIND VENDORS</p>
+      <v-col cols="3 elevation-1" md="2" style="text-align: center; display: flex; align-items: center;flex-direction: column; justify-content: center; background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px; z-index: 1">
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/searching.png"/>
+        <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">FIND VENDORS</p>
       </v-col>
-      <v-col cols="8 py-6" style="background: white; border-top-right-radius: 25px; display: flex; align-items: center; border-bottom-right-radius: 25px">
+      <v-col cols="9 py-6 elevation-1" md="8" style="background: white; border-top-right-radius: 25px; display: flex; align-items: center; border-bottom-right-radius: 25px;  z-index: 1">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -48,8 +48,12 @@
     </v-row>
 
 <!-- SECOND ROW VET VENDORS -->
-    <v-row class="py-10 justify-end" style="height: 350px; min-height: 350px;">
-      <v-col cols="8 py-6" style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center;">
+    <v-row class="py-10 justify-end flex-md-row flex-row-reverse" style="height: 350px; min-height: 350px;">
+    <v-col cols="2" style="position: relative; z-index: 1" class="d-none d-sm-none d-md-flex">
+        <!-- RED LINES -->
+        <div style="position: absolute; top: -100px; left: 100px; height: 250px; width: 150px; border-left: 4px solid rgb(166, 28, 0); border-bottom: 4px solid rgb(166, 28, 0);"></div>
+    </v-col>
+      <v-col cols="9 py-6 elevation-1" md="8" style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center; z-index: 2">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -89,19 +93,19 @@
           </v-col>
         </v-row>
       </v-col>
-       <v-col cols="2" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px;">
-        <img src=""/>
-        <p style="color: white; text-align: center; font-weight: bold">VET VENDORS</p>
+       <v-col cols="3 elevation-1" md="2" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px; text-align: center; display: flex; align-items: center;flex-direction: column; justify-content: center;">
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/Group+233.png"/>
+        <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">VET VENDORS</p>
       </v-col>
     </v-row>
 
      <!-- THIRD ROW MANAGE VENDORS   -->
     <v-row class="py-10" style="height: 350px; min-height: 350px;">
-      <v-col cols="2" style="background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px;">
-        <img src=""/>
-        <p style="color: white; text-align: center; font-weight: bold">MANAGE VENDORS</p>
+      <v-col cols="3 elevation-1" md="2" style="background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px; z-index: 1; display: flex; align-items: center;flex-direction: column; justify-content: center;">
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/management.png"/>
+        <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">MANAGE VENDORS</p>
       </v-col>
-      <v-col cols="8 py-6" style="background: white; border-top-right-radius: 25px; border-bottom-right-radius: 25px; display: flex; align-items: center;">
+      <v-col cols="9 py-6 elevation-1" md="8" style="background: white; border-top-right-radius: 25px; border-bottom-right-radius: 25px; display: flex; align-items: center;  z-index: 2">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -141,11 +145,19 @@
           </v-col>
         </v-row>
       </v-col>
+       <v-col cols="2" style="position: relative;" class="d-none d-sm-none d-md-flex">
+        <!-- RED LINES -->
+        <div style="position: absolute; top: -100px; left: -50px; height: 250px; width: 150px; border-right: 4px solid rgb(166, 28, 0); border-bottom: 4px solid rgb(166, 28, 0);"></div>
+    </v-col>
     </v-row>
 
 <!-- FOURTH ROW LOCATIONS AND STAFF -->
-    <v-row class="py-10 justify-end" style="height: 350px; min-height: 350px;">
-      <v-col cols="8 py-6" style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center;">
+    <v-row class="py-10 justify-end flex-md-row flex-row-reverse" style="height: 350px; min-height: 350px;">
+        <v-col cols="2" style="position: relative;" class="d-none d-sm-none d-md-flex">
+        <!-- RED LINES -->
+        <div style="position: absolute; top: -100px; left: 100px; height: 250px; width: 150px; border-left: 4px solid rgb(166, 28, 0); border-bottom: 4px solid rgb(166, 28, 0);"></div>
+    </v-col>
+      <v-col cols="9 py-6 elevation-1" md="8"  style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center; z-index: 1">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -161,9 +173,9 @@
           </v-col>
         </v-row>
       </v-col>
-       <v-col cols="2" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px;">
-        <img src=""/>
-        <p style="color: white; text-align: center; font-weight: bold">LOCATIONS & STAFF</p>
+       <v-col cols="3 elevation-1" md="2" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px; z-index: 1; display: flex; align-items: center;flex-direction: column; justify-content: center;">
+        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/location.png"/>
+        <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">LOCATIONS & STAFF</p>
       </v-col>
     </v-row>
 
@@ -190,5 +202,19 @@
 </script>
 
 <style scoped>
+.skew-top {
+    position:relative;
+}
 
+.skew-top:before {
+    position: absolute;
+    content: '';
+    background: inherit;
+    top:0;
+    right:0;
+    bottom: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: skewY(-2deg)
+}
 </style>
