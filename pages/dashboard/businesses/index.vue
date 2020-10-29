@@ -253,8 +253,9 @@
       async getBusinesses(companyType) {
         if(companyType === 'true') {
           this.locations = [];
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/type/' + companyType).catch(e => e);
+          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false').catch(e => e);
           this.businesses = data;
+          if(this.businesses.length === 0) this.loading = false;
           console.log(data);
           // this.businesses = data.users.filter(function(user) {
           //   return user.user_type == 1;
@@ -312,12 +313,36 @@
             for (const location of data.locations) {
               this.$nextTick(function() {
                 this.locations.push(location);
+                this.getService(location);
+                if(this.locations.length === 1) {
+                  this.loading = false;
+                }
               })
             }
           } else {
           }
         }
-        await this.getServices();
+        // await this.getServices();
+      },
+      async getService(location) {
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/services/bylocationid/' + location.id).catch(e => e);
+        if(data) {
+          for (const service of data) {
+            let serviceObj = {
+              id: service.id,
+              location_id: location.id,
+              service: service.name,
+              name: location.name,
+              address: location.address + ' ' + location.city + ', ' + location.state + ' ' + location.zipcode,
+              primary_contact: location.contact_first_name + ' ' + location.contact_last_name,
+              phone: location.phone
+            };
+
+            this.services.push(serviceObj);
+            console.log(this.services);
+          }
+        }
+        this.loading = false;
       },
       async getServices() {
         for (const location of this.locations) {
@@ -336,6 +361,7 @@
               };
 
               this.services.push(serviceObj);
+              console.log(this.services);
             }
           }
         }

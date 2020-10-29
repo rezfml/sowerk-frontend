@@ -57,7 +57,7 @@
           ></FilterCard>
         </v-col>
         <v-col cols="9">
-          <v-row class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
+          <v-row class="d-flex flex-column justify-space-between align-center mt-6" style="background: linear-gradient(to right, #A61C00, #741502);">
             <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
             <v-btn
               style=""
