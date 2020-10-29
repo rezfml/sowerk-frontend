@@ -91,7 +91,7 @@
         <v-col cols="12" sm="10" md="5" class="d-flex px-0 px-sm-3">
           <v-card
             align="center"
-            class="ma-0 flex-grow-1"
+            class="ma-0 flex-grow-1 card-link-outer"
             style="border-radius: 20px; width: 100% "
           >
             <v-card-title class="px-0">
@@ -163,10 +163,12 @@
                     <li>- Military</li>
                   </ul>
                 </v-col>
-
-                <v-col cols="12" class="d-flex">
+              </v-row>
+            </v-card-text>
+            <v-card-actions height="10%" class="pt-16">
+               <v-col cols="12" class="d-flex">
                   <v-btn
-                    style="color: white; background:#A61C00; border-radius: 16px;"
+                    style="color: white; background:#A61C00; border-radius: 16px; display: flex;"
                     block
                     large
                     class="flex-grow-1"
@@ -174,8 +176,7 @@
                     >Businesses - Learn More</v-btn
                   >
                 </v-col>
-              </v-row>
-            </v-card-text>
+            </v-card-actions>    
           </v-card>
         </v-col>
 
@@ -782,7 +783,7 @@ export default {
   data: () => ({
     allReviews: [],
     reviews: [],
-    fab:false,
+    fab: false,
   }),
   components: {
     Reviews,
@@ -797,9 +798,7 @@ export default {
   methods: {
     async getAllReviews() {
       let { data, status } = await this.$http
-        .get(
-          'https://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0'
-        )
+        .get('https://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0')
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
       this.$nextTick(function () {
@@ -819,19 +818,24 @@ export default {
         console.log(this.reviews, 'reviews')
       })
     },
-    onScroll (e) {
+    onScroll(e) {
       if (typeof window === 'undefined') return
-      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      const top = window.pageYOffset || e.target.scrollTop || 0
       this.fab = top > 20
     },
-    toTop () {
+    toTop() {
       this.$vuetify.goTo(0)
-    }
+    },
   },
 }
 </script>
 
 <style scoped>
+.card-link-outer {
+  display: flex;
+  flex-direction: column;
+}
+
 .wrap-text {
   -webkit-line-clamp: unset !important;
   overflow: visible !important;
@@ -883,19 +887,21 @@ export default {
 .joinconnection {
   background: linear-gradient(
       180deg,
-      rgba(68, 68, 68, 1) 35%,
-      rgba(43, 43, 43, 0.9) 100%
+      rgba(43, 43, 43, 1) 35%,
+      rgba(40, 40, 40, 0.9) 100%
     ),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+     background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-size: contain;
-  background-position: bottom;
-  background-repeat: no-repeat;
+  position: relative;
 }
+
 .joinconnection h1 {
   color: white;
   width: 100%;
@@ -918,6 +924,7 @@ export default {
   width: 30%;
   margin: 20px 10px 20px 10px;
 }
+
 .border1 {
   border-top: 5px solid #a61c00;
   border-left: 5px solid #a61c00;
