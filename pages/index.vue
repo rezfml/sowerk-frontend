@@ -69,7 +69,7 @@
       fluid
       text-center
       pb-8
-      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%);; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
+      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;position:relative;z-index:1;"
       class="skew-top"
     >
       <v-row align="center" justify="center">
@@ -149,8 +149,9 @@
 
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
+                  
                     style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
-                    class="pl-12 pl-sm-12 list1"
+                    class="pl-12 pl-sm-12 list1" 
                   >
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate</li>
@@ -161,10 +162,14 @@
                     <li>- School Districts</li>
                     <li>- Residential Investments</li>
                     <li>- Military</li>
-                  </ul>
-                </v-col>
 
+                  </ul>
+                  <br/>
+
+                </v-col>
+                <v-row  class="d-flex justify-end mt-16">
                 <v-col cols="12" class="d-flex">
+                  
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px;"
                     block
@@ -174,6 +179,7 @@
                     >Businesses - Learn More</v-btn
                   >
                 </v-col>
+                </v-row>
               </v-row>
             </v-card-text>
           </v-card>
@@ -279,16 +285,18 @@
                     <li>- Consultant</li>
                   </ul>
                 </v-col>
-
-                <v-col cols="12 mt-4" align-self-end>
+                <v-row class="d-flex justify-end">
+                <v-col cols="12 mt-4" align-self-end > 
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
                     large
                     to="/landingpage/join-service-landing"
+                    
                     >Vendors - Learn More</v-btn
                   >
                 </v-col>
+                </v-row>
               </v-row>
             </v-card-text>
           </v-card>

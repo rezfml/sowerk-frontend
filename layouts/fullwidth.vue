@@ -1,7 +1,7 @@
 <template>
   <v-app dark width="auto" class="d-flex flex-column" style="min-height: 100vh;">
     <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
-    <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;"  >
+    <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;z-index:6"  >
     <v-container class="fill-height" >
       <v-row align="center" justify="center">
         <v-btn text color="white" @click.stop="drawer = !drawer">
@@ -167,7 +167,7 @@ header {
 
 .desktop-navbar:before {
   background: rgb(34,34,34);
-  background: linear-gradient(180deg, rgba(30,30,30,0.8) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 15%, rgba(0,0,0,0.15) 50%);
   position: absolute;
   content: "";
   height: 200%;
