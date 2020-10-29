@@ -11,8 +11,9 @@
             v-model="userForms.formfields"
             @change="reorderFormField"
           >
+
             <v-card style="width: 100%;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...userForms.formfields}">
-              <v-card-text class="d-flex justify-space-between" style="">
+              <v-card-text class="d-flex justify-space-between" v-bind:style="{ backgroundColor: colors[index % 2], color: 'white'}">
                 <v-icon style="width: 10%;">mdi-cursor-move</v-icon>
                 <p style="width: 70%; text-align: center">{{index}} - {{form.name}} - {{form.id}}</p>
                 <v-btn style="width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
@@ -29,8 +30,8 @@
           :list="formTypes"
           :group="{ name: 'formName', pull: 'clone', put: false }"
         >
-          <v-card style="width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes">
-            <v-card-text class="d-flex justify-space-between" style="">
+          <v-card style="width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
+            <v-card-text class="d-flex justify-space-between" v-bind:style="{ backgroundColor: colors[index % 2], color: 'white'}">
               <v-icon style="width: 10%;">mdi-cursor-move</v-icon>
               <p>{{form.name}}</p>
               <v-btn style="width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
@@ -125,6 +126,7 @@
           'date'
         ],
         saveLoad: true,
+        colors: ["#a61c00", "#707070"]
       }
     },
     created() {
