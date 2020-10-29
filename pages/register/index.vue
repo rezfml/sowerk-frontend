@@ -55,6 +55,7 @@
 
                       <v-col cols="12">
                         <p class="text-center mx-auto mt-4" style="max-width: 350px; font-size:2vh">If you provide a service, supply businesses with supplies/equipment, or even wholesale merchandise register for SOWerk here.</p>
+                        <br/>
                       </v-col>
 
                       <v-col cols="12">

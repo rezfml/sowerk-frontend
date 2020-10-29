@@ -47,13 +47,13 @@
                 </template>
                 <template v-slot:item.service="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p v-if="company.company_type != 'false'">{{item.services}}</p>
-                    <p v-else>{{item.servicesOffered}}</p>
+                    <p v-if="company.company_type != 'false'">{{item.services[0]}}</p>
+                    <p v-else>{{item.servicesOffered[0]}}</p>
                   </v-row>
                 </template>
                 <template v-slot:item.services="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.services}}</p>
+                    <p>{{item.services[0]}}</p>
                   </v-row>
                 </template>
                 <template v-slot:item.companyName="{item}">
@@ -179,13 +179,13 @@
             </template>
             <template v-slot:item.service="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p v-if="company.company_type != 'false'">{{item.services}}</p>
-                <p v-else>{{item.servicesOffered}}</p>
+                <p v-if="company.company_type != 'false'">{{item.services[0]}}</p>
+                <p v-else>{{item.servicesOffered[0]}}</p>
               </v-row>
             </template>
             <template v-slot:item.services="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.services}}</p>
+                <p>{{item.services[0]}}</p>
               </v-row>
             </template>
             <template v-slot:item.companyName="{item}">
@@ -300,7 +300,7 @@ export default {
       ],
       filters: [
         {
-          name: 'Location',
+          name: 'Proximity',
           items: [
             'State',
             'National',

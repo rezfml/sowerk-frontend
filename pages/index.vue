@@ -69,7 +69,7 @@
       fluid
       text-center
       pb-8
-      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%);; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
+      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;position:relative;z-index:1;"
       class="skew-top"
     >
       <v-row align="center" justify="center">
@@ -98,7 +98,7 @@
               <p style="width: 100%;">Local & National Businesses</p>
             </v-card-title>
 
-            <v-card-text>
+            <v-card-text style="flex-grow: 1">
               <v-row justify-center>
                 <v-col>
                   <v-img
@@ -149,8 +149,9 @@
 
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
+                  
                     style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
-                    class="pl-12 pl-sm-12 list1"
+                    class="pl-12 pl-sm-12 list1" 
                   >
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate</li>
@@ -161,11 +162,12 @@
                     <li>- School Districts</li>
                     <li>- Residential Investments</li>
                     <li>- Military</li>
+
                   </ul>
                 </v-col>
               </v-row>
             </v-card-text>
-            <v-card-actions height="10%" class="pt-16">
+            <v-card-actions>
                <v-col cols="12" class="d-flex">
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px; display: flex;"
@@ -194,14 +196,14 @@
         <v-col cols="12" sm="10" md="5" class="d-flex px-0 px-sm-3">
           <v-card
             align="center"
-            class="ma-0 flex-grow-1"
+            class="ma-0 flex-grow-1 card-link-outer"
             style="border-radius: 20px;"
           >
             <v-card-title class="px-0">
               <p style="width: 100%">Service & Product Vendors</p>
             </v-card-title>
 
-            <v-card-text>
+            <v-card-text style="flex-grow: 1">
               <v-row
                 style="display: flex; flex-direction: column; flex-wrap: nowrap"
               >
@@ -280,18 +282,22 @@
                     <li>- Consultant</li>
                   </ul>
                 </v-col>
-
-                <v-col cols="12 mt-4" align-self-end>
+                <v-row class="d-flex justify-end">
+                </v-row>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+               <v-col cols="12 mt-4" align-self-end > 
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
                     large
                     to="/landingpage/join-service-landing"
+                    
                     >Vendors - Learn More</v-btn
                   >
                 </v-col>
-              </v-row>
-            </v-card-text>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>

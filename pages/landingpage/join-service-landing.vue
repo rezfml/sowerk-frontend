@@ -38,7 +38,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Simple & Fast</v-card-text
             >
             <div
@@ -68,7 +68,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Powerful Tools</v-card-text
             >
             <div
@@ -97,7 +97,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Automations</v-card-text
             >
             <div
@@ -126,7 +126,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Convenient</v-card-text
             >
             <div
