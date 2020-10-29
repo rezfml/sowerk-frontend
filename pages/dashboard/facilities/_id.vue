@@ -288,10 +288,19 @@
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
-            if(this.locationCondition === true) {
-              await this.getConnectionTable(this.company.id)
-            } else {
-              await this.getLocation();
+
+
+            // If Property Manager
+            if(this.company.company_type === 'true') {
+              if(this.locationCondition === true) {
+                await this.getConnectionTable(this.company.id)
+              } else {
+                await this.getLocation();
+              }
+            //  Else if Service Provider
+            } else if(this.company.company_type === 'false') {
+              console.log('Service provider');
+              this.loading = false;
             }
           })
           .catch(err => {
@@ -400,7 +409,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         data.created = moment(data.created).format('l').slice(6,10);
         this.location = data;
-        console.log(this.location, 'getLocation this.location')
+        console.log(this.location, 'getLocation this.location');
         await this.getApprovedLocationConnections(this.location.id)
       },
       async getApprovedLocationConnections(id) {

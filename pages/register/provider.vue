@@ -52,10 +52,10 @@
                   <v-form class="mx-auto register-form" ref="companyDetails">
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="5" md="6">
+                        <v-col cols="12" sm="5" md="6" class="mb-12 px-12">
                           <v-row fill-height class="pl-2 fill-height">
-                            <v-col cols="12" class="d-flex justify-center align-center">
-                              <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="companyImageFile"></v-img>
+                            <v-col cols="12" class="d-flex justify-center align-center px-12">
+                              <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" style="max-height: 300px; width: 100%; max-width: 300px;" v-if="companyImageFile"></v-img>
                               <v-icon v-else :size="100">person</v-icon>
                             </v-col>
                             <v-col cols="12" class="d-flex flex-column justify-center">
@@ -78,7 +78,7 @@
                           </v-row>
                         </v-col>
 
-                        <v-col cols="12" sm="7" md="6">
+                        <v-col cols="12" sm="7" md="6" class="d-flex flex-column justify-space-between">
                           <v-text-field
                             label="First Name (Your SOWerk Admin Account)*"
                             type="text"
@@ -172,11 +172,10 @@
                             item-value="value"
                             :items="bestSelection"
                             v-model="company.isFranchise"
-                            :rules="rules.requiredRules"
                           ></v-select>
                         </v-col>
 
-                        <v-col cols="12" sm="6">
+                        <v-col cols="12" sm="6" v-if="company.isFranchise">
                           <v-text-field
                             id="company-llc"
                             label="List your LLC Name (If Applicable)"
@@ -187,48 +186,43 @@
                           ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="Email Address*"
-                            type="email"
-                            placeholder=" "
-                            class="card__input black--text"
-                            v-model="company.email"
-                            :rules="rules.emailRules"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="Phone*"
-                            type="text"
-                            placeholder=" "
-                            class="card__input black--text"
-                            v-model="company.phone"
-                            :rules="rules.phoneRules"
-                          ></v-text-field>
-                        </v-col>
-
                         <v-col cols="12">
                           <div class="v-input__control">
                             <div class="v-input__slot">
                               <div class="v-text-field__slot" style="width: 100%;">
                                 <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
                                 <client-only>
-                                  <vue-google-autocomplete
-                                    id="company-address"
-                                    classname="form-control"
-                                    v-on:placechanged="getAddressData"
-                                    placeholder=""
-                                    style="width: 100%; font-size: 16px; padding: 2px 0"
-                                    v-on:focus.native="animateAddressFieldOnFocus"
-                                    v-on:blur.native="animateAddressFieldOnFocus"
-                                    v-on:input.native="animateAddressFieldOnFilled"
-                                    v-model="fullAddress"
-                                    :rules="rules.requiredRules"
-                                    required
-                                  >
-                                  </vue-google-autocomplete>
+<!--                                  <form autocomplete="off">-->
+<!--                                    <vue-google-autocomplete-->
+<!--                                      id="company-address"-->
+<!--                                      classname="form-control"-->
+<!--                                      v-on:placechanged="getAddressData"-->
+<!--                                      placeholder=""-->
+<!--                                      style="width: 100%; font-size: 16px; padding: 2px 0"-->
+<!--                                      v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                                      v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                                      v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                                      v-model="fullAddress"-->
+<!--                                      :rules="rules.requiredRules"-->
+<!--                                      required-->
+<!--                                    >-->
+<!--                                      -->
+<!--                                    </vue-google-autocomplete>-->
+                                    <vue-google-autocomplete
+                                      id="company-address"
+                                      classname="form-control"
+                                      v-on:placechanged="getAddressData"
+                                      style="width: 100%; font-size: 16px; padding: 2px 0"
+                                      placeholder=""
+                                      :rules="rules.requiredRules"
+                                      v-on:focus="focusAddressField"
+                                      v-on:input="focusAddressField"
+                                      v-model="fullAddress"
+                                      onfocus="this.setAttribute('autocomplete', 'new-password');"
+                                    >
+
+                                    </vue-google-autocomplete>
+<!--                                  </form>-->
                                 </client-only>
                               </div>
                             </div>
@@ -474,9 +468,9 @@
             <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
             <v-btn color="primary" outlined class="px-8 mx-8 saveBtn" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add <br v-if="$vuetify.breakpoint.mobile"/> Another Location </v-btn>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
+            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
             <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast; editingLocation = false" v-else-if="tab === 2">Review</v-btn>
+            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-else-if="tab === 2">Review</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
             </v-col>
           </v-card-actions>
@@ -527,7 +521,7 @@
           'Review'
         ],
         company: {
-          email: '',
+          // email: '',
           account_name: '',
           brand_name: '',
           address: '',
@@ -535,7 +529,7 @@
           state: '',
           zipcode: '',
           description: '',
-          phone: '',
+          // phone: '',
           year_founded: '',
           company_type: false,
           isFranchise: false,
@@ -581,11 +575,7 @@
           documentVisible: false,
           companies_id: null
         },
-        insuranceFiles: [
-          {
-            file: null
-          }
-        ],
+        insuranceFiles: [],
         licenses: [
           {
             type: '',
@@ -606,11 +596,7 @@
           documentVisible: false,
           companies_id: null
         },
-        licenseFiles: [
-          {
-            file: null
-          }
-        ],
+        licenseFiles: [],
         companyImageFile: null,
         companyImageUrl: null,
         options: {
@@ -723,6 +709,9 @@
         ]
       }
     },
+    mounted() {
+      vueGoogleMapsInit();
+    },
     computed: {
       confirmPasswordRules() {
         return [
@@ -744,6 +733,9 @@
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
         console.log(this.companyImageUrl);
       },
+      focusAddressField() {
+        console.log('focus');
+      },
       clickCompanyImageUpload() {
         console.log(this);
         // let imageInput = this.$refs.companyImage;
@@ -752,25 +744,27 @@
         document.getElementById('companyImage').click();
       },
       nextPageIfNotLast() {
-        if (this.tab === 2) return;
+        console.log(this.tab);
+        if (this.tab === 3) return;
         if(!this.validate(this.tab)) return;
         this.tab += 1
         console.log(this.locations)
       },
       validate(tab) {
-        console.log(this.$refs.companyDetails);
-        if(tab == 0) {
-          if (!this.$refs.companyDetails.validate()) {
-            this.$nextTick(() => {
-              this.$vuetify.goTo('.error--text');
-            });
-            return false;
-          }
-          return true;
-        }
+        // console.log(this.$refs.companyDetails);
+        // if(tab == 0) {
+        //   if (!this.$refs.companyDetails.validate()) {
+        //     this.$nextTick(() => {
+        //       this.$vuetify.goTo('.error--text');
+        //     });
+        //     return false;
+        //   }
+        //   return true;
+        // }
 
         console.log(tab);
         console.log(this.$refs.companyDetails.$refs.register);
+        return true;
       },
       prevPageIfNotFirst() {
         if(this.tab === 0) return;
@@ -808,6 +802,7 @@
         this.editingInsurance = true;
       },
       getAddressData(addressData) {
+        console.log('wtf mate');
         console.log(addressData);
         this.company.address = addressData.street_number + ' ' + addressData.route;
         this.company.city = addressData.locality;
@@ -904,8 +899,12 @@
         this.loading = true;
 
         await this.uploadCompanyImage();
-        this.loopInsuranceFilesForUpload();
-        this.loopLicenseFilesForUpload();
+        if(this.insuranceFiles.length > 0) {
+          this.loopInsuranceFilesForUpload();
+        }
+        if(this.licenseFiles.length > 0) {
+          this.loopLicenseFilesForUpload();
+        }
 
         await this.loopLocationImages();
 
