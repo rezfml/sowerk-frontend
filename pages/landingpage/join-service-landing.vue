@@ -202,14 +202,12 @@
         </div>
       </div>
       <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <polygon points="0,100 110,0 100,100" />
-      </svg>
+    
     </section>
 
 
     <!-- NEW SECTION - SERVICE PROVIDER OFTEN ASK -->
- <v-flex class="pt-16 pb-16" style="background: #EDEDED">
+ <v-flex class="pt-16 pb-16 skew-top" style="background: #EDEDED">
       <v-container>
         <v-row>
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
@@ -299,6 +297,24 @@
 </script>
 
 <style scoped>
+.skew-top {
+  position: relative;
+  z-index: 30;
+}
+
+.skew-top:before {
+position: absolute;
+content: '';
+background: inherit;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+z-index: -20;
+transform-origin: top left;
+transform: skewY(-2deg)
+}
+
 .PricingContainer{
   display: flex;
   flex-direction: column;
@@ -444,6 +460,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 100px;
 }
 
 .joinservicesteps .joinservicestepscontainer {

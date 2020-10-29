@@ -73,7 +73,7 @@
       class="skew-top"
     >
       <v-row align="center" justify="center">
-        <v-col cols="11">
+        <v-col cols="11" class="pa-0">
           <p
             class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
             style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
@@ -603,7 +603,7 @@
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
               style="font-size: 30px"
-              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+              class="mb-0 mb-sm-8 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
               Common Questions By Businesses
             </p>
@@ -677,8 +677,8 @@
         <v-row>
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
-              style="font-size: 30px"
-              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+              style="font-size: 30px;"
+              class="mb-0 mb-sm-8 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
               Vendors Generally Ask
             </p>

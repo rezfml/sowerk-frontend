@@ -23,39 +23,89 @@
                 </v-text-field>
               </v-col>
 
-              <v-col cols="12" class="pt-0">
-<!--                <v-text-field-->
-<!--                  light-->
-<!--                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"-->
-<!--                  v-model="locationEdit.address"-->
-<!--                >-->
-<!--                  <template v-slot:label>-->
-<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Property Address</p>-->
-<!--                  </template>-->
-<!--                </v-text-field>-->
-                <div class="v-input theme--light v-text-field v-text-field--is-booted">
-                  <div class="v-input__control">
-                    <div class="v-input__slot" style="width: 100%;">
-                      <label for="company_address" class="v-label theme--light form__label--address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>
-                      <client-only>
-                        <vue-google-autocomplete
-                          id="company-address"
-                          classname="form-control"
-                          v-on:placechanged="getAddressData"
-                          placeholder=""
-                          style="width: 100%;"
-                          v-on:focus.native="animateAddressFieldOnFocus"
-                          v-on:blur.native="animateAddressFieldOnFocus"
-                          v-on:input.native="animateAddressFieldOnFilled"
-                          validate-on-blur
-                          v-model="fullAddress"
-                        >
-                        </vue-google-autocomplete>
-                      </client-only>
-                    </div>
-                    <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
-                  </div>
-                </div>
+<!--              <v-col cols="12" class="pt-0">-->
+<!--&lt;!&ndash;                <v-text-field&ndash;&gt;-->
+<!--&lt;!&ndash;                  light&ndash;&gt;-->
+<!--&lt;!&ndash;                  placeholder="1935 S Campbell Ave, Springfield, MO 65807"&ndash;&gt;-->
+<!--&lt;!&ndash;                  v-model="locationEdit.address"&ndash;&gt;-->
+<!--&lt;!&ndash;                >&ndash;&gt;-->
+<!--&lt;!&ndash;                  <template v-slot:label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Property Address</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </template>&ndash;&gt;-->
+<!--&lt;!&ndash;                </v-text-field>&ndash;&gt;-->
+<!--                <div class="v-input theme&#45;&#45;light v-text-field v-text-field&#45;&#45;is-booted">-->
+<!--                  <div class="v-input__control">-->
+<!--                    <div class="v-input__slot" style="width: 100%;">-->
+<!--                      <label for="company_address" class="v-label theme&#45;&#45;light form__label&#45;&#45;address" style="left: 0px; right: auto; position: absolute;">Company Address*</label>-->
+<!--                      <client-only>-->
+<!--                        <vue-google-autocomplete-->
+<!--                          id="company-address"-->
+<!--                          classname="form-control"-->
+<!--                          v-on:placechanged="getAddressData"-->
+<!--                          placeholder=""-->
+<!--                          style="width: 100%;"-->
+<!--                          v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                          v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                          v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                          validate-on-blur-->
+<!--                          v-model="fullAddress"-->
+<!--                        >-->
+<!--                        </vue-google-autocomplete>-->
+<!--                      </client-only>-->
+<!--                    </div>-->
+<!--                    <div class="v-text-field__details"><div class="v-messages theme&#45;&#45;light"><div class="v-messages__wrapper"></div></div></div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                -->
+<!--              </v-col>-->
+
+              <v-col cols="12" md="4" class="py-0">
+                <v-text-field
+                  light
+                  placeholder=""
+                  v-model="location.address"
+                  clearable
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Company Address</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="3" class="py-0">
+                <v-text-field
+                  light
+                  placeholder=""
+                  v-model="location.city"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Company City</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="3" class="py-0">
+                <v-text-field
+                  light
+                  placeholder=""
+                  v-model="location.state"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Company State</p>
+                  </template>
+                </v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="2" class="py-0">
+                <v-text-field
+                  light
+                  placeholder=""
+                  v-model="location.zipcode"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Company Zipcode</p>
+                  </template>
+                </v-text-field>
               </v-col>
 
               <v-col cols="12" md="3" class="py-0">
@@ -141,7 +191,7 @@
               <v-col cols="12" md="6" class="py-0">
                 <v-select id="location-Admin"
                           label="Admin Level"
-                          :items="adminLevels"
+                          :items="adminOptions"
                           v-model="location.adminLevel">
 
                 </v-select>
@@ -436,7 +486,16 @@
         description: null,
         image: null,
         fullAddress: null,
-        adminLevel: null,
+        adminOptions: [
+          {
+            text: 'Super Admin',
+            value: 1
+          },
+          {
+            text: 'Staff Account',
+            value: 0
+          }
+        ],
         locationEdit: {
           name: null,
           address: null,
@@ -513,7 +572,20 @@
           })
       },
       async updateLocation() {
-        let {data, status} = await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit).catch(e => e);
+        if(this.location.adminLevel === 'Super Admin') {
+          this.location.adminLevel = this.adminOptions[0].value
+        } else {
+          this.location.adminLevel = this.adminOptions[1].value
+        }
+        await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit)
+          .then(response => {
+            console.log(response, 'success')
+            alert('succesfully edited!')
+            this.$router.go();
+          })
+          .catch(e => {
+            console.log(e, 'err in updating')
+          });
 
         // this.$nextTick(function() {
         //   this.locationEdit = data;
