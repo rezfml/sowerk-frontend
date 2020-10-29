@@ -20,9 +20,8 @@
           </v-col>
         </v-row>
       </v-card-actions>
-      <v-card-text class="pt-0 pb-2">
+      <v-card-text class="pt-0 pb-2" v-if="items.length > 0">
         <v-data-table
-
                 :items="items"
                 :headers="tableProperties"
                 :items-per-page="5"
