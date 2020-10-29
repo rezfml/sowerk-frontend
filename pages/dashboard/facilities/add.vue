@@ -334,8 +334,12 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       async submit() {
         console.log(this.currentUser);
         console.log(this.form);
-        let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form).catch(e => e);
-        console.log(data);
+        await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form)
+          .then(response => {
+            console.log(response, 'success in submitting new location')
+            this.$router.push('../../../dashboard/facilities')
+          })
+          .catch(e => e);
       }
     }
   }
