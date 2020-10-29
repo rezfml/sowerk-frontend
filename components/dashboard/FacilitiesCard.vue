@@ -37,12 +37,12 @@
               >
                 <template v-slot:item.address="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                    <p class="mb-0">{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
                   </v-row>
                 </template>
                 <template v-slot:item.addressCityState="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.city}}, {{item.state}}</p>
+                    <p class="mb-0">{{item.city}}, {{item.state}}</p>
                   </v-row>
                 </template>
                 <template v-slot:item.service="{item}">
@@ -53,7 +53,7 @@
                 </template>
                 <template v-slot:item.services="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.services}}</p>
+                    <p class="mb-0">{{item.services}}</p>
                   </v-row>
                 </template>
                 <template v-slot:item.companyName="{item}">
@@ -71,7 +71,7 @@
                 <template v-slot:item.name="{ item }">
                   <v-row class="d-flex" cols="12" md="6">
                     <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
-                    <p>{{item.name}}</p>
+                    <p class="mb-0">{{item.name}}</p>
                   </v-row>
                 </template>
 
@@ -168,13 +168,13 @@
             :items-per-page="10"
           >
             <template v-slot:item.address="{item}">
-              <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              <v-row class="d-flex py-12" cols="12" md="6">
+                <p class="mb-0">{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
               </v-row>
             </template>
             <template v-slot:item.addressCityState="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.city}}, {{item.state}}</p>
+                <p class="mb-0">{{item.city}}, {{item.state}}</p>
               </v-row>
             </template>
             <template v-slot:item.service="{item}">
@@ -185,11 +185,11 @@
             </template>
             <template v-slot:item.services="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.services}}</p>
+                <p class="mb-0">{{item.services}}</p>
               </v-row>
             </template>
             <template v-slot:item.companyName="{item}">
-              <v-row class="d-flex" cols="12" md="6">
+              <v-row class="d-flex justify-center" cols="12" md="6">
                 <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
                 <p v-else>
                   <v-progress-circular
@@ -201,15 +201,15 @@
               </v-row>
             </template>
             <template v-slot:item.name="{ item }">
-              <v-row class="d-flex" cols="12" md="6">
+              <v-row class="d-flex justify-center" cols="12" md="6">
                 <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
-                <p>{{item.name}}</p>
+                <p class="mb-0">{{item.name}}</p>
               </v-row>
             </template>
 
             <template class="d-flex" v-slot:item.full_name="{ item }">
               <v-icon color="primary">mdi-account</v-icon>
-              <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+              <p class="mb-0">{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
             </template>
 
             <template class="d-flex" v-slot:item.fullname="{ item }">
