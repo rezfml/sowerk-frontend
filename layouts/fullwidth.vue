@@ -127,11 +127,11 @@ export default {
           title: 'Businesses',
           path: '../../landingpage/join-product-landing',
         },
-        {
+       /* {
           icon: 'About SOW',
           title: 'About SOW',
           path: '../../landingpage/about',
-        },
+        },*/
         {
           icon: 'Register',
           title: 'Register',
