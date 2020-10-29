@@ -424,7 +424,7 @@
     </div>
     <section style="background-color:#2b2b2b;  
     transform-origin: top left;
-    transform: skewY(2deg);margin-bottom:-15%">
+    transform: skewY(2deg);margin-bottom:-5%">
     <v-card v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '10%'" class="py-16 my-12 d-flex justify-center" outlined style="border:none;background-color:#2b2b2b;" align="center">
     <v-container style="transform-origin: top left;
     transform: skewY(-2deg); ">
