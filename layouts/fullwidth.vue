@@ -39,8 +39,8 @@
   </v-sheet>
   </v-app-bar>
 
-    <v-app-bar :clipped-left="clipped" hide-on-scroll
- app color="rgba(0,0,0,0.5)" flat v-else class="desktop-navbar">
+    <v-app-bar :clipped-left="clipped"
+ app color="rgba(0,0,0,0.5)" flat v-else :class="{change_color: scrollPosition > 50}" class="desktop-navbar" style="z-index: 5000">
     <v-container style="padding-top:35px;">
         <v-row >
           <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;" alt="SOWerk"></v-img></v-btn>
@@ -68,26 +68,24 @@
     </v-content>
 
 <!-- -----------FOOTER----------- -->
-    <v-footer style="background:#a61c00; color: white; height: auto; width: 100%">
-      <v-row style="text-align: center" align="center">
+    <v-footer style="background:#a61c00; color: white; height: auto; width: 100%; display: flex;flex-direction: column">
+      <v-row style="text-align: center; width: 100%;" class="pb-15 pb-sm-0" align="center">
 
-      <!-- SOWERK IMAGE LOGO -->
-      <v-col cols="4">
-        <div style="text-align: right;">
-          <img width="120px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk" />
-          <p style="color: white;"><a href="/terms&conditions" style="text-decoration: none; color: white; font-size: 12px;">Terms & Conditions</a></p>
-          <p style="color: white; margin-top: -10px;"><a href="/privacypolicy" style="text-decoration: none; color: white; font-size: 12px;">Privacy Policy</a></p>
-        </div>
+      <!-- TERMS CONDITIONS PRIVACY -->
+      <v-col cols="4" class="text-left  text-sm-right" style="display: flex; flex-direction: column; font-size:11px">
+        <ul>
+          <li style="list-style: none"><a href="/terms&conditions" style="text-decoration: none;color: white">Terms & Conditions</a></li>
+          <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
+        </ul>
       </v-col>
 
-        <!-- TRADEMARK -->
-       <v-col cols="4" style="font-size: 12px">
-         <span>SOWerk &copy; {{ new Date().getFullYear() }}</span><br>
-         <span>All Rights Reserved.</span>
+        <!-- SOWERK LOGO -->
+       <v-col cols="4">
+          <img width="120px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk" />
       </v-col>
 
       <!-- FOOTER LINKS -->
-       <v-col cols="4" style="display: flex; flex-direction: column;">
+       <v-col cols="4" style="display: flex; flex-direction: column;" class="d-none d-sm-flex">
          <ul>
          <li :href=item.path
           v-for="item in items"
@@ -100,7 +98,11 @@
         </li>
         </ul>
       </v-col>
-
+      </v-row>
+       <!-- COPYRIGHT -->
+      <v-row style="font-size: 10.5px; justify-content: center;">
+        <span>SOWerk &copy; {{ new Date().getFullYear() }}</span><br>
+         <span>All Rights Reserved.</span>
       </v-row>
     </v-footer>
   </v-app>
@@ -110,6 +112,7 @@
 export default {
   data() {
     return {
+      scrollPosition: null,
       clipped: false,
       drawer: false,
       fixed: false,
@@ -146,6 +149,14 @@ export default {
       title: 'SOWerk',
     }
   },
+  methods: {
+    updateScroll() {
+       this.scrollPosition = window.scrollY
+    }
+},
+mounted() {
+    window.addEventListener('scroll', this.updateScroll);
+}
 }
 </script>
 
@@ -168,5 +179,11 @@ header {
 .desktop-navbar.v-app-bar--is-scrolled:before {
   transform: translateY(-64px);
 }
+
+.change_color {
+    background-color:white;
+}
+
+
 
 </style>
