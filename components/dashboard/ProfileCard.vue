@@ -22,7 +22,11 @@
           <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Joined SOWerk: {{location.created}}</v-card-text>
         </v-row>
 
+        <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
+
           <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Providers At This Facility</v-card-text>
+
+        <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
           <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Staff Admin</span>
             <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Super Admin</span></v-card-text>
@@ -58,6 +62,7 @@
         <p class="body-2">Founded: {{company.year_founded}}</p>
         <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
       </template>
+
     </v-card-text>
 
     <v-divider v-if="user" class="mx-auto" style="width: 90%;"></v-divider>

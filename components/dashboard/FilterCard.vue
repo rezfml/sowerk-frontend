@@ -40,7 +40,7 @@
       },
       loadModal: {
         type: Boolean,
-        required: true
+        required: false
       }
     },
     data() {
