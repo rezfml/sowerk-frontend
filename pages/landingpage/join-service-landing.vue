@@ -312,7 +312,7 @@ bottom: 0;
 left: 0;
 z-index: -20;
 transform-origin: top left;
-transform: skewY(-2deg)
+transform: skewY(-2deg);
 }
 
 .PricingContainer{

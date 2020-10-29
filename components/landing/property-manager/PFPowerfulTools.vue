@@ -11,7 +11,7 @@
         <img class="d-none d-sm-flex" src="https://sowerk-images.s3.us-east-2.amazonaws.com/searching.png"/>
         <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">FIND VENDORS</p>
       </v-col>
-      <v-col cols="9 py-6 elevation-1" md="8" style="background: white; border-top-right-radius: 25px; display: flex; align-items: center; border-bottom-right-radius: 25px;  z-index: 1">
+      <v-col cols="9 py-6 elevation-1" md="9" style="background: white; border-top-right-radius: 25px; display: flex; align-items: center; border-bottom-right-radius: 25px;  z-index: 1">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -29,7 +29,11 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
+<<<<<<< HEAD
+            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Publish Your Customize Vendor Requirements To SOWerk To Receive Applications, Similar To Posting On A Job&nbsp;Board</p>
+=======
             <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Publish Your Customized Vendor Requirements To SOWerk To Receive Applications, Similar To Posting On A Job Board</p>
+>>>>>>> 4abbc58a03ca4818d320add10d583601e24cd084
           </v-col>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -129,7 +133,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - SOWerk Requests, A Communication Solution Integrated Across SOWerk For Service Requests & Bidding </p>
+            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - SOWerk Requests, A Communication Solution Integrated Across SOWerk For Service Requests &&nbsp;Bidding </p>
           </v-col>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -141,7 +145,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - Vendor Reviews & Analytics, Giving You The Tools To Log Reviews/Notes & Access To Vendor Analytics.</p>
+            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - Vendor Reviews & Analytics, Giving You The Tools To Log Reviews/Notes & Access To Vendor&nbsp;Analytics.</p>
           </v-col>
         </v-row>
       </v-col>
@@ -169,7 +173,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.5em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">SOWerk Staff Accounts Offer You The Tools To Create Structure Within Your Company. A Staff Account Can Be Limited To One Property Location Or A Select Few Where He/She Can Find, Vet, & Manage Vendors For only That Location</p>
+            <p  style="line-height: 1.5em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">SOWerk Staff Accounts Offer You The Tools To Create Structure Within Your Company. A Staff Account Can Be Limited To One Property Location Or A Select Few Where He/She Can Find, Vet, & Manage Vendors For only That&nbsp;Location</p>
           </v-col>
         </v-row>
       </v-col>
