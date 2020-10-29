@@ -1,12 +1,29 @@
 <template>
   <v-app class="grey lighten-3">
-    <div cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
+    <template v-if="loading || !company">
+      <v-container class="px-0 fill-height" style="max-width: 95%;">
+        <v-row style="height: 100%;">
+          <v-col cols="4" class="py-12">
+            <v-card height="300" class="d-flex justify-center align-center">
+              <v-progress-circular
+                indeterminate
+                color="primary"
+                :size="50"
+              ></v-progress-circular>
+            </v-card>
+          </v-col>
+          <v-col cols="8" class="py-12 d-flex flex-column justify-space-between">
+            <v-card height="300" class="d-flex justify-center align-center">
+              <v-progress-circular
+                indeterminate
+                color="primary"
+                :size="50"
+              ></v-progress-circular>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
     <template v-else>
       <v-container class="px-0 fill-height" style="max-width: 95%;" v-if="company && company.company_type === 'true'">
         <v-row style="height: 100%;">
