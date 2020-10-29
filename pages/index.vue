@@ -672,7 +672,7 @@
     </v-flex>
 
 <!-- SERVICE PROVIDER OFTEN ASK -->
- <v-flex class="pt-16 pb-16" style="background: #EDEDED">
+ <v-flex class="pt-16 pb-16" style="background: #EDEDED url('https://sowerk-images.s3.us-east-2.amazonaws.com/asset1.png') no-repeat; background-position: 1100px 50px;">
       <v-container>
         <v-row>
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
@@ -686,7 +686,7 @@
               max-width="950px"
               :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
               class="mx-auto"
-              style="background: #EDEDED"
+              style="background: transparent"
             >
             <!-- QUESTION ONE -->
             <v-row class="pt-8 " style="max-width: 950px;" justify="center">
