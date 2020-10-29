@@ -180,7 +180,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
 
         filters: [
           {
-            name: 'Location',
+            name: 'Proximity',
             items: [
               'State',
               'National',
