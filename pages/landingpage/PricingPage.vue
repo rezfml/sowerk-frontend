@@ -3,17 +3,17 @@
     <section v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" style="margin-bottom:20%;" class="abouthero" >
       <h1 style="width:90%;font-size:3.5vw;margin-top:-10px;;">SOWerk Vendors Start Now For Free</h1>
       <h2 style="font-size:1.8vw;margin-top:-200px;color:white;">No Credit Card Needed - Get Started in Minutes - It's 100% Free</h2>
-      <v-btn rounded outlined color="white" style="width:15vw;margin-top:20px;margin-bottom:5%;"> Get Started Now</v-btn>
+      <v-btn @click='$router.push("/register/provider")'  rounded outlined color="white" style="width:15vw;margin-top:20px;margin-bottom:5%;"> Get Started Now</v-btn>
     </section>
     <section v-else-if="!$vuetify.breakpoint.xs" class="abouthero" >
       <h1 style="width:90%;font-size:3.5vw;margin-top:-50px;">SOWerk Vendors Start Now For Free</h1>
       <h2 style="font-size:1.8vw;margin-top:-200px;color:white;">No Credit Card Needed - Get Started in Minutes - It's 100% Free</h2>
-      <v-btn rounded outlined color="white" style="width:25vw;margin-top:20px; font-size:1.8vw"> Get Started Now</v-btn>
+      <v-btn @click='$router.push("/register/provider")'  rounded outlined color="white" style="width:25vw;margin-top:20px; font-size:1.8vw"> Get Started Now</v-btn>
     </section>
     <section v-else class="abouthero" >
       <h1 style="width:90%;font-size:5vw;margin-top:50px;">SOWerk Vendors Start Now For Free</h1>
       <h2 style="font-size:3.5vw;margin-top:-200px;color:white;">No Credit Card Needed - Get Started in Minutes -<br/><span class="d-flex justify-center"> It's 100% Free</span></h2>
-      <v-btn rounded outlined color="white" style="width:50vw;margin-top:20px; font-size:3.8vw"> Get Started Now</v-btn>
+      <v-btn @click='$router.push("/register/provider")'  rounded outlined color="white" style="width:50vw;margin-top:20px; font-size:3.8vw"> Get Started Now</v-btn>
     </section>
 <section style="margin-bottom:30%;" v-if="!$vuetify.breakpoint.md && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
 <v-container fluid style="
