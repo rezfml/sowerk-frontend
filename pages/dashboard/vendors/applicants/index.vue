@@ -1,42 +1,53 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container class="px-0" style="max-width: 95%;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
-      <v-row>
-        <v-col cols="12" class="d-flex flex-column justify-start">
-          <ActiveApplicationsCard
-            v-if="applications.length > 0"
-            :title="'My Active Applications'"
-            :tableProperties="headers"
-            :viewAll="false"
-            :items="applications"
-            :loadingRequests="loading"
-            slug="/dashboard/vendors/applicants"
-          ></ActiveApplicationsCard>
-        </v-col>
-      </v-row>
-    </v-container>
+    <template v-if="loading">
+      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          :size="50"
+        ></v-progress-circular>
+      </v-col>
+    </template>
+    <template v-else>
+      <v-container class="px-0" style="max-width: 95%;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
+        <v-row>
+          <v-col cols="12" class="d-flex flex-column justify-start">
+            <ActiveApplicationsCard
+              v-if="applications.length > 0"
+              :title="'My Active Applications'"
+              :tableProperties="headers"
+              :viewAll="false"
+              :items="applications"
+              :loadingRequests="loading"
+              slug="/dashboard/vendors/applicants"
+            ></ActiveApplicationsCard>
+          </v-col>
+        </v-row>
+      </v-container>
 
-    <v-container class="px-0" style="max-width: 95%;" v-else>
-      <v-row>
-        <v-col cols="3">
-          <FilterCard
-            title="Filter"
-            :filters="filters"
-          ></FilterCard>
-        </v-col>
-        <v-col cols="9" class="d-flex flex-column justify-start">
-          <ActiveApplicationsCard
-            v-if="applications.length > 0"
-            :title="'My Active Applications'"
-            :tableProperties="headers"
-            :viewAll="false"
-            :items="applications"
-            :loadingRequests="loading"
-            slug="/dashboard/vendors/applicants"
-          ></ActiveApplicationsCard>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-container class="px-0" style="max-width: 95%;" v-else>
+        <v-row>
+          <v-col cols="3">
+            <FilterCard
+              title="Filter"
+              :filters="filters"
+            ></FilterCard>
+          </v-col>
+          <v-col cols="9" class="d-flex flex-column justify-start">
+            <ActiveApplicationsCard
+              v-if="applications"
+              :title="'My Active Applications'"
+              :tableProperties="headers"
+              :viewAll="false"
+              :items="applications"
+              slug="/dashboard/vendors/applicants"
+            ></ActiveApplicationsCard>
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
+
   </v-app>
 </template>
 
@@ -160,15 +171,15 @@
           }
         ],
         headers: [
-          { text: 'Service', value: 'services', class: 'primary--text font-weight-regular' },
+          { text: 'Service', value: 'serviceName', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
-          { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-regular' },
-          { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-regular' },
-          { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-regular' },
+          // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-regular' },
+          // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-regular' },
+          // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         applications: [],
@@ -188,10 +199,12 @@
     },
     methods: {
       async getApplications(id) {
+        this.loading = true;
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
             for(let i=0; i<response.data.length; i++){
+              console.log(response.data[i]);
               if(response.data[i].approval_status === 0) {
                 this.applications.push(response.data[i]);
                 console.log(i, 'i')
@@ -203,9 +216,17 @@
                 await this.getSPCompany(this.companyId);
                 await this.getSPLocation(this.locationId);
                 this.applicationsCount++;
-                this.loading = true;
+                setTimeout(() => {
+                  this.$forceUpdate();
+                }, 2000);
+                this.applications.forEach(application => {
+                  application.subData = JSON.parse(application.subData);
+                })
+                this.loading = false;
+                console.log(this.applications, 'applications parsed');
               }
             }
+            this.loading = false;
           })
           .catch(err => {
             console.log('err in getting applications', err);

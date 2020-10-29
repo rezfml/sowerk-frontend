@@ -63,24 +63,36 @@
         </v-select>
       </v-col>
 
-      <v-row>
+      <v-row class="mt-12">
         <v-col cols="12" md="6">
           <div class="v-input__control">
             <div class="v-input__slot">
-              <div class="v-text-field__slot" style="width: 100%;">
+              <div class="v-text-field__slot" style="width: 100%;" ref="addressField">
                 <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
                 <client-only>
+                  <form autocomplete="off">
+<!--                    <vue-google-autocomplete-->
+<!--                      :id="'location-address&#45;&#45;' + index"-->
+<!--                      classname="form-control"-->
+<!--                      v-on:placechanged="getAddressData"-->
+<!--                      placeholder=""-->
+<!--                      style="width: 100%; font-size: 16px; padding: 2px 0"-->
+<!--                      v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                      v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                      v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                      v-model="fullAddress"-->
+<!--                      autocomplete="none"-->
+<!--                    >-->
+                  </form>
                   <vue-google-autocomplete
-                    :id="'location-address--' + index"
+                    :id="'location-address--' + index + ' addressField'"
                     classname="form-control"
                     v-on:placechanged="getAddressData"
                     placeholder=""
                     style="width: 100%; font-size: 16px; padding: 2px 0"
-                    v-on:focus.native="animateAddressFieldOnFocus"
-                    v-on:blur.native="animateAddressFieldOnFocus"
-                    v-on:input.native="animateAddressFieldOnFilled"
                     v-model="fullAddress"
                     autocomplete="none"
+                    onfocus="this.setAttribute('autocomplete', 'new-password');"
                   >
                   </vue-google-autocomplete>
                 </client-only>
@@ -111,7 +123,7 @@
         </v-col>
       </v-row>
 
-    <v-col cols="12">
+    <v-col cols="12" class="mx-0 px-0">
       <v-text-field
         id="description"
         v-model="location.description"
@@ -172,6 +184,18 @@
       <span class="text-h6 mb-0">Add Location Manager or Franchisee</span>
     </v-col>
 
+    <v-col cols="12">
+      <v-checkbox
+        v-model="userIsManager"
+        @change="setUserAsManager"
+        :label="`This location will be managed by: ${user.first_name} ${user.last_name}`"
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 mb-0">This location will be managed by: <span class="primary--text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>
+        </template>
+      </v-checkbox>
+    </v-col>
+
     <v-col cols="12" md="5">
       <v-text-field
         placeholder=" "
@@ -212,15 +236,6 @@
           <p class="grey--text text--darken-4 font-weight-bold">Admin Level*</p>
         </template>
       </v-select>
-    </v-col>
-
-    <v-col cols="12" md="6">
-      <!--      <v-checkbox v-model="location.pfLogoCheckbox"-->
-      <!--                  :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">-->
-      <!--        <template v-slot:label>-->
-      <!--          <p class="grey&#45;&#45;text text&#45;&#45;darken-4 mb-0">This location will be managed by: <span class="primary&#45;&#45;text font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span></p>-->
-      <!--        </template>-->
-      <!--      </v-checkbox>-->
     </v-col>
 
     <v-col cols="12" md="6">
@@ -266,6 +281,7 @@ import Vue from 'vue';
 //   installComponents: true
 // })
 
+
 export default {
   name: 'LocationForm',
   props: {
@@ -293,6 +309,7 @@ export default {
       miles: [
         '','','','','','','','','','','100','','','','','150','','','','','200'
       ],
+      userIsManager: false,
       adminLevel: [
         {
           text: 'Super Admin',
@@ -342,6 +359,7 @@ export default {
     }
   },
   mounted() {
+    vueGoogleMapsInit();
     this.formatFullAddress();
   },
   methods: {
@@ -355,6 +373,16 @@ export default {
         const map = $circleObject.getMap(); //get map instance
         map.fitBounds($circleObject.getBounds());
       })
+    },
+    setUserAsManager() {
+      console.log(this.userIsManager)
+      if(this.userIsManager) {
+        console.log(this.user);
+        this.location.contact_first_name = this.user.first_name;
+        this.location.contact_last_name  = this.user.last_name;
+        this.location.phone              = this.user.phone;
+        this.location.email              = this.user.email;
+      }
     },
     emitPlaceChanged(e) {
 
