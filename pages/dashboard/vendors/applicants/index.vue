@@ -4,7 +4,6 @@
       <v-row>
         <v-col cols="12" class="d-flex flex-column justify-start">
           <ActiveApplicationsCard
-            v-if="applications.length > 0"
             :title="'My Active Applications'"
             :tableProperties="headers"
             :viewAll="false"
@@ -26,7 +25,6 @@
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-start">
           <ActiveApplicationsCard
-            v-if="applications.length > 0"
             :title="'My Active Applications'"
             :tableProperties="headers"
             :viewAll="false"

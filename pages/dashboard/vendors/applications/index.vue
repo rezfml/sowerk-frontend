@@ -48,6 +48,7 @@
           <tr  v-for="(location, index) in locations" style="background: none !important;">
             <div v-for="(service, indexService) in location.services">
               <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
+
                 <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
@@ -67,7 +68,7 @@
                   </v-switch>
                 </td>
                 <td style="width: 10%;" class="d-flex flex-column align-center">
-                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">View/Edit</v-btn>
+                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>
                   <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
                 </td>
               </div>
@@ -91,14 +92,36 @@
           :items="applicationTemplates"
           :items-per-page="10"
           class="pt-16"
+          :expanded.sync="expanded"
+          item-key="name"
+          show-expand
         >
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              <v-simple-table>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th>Question</th>
+                    <th>Name</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="app in item.applicationtemplatesformfields" :key="app.name">
+                    <td>Question# {{app.order}}</td>
+                    <td>{{ app.name }}</td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </td>
+          </template>
           <template v-slot:item.questions="{item}">
             <p>{{item.applicationtemplatesformfields.length}}</p>
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex">
-              <v-icon class="mx-2" style="width: 25%;">mdi-arrow-down</v-icon>
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Add to a Location</v-btn>
+              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Location</v-btn>
               <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 37.5%;">Add to Company Templates</v-btn>
             </div>
           </template>
@@ -120,13 +143,38 @@
           :items="companyTemplates"
           :items-per-page="10"
           class="pt-16"
+          :expanded.sync="expanded"
+          show-expand
+          single-expand
         >
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              <v-simple-table>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th>Question</th>
+                    <th>Name</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="app in item.companytemplatesformfields" :key="app.name">
+                    <td>Question# {{app.order}}</td>
+                    <td>{{ app.name }}</td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </td>
+          </template>
+
+
           <template v-slot:item.questions="{item}">
             <p>{{item.companytemplatesformfields.length}}</p>
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex">
-              <v-btn @click="viewCompanyTemplate(item)" class="mx-2" style="width: 30%;">View/Edit</v-btn>
+              <v-btn @click="viewCompanyTemplate(item)" class="mx-2" style="width: 30%;">Edit</v-btn>
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Add to Location</v-btn>
               <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 30%;">Delete</v-btn>
             </div>
@@ -137,10 +185,10 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:absolute; top: 5vh; left: 20px; width: 95%; height: 70vh;" v-if="addToLocationLoad">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Categories For All Locations</v-card-title>
+      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
+      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Location</v-card-title>
       <template v-if="loading">
-        <v-simple-table class="pt-16" style="width: 95%; margin: 0 auto;">
+        <v-simple-table class="pt-16 mb-4" style="width: 95%; margin: 0 auto;">
           <thead >
           <tr class="d-flex justify-start">
             <th style="color: #a61c00; width: 10%; text-align: center">Id</th>
@@ -158,7 +206,7 @@
                 <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
                 <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center">
-                  <v-btn @click="assignToService(service.id, service.name)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign to this Service & Location</v-btn>
+                  <v-btn @click="assignToService(service.id, service.name)" class="my-1" color="#707070" style="color: white; width: 70%;">Assign Template</v-btn>
                 </td>
             </div>
           </tr>
@@ -173,7 +221,7 @@
       <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
       <v-card-title class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
       <v-card-title v-if="step1" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
-      <v-card-title v-if="step2" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Enter in the form name</v-card-title>
+      <v-card-title v-if="step2" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Application Name & Category</v-card-title>
       <v-card-title v-if="step3" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 3 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
         <transition name="slide-fade">
         <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
@@ -194,7 +242,7 @@
               <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
               <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
               <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center">
-                <v-btn @click="assignToServiceVendor(service.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign to this Service & Location</v-btn>
+                <v-btn @click="assignToServiceVendor(service.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Location</v-btn>
               </td>
             </div>
           </tr>
@@ -204,7 +252,8 @@
         <transition name="slide-fade">
       <v-form class="py-16 mt-16 d-flex flex-column align-center" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
         <v-text-field
-          label="User Form Name Goes Here"
+          label="Name Your Application"
+          placeholder="Plumbing Vendor App - Brookfield Store"
           v-model="assignUserform.name"
           style="width: 100%; align-self: center;"
         >
@@ -299,6 +348,8 @@ import draggable from "vuedraggable"
     },
     data () {
       return {
+        expanded: [],
+        singleExpand: true,
         locations: [],
         services: [],
         userForms: [],
@@ -501,6 +552,8 @@ import draggable from "vuedraggable"
         this.step2 = false;
         this.step3 = false;
         this.step3finishedFormFields = false;
+        this.expanded = [];
+        this.singleExpand = true;
       },
       async loadYourCompanyTemplatesFunction() {
         if(this.loadYourCompanyTemplates != true) {
@@ -514,7 +567,8 @@ import draggable from "vuedraggable"
         this.step2 = false;
         this.step3 = false;
         this.step3finishedFormFields = false;
-
+        this.expanded = [];
+        this.singleExpand = true;
       },
       async loadApplicationTemplatesFunction() {
         if(this.loadApplicationTemplates != true) {
@@ -528,6 +582,8 @@ import draggable from "vuedraggable"
         this.step2 = false;
         this.step3 = false;
         this.step3finishedFormFields = false;
+        this.expanded = [];
+        this.singleExpand = true;
       },
       async addNewVendorFormLoading() {
         this.addNewVendorFormLoad = true;

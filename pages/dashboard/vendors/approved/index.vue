@@ -12,7 +12,7 @@
 
         <v-col cols="12">
           <v-row class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
-            <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
+            <p style="color: white; font-size: 24px;" class="pt-4">Looking For A New Vendor? Search The SOWerk Directory.</p>
             <v-btn
               style=""
               class="px-16 mb-4"
@@ -21,10 +21,10 @@
               rounded
               color="white"
               href="/dashboard/vendors/"
-            >View All</v-btn>
+            >Search Directory</v-btn>
           </v-row>
           <v-row class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
-            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
+            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Already Know Vendors To Invite? Use The SOWerk Invite Tool.</p>
             <v-btn
               style=""
               class="px-16 mb-4"

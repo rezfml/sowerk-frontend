@@ -36,11 +36,11 @@
       },
       locationApproved: {
         type: Boolean,
-        required: true
+        required: false
       },
       loadModal: {
         type: Boolean,
-        required: true
+        required: false
       }
     },
     data() {

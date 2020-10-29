@@ -266,12 +266,12 @@
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
-            text: 'My Properties',
+            text: 'My Locations',
             children: [
               {
                 to: '/dashboard/facilities/',
                 slug: 'facilities',
-                text: 'My Properties'
+                text: 'My Locations'
               },
               {
                 to: '/dashboard/facilities/add',
@@ -383,12 +383,12 @@
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
-            text: 'My Properties',
+            text: 'My Locations',
             children: [
               {
                 to: '/dashboard/facilities/',
                 slug: 'facilities',
-                text: 'My Properties'
+                text: 'My Locations'
               },
             ]
           },
