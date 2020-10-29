@@ -111,7 +111,7 @@ padding-top: 5%;">
           provides companies and property managers the tools to efficiently
           identify, vet, and manage service providers for each of their
           locations. For service providers, SOWerk makes it possible for you to
-          become an approved vendor, recieve job requests, and communicate with
+          become an approved vendor, receive job requests, and communicate with
           business owners.</p>
             <v-btn color="primary" v-if="!$vuetify.breakpoint.xs && !$Vuetify.breakpoint.sm" class="mx-auto mt-5" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '50%'" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>
              <v-btn color="primary" v-else class="mx-auto mt-5" style="width:100%;" large rounded to="/landingpage/joinsowerk">JOIN SOWERK</v-btn>

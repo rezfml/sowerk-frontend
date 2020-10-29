@@ -4,7 +4,14 @@
       <v-row style="height: 100%;">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
-            <img :src="location.imageUrl" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"/>
+            <v-row>
+              <v-col cols="12" align="center">
+                <v-avatar size="100" class="text-center mx-auto mt-n16 rounded-circle elevation-5" color="white">
+                  <v-img :src="location.imageUrl" v-if="location.imageUrl && location.imageUrl !== '{}'"></v-img>
+                  <v-icon v-else size="60">person</v-icon>
+                </v-avatar>
+              </v-col>
+            </v-row>
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>

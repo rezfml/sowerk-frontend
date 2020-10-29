@@ -65,7 +65,7 @@
                   type="text"
                   class="card__input black--text"
                   v-model="user.phone"
-                  placeholder=" "
+                  placeholder=""
                   :rules="rules.phoneRules"
                 ></v-text-field>
               </v-col>

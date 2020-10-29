@@ -5,7 +5,7 @@
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; height: 88vh; max-height: 1200px; padding-top: 300px; padding-bottom: 100px"
+  background-size: cover; height: 80vh; max-height: 1200px; padding-top: 275px; padding-bottom: 100px"
       align-content="center"
       class="pt-md-16 ma-0"
     >
@@ -112,7 +112,7 @@
                     <p
                       style="word-break: break-word; color: black; width: 100%"
                     >
-                      Find Vet & Manage Vendors
+                      Find, Vet, & Manage Vendors
                     </p>
                   </v-card-title>
                 </v-col>
@@ -373,7 +373,7 @@
               style="width: 80%; font-size: 1rem; text-align: center"
             >
               At the very foundation of SOWerk are powerful vendor vetting tools designed to
-              empower all staff levels, and build stronger vendor relations.
+              empower all staff levels and build stronger vendor relations.
             </div>
           </v-card>
         </v-col>
@@ -436,7 +436,7 @@
             >
               For the facility manager in the middle of the night that needs to
               contact all your approved plumbers for help or a local service
-              provider that powers his business through a smart phone, SOWerk is
+              provider that powers his business through a smartphone, SOWerk is
               designed to be convenient.
             </div>
           </v-card>
@@ -464,7 +464,7 @@
             <div class="joinconnectiontext">
               <h3>1. Create Account and Vet Vendors</h3>
               <p>
-                In less than 15 minutes, you can have multiple business locations setup
+                In less than 15 minutes, you can have multiple business locations set up
                 with dedicated staff accounts and customized questionnaires vetting
                 local & national vendors.
               </p>
@@ -697,7 +697,7 @@
                 <v-col cols="11" class="pa-0">
                   <p style="line-height: 1.25em; font-size: 19px;"
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Do I Seriously Get More Jobs?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Yes, businesses of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet vendor's request bids.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Yes, businesses of all sizes use SOWerk to manage their approved vendor program. We make it easy for them to vet vendors' request bids.</p>
                   <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">SOWerk helps you look good when applying for approved
                       vendor programs within SOWerk, and we also make it easy to share those
                       good looks with others. Next time you're bidding a job or working a potential customer who is not on SOWerk, show
@@ -735,7 +735,7 @@
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will I Get Charged All The Time & Get Junk
                     Leads?</p>
                   <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">SOWwerk is your business tool, kind of like an account software which is why we try to keep it distraction-free. We know you don't have time for junk mail or poor leads. Unlike other websites, SOWerk vendors receive communications from their approved vendor programs, specific inbound leads, or new businesses inviting them to apply for approved vendor programs. </p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features, we offer a few packages. Details can be found on our Approved Provider Pricing page.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Being on SOWerk and promoting your business is free. If you wish to apply for an approved vendor program or utilize other SOWerk features, we offer different packages. Details can be found on our Approved Provider Pricing page.</p>
                 </v-col>
             </v-row>
             </v-list>

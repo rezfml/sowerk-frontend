@@ -343,6 +343,7 @@ export default {
         })
         .catch(err => {
           console.log('error in uploading company image', err);
+          return;
         })
     },
     finishEditing() {
@@ -434,10 +435,10 @@ export default {
     },
     async register() {
       this.loading = true
-      console.log(this.company)
-      console.log(this.locations)
+      console.log(this.company);
+      console.log(this.locations);
       await this.uploadCompanyImage();
-      let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company).catch((e) => e)
+      let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company).catch((e) => e);
       console.log('post company: ', data)
       this.user.companies_id = data.companies.id
       await this.registerUser(data.companies.id)
