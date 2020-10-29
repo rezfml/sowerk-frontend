@@ -175,7 +175,8 @@
       <v-card-title v-if="step1" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
       <v-card-title v-if="step2" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Enter in the form name</v-card-title>
       <v-card-title v-if="step3" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 3 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
-      <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
+        <transition name="slide-fade">
+        <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
           <thead >
           <tr class="d-flex justify-start">
             <th style="color: #a61c00; width: 10%; text-align: center">Id</th>
@@ -199,7 +200,8 @@
           </tr>
           </tbody>
         </v-simple-table>
-
+        </transition>
+        <transition name="slide-fade">
       <v-form class="py-16 mt-16 d-flex flex-column align-center" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
         <v-text-field
           label="User Form Name Goes Here"
@@ -209,7 +211,8 @@
         </v-text-field>
         <v-btn @click="assignToServiceVendorSubmit" color="primary" style="width: 50%;" class="my-2 px-10 py-7" rounded>Submit</v-btn>
       </v-form>
-
+        </transition>
+        <transition name="slide-fade">
       <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewVendorFormLoad && step3">
         <v-row class="d-flex justify-center" style="width: 100%;">
           <v-col style="width: 55%;">
@@ -275,6 +278,7 @@
         </v-card>
 
       </v-container>
+        </transition>
     </v-card>
     </transition>
 
