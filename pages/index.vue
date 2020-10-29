@@ -897,7 +897,7 @@ export default {
       rgba(40, 40, 40, 0.9) 100%
     ),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
-     background-size: contain;
+  background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;
   width: 100%;
@@ -905,7 +905,6 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  position: relative;
 }
 
 .joinconnection h1 {
@@ -984,7 +983,7 @@ export default {
 }
 
 .st0 {
-  fill: #a52022;
+  fill: #a61c00;
 }
 
 .landinghomereview {
