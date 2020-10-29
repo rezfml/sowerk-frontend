@@ -130,10 +130,8 @@ padding-top: 5%;">
 </template>
 
 <script>
-
 //import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
 //import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
-
 export default {
   layout: 'fullwidth',
   components: {
@@ -147,14 +145,12 @@ export default {
 .device--mac >>> .v-image__image.v-image__image--cover {
   background-size: 170% !important;
 }
-
 .device--iphone {
   position: absolute;
   width: 75%;
   bottom: -20%;
   left: -25%;
 }
-
 .wrap-text {
   -webkit-line-clamp: unset !important;
   overflow: visible !important;
@@ -162,12 +158,10 @@ export default {
   white-space: unset !important;
   line-height: 1.5rem;
 }
-
 /* .skew-top{
   position: relative;
   z-index: 30;
 }
-
 .skew-top:before{
   position: absolute;
   content: '';
@@ -180,12 +174,10 @@ export default {
   transform-origin: top left;
   transform: skewY(-2deg);
 } */
-
 #aboutcontainer {
   width: 100%;
   padding: 0px !important;
 }
-
 .abouthero {
   width: 100%;
   height: 70vh;
@@ -210,7 +202,6 @@ export default {
   margin: 200px 0px 200px 0px;
   font-size: 55px;
 }
-
 .aboutdescription {
   background: #a61c00;
   width: 100%;
@@ -224,7 +215,6 @@ export default {
   padding-bottom: 100px;
   
 }
-
 .aboutdescription:before {
   position: absolute;
   width: 100%;
@@ -246,7 +236,6 @@ export default {
   margin: -50px 0px 100px 0px;
   z-index: 100;
 }
-
 .aboutdescriptionflex .aboutdescriptionimg {
   width: 40%;
   display: flex;
@@ -304,7 +293,6 @@ export default {
     margin-bottom: -12.5%;
   }
   }
-
 @media (max-width: 800px) {
   .abouthero{
     margin-bottom: -20%;
@@ -312,7 +300,6 @@ export default {
   .abouthero h1 {
     font-size: 50px;
   }
-
   .aboutdescriptionflex
     .aboutdescriptionimg
     .aboutdescriptionimg2[data-v-75c9003b] {
@@ -321,54 +308,45 @@ export default {
     left: -140px;
     top: -200px;
   }
-
   .aboutdescriptiontext[data-v-75c9003b] {
     width: 90%;
   }
-
   .aboutdescriptionflex h1[data-v-75c9003b] {
     width: 100%;
     text-align: center;
     font-size: 33px;
     margin: 15px 0px 12px 0px;
   }
-
   .aboutdescriptionflex p[data-v-75c9003b] {
     margin: 10px 0;
     width: 100%;
     text-align: center;
     line-height: 24px;
   }
-
   .aboutdescriptionflex[data-v-75c9003b] {
     margin: 0;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-
   .aboutbuttoncontainer[data-v-75c9003b] {
     margin: 15px 0;
     justify-content: center;
   }
-
   .aboutdescriptionimg {
     width: 500px;
   }
-
   img.aboutdescriptionimg2 {
     object-fit: contain;
     width: 700px;
     height: 400px;
   }
-
   .aboutdescriptionflex button[data-v-75c9003b] {
     width: 100%;
     font-size: 16px;
     padding: 5px 10px;
   }
 }
-
 @media (max-width: 680px) {
     .abouthero{
     margin-bottom: -30%;
@@ -376,26 +354,21 @@ export default {
   .abouthero h1 {
     font-size: 42px;
   }
-
   .aboutdescriptionflex
     .aboutdescriptionimg
     .aboutdescriptionimg2[data-v-75c9003b] {
     left: -110px;
   }
-
   .aboutdescriptiontext h1 {
     font-size: 35px;
   }
-
   .aboutdescriptiontext p {
     font-size: 16px;
   }
-
   .aboutdescriptionflex button[data-v-75c9003b] {
     font-size: 15px;
   }
 }
-
 @media (max-width: 580px) {
   .abouthero{
     margin-bottom: -30%;
@@ -403,22 +376,18 @@ export default {
   .abouthero h1 {
     font-size: 38px;
   }
-
   .aboutdescriptionflex {
     width: 100%;
   }
-
   .aboutdescriptionflex .aboutdescriptionimg .aboutdescriptionimg2 {
     left: -110px;
   }
-
   .aboutdescriptiontext h1 {
     font-size: 28px;
   }
   .aboutdescriptiontext p {
     font-size: 16px;
   }
-
   .aboutdescriptionflex button {
     font-size: 13px;
   }
