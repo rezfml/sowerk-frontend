@@ -515,7 +515,7 @@
                 text: 'My SOWerk Connections'
               },
               {
-                to: '/dashboard/businesses/requesting',
+                to: '/dashboard/businesses/',
                 slug: 'requesting_businesses',
                 text: 'Requesting Businesses'
               },
