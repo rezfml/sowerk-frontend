@@ -27,7 +27,7 @@
               outlined
               rounded
               color="white"
-              to="add"
+              to="/dashboard/facilities/add"
             >Add Now</v-btn>
           </v-row>
         </v-col>
@@ -48,7 +48,7 @@
               outlined
               rounded
               color="white"
-              to="add"
+              to="/dashboard/facilities/add"
             >Add Now</v-btn>
           </v-row>
         </v-col>

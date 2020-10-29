@@ -269,6 +269,10 @@
               this.$http.get('https://www.sowerkbackend.com/api/locations/' + location.id)
                 .then(res => {
                   console.log(res.data, 'individual location')
+                  res.data.services = [
+                    'HVAC',
+                    'Plumbing'
+                  ]
                   this.vendors.push(res.data);
                 })
                 .catch(err => {
