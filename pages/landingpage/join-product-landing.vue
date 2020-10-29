@@ -1,4 +1,5 @@
 <template>
+<!------ HERO ------>
   <div class="joinproductcontainer">
     <section class="joinproducthero">
       <div v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
@@ -148,6 +149,7 @@
       </div>
     </section> -->
 
+<!-- NEW SECTION BUILT BY -->
     <section class="joinproductdescription pt-13 pb-3">
       <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2>
       <h2 v-else class="text-h4 ml-3 text-center">Built By Property & Facility Managers</h2>
@@ -174,7 +176,7 @@
     </section>
 
 
-   <!-- NEW SECTION JOIN STEPS -->
+<!-- NEW SECTION JOIN STEPS -->
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
         <div class="joinproductstepcontainerstep step-right">
@@ -499,16 +501,14 @@
 </template>
 
 <script>
-import PFPowerfulTools from '~/components/landing/property-manager/PFPowerfulTools';
-
+import PFPowerfulTools from '~/components/landing/property-manager/PFPowerfulTools'
 
 export default {
   layout: 'fullwidth',
   components: {
-    PFPowerfulTools
-  }
+    PFPowerfulTools,
+  },
 }
-
 </script>
 
 <style scoped>
@@ -748,7 +748,7 @@ export default {
 }
 
 .containerImg.second-img {
-  width: 55%!important;
+  width: 55% !important;
 }
 
 /* .stepbullet {
@@ -763,7 +763,7 @@ export default {
   top: 5px;
   left: 10px;
   width: 30px!important;
-} */ 
+} */
 
 .innerList {
   margin-left: 10%;
@@ -783,21 +783,20 @@ export default {
 
 @media (max-width: 1630px) {
   .joinproductsteps
-  .joinproductstepscontainer
-  .joinproductstepcontainerstep
-  div
-  h1 {
-    font-size: 25px
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    h1 {
+    font-size: 25px;
   }
 
   .joinproductsteps
-  .joinproductstepscontainer
-  .joinproductstepcontainerstep
-  div
-  p {
-  font-size: 17px;
-}
-
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    p {
+    font-size: 17px;
+  }
 }
 
 @media (max-width: 1350px) {
@@ -853,21 +852,21 @@ export default {
     padding-bottom: 5%;
   }
 
-   .joinproductsteps
-  .joinproductstepscontainer
-  .joinproductstepcontainerstep
-  div
-  h1 {
-    font-size: 22px
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    h1 {
+    font-size: 22px;
   }
 
-    .joinproductsteps
-  .joinproductstepscontainer
-  .joinproductstepcontainerstep
-  div
-  p {
-  font-size: 15px;
-}
+  .joinproductsteps
+    .joinproductstepscontainer
+    .joinproductstepcontainerstep
+    div
+    p {
+    font-size: 15px;
+  }
   .getStarted img {
     margin-left: -10% !important;
     margin-right: unset !important;
@@ -876,7 +875,6 @@ export default {
     border: none !important;
   }
 }
-
 
 @media (max-width: 960px) {
   .joinproducthero {
@@ -918,8 +916,8 @@ export default {
 
   .joinproducttraits div:nth-child(1),
   .joinproducttraits div:nth-child(2) { */
-    /* margin-bottom: 20px; */
-    /* margin: 50px 15px 20px 15px;
+  /* margin-bottom: 20px; */
+  /* margin: 50px 15px 20px 15px;
   } */
 
   /* .joinproducttraits div:nth-child(3),
