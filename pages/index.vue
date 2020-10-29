@@ -73,7 +73,7 @@
       class="skew-top"
     >
       <v-row align="center" justify="center">
-        <v-col cols="11">
+        <v-col cols="11" class="pa-0">
           <p
             class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
             style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
