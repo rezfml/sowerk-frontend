@@ -1,5 +1,12 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
+    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </v-col>
     <v-container class="px-8" fluid>
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">

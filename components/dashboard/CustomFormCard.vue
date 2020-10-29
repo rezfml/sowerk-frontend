@@ -6,8 +6,9 @@
         <v-form>
           <v-row>
 
-            <v-col cols="12" class="pb-0 mt-3">
+            <v-col cols="12" class="pb-0 mt-3 d-flex justify-space-between">
               <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Vendor Forms</v-subheader>
+              <v-btn color="primary">Add New Vendor Form</v-btn>
             </v-col>
 
 <!--            <v-col cols="12" class="py-0">-->
@@ -26,16 +27,23 @@
 <!--            </v-col>-->
             <v-col cols="12" style="width: 100%;">
               <v-divider color="grey"></v-divider>
-              <v-simple-table style="width: 100%;">
+              <v-simple-table style="width: 100%;" v-if="userForms.length != 0">
                 <tbody style="width: 100%;">
                   <tr v-for="(form, i) in userForms" :key="i" style="width: 100%;">
-                    <td style="width: 30%;">{{ form.name }}</td>
-                    <td style="width: 50%;" v-if="finishedFormFields === true">{{ form.formfields.length }} Specific Application Questions</td>
+                    <td style="width: 20%;">{{ form.name }}</td>
+                    <td style="width: 40%;" v-if="finishedFormFields === true">{{ form.formfields.length }} Specific Application Questions</td>
+                    <td style="width: 30%;">
+                      <v-switch
+                        v-model="form.active"
+                        label="Vendor Form Active?"
+                        @change="userformEditActive(form)"
+                      ></v-switch>
+                    </td>
                     <td class="d-flex flex-column" style="width: 100%; height: auto;">
-                      <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%;" color="green" outlined>
+                      <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >
                         View/Edit
                       </v-btn>
-                      <v-btn class="my-1" style="width: 100%;" outlined color="primary">
+                      <v-btn class="my-1" style="width: 100%;"  color="primary">
                         Delete
                       </v-btn>
                     </td>
@@ -137,7 +145,8 @@
                     formfields: []
                   }
                   this.userForms.push(userForm);
-                  await this.getFormFields(response.data[i].id);
+                  console.log(this.userForms)
+                  await this.getFormFields(response.data[i].id, i);
                 }
                 this.finishedFormFields = true;
               }
@@ -146,18 +155,28 @@
             console.log('err get services', err);
           })
       },
-      async getFormFields(id) {
+      async getFormFields(id, userformIndex) {
+
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for userform', id);
-            this.userForms[this.value].formfields = response.data;
-            console.log(this.value, 'value');
-            this.value++
-            this.totalLength += response.data.length;
-            console.log(this.totalLength, 'totalLength');
+            this.userForms[userformIndex].formfields = response.data;
           })
           .catch(err => {
             console.log('err get services', err);
+          })
+      },
+      async userformEditActive(userform) {
+        console.log(userform.active, 'active userform');
+        const changes = {
+          active: userform.active
+        }
+        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + userform.id, changes)
+          .then(response => {
+            console.log(response, 'success, form is now active changed')
+          })
+          .catch(err => {
+            console.log(err, 'err in changing form')
           })
       }
     }
