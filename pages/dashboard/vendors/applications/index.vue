@@ -9,11 +9,11 @@
     </div>
 
 
-        <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;">
+    <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;">
           <v-row style="width: 100%; height: auto;" class="d-flex">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col class="d-flex flex-column justify-center">
-              <p class="mb-8">Use SOWerk Vendor requirements to manage your application forms that are required for vendors to become an approved connection. Your Vendor Applications list all access-granted applications you currently have. Sowerk Application Templates list the templates we have provided for every company as a baseline for what you may require for a service form. Company Approved Templates list the templates that you (or other access-granted users) have added to the company wide directory to use as needed for any service form you may require.</p>
+              <p class="mb-8">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event you have a special requirement for only one of your locations (i.e. local permit requirement) take that company template and add a custom question that is only visible to that facility.</p>
               <div class="d-flex flex-column align-center">
                 <v-btn @click="loadApplicationLocationsFunction" class="py-8 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadApplicationTemplatesFunction" class="py-8 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -26,7 +26,8 @@
 <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
 <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
 <!--    </v-row>-->
-    <v-card class="mt-8" v-if="loadApplicationLocations">
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loadApplicationLocations">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
@@ -76,12 +77,13 @@
         </v-simple-table>
       </template>
     </v-card>
-
+    </transition>
 <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadApplicationTemplates">-->
 <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
 <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
 <!--    </v-row>-->
-    <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Sowerk Application Templates</v-card-title>
       <template v-if="loading" style="width: 100%;">
         <v-data-table
@@ -103,12 +105,13 @@
         </v-data-table>
       </template>
     </v-card>
-
+    </transition>
 <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadYourCompanyTemplates">-->
 <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
 <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Your Company Application Templates</v-card-title>-->
 <!--    </v-row>-->
-    <v-card class="mt-8" v-if="loadYourCompanyTemplates">
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loadYourCompanyTemplates">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Company Approved Templates</v-card-title>
       <v-btn class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Template</v-btn>
       <template v-if="loading" style="width: 100%;">
@@ -131,8 +134,10 @@
         </v-data-table>
       </template>
     </v-card>
+    </transition>
 
-    <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:absolute; top: 5vh; left: 20px; width: 95%; height: 70vh;" v-if="addToLocationLoad">
+    <transition name="slide-fade">
+      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:absolute; top: 5vh; left: 20px; width: 95%; height: 70vh;" v-if="addToLocationLoad">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Categories For All Locations</v-card-title>
       <template v-if="loading">
         <v-simple-table class="pt-16" style="width: 95%; margin: 0 auto;">
@@ -162,8 +167,10 @@
       </template>
       <v-btn text @click="closeAddToLocationLoad" style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
     </v-card>
+    </transition>
 
-    <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
+    <transition name="slide-fade">
+      <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
       <v-card-title class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
       <v-card-title v-if="step1" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
       <v-card-title v-if="step2" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Enter in the form name</v-card-title>
@@ -269,6 +276,7 @@
 
       </v-container>
     </v-card>
+    </transition>
 
   </v-container>
 </template>
@@ -484,6 +492,11 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = true;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.addNewVendorFormLoad = false;
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step3finishedFormFields = false;
       },
       async loadYourCompanyTemplatesFunction() {
         if(this.loadYourCompanyTemplates != true) {
@@ -492,6 +505,11 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = true;
+        this.addNewVendorFormLoad = false;
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step3finishedFormFields = false;
 
       },
       async loadApplicationTemplatesFunction() {
@@ -501,6 +519,11 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = true;
         this.loadYourCompanyTemplates = false;
+        this.addNewVendorFormLoad = false;
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step3finishedFormFields = false;
       },
       async addNewVendorFormLoading() {
         this.addNewVendorFormLoad = true;
@@ -910,5 +933,19 @@ import draggable from "vuedraggable"
 <style scoped>
   .hover-select:hover {
     background-color: lightgrey !important;
+  }
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="white pt-8 my-12" height="88vh">
+  <v-card class="white pt-8 my-12" height="88vh" >
     <v-container>
       <v-card-title v-if="!locationApproved" style="color: white; font-size: 18px; position: absolute; top: -25px; left: 25px; width: 30%; min-width: 200px; border-radius: 3px;" class="primary body-2">
         {{ title }}</v-card-title>
@@ -35,6 +35,10 @@
         required: true
       },
       locationApproved: {
+        type: Boolean,
+        required: true
+      },
+      loadModal: {
         type: Boolean,
         required: true
       }
