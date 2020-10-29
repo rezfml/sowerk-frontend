@@ -288,6 +288,7 @@
     },
     mounted() {
       this.getLocations();
+      console.log(this.currentUser);
     },
     computed: {
       currentUser() {

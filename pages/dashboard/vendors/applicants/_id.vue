@@ -4,7 +4,15 @@
       <v-row style="height: 100%;" v-if="success === false && failure === false">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
-            <img :src="location.imageUrl" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"/>
+            <v-row>
+              <v-col cols="12" align="center">
+                <v-avatar size="100" class="text-center mx-auto mt-n16 rounded-circle elevation-5" color="white">
+                  <v-img :src="location.imageUrl" v-if="location.imageUrl && location.imageUrl !== '{}'"></v-img>
+                  <v-icon v-else size="60">person</v-icon>
+                </v-avatar>
+              </v-col>
+            </v-row>
+<!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
@@ -39,19 +47,19 @@
               <v-icon color="white">mdi-account</v-icon>
             </div>
             <v-row class="d-flex justify-space-around my-5" style="width: 100%;">
-              <v-card-title style="color: #A61C00; font-size: 24px; width: 50%;">Service Vendor Application - {{ location.name }}</v-card-title>
+              <v-card-title style="color: #A61C00; font-size: 24px; width: 50%;"><p style="word-break: normal;">Service Vendor Application - {{ location.name }}</p></v-card-title>
               <div style="font-size: 18px; width: 40%;">
                 <p>Submitted: {{application.created}}</p>
                 <p>Application Facility: <span style="color: #A61C00;">{{pmlocation.name}} {{pmlocation.city}}, {{pmlocation.state}}</span></p>
               </div>
             </v-row>
-            <div class="d-flex flex-wrap" style="width: 100%;">
-              <div v-for="(formfield, index) in userform.formfields" style="width: 45%; margin: auto;">
+            <v-row class="px-12">
+              <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
                 <p style="color: #D9D9D9; font-size: 14px;" class="mb-n1 mt-1">Question #{{index}} - {{formfield.name}}</p>
-                <v-text-field readonly style="width: 100%; font-size: 18px;" :value="application.subData[index]" :name="formfield.name">
+                <v-text-field readonly style="width: 100%; font-size: 18px;" :value="application.subData[index].value" :name="formfield.name">
                 </v-text-field>
-              </div>
-            </div>
+              </v-col>
+            </v-row>
             <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;">
               <v-btn @click="Deny" large>Deny</v-btn>
               <v-btn @click="Approve" color="primary" large>Approve</v-btn>
@@ -128,8 +136,8 @@ import * as moment from 'moment'
           .then(response => {
             console.log(response.data, 'response application');
             this.application = response.data;
-            this.application.created = moment(response.data).format('lll')
-            this.application.subData = response.data.subData.replace('[', '').replace(']', '').replace(/'/g,'').split(',')
+            this.application.created = moment(response.data).format('lll');
+            this.application.subData = JSON.parse(this.application.subData);
             this.sendToId = this.application.spcompanies_id;
             if (this.application.required === 'required') {
               this.application.required = true

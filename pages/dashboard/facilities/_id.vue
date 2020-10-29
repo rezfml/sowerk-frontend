@@ -19,6 +19,7 @@
             color="primary"
             :size="50"
           ></v-progress-circular>
+          <transition name="slide-fade">
           <FacilitiesCard
             v-if="loading != false && company.company_type==='true' && locationApproved===true"
             :title="'Location Approved Vendors'"
@@ -29,10 +30,17 @@
             :company="company"
             :locationApproved="locationApproved"
           ></FacilitiesCard>
+          </transition>
+          <transition name="slide-fade">
           <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
-          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>
+          </transition>
+<!--          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
+          <transition name="slide-fade">
           <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
+          </transition>
+          <transition name="slide-fade">
           <ProfileEditCard :location="location" v-if="editLocationDetails === true"></ProfileEditCard>
+          </transition>
         </v-col>
       </v-row>
     </v-container>
@@ -288,10 +296,19 @@
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
-            if(this.locationCondition === true) {
-              await this.getConnectionTable(this.company.id)
-            } else {
-              await this.getLocation();
+
+
+            // If Property Manager
+            if(this.company.company_type === 'true') {
+              if(this.locationCondition === true) {
+                await this.getConnectionTable(this.company.id)
+              } else {
+                await this.getLocation();
+              }
+            //  Else if Service Provider
+            } else if(this.company.company_type === 'false') {
+              console.log('Service provider');
+              this.loading = false;
             }
           })
           .catch(err => {
@@ -400,7 +417,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         data.created = moment(data.created).format('l').slice(6,10);
         this.location = data;
-        console.log(this.location, 'getLocation this.location')
+        console.log(this.location, 'getLocation this.location');
         await this.getApprovedLocationConnections(this.location.id)
       },
       async getApprovedLocationConnections(id) {
@@ -499,5 +516,18 @@
 </script>
 
 <style scoped>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 
 </style>

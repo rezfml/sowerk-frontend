@@ -26,6 +26,7 @@
     "gmap-vue": "^1.0.0",
     "jw-vue-pagination": "^1.0.3",
     "nuxt": "^2.14.6",
+    "vue-disable-autocomplete": "0.0.4",
     "vue-google-autocomplete": "^1.1.0",
     "vue-image-upload-croppie": "^1.0.6",
     "vue-moment": "^4.1.0",

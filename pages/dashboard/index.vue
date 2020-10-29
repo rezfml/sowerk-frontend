@@ -1,5 +1,12 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
+    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+      ></v-progress-circular>
+    </v-col>
     <v-container class="px-8" fluid>
       <v-row v-if="hidden !== true">
         <v-card color="primary" class="d-flex" style="width: 100%;">
@@ -43,89 +50,89 @@
           <StatCard :stat="stat"></StatCard>
         </v-col>
       </v-row>
-      <v-card class="white pt-0 mt-12" v-if="company && company.company_type !== 'false'">
-        <v-container fluid >
-          <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white--text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>
-          <v-card-title v-else-if="$vuetify.breakpoint.md||$vuetify.breakpoint.sm "  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14.5px; line-height:1.2;" class="primary white--text font-weight-regular red-gradient " >Approved Vendors - Quick Look Up</v-card-title>
-          <v-card-title v-else style="position: absolute; top: -30px; left: 25px; width: 35%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient " >Approved Vendors - <br v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md"/> Quick Look Up</v-card-title>
+<!--      <v-card class="white pt-0 mt-12" v-if="company && company.company_type !== 'false'">-->
+<!--        <v-container fluid >-->
+<!--          <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white&#45;&#45;text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>-->
+<!--          <v-card-title v-else-if="$vuetify.breakpoint.md||$vuetify.breakpoint.sm "  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14.5px; line-height:1.2;" class="primary white&#45;&#45;text font-weight-regular red-gradient " >Approved Vendors - Quick Look Up</v-card-title>-->
+<!--          <v-card-title v-else style="position: absolute; top: -30px; left: 25px; width: 35%; border-radius: 3px; font-size: 18px;" class="primary white&#45;&#45;text font-weight-regular red-gradient " >Approved Vendors - <br v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md"/> Quick Look Up</v-card-title>-->
 
-          <v-card-actions v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" class="d-flex justify-end px-0 py-0">
-            <v-row class="py-0">
-              <v-spacer></v-spacer>
-              <v-col cols="12" class="mt-1">
-                <v-text-field
-                  label="Search"
-                  light
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-card-actions>
+<!--          <v-card-actions v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" class="d-flex justify-end px-0 py-0">-->
+<!--            <v-row class="py-0">-->
+<!--              <v-spacer></v-spacer>-->
+<!--              <v-col cols="12" class="mt-1">-->
+<!--                <v-text-field-->
+<!--                  label="Search"-->
+<!--                  light-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-actions>-->
 
-          <v-card-actions v-else class="d-flex justify-end px-4 py-0">
-            <v-row class="py-0">
-              <v-spacer></v-spacer>
-              <v-col cols="6" class="py-0">
-                <v-text-field
-                  label="Search"
-                  light
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-card-actions>
+<!--          <v-card-actions v-else class="d-flex justify-end px-4 py-0">-->
+<!--            <v-row class="py-0">-->
+<!--              <v-spacer></v-spacer>-->
+<!--              <v-col cols="6" class="py-0">-->
+<!--                <v-text-field-->
+<!--                  label="Search"-->
+<!--                  light-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-actions>-->
 
-          <v-card-text class="pt-0" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" >
-            <v-sheet
-              class="mx-auto"
-              max-width="100%"
-            >
-              <v-slide-group multiple show-arrows>
-                <v-slide-item
-                  v-for="(item, index) in quickLookUps"
-                  :key="index"
-                  v-slot:default="{ active, toggle }"
-                  class ="px-3"
-                >
-                  <v-card width="200" elevation="0">
-                    <v-row>
-                      <v-col class="d-flex flex-column justify-center py-0">
-                        <p class="text-center primary--text title" size="50">{{ item.name }}</p>
-                        <v-icon color="primary" size="50">{{ item.icon }}</v-icon>
-                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="70%">View All</v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card>
-                </v-slide-item>
-              </v-slide-group>
-            </v-sheet>
-          </v-card-text>
+<!--          <v-card-text class="pt-0" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" >-->
+<!--            <v-sheet-->
+<!--              class="mx-auto"-->
+<!--              max-width="100%"-->
+<!--            >-->
+<!--              <v-slide-group multiple show-arrows>-->
+<!--                <v-slide-item-->
+<!--                  v-for="(item, index) in quickLookUps"-->
+<!--                  :key="index"-->
+<!--                  v-slot:default="{ active, toggle }"-->
+<!--                  class ="px-3"-->
+<!--                >-->
+<!--                  <v-card width="200" elevation="0">-->
+<!--                    <v-row>-->
+<!--                      <v-col class="d-flex flex-column justify-center py-0">-->
+<!--                        <p class="text-center primary&#45;&#45;text title" size="50">{{ item.name }}</p>-->
+<!--                        <v-icon color="primary" size="50">{{ item.icon }}</v-icon>-->
+<!--                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="70%">View All</v-btn>-->
+<!--                      </v-col>-->
+<!--                    </v-row>-->
+<!--                  </v-card>-->
+<!--                </v-slide-item>-->
+<!--              </v-slide-group>-->
+<!--            </v-sheet>-->
+<!--          </v-card-text>-->
 
-          <v-card-text class="pt-0" v-else>
-            <v-sheet
-              class="mx-auto"
-              max-width="100%"
-            >
-              <v-slide-group multiple show-arrows>
-                <v-slide-item
-                  v-for="(item, index) in quickLookUps"
-                  :key="index"
-                  v-slot:default="{ active, toggle }"
-                  class ="px-4"
-                >
-                  <v-card width="200" elevation="0">
-                    <v-row>
-                      <v-col class="d-flex flex-column justify-center py-0">
-                        <p class="text-center primary--text title">{{ item.name }}</p>
-                        <v-icon color="primary" size="100">{{ item.icon }}</v-icon>
-                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="100%">View All</v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-card>
-                </v-slide-item>
-              </v-slide-group>
-            </v-sheet>
-          </v-card-text>
-        </v-container>
-      </v-card>
+<!--          <v-card-text class="pt-0" v-else>-->
+<!--            <v-sheet-->
+<!--              class="mx-auto"-->
+<!--              max-width="100%"-->
+<!--            >-->
+<!--              <v-slide-group multiple show-arrows>-->
+<!--                <v-slide-item-->
+<!--                  v-for="(item, index) in quickLookUps"-->
+<!--                  :key="index"-->
+<!--                  v-slot:default="{ active, toggle }"-->
+<!--                  class ="px-4"-->
+<!--                >-->
+<!--                  <v-card width="200" elevation="0">-->
+<!--                    <v-row>-->
+<!--                      <v-col class="d-flex flex-column justify-center py-0">-->
+<!--                        <p class="text-center primary&#45;&#45;text title">{{ item.name }}</p>-->
+<!--                        <v-icon color="primary" size="100">{{ item.icon }}</v-icon>-->
+<!--                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="100%">View All</v-btn>-->
+<!--                      </v-col>-->
+<!--                    </v-row>-->
+<!--                  </v-card>-->
+<!--                </v-slide-item>-->
+<!--              </v-slide-group>-->
+<!--            </v-sheet>-->
+<!--          </v-card-text>-->
+<!--        </v-container>-->
+<!--      </v-card>-->
     </v-container>
   </v-app>
 </template>

@@ -271,7 +271,8 @@
         </v-card-actions>
       </v-container>
     </v-card>
-    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;">
+    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+    >
       <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
       <v-form style="width: 80%;">
@@ -417,6 +418,8 @@ export default {
       idForMessage: Number,
       locationForMessage: {},
       successAssign: false,
+      bkClass: 'bk',
+      blurClass: 'blur'
     }
   },
   async created() {

@@ -29,7 +29,7 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" md="6">
-                          <v-title>Your Information</v-title>
+                          <p>Your Information</p>
                           <v-divider ></v-divider>
                           <p
                             class="grey--text text--darken-4 font-weight-bold mb-0"
@@ -82,7 +82,7 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <v-title style="font-size:1.2vw;">Company Account Information</v-title>
+                          <p style="font-size:1.2vw;">Company Account Information</p>
                          <v-divider  ></v-divider>
                           <p
                             class="grey--text text--darken-4 font-weight-bold mb-0"
