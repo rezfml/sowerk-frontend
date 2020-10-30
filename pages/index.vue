@@ -666,13 +666,22 @@
             </v-list>
             <!-- BUTTON -->
             <v-btn
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
               class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
               style="border-radius: 20px; font-weight: bold; font-size: 15px;"
               to="/landingpage/join-product-landing"
-              >Provider Facility - Learn More</v-btn
-            >
+              >Provider Facility - Learn More</v-btn>
+            <v-btn
+            v-else
+              class="text-uppercase primary mx-auto text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 13px;"
+              to="/landingpage/join-product-landing"
+              >Provider Facility - Learn More</v-btn>
+              
           </v-col>
         </v-row>
       </v-container>
@@ -748,6 +757,7 @@
             </v-list>
             <!-- BUTTON -->
             <v-btn
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
               class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
@@ -755,6 +765,14 @@
               to="/landingpage/join-service-landing"
               >Service Provider - Learn More</v-btn
             >
+                        <v-btn
+            v-else
+              class="text-uppercase primary mx-auto text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 13px;"
+              to="/landingpage/join-product-landing"
+              >Service Provider - Learn More</v-btn>
           </v-col>
         </v-row>
       </v-container>
