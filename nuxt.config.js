@@ -18,8 +18,8 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      { rel: 'icon', type: 'image/x-icon', href: 'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png' },
+      { rel: 'icon', type: 'image/x-icon', href: 'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png'},
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'},
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' }
     ],
