@@ -141,7 +141,7 @@
         </v-col>-->
       </v-layout>
       <v-container v-else  >
-          <v-card flat rounded="20" style="border-radius: 20px;width:90%;margin:auto">
+          <v-card flat rounded="20" style="border-radius: 20px;width:93%;margin:auto">
               <v-row class="d-flex justify-space-around" >
                 <v-col cols=3 >
                   <v-img height="80" width="250" class="d-flex justify-center ml-8"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"></v-img>
@@ -194,7 +194,7 @@
             </v-row>
           </v-card>
 
-          <v-card flat rounded="20" class="" style="border-radius: 20px;width:90%;margin:auto">
+          <v-card flat rounded="20" class="" style="border-radius: 20px;width:93%;margin:auto">
               <v-row class="d-flex justify-space-around my-2" >
                 <v-col cols=3 >
                   <v-img height="80" width="250" class="d-flex justify-center ml-8"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"></v-img>
