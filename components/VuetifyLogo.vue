@@ -1,5 +1,5 @@
 <template>
-  <img class="VuetifyLogo" alt="Vuetify Logo" src="/vuetify-logo.svg" />
+  <img class="VuetifyLogo" alt="Vuetify Logo" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork%2Bround%2Bicon-157.ico" />
 </template>
 
 <style>
