@@ -457,7 +457,7 @@
               
            </v-container>
          </v-card>
-         <v-card v-else height="auto" :width="$vuetify.breakpoint.xsAndUp ? '100%' : '100%'" class="py-16 my-12 d-flex justify-center" outlined style="border:none;background-color:#2b2b2b;" align="center">
+         <v-card v-else height="auto" :width="$vuetify.breakpoint.xsAndUp ? '100%' : '100%'" class="py-16 my-0 d-flex justify-center" outlined style="border:none;background-color:#2b2b2b;" align="center">
             <v-container style="transform-origin: top left;
           transform: skewY(-2deg); margin-bottom:-20%;">             
             <v-title style="color:white;font-weight:600;font-size:3rem;">SOWerk Connections</v-title>
