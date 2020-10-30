@@ -9,7 +9,8 @@
       </div>
       <div v-else class="d-flex justify-center mt-6 px-2">
         <h1 style="font-size:10vw">Property & Facility Businesses</h1>
-        <p>Find, Vet, and Manage<br/> Approved Vendors</p>
+        <p>Find, Vet, and Manage</p> 
+        <p class="mt-n6">Approved Vendors</p>
         <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
       </div>
     </section>
