@@ -191,19 +191,19 @@
               location across the country.
               <p class="innerList d-flex-row"  style="">
                 <span>
-                  <img class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                Manage One Or Thousands of Locations
               </p>
               <p class="innerList">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Add Staff Accounts For One Location Or Multiple
               </p>
               <p class="innerList">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Invite Existing Vendors To Connect For Free
               </p>
@@ -218,25 +218,25 @@
               Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
               <p class="innerList">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Customize Vendor Application By Location
               </p>
               <p class="innerList">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Manage Applications By Service Category
               </p>
               <p class="innerList">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Easily Toggle Application Status On or Off
               </p>
               <p class="innerList">
                 <span>
-                  <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Location Staff Account or Headquarters Can Review Applicants Quickly
               </p>
@@ -260,25 +260,25 @@
 
                 <p class="innerList">
                   <span>
-                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                    <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                   </span>
                   Request Service or Bids From Approved Vendors Quickly
                 </p>
                 <p class="innerList">
                   <span>
-                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                    <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                   </span>
                   SOWerk Empowers Staff To Up Your Facility Management Game
                 </p>
                 <p class="innerList">
                   <span>
-                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                    <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                   </span>
                   Filter & Find New Service Providers
                 </p>
                 <p class="innerList">
                   <span>
-                    <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+                    <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                   </span>
                   SOWerk Makes Annual Vendor Requalifying Easy & Automated
                 </p>
