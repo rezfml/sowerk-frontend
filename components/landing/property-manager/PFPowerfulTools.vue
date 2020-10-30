@@ -29,11 +29,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-<<<<<<< HEAD
-            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Publish Your Customize Vendor Requirements To SOWerk To Receive Applications, Similar To Posting On A Job&nbsp;Board</p>
-=======
             <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Publish Your Customized Vendor Requirements To SOWerk To Receive Applications, Similar To Posting On A Job Board</p>
->>>>>>> 4abbc58a03ca4818d320add10d583601e24cd084
           </v-col>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
