@@ -30,7 +30,7 @@
               outlined
               rounded
               color="white"
-              to="add"
+              to="/dashboard/facilities/add"
             >Add Now</v-btn>
           </v-row>
         </v-col>
@@ -51,7 +51,7 @@
               outlined
               rounded
               color="white"
-              to="add"
+              to="/dashboard/facilities/add"
             >Add Now</v-btn>
           </v-row>
         </v-col>
@@ -163,7 +163,7 @@
         ],
         filters: [
           {
-            name: 'Location',
+            name: 'Proximity',
             items: [
               'State',
               'National',
@@ -237,7 +237,7 @@
             ]
           },
           {
-            name: 'Service Needs',
+            name: 'Vendor Category',
             items: [
               'HVAC',
               'Electrical',

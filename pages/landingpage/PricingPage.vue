@@ -1,26 +1,26 @@
 <template>
   <div class="head" id="aboutcontainer">
     <section v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" style="margin-bottom:20%;" class="abouthero" >
-      <h1 style="width:90%;font-size:3.5vw;margin-top:-50px;">SOWerk Vendors Start Now For Free</h1>
+      <h1 style="width:90%;font-size:3.5vw;margin-top:-10px;;">SOWerk Vendors Start Now For Free</h1>
       <h2 style="font-size:1.8vw;margin-top:-200px;color:white;">No Credit Card Needed - Get Started in Minutes - It's 100% Free</h2>
-      <v-btn rounded outlined color="white" style="width:15vw;margin-top:20px;margin-bottom:5%;"> Get Started Now</v-btn>
+      <v-btn @click='$router.push("/register/provider")'  rounded outlined color="white" style="width:15vw;margin-top:20px;margin-bottom:5%;"> Get Started Now</v-btn>
     </section>
     <section v-else-if="!$vuetify.breakpoint.xs" class="abouthero" >
       <h1 style="width:90%;font-size:3.5vw;margin-top:-50px;">SOWerk Vendors Start Now For Free</h1>
       <h2 style="font-size:1.8vw;margin-top:-200px;color:white;">No Credit Card Needed - Get Started in Minutes - It's 100% Free</h2>
-      <v-btn rounded outlined color="white" style="width:25vw;margin-top:20px; font-size:1.8vw"> Get Started Now</v-btn>
+      <v-btn @click='$router.push("/register/provider")'  rounded outlined color="white" style="width:25vw;margin-top:20px; font-size:1.8vw"> Get Started Now</v-btn>
     </section>
     <section v-else class="abouthero" >
       <h1 style="width:90%;font-size:5vw;margin-top:50px;">SOWerk Vendors Start Now For Free</h1>
       <h2 style="font-size:3.5vw;margin-top:-200px;color:white;">No Credit Card Needed - Get Started in Minutes -<br/><span class="d-flex justify-center"> It's 100% Free</span></h2>
-      <v-btn rounded outlined color="white" style="width:50vw;margin-top:20px; font-size:3.8vw"> Get Started Now</v-btn>
+      <v-btn @click='$router.push("/register/provider")'  rounded outlined color="white" style="width:50vw;margin-top:20px; font-size:3.8vw"> Get Started Now</v-btn>
     </section>
 <section style="margin-bottom:30%;" v-if="!$vuetify.breakpoint.md && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
 <v-container fluid style="
     background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%); 
     transform-origin: top left;
     transform: skewY(-2deg); 
-    margin-top:-22%;
+    margin-top:-500px;
     height:60vh;" class="py-16">
   <v-row justify="center"
   style="
@@ -128,24 +128,25 @@
     </v-row>
 </v-container>
 </section >
-<!--
-<section style="margin-bottom:30%;" v-else>
+
+<section style="margin-bottom:100%;" v-else>
 <v-container fluid style="
     background:linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(83,14,0,1) 100%); 
     transform-origin: top left;
     transform: skewY(-2deg); 
-    margin-top:-40%;
+    margin-top:-20%;
+    margin-bottom:2500px;
     height:60vh;" class="py-16">
   <v-row justify="center"
   style="
-    transform: skewY(2deg);margin-top:-10%; ">
+    transform: skewY(2deg);margin-top:-10%;margin-left:5%; ">
       <v-flex sm11>
         <v-row>
-         <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '10%'" class="py-16 my-12 d-flex justify-center" style="border-radius: 20px;" align="center">
+         <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '90%'" class="py-1 my-1 d-flex justify-center" style="border-radius: 20px;" align="center">
 
            <v-container>
            <v-row class="d-flex justify-space-around flex-wrap">
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-12 px-1" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/user.png" alt="sowerk user">
               <h1>Company Profile</h1>
               <p>Simply creating a free profile on SOWerk instantly grants you major benefits. The best part is you don't have to do any extra work. Think of your profile
@@ -153,7 +154,7 @@
               </p>
             </v-card>
           
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/portfolio.png" alt="sowerk portfolio">
               <h1>Project Portfolio</h1>
               <p>SOWerk knows how important your reputation is, thats why we show your company profile like resume.
@@ -164,14 +165,14 @@
            </v-row>
               
            <v-row class="d-flex justify-space-around flex-wrap">
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/email.png" alt="sowerk email">
               <h1>New Leads</h1>
               <p>Even if your company has a website with lead forms, we also want you to receive leads through SOWerk.
                  Simply by creating an account, anyone who comes across your account has the ability to submit a lead and ask for your services.  
               </p>
             </v-card>
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/resume.png" alt="sowerk resume">
               <h1>Unlimited Applications</h1>
               <p>After creating your SOWerk free account, you have access to apply to any business on SOWerk.
@@ -186,7 +187,6 @@
     </v-row>
 </v-container>
 </section >
--->
 
   <div class="PricingContainer  d-flex justify-space-between justify-end" style="margin-top:-30%;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
     
@@ -302,9 +302,9 @@
     </section>
     </div>
 
-    <div class="PricingContainer  d-flex justify-space-between justify-end" style="margin-top:-30%;" v-else>
+    <div class="PricingContainer  d-flex justify-space-between justify-end" style="" v-else>
     
-    <section class="packages" style="width:100%;margin-top:30%;" >
+    <section class="packages" style="width:100%;" >
       
       <v-row>
         <v-col cols="12"  >
@@ -424,7 +424,7 @@
     </div>
     <section style="background-color:#2b2b2b;  
     transform-origin: top left;
-    transform: skewY(2deg);margin-bottom:-3%">
+    transform: skewY(2deg);margin-bottom:-5%">
     <v-card v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '10%'" class="py-16 my-12 d-flex justify-center" outlined style="border:none;background-color:#2b2b2b;" align="center">
     <v-container style="transform-origin: top left;
     transform: skewY(-2deg); ">
@@ -471,7 +471,7 @@
          </v-card>
          <v-card v-else height="auto" :width="$vuetify.breakpoint.xsAndUp ? '100%' : '100%'" class="py-16 my-12 d-flex justify-center" outlined style="border:none;background-color:#2b2b2b;" align="center">
             <v-container style="transform-origin: top left;
-          transform: skewY(-2deg); margin-bottom:-20%">             
+          transform: skewY(-2deg); margin-bottom:-20%;">             
 
             <v-card height="auto" class="py-16 my-12 px-12" outlined style="border:none;background-color:#2b2b2b;color:white; width:100%;" align="center">
               <img src="" alt="">
