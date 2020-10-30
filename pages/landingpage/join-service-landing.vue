@@ -260,7 +260,8 @@
     <section class="joinservicesteps">
       <div class="joinservicestepscontainer">
         <div class="joinservicestepcontainerstep">
-          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
+          <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
+          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
           <div>
             <h1>Step 1 <span>- Build a Profile</span></h1>
             <p>
@@ -285,10 +286,12 @@
               hassle free.
             </p>
           </div>
-          <img class="containerImg" id="profileDash"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Buyer dashboard mockup"/>
+          <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" id="profileDash"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Buyer dashboard mockup"/>
+          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Profile Buyer dashboard mockup"/>
         </div>
         <div class="joinservicestepcontainerstep">
-          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
+          <img class="containerImg" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
+          <img class="containerImg" v-else style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
           <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png" id="notificationMock" alt="iphoneMockup" />
           <div>
             <h1>Step 3 <span>- Generate Leads</span></h1>
