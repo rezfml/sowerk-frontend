@@ -19,13 +19,15 @@
           <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>
         </v-card>
       </v-row>
-      <HomeCard
-        v-if="locations"
-        :items="locations"
-        :title="'Locations You Manage - ' + locations.length"
-        :tableProperties="headers"
-        slug="/dashboard/facilities/"
-      ></HomeCard>
+      <transition name="slide-fade">
+        <HomeCard
+          v-if="locations && locationApproved===true"
+          :items="locations"
+          :title="'Locations You Manage - ' + locations.length"
+          :tableProperties="headers"
+          slug="/dashboard/facilities/"
+        ></HomeCard>
+      </transition>
       <v-row v-if="company && company.company_type !== 'false'">
         <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
           <v-progress-circular
@@ -35,7 +37,9 @@
           ></v-progress-circular>
         </v-col>
         <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
-          <StatCard :stat="stat"></StatCard>
+          <transition name="slide-fade">
+          <StatCard v-if="statApproved" :stat="stat"></StatCard>
+          </transition>
         </v-col>
       </v-row>
       <v-row v-if="company && company.company_type === 'false'">
@@ -273,7 +277,9 @@
         ],
         locations: [],
         user: null,
-        company: null
+        company: null,
+        locationApproved: false,
+        statApproved: false,
       }
     },
     watch: {
@@ -324,6 +330,7 @@
           .catch(err => {
             console.log('err in getting applications', err);
           })
+        this.locationApproved = true;
       },
       async getUser() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
@@ -355,6 +362,7 @@
           console.log(this.locations, 'locations', data, 'data')
         })
         this.loading = false;
+        this.statApproved = true;
       },
       exit() {
         this.hidden = true;
@@ -407,5 +415,19 @@
     #app{
   margin-top:-65px;
 }
+  }
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>
