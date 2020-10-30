@@ -11,13 +11,16 @@
         </v-col>
 
         <v-col cols="12" class="d-flex flex-column justify-start flex-wrap" v-if="$vuetify.breakpoint.sm">
-          <FacilitiesCard
-            :title="'Your Facilities - ' + locations.length"
-            :items="locations"
-            :tableProperties="headers"
-            :viewAll="false"
-            slug="/dashboard/facilities/"
-          ></FacilitiesCard>
+          <transition name="slide-fade">
+            <FacilitiesCard
+              :title="'Your Facilities - ' + locations.length"
+              :items="locations"
+              :tableProperties="headers"
+              :viewAll="false"
+              slug="/dashboard/facilities/"
+              v-if="locationApproved===true"
+            ></FacilitiesCard>
+          </transition>
           <v-row class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
             <v-btn
@@ -113,13 +116,16 @@
           ></FilterCard>
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-start">
-          <FacilitiesCard
-            :title="'Your Facilities - ' + locations.length"
-            :items="locations"
-            :tableProperties="headers"
-            :viewAll="false"
-            slug="/dashboard/facilities/"
-          ></FacilitiesCard>
+          <transition name="slide-fade">
+            <FacilitiesCard
+              :title="'Your Facilities - ' + locations.length"
+              :items="locations"
+              :tableProperties="headers"
+              :viewAll="false"
+              slug="/dashboard/facilities/"
+              v-if="locationApproved===true""
+            ></FacilitiesCard>
+          </transition>
           <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
             <v-btn
@@ -274,7 +280,8 @@
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
-        ]
+        ],
+        locationApproved: false,
       }
     },
     watch: {
@@ -308,6 +315,7 @@
             }
           } else {
             this.locations = data.location;
+            this.locationApproved = true;
           }
         })
       },
@@ -317,4 +325,17 @@
 
 <style scoped>
 
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

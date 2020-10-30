@@ -73,10 +73,11 @@
 
       <!-- TERMS CONDITIONS PRIVACY -->
       <v-col cols="4" class="text-left  text-sm-right" style="display: flex; flex-direction: column; font-size:11px">
-        <ul>
-          <li style="list-style: none"><a href="/terms&conditions" style="text-decoration: none;color: white">Terms & Conditions</a></li>
-          <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
-        </ul>
+<!--        // JUST FOR NOW THIS WILL BE ADDED LATER I PROMISE-->
+<!--        <ul>-->
+<!--          <li style="list-style: none"><a href="/terms&conditions" style="text-decoration: none;color: white">Terms & Conditions</a></li>-->
+<!--          <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>-->
+<!--        </ul>-->
       </v-col>
 
         <!-- SOWERK LOGO -->
@@ -101,8 +102,7 @@
       </v-row>
        <!-- COPYRIGHT -->
       <v-row style="font-size: 10.5px; justify-content: center;">
-        <span>SOWerk &copy; {{ new Date().getFullYear() }}</span><br>
-         <span>All Rights Reserved.</span>
+        <p style="text-align: center;">SOWerk &copy; {{ new Date().getFullYear() }}<br>All Rights Reserved.</p>
       </v-row>
     </v-footer>
   </v-app>
@@ -183,6 +183,12 @@ header {
 .change_color {
     background-color:white;
 }
+
+  @media(max-width: 375px) {
+    img {
+      margin-left: -15px !important;
+    }
+  }
 
 
 
