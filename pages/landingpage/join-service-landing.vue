@@ -263,7 +263,8 @@
           <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
           <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
           <div>
-            <h1>Step 1 <span>- Build a Profile</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 1 <span>- Build a Profile</span></h1>
+            <h1 v-else >Step 1 <span ><br/>- Build a Profile</span></h1>
             <p>
               Your SOWerk Profile is Your New Calling Card. Designed To Make You
               Look Good!
@@ -277,7 +278,8 @@
         </div>
         <div class="joinservicestepcontainerstep">
           <div class="stepTwo">
-            <h1>Step 2 <span>- Apply With Buyers</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 2 <span>- Apply With Buyers</span></h1>
+            <h1 v-else>Step 2 <span><br/>- Apply With Buyers</span></h1>
             <p>Apply For Businesses Looking For You With One Click.</p>
             <p>
               With the click of one button, your company can apply to work for
@@ -294,7 +296,8 @@
           <img class="containerImg" v-else style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
           <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png" id="notificationMock" alt="iphoneMockup" />
           <div>
-            <h1>Step 3 <span>- Generate Leads</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 3 <span>- Generate Leads</span></h1>
+             <h1 v-else>Step 3 <span><br/>- Generate Leads</span></h1>
             <p>
               SOWerk makes it easy for you to get inbound service leads & we
               make it simple for you to show off your trackrecord (profile) to a
@@ -307,7 +310,7 @@
           </div>
         </div>
       </div>
-      <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
+      <button @click='$router.push("/register/provider")' style="font-weight:600">REGISTER NOW</button>
 
     </section>
 
