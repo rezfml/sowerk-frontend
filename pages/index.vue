@@ -507,7 +507,7 @@
             </div>
           </div>
           <button
-            style="margin-top: 15px"
+            style="margin-top: 15px; font-weight:700 !important"
             @click="$router.push('/landingpage/join-product-landing')"
           >
             See All Features
@@ -591,7 +591,7 @@
             </div>
           </div>
           <button
-            style="margin-top: 15px"
+            style="margin-top: 15px;font-weight:700 !important"
             @click="$router.push('/landingpage/join-service-landing')"
           >
             See All Features

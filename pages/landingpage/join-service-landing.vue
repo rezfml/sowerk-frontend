@@ -18,11 +18,12 @@
       text-center
       pb-16
       class="joinservicetraits"
-      style="background:#a61c00; display: flex; justify-content: center; align-items:center; flex-direction: column"
+      style=" display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
-      <v-layout row style="max-width: 1280px; flex-wrap: wrap; margin-top:-120px">
+      <v-layout row style="max-width:110%; flex-wrap: wrap; margin-top:-80px;margin-bottom:-80px;">
+        <v-img style="width:100%" src="https://sowerk-images.s3.us-east-2.amazonaws.com/landingserviceprovider.png"></v-img>
         <!-- CARD 1 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!--<v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -49,10 +50,10 @@
               painless while using either the desktop or mobile app.
             </div>
           </v-card>
-        </v-col>
+        </v-col>-->
 
         <!-- CARD 2 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!--<v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -78,10 +79,10 @@
               SOWerk is designed from it’s core to solve for property and facility management by providing the tools to vet & communicate grow service providers.
             </div>
           </v-card>
-        </v-col>
+        </v-col>-->
 
         <!-- CARD 3 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+       <!-- <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -107,10 +108,10 @@
               SOWerk has many automated features that help make everyone’s life easy, like automatically requiring service providers to requalify or automatically updating a service provider’s profile every time they achieve approved vendor status.
             </div>
           </v-card>
-        </v-col>
+        </v-col>-->
 
         <!-- CARD 4 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!--<v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -136,7 +137,7 @@
               For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smart phone, SOWerk is design to be convenient.
             </div>
           </v-card>
-        </v-col>
+        </v-col>-->
       </v-layout>
     </v-container>
 
@@ -680,9 +681,7 @@ transform: skewY(-2deg);
 
 
 @media (max-width: 750px) {
-   .containerImg{
-    display:none;
-  }
+
     .joinservicehero div h1 {
     font-size: 45px;
   }
