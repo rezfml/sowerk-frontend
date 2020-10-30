@@ -1,5 +1,5 @@
 <template>
-  <div class="joinservicecontainer">
+  <div class="joinservicecontainer" style=overflow-x:hidden>
     <section class="joinservicehero">
       <div>
         <h1>Service & Product Vendors</h1>
