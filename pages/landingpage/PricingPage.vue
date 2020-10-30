@@ -23,24 +23,27 @@
     margin-top:-500px;
     height:60vh;" class="py-16">
   <v-row justify="center"
+  class="d-flex"
   style="
     transform: skewY(2deg);margin-top:-10%; ">
       <v-flex sm11>
         <v-row>
-         <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '100%' : '10%'" class="py-16 my-12 d-flex justify-center" style="border-radius: 20px;" align="center">
+         <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '80%' : '10%'" class="py-0 my-12 d-flex justify-center" style="border-radius: 20px;margin:auto" align="center">
 
            <v-container>
+             <v-card-title class="d-flex justify-center my-6" style="color:#a61c00;font-weight:600;font-size:3.5rem">Free & Powerful Vendor Tools</v-card-title>
            <v-row class="d-flex justify-space-around flex-wrap">
-            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+             
+            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="my-12 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/user.png" alt="sowerk user">
-              <h1>Company Profile</h1>
+              <h1 class="my-4">Company Profile</h1>
               <p>Simply creating a free profile on SOWerk instantly grants you major benefits. The best part is you don't have to do any extra work. Think of your profile
                 as its own personal salesman that will showoff your company to businesses on and off of SOWerk anytime day or night.
               </p>
             </v-card>
-            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="my-8 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/portfolio.png" alt="sowerk portfolio">
-              <h1>Project Portfolio</h1>
+              <h1 class="my-4">Project Portfolio</h1>
               <p>SOWerk knows how important your reputation is, thats why we show your company profile like resume.
                  We also want businesses to understand your successful work history.
                  We can also take it one step forward and show that your company has all of required legal documents in place to help build trust from square one.  
@@ -49,16 +52,16 @@
            </v-row>
               
            <v-row class="d-flex justify-space-around flex-wrap">
-            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="my-8 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/email.png" alt="sowerk email">
-              <h1>New Leads</h1>
+              <h1 class="my-4">New Leads</h1>
               <p>Even if your company has a website with lead forms, we also want you to receive leads through SOWerk.
                  Simply by creating an account, anyone who comes across your account has the ability to submit a lead and ask for your services.  
               </p>
             </v-card>
-            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.lgAndUp ? '40%' : '40%'" class=" my-6 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/resume.png" alt="sowerk resume">
-              <h1>Unlimited Applications</h1>
+              <h1 class="my-4">Unlimited Applications</h1>
               <p>After creating your SOWerk free account, you have access to apply to any business on SOWerk.
                  Its free and easy, within a few clicks, you have already shook hands with a company your competitors are still trying to cold call.   
               </p>
@@ -86,6 +89,7 @@
          <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '10%'" class="py-16 my-12 d-flex justify-center" style="border-radius: 20px;" align="center">
 
            <v-container>
+             <v-card-title class="d-flex justify-center my-6" style="color:#a61c00;font-weight:600;font-size:3.5rem">Free & Powerful Vendor Tools</v-card-title>
            <v-row class="d-flex justify-space-around flex-wrap">
             <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/user.png" alt="sowerk user">
@@ -114,7 +118,7 @@
             </v-card>
             <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '40%' : '40%'" class="py-16 my-12 px-12" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/resume.png" alt="sowerk resume">
-              <h1>Unlimited Applications</h1>
+              <h1 >Unlimited Applications</h1>
               <p>After creating your SOWerk free account, you have access to apply to any business on SOWerk.
                  Its free and easy, within a few clicks, you have already shook hands with a company your competitors are still trying to cold call.   
               </p>
@@ -144,18 +148,19 @@
          <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '90%'" class="py-1 my-1 d-flex justify-center" style="border-radius: 20px;" align="center">
 
            <v-container>
+             <v-card-title class="d-flex justify-center my-6" style="color:#a61c00;font-weight:600;font-size:1.8rem">Free & Powerful<br/> Vendor Tools</v-card-title>
            <v-row class="d-flex justify-space-around flex-wrap">
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-12 px-1" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-1" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/user.png" alt="sowerk user">
-              <h1>Company Profile</h1>
+              <h1 class="my-4">Company Profile</h1>
               <p>Simply creating a free profile on SOWerk instantly grants you major benefits. The best part is you don't have to do any extra work. Think of your profile
                 as its own personal salesman that will showoff your company to businesses on and off of SOWerk anytime day or night.
               </p>
             </v-card>
           
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-4" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/portfolio.png" alt="sowerk portfolio">
-              <h1>Project Portfolio</h1>
+              <h1 class="my-4">Project Portfolio</h1>
               <p>SOWerk knows how important your reputation is, thats why we show your company profile like resume.
                  We also want businesses to understand your successful work history.
                  We can also take it one step forward and show that your company has all of required legal documents in place to help build trust from square one.  
@@ -164,16 +169,16 @@
            </v-row>
               
            <v-row class="d-flex justify-space-around flex-wrap">
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-4" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/email.png" alt="sowerk email">
-              <h1>New Leads</h1>
+              <h1 class="my-4">New Leads</h1>
               <p>Even if your company has a website with lead forms, we also want you to receive leads through SOWerk.
                  Simply by creating an account, anyone who comes across your account has the ability to submit a lead and ask for your services.  
               </p>
             </v-card>
-            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-12" outlined style="border:none" align="center">
+            <v-card height="auto" :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'" class="py-1 my-1 px-4" outlined style="border:none" align="center">
               <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/resume.png" alt="sowerk resume">
-              <h1>Unlimited Applications</h1>
+              <h1 class="my-4" >Unlimited Applications</h1>
               <p>After creating your SOWerk free account, you have access to apply to any business on SOWerk.
                  Its free and easy, within a few clicks, you have already shook hands with a company your competitors are still trying to cold call.   
               </p>
@@ -344,7 +349,7 @@
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
             <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;font-size:5vw;"><span class="mr-2" style="color:#a61c00">5</span> User License</v-list-item> 
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; font-size:5vw;"><span class="mr-2" style="color:#a61c00">20</span> Business Connections</v-list-item> 
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;font-size:5vw;"><span class="mr-2" style="color:#a61c00">$8.5</span> Per Additional Conntection(s)</v-list-item> 
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;font-size:5vw;"><span class="mr-1" style="color:#a61c00">$8.5</span> Per Additional Conntection(s)</v-list-item> 
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;font-size:5vw;">SOWerk Profile</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;font-size:5vw;">SOWerk Leads</v-list-item> 
          </v-list>
@@ -583,7 +588,7 @@ export default {
   width: 100%;
   height: 70vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://sowerk-images.s3.us-east-2.amazonaws.com/handshake.png');
+    url('https://sowerk-images.s3.us-east-2.amazonaws.com/pricingBg.png');
   background-size: cover;
   object-fit: contain;
   /* background-size: 100%; */
