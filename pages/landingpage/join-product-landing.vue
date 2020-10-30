@@ -29,12 +29,12 @@
         />
         <h3>Vet Vendors</h3>
         <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-          We make it easy and powerful for you to vet any service provider, and
+          We make it easy and powerful for you to vet any product provider, and
           re-qualify them annually. SOWerk's prebuilt vendor applications are easy
           and powerful, or customize your own to better fit.
         </p>
         <p v-else style="font-size:4.25vw">
-          We make it easy and powerful for you to vet any service provider, and
+          We make it easy and powerful for you to vet any product provider, and
           re-qualify them annually. SOWerk's prebuilt vendor applications are easy
           and powerful, or customize your own to better fit.
         </p>
@@ -85,13 +85,13 @@
         <h3>Convenient</h3>
         <p v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
           For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
+          contact all your approved plumbers for help or a local product
           provider that powers his business through a smartphone, SOWerk is
           designed to be convenient.
         </p>
         <p v-else style="font-size:4.25vw">
           For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
+          contact all your approved plumbers for help or a local product
           provider that powers his business through a smartphone, SOWerk is
           designed to be convenient.
         </p>
@@ -107,7 +107,7 @@
         <h3>Vet Vendors</h3>
 
         <p  style="font-size:4.25vw">
-          We make it easy and powerful for you to vet any service provider, and
+          We make it easy and powerful for you to vet any product provider, and
           re-qualify them annually. SOWerk's prebuilt vendor applications are easy
           and powerful, or customize your own to better fit.
         </p>
@@ -142,7 +142,7 @@
 
         <p style="font-size:4.25vw">
           For the facility manager in the middle of the night that needs to
-          contact all your approved plumbers for help or a local service
+          contact all your approved plumbers for help or a local product
           provider that powers his business through a smartphone, SOWerk is
           designed to be convenient.
         </p>
@@ -160,7 +160,7 @@
       </p>
       <p>
         We specifically designed our platform to help you identify, qualify,
-        and manage just about any type of service provider, local or national.
+        and manage just about any type of product provider, local or national.
         If you oversee one facility or own thousands of properties, SOWerk
         empowers you to easily establish approved vendors at each of your
         locations, request quotes from approved providers, and much more.
@@ -186,7 +186,7 @@
             <h1 v-else >Step 1<br /> <span class="pr-2" style="width:90%;font-size:7vw">-Register Company Account & Locations</span></h1>
             <p>
               After setting up your account and locations, SOWerk makes it easy
-              to filter approved service providers quickly and easily for any
+              to filter approved product providers quickly and easily for any
               location across the country.
               <p class="innerList d-flex-row"  style="">
                 <span>
@@ -237,13 +237,13 @@
                 <span>
                   <img class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
-                Location Staff Account or Headquarters Can Review Applicants Quickly 
+                Location Staff Account or Headquarters Can Review Applicants Quickly
               </p>
             </p>
           </div>
           <img  class="containerImg second-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
         </div>
-        <div class="joinproductstepcontainerstep step-right" >
+        <div class="joinproductstepcontainerstep step-right last-container" >
           <img  class="containerImg third-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>
           <img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
           <div class="getStarted" style="padding-right:2%;">
@@ -254,9 +254,9 @@
               simple-to-use interface allows you to stay up-to-date and manage
               all of your properties quickly and efficiently from a desktop or
               mobile platform. Manage staff, vet vendors, or even be one click
-              away from your approved service providers - that’s the power of
+              away from your approved product providers - that’s the power of
               SOWerk.
-                
+
                 <p class="innerList">
                   <span>
                     <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
@@ -329,7 +329,7 @@
               class="py-3"
               style="width: 80%; font-size: 1rem; text-align: center"
             >
-              We make it easy and powerful for you to vet any service provider, and re-qualify them annually. SOWerk's prebuilt vendor applications are easy and powerful, or customize your own to better fit.
+              We make it easy and powerful for you to vet any product provider, and re-qualify them annually. SOWerk's prebuilt vendor applications are easy and powerful, or customize your own to better fit.
             </div>
           </v-card>
         </v-col>
@@ -416,7 +416,7 @@
               class="py-3"
               style="width: 80%; font-size: 1rem; text-align: center"
             >
-              For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local service provider that powers his business through a smartphone, SOWerk is designed to be convenient.
+              For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local product provider that powers his business through a smartphone, SOWerk is designed to be convenient.
             </div>
           </v-card>
         </v-col>
@@ -454,7 +454,7 @@
                     of SOWerk like connecting with vendors on social
                     media, except they have to meet your approved provider
                     requirements. From here, you can easily manage and
-                    communicate with your approved service providers.</p>
+                    communicate with your approved product providers.</p>
                 </v-col>
             </v-row>
 
@@ -467,7 +467,7 @@
                 <v-col cols="11" class="pa-0">
                   <p  style="line-height: 1.25em; font-size: 19px;"
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Save Us Money? Will It Protect Our Investments?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">If time is money and quality is everything, then yes, SOWerk can help. SOWerk makes it efficient for any staff member to vet & manage local/national service providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make service providers re-qualify annually on things like insurance coverage and licenses so you don’t have to.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">If time is money and quality is everything, then yes, SOWerk can help. SOWerk makes it efficient for any staff member to vet & manage local/national product providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make product providers re-qualify annually on things like insurance coverage and licenses so you don’t have to.</p>
                 </v-col>
             </v-row>
 
@@ -480,7 +480,7 @@
                 <v-col cols="11" class="pa-0">
                   <p  style="line-height: 1.25em; font-size: 19px;"
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Help Shield Me From Cold Calls?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Sales is part of any business but sometimes, you just need a place to send the salesman where they can apply for your approved service program. SOWerk is your solution. </p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Sales is part of any business but sometimes, you just need a place to send the salesman where they can apply for your approved product program. SOWerk is your solution. </p>
                 </v-col>
             </v-row>
             </v-list>
@@ -1046,12 +1046,28 @@ export default {
     margin-top: 10px;
   }
 
+  .getStarted h1 {
+    font-size: 3vw !important;
+  }
+  .getStarted h1 span {
+    font-size: 3vw !important;
+  }
+  .getStarted .innerList {
+    font-size: 16px !important;
+  }
   .getStarted img {
     margin-left: -10% !important;
     margin-right: unset !important;
     width: 8% !important;
     height: auto !important;
     border: none !important;
+  }
+  .step-left {
+    padding-left: 0% !important;
+    margin-top: -20px !important;
+  }
+  .last-container{
+    margin-top: -20px !important;
   }
 }
 
@@ -1086,9 +1102,37 @@ export default {
   }
 }
 
-/* @media (max-width: 600px) {
-  .joinproducttraits div {
-    flex: 0 60%;
+ @media(max-width: 500px) {
+   .joinproductstepcontainerstep p {
+     text-align: center !important;
+     font-size: 1rem !important;
+     padding: 0px !important;
+   }
+   .joinproductstepcontainerstep .innerList {
+     text-align: left !important;
+   }
+   .joinproductstepcontainerstep h1 {
+     padding: 0px !important;
+     margin-left: 10px !important;
+     font-size: 30px !important;
+   }
+   .joinproductstepcontainerstep h1 span{
+     font-size: 30px !important;
+   }
+   .joinproductstepcontainerstep:nth-child(2) {
+     margin-top: 0px !important;
+   }
+   .joinproductstepcontainerstep:nth-child(3) {
+     margin-top: 0px !important;
+   }
+ }
+
+  @media (max-width: 375px) {
+    .joinproductstepcontainerstep h1 {
+      font-size: 25px !important;
+    }
+    .joinproductstepcontainerstep h1 span{
+      font-size: 25px !important;
+    }
   }
-} */
 </style>
