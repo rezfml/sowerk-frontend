@@ -219,8 +219,8 @@
              link: '#'
            },
           {
-            title: 'Service Provider Plan',
-            value: '',
+            title: 'Vendor Plan',
+            value: 'Basic',
             link: '/dashboard/vendors/applicants'
           },
           {

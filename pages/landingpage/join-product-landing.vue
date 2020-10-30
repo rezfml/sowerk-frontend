@@ -719,18 +719,19 @@ export default {
 }
 #profileDash {
   margin-left: -15% !important;
-  margin-right: -10%;
   margin-bottom: 10%;
   margin-top: 5%;
   width: 50% !important;
+  position: relative;
 }
 #iphoneMock {
-  margin-left: -10%;
+  margin-left: -15%;
   margin-bottom: -5%;
   margin-top: 15%;
   bottom: 15%;
   width: 30% !important;
   height: auto;
+  position: relative;
 }
 
 .stepList li {

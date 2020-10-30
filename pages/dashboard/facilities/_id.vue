@@ -15,15 +15,13 @@
 <!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
 <!--            </v-card>-->
 <!--          </v-row>-->
-          <v-progress-circular
-            v-if="loading != true"
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
           <transition name="slide-fade">
           <FacilitiesCard
-            v-if="loading != false && company.company_type==='true' && locationApproved===true"
             :title="'Location Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -325,7 +323,7 @@
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
-                this.loading = true;
+                // this.loading = true;
               }
                 for(let i = 0; i<response.data.length; i++) {
                   this.connections.push(response.data[i]);
@@ -377,7 +375,7 @@
             }
           })
           .catch(e => console.log(e, 'error'));
-        this.loading = true;
+        // this.loading = true;
         this.locationApproved = true;
         console.log('loading', this.loading)
       },
@@ -406,7 +404,7 @@
             console.log(this.vendors[index], 'index vendor', this.vendors, 'vendors');
             this.vendors[index].name = `${response.data.user.first_name} ${response.data.user.last_name}`;
             if(index === (this.vendors.length - 1)) {
-              this.loading = true;
+              // this.loading = true;
               console.log("YAY", this.loading)
             }
           })
@@ -429,7 +427,7 @@
                 .then(async (response) => {
                   console.log(response.data, 'yoooo approved');
                   if(response.data.length === 0) {
-                    this.loading = true;
+                    // this.loading = true;
                   }
                   for(let i = 0; i<response.data.length; i++) {
                     if(response.data[i].approval_status === 1) {

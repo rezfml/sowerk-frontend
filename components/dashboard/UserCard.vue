@@ -1,23 +1,35 @@
 <template>
   <div>
     <v-container v-if="this.editStartLoad === false && this.locationAssignLoad === false">
-      <v-card-title
+      <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"
         style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient"
       >{{ title }}</v-card-title>
+       <v-card-title v-else
+        style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;"
+        class="primary white--text font-weight-regular red-gradient"
+      >{{ title }}</v-card-title>
       <v-card-actions class="d-flex justify-end px-4 py-0">
-        <v-row class="py-0">
+        <v-row class="py-0" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
           <v-spacer></v-spacer>
           <v-col cols="4" class="py-0">
             <v-text-field label="Search" light></v-text-field>
           </v-col>
         </v-row>
+        <v-row class="pt-16" v-else>
+          <v-spacer></v-spacer>
+          <v-col cols="12" class="py-0">
+            <v-text-field label="Search" light></v-text-field>
+          </v-col>
+        </v-row>
       </v-card-actions>
-      <v-card-text class="pt-0 pb-2">
+      <v-card-text class="pt-0 pb-2" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
         <v-data-table
           :headers="tableProperties"
           :items="items"
           :items-per-page="10"
+          style="width:90%;height:auto;"
+          
         >
           <template v-slot:item.userfull_name="{item}">
             <p><v-icon color="primary">mdi-account</v-icon> {{item.first_name}} {{item.last_name}}</p>
@@ -48,9 +60,47 @@
           </template>
 
         </v-data-table>
+      </v-card-text >
+      <v-card-text class="pt-0 pb-2" v-else>
+        <v-data-table
+          :headers="tableProperties"
+          :items="items"
+          :items-per-page="10"
+          class="mobileTable"
+        >
+          <template v-slot:item.userfull_name="{item}">
+            <p><v-icon color="primary">mdi-account</v-icon> {{item.first_name}} {{item.last_name}}</p>
+          </template>
+          <template v-slot:item.useremail="{item}">
+            <p>{{item.email}}</p>
+          </template>
+          <template v-slot:item.userphone="{item}">
+            <p>{{item.phone}}</p>
+          </template>
+          <template v-slot:item.usercreated="{item}">
+            <p>{{item.created}}</p>
+          </template>
+          <template v-slot:item.useradmin="{item}">
+            <p v-if="item.is_superuser === true">Super Admin</p>
+            <p v-else>Staff Account</p>
+          </template>
+          <template v-slot:item.userverify="{item}">
+            <p v-if="item.isVerified===true">Yes</p>
+            <p v-else>No</p>
+          </template>
+          <template v-slot:item.useractions="{item}" >
+            <div class="d-flex flex-column align-center" style="margin-top:50%;">
+              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
+              <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
+            </div>
+          </template>
+
+        </v-data-table>
       </v-card-text>
     </v-container>
 
+    <v-container v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
     <v-card v-if="editStartLoad === true" class="mt-n8 d-flex flex-column align-center">
       <v-card-title style="color: #a61c00">Edit User #{{userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
       <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
@@ -79,6 +129,37 @@
       ></FacilitiesCard>
       <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
     </v-card>
+    </v-container>
+    <v-container v-else style="">
+    <v-card v-if="editStartLoad === true" class="mt-8 d-flex flex-column align-center" style="margin-top:-20%;">
+      <v-card-title style="color: #a61c00">Edit User #{{userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
+      <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
+        <v-text-field v-model="userEditForm.first_name" :placeholder="userEdit.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.last_name" :placeholder="userEdit.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.phone" :placeholder="userEdit.phone" :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="userEditForm.email" :placeholder="userEdit.email" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-select v-model="userEditForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+      </v-form>
+      <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
+      <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
+      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successUserEditForm === true">SUCCESS! You have edited a user # {{userEdit.id}}</v-card-title>
+    </v-card>
+
+    <v-card v-if="locationAssignLoad === true" class="mt-8 d-flex flex-column align-center" style="width: 95%;margin-top:-20%;">
+      <FacilitiesCard
+        v-if="locations && locationAssignLoad === true"
+        :items="locations"
+        :title="'Facilities'"
+        :tableProperties="headers"
+        slug="/dashboard/facilities/"
+        :viewLocation="true"
+        :locationAssignUser="locationAssignUser"
+        :assignUserToLocation="assignUserToLocation"
+      ></FacilitiesCard>
+      <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
+    </v-card>
+    </v-container>
   </div>
 </template>
 
@@ -237,4 +318,10 @@ export default {
 
 <style>
 
+ @media (max-width: 800px) {
+   table{
+     margin-bottom: 50%;
+   }
+
+}
 </style>

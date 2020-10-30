@@ -34,7 +34,7 @@
         loading: false,
         filters: [
           {
-            name: 'Location',
+            name: 'Proximity',
             items: [
               'State',
               'National',

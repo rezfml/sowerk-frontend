@@ -38,7 +38,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Simple & Fast</v-card-text
             >
             <div
@@ -68,7 +68,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Powerful Tools</v-card-text
             >
             <div
@@ -97,7 +97,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Automations</v-card-text
             >
             <div
@@ -126,7 +126,7 @@
               ></v-img>
             </div>
             <v-card-text
-              style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
+              style="font-size: 22px; font-weight:500; color: black; letter-spacing: 1px;"
               >Convenient</v-card-text
             >
             <div
@@ -246,21 +246,12 @@
       </v-row>
     </section>
 
-
 <!-- NEW SECTION TOOLS TO GROW -->
   </div>
     <section class="joinservicedescription">
-      <h2 class="text-h4">Tools To Grow Your Business</h2>
+      <h2 class="text-h4">Getting Started Is FREE And Easy!</h2>
       <p></p>
-      <p>
-        SOWerk makes it possible for a service providers like you to connect
-        with prorperty & facility managers, become an approved vendor, and
-        streamline work opportunties & communications. For those times when you
-        need to promote your trackrecord and qualifications to a buyer not on
-        SOWerk, well, we make that easy too. Your time is money, so it’s time
-        you use SOWerk
-      </p>
-      <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
+      <button @click='$router.push("/landingpage/PricingPage")'>LEARN MORE ABOUT SOWERK PRICING</button>
     </section>
 
 
@@ -423,7 +414,7 @@ bottom: 0;
 left: 0;
 z-index: -20;
 transform-origin: top left;
-transform: skewY(-2deg)
+transform: skewY(-2deg);
 }
 
 .PricingContainer{

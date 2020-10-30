@@ -69,7 +69,7 @@
       fluid
       text-center
       pb-8
-      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%);; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;"
+      style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;position:relative;z-index:1;"
       class="skew-top"
     >
       <v-row align="center" justify="center">
@@ -91,14 +91,14 @@
         <v-col cols="12" sm="10" md="5" class="d-flex px-0 px-sm-3">
           <v-card
             align="center"
-            class="ma-0 flex-grow-1"
+            class="ma-0 flex-grow-1 card-link-outer"
             style="border-radius: 20px; width: 100% "
           >
             <v-card-title class="px-0">
               <p style="width: 100%;">Local & National Businesses</p>
             </v-card-title>
 
-            <v-card-text>
+            <v-card-text style="flex-grow: 1">
               <v-row justify-center>
                 <v-col>
                   <v-img
@@ -149,8 +149,9 @@
 
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
+                  
                     style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
-                    class="pl-12 pl-sm-12 list1"
+                    class="pl-12 pl-sm-12 list1" 
                   >
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate</li>
@@ -161,12 +162,15 @@
                     <li>- School Districts</li>
                     <li>- Residential Investments</li>
                     <li>- Military</li>
+
                   </ul>
                 </v-col>
-
-                <v-col cols="12" class="d-flex">
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+               <v-col cols="12" class="d-flex">
                   <v-btn
-                    style="color: white; background:#A61C00; border-radius: 16px;"
+                    style="color: white; background:#A61C00; border-radius: 16px; display: flex;"
                     block
                     large
                     class="flex-grow-1"
@@ -174,8 +178,7 @@
                     >Businesses - Learn More</v-btn
                   >
                 </v-col>
-              </v-row>
-            </v-card-text>
+            </v-card-actions>    
           </v-card>
         </v-col>
 
@@ -193,14 +196,14 @@
         <v-col cols="12" sm="10" md="5" class="d-flex px-0 px-sm-3">
           <v-card
             align="center"
-            class="ma-0 flex-grow-1"
+            class="ma-0 flex-grow-1 card-link-outer"
             style="border-radius: 20px;"
           >
             <v-card-title class="px-0">
               <p style="width: 100%">Service & Product Vendors</p>
             </v-card-title>
 
-            <v-card-text>
+            <v-card-text style="flex-grow: 1">
               <v-row
                 style="display: flex; flex-direction: column; flex-wrap: nowrap"
               >
@@ -279,18 +282,22 @@
                     <li>- Consultant</li>
                   </ul>
                 </v-col>
-
-                <v-col cols="12 mt-4" align-self-end>
+                <v-row class="d-flex justify-end">
+                </v-row>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+               <v-col cols="12 mt-4" align-self-end > 
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
                     large
                     to="/landingpage/join-service-landing"
+                    
                     >Vendors - Learn More</v-btn
                   >
                 </v-col>
-              </v-row>
-            </v-card-text>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -672,7 +679,7 @@
     </v-flex>
 
 <!-- SERVICE PROVIDER OFTEN ASK -->
- <v-flex class="pt-16 pb-16" style="background: #EDEDED">
+ <v-flex class="pt-16 pb-16" style="background: #EDEDED url('https://sowerk-images.s3.us-east-2.amazonaws.com/asset1.png') no-repeat; background-position: 1100px 50px;">
       <v-container>
         <v-row>
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
@@ -686,7 +693,7 @@
               max-width="950px"
               :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
               class="mx-auto"
-              style="background: #EDEDED"
+              style="background: transparent"
             >
             <!-- QUESTION ONE -->
             <v-row class="pt-8 " style="max-width: 950px;" justify="center">
@@ -782,7 +789,7 @@ export default {
   data: () => ({
     allReviews: [],
     reviews: [],
-    fab:false,
+    fab: false,
   }),
   components: {
     Reviews,
@@ -797,9 +804,7 @@ export default {
   methods: {
     async getAllReviews() {
       let { data, status } = await this.$http
-        .get(
-          'https://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0'
-        )
+        .get('https://www.sowerkbackend.com/api/reviewsLimit?limit=20&offset=0')
         .catch((e) => e)
       if (this.$error(status, data.message, data.errors)) return
       this.$nextTick(function () {
@@ -819,19 +824,24 @@ export default {
         console.log(this.reviews, 'reviews')
       })
     },
-    onScroll (e) {
+    onScroll(e) {
       if (typeof window === 'undefined') return
-      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      const top = window.pageYOffset || e.target.scrollTop || 0
       this.fab = top > 20
     },
-    toTop () {
+    toTop() {
       this.$vuetify.goTo(0)
-    }
+    },
   },
 }
 </script>
 
 <style scoped>
+.card-link-outer {
+  display: flex;
+  flex-direction: column;
+}
+
 .wrap-text {
   -webkit-line-clamp: unset !important;
   overflow: visible !important;
@@ -883,19 +893,20 @@ export default {
 .joinconnection {
   background: linear-gradient(
       180deg,
-      rgba(68, 68, 68, 1) 35%,
-      rgba(43, 43, 43, 0.9) 100%
+      rgba(43, 43, 43, 1) 35%,
+      rgba(40, 40, 40, 0.9) 100%
     ),
     url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png');
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-size: contain;
-  background-position: bottom;
-  background-repeat: no-repeat;
 }
+
 .joinconnection h1 {
   color: white;
   width: 100%;
@@ -918,6 +929,7 @@ export default {
   width: 30%;
   margin: 20px 10px 20px 10px;
 }
+
 .border1 {
   border-top: 5px solid #a61c00;
   border-left: 5px solid #a61c00;
@@ -971,7 +983,7 @@ export default {
 }
 
 .st0 {
-  fill: #a52022;
+  fill: #a61c00;
 }
 
 .landinghomereview {
