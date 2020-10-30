@@ -681,7 +681,9 @@ transform: skewY(-2deg);
 
 
 @media (max-width: 750px) {
-
+  #notificationMock{
+    display:none;
+  }
     .joinservicehero div h1 {
     font-size: 45px;
   }
