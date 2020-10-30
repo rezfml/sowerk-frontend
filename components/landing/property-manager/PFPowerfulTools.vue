@@ -6,12 +6,12 @@
   <v-card class="elevation-0" style="max-width: 1400px; background:transparent; width: 90%; justify-content: center">
 
     <!-- FIRST ROW FIND VENDORS   -->
-    <v-row class="py-10" style="height: 400px;">
-      <v-col cols="3 elevation-1" md="2" style="text-align: center; display: flex; align-items: center;flex-direction: column; justify-content: center; background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px; z-index: 1">
+    <v-row class="row-mobile py-10" style="height: 400px;">
+      <v-col class="row-title-mobile" cols="3 elevation-1" md="2" style="text-align: center; display: flex; align-items: center;flex-direction: column; justify-content: center; background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px; z-index: 1">
         <img class="d-none d-sm-flex" src="https://sowerk-images.s3.us-east-2.amazonaws.com/searching.png"/>
         <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">FIND VENDORS</p>
       </v-col>
-      <v-col cols="9 py-6 elevation-1" md="9" style="background: white; border-top-right-radius: 25px; display: flex; align-items: center; border-bottom-right-radius: 25px;  z-index: 1">
+      <v-col class="row-text-mobile" cols="9 py-6 elevation-1" md="8" style="background: white; border-top-right-radius: 25px; display: flex; align-items: center; border-bottom-right-radius: 25px;  z-index: 1">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -29,7 +29,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Publish Your Customized Vendor Requirements To SOWerk To Receive Applications, Similar To Posting On A Job Board</p>
+            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Publish Your Customize Vendor Requirements To SOWerk To Receive Applications, Similar To Posting On A Job Board</p>
           </v-col>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -48,12 +48,12 @@
     </v-row>
 
 <!-- SECOND ROW VET VENDORS -->
-    <v-row class="py-10 justify-end flex-md-row flex-row-reverse" style="height: 400px; min-height: 350px;">
+    <v-row class="py-10 justify-end flex-md-row flex-row-reverse row-mobile-reverse-order" style="height: 400px; min-height: 350px;">
     <v-col cols="2" style="position: relative; z-index: 1" class="d-none d-sm-none d-md-flex">
         <!-- RED LINES -->
         <div style="position: absolute; top: -100px; left: 100px; height: 250px; width: 150px; border-left: 4px solid rgb(166, 28, 0); border-bottom: 4px solid rgb(166, 28, 0);"></div>
     </v-col>
-      <v-col cols="9 py-6 elevation-1" md="8" class="colTwoWhite-RowTwo" style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center; z-index: 2">
+      <v-col cols="9 py-6 elevation-1" md="8" class="row-text-mobile colTwoWhite-RowTwo" style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center; z-index: 2">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -93,19 +93,19 @@
           </v-col>
         </v-row>
       </v-col>
-       <v-col cols="3 elevation-1" md="2" class="colOneRed-RowTwo" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px; text-align: center; display: flex; align-items: center;flex-direction: column; justify-content: center;">
+       <v-col cols="3 elevation-1" md="2" class="row-title-mobile colOneRed-RowTwo" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px; text-align: center; display: flex; align-items: center;flex-direction: column; justify-content: center;">
         <img class="d-none d-sm-flex" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Group+233.png"/>
         <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">VET VENDORS</p>
       </v-col>
     </v-row>
 
      <!-- THIRD ROW MANAGE VENDORS   -->
-    <v-row class="py-10" style="height: 350px; min-height: 400px;">
-      <v-col cols="3 elevation-1" md="2" style="background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px; z-index: 1; display: flex; align-items: center;flex-direction: column; justify-content: center;">
+    <v-row class="row-mobile py-10" style="height: 350px; min-height: 400px;">
+      <v-col class="row-title-mobile" cols="3 elevation-1" md="2" style="background:#A61C00; border-top-left-radius: 25px; border-bottom-left-radius: 25px; z-index: 1; display: flex; align-items: center;flex-direction: column; justify-content: center;">
         <img class="d-none d-sm-flex" src="https://sowerk-images.s3.us-east-2.amazonaws.com/management.png"/>
         <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">MANAGE VENDORS</p>
       </v-col>
-      <v-col cols="9 py-6 elevation-1" md="8" style="background: white; border-top-right-radius: 25px; border-bottom-right-radius: 25px; display: flex; align-items: center;  z-index: 2">
+      <v-col class="row-text-mobile" cols="9 py-6 elevation-1" md="8" style="background: white; border-top-right-radius: 25px; border-bottom-right-radius: 25px; display: flex; align-items: center;  z-index: 2">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -129,7 +129,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - SOWerk Requests, A Communication Solution Integrated Across SOWerk For Service Requests &&nbsp;Bidding </p>
+            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - SOWerk Requests, A Communication Solution Integrated Across SOWerk For Service Requests & Bidding </p>
           </v-col>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -141,7 +141,7 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - Vendor Reviews & Analytics, Giving You The Tools To Log Reviews/Notes & Access To Vendor&nbsp;Analytics.</p>
+            <p  style="line-height: 1.25em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">Coming Soon - Vendor Reviews & Analytics, Giving You The Tools To Log Reviews/Notes & Access To Vendor Analytics.</p>
           </v-col>
         </v-row>
       </v-col>
@@ -152,12 +152,12 @@
     </v-row>
 
 <!-- FOURTH ROW LOCATIONS AND STAFF -->
-    <v-row class="py-10 justify-end flex-md-row flex-row-reverse" style="height: 400px; min-height: 350px;">
+    <v-row class="py-10 justify-end flex-md-row flex-row-reverse row-mobile-reverse-order" style="height: 400px; min-height: 350px;">
         <v-col cols="2" style="position: relative;" class="d-none d-sm-none d-md-flex">
         <!-- RED LINES -->
         <div style="position: absolute; top: -100px; left: 100px; height: 250px; width: 150px; border-left: 4px solid rgb(166, 28, 0); border-bottom: 4px solid rgb(166, 28, 0);"></div>
     </v-col>
-      <v-col cols="9 py-6 elevation-1" class="colTwoWhite-RowFour" md="8"  style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center; z-index: 1">
+      <v-col cols="9 py-6 elevation-1" class="row-text-mobile colTwoWhite-RowFour" md="8"  style="background: white; border-top-left-radius: 25px; border-bottom-left-radius: 25px; display: flex; align-items: center; z-index: 1">
         <v-row>
           <v-col cols="1 px-2 py-1" style="text-align: right;">
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
@@ -169,17 +169,17 @@
             <img width="22px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
           </v-col>
           <v-col cols="11 px-2 py-1">
-            <p  style="line-height: 1.5em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">SOWerk Staff Accounts Offer You The Tools To Create Structure Within Your Company. A Staff Account Can Be Limited To One Property Location Or A Select Few Where He/She Can Find, Vet, & Manage Vendors For only That&nbsp;Location</p>
+            <p  style="line-height: 1.5em; font-size: 12px;" class="text-capitalize text-sm-body-1 font-weight-light mb-0 wrap-text">SOWerk Staff Accounts Offer You The Tools To Create Structure Within Your Company. A Staff Account Can Be Limited To One Property Location Or A Select Few Where He/She Can Find, Vet, & Manage Vendors For only That Location</p>
           </v-col>
         </v-row>
       </v-col>
-       <v-col cols="3 elevation-1" md="2" class="colOneRed-RowFour" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px; z-index: 1; display: flex; align-items: center;flex-direction: column; justify-content: center;">
+       <v-col cols="3 elevation-1" md="2" class="row-title-mobile colOneRed-RowFour" style="background:#A61C00; border-top-right-radius: 25px; border-bottom-right-radius: 25px; z-index: 1; display: flex; align-items: center;flex-direction: column; justify-content: center;">
         <img class="d-none d-sm-flex" src="https://sowerk-images.s3.us-east-2.amazonaws.com/location.png"/>
         <p style="color: white; text-align: center; font-weight: bold; padding-top: 15px">LOCATIONS & STAFF</p>
       </v-col>
     </v-row>
   </v-card>
-  
+
     <v-btn
               class="text-uppercase primary mx-auto text-sm-body-1 mt-10 mb-16"
               x-large
@@ -244,4 +244,40 @@
     border-bottom-left-radius: 0px!important;
   }
 }
+@media(max-width: 500px) {
+  .row-mobile {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .row-mobile-reverse-order {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+  .row-mobile .row-title-mobile, .row-mobile-reverse-order .row-title-mobile {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0px !important;
+  }
+  .row-mobile .row-text-mobile, .row-mobile-reverse-order .row-text-mobile {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0px !important;
+  }
+  .row-mobile .row-text-mobile p, .row-mobile-reverse-order .row-text-mobile p {
+    font-size: 20px !important;
+    line-height: 1.6em !important;
+  }
+}
+
+  @media(max-width: 375px) {
+    .row-mobile .row-text-mobile p, .row-mobile-reverse-order .row-text-mobile p {
+      font-size: 16px !important;
+    }
+  }
 </style>
