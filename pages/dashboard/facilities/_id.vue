@@ -6,7 +6,9 @@
           <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
         </v-col>
         <v-col cols="9" class="pb-12 d-flex flex-column align-center">
+          <transition name="slide-fade">
           <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true"></ProfileEditCard>
+          </transition>
 <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
 <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
 <!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
@@ -517,10 +519,10 @@
   /* Enter and leave animations can use different */
   /* durations and timing functions.              */
   .slide-fade-enter-active {
-    transition: all .8s ease;
+    transition: all .7s ease;
   }
   .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {

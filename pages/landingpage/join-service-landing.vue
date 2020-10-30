@@ -143,7 +143,109 @@
 
   <!-- NEW SECTION - PRICING LEVELS -->
   <div class="PricingContainer  d-flex justify-space-around" v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-    
+
+    <section class="packages" v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+
+      <v-row>
+        <v-col cols="12"  >
+        <v-card-title style="width:50vw; font-size:3vw;color:#a61c00;" class="d-flex justify-center" color="primary">Service Provider Pricing Levels</v-card-title>
+        <v-row class="d-flex justify-center my-3">
+        <v-btn  @click='$router.push("/register/provider")' style="width:50%;border-radius:20px;background-color:#a61c00; color:white; height:3vw;">GET STARTED NOW</v-btn>
+        </v-row>
+        </v-col>
+      </v-row>
+
+    <v-row style="width:80%;" class="d-flex justify-space-between">
+      <v-card  outlined class="basicPackage" style="border-radius:20px; width:18%;border-color:#707070;border-width:5px;">
+        <v-card-title class="d-flex flex-column justify-center" style="font-size:.8vw">SOWERK BASIC</v-card-title>
+        <v-card-subtitle class="d-flex justify-center mt-10" style="font-size:3vw">FREE</v-card-subtitle>
+        <v-divider class="d-flex justify-center mt-10 mb-n2" height="12" style="width:90%;margin-left:5%;margin-bottom:20px;"></v-divider>
+          <v-card-text class="d-flex justify-center mt-0" style="font-size:1.75;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
+         <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%; font-size:.7vw;color:#707070;">
+          <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">1 User License</v-list-item>
+          <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
+          <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
+         </v-list>
+      </v-card>
+
+      <v-card outlined  class="upgrade1" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">Upgrade 1</v-card-title>
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK STARTER</v-card-title>
+        <v-card-subtitle class="mt-4 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$8.33<span class="ml-n8" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $100.00 Per Year</p>
+        <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
+          <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
+          <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
+            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">1</span> User License</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">5</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$10</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
+         </v-list>
+      </v-card>
+
+      <v-card outlined  class="upgrade2" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">Upgrade 2</v-card-title>
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK ADVANCED</v-card-title>
+        <v-card-subtitle class="mt-4 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$20.83<span class="ml-n2" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $250.00 Per Year</p>
+        <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
+          <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
+          <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
+            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">2</span> User License</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">20</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$8.5</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
+         </v-list>
+      </v-card>
+
+      <v-card outlined  class="upgrade3" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">Upgrade 3</v-card-title>
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK PRO</v-card-title>
+        <v-card-subtitle class="mt-4 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$41.67<span class="ml-n6" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $500.00 Per Year</p>
+        <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
+          <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
+          <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
+            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">5</span> User License</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">50</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$5</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
+         </v-list>
+      </v-card>
+
+      <v-card outlined  class="upgrade4" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">Upgrade 4</v-card-title>
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK PRO</v-card-title>
+        <v-card-subtitle class="mt-4 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$125.00<span class="ml-n0" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $500.00 Per Year</p>
+        <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
+          <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
+          <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
+            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">15</span> User License</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">250</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$3</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
+            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
+         </v-list>
+      </v-card>
+
+
+      </v-row>
+      <v-row style="width:80%;" class="d-flex flex-column justify-center" >
+
+
+      <v-card outlined  class="upgrade5 my-6"  style="border-radius:20px; width:100%;border-color:#A61C00;border-width:5px;">
+        <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">Upgrade 5</v-card-title>
+        <v-card-title class="d-flex flex-column justify-center mt-16" style="font-size:1vw;">SOWERK ENTERPRISE</v-card-title>
+        <v-card-subtitle class="mt-2 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">Custom Rate</v-card-subtitle>
+        <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
+          <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;color:black">Does you’re business require a special connection and pricing rate? At SOWerk, we are happy to work with you to make sure we develop a perfect plan based around your needs.</v-card-text>
+      </v-card>
+      </v-row>
+    </section>
 
 <!-- NEW SECTION TOOLS TO GROW -->
   </div>
@@ -203,7 +305,7 @@
         </div>
       </div>
       <button @click='$router.push("/register/provider")'>REGISTER NOW</button>
-    
+
     </section>
 
 
@@ -214,7 +316,7 @@
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
               style="font-size: 30px"
-              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
+              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center vendor-ask"
             >
               Vendors Generally Ask
             </p>
@@ -661,5 +763,50 @@ transform: skewY(-2deg);
     font-size: 17px;
   }
 }
+  @media (max-width: 450px) {
+    .joinservicedescription h2 {
+      text-align: center;
+    }
+    .joinservicestepcontainerstep p {
+      text-align: center !important;
+      font-size: 1rem !important;
+      padding: 0px !important;
+    }
+    .joinservicestepcontainerstep h1 {
+      padding: 0px !important;
+      margin-left: 10px !important;
+      font-size: 30px !important;
+    }
+
+    .joinservicestepcontainerstep .stepTwo h1 {
+      padding: 0px !important;
+      margin-left: 0px !important;
+      font-size: 30px !important;
+    }
+    .joinservicestepcontainerstep:nth-child(2) {
+      margin-top: 0px !important;
+    }
+    .joinservicestepcontainerstep:nth-child(3) {
+      margin-top: 0px !important;
+    }
+    .joinservicestepcontainerstep .stepTwo p {
+      margin-left: -6px !important;
+      margin-right: 6px !important;
+    }
+  }
+
+  @media(max-width: 375px) {
+    .joinservicestepscontainer {
+      width: 90% !important;
+    }
+    .joinservicestepcontainerstep h1 {
+      text-align: center !important;
+      margin-left: 0px !important;
+      line-height: 1.1em;
+    }
+    .joinservicehero h1 {
+      line-height: 1.1em;
+    }
+  }
 
 </style>
