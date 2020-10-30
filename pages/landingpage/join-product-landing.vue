@@ -3,12 +3,12 @@
   <div class="joinproductcontainer">
     <section class="joinproducthero">
       <div v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-        <h1>Property & Facility Managers</h1>
+        <h1>Property & Facility Businesses</h1>
         <p>Find, Vet, and Manage Approved Vendors</p>
         <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
       </div>
       <div v-else class="d-flex justify-center mt-6 px-2">
-        <h1 style="font-size:10vw">Property & Facility Managers</h1>
+        <h1 style="font-size:10vw">Property & Facility Businesses</h1>
         <p>Find, Vet, and Manage<br/> Approved Vendors</p>
         <button @click='$router.push("/register/property-manager")'>Get Started - It’s Free</button>
       </div>
