@@ -193,7 +193,7 @@
                   <v-card-text>
                     <v-row>
                       <v-col class="mx-auto text-center" cols="12">
-                        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png" style="height:16vh;"alt="property and facility manager Icon">
+                        <img src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png" style="height:16vh;" alt="property and facility manager Icon">
                       </v-col>
 
                       <v-col cols="12">
@@ -204,7 +204,7 @@
                         <v-divider class="my-4"></v-divider>
                       </v-col>
 
-                      <v-col cols="12">
+                      <v-col cols="12" style="font-size:1.25em">
                         <ul>
                           <li>Retail & Hospitality Chains</li>
                           <li>Commercial Real Estate Properties</li>
