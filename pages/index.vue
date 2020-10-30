@@ -75,7 +75,7 @@
       <v-row align="center" justify="center">
         <v-col cols="11" class="pa-0">
           <p
-            class="text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
+            class="mobile-title text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
             style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
           >
             The Business-to-Business Communication Tools Between Vendors Selling Products & Services To Businesses
@@ -149,9 +149,9 @@
 
                 <v-col cols="12" class="pt-1" style="max-width: 100%;">
                   <ul
-                  
+
                     style="column-count: 2; list-style: none; text-align: left; font-size: 17px; font-weight: 500"
-                    class="pl-12 pl-sm-12 list1" 
+                    class="pl-12 pl-sm-12 list1"
                   >
                     <li>- Retail & Hospitality Chains</li>
                     <li>- Commercial Real Estate</li>
@@ -178,7 +178,7 @@
                     >Businesses - Learn More</v-btn
                   >
                 </v-col>
-            </v-card-actions>    
+            </v-card-actions>
           </v-card>
         </v-col>
 
@@ -287,13 +287,13 @@
               </v-row>
             </v-card-text>
             <v-card-actions>
-               <v-col cols="12 mt-4" align-self-end > 
+               <v-col cols="12 mt-4" align-self-end >
                   <v-btn
                     style="color: white; background:#A61C00; border-radius: 16px"
                     block
                     large
                     to="/landingpage/join-service-landing"
-                    
+
                     >Vendors - Learn More</v-btn
                   >
                 </v-col>
@@ -1065,6 +1065,17 @@ export default {
     padding: 10px 10px 10px 20px;
   }
 }
+
+  @media(max-width: 375px) {
+    .mobile-title {
+      font-size: 28px !important;
+    }
+
+    p.text-center {
+      width: 90% !important;
+      max-width: 90% !important;
+    }
+  }
 </style>
 
 
