@@ -14,11 +14,9 @@
           <v-card-text class="py-0">
             <v-form>
               <v-row>
-
                 <v-col cols="12" class="pb-0 mt-3">
                   <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Details</v-subheader>
                 </v-col>
-
                 <v-col cols="12" class="pt-0">
                   <v-text-field
                     light
@@ -30,7 +28,6 @@
                     </template>
                   </v-text-field>
                 </v-col>
-
                 <!--              <v-col cols="12" class="pt-0">-->
                 <!--&lt;!&ndash;                <v-text-field&ndash;&gt;-->
                 <!--&lt;!&ndash;                  light&ndash;&gt;-->
@@ -218,10 +215,8 @@
               </v-row>
 
             </v-form>
+            <v-btn color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
           </v-card-text>
-          <v-card-actions class="d-flex justify-end px-4">
-            <v-btn color="primary" class="px-8" @click="updateLocation">Update Profile</v-btn>
-          </v-card-actions>
         </template>
       </transition>
 

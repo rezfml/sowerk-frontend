@@ -123,7 +123,7 @@
               :tableProperties="headers"
               :viewAll="false"
               slug="/dashboard/facilities/"
-              v-if="locationApproved===true""
+              v-if="locationApproved===true"
             ></FacilitiesCard>
           </transition>
           <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser">

@@ -24,6 +24,10 @@
             {{ item.primary_contact_first_name }}
             {{ item.primary_contact_last_name }}
           </template>
+          <template v-slot:item.message="{ item }">
+            <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
+            <p v-else>{{item.message}}</p>
+          </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="slug + item.id" append>
               <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070;" color="white" outlined>View</v-btn>
@@ -72,6 +76,10 @@
             <v-icon color="primary">mdi-account</v-icon>
             {{ item.primary_contact_first_name }}
             {{ item.primary_contact_last_name }}
+          </template>
+          <template v-slot:item.message="{ item }">
+            <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
+            <p v-else>{{item.message}}</p>
           </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="'../../../dashboard/messages-and-alerts/sent/' + item.id" append>
