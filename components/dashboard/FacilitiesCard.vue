@@ -6,6 +6,7 @@
           title="Filter"
           :filters="filters"
           :locationApproved="locationApproved"
+          :loadModal="loadModal"
         ></FilterCard>
       </v-col>
       <v-col cols="9" class="ml-n4">
@@ -291,6 +292,7 @@
         <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
       </v-form>
       <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+      <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
     </v-card>
   </div>
 </template>
@@ -429,7 +431,9 @@ export default {
       locationForMessage: {},
       successAssign: false,
       bkClass: 'bk',
-      blurClass: 'blur'
+      blurClass: 'blur',
+      successMessage: false,
+      successText: '',
     }
   },
   async created() {
@@ -462,13 +466,16 @@ export default {
           await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
             .then(res => {
               console.log('SUCCESS', res)
-              alert('Successfully sent message to ' + res.data.messageVal.location)
-              this.loadModal = false;
+              this.successText = 'Successfully sent message to ' + res.data.messageVal.location
+              this.successMessage = true;
             })
             .catch(err => {
               console.log(err);
             })
         })
+      await setTimeout(() => {
+        this.loadModal = false;
+      }, 3500)
     },
     async closeModal() {
       this.loadModal = false;

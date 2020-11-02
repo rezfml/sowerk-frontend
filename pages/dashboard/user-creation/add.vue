@@ -1,21 +1,35 @@
 <template>
   <v-card class="mt-8 d-flex flex-column align-center">
-    <v-card-title style="color: #a61c00">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
-    <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
-      <v-text-field v-model="addUserForm.email" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-      <v-text-field :type="'password'" v-model="addUserForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-      <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-      <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-      <v-text-field v-model="addUserForm.phone" :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-      <div>
-        <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
-        <p>Please Note The Difference Between Account Level Permissions.</p>
-        <p>SOWerk Administrator Account(s) can create & manage property locations, add staff accounts, acccess any vendor applicants, or approved vendors.</p>
-        <p>SOWerk Staff Accounts offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
-      </div>
-    </v-form>
-    <v-btn @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-    <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+    <v-skeleton-loader
+      v-if="!companyLoad"
+      type="card-avatar, article, article, actions"
+      min-height="50vh"
+      min-width="70vw"
+    ></v-skeleton-loader>
+  <template>
+    <transition name="slide-fade">
+      <v-card-title v-if="companyLoad" style="color: #a61c00">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
+    </transition>
+    <transition name="slide-fade">
+      <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
+        <v-text-field v-model="addUserForm.email" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field :type="'password'" v-model="addUserForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <v-text-field v-model="addUserForm.phone" :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+        <div>
+          <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+          <p>Please Note The Difference Between Account Level Permissions.</p>
+          <p>SOWerk Administrator Account(s) can create & manage property locations, add staff accounts, acccess any vendor applicants, or approved vendors.</p>
+          <p>SOWerk Staff Accounts offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
+        </div>
+      </v-form>
+    </transition>
+    <transition name="slide-fade">
+      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
+      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+    </transition>
+  </template>
   </v-card>
 </template>
 
@@ -26,6 +40,7 @@
     data() {
       return {
         company: {},
+        companyLoad: false,
         addModal: false,
         addUserForm: {
           companies_id: Number,
@@ -59,6 +74,11 @@
             console.log(response.data, 'company');
             this.company = response.data
           })
+          .catch(err => {
+            console.log(err, 'error in getting company')
+          })
+
+        this.companyLoad = true;
       },
       async submitAddUser() {
         this.addUserForm.companies_id = this.company.id;
@@ -85,6 +105,20 @@
 
 </script>
 
-<style>
+<style scoped>
+
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 
 </style>

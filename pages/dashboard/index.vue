@@ -8,17 +8,17 @@
       ></v-progress-circular>
     </v-col>
     <v-container class="px-8" fluid>
-      <v-row v-if="hidden !== true">
-        <v-card color="primary" class="d-flex" style="width: 100%;">
-          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?
-            <span>
-                <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>
-            </span>
-          </v-card-text>
+<!--      <v-row v-if="hidden !== true">-->
+<!--        <v-card color="primary" class="d-flex" style="width: 100%;">-->
+<!--          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?-->
+<!--            <span>-->
+<!--                <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>-->
+<!--            </span>-->
+<!--          </v-card-text>-->
 
-          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>
-        </v-card>
-      </v-row>
+<!--          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>-->
+<!--        </v-card>-->
+<!--      </v-row>-->
       <transition name="slide-fade">
         <HomeCard
           v-if="locations && locationApproved===true"
@@ -270,7 +270,7 @@
           { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
           { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Main Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
