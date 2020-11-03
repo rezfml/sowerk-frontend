@@ -62,7 +62,6 @@
             <v-col cols="12" class="py-1">
               <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
               <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Facilities Nationwide</p>
-              <v-btn outlined rounded color="primary" class="px-10">Share</v-btn>
             </v-col>
           </v-row>
 

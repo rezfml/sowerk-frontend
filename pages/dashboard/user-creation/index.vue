@@ -33,11 +33,6 @@
         </UserCard>
       </transition>
     </v-card>
-
-    <v-card v-if="currentUser.is_superuser === true" style="width: 100%; background: #a61c00; color: white;" class="d-flex justify-space-between mb-16">
-      <v-card-title>Need to Add A New User?</v-card-title>
-      <v-btn :to="'../../dashboard/user-creation/add'" outlined color="white" large rounded class="mt-2 mr-3">Add Here</v-btn>
-    </v-card>
   </v-container>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </v-col>
+<!--    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </v-col>-->
     <v-container class="px-8" fluid>
 <!--      <v-row v-if="hidden !== true">-->
 <!--        <v-card color="primary" class="d-flex" style="width: 100%;">-->
@@ -19,6 +19,37 @@
 <!--          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>-->
 <!--        </v-card>-->
 <!--      </v-row>-->
+      <v-row class="d-flex justify-center">
+        <v-col cols="12">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="50vw"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+      </v-row>
       <transition name="slide-fade">
         <HomeCard
           v-if="locations && locationApproved===true"
@@ -28,29 +59,31 @@
           slug="/dashboard/facilities/"
         ></HomeCard>
       </transition>
+<!--      <v-row v-if="company && company.company_type !== 'false'">-->
+<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
+<!--        </v-col>-->
+
       <v-row v-if="company && company.company_type !== 'false'">
-        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
-        </v-col>
         <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
           <transition name="slide-fade">
           <StatCard v-if="statApproved" :stat="stat"></StatCard>
           </transition>
         </v-col>
       </v-row>
-      <v-row v-if="company && company.company_type === 'false'">
-        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
-        </v-col>
-        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
+<!--      <v-row v-if="company && company.company_type === 'false'">-->
+<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
+<!--        </v-col>-->
+        <v-col v-if="company && company.company_type === 'false'" col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
           <StatCard :stat="stat"></StatCard>
         </v-col>
       </v-row>
@@ -300,6 +333,7 @@
         await this.getLocations();
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
+        await this.getMessages(this.currentUser.companies_id)
 
       }, 1000)
     },
@@ -384,6 +418,20 @@
           })
           .catch(err => {
             console.log('err in getting approved provider connections', err);
+          })
+      },
+      async getMessages(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/messages/byRecieverId/' + id)
+          .then(response => {
+            console.log('messages', response)
+            for(let i=0; i<response.data.length; i++) {
+              if(response.data[i].pmMessageRead === false) {
+                this.stats[2].value++
+              }
+            }
+          })
+          .catch(err => {
+            console.log('cannot get messages', err)
           })
       }
     }

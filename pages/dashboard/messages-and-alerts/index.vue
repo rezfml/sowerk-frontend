@@ -6,23 +6,35 @@
     style="width: 90%;"
     overflow-y-auto
   >
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
+<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </div>-->
+    <v-skeleton-loader
+      v-if="!loading"
+      type="card-avatar, article, article, actions"
+      min-height="50vh"
+      min-width="50vw"
+    ></v-skeleton-loader>
     <v-col cols="12">
-      <h1 class="font-weight-regular">Messages & Alerts</h1>
+      <transition name="slide-fade">
+      <h1 v-if="loading" class="font-weight-regular">Messages & Alerts</h1>
+      </transition>
     </v-col>
     <v-col cols="12">
+      <transition name="slide-fade">
       <MessageCard
         :items="messages"
+        :company="company"
         title="Messages & Alerts"
         :tableProperties="headers"
         slug="/dashboard/messages-and-alerts/"
+        v-if="loading"
       ></MessageCard>
+      </transition>
     </v-col>
   </v-row>
 </template>
@@ -87,6 +99,21 @@ export default {
         .then(response => {
           console.log('messages', response)
           this.messages = response.data
+          for(let i=0; i<this.messages.length;i++) {
+            if(this.company.company_type === 'true') {
+              if(this.messages[i].pmMessageRead === false) {
+                this.messages[i].pmMessageRead = "No";
+              } else {
+                this.messages[i].pmMessageRead = 'Yes';
+              }
+            } else {
+              if(this.messages[i].spMessageRead === false) {
+                this.messages[i].spMessageRead = "No";
+              } else {
+                this.messages[i].spMessageRead = 'Yes';
+              }
+            }
+          }
           this.loading = true;
         })
         .catch(err => {
@@ -106,5 +133,18 @@ export default {
 .red-gradient {
   background: rgb(166,28,0);
   background: linear-gradient(90deg, rgba(166,28,0,1) 0%, rgba(116,21,2,1) 100%);
+}
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .7s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
