@@ -609,7 +609,7 @@
         <v-row>
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
-              style="font-size: 30px"
+              style="font-size: 30px;margin:auto"
               class="mb-0 mb-sm-8 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
               Common Questions By Businesses
@@ -666,13 +666,22 @@
             </v-list>
             <!-- BUTTON -->
             <v-btn
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
               class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
               style="border-radius: 20px; font-weight: bold; font-size: 15px;"
               to="/landingpage/join-product-landing"
-              >Provider Facility - Learn More</v-btn
-            >
+              >Provider Facility - Learn More</v-btn>
+            <v-btn
+            v-else
+              class="text-uppercase primary mx-auto text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 13px;"
+              to="/landingpage/join-product-landing"
+              >Provider Facility - Learn More</v-btn>
+              
           </v-col>
         </v-row>
       </v-container>
@@ -684,7 +693,7 @@
         <v-row>
           <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
             <p
-              style="font-size: 30px;"
+              style="font-size: 30px;;margin:auto"
               class="mb-0 mb-sm-8 text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
               Vendors Generally Ask
@@ -748,6 +757,7 @@
             </v-list>
             <!-- BUTTON -->
             <v-btn
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
               class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
@@ -755,6 +765,14 @@
               to="/landingpage/join-service-landing"
               >Service Provider - Learn More</v-btn
             >
+                        <v-btn
+            v-else
+              class="text-uppercase primary mx-auto text-sm-body-2"
+              x-large
+              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+              style="border-radius: 20px; font-weight: bold; font-size: 13px;"
+              to="/landingpage/join-product-landing"
+              >Service Provider - Learn More</v-btn>
           </v-col>
         </v-row>
       </v-container>

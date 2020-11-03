@@ -20,8 +20,9 @@
       class="joinservicetraits"
       style=" display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
-      <v-layout row style="max-width:110%; flex-wrap: wrap; margin-top:-80px;margin-bottom:-80px;">
-        <v-img style="width:100%" src="https://sowerk-images.s3.us-east-2.amazonaws.com/landingserviceprovider.png"></v-img>
+      <v-layout row style="max-width:110%; flex-wrap: wrap; margin-top:-80px;margin-bottom:-80px;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+        <v-img  style="width:100%" src="https://sowerk-images.s3.us-east-2.amazonaws.com/landingserviceprovider.png"></v-img>
+        
         <!-- CARD 1 -->
         <!--<v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
@@ -139,6 +140,92 @@
           </v-card>
         </v-col>-->
       </v-layout>
+      <v-container v-else  >
+          <v-card flat rounded="20" style="border-radius: 20px;width:93%;margin:auto">
+              <v-row class="d-flex justify-space-around" >
+                <v-col cols=3 >
+                  <v-img height="80" width="250" class="d-flex justify-center ml-8"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"></v-img>
+                </v-col>
+                
+                <v-col cols="9">
+                  <v-row><v-img   max-height="50" max-width="250" class="d-flex justify-start" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"></v-img></v-row>
+                  <v-card-text class="my-n4" style="color:#a61c00;font-size:1.1em;font-weight:600">Vendor ToolBoxes</v-card-text>
+                </v-col>
+              </v-row>
+            <v-row style="overflow:hidden">
+                <v-card-title class="d-flex justify-center"  style="background-color:#a61c00;color:white;font-size:1.3rem;font-weight:600;width:100%">Sales & Marketing</v-card-title>
+            </v-row>
+          </v-card>
+
+          <v-card outlined  class="my-4" style="border-radius:20px; width:100%;border-color:#A61C00;border-width:5px;overflow:hidden">
+
+            <v-row style="overflow:hidden">
+              <v-col cols="12" style="background-color:#a61c00;" class="d-flex">
+                <v-img cols="3" style="background-color:#a61c00;" max-width="250" width="60" contain class="ml-10" src="https://sowerk-images.s3.us-east-2.amazonaws.com/witness.png"></v-img>
+                <v-card-title cols="9" class="d-flex justify-center"  style="background-color:#a61c00;color:white;font-size:1.3rem;font-weight:600;width:100%">Visibility</v-card-title>
+              </v-col>
+            </v-row>
+            <v-row>
+            <v-card-text  class="d-flex justify-start text-left" >How do you get in front of businesses who could and should buy from you? 
+            </v-card-text>
+            <v-card-text  class="d-flex justify-start text-left" >
+            What if there was a business-to-business dating website where your business credentials, track record, and overall resume weren’t just used to apply for approved vendor status with a business but it also made up your business (dating) profile? 
+            </v-card-text>
+            <v-card-text  class="d-flex justify-start text-left" >
+            On SOWerk, a company profile is visible to searching businesses. We know you probably don’t have time to keep up with your website yet alone social media which is why your SOWerk profile starts off strong using many of the same credentials you need to apply for an approved vendor program. As you obtain approved vendor status or receive reviews your profile automatically updates, making your life easier.
+            </v-card-text>
+            </v-row>
+          </v-card>
+
+          <v-card outlined  class="my-4" style="border-radius:20px; width:100%;border-color:#A61C00;border-width:5px;overflow:hidden">
+            <v-row style="overflow:hidden">
+              <v-col cols="12" style="background-color:#a61c00;" class="d-flex">
+                <v-img cols="6" style="background-color:#a61c00;" max-width="250" width="60" contain class="ml-10" src="https://sowerk-images.s3.us-east-2.amazonaws.com/trophy.png"></v-img>
+                <v-card-title cols="6" class="d-flex justify-center"  style="background-color:#a61c00;color:white;font-size:1.3rem;font-weight:600;width:100%">Approved Vendor</v-card-title>
+              </v-col>
+            </v-row>
+            <v-row>
+            <v-card-text  class="d-flex justify-start text-left" >
+            Businesses are looking for vendors just like you to provide services and/or supply products. When you are connected as their approved vendor, it’s like having a direct line for their staff to do business with you. 
+            </v-card-text>
+            <v-card-text  class="d-flex justify-start text-left" >
+           SOWerk makes it easy for you to search for accepting approved vendor programs as well as apply. To save you time and energy we try to use your profile data and any private provided data to pre-fill your applications.  
+            </v-card-text>
+            </v-row>
+          </v-card>
+
+          <v-card flat rounded="20" class="" style="border-radius: 20px;width:93%;margin:auto">
+              <v-row class="d-flex justify-space-around my-2" >
+                <v-col cols=3 >
+                  <v-img height="80" width="250" class="d-flex justify-center ml-8"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"></v-img>
+                </v-col>
+                
+                <v-col cols="9">
+                  <v-row><v-img   max-height="50" max-width="250" class="d-flex justify-start" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"></v-img></v-row>
+                  <v-card-text class="my-n4" style="color:#a61c00;font-size:1.1em;font-weight:600">Vendor ToolBoxes</v-card-text>
+                </v-col>
+              </v-row>
+            <v-row style="overflow:hidden">
+                <v-card-title class="d-flex justify-center"  style="background-color:#707070;color:white;font-size:1.3rem;font-weight:600;width:100%">Relationship Management</v-card-title>
+            </v-row>
+          </v-card>
+
+          <v-card outlined  class="my-4" style="border-radius:20px; width:100%;border-color:#707070;border-width:5px;overflow:hidden">
+            <v-row style="overflow:hidden">
+              <v-col cols="12" style="background-color:#707070;" class="d-flex">
+                <v-img cols="6" style="background-color:#707070;" max-width="250" width="60" contain class="ml-10" src="https://sowerk-images.s3.us-east-2.amazonaws.com/technics.png"></v-img>
+                <v-card-title cols="6" class="d-flex justify-center"  style="background-color:#707070;color:white;font-size:1.3rem;font-weight:600;width:100%">Business Tools</v-card-title>
+              </v-col>
+            </v-row>
+            <v-row>
+            <v-card-text  class="d-flex justify-start text-left" >
+            Every day we are working to create tools to grow your business and improve customer relationships. Solutions like SOWerk Requests, a tool for businesses to obtain bids or service requests, can also be used by you to submit bids/quotes and change orders to customers beyond SOWerk. 
+            </v-card-text>
+
+            </v-row>
+          </v-card>
+          
+        </v-container>
     </v-container>
 
   <!-- NEW SECTION - PRICING LEVELS -->
