@@ -321,7 +321,7 @@
                       <v-row>
                         <v-col cols="12">
                           <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6 mr-2">Optional - </span> SOWerk highly encourages you to upload Company Documents</v-card-title>
-                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
+                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Business Manager when vetting service vendors.</v-card-subtitle>
                           <v-card-subtitle class="justify-center headline text-center text-body-1">*Note: These documents are not public and will only be included when you apply to be an approved vendor.</v-card-subtitle>
                           <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
                             <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Insurance</p>
