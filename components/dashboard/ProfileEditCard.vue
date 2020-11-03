@@ -142,7 +142,7 @@
               <v-row>
 
                 <v-col cols="12" class="py-0 mt-0">
-                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Manager</v-subheader>
+                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Current Property Manager</v-subheader>
                 </v-col>
 
                 <v-col cols="12" md="6" class="pt-0">
@@ -150,6 +150,7 @@
                     label="First Name"
                     light
                     placeholder="John"
+                    readonly
                     v-model="locationEdit.contact_first_name"
                   >
                     <template v-slot:label>
@@ -163,6 +164,7 @@
                     label="Last Name"
                     light
                     placeholder="Smith"
+                    readonly
                     v-model="locationEdit.contact_last_name"
                   >
                     <template v-slot:label>
@@ -176,6 +178,7 @@
                     light
                     placeholder="johnsmith@example.com"
                     v-model="locationEdit.email"
+                    readonly
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Email</p>
@@ -188,6 +191,7 @@
                     light
                     placeholder="(123) 456-7890"
                     v-model="locationEdit.phone"
+                    readonly
                   ><template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
                   </template></v-text-field>
@@ -196,6 +200,7 @@
                 <v-col cols="12" md="6" class="py-0">
                   <v-select id="location-Admin"
                             label="Admin Level"
+                            readonly
                             :items="adminOptions"
                             v-model="location.adminLevel">
 

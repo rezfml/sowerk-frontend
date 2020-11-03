@@ -8,7 +8,7 @@
 
             <v-col cols="12" class="pb-0 mt-3 d-flex justify-space-between">
               <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Vendor Forms</v-subheader>
-              <v-btn color="primary">Add New Vendor Form</v-btn>
+              <v-btn :to="'../../../dashboard/vendors/applications'" color="primary">Add New Vendor Form</v-btn>
             </v-col>
 
 <!--            <v-col cols="12" class="py-0">-->
@@ -40,13 +40,13 @@
                         @change="userformEditActive(form)"
                       >
                       </v-select>
-                      <v-checkbox
-                        v-if="form.applicationStatus === 'Published - Private'"
-                        :label="'Publish Link Publicly?'"
-                        v-model="form.applicationStatusLinkPublish"
-                        class="ml-3"
-                        @change="userformEditApplicationPublish(form)"
-                      ></v-checkbox>
+<!--                      <v-checkbox-->
+<!--                        v-if="form.applicationStatus === 'Published - Private'"-->
+<!--                        :label="'Publish Link Publicly?'"-->
+<!--                        v-model="form.applicationStatusLinkPublish"-->
+<!--                        class="ml-3"-->
+<!--                        @change="userformEditApplicationPublish(form)"-->
+<!--                      ></v-checkbox>-->
                     </td>
                     <td class="d-flex flex-column" style="width: 100%; height: auto;">
                       <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >

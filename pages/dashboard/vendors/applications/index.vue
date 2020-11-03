@@ -34,7 +34,6 @@
         <v-simple-table class="pt-16">
           <thead >
           <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 6%; text-align: center">Id</th>
             <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>
             <th style="color: #a61c00; width: 10%; text-align: center">Category</th>
             <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
@@ -49,7 +48,6 @@
             <div v-for="(service, indexService) in location.services">
               <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
 
-                <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>
                 <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>
                 <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>
@@ -60,7 +58,7 @@
                   </div>
                 </td>
                 <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
-                <td style="width: 25%;" class="py-1 center mr-2 d-flex">
+                <td style="width: 22%;" class="py-1 center mr-10 d-flex">
                   <v-select
                     v-model="userform.applicationStatus"
                     :placeholder="userform.applicationStatus"
@@ -68,13 +66,13 @@
                     @change="userformEditActive(userform)"
                   >
                   </v-select>
-                  <v-checkbox
-                    v-if="userform.applicationStatus === 'Published - Private'"
-                    :label="'Publish Link Publicly?'"
-                    v-model="userform.applicationStatusLinkPublish"
-                    class="ml-3"
-                    @change="userformEditApplicationPublish(userform)"
-                  ></v-checkbox>
+<!--                  <v-checkbox-->
+<!--                    v-if="userform.applicationStatus === 'Published - Private'"-->
+<!--                    :label="'Publish Link Publicly?'"-->
+<!--                    v-model="userform.applicationStatusLinkPublish"-->
+<!--                    class="ml-3"-->
+<!--                    @change="userformEditApplicationPublish(userform)"-->
+<!--                  ></v-checkbox>-->
                 </td>
                 <td style="width: 10%;" class="d-flex flex-column align-center">
                   <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>
@@ -229,30 +227,36 @@
     <transition name="slide-fade">
       <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
       <v-card-title class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
-      <v-card-title v-if="step1" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
-        <v-card-title v-if="step2" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Choose a Service</v-card-title>
-      <v-card-title v-if="step3" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 3 - Application Name & Category</v-card-title>
-      <v-card-title v-if="step4" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 4 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
+        <transition name="slide-fade">
+          <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
+        </transition>
+        <transition name="slide-fade">
+          <v-card-title v-if="step2" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Choose a Service</v-card-title>
+        </transition>
+        <transition name="slide-fade">
+          <v-btn @click="addService" v-if="step2" outlined color="primary" class="px-10" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Service</v-btn>
+        </transition>
+        <transition name="slide-fade">
+          <v-card-title v-if="step3" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 3 - Application Name & Category</v-card-title>
+        </transition>
+        <transition name="slide-fade">
+          <v-card-title v-if="step4" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 4 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
+        </transition>
         <transition name="slide-fade">
         <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
           <thead >
-          <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 10%; text-align: center">Id</th>
-            <th style="color: #a61c00; width: 20%; text-align: center">Location Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Category</th>
-<!--            <th style="color: #a61c00; width: 40%;">Actions</th>-->
+          <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
+            <th style="color: #a61c00; width: 40%; text-align: center">Location Name</th>
+            <th style="color: #a61c00; width: 40%; text-align: center">Location Address</th>
+            <th style="color: #a61c00; width: 20%;">Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr  v-for="(location, index) in addLocations" style="background: none !important;">
-            <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(service, indexService) in location.services">
-              <td style="width: 10%; text-align: center" class="py-1">{{service.id}}</td>
-              <td style="width: 20%; text-align: center" class="py-1">{{location.name}}</td>
-              <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-              <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
-              <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center">
-                <v-btn @click="assignToServiceVendor(service.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Location</v-btn>
+          <tr v-for="(location, index) in addLocations" style="background: none !important;" class="d-flex justify-center">
+              <td style="width: 40%; text-align: center" class="py-1">{{location.name}}</td>
+              <td style="width: 40%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+              <td style="width: 20%; margin: 0 auto;" class="d-flex flex-column align-center">
+                <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Location</v-btn>
               </td>
             </div>
           </tr>
@@ -260,7 +264,25 @@
         </v-simple-table>
         </transition>
         <transition name="slide-fade">
-      <v-form class="py-16 mt-16 d-flex flex-column align-center" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
+          <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
+            <thead >
+            <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
+              <th style="color: #a61c00; width: 70%; text-align: center">Category</th>
+              <th style="color: #a61c00; width: 30%;">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  v-for="(service, indexService) in locationVal.services" style="background: none !important;" class="d-flex justify-center">
+                <td style="width: 70%; text-align: center" class="py-1">{{service.name}}</td>
+                <td style="width: 30%; margin: 0 auto;" class="d-flex flex-column align-center">
+                  <v-btn @click="assignToServiceVendor(service.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Service</v-btn>
+                </td>
+            </tr>
+            </tbody>
+          </v-simple-table>
+        </transition>
+        <transition name="slide-fade">
+      <v-form class="py-16 mt-16 d-flex flex-column align-center" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step3">
         <v-text-field
           label="Name Your Application"
           placeholder="Plumbing Vendor App - Brookfield Store"
@@ -272,11 +294,11 @@
       </v-form>
         </transition>
         <transition name="slide-fade">
-      <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewVendorFormLoad && step3">
+      <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewVendorFormLoad && step4">
         <v-row class="d-flex justify-center" style="width: 100%;">
           <v-col style="width: 55%;">
             <v-card class="d-flex flex-column align-center">
-              <v-card-title>UserForm - #{{newAssignUserForm.id}} {{newAssignUserForm.name}}</v-card-title>
+              <v-card-title><v-text-field v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
               <draggable
                 class="dragArea list-group"
                 group="formName"
@@ -341,6 +363,21 @@
     </v-card>
     </transition>
 
+    <transition name="slide-fade">
+      <v-card class="d-flex flex-column align-center justify-center" style="z-index:2; position:fixed; top: 20vh; left: 20vw; width: 75vw; height: 70vh; box-shadow: 8px 8px 8px 8px gray" overflow-y-auto v-if="addServiceLoad && step2">
+        <v-card-title class="mb-4" style="color: #a61c00; font-size: 40px;">Add A Service Here</v-card-title>
+        <v-form style="width: 90%;" class="d-flex flex-column align-center">
+          <v-text-field
+            style="width: 80%;"
+          label="Service Name Goes Here"
+          v-model="serviceAdd.name"
+          ></v-text-field>
+          <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>
+        </v-form>
+        <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
+      </v-card>
+    </transition>
+
   </v-container>
 </template>
 
@@ -379,6 +416,11 @@ import draggable from "vuedraggable"
         step1: false,
         step2: false,
         step3: false,
+        step4: false,
+        addServiceLoad: false,
+        serviceAdd: {
+          name: '',
+        },
         assignServiceId: Number,
         assignUserform: {
           name: '',
@@ -465,6 +507,7 @@ import draggable from "vuedraggable"
           'Unpublished'
         ],
         saveLoad: true,
+        locationVal: {}
         }
     },
     mounted() {
@@ -824,10 +867,33 @@ import draggable from "vuedraggable"
               console.log(err, 'err in adding userform from template')
             })
       },
-      async assignToServiceVendor(id) {
+      async getServiceForVendor(location) {
         this.step1 = false;
         this.step2 = true;
+        this.locationVal = location
+      },
+      async assignToServiceVendor(id) {
+        this.step2 = false;
+        this.step3 = true;
         this.assignServiceId = id
+      },
+      async addService() {
+        this.addServiceLoad = true;
+      },
+      async closeService() {
+        this.addServiceLoad = false;
+      },
+      async addNewService() {
+        await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
+          .then(response => {
+            console.log(response, 'success in adding new service')
+            this.locationVal.services.push(response.data.service)
+            this.addServiceLoad = false;
+          })
+          .catch(err => {
+            alert('err in adding new service');
+            console.log(err, 'err in adding new service');
+          })
       },
       async userformEditActive(userform) {
         console.log(userform.active, 'active userform');
@@ -872,8 +938,8 @@ import draggable from "vuedraggable"
           .then(response => {
             console.log(response.data, 'userform posting on assign success')
             this.newAssignUserForm = response.data.userform;
-            this.step2=false;
-            this.step3=true;
+            this.step3=false;
+            this.step4=true;
             this.getUserformsVal(response.data.userform.id)
           })
           .catch(err => {
@@ -936,6 +1002,9 @@ import draggable from "vuedraggable"
         this.saveLoad = false;
         console.log('this.userForms', this.newAssignUserForm);
         console.log('this.originaluserForms', this.originalUserForms);
+        const userformEdit = {
+          name: this.newAssignUserForm.name
+        }
         this.newAssignUserForm.formfields.forEach(async (formfield, index) => {
           formfield["userform_id"] = this.newAssignUserForm.id
           formfield.order = index;
@@ -979,6 +1048,13 @@ import draggable from "vuedraggable"
         console.log('this.userForms after loop', this.userForms);
         console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
         console.log(this.filteredSameUserForms, 'filtered same formfields')
+        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.newAssignUserForm.id, userformEdit)
+          .then(response => {
+            console.log(response, 'updating formfield ', formfield.id)
+          })
+          .catch(err => {
+            console.log('error in updating formfield', err)
+          })
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
@@ -1048,7 +1124,7 @@ import draggable from "vuedraggable"
     transition: all .8s ease;
   }
   .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {
