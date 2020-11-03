@@ -1,5 +1,5 @@
 <template>
-  <v-card class="d-flex flex-column align-center mt-12">
+  <v-card class="d-flex flex-column align-center">
     <v-card-title
       style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
       class="primary white--text font-weight-regular red-gradient"

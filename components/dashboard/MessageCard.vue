@@ -19,10 +19,18 @@
           :items="items"
           :items-per-page="5"
         >
+          <template v-slot:item.pmMessageRead="{ item }">
+            <p v-if="company.company_type === 'true'">{{ item.pmMessageRead}}</p>
+            <p v-else>{{item.spMessageRead}}</p>
+          </template>
           <template v-slot:item.full_name="{ item }">
             <v-icon color="primary">mdi-account</v-icon>
             {{ item.primary_contact_first_name }}
             {{ item.primary_contact_last_name }}
+          </template>
+          <template v-slot:item.message="{ item }">
+            <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
+            <p v-else>{{item.message}}</p>
           </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="slug + item.id" append>
@@ -73,6 +81,14 @@
             {{ item.primary_contact_first_name }}
             {{ item.primary_contact_last_name }}
           </template>
+          <template v-slot:item.pmMessageRead="{ item }">
+            <p v-if="company.company_type === 'true'">{{item.spMessageRead}}</p>
+            <p v-else>{{ item.pmMessageRead}}</p>
+          </template>
+          <template v-slot:item.message="{ item }">
+            <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
+            <p v-else>{{item.message}}</p>
+          </template>
           <template v-slot:item.actions="{ item }">
             <nuxt-link :to="'../../../dashboard/messages-and-alerts/sent/' + item.id" append>
               <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070" color="white" outlined>View</v-btn>
@@ -103,7 +119,7 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'sent'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'sent', 'currentUser', 'company'],
   data() {
     return {
       messages: null

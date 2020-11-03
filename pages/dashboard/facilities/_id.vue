@@ -3,8 +3,9 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="width: 100%; height: 100%;">
         <v-col cols="3">
-          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" v-if="location"></ProfileCard>
+          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" ></ProfileCard>
         </v-col>
+
         <v-col cols="9" class="pb-12 d-flex flex-column align-center">
           <transition name="slide-fade">
           <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true"></ProfileEditCard>
@@ -22,6 +23,7 @@
 <!--          ></v-progress-circular>-->
           <transition name="slide-fade">
           <FacilitiesCard
+            v-if="vendors && locationApproved"
             :title="'Location Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -31,6 +33,7 @@
             :locationApproved="locationApproved"
           ></FacilitiesCard>
           </transition>
+
           <transition name="slide-fade">
           <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
           </transition>
@@ -38,6 +41,7 @@
           <transition name="slide-fade">
           <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
           </transition>
+
           <transition name="slide-fade">
           <ProfileEditCard :location="location" v-if="editLocationDetails === true"></ProfileEditCard>
           </transition>
