@@ -33,11 +33,20 @@
                     <td style="width: 20%;">{{ form.name }}</td>
                     <td style="width: 40%;" v-if="finishedFormFields === true">{{ form.formfields.length }} Specific Application Questions</td>
                     <td style="width: 30%;">
-                      <v-switch
-                        v-model="form.active"
-                        label="Vendor Form Active?"
+                      <v-select
+                        v-model="form.applicationStatus"
+                        :placeholder="form.applicationStatus"
+                        :items="applicationOptions"
                         @change="userformEditActive(form)"
-                      ></v-switch>
+                      >
+                      </v-select>
+                      <v-checkbox
+                        v-if="form.applicationStatus === 'Published - Private'"
+                        :label="'Publish Link Publicly?'"
+                        v-model="form.applicationStatusLinkPublish"
+                        class="ml-3"
+                        @change="userformEditApplicationPublish(form)"
+                      ></v-checkbox>
                     </td>
                     <td class="d-flex flex-column" style="width: 100%; height: auto;">
                       <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >
@@ -106,7 +115,12 @@
         userForms: [],
         value: 0,
         finishedFormFields: false,
-        totalLength: 0
+        totalLength: 0,
+        applicationOptions: [
+          'Published - Public',
+          'Published - Private',
+          'Unpublished'
+        ],
       }
     },
     async mounted() {
@@ -138,11 +152,19 @@
                 for(let i = 0; i<response.data.length; i++) {
                   console.log('response.data', response.data[i])
                   let userForm = {
-                    active: response.data[i].active,
+                    applicationStatus: response.data[i].applicationStatus,
+                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                     id: response.data[i].id,
                     name: response.data[i].name,
                     service_id: response.data[i].service_id,
                     formfields: []
+                  }
+                  if(userForm.applicationStatus === 0) {
+                    userForm.applicationStatus = 'Unpublished'
+                  } else if (userForm.applicationStatus === 1) {
+                    userForm.applicationStatus = 'Published - Public'
+                  } else {
+                    userForm.applicationStatus = 'Published - Private'
                   }
                   this.userForms.push(userForm);
                   console.log(this.userForms)
@@ -169,7 +191,19 @@
       async userformEditActive(userform) {
         console.log(userform.active, 'active userform');
         const changes = {
-          active: userform.active
+          applicationStatus: Number,
+          applicationStatusLinkPublish: false
+        }
+        if(userform.applicationStatus === 'Unpublished') {
+          changes.applicationStatus = 0
+          changes.applicationStatusLinkPublish = false
+          userform.applicationStatusLinkPublish = false
+        } else if (userform.applicationStatus === 'Published - Public') {
+          changes.applicationStatus = 1
+          changes.applicationStatusLinkPublish = false
+          userform.applicationStatusLinkPublish = false
+        } else {
+          changes.applicationStatus = 2
         }
         await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + userform.id, changes)
           .then(response => {
@@ -178,7 +212,19 @@
           .catch(err => {
             console.log(err, 'err in changing form')
           })
-      }
+      },
+      async userformEditApplicationPublish(userform) {
+        const changes = {
+          applicationStatusLinkPublish: userform.applicationStatusLinkPublish
+        }
+        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + userform.id, changes)
+          .then(response => {
+            console.log(response, 'success, form is now active changed')
+          })
+          .catch(err => {
+            console.log(err, 'err in changing form')
+          })
+      },
     }
   };
 </script>

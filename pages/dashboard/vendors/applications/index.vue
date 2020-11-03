@@ -35,12 +35,12 @@
           <thead >
           <tr class="d-flex justify-start">
             <th style="color: #a61c00; width: 6%; text-align: center">Id</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Application Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Category</th>
+            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>
+            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>
             <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
             <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
             <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>
-            <th style="color: #a61c00; width: 14%; text-align: center">Active?</th>
+            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>
             <th style="color: #a61c00; width: 10%;">Actions</th>
           </tr>
           </thead>
@@ -50,8 +50,8 @@
               <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
 
                 <td style="width: 6%; text-align: center" class="py-1">{{userform.id}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
+                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>
+                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>
                 <td style="width: 15%; text-align: center" class="py-1">
                   <div class="d-flex flex-column align-center">
@@ -59,13 +59,22 @@
                     <p>{{location.city}}, {{location.state}}</p>
                   </div>
                 </td>
-                <td style="width: 15%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
-                <td style="width: 9%;" class="py-1 center">
-                  <v-switch
-                    v-model="userform.active"
+                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
+                <td style="width: 25%;" class="py-1 center mr-2 d-flex">
+                  <v-select
+                    v-model="userform.applicationStatus"
+                    :placeholder="userform.applicationStatus"
+                    :items="applicationOptions"
                     @change="userformEditActive(userform)"
                   >
-                  </v-switch>
+                  </v-select>
+                  <v-checkbox
+                    v-if="userform.applicationStatus === 'Published - Private'"
+                    :label="'Publish Link Publicly?'"
+                    v-model="userform.applicationStatusLinkPublish"
+                    class="ml-3"
+                    @change="userformEditApplicationPublish(userform)"
+                  ></v-checkbox>
                 </td>
                 <td style="width: 10%;" class="d-flex flex-column align-center">
                   <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>
@@ -450,6 +459,11 @@ import draggable from "vuedraggable"
           'number',
           'date'
         ],
+        applicationOptions: [
+          'Published - Public',
+          'Published - Private',
+          'Unpublished'
+        ],
         saveLoad: true,
         }
     },
@@ -511,11 +525,19 @@ import draggable from "vuedraggable"
             console.log(response.data, 'userforms response.data');
             for(let i=0; i<response.data.length; i++) {
               let userForm = {
-                active: response.data[i].active,
+                applicationStatus: response.data[i].applicationStatus,
+                applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                 id: response.data[i].id,
                 name: response.data[i].name,
                 service_id: response.data[i].service_id,
                 formfields: []
+              }
+              if(userForm.applicationStatus === 0) {
+                userForm.applicationStatus = 'Unpublished'
+              } else if (userForm.applicationStatus === 1) {
+                userForm.applicationStatus = 'Published - Public'
+              } else {
+                userForm.applicationStatus = 'Published - Private'
               }
               await this.userForms.push(userForm);
               console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
@@ -810,7 +832,31 @@ import draggable from "vuedraggable"
       async userformEditActive(userform) {
         console.log(userform.active, 'active userform');
         const changes = {
-          active: userform.active
+          applicationStatus: Number,
+          applicationStatusLinkPublish: false
+        }
+        if(userform.applicationStatus === 'Unpublished') {
+          changes.applicationStatus = 0
+          changes.applicationStatusLinkPublish = false
+          userform.applicationStatusLinkPublish = false
+        } else if (userform.applicationStatus === 'Published - Public') {
+          changes.applicationStatus = 1
+          changes.applicationStatusLinkPublish = false
+          userform.applicationStatusLinkPublish = false
+        } else {
+          changes.applicationStatus = 2
+        }
+        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + userform.id, changes)
+          .then(response => {
+            console.log(response, 'success, form is now active changed')
+          })
+          .catch(err => {
+            console.log(err, 'err in changing form')
+          })
+      },
+      async userformEditApplicationPublish(userform) {
+        const changes = {
+          applicationStatusLinkPublish: userform.applicationStatusLinkPublish
         }
         await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + userform.id, changes)
           .then(response => {
