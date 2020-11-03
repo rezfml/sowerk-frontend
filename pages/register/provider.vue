@@ -462,13 +462,13 @@
               </v-container>
             </v-tab-item>
           </v-tabs-items>
-          <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-            <v-col xs="12" sm="12" class="bottomNav">
+          <v-card-actions class="py-10 mx-auto d-flex " style="max-width: 80%;">
+            <v-col xs="12" sm="12" class="bottomNav d-flex justify-end">
             <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
             <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
+            <v-btn color="primary" class="px-8 d-flex " @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
             <v-btn color="primary" outlined class="px-8 mx-8 saveBtn" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add <br v-if="$vuetify.breakpoint.mobile"/> Another Location </v-btn>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
+            <v-btn color="primary" class="px-8 d-flex justify-end" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
             <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-else-if="tab === 2">Review</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
