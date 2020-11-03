@@ -22,6 +22,8 @@
         title="Messages & Alerts"
         :tableProperties="headers"
         slug="/dashboard/messages-and-alerts/"
+        :currentUser="currentUser"
+        :company="company"
       ></MessageCard>
     </v-col>
   </v-row>
@@ -45,7 +47,7 @@
 
         },
         headers: [
-          { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
+          { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-regular'},
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
@@ -85,14 +87,22 @@
       async getMessages() {
         await this.$http.get('https://www.sowerkbackend.com/api/messages/byUserId/' + this.currentUser.id)
           .then(response => {
-            console.log('messages', response)
+            console.log('messages', response, 'user', this.currentUser)
             this.messages = response.data
-            this.loading = true;
+            for(let i=0; i<response.data.length;i++) {
+              if(response.data[i].spMessageRead === false) {
+                this.messages[i].spMessageRead = 'No'
+              } else if (response.data[i].spMessageRead === true) {
+                this.messages[i].spMessageRead = 'Yes'
+              }
+            }
+            console.log(this.messages, 'this.messages')
           })
           .catch(err => {
             console.log('cannot get messages', err)
             this.loading = true;
           })
+        this.loading = true;
       },
     }
   };

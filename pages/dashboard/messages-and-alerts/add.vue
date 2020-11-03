@@ -1,29 +1,51 @@
 <template>
   <div style="width: 100%;" class="d-flex flex-column align-center" overflow-y-auto>
-    <v-row class="mt-10 d-flex flex-column" style="width: 80%;">
-      <v-text-field v-model="search" placeholder="Search companies here..." label="Search Company And Select To Send Message:"/>
+    <v-row class="mt-10 d-flex flex-column" style="width: 80%; height: auto;">
+      <v-text-field style="max-height: 15vh !important;" v-model="search" placeholder="Search companies here..." label="Search Company And Select To Send Message:"/>
       <MessageCompanyCard
         :items="filteredCompanies"
         title="Companies"
         :tableProperties="headers"
         slug="/dashboard/messages-and-alerts/add"
         :selectCompany="selectCompany"
+        class="mt-12"
       ></MessageCompanyCard>
     </v-row>
     <v-form class="my-10" style="width: 80%;" v-if="companySelection === true">
-      <v-text-field placeholder="Service Goes Here" v-model="messageForm.service"></v-text-field>
-      <v-text-field placeholder="Company Goes Here" v-model="messageForm.company"></v-text-field>
-      <v-text-field placeholder="First Name Goes Here" v-model="messageForm.primary_contact_first_name"></v-text-field>
-      <v-text-field placeholder="Last Name Goes Here" v-model="messageForm.primary_contact_last_name"></v-text-field>
-      <v-text-field placeholder="Message Goes Here" v-model="messageForm.message"></v-text-field>
-        <v-select  placeholder="Location Goes Here" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption">
+      <v-col cols="12" class="d-flex justify-center">
+        <v-text-field class="mx-2" style="width: 30%;" readonly label="Company" v-model="messageForm.company"></v-text-field>
+        <v-text-field class="mx-2" style="width: 20%;" readonly label="First Name" v-model="messageForm.primary_contact_first_name"></v-text-field>
+        <v-text-field class="mx-2" style="width: 20%;" readonly label="Last Name" v-model="messageForm.primary_contact_last_name"></v-text-field>
+      </v-col>
+      <v-col cols="12" class="d-flex">
+        <v-select cols="8"  placeholder="Your Location Goes Here" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
-            {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+            <p @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
           </template>
           <template slot="item" slot-scope="data">
-            {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+            <p @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
           </template>
         </v-select>
+        <v-select cols="4"  placeholder="Your Service For Location Goes Here" v-model="messageForm.service" :items="services" name="service" item-text="name" item-value="name" class="text-caption mx-1">
+          <template slot="selection" slot-scope="data">
+            <p>{{ data.item.name }}</p>
+          </template>
+          <template slot="item" slot-scope="data">
+            <p>{{ data.item.name }}</p>
+          </template>
+        </v-select>
+      </v-col>
+      <v-col cols="12" class="d-flex">
+        <v-select cols="12"  placeholder="Send To Location Goes Here" :items="spcompanylocations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+          <template slot="selection" slot-scope="data">
+            <p @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+          </template>
+          <template slot="item" slot-scope="data">
+            <p @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+          </template>
+        </v-select>
+      </v-col>
+      <v-text-field placeholder="Message Goes Here" v-model="messageForm.message"></v-text-field>
       <v-btn @click="submit">Send Message</v-btn>
     </v-form>
   </div>
@@ -47,7 +69,11 @@
           primary_contact_last_name: this.$store.state.user.user.user.last_name,
           message: '',
           location: '',
-          userprofiles_id: this.$store.state.user.user.user.id
+          userprofiles_id: this.$store.state.user.user.user.id,
+          pmMessageRead: false,
+          spMessageRead: false,
+          spLocationId: Number,
+          spLocationName: Number
         },
         companiesFilter: [],
         search: '',
@@ -56,7 +82,12 @@
         company: {
 
         },
+        spcompany: {
+
+        },
+        spcompanylocations: [],
         locations: [],
+        services: [],
         headers: [
           { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
           { text: 'Services Offered', value: 'service', class: 'primary--text font-weight-regular' },
@@ -103,7 +134,6 @@
             this.company = response.data;
             this.locations = response.data.locations
             this.messageForm.company = response.data.account_name;
-            this.messageForm.service = String(response.data.servicesOffered);
             console.log(this.company, 'company');
           })
           .catch(err => {
@@ -126,8 +156,29 @@
       async selectCompany(companyParam) {
         this.companySelection = true;
         this.sendToId = companyParam.id;
+        this.messageForm.recieversId = companyParam.id
+        this.getSPCompany(companyParam.id);
+      },
+      async getSPCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            this.spcompany = response.data;
+            this.spcompanylocations = response.data.locations;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      },
+      async getServices(item) {
+        this.services = item.services
+        console.log(this.services, 'this.services');
+      },
+      async getLocationForSP(item) {
+        console.log(item, 'location for sp');
+        this.messageForm.spLocationId = item.id;
+        this.messageForm.spLocationName = `${item.name} - ${item.address} ${item.city}, ${item.state} ${item.zipcode}`
       }
-    }
+    },
   }
 
 </script>

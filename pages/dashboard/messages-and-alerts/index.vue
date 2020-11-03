@@ -45,7 +45,7 @@ export default {
 
       },
       headers: [
-        { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
+        { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-regular'},
         { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
         { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
         { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },

@@ -2,8 +2,8 @@
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height d-flex flex-column align-center justify-center" style="text-align: center;">
       <v-card class="d-flex flex-column align-center mb-10">
-        <v-card-title>Message #{{individualMessage.id}}</v-card-title>
-        <v-card-text>To: {{individualMessage.primary_contact_first_name}} {{individualMessage.primary_contact_last_name}} - {{individualMessage.company}} - {{individualMessage.location}}</v-card-text>
+        <v-card-text>To: {{individualMessage.spLocationName}}</v-card-text>
+        <v-card-text>From: {{individualMessage.primary_contact_first_name}} {{individualMessage.primary_contact_last_name}} - {{individualMessage.company}} - {{individualMessage.location}}</v-card-text>
         <v-card-text>Service: {{individualMessage.service}}</v-card-text>
         <v-card-text>Message: {{individualMessage.message}}</v-card-text>
       </v-card>

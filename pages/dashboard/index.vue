@@ -202,9 +202,9 @@
             link: '/dashboard/vendors/applicants'
           },
           {
-            title: 'Recently Approved Applications',
+            title: 'Unread Messages',
             value: 0,
-            link: '/dashboard/vendors/approved'
+            link: '/dashboard/messages-and-alerts/'
           }
         ],
         providerStats: [
@@ -267,7 +267,7 @@
           },
         ],
         headers: [
-          { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
           { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Main Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
@@ -376,22 +376,10 @@
                   if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
                     console.log(response.data[i], 'applications for staff account')
                     this.stats[0].value ++
-                    console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
-                    if((response.data[i].pmuserprofiles_id === this.currentUser.id) && (moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar())) {
-                      this.stats[2].value++;
-                    }
                   }
                 }
               } else {
                 this.stats[0].value = response.data.length
-                if(response.data.length !== 0) {
-                  for(let i=0; i<response.data.length; i++) {
-                    console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
-                    if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
-                      this.stats[2].value++;
-                    }
-                  }
-                }
               }
           })
           .catch(err => {

@@ -313,12 +313,12 @@
               },
             ]
           },
-          {
-            to: '/dashboard/requests-for-bids/',
-            slug: 'requests-for-bids',
-            icon: 'mdi-frequently-asked-questions',
-            text: 'Requests For Bids'
-          },
+          // {
+          //   to: '/dashboard/requests-for-bids/',
+          //   slug: 'requests-for-bids',
+          //   icon: 'mdi-frequently-asked-questions',
+          //   text: 'Requests For Bids'
+          // },
           {
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
@@ -425,12 +425,12 @@
               },
             ]
           },
-          {
-            to: '/dashboard/requests-for-bids/',
-            slug: 'requests-for-bids',
-            icon: 'mdi-frequently-asked-questions',
-            text: 'Requests For Bids'
-          },
+          // {
+          //   to: '/dashboard/requests-for-bids/',
+          //   slug: 'requests-for-bids',
+          //   icon: 'mdi-frequently-asked-questions',
+          //   text: 'Requests For Bids'
+          // },
           {
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
