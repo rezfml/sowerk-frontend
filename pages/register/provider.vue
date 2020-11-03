@@ -415,7 +415,7 @@
                           </v-col>
 
                           <v-col cols="12">
-                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Account Address*</p>
                             <v-text-field
                               v-model="fullAddress"
                               placeholder=" "
@@ -425,7 +425,7 @@
                           </v-col>
 
                           <v-col cols="12">
-                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Account Description*</p>
                             <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
                             <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
                           </v-col>
