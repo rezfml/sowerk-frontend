@@ -190,22 +190,25 @@
             <p>
               After setting up your account and locations, SOWerk makes it easy
               to filter approved product providers quickly and easily for any
-              location across the country.
+              location across the country.</p>
               <p class="innerList d-flex-row"  style="">
                 <span>
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                Manage One Or Thousands of Locations
               </p>
-              <p class="innerList">
+              <p class="innerList d-flex-row">
                 <span>
+
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
                 </span>
                 Add Staff Accounts For One Location Or Multiple
               </p>
-              <p class="innerList">
+              <p class="innerList d-flex-row">
                 <span>
+
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+
                 </span>
                 Invite Existing Vendors To Connect For Free
               </p>
@@ -218,28 +221,36 @@
             <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 <span>- Find Or Invite Service Providers</span></h1>
             <h1 v-else>Step 2 <span class="pr-2" style="width:90%;font-size:7vw"><br/>- Find Or Invite Service Providers</span></h1>
             <p>
-              Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
+              Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.</p>
               <p class="innerList">
                 <span>
+
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+
                 </span>
                 Customize Vendor Application By Location
               </p>
               <p class="innerList">
                 <span>
+
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+
                 </span>
                 Manage Applications By Service Category
               </p>
               <p class="innerList">
                 <span>
+
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+
                 </span>
                 Easily Toggle Application Status On or Off
               </p>
               <p class="innerList">
                 <span>
+
                   <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
+
                 </span>
                 Location Staff Account or Headquarters Can Review Applicants Quickly
               </p>
@@ -453,7 +464,6 @@
         </v-row>
       </v-container>
     </v-flex>
-          <!-- </div>-->
           </div>
       </div>
       <v-btn
@@ -919,6 +929,7 @@ export default {
   margin-left: -10%;
 }
 
+
 .containerImg.second-img {
   width: 55% !important;
 }
@@ -945,6 +956,9 @@ export default {
 }
 .innerList span {
   margin: auto 0;
+}
+.innerList span img[data-v-226494d8] {
+  width: 30px !important;
 }
 
 /* @media (max-width: 1700px) {
@@ -1000,6 +1014,9 @@ export default {
     height: auto !important;
     border: none !important;
   }
+  .innerList span img[data-v-226494d8] {
+    width: 25px !important;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -1045,6 +1062,9 @@ export default {
     width: 8% !important;
     height: auto !important;
     border: none !important;
+  }
+  .innerList span img[data-v-226494d8] {
+    width: 25px !important;
   }
 }
 
