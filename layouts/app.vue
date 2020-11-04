@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-content>
-      <Sidebar></Sidebar>
+      <Sidebar :company="company"></Sidebar>
       <nuxt :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh;" />
     </v-content>
   </v-app>
@@ -24,11 +24,13 @@
         right: true,
         rightDrawer: false,
         title: 'SOWerk',
-        companyType: null
+        companyType: null,
+        company: {},
       }
     },
     async mounted() {
       let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+      this.company = data;
       this.companyType = data.company_type;
       console.log(this.companyType);
     },

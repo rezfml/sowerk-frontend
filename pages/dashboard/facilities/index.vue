@@ -11,6 +11,13 @@
         </v-col>
 
         <v-col cols="12" class="d-flex flex-column justify-start flex-wrap" v-if="$vuetify.breakpoint.sm">
+          <v-skeleton-loader
+            v-if="loading"
+            type="card-avatar, article, article, article, actions"
+            min-height="50vh"
+            min-width="30vw"
+            cols
+          ></v-skeleton-loader>
           <transition name="slide-fade">
             <FacilitiesCard
               :title="'Your Facilities - ' + locations.length"

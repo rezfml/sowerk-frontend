@@ -115,7 +115,7 @@
                   </thead>
                   <tbody>
                   <tr v-for="app in item.applicationtemplatesformfields" :key="app.name">
-                    <td>Question# {{app.order}}</td>
+                    <td>Question# {{(app.order + 1)}}</td>
                     <td>{{ app.name }}</td>
                   </tr>
                   </tbody>
