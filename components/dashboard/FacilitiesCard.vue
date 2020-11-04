@@ -177,7 +177,7 @@
               <v-row class="d-flex" cols="12" md="6">
                 <v-col>
                   <p>{{item.address}}</p>
-                  <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                  <p>{{item.city}}, {{item.state}}  {{item.zipcode}}</p>
                 </v-col>
               </v-row>
             </template>
