@@ -321,7 +321,7 @@
                       <v-row>
                         <v-col cols="12">
                           <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6 mr-2">Optional - </span> SOWerk highly encourages you to upload Company Documents</v-card-title>
-                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
+                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Business Manager when vetting service vendors.</v-card-subtitle>
                           <v-card-subtitle class="justify-center headline text-center text-body-1">*Note: These documents are not public and will only be included when you apply to be an approved vendor.</v-card-subtitle>
                           <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
                             <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Insurance</p>
@@ -415,7 +415,7 @@
                           </v-col>
 
                           <v-col cols="12">
-                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Account Address*</p>
                             <v-text-field
                               v-model="fullAddress"
                               placeholder=" "
@@ -425,7 +425,7 @@
                           </v-col>
 
                           <v-col cols="12">
-                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Account Description*</p>
                             <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
                             <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
                           </v-col>
@@ -462,13 +462,13 @@
               </v-container>
             </v-tab-item>
           </v-tabs-items>
-          <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-            <v-col xs="12" sm="12" class="bottomNav">
+          <v-card-actions class="py-10 mx-auto d-flex " style="max-width: 80%;">
+            <v-col xs="12" sm="12" class="bottomNav d-flex justify-end">
             <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
             <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
+            <v-btn color="primary" class="px-8 d-flex " @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
             <v-btn color="primary" outlined class="px-8 mx-8 saveBtn" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add <br v-if="$vuetify.breakpoint.mobile"/> Another Location </v-btn>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
+            <v-btn color="primary" class="px-8 d-flex justify-end" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
             <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-else-if="tab === 2">Review</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
