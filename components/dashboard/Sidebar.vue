@@ -17,13 +17,13 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item style="padding: 0px 0px !important;">
         <v-list-item-avatar class="mx-auto mr-3" size="80px" >
           <v-img :src="company.imgUrl" aspect-ratio="1"/>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
-            <v-col cols="12" class="pa-0 ma-0" >
+            <v-col cols="12" class="pa-0 ma-0 d-flex flex-column align-left" >
               <template v-if="company">
                 <v-list-item-title style="font-size: 1rem;">{{company.account_name}}</v-list-item-title>
               </template>
@@ -313,12 +313,12 @@
               },
             ]
           },
-          {
-            to: '/dashboard/requests-for-bids/',
-            slug: 'requests-for-bids',
-            icon: 'mdi-frequently-asked-questions',
-            text: 'Requests For Bids'
-          },
+          // {
+          //   to: '/dashboard/requests-for-bids/',
+          //   slug: 'requests-for-bids',
+          //   icon: 'mdi-frequently-asked-questions',
+          //   text: 'Requests For Bids'
+          // },
           {
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
@@ -361,7 +361,7 @@
                 to: '/dashboard/user-creation',
                 slug: 'user-creation',
                 icon: 'mdi-account',
-                text: 'Manage Users'
+                text: 'Manage Users',
               },
               {
                 to: '/dashboard/user-creation/add',
@@ -425,12 +425,12 @@
               },
             ]
           },
-          {
-            to: '/dashboard/requests-for-bids/',
-            slug: 'requests-for-bids',
-            icon: 'mdi-frequently-asked-questions',
-            text: 'Requests For Bids'
-          },
+          // {
+          //   to: '/dashboard/requests-for-bids/',
+          //   slug: 'requests-for-bids',
+          //   icon: 'mdi-frequently-asked-questions',
+          //   text: 'Requests For Bids'
+          // },
           {
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',

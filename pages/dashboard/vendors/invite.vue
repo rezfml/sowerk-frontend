@@ -19,22 +19,22 @@
                 hide-default-footer
               >
                 <template v-slot:item.service="{ item }">
-                  <v-text-field class="text-caption" v-model="item.service"></v-text-field>
+                  <v-text-field class="text-caption" placeholder="HVAC" v-model="item.service"></v-text-field>
                 </template>
                 <template v-slot:item.companyName="{ item }">
-                  <v-text-field class="text-caption" v-model="item.companyName"></v-text-field>
+                  <v-text-field class="text-caption" placeholder="Outdoor Solutions" v-model="item.companyName"></v-text-field>
                 </template>
                 <template v-slot:item.firstName="{ item }">
-                  <v-text-field class="text-caption" v-model="item.firstName"></v-text-field>
+                  <v-text-field class="text-caption" placeholder="John" v-model="item.firstName"></v-text-field>
                 </template>
                 <template v-slot:item.lastName="{ item }">
-                  <v-text-field class="text-caption" v-model="item.lastName"></v-text-field>
+                  <v-text-field class="text-caption" placeholder="Smith" v-model="item.lastName"></v-text-field>
                 </template>
                 <template v-slot:item.email="{ item }">
-                  <v-text-field class="text-caption" v-model="item.email"></v-text-field>
+                  <v-text-field class="text-caption" placeholder="johnsmith@email.com" v-model="item.email"></v-text-field>
                 </template>
                 <template v-slot:item.phone="{ item }">
-                  <v-text-field class="text-caption" v-model="item.phone"></v-text-field>
+                  <v-text-field class="text-caption" placeholder="123-456-7890" v-model="item.phone"></v-text-field>
                 </template>
                 <template v-slot:item.preapproved="{ item }">
                   <v-select
@@ -43,6 +43,7 @@
                     item-text="text"
                     item-value="value"
                     class="text-caption"
+                    placeholder="Branson Store - 1234 S New St"
                   >
                   </v-select>
                 </template>
@@ -107,7 +108,15 @@
           }
         ],
         vendors: [
-
+          {
+            service: "",
+            companyName: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            preapproved: true,
+            property: ""
+          },
         ],
         properties: [
 

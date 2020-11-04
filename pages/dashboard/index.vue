@@ -1,23 +1,54 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </v-col>
+<!--    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </v-col>-->
     <v-container class="px-8" fluid>
-      <v-row v-if="hidden !== true">
-        <v-card color="primary" class="d-flex" style="width: 100%;">
-          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?
-            <span>
-                <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>
-            </span>
-          </v-card-text>
+<!--      <v-row v-if="hidden !== true">-->
+<!--        <v-card color="primary" class="d-flex" style="width: 100%;">-->
+<!--          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?-->
+<!--            <span>-->
+<!--                <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>-->
+<!--            </span>-->
+<!--          </v-card-text>-->
 
-          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>
-        </v-card>
+<!--          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>-->
+<!--        </v-card>-->
+<!--      </v-row>-->
+      <v-row class="d-flex justify-center">
+        <v-col cols="12">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="50vw"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
       </v-row>
       <transition name="slide-fade">
         <HomeCard
@@ -28,29 +59,31 @@
           slug="/dashboard/facilities/"
         ></HomeCard>
       </transition>
+<!--      <v-row v-if="company && company.company_type !== 'false'">-->
+<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
+<!--        </v-col>-->
+
       <v-row v-if="company && company.company_type !== 'false'">
-        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
-        </v-col>
         <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
           <transition name="slide-fade">
           <StatCard v-if="statApproved" :stat="stat"></StatCard>
           </transition>
         </v-col>
       </v-row>
-      <v-row v-if="company && company.company_type === 'false'">
-        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
-        </v-col>
-        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
+<!--      <v-row v-if="company && company.company_type === 'false'">-->
+<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
+<!--        </v-col>-->
+        <v-col v-if="company && company.company_type === 'false'" col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
           <StatCard :stat="stat"></StatCard>
         </v-col>
       </v-row>
@@ -202,9 +235,9 @@
             link: '/dashboard/vendors/applicants'
           },
           {
-            title: 'Recently Approved Applications',
+            title: 'Unread Messages',
             value: 0,
-            link: '/dashboard/vendors/approved'
+            link: '/dashboard/messages-and-alerts/'
           }
         ],
         providerStats: [
@@ -267,10 +300,10 @@
           },
         ],
         headers: [
-          { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
           { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Main Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
@@ -300,6 +333,7 @@
         await this.getLocations();
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
+        await this.getMessages(this.currentUser.companies_id)
 
       }, 1000)
     },
@@ -376,26 +410,28 @@
                   if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
                     console.log(response.data[i], 'applications for staff account')
                     this.stats[0].value ++
-                    console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
-                    if((response.data[i].pmuserprofiles_id === this.currentUser.id) && (moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar())) {
-                      this.stats[2].value++;
-                    }
                   }
                 }
               } else {
                 this.stats[0].value = response.data.length
-                if(response.data.length !== 0) {
-                  for(let i=0; i<response.data.length; i++) {
-                    console.log(moment(response.data[i].created).format('L'), 'created', 'moment day', moment(response.data[i].created).subtract(30, 'days').calendar());
-                    if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
-                      this.stats[2].value++;
-                    }
-                  }
-                }
               }
           })
           .catch(err => {
             console.log('err in getting approved provider connections', err);
+          })
+      },
+      async getMessages(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/messages/byRecieverId/' + id)
+          .then(response => {
+            console.log('messages', response)
+            for(let i=0; i<response.data.length; i++) {
+              if(response.data[i].pmMessageRead === false) {
+                this.stats[2].value++
+              }
+            }
+          })
+          .catch(err => {
+            console.log('cannot get messages', err)
           })
       }
     }

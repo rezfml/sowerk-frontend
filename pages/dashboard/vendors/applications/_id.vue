@@ -3,19 +3,20 @@
     <v-row class="d-flex justify-center" style="width: 100%;">
       <v-col style="width: 55%;">
         <v-card class="d-flex flex-column align-center">
-          <v-card-title>UserForm - #{{userForms.id}} {{userForms.name}}</v-card-title>
+          <v-card-title style="width: 80%;"><v-text-field v-model="userForms.name"></v-text-field></v-card-title>
           <draggable
             class="dragArea list-group"
             group="formName"
             :list="userForms.formfields"
             v-model="userForms.formfields"
             @change="reorderFormField"
+            style="width: 95%;"
           >
 
-            <v-card style="width: 100%;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...userForms.formfields}">
-              <v-card-text class="d-flex justify-space-between" v-bind:style="{ backgroundColor: colors[index % 2], color: 'white'}">
+            <v-card style="width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...userForms.formfields}">
+              <v-card-text class="d-flex justify-space-between" style="width: 100% !important;">
                 <v-icon style="width: 10%;">mdi-cursor-move</v-icon>
-                <p style="width: 70%; text-align: center">{{index}} - {{form.name}} - {{form.id}}</p>
+                <p style="width: 70%; text-align: center">#{{ (Number(index) + 1)}} - {{form.name}}</p>
                 <v-btn style="width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
               </v-card-text>
             </v-card>
@@ -31,7 +32,7 @@
           :group="{ name: 'formName', pull: 'clone', put: false }"
         >
           <v-card style="width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
-            <v-card-text class="d-flex justify-space-between" v-bind:style="{ backgroundColor: colors[index % 2], color: 'white'}">
+            <v-card-text class="d-flex justify-space-between">
               <v-icon style="width: 10%;">mdi-cursor-move</v-icon>
               <p>{{form.name}}</p>
               <v-btn style="width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
@@ -169,6 +170,9 @@
         this.saveLoad = false;
         console.log('this.userForms', this.userForms);
         console.log('this.originaluserForms', this.originalUserForms);
+        const userformEdit = {
+          name: this.userForms.name
+        }
         this.userForms.formfields.forEach(async (formfield, index) => {
           formfield["userform_id"] = this.userForms.id
           formfield.order = index;
@@ -212,6 +216,13 @@
         console.log('this.userForms after loop', this.userForms);
         console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
         console.log(this.filteredSameUserForms, 'filtered same formfields')
+        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
+          .then(response => {
+            console.log(response, 'updating formfield ', formfield.id)
+          })
+          .catch(err => {
+            console.log('error in updating formfield', err)
+          })
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
