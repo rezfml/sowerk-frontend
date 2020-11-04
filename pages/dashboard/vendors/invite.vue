@@ -190,7 +190,11 @@
           phone: [],
           toEmail: [],
           pre_approved: [],
-          property: []
+          property: [],
+          usersCompanyName:this.company.account_name,
+          usersFirstName:this.$store.state.user.user.user.first_name,
+          usersLastName:this.$store.state.user.user.user.last_name,
+          companyImg:this.company.imgUrl
         }
         for (let i = 0; i < this.vendors.length; i++) {
           providersObject.service.push(this.vendors[i].service)
@@ -203,7 +207,7 @@
           providersObject.property.push(this.vendors[i].property)
         }
         console.log(providersObject, 'yay')
-        await this.$http.post('https://www.sowerkbackend.com/email', providersObject)
+        await this.$http.post('https://www.sowerkbackend.com/api/invite', providersObject)
           .then(response => {
             console.log(response, 'success')
             this.success=true;
