@@ -25,6 +25,7 @@
     "colorette": "^1.2.1",
     "gmap-vue": "^1.0.0",
     "jw-vue-pagination": "^1.0.3",
+    "naics": "^1.2.1",
     "nuxt": "^2.14.6",
     "vue-disable-autocomplete": "0.0.4",
     "vue-google-autocomplete": "^1.1.0",
