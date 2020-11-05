@@ -12,12 +12,13 @@
     <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;">
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
-            <v-col class="d-flex flex-column justify-center">
+            <v-col cols="7" class="d-flex flex-column justify-center">
               <p class="mb-8">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event you have a special requirement for only one of your locations (i.e. local permit requirement) take that company template and add a custom question that is only visible to that facility.</p>
               <v-col class="d-flex flex-column align-center">
-                <v-btn @click="loadApplicationLocationsFunction" class="py-8 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadApplicationTemplatesFunction" class="py-8 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadYourCompanyTemplatesFunction" class="py-8 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationLocationsFunction" class="py-4 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
               </v-col>
             </v-col>
           </v-row>
@@ -115,7 +116,7 @@
                   </thead>
                   <tbody>
                   <tr v-for="app in item.applicationtemplatesformfields" :key="app.name">
-                    <td>Question# {{app.order}}</td>
+                    <td>Question# {{(app.order + 1)}}</td>
                     <td>{{ app.name }}</td>
                   </tr>
                   </tbody>
@@ -189,6 +190,29 @@
         </v-data-table>
       </template>
     </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-row class="mt-8" v-if="loadYourCompanyDocuments">
+        <v-col cols="6">
+          <v-card>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
+            <v-card-text class="pt-16 ml-4">Upload here any company document or template that you will use to share with vendors to download, complete and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-btn color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
+            <v-data-table
+              class="pt-16"
+              :items="companyDocuments"
+              :headers="companyDocumentsHeaders"
+            >
+            </v-data-table>
+          </v-card>
+        </v-col>
+      </v-row>
     </transition>
 
     <transition name="slide-fade">
@@ -272,7 +296,7 @@
                 </draggable>
                 <rawDisplayer title="List 2" :value="formTypes" />
                 <v-btn @click="saveCompanyTemplate" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-                <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
+                <v-btn :href="'../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
                 <v-progress-circular
                   v-if="saveLoad === false"
                   indeterminate
@@ -477,6 +501,7 @@ import draggable from "vuedraggable"
         locations: [],
         services: [],
         userForms: [],
+        companyDocuments: [],
         finishedFormFields: false,
         totalLength: 0,
         valueServices: 0,
@@ -488,6 +513,7 @@ import draggable from "vuedraggable"
         loadApplicationLocations: true,
         loadApplicationTemplates: false,
         loadYourCompanyTemplates: false,
+        loadYourCompanyDocuments: false,
         addToLocationLoad: false,
         addNewCompanyTemplateLoad: false,
         addNewVendorFormLoad: false,
@@ -530,6 +556,11 @@ import draggable from "vuedraggable"
           },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
+        companyDocumentsHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-regular'},
+          { text: 'Upload Date', value: 'uploadDate', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         addLocations: [
@@ -687,10 +718,26 @@ import draggable from "vuedraggable"
             console.log('err get form fields', err);
           })
       },
+      async loadCompanyDocumentsFunction() {
+        this.loadApplicationLocations = false;
+        this.loadApplicationTemplates = false;
+        this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = true;
+        this.addNewVendorFormLoad = false;
+        this.addNewCompanyTemplateLoad = false;
+        this.step4 = false;
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step3finishedFormFields = false;
+        this.expanded = [];
+        this.singleExpand = true;
+      },
       async loadApplicationLocationsFunction() {
         this.loadApplicationLocations = true;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewVendorFormLoad = false;
         this.addNewCompanyTemplateLoad = false;
         this.step1 = false;
@@ -708,6 +755,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = true;
+        this.loadYourCompanyDocuments = false;
         this.addNewVendorFormLoad = false;
         this.addNewCompanyTemplateLoad = false;
         this.step4 = false;
@@ -725,6 +773,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = true;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewVendorFormLoad = false;
         this.addNewCompanyTemplateLoad = false;
         this.step4 = false;
@@ -741,6 +790,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewCompanyTemplateLoad = false;
       },
       async addNewCompanyTemplateLoading() {
@@ -748,6 +798,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewCompanyTemplateLoad = true;
         this.newAssignUserForm = {
           formfields : [{

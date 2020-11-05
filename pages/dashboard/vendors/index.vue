@@ -227,8 +227,6 @@
           { text: 'Service', value: 'services', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],

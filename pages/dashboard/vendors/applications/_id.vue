@@ -1,9 +1,17 @@
 <template>
   <v-container overflow-y-auto>
+    <v-row class="d-flex justify-start wrap-row" style="width: 100%;">
+      <v-card-text style="width: 40%;">Location - {{location.name}}</v-card-text>
+      <v-card-text style="width: 40%;">Category - {{service.name}}</v-card-text>
+      <v-spacer style="width: 20%;"></v-spacer>
+      <v-btn @click="saveUserForm" style="width: 30%;" color="primary" rounded class="my-2 mx-2">Save</v-btn>
+      <v-btn :href="'../../vendors/applications'" style="width: 30%;" color="#707070" rounded outlined class="my-2 mx-2">Exit</v-btn>
+    </v-row>
+    <v-divider style="width: 100%;"></v-divider>
     <v-row class="d-flex justify-center" style="width: 100%;">
       <v-col style="width: 55%;">
         <v-card class="d-flex flex-column align-center">
-          <v-card-title style="width: 80%;"><v-text-field v-model="userForms.name"></v-text-field></v-card-title>
+          <v-text-field v-model="userForms.name"></v-text-field>
           <draggable
             class="dragArea list-group"
             group="formName"
@@ -13,35 +21,36 @@
             style="width: 95%;"
           >
 
-            <v-card style="width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...userForms.formfields}">
-              <v-card-text class="d-flex justify-space-between" style="width: 100% !important;">
-                <v-icon style="width: 10%;">mdi-cursor-move</v-icon>
-                <p style="width: 70%; text-align: center">#{{ (Number(index) + 1)}} - {{form.name}}</p>
-                <v-btn style="width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-              </v-card-text>
+            <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...userForms.formfields}">
+              <transition name="slide-fade">
+                <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
+                  <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                  <p style="width: 70%; text-align: center">#{{ (Number(index) + 1)}} - {{form.name}}</p>
+                  <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                </v-card-title>
+              </transition>
             </v-card>
           </draggable>
         </v-card>
         <rawDisplayer :value="userForms.formfields" title="List 1" />
       </v-col>
       <v-col style="width: 35%;" class="d-flex flex-column align-center">
+        <v-card-title>New Requirement</v-card-title>
         <draggable
           style="width: 100%;"
           class="dragArea list-group"
           :list="formTypes"
           :group="{ name: 'formName', pull: 'clone', put: false }"
         >
-          <v-card style="width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
-            <v-card-text class="d-flex justify-space-between">
-              <v-icon style="width: 10%;">mdi-cursor-move</v-icon>
-              <p>{{form.name}}</p>
-              <v-btn style="width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-            </v-card-text>
+          <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
+            <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
+              <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+              <p style="width: 70%; text-align: center">{{form.name}}</p>
+              <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+            </v-card-title>
           </v-card>
         </draggable>
         <rawDisplayer title="List 2" :value="formTypes" />
-        <v-btn @click="saveUserForm" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-        <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
         <v-progress-circular
           v-if="saveLoad === false"
           indeterminate
@@ -82,6 +91,8 @@
     data () {
       return {
         userForms: {},
+        service: {},
+        location: {},
         formTypes: [
           {
             id: 0,
@@ -147,12 +158,31 @@
               return a.order - b.order
             })
             console.log(this.userForms, 'this.userForms sort')
+            this.getService(response.data.service_id)
             this.getFormFields(response.data.id)
           })
           .catch(err => {
             console.log('err get services', err);
           })
         console.log('this.userForms', this.userForms)
+      },
+      async getService(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/services/' + id)
+          .then(response => {
+            console.log(response.data, 'services!')
+            this.service = response.data.service
+            this.getLocation(response.data.service.locations_id);
+          })
+          .catch(err => {
+            console.log(err, 'err in getting service')
+          })
+      },
+      async getLocation(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
+          .then(response => {
+            console.log(response.data, 'location')
+            this.location = response.data
+          })
       },
        async getFormFields(id) {
          await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
@@ -281,6 +311,18 @@
 
 </script>
 
-<style>
-
+<style scoped>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .0s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

@@ -24,8 +24,8 @@
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
             <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-            <v-card-text>{{location.email}}</v-card-text>
-            <v-card-text>{{location.phone}}</v-card-text>
+<!--            <v-card-text>{{location.email}}</v-card-text>-->
+<!--            <v-card-text>{{location.phone}}</v-card-text>-->
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Insurances</v-card-title>
             <template v-for="(insurance, index) in insurances">
