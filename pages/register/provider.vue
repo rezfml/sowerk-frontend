@@ -160,7 +160,7 @@
                           <v-text-field
                             label="Phone*"
                             type="text"
-                            placeholder=" "
+                            placeholder=""
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
@@ -571,6 +571,7 @@
                               placeholder=" "
                               readonly
                               v-model="user.phone"
+                              
                             >
                             </v-text-field>
                           </v-col>
@@ -929,39 +930,35 @@ export default {
           (v) =>
             (v && v.length <= 100) || 'Email must be less than 100 characters',
         ],
-        emailNotRequiredRules: [
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-          (v) =>
-            (v && v.length <= 100) || 'Email must be less than 100 characters',
-        ],
-        phoneRules: [
-          (v) => (v && v.length === 10) || 'Phone Number must be 11 digits',
-        ],
-        passwordRules: [
-          (v) => !!v || 'Password is required',
-          (v) =>
-            /[*@!?#%&()^~{}]+/.test(v) ||
-            'Password must contain 1 special character',
-          (v) =>
-            /[A-Z]+/.test(v) ||
-            'Password must contain at least 1 Uppercase character',
-          (v) =>
-            /[a-z]+/.test(v) ||
-            'Password must contain at least 1 Lowercase character',
-          (v) =>
-            (v && v.length >= 6) || 'Password must be at least 6 characters',
-          (v) =>
-            (v && v.length <= 255) ||
-            'Password must be less than 255 characters',
-        ],
-      },
-      headerInsurance: [
-        {
-          text: 'ID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-          class: 'primary--text font-weight-regular',
+        rules: {
+          requiredRules: [
+            v => !!v || v === 0 || 'Field is required',
+          ],
+          usernameRules: [
+            v => !!v || 'Name is required',
+            v => (v && v.length <= 100) || 'Name must be less than 100 characters'
+          ],
+          emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          emailNotRequiredRules: [
+            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+          ],
+          phoneRules: [
+            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+          ],
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ]
         },
         {
           text: 'Insurance Company',

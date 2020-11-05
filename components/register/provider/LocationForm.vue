@@ -17,7 +17,7 @@
     <!--        </client-only>-->
     <!--      </v-row>-->
     <!--    </v-col>-->
-
+<!--    This is for the vendor locations tab-->
       <v-col cols="12" md="6">
         <v-row fill-height class="pl-2 fill-height">
           <v-col cols="12" class="d-flex justify-center align-center">
@@ -26,7 +26,6 @@
           </v-col>
           <v-col cols="12" class="d-flex flex-column justify-space-between">
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-            <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
 <!--            <p class="text-center mb-0">Or</p>-->
 
 <!--            <v-checkbox class="mt-0">-->

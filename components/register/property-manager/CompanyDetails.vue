@@ -1,5 +1,8 @@
 <template>
-  <v-tab-item eager>
+  <v-tab-item
+    eager
+  >
+   <!--    This is for the property company tab-->
     <v-container style="max-width: 80%;" mx-auto>
       <v-card-text class="pa-0">
         <v-form class="mx-auto register-form" ref="register">
@@ -189,9 +192,10 @@
                 <v-text-field
                   id="company-website"
                   label="Company Website*"
-                  type="text"
+                  type="url"
                   v-model="company.website"
                   placeholder=" "
+                  :rules="rules.urlRules"
                 ></v-text-field>
               </v-col>
 
@@ -290,10 +294,9 @@ export default {
             (v && v.length <= 100) || 'Name must be less than 100 characters',
         ],
         emailRules: [
-          (v) => !!v || 'E-mail is required',
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-          (v) =>
-            (v && v.length <= 100) || 'Email must be less than 100 characters',
+          v => !!v || 'E-mail is required',
+          v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
+          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
         ],
         emailNotRequiredRules: [
           (v) => /.+@.+/.test(v) || 'E-mail must be valid',
@@ -303,6 +306,22 @@ export default {
         phoneRules: [
           (v) => (v && v.length === 10) || 'Phone Number must be 11 digits',
         ],
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ]
+          ,
+          urlRules: [
+            v => !!v || 'A website is required',
+            v => /.+([A-Z0-9a-z]+)\.([a-z]+)+/.test(v) || 'A valid URL is required',/*[a-z]:\/\/www.*/
+            v => (v && v.length >= 4) || 'URL must be at least 4 characters',
+            v => (v && v.length <= 250) || 'URL must be less than 250 characters'
+          ]
       },
       confirmPassword: null,
     }
