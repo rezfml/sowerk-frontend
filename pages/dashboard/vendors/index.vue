@@ -1,13 +1,32 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
-    <v-container class="px-0" style="max-width: 95%;" v-else>
+<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </div>-->
+    <v-row>
+      <v-col cols="3">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="15vw"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="9">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="30vw"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <transition name="slide-fade">
+    <v-container class="px-0" style="max-width: 95%;" v-if="loading">
 <!--      <v-row class="d-flex align-center" style="width: 100%">-->
 <!--        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
 <!--        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">-->
@@ -51,6 +70,7 @@
         </v-col>
       </v-row>
     </v-container>
+    </transition>
   </v-app>
 </template>
 
@@ -288,5 +308,17 @@
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

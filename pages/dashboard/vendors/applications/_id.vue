@@ -1,14 +1,37 @@
 <template>
   <v-container overflow-y-auto>
-    <v-row class="d-flex justify-start wrap-row" style="width: 100%;">
+    <v-row>
+      <v-col cols="6">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="30vw"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="6">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="30vw"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <transition name="slide-fade">
+      <v-row v-if="loading" class="d-flex justify-start wrap-row" style="width: 100%;">
       <v-card-text style="width: 40%;">Location - {{location.name}}</v-card-text>
       <v-card-text style="width: 40%;">Category - {{service.name}}</v-card-text>
       <v-spacer style="width: 20%;"></v-spacer>
       <v-btn @click="saveUserForm" style="width: 30%;" color="primary" rounded class="my-2 mx-2">Save</v-btn>
       <v-btn :href="'../../vendors/applications'" style="width: 30%;" color="#707070" rounded outlined class="my-2 mx-2">Exit</v-btn>
     </v-row>
-    <v-divider style="width: 100%;"></v-divider>
-    <v-row class="d-flex justify-center" style="width: 100%;">
+    </transition>
+    <transition name="slide-fade">
+      <v-divider v-if="loading" style="width: 100%;"></v-divider>
+    </transition>
+    <transition name="slide-fade">
+      <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
       <v-col style="width: 55%;">
         <v-card class="d-flex flex-column align-center">
           <v-text-field v-model="userForms.name"></v-text-field>
@@ -59,8 +82,10 @@
         ></v-progress-circular>
       </v-col>
     </v-row>
+    </transition>
 
-    <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
+    <transition name="slide-fade">
+      <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
       <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
       <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
         <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
@@ -73,6 +98,7 @@
       </div>
       <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
     </v-card>
+    </transition>
 
   </v-container>
 </template>
@@ -90,6 +116,7 @@
     },
     data () {
       return {
+        loading: false,
         userForms: {},
         service: {},
         location: {},
@@ -191,6 +218,7 @@
              this.originalUserForms = response.data;
              console.log('ORIGINAL USER FORMS RESPONSE DATA', this.originalUserForms);
              this.totalLength += response.data.length;
+             this.loading=true;
            })
            .catch(err => {
              console.log('err get services', err);
