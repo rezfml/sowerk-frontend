@@ -35,7 +35,7 @@
         <rawDisplayer :value="userForms.formfields" title="List 1" />
       </v-col>
       <v-col style="width: 35%;" class="d-flex flex-column align-center">
-        <v-card-title>New Requirement</v-card-title>
+        <v-card-title>Add New Requirement</v-card-title>
         <draggable
           style="width: 100%;"
           class="dragArea list-group"
