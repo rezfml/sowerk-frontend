@@ -122,7 +122,7 @@
               <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
                 <v-text-field
                   id="company-brand"
-                  label="Brand Name*"
+                  label="List Your Franchise Brand Name*"
                   type="text"
                   v-model="company.brand_name"
                   placeholder=" "
@@ -133,7 +133,7 @@
               <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
                 <v-text-field
                   id="company-llc"
-                  label="List your LLC Name (If Applicable)"
+                  label="List Your Legal Business Name"
                   type="text"
                   v-model="company.llcName"
                   placeholder=" "

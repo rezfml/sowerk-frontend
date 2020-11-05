@@ -26,13 +26,13 @@
             <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
 <!--            <v-card-text>{{location.email}}</v-card-text>-->
 <!--            <v-card-text>{{location.phone}}</v-card-text>-->
-            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Insurances</v-card-title>
-            <template v-for="(insurance, index) in insurances">
-              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
-              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
-            </template>
-            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>
+<!--            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
+<!--            <v-card-title style="color:#A61C00;">Insurances</v-card-title>-->
+<!--            <template v-for="(insurance, index) in insurances">-->
+<!--              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>-->
+<!--              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>-->
+<!--            </template>-->
+<!--            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>-->
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Licenses</v-card-title>
             <template v-for="(license, index) in licenses">

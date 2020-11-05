@@ -78,7 +78,7 @@
             class="mobile-title text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
             style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
           >
-            Business-to-Business Communication Tools Between Any Business & Any Vendor
+            The Business-to-Business Communication Tools Between Vendors Selling Products & Services To Businesses
           </p>
         </v-col>
       </v-row>
