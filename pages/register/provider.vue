@@ -57,7 +57,8 @@
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col cols="12" class="d-flex justify-center align-center px-12">
                               <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" style="max-height: 300px; width: 100%; max-width: 300px;" v-if="companyImageFile"></v-img>
-                              <v-icon v-else :size="100">person</v-icon>
+                              
+                              <v-img :aspect-ratio="1" class="my-8 rounded-circle" v-else style="max-height: 300px; width: 100%; max-width: 300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Icon-160.svg"></v-img>
                             </v-col>
                             <v-col cols="12" class="d-flex flex-column justify-center">
                               <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
