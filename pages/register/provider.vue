@@ -47,6 +47,7 @@
             <v-tab-item
               eager
             >
+            <!--    This is for the vendor company tab-->
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
                   <v-form class="mx-auto register-form" ref="companyDetails">
@@ -60,7 +61,7 @@
                             </v-col>
                             <v-col cols="12" class="d-flex flex-column justify-center">
                               <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
+                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Account Photo </v-btn>
   <!--                            <p class="text-center mb-0">Or</p>-->
 
   <!--                            <v-checkbox class="mt-0">-->

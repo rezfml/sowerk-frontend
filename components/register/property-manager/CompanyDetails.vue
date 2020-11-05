@@ -2,6 +2,7 @@
   <v-tab-item
     eager
   >
+   <!--    This is for the property company tab-->
     <v-container style="max-width: 80%;" mx-auto>
       <v-card-text class="pa-0">
         <v-form class="mx-auto register-form" ref="register">
@@ -17,7 +18,7 @@
                     <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="companyImageUrl"></v-img>
                     <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
                     <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                    <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0 px-6">Upload Logo</v-btn>
+                    <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0 px-6">Account Photo</v-btn>
                   </v-col>
 <!--                  <v-col cols="12" md="6" class="d-flex flex-column justify-center">-->
 <!--                    <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload&#45;&#45;selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>-->
