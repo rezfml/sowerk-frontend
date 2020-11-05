@@ -66,7 +66,9 @@
                   type="text"
                   class="card__input black--text"
                   v-model="user.phone"
-                  placeholder=""
+                  placeholder="(123)-456-7890 "
+                  return-masked-value
+                  mask="(###)###-###-##"
                   :rules="rules.phoneRules"
                 ></v-text-field>
               </v-col>
@@ -241,7 +243,7 @@ export default {
         ],
         emailRules: [
           v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid',
+          v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
           v => (v && v.length <= 100) || 'Email must be less than 100 characters'
         ],
         emailNotRequiredRules: [
@@ -256,6 +258,7 @@ export default {
             v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
             v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
             v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]

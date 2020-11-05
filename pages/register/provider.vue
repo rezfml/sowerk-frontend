@@ -111,7 +111,9 @@
                           <v-text-field
                             label="Phone*"
                             type="text"
-                            placeholder=" "
+                            placeholder="(123)-456-7890 "
+                            return-masked-value
+                            mask="(###)###-###-##"
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
@@ -411,6 +413,7 @@
                               placeholder=" "
                               readonly
                               v-model="user.phone"
+                              
                             >
                             </v-text-field>
                           </v-col>
@@ -692,6 +695,7 @@
             v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
             v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
             v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
