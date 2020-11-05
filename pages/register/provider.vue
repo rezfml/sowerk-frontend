@@ -111,9 +111,7 @@
                           <v-text-field
                             label="Phone*"
                             type="text"
-                            placeholder="(123)-456-7890 "
-                            return-masked-value
-                            mask="(###)###-###-##"
+                            placeholder=""
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"

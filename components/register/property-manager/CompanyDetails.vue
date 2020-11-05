@@ -66,9 +66,7 @@
                   type="text"
                   class="card__input black--text"
                   v-model="user.phone"
-                  placeholder="(123)-456-7890 "
-                  return-masked-value
-                  mask="(###)###-###-##"
+                  placeholder=""
                   :rules="rules.phoneRules"
                 ></v-text-field>
               </v-col>
