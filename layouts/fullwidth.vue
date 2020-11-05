@@ -72,13 +72,27 @@
       <v-row style="text-align: center; width: 100%;" class="pb-15 pb-sm-0" align="center">
 
       <!-- TERMS CONDITIONS PRIVACY -->
-      <v-col cols="4" class="text-left  text-sm-right" style="display: flex; flex-direction: column; font-size:11px">
+      <v-col cols="4" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;">
 <!--        // JUST FOR NOW THIS WILL BE ADDED LATER I PROMISE-->
-<!--        <ul>-->
-<!--          <li style="list-style: none"><a href="/terms&conditions" style="text-decoration: none;color: white">Terms & Conditions</a></li>-->
-<!--          <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>-->
-<!--        </ul>-->
+      <v-row>
+      <v-col cols="6" style="text-align:left;">
+        <ul>
+          <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
+          <li style="list-style: none"><a href="/customerTerms" style="text-decoration: none;color: white">Customer Terms</a></li>
+          <li style="list-style: none"><a href="/acceptableUsePolicy" style="text-decoration: none;color: white">Acceptable Use Policy</a></li>
+          <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
+        </ul>
       </v-col>
+       <v-col cols="6" style="text-align:left;">
+        <ul>
+          <li style="list-style: none"><a href="/serviceLevelAgreement" style="text-decoration: none;color: white">Service Level Agreement</a></li>
+          <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
+          <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
+        </ul>
+      </v-col>
+      </v-row>
+      </v-col>
+      
 
         <!-- SOWERK LOGO -->
        <v-col cols="4">
