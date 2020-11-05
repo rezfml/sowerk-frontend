@@ -47,6 +47,7 @@
             <v-tab-item
               eager
             >
+            <!--    This is for the vendor company tab-->
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
                   <v-form class="mx-auto register-form" ref="companyDetails">
@@ -56,11 +57,12 @@
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col cols="12" class="d-flex justify-center align-center px-12">
                               <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" style="max-height: 300px; width: 100%; max-width: 300px;" v-if="companyImageFile"></v-img>
-                              <v-icon v-else :size="100">person</v-icon>
+                              
+                              <v-img :aspect-ratio="1" class="my-8 rounded-circle" v-else style="max-height: 300px; width: 100%; max-width: 300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Icon-160.svg"></v-img>
                             </v-col>
                             <v-col cols="12" class="d-flex flex-column justify-center">
                               <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
+                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Account Photo </v-btn>
   <!--                            <p class="text-center mb-0">Or</p>-->
 
   <!--                            <v-checkbox class="mt-0">-->
@@ -110,7 +112,7 @@
                           <v-text-field
                             label="Phone*"
                             type="text"
-                            placeholder=" "
+                            placeholder=""
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
@@ -410,6 +412,7 @@
                               placeholder=" "
                               readonly
                               v-model="user.phone"
+                              
                             >
                             </v-text-field>
                           </v-col>
@@ -691,6 +694,7 @@
             v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
             v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
             v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
