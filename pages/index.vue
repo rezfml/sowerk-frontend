@@ -78,7 +78,7 @@
             class="mobile-title text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
             style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
           >
-            The Business-to-Business Communication Tools Between Vendors Selling Products & Services To Businesses
+            Business-to-Business Communication Tools Between Any Business & Any Vendor
           </p>
         </v-col>
       </v-row>
@@ -681,7 +681,7 @@
               style="border-radius: 20px; font-weight: bold; font-size: 13px;"
               to="/landingpage/join-product-landing"
               >Provider Facility - Learn More</v-btn>
-              
+
           </v-col>
         </v-row>
       </v-container>

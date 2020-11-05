@@ -41,7 +41,7 @@
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/approved-vendors/"
+            slug="/dashboard/approved/"
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>
@@ -87,7 +87,7 @@
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/approved-vendors/"
+            slug="/dashboard/approved/"
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>

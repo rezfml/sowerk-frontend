@@ -51,7 +51,7 @@
                 </template>
                 <template v-slot:item.service="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p v-if="company.company_type != 'false'">{{item.services[0]}}</p>
+                    <p v-if="company.company_type != 'false'">{{item.services}}</p>
                     <p v-else>{{item.servicesOffered[0]}}</p>
                   </v-row>
                 </template>
@@ -115,7 +115,7 @@
                   <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-                  <v-btn class="my-1" style="width: 90%;" color="green" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
+                  <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/approved/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
                   <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
@@ -188,7 +188,7 @@
             </template>
             <template v-slot:item.service="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p v-if="company.company_type != 'false'">{{item.services[0]}}</p>
+                <p v-if="company.company_type != 'false'">{{item.services}}</p>
                 <p v-else>{{item.servicesOffered[0]}}</p>
               </v-row>
             </template>
@@ -252,7 +252,7 @@
               <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
               <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
@@ -300,7 +300,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'locationApproved'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'locationApproved',],
   components: {
     FilterCard
   },
