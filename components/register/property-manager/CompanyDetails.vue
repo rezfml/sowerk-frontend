@@ -251,6 +251,14 @@ export default {
         phoneRules: [
           v => (v && v.length === 10) || 'Phone Number must be 11 digits',
         ],
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ]
       },
       confirmPassword: null
     }
