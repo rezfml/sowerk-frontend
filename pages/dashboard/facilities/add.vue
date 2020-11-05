@@ -1,7 +1,14 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container style="max-width: 95%;" mt-12 mx-auto>
-      <v-card>
+      <v-skeleton-loader
+        v-if="!loading"
+        type="card-avatar, article, article, actions"
+        min-height="50vh"
+        min-width="50vw"
+      ></v-skeleton-loader>
+      <transition name="slide-fade">
+        <v-card v-if="loading">
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Location</v-card-title>
         <v-card-text class="px-6 pt-12 pb-0 mx-auto">
           <v-row class="px-3 pt-3">
@@ -70,7 +77,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                   </v-col>
                   <v-col cols="12" class="mt-12 mb-4">
                     <h2 class="mx-auto text-center">Location Manager</h2>
-                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location.</p>
+                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this location.</p>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
@@ -114,7 +121,9 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-checkbox
-                      label="This location will be managed by: ADMIN NAME PLACEHOLDER"
+                      :label="'This location will be managed by: Admin ' + currentUser.first_name + ' ' + currentUser.last_name"
+                      v-model="managerIsUser"
+                      @click="setManagerToUser"
                     >
                     </v-checkbox>
                   </v-col>
@@ -139,6 +148,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           <v-btn right @click="submit" color="primary" large class="px-4">Register Location</v-btn>
         </v-card-actions>
       </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -157,6 +167,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
     },
     data() {
       return {
+        managerIsUser: false,
         form: {
           name: null,
           address: null,
@@ -174,9 +185,10 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           adminLevel: false,
           imageUrl: ''
         },
+
         filters: [
           {
-            name: 'Location',
+            name: 'Proximity',
             items: [
               'State',
               'National',
@@ -304,12 +316,16 @@ on your account dashboard. Example: SOWerk Cafe #013)"
             text: 'Staff Account',
             value: 0
           }
-        ]
+        ],
+        loading: false,
       }
     },
     async mounted() {
       vueGoogleMapsInit();
       console.log(this.currentUser);
+      setTimeout(() => {
+        this.loading = true;
+      }, 500)
     },
     computed: {
       currentUser() {
@@ -317,6 +333,20 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       },
     },
     methods: {
+      setManagerToUser() {
+        console.log(this.managerIsUser)
+        if(this.managerIsUser) {
+          this.form.contact_first_name = this.currentUser.first_name;
+          this.form.contact_last_name  = this.currentUser.last_name;
+          this.form.phone              = this.currentUser.phone;
+          this.form.email              = this.currentUser.email;
+          if(this.currentUser.is_superuser === true) {
+            this.form.adminLevel = this.adminOptions[0].value
+          } else {
+            this.form.adminLevel = this.adminOptions[1].value
+          }
+        }
+      },
       getAddressData(addressData) {
         console.log(addressData);
         this.form.address = addressData.street_number + ' ' + addressData.route;
@@ -354,5 +384,18 @@ on your account dashboard. Example: SOWerk Cafe #013)"
     #app{
       margin-top:-22px;
     }
+  }
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>

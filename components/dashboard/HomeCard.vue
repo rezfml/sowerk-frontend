@@ -35,7 +35,10 @@
         >
           <template v-slot:item.address="{item}">
             <v-row class="d-flex" cols="12" lg="6">
-              <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              <v-col>
+                <p>{{item.address}}</p>
+                <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              </v-col>
               <v-progress-circular
                 v-if="loading === false"
                 indeterminate
@@ -44,10 +47,16 @@
               ></v-progress-circular>
             </v-row>
           </template>
+          <template v-slot:item.imageUrl="{ item }">
+            <v-row class="d-flex" cols="12" lg="6" >
+                <v-img :src="item.imageUrl" :aspect-ratio="1" height="50px" width="50px" style="border-radius: 50%;" class="mr-4 my-1"/>
+            </v-row>
+          </template>
           <template v-slot:item.name="{ item }">
             <v-row class="d-flex" cols="12" lg="6" >
-              <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="50" max-width="50" style="border-radius: 50%;" class="mr-4 my-1"/>
-              <p>{{item.name}}</p>
+              <v-col>
+                <p>{{item.name}}</p>
+              </v-col>
             </v-row>
           </template>
           <template v-slot:item.full_name="{ item }"
@@ -130,7 +139,10 @@
         >
           <template v-slot:item.address="{item}">
             <v-row class="d-flex  flex-column flex-wrap justify-end "  >
-              <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              <v-col>
+                <p>{{item.address}}</p>
+                <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              </v-col>
               <v-progress-circular
                 v-if="loading === false"
                 indeterminate
@@ -140,9 +152,13 @@
             </v-row>
           </template>
 
+          <template v-slot:item.imageUrl="{ item }">
+            <v-row class="d-flex" cols="12" lg="6" >
+              <v-img :src="item.imageUrl" :aspect-ratio="1" height="50px" width="50px" style="border-radius: 50%;" class="mr-4 my-1"/>
+            </v-row>
+          </template>
           <template v-slot:item.name="{ item }">
-            <v-row class="d-flex  flex-column flex-wrap"  >
-
+            <v-row class="d-flex  flex-column flex-wrap" >
               <p>{{item.name}}</p>
             </v-row>
           </template>
@@ -183,7 +199,7 @@
 
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
-              <v-btn class="my-1" style="width: 90%;" color="green" outlined>
+              <v-btn class="my-1" style="width: 90%; color: white;" color="#707070">
                 View
               </v-btn>
             </nuxt-link>

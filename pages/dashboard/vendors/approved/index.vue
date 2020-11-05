@@ -1,18 +1,25 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
+<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </div>-->
+    <v-skeleton-loader
+      v-if="!loading && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)"
+      type="card-avatar, article, article, actions"
+      min-height="50vh"
+      min-width="80vw"
+    ></v-skeleton-loader>
     <v-container class="px-0" style="max-width: 95%;">
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
 
         <v-col cols="12">
-          <v-row class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
-            <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
+          <transition name="slide-fade">
+          <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
+            <p style="color: white; font-size: 24px;" class="pt-4">Looking For A New Vendor? Search The SOWerk Directory.</p>
             <v-btn
               style=""
               class="px-16 mb-4"
@@ -21,10 +28,12 @@
               rounded
               color="white"
               href="/dashboard/vendors/"
-            >View All</v-btn>
+            >Search Directory</v-btn>
           </v-row>
-          <v-row class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
-            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
+          </transition>
+          <transition name="slide-fade">
+            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
+            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Already Know Vendors To Invite? Use The SOWerk Invite Tool.</p>
             <v-btn
               style=""
               class="px-16 mb-4"
@@ -35,29 +44,48 @@
               href="/dashboard/vendors/invite"
             >Invite Them Now</v-btn>
           </v-row>
-          <FacilitiesCard
-            v-if="loading != false"
-            :title="'My Approved Vendors'"
-            :items="vendors"
-            :tableProperties="headers"
-            :viewAll="false"
-            slug="/dashboard/approved-vendors/"
-            action="ViewApproved"
-            :company="company"
-          ></FacilitiesCard>
+          </transition>
+          <transition name="slide-fade">
+            <FacilitiesCard
+              v-if="loading != false"
+              :title="'My Approved Vendors'"
+              :items="vendors"
+              :tableProperties="headers"
+              :viewAll="false"
+              slug="/dashboard/approved/"
+              action="ViewApproved"
+              :company="company"
+            ></FacilitiesCard>
+          </transition>
         </v-col>
       </v-row>
 
       <v-row v-else>
         <v-col cols="3">
-          <FilterCard
-            title="Filter"
-            :filters="filters"
-            :locationApproved="locationApproved"
-          ></FilterCard>
+          <v-skeleton-loader
+            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="15vw"
+          ></v-skeleton-loader>
+          <transition name="slide-fade">
+            <FilterCard
+              title="Filter"
+              :filters="filters"
+              :locationApproved="locationApproved"
+              v-if="loading"
+            ></FilterCard>
+          </transition>
         </v-col>
         <v-col cols="9">
-          <v-row class="d-flex flex-column justify-space-between align-center mt-6" style="background: linear-gradient(to right, #A61C00, #741502);">
+          <v-skeleton-loader
+            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"
+            type="card-avatar, card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="40vw"
+          ></v-skeleton-loader>
+          <transition name="slide-fade">
+            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6" style="background: linear-gradient(to right, #A61C00, #741502);">
             <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
             <v-btn
               style=""
@@ -69,7 +97,9 @@
               href="/dashboard/vendors/"
             >View All</v-btn>
           </v-row>
-          <v-row class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
+          </transition>
+          <transition name="slide-fade">
+            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
             <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
             <v-btn
               style=""
@@ -81,16 +111,19 @@
               href="/dashboard/vendors/invite"
             >Invite Them Now</v-btn>
           </v-row>
+          </transition>
+          <transition name="slide-fade">
           <FacilitiesCard
             v-if="loading != false"
             :title="'My Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/approved-vendors/"
+            slug="/dashboard/approved/"
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>
+          </transition>
         </v-col>
       </v-row>
 
@@ -199,7 +232,7 @@
         // ],
         filters: [
           {
-            name: 'Location',
+            name: 'Proximity',
             items: [
               'State',
               'National',
@@ -428,5 +461,17 @@
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
