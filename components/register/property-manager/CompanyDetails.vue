@@ -145,9 +145,10 @@
                 <v-text-field
                   id="company-website"
                   label="Company Website*"
-                  type="text"
+                  type="url"
                   v-model="company.website"
                   placeholder=" "
+                  :rules="rules.urlRules"
                 ></v-text-field>
               </v-col>
 
@@ -259,6 +260,13 @@ export default {
             v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ]
+          ,
+          urlRules: [
+            v => !!v || 'A website is required',
+            v => /.+([A-Z0-9a-z]+)\.([a-z]+)+/.test(v) || 'A valid URL is required',/*[a-z]:\/\/www.*/
+            v => (v && v.length >= 4) || 'URL must be at least 4 characters',
+            v => (v && v.length <= 250) || 'URL must be less than 250 characters'
           ]
       },
       confirmPassword: null
