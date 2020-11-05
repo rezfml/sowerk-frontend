@@ -1,15 +1,21 @@
 <template>
   <v-container style="width: 100%;" overflow-y-auto>
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
+<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </div>-->
+    <v-skeleton-loader
+      v-if="!loading"
+      type="card-avatar, article, article, actions"
+      min-height="50vh"
+      min-width="50vw"
+    ></v-skeleton-loader>
 
-
-    <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;">
+    <transition name="slide-fade">
+      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col cols="7" class="d-flex flex-column justify-center">
@@ -23,12 +29,12 @@
             </v-col>
           </v-row>
         </v-card>
-
+    </transition>
 <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
 <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
 <!--    </v-row>-->
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loadApplicationLocations">
+      <v-card class="mt-8" v-if="loadApplicationLocations && loading">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
@@ -651,7 +657,7 @@ import draggable from "vuedraggable"
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(async (response) => {
-            console.log(response.data, 'services');
+            console.log(response.data, 'services!!!! WOW');
             for(let i=0; i<response.data.length; i++) {
               let service = {
                 id: response.data[i].id,
@@ -1051,6 +1057,10 @@ import draggable from "vuedraggable"
       async addNewService() {
         await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
           .then(response => {
+            console.log(this.locationVal, 'locationVal')
+            if(!this.locationVal.services) {
+              this.locationVal.services = [];
+            }
             console.log(response, 'success in adding new service')
             this.locationVal.services.push(response.data.service)
             this.addServiceLoad = false;

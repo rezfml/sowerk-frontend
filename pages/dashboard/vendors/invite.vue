@@ -1,84 +1,94 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container>
-      <v-card v-if="success === false">
-        <v-container class="px-12">
-          <v-row>
-            <v-col cols="12">
-              <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png" aspect-ratio="1" style="height: 25vh; max-height: 25vh;"></v-img>
-              <p class="primary--text text-center font-weight-bold text-h5">Invite a Service Provider to join SOWerk And Connect For Free</p>
-              <p class="text-center text-h6">Enter the Service Providers information below, add another line and invite multiple at once.</p>
-              <p class="text-body-1 text-center">(Note* by selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk with a free connection, but will still have to submit an application to your business.)</p>
-            </v-col>
-            <v-col cols="12">
-              <v-data-table
-                :headers="headers"
-                :items="vendors"
-                class="text-caption table--bordered"
-                disable-pagination
-                hide-default-footer
-              >
-                <template v-slot:item.service="{ item }">
-                  <v-text-field class="text-caption" placeholder="HVAC" v-model="item.service"></v-text-field>
-                </template>
-                <template v-slot:item.companyName="{ item }">
-                  <v-text-field class="text-caption" placeholder="Outdoor Solutions" v-model="item.companyName"></v-text-field>
-                </template>
-                <template v-slot:item.firstName="{ item }">
-                  <v-text-field class="text-caption" placeholder="John" v-model="item.firstName"></v-text-field>
-                </template>
-                <template v-slot:item.lastName="{ item }">
-                  <v-text-field class="text-caption" placeholder="Smith" v-model="item.lastName"></v-text-field>
-                </template>
-                <template v-slot:item.email="{ item }">
-                  <v-text-field class="text-caption" placeholder="johnsmith@email.com" v-model="item.email"></v-text-field>
-                </template>
-                <template v-slot:item.phone="{ item }">
-                  <v-text-field class="text-caption" placeholder="123-456-7890" v-model="item.phone"></v-text-field>
-                </template>
-                <template v-slot:item.preapproved="{ item }">
-                  <v-select
-                    :items="preapprovedOptions"
-                    v-model="item.preapproved"
-                    item-text="text"
-                    item-value="value"
-                    class="text-caption"
-                    placeholder="Branson Store - 1234 S New St"
-                  >
-                  </v-select>
-                </template>
-                <template v-slot:item.property="{ item }">
-                  <v-select
-                    :items="properties"
-                    item-text="name"
-                    v-model="item.property"
-                    class="text-caption"
-                  >
-                    <template slot="selection" slot-scope="data">
-                      {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
-                    </template>
-                  </v-select>
-                </template>
-              </v-data-table>
-            </v-col>
-            <v-col cols="12" class="d-flex justify-end">
-              <v-btn color="primary" text @click="addInvitee">+ Add Another Line</v-btn>
-            </v-col>
-            <v-col class="d-flex justify-space-between my-12">
-              <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
-              <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-      <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
+      <v-skeleton-loader
+        v-if="!loading"
+        type="card-avatar, article, article, actions"
+        min-height="50vh"
+        min-width="50vw"
+      ></v-skeleton-loader>
+      <transition name="slide-fade">
+        <v-card v-if="loading && !success">
+          <v-container class="px-12">
+            <v-row>
+              <v-col cols="12">
+                <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png" aspect-ratio="1" style="height: 25vh; max-height: 25vh;"></v-img>
+                <p class="primary--text text-center font-weight-bold text-h5">Invite a Service Provider to join SOWerk And Connect For Free</p>
+                <p class="text-center text-h6">Enter the Service Providers information below, add another line and invite multiple at once.</p>
+                <p class="text-body-1 text-center">(Note* by selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk with a free connection, but will still have to submit an application to your business.)</p>
+              </v-col>
+              <v-col cols="12">
+                <v-data-table
+                  :headers="headers"
+                  :items="vendors"
+                  class="text-caption table--bordered"
+                  disable-pagination
+                  hide-default-footer
+                >
+                  <template v-slot:item.service="{ item }">
+                    <v-text-field class="text-caption" placeholder="HVAC" v-model="item.service"></v-text-field>
+                  </template>
+                  <template v-slot:item.companyName="{ item }">
+                    <v-text-field class="text-caption" placeholder="Outdoor Solutions" v-model="item.companyName"></v-text-field>
+                  </template>
+                  <template v-slot:item.firstName="{ item }">
+                    <v-text-field class="text-caption" placeholder="John" v-model="item.firstName"></v-text-field>
+                  </template>
+                  <template v-slot:item.lastName="{ item }">
+                    <v-text-field class="text-caption" placeholder="Smith" v-model="item.lastName"></v-text-field>
+                  </template>
+                  <template v-slot:item.email="{ item }">
+                    <v-text-field class="text-caption" placeholder="johnsmith@email.com" v-model="item.email"></v-text-field>
+                  </template>
+                  <template v-slot:item.phone="{ item }">
+                    <v-text-field class="text-caption" placeholder="123-456-7890" v-model="item.phone"></v-text-field>
+                  </template>
+                  <template v-slot:item.preapproved="{ item }">
+                    <v-select
+                      :items="preapprovedOptions"
+                      v-model="item.preapproved"
+                      item-text="text"
+                      item-value="value"
+                      class="text-caption"
+                      placeholder="Branson Store - 1234 S New St"
+                    >
+                    </v-select>
+                  </template>
+                  <template v-slot:item.property="{ item }">
+                    <v-select
+                      :items="properties"
+                      item-text="name"
+                      v-model="item.property"
+                      class="text-caption"
+                    >
+                      <template slot="selection" slot-scope="data">
+                        {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+                      </template>
+                    </v-select>
+                  </template>
+                </v-data-table>
+              </v-col>
+              <v-col cols="12" class="d-flex justify-end">
+                <v-btn color="primary" text @click="addInvitee">+ Add Another Line</v-btn>
+              </v-col>
+              <v-col class="d-flex justify-space-between my-12">
+                <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
+                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </transition>
+      <transition name="slide-fade">
+        <v-card v-if="success" style="height: auto;" class="d-flex flex-column align-center">
         <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
         <v-card-title class="mt-n16" color="primary">Your SOWerk Invite Has Been Sent!</v-card-title>
         <v-btn color="primary" :href="'../../dashboard/vendors/invite'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
       </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -159,6 +169,7 @@
     },
     methods: {
       async getCompany() {
+        this.loading = true;
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id).catch(e => e);
         this.company = data;
         this.properties = data.locations;
@@ -242,7 +253,7 @@
             }
           }
         }
-        this.loading = false;
+        this.loading = true;
       },
       addInvitee() {
         let newVendor = {
@@ -272,5 +283,18 @@
 
   .table--bordered >>> th:not(:first-child) {
     min-width: 150px;
+  }
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>
