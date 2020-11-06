@@ -19,7 +19,7 @@
           :size="50"
         ></v-progress-circular>
       </v-col>
-      <v-col cols="12" class="pt-12 mt-12">
+      <v-col cols="12" class="pt-12 mt-12 px-xs-0" >
         <v-card class="elevation-12 card--has-floating" light>
           <v-card-title
             class="justify-center headline font-weight-bold"
@@ -1471,6 +1471,8 @@ export default {
 /*  display: none;*/
 /*}*/
 
+
+
 .form__address::v-deep input {
   border: 2px solid red !important;
   width: 600px;
@@ -1569,4 +1571,5 @@ export default {
   /*  margin-left: 7%;*/
   /*}*/
 }
+
 </style>
