@@ -336,7 +336,7 @@
           ],
           emailRules: [
             v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => /.+@.[a-z]+/.test(v) || 'E-mail must be valid',
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           emailNotRequiredRules: [
