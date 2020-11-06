@@ -97,7 +97,7 @@
 
                 <v-text-field
                   label="Phone*"
-                  type="text"
+                  type="number"
                   class="card__input black--text"
                   style="font-size: 12px;"
                   v-model="user.phone"
