@@ -17,7 +17,7 @@
       ></v-skeleton-loader>
       <transition name="slide-fade">
         <UserCard
-          v-if="users.length > 0 && loading === true"
+          v-if="users.length > 0 && loading === true && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"
           :title="'List of Users - ' + company.account_name"
           :items="users"
           :tableProperties="headers"
@@ -30,6 +30,22 @@
           :getUsers="getUsers"
           :getLocations="getLocations"
         >
+        </UserCard>
+        <UserCard
+          v-if="users.length > 0 && loading === true"
+          :title="'List of Users - ' + company.account_name"
+          :items="users"
+          :tableProperties="headersMobile"
+          :viewAll="false"
+          action="View"
+          slug="/dashboard/user-creation"
+          :company="company"
+          :currentUser="currentUser"
+          :locations="locations"
+          :getUsers="getUsers"
+          :getLocations="getLocations"
+        >
+
         </UserCard>
       </transition>
     </v-card>
@@ -62,6 +78,10 @@ export default {
         { text: 'Accepted Invite', value: 'userverify', class: 'primary--text font-weight-regular'},
         { text: 'Actions', value: 'useractions', class: 'primary--text font-weight-regular' },
         ],
+      headersMobile: [
+        { text: 'Name', value: 'first_name', filterable: true, class: 'primary--text font-weight-regular' },
+        { text: 'Actions', value: 'useractions', class: 'primary--text font-weight-regular' },
+      ],
       company: {},
     }
   },

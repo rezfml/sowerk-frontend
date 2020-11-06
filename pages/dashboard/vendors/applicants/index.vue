@@ -1,15 +1,34 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <template v-if="loading">
-      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          :size="50"
-        ></v-progress-circular>
+<!--    <template v-if="loading">-->
+<!--      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;">-->
+<!--        <v-progress-circular-->
+<!--          indeterminate-->
+<!--          color="primary"-->
+<!--          :size="50"-->
+<!--        ></v-progress-circular>-->
+<!--      </v-col>-->
+<!--    </template>-->
+    <v-row>
+      <v-col cols="3">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="15vw"
+        ></v-skeleton-loader>
       </v-col>
-    </template>
-    <template v-else>
+      <v-col cols="9">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="30vw"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <transition name="slide-fade">
+      <template v-if="loading">
       <v-container class="px-0" style="max-width: 95%;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
         <v-row>
           <v-col cols="12" class="d-flex flex-column justify-start">
@@ -47,7 +66,7 @@
         </v-row>
       </v-container>
     </template>
-
+    </transition>
   </v-app>
 </template>
 
@@ -199,7 +218,6 @@
     },
     methods: {
       async getApplications(id) {
-        this.loading = true;
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
@@ -226,12 +244,12 @@
                 console.log(this.applications, 'applications parsed');
               }
             }
-            this.loading = false;
           })
           .catch(err => {
             console.log('err in getting applications', err);
           })
         console.log(this.applications, 'wow so done')
+        this.loading=true;
       },
       async getPMService(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/' + id)
@@ -275,6 +293,19 @@
 </script>
 
 <style>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
     @media (max-width:1264px ){
     #app{
       margin-top:-22px;

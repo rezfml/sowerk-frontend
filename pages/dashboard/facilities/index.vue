@@ -2,15 +2,22 @@
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
-        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
-        </v-col>
+<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
+<!--        </v-col>-->
 
         <v-col cols="12" class="d-flex flex-column justify-start flex-wrap" v-if="$vuetify.breakpoint.sm">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, article, article, article, actions"
+            min-height="50vh"
+            min-width="80vw"
+            cols
+          ></v-skeleton-loader>
           <transition name="slide-fade">
             <FacilitiesCard
               :title="'Your Facilities - ' + locations.length"
@@ -18,42 +25,56 @@
               :tableProperties="headers"
               :viewAll="false"
               slug="/dashboard/facilities/"
-              v-if="locationApproved===true"
+              v-if="locationApproved===true && loading"
             ></FacilitiesCard>
           </transition>
-          <v-row class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
-            <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
-            <v-btn
-              style=""
-              class="px-16 mr-16"
-              large
-              outlined
-              rounded
-              color="white"
-              to="/dashboard/facilities/add"
-            >Add Now</v-btn>
-          </v-row>
+          <transition name="slide-fade">
+            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+              <v-btn
+                style=""
+                class="px-16 mr-16"
+                large
+                outlined
+                rounded
+                color="white"
+                to="/dashboard/facilities/add"
+              >Add Now</v-btn>
+            </v-row>
+          </transition>
         </v-col>
         <v-col cols="12" class="d-flex flex-column justify-start" v-else>
-          <FacilitiesCard
-            :title="'Your Facilities - ' + locations.length"
-            :items="locations"
-            :tableProperties="headers"
-            :viewAll="false"
-            slug="/dashboard/facilities/"
-          ></FacilitiesCard>
-          <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
-            <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
-            <v-btn
-              style=""
-              class="px-16 mr-16"
-              large
-              outlined
-              rounded
-              color="white"
-              to="/dashboard/facilities/add"
-            >Add Now</v-btn>
-          </v-row>
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, article, article, article, actions"
+            min-height="50vh"
+            min-width="80vw"
+            cols
+          ></v-skeleton-loader>
+          <transition name="slide-fade">
+            <FacilitiesCard
+              :title="'Your Facilities - ' + locations.length"
+              :items="locations"
+              :tableProperties="headers"
+              :viewAll="false"
+              slug="/dashboard/facilities/"
+              v-if="loading"
+            ></FacilitiesCard>
+          </transition>
+          <transition name="slide-fade">
+            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
+              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+              <v-btn
+                style=""
+                class="px-16 mr-16"
+                large
+                outlined
+                rounded
+                color="white"
+                to="/dashboard/facilities/add"
+              >Add Now</v-btn>
+            </v-row>
+          </transition>
         </v-col>
 
       </v-row>
@@ -102,20 +123,33 @@
   -->
 
       <v-row  v-else>
-        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-          ></v-progress-circular>
-        </v-col>
+<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
+<!--          <v-progress-circular-->
+<!--            indeterminate-->
+<!--            color="primary"-->
+<!--            :size="50"-->
+<!--          ></v-progress-circular>-->
+<!--        </v-col>-->
         <v-col cols="3">
-          <FilterCard
-            title="Filter"
-            :filters="filters"
-          ></FilterCard>
+          <v-skeleton-loader
+            v-if="!loading"
+            type="article, article, article, actions"
+            min-height="50vh"
+          ></v-skeleton-loader>
+          <transition name="slide-fade">
+            <FilterCard
+              title="Filter"
+              :filters="filters"
+              v-if="loading"
+            ></FilterCard>
+          </transition>
         </v-col>
         <v-col cols="9" class="d-flex flex-column justify-start">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, article, article, article, actions"
+            min-height="50vh"
+          ></v-skeleton-loader>
           <transition name="slide-fade">
             <FacilitiesCard
               :title="'Your Facilities - ' + locations.length"
@@ -123,21 +157,23 @@
               :tableProperties="headers"
               :viewAll="false"
               slug="/dashboard/facilities/"
-              v-if="locationApproved===true"
+              v-if="locationApproved===true && loading"
             ></FacilitiesCard>
           </transition>
-          <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser">
-            <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
-            <v-btn
-              style=""
-              class="px-16 mr-16"
-              large
-              outlined
-              rounded
-              color="white"
-              to="add"
-            >Add Now</v-btn>
-          </v-row>
+          <transition name="slide-fade">
+            <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser && loading">
+              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+              <v-btn
+                style=""
+                class="px-16 mr-16"
+                large
+                outlined
+                rounded
+                color="white"
+                to="add"
+              >Add Now</v-btn>
+            </v-row>
+          </transition>
         </v-col>
       </v-row>
     </v-container>
@@ -318,6 +354,7 @@
             this.locationApproved = true;
           }
         })
+        this.loading = true;
       },
     },
   }

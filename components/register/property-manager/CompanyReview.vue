@@ -1,14 +1,9 @@
 <template>
        <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
-              <v-card-text class="pa-0">
-                <p
-                  class="title font-weight-regular text-center my-12 grey--text text--darken-2"
-                >
-                  Let's Review Your Details
-                </p>
+              <v-card-text class="pa-0" style="width: 100%;">Let's Review Your Details</v-card-text>
                 <v-col cols="12" class="align-center text-center mx-auto">
-                  <!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
+                  <v-img :src="company.imgUrl" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.imgUrl && company.imgUrl != ''"></v-img>
                   <v-icon
                     color="grey"
                     style="font-size: 100px; text-align: center"
@@ -27,10 +22,10 @@
                 >
                   <v-form class="mx-auto">
                     <v-container>
-                      <v-row>
+                      <p>Your Information</p>
+                      <v-divider ></v-divider>
+                      <v-row class="mt-2">
                         <v-col cols="12" md="6">
-                          <p>Your Information</p>
-                          <v-divider ></v-divider>
                           <p
                             class="grey--text text--darken-4 font-weight-bold mb-0"
                           >
@@ -83,7 +78,7 @@
 
                         <v-col cols="12">
                           <p style="font-size:1.2vw;">Company Account Information</p>
-                         <v-divider  ></v-divider>
+                         <v-divider class="mb-4"></v-divider>
                           <p
                             class="grey--text text--darken-4 font-weight-bold mb-0"
                           >
@@ -160,7 +155,6 @@
                 <!--                  >-->
                 <!--                  </v-checkbox>-->
                 <!--                </v-col>-->
-              </v-card-text>
             </v-container>
           </v-tab-item>
 </template>

@@ -681,7 +681,7 @@
               style="border-radius: 20px; font-weight: bold; font-size: 13px;"
               to="/landingpage/join-product-landing"
               >Provider Facility - Learn More</v-btn>
-              
+
           </v-col>
         </v-row>
       </v-container>
