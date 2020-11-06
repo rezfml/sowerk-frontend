@@ -22,7 +22,7 @@
           <v-card-title class="justify-center headline font-weight-bold"
           ><img src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png" style="height:10vh; margin-right: 10px;"alt="property and facility manager Icon">
             <span class="primary--text ml-2 py-6"
-            >Property Manager Information</span
+            >Business Information</span
             ></v-card-title
           >
           <v-tabs
