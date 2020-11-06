@@ -200,7 +200,7 @@
                           ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12">
+                        <v-col cols="12" md="9">
                           <div class="v-input__control">
                             <div class="v-input__slot">
                               <div class="v-text-field__slot" style="width: 100%;">
@@ -242,6 +242,18 @@
                             </div>
                           </div>
                         </v-col>
+
+                        <v-col cols="12" md="3">
+                          <v-text-field
+                            label="Year Business Was Founded*"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.year_founded"
+                            class="pt-5"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+
                     <!--
                         <v-col cols="12" md="6">
                           <v-select
@@ -265,6 +277,52 @@
                             placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-textarea>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <p class="font-weight-bold text-h5">Services</p>
+                          <v-divider class="mb-12"></v-divider>
+                          <v-list>
+                            <v-list-item v-for="(service, index) in servicesProvided"></v-list-item>
+                          </v-list>
+                          <v-select
+                            :items="sectors"
+                            label="First, select your sector."
+                            placeholder=" "
+                            item-text="title"
+                            item-value="code"
+                            @change="getSectorChildren"
+                          ></v-select>
+                          <template v-if="companySector">
+                            <v-select
+                              :items="industryLevel1"
+                              placeholder=" "
+                              item-text="title"
+                              item-value="code"
+                              v-model="companyLevel1"
+                              @change="getLevel1Children"
+                            ></v-select>
+                          </template>
+                          <template v-if="companyLevel1">
+                            <v-select
+                              :items="industryLevel2"
+                              placeholder=" "
+                              item-text="title"
+                              item-value="code"
+                              v-model="companyLevel2"
+                              @change="getLevel2Children"
+                            ></v-select>
+                          </template>
+<!--                          <template v-if="companyLevel2">-->
+<!--                            <v-select-->
+<!--                              :items="industryLevel3"-->
+<!--                              placeholder=" "-->
+<!--                              item-text="title"-->
+<!--                              item-value="code"-->
+<!--                              v-model="companyLevel3"-->
+<!--                              @change="getLevel3Children"-->
+<!--                            ></v-select>-->
+<!--                          </template>-->
                         </v-col>
 
                       </v-row>
@@ -502,6 +560,8 @@
   import { VueMaskDirective } from 'v-mask'
   Vue.directive('mask', VueMaskDirective);
 
+  const naics = require("naics");
+
   // Vue.use(VueGoogleMaps, {
   //   load: {
   //     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
@@ -544,8 +604,12 @@
           company_type: false,
           isFranchise: false,
           servicesOffered: [],
-          imgUrl: null
+          imgUrl: null,
         },
+        companySector: null,
+        companyLevel1: null,
+        companyLevel2: null,
+        companyLevel3: null,
         confirmPassword: null,
         bestSelection: [
           {
@@ -668,6 +732,11 @@
         editingLocation: true,
         editingInsurance: true,
         editingLicense: true,
+        sectors: [],
+        industryLevel1: [],
+        industryLevel2: [],
+        industryLevel3: [],
+        industryLevel4: [],
         headers: [
           { text: 'Location Name', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
@@ -723,6 +792,11 @@
     },
     mounted() {
       vueGoogleMapsInit();
+      let codes = naics.Industry.sectors();
+      for(const code of codes) {
+        this.sectors.push(code);
+      }
+      console.log(this.sectors);
     },
     computed: {
       confirmPasswordRules() {
@@ -733,6 +807,44 @@
       }
     },
     methods: {
+      getSectorChildren(e) {
+        console.log(e);
+        if(this.companySector) {
+          this.companySector = null;
+          this.companyLevel1 = null;
+          this.companyLevel2 = null;
+          this.companyLevel3 = null;
+        }
+        this.industryLevel1 = [];
+        this.industryLevel2 = [];
+        this.companySector = e;
+        let industry = naics.Industry.from(this.companySector);
+        let categories = industry.children();
+        for(const category of categories) {
+          this.industryLevel1.push(category);
+        }
+      },
+      getLevel1Children() {
+        console.log(this.companyLevel1);
+        let industry = naics.Industry.from(this.companyLevel1);
+        let categories = industry.children();
+        this.industryLevel2 = [];
+        for(const category of categories) {
+          this.industryLevel2.push(category);
+        }
+      },
+      getLevel2Children() {
+        console.log(this.companyLevel2);
+        let industry = naics.Industry.from(this.companyLevel2);
+        let categories = industry.children();
+        this.industryLevel3 = [];
+        for(const category of categories) {
+          this.industryLevel3.push(category);
+        }
+      },
+      // getLevel3Children() {
+      //   console.log(this.companyLevel3);
+      // },
       selectInsuranceFile(file, index) {
         this.insuranceFiles[index].file = file;
       },
