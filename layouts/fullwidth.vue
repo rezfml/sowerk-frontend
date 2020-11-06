@@ -100,22 +100,26 @@
       </v-col>
 
       <!-- TERMS CONDITIONS PRIVACY  for mobile-->
-      <v-col cols="12" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" v-if="$vuetify.breakpoint.xs && $vuetify.breakpoint.sm" >
+      <v-col cols="12" class="text-left d-flex flex-end px-0 mb-n12" style="display: flex; flex-direction: column; font-size:11px;" v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm" >
 
       <v-row >
       <v-col cols="6" style="text-align:left;" >
-        <ul>
+        <ul class="px-0">
           <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
           <li style="list-style: none"><a href="/customerTerms" style="text-decoration: none;color: white">Customer Terms</a></li>
           <li style="list-style: none"><a href="/acceptableUsePolicy" style="text-decoration: none;color: white">Acceptable Use Policy</a></li>
-          <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
         </ul>
       </v-col>
        <v-col cols="6" style="text-align:left;" >
-        <ul>
+        <ul class="px-0">
           <li style="list-style: none"><a href="/serviceLevelAgreement" style="text-decoration: none;color: white">Service Level Agreement</a></li>
           <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
           <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
+        </ul>
+      </v-col my-0>
+      <v-col cols=12>
+        <ul class="px-0 my-n6">
+          <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
         </ul>
       </v-col>
       </v-row>
