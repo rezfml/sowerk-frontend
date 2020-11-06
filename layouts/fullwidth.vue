@@ -101,7 +101,6 @@
 
       <!-- TERMS CONDITIONS PRIVACY  for mobile-->
       <v-col cols="12" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" v-show="$vuetify.breakpoint.xs && $vuetify.breakpoint.sm" >
-<!--        // JUST FOR NOW THIS WILL BE ADDED LATER I PROMISE-->
       <v-row >
       <v-col cols="6" style="text-align:left;" >
         <ul>
