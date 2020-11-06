@@ -73,13 +73,23 @@
       class="skew-top"
     >
       <v-row align="center" justify="center">
-        <v-col cols="11" class="pa-0">
-          <p
+        <v-col cols="12" class="pa-0">
+          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"
             class="mobile-title text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
-            style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
+            style="word-break: break-word; opacity: .8; font-size: 30px; width: 120%;margin-left:-10%;"
           >
-            The Business-to-Business Communication Tools Between Vendors Selling Products & Services To Businesses
+            Businesses & Vendors Come Together On SOWerk
           </p>
+          <v-container v-else>
+          <p 
+            class=" text-lg-h3 text-sm-h6 font-weight-bold white--text pt-10 pb-2"
+            style=" opacity: .8; font-size: 28px; width: 100%;margin:auto !important;min-width:100% !important;font-weight:700"
+          >
+            Businesses & Vendors 
+          </p>
+          <p class=" text-lg-h3 text-sm-h6 font-weight-bold white--text pb-2 pb-sm-10 mx-0 px-0 d-flex align-center"
+            style=" opacity: .8; font-size: 24px; width: 110%;margin:auto !important font-weight:700">Come Together On SOWerk</p>
+          </v-container>
         </v-col>
       </v-row>
 

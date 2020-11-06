@@ -1,10 +1,15 @@
 <template>
-  <v-container style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/building-1080602.jpg') ; background-size: cover; background-position: center;">
+    <v-container style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/building-1080602.jpg') ; background-size: cover; background-position: center;">
+    <v-row  v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs"
+      class="mx-auto my-n16">
+      <v-img class="mb-n16" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png"></v-img>
+    </v-row>
     <v-row
       align="center"
       justify="center"
       style="max-width: 1440px;"
-      class="mx-auto py-12"
+      class="mx-auto py-16 mt-n16"
+      
     >
       <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
         <v-progress-circular

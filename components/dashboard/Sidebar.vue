@@ -507,7 +507,7 @@
             to: '/dashboard/businesses/',
             slug: 'businesses',
             icon: 'mdi-account',
-            text: 'Businesses',
+            text: 'Customers',
             children: [
               {
                 to: '/dashboard/businesses/',
@@ -517,12 +517,12 @@
               {
                 to: '/dashboard/businesses/search',
                 slug: 'requesting_businesses',
-                text: 'Requesting Businesses'
+                text: 'Requesting Customers'
               },
               {
                 to: '/dashboard/businesses/search',
                 slug: 'search_businesses',
-                text: 'All Business Search'
+                text: 'All Customers Search'
               }
             ]
           },/*
