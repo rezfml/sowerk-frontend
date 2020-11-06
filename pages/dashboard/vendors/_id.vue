@@ -1,6 +1,33 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container class="px-0 fill-height" style="max-width: 95%;">
+    <v-row style="width: 100%;">
+      <v-col cols="3" class="mx-10">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="25vw"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="3" class="mx-12">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="25vw"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="3" class="mx-10">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="25vw"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <transition name="slide-fade">
+    <v-container v-if="loading" class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
@@ -24,15 +51,15 @@
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
             <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-            <v-card-text>{{location.email}}</v-card-text>
-            <v-card-text>{{location.phone}}</v-card-text>
-            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Insurances</v-card-title>
-            <template v-for="(insurance, index) in insurances">
-              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
-              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
-            </template>
-            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>
+<!--            <v-card-text>{{location.email}}</v-card-text>-->
+<!--            <v-card-text>{{location.phone}}</v-card-text>-->
+<!--            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
+<!--            <v-card-title style="color:#A61C00;">Insurances</v-card-title>-->
+<!--            <template v-for="(insurance, index) in insurances">-->
+<!--              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>-->
+<!--              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>-->
+<!--            </template>-->
+<!--            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>-->
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Licenses</v-card-title>
             <template v-for="(license, index) in licenses">
@@ -92,6 +119,7 @@
         </v-col>
       </v-row>
     </v-container>
+    </transition>
   </v-app>
 </template>
 
@@ -115,7 +143,8 @@
         licenses: [],
         connections: [],
         connectionsPast30Days: [],
-        companies: []
+        companies: [],
+        loading: false,
       }
     },
     async mounted() {
@@ -209,6 +238,7 @@
             console.log(err, 'err');
           })
         console.log(this.userforms, 'userforms for company')
+        this.loading=true;
       },
       async getUserFormsForLocation(item) {
         console.log(item)
@@ -231,5 +261,17 @@
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

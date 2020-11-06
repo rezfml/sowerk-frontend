@@ -48,7 +48,7 @@
         <v-row class="d-flex align-center">
           <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
             <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageUrl"></v-img>
-            <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
+            <v-img v-else style="width: 10vw;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"></v-img>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
             <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
 
@@ -56,7 +56,7 @@
           <v-col cols="12" md="6" class="d-flex flex-column justify-center
 ">
             <v-text-field
-              placeholder=" "
+              placeholder="Each location is listed on SOWerk so names are important to you for for your management but they are also important to vendors (approved or potential)"
               id="location"
               type="text"
               v-model="location.name"
@@ -169,9 +169,9 @@
       <v-col cols="12" class="mt-8 d-flex justify-center">
         <span class="headline mb-0">Location Manager</span>
       </v-col>
-      <v-row class="title font-weight-regular text-center my-12 grey--text text--darken-2">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
+      <v-row class="title font-weight-regular text-center mb-12 grey--text text--darken-2">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
       <v-col cols="12" class="mb-6">
-        <v-checkbox v-model="managerIsUser" @click="setManagerToUser" hide-details>
+        <v-checkbox v-model="managerIsUser" @click="setManagerToUser" >
           <template v-slot:label>
             <p class="grey--text text--darken-4 mb-0">This location will be managed by: {{ user.first_name }} {{ user.last_name }}</p>
           </template>

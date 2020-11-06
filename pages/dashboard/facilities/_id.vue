@@ -21,6 +21,12 @@
 <!--            color="primary"-->
 <!--            :size="50"-->
 <!--          ></v-progress-circular>-->
+          <v-skeleton-loader
+            v-if="!locationApproved && !pendingApplicants && !editVendorRequirements && !editLocationDetails"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="50vw"
+          ></v-skeleton-loader>
           <transition name="slide-fade">
           <FacilitiesCard
             v-if="vendors && locationApproved"
@@ -278,7 +284,7 @@
         approvedProviders: 0,
         editLocation: false,
         locationCondition: false,
-        locationApproved: true,
+        locationApproved: false,
         pendingApplicants: false,
         editVendorRequirements: false,
         editLocationDetails: false,

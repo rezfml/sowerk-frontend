@@ -1,88 +1,146 @@
 <template>
   <v-container style="width: 100%;" overflow-y-auto>
-    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        :size="50"
-      ></v-progress-circular>
-    </div>
+<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+<!--      <v-progress-circular-->
+<!--        indeterminate-->
+<!--        color="primary"-->
+<!--        :size="50"-->
+<!--      ></v-progress-circular>-->
+<!--    </div>-->
+    <v-skeleton-loader
+      v-if="!loading"
+      type="card-avatar, article, article, actions"
+      min-height="50vh"
+      min-width="50vw"
+    ></v-skeleton-loader>
 
-
-    <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;">
+    <transition name="slide-fade">
+      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
-            <v-col class="d-flex flex-column justify-center">
+            <v-col cols="7" class="d-flex flex-column justify-center">
               <p class="mb-8">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event you have a special requirement for only one of your locations (i.e. local permit requirement) take that company template and add a custom question that is only visible to that facility.</p>
               <v-col class="d-flex flex-column align-center">
-                <v-btn @click="loadApplicationLocationsFunction" class="py-8 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadApplicationTemplatesFunction" class="py-8 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadYourCompanyTemplatesFunction" class="py-8 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationLocationsFunction" class="py-4 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
               </v-col>
             </v-col>
           </v-row>
         </v-card>
-
+    </transition>
 <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
 <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
 <!--    </v-row>-->
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loadApplicationLocations">
+      <v-card class="mt-8" v-if="loadApplicationLocations && loading">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
-        <v-simple-table class="pt-16">
-          <thead >
-          <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>
-            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
-            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>
-            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>
-            <th style="color: #a61c00; width: 10%;">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr  v-for="(location, index) in locations" style="background: none !important;">
-            <div v-for="(service, indexService) in location.services">
-              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">
+<!--        <v-simple-table class="pt-16">-->
+<!--          <thead >-->
+<!--          <tr class="d-flex justify-start">-->
+<!--            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>-->
+<!--            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
+<!--            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>-->
+<!--            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>-->
+<!--            <th style="color: #a61c00; width: 10%;">Actions</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
+<!--            <div v-for="(service, indexService) in location.services">-->
+<!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
 
-                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>
-                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">
-                  <div class="d-flex flex-column align-center">
-                    <p>{{location.address}}</p>
-                    <p>{{location.city}}, {{location.state}}</p>
-                  </div>
-                </td>
-                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>
-                <td style="width: 22%;" class="py-1 center mr-10 d-flex">
-                  <v-select
-                    v-model="userform.applicationStatus"
-                    :placeholder="userform.applicationStatus"
-                    :items="applicationOptions"
-                    @change="userformEditActive(userform)"
-                  >
-                  </v-select>
-<!--                  <v-checkbox-->
-<!--                    v-if="userform.applicationStatus === 'Published - Private'"-->
-<!--                    :label="'Publish Link Publicly?'"-->
-<!--                    v-model="userform.applicationStatusLinkPublish"-->
-<!--                    class="ml-3"-->
-<!--                    @change="userformEditApplicationPublish(userform)"-->
-<!--                  ></v-checkbox>-->
-                </td>
-                <td style="width: 10%;" class="d-flex flex-column align-center">
-                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>
-                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
-                </td>
-              </div>
-            </div>
-          </tr>
-          </tbody>
-        </v-simple-table>
+<!--                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>-->
+<!--                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">-->
+<!--                  <div class="d-flex flex-column align-center">-->
+<!--                    <p>{{location.address}}</p>-->
+<!--                    <p>{{location.city}}, {{location.state}}</p>-->
+<!--                  </div>-->
+<!--                </td>-->
+<!--                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
+<!--                <td style="width: 22%;" class="py-1 center mr-10 d-flex">-->
+<!--                  <v-select-->
+<!--                    v-model="userform.applicationStatus"-->
+<!--                    :placeholder="userform.applicationStatus"-->
+<!--                    :items="applicationOptions"-->
+<!--                    @change="userformEditActive(userform)"-->
+<!--                  >-->
+<!--                  </v-select>-->
+<!--&lt;!&ndash;                  <v-checkbox&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-if="userform.applicationStatus === 'Published - Private'"&ndash;&gt;-->
+<!--&lt;!&ndash;                    :label="'Publish Link Publicly?'"&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-model="userform.applicationStatusLinkPublish"&ndash;&gt;-->
+<!--&lt;!&ndash;                    class="ml-3"&ndash;&gt;-->
+<!--&lt;!&ndash;                    @change="userformEditApplicationPublish(userform)"&ndash;&gt;-->
+<!--&lt;!&ndash;                  ></v-checkbox>&ndash;&gt;-->
+<!--                </td>-->
+<!--                <td style="width: 10%;" class="d-flex flex-column align-center">-->
+<!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>-->
+<!--                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
+<!--                </td>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </v-simple-table>-->
+
+        <v-data-table
+          :headers="headersApplicationTemplateVal"
+          :items="applicationTemplateVal"
+          :items-per-page="10"
+          class="pt-16"
+          :expanded.sync="expanded"
+          show-expand
+          single-expand
+        >
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              <v-simple-table>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th>Question</th>
+                    <th>Name</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="app in item.formfields" :key="app.id">
+                    <td>Question# {{(app.order + 1)}}</td>
+                    <td>{{ app.name }}</td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </td>
+          </template>
+
+          <template v-slot:item.formfields="{ item }">
+            <p v-if="item.formfields.length">{{item.formfields.length}}</p>
+            <p v-else>0</p>
+          </template>
+
+          <template v-slot:item.applicationStatus="{ item }">
+            <v-select
+              v-model="item.applicationStatus"
+              :placeholder="item.applicationStatus"
+              :items="applicationOptions"
+              @change="userformEditActive(item)"
+            >
+            </v-select>
+          </template>
+
+          <template v-slot:item.actions="{item}">
+            <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + item.id" style="color: white; width: 100%;">Edit</v-btn>
+            <v-btn @click="deleteUserForm(item)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
+          </template>
+        </v-data-table>
       </template>
     </v-card>
     </transition>
@@ -100,8 +158,8 @@
           :items-per-page="10"
           class="pt-16"
           :expanded.sync="expanded"
-          item-key="name"
           show-expand
+          single-expand
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
@@ -115,7 +173,7 @@
                   </thead>
                   <tbody>
                   <tr v-for="app in item.applicationtemplatesformfields" :key="app.name">
-                    <td>Question# {{app.order}}</td>
+                    <td>Question# {{(app.order + 1)}}</td>
                     <td>{{ app.name }}</td>
                   </tr>
                   </tbody>
@@ -189,6 +247,29 @@
         </v-data-table>
       </template>
     </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-row class="mt-8" v-if="loadYourCompanyDocuments">
+        <v-col cols="6">
+          <v-card>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
+            <v-card-text class="pt-16 ml-4">Upload here any company document or template that you will use to share with vendors to download, complete and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-btn color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
+            <v-data-table
+              class="pt-16"
+              :items="companyDocuments"
+              :headers="companyDocumentsHeaders"
+            >
+            </v-data-table>
+          </v-card>
+        </v-col>
+      </v-row>
     </transition>
 
     <transition name="slide-fade">
@@ -272,7 +353,7 @@
                 </draggable>
                 <rawDisplayer title="List 2" :value="formTypes" />
                 <v-btn @click="saveCompanyTemplate" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-                <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
+                <v-btn :href="'../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
                 <v-progress-circular
                   v-if="saveLoad === false"
                   indeterminate
@@ -477,6 +558,8 @@ import draggable from "vuedraggable"
         locations: [],
         services: [],
         userForms: [],
+        applicationTemplateVal: [],
+        companyDocuments: [],
         finishedFormFields: false,
         totalLength: 0,
         valueServices: 0,
@@ -488,6 +571,7 @@ import draggable from "vuedraggable"
         loadApplicationLocations: true,
         loadApplicationTemplates: false,
         loadYourCompanyTemplates: false,
+        loadYourCompanyDocuments: false,
         addToLocationLoad: false,
         addNewCompanyTemplateLoad: false,
         addNewVendorFormLoad: false,
@@ -507,6 +591,15 @@ import draggable from "vuedraggable"
         addLocation: {},
         applicationTemplates: [],
         companyTemplates: [],
+        headersApplicationTemplateVal: [
+          { text: 'Application Name', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'serviceName', class: 'primary--text font-weight-regular' },
+          { text: 'Location Name', value: 'locationName', class: 'primary--text font-weight-regular' },
+          { text: 'Location Address', value: 'locationAddress', class: 'primary--text font-weight-regular' },
+          { text: '#Questions', value: 'formfields', class: 'primary--text font-weight-regular' },
+          { text: 'Application Status', value: 'applicationStatus', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
         headers: [
           {
             text: 'ID',
@@ -530,6 +623,11 @@ import draggable from "vuedraggable"
           },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
+        companyDocumentsHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-regular'},
+          { text: 'Upload Date', value: 'uploadDate', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         addLocations: [
@@ -588,8 +686,9 @@ import draggable from "vuedraggable"
         locationVal: {}
         }
     },
-    mounted() {
-      this.getLocations(this.currentUser.companies_id);
+    async mounted() {
+      await this.getLocations(this.currentUser.companies_id);
+      // await this.getCompany(this.currentUser.companies_id);
     },
     computed: {
       currentUser() {
@@ -597,100 +696,199 @@ import draggable from "vuedraggable"
       },
     },
     methods: {
+      async getCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(async(response) => {
+            console.log(response.data, 'company');
+            this.locations = response.data.locations;
+            for(let i=0; i<this.locations.length; i++) {
+              console.log('this.locations', this.locations[i])
+              if(this.locations[i].services !== 'There are no services') {
+                for(let j=0; j<this.locations[i].services.length; j++) {
+                  console.log('this.services', this.locations[i].services[j])
+                  if(this.locations[i].services[j].userforms !== 'There are no userforms') {
+                    for(let k=0; k<this.locations[i].services[j].userforms.length; k++) {
+                      console.log('this.userforms', this.locations[i].services[j].userforms[k])
+                      await this.getFormFields(this.locations[i].services[j].userforms.id, i, j)
+                    }
+                  } else {
+                    this.locations[i].services[j].userforms === [];
+                  }
+                }
+              } else {
+                this.locations[i].services === [];
+              }
+            }
+          })
+          .catch(err => {
+            console.log('err in company getting', err)
+          })
+        setTimeout(() => {
+          console.log('this.locations', this.locations)
+          this.loading = true;
+        }, 3000)
+      },
       async getLocations(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
-          .then(async (response) => {
-            console.log(response.data.location, 'locations');
-            for(let i=0; i<response.data.location.length; i++) {
-              this.locations.push(response.data.location[i]);
-              this.addLocations.push(response.data.location[i]);
-              console.log(this.locations, 'this.locations');
-              console.log(this.valueServices, 'this.valueServices')
-              await this.getServices(response.data.location[i].id)
-              this.valueServices++;
-            }
+          .then(async response => {
+            // console.log(response.data, 'locations RESPONSE DATA LOCATION');
+            // this.locations = response.data.location;
+            // console.log(this.locations, 'locations THIS DOT LOCATIONS');
+            // this.addLocations = response.data.location;
+            // for(let i=0; i<this.locations.length; i++) {
+            //   // await this.locations.push(response.data.location[i]);
+            //   // await this.addLocations.push(response.data.location[i]);
+            //   // console.log(this.locations, 'this.locations');
+            //   // console.log(this.valueServices, 'this.valueServices')
+            //   // await this.getServices(response.data.location[i].id)
+            //   this.valueServices++;
+            // }
+            response.data.location.forEach(async (location, index) => {
+              await this.locations.push(location)
+              console.log(this.locations, 'locations THIS DOT LOCATIONS');
+              await this.addLocations.push(location)
+              console.log(this.valueServices, 'valueServices');
+              if(this.locations[index].services[0] !== "There are no services") {
+                for(let i=0; i<location.services.length; i++) {
+                  this.locations[index].services[i].userforms = [];
+                  await this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices);
+                  console.log(this.valueUserForms, 'valueUserForms')
+                  this.valueUserForms++
+                }
+                this.valueServices++;
+              }
+              this.valueUserForms = 0;
+            })
           })
           .catch(err => {
             console.log('err get locations', err);
           })
-        console.log(this.userForms, 'userForms with formfields Locations');
-        console.log(this.locations, 'locations Locations');
-        this.loading = true;
+        setTimeout(() => {
+          console.log(this.userForms, 'userForms with formfields Locations');
+          console.log(this.locations, 'locations Locations');
+          console.log(this.applicationTemplateVal, 'APPLICATION TEMPLATE FOR LOOP TABLE')
+          this.loading = true;
+        }, 2000)
+
       },
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(async (response) => {
-            console.log(response.data, 'services');
+            console.log(response.data, 'services!!!! WOW');
             for(let i=0; i<response.data.length; i++) {
               let service = {
                 id: response.data[i].id,
                 name: response.data[i].name,
                 userforms: []
               }
-              this.services.push(service)
+              await this.services.push(service)
               this.locations[this.valueServices].services[i] = service;
               this.addLocations[this.valueServices].services[i] = service;
-              console.log(this.services, 'this.services', this.locations, 'this.locations');
-              console.log(this.valueUserForms, 'valueUserForms');
-              await this.getUserforms(response.data[i].id)
-              this.valueUserForms++
+              // console.log(this.services, 'this.services', this.locations, 'this.locations');
+              // console.log(this.valueUserForms, 'valueUserForms');
+              setTimeout(async () => {
+                await this.getUserforms(response.data[i].id)
+                this.valueUserForms++
+              }, 125)
             }
           })
           .catch(err => {
             console.log('err get services', err);
           })
       },
-      async getUserforms(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
-          .then(async (response) => {
-            console.log(response.data, 'userforms response.data');
-            for(let i=0; i<response.data.length; i++) {
-              let userForm = {
-                applicationStatus: response.data[i].applicationStatus,
-                applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
-                id: response.data[i].id,
-                name: response.data[i].name,
-                service_id: response.data[i].service_id,
-                formfields: []
+      async getUserforms(id, valueUserForms, valueServices) {
+        if(this.locations[valueServices].services[valueUserForms] !== 'There are no services') {
+          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
+            .then(async (response) => {
+              // this.totalLength += response.data.length;
+              // console.log(this.totalLength, 'totalLength!!!!!!!!!!!!');
+              // console.log(response.data, 'userforms response.data');
+              // console.log(valueServices, 'valueServices', valueUserForms, 'valueUserForms');
+              // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
+              // this.locations[valueServices].services[valueUserForms].userforms = response.data;
+              setTimeout(() => {
+
+              }, 250);
+              for(let i=0; i<response.data.length; i++) {
+                let userForm = {
+                  applicationStatus: response.data[i].applicationStatus,
+                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                  id: response.data[i].id,
+                  name: response.data[i].name,
+                  service_id: response.data[i].service_id,
+                  formfields: []
+                };
+                let userForm2 = {
+                  applicationStatus: response.data[i].applicationStatus,
+                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                  id: response.data[i].id,
+                  name: response.data[i].name,
+                  service_id: response.data[i].service_id,
+                  formfields: [],
+                  locationName: this.locations[valueServices].name,
+                  locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
+                  serviceName: this.locations[valueServices].services[valueUserForms].name
+                };
+                if(userForm.applicationStatus === 0) {
+                  userForm.applicationStatus = 'Unpublished'
+                  userForm2.applicationStatus = 'Unpublished'
+                } else if (userForm.applicationStatus === 1) {
+                  userForm.applicationStatus = 'Published - Public'
+                  userForm2.applicationStatus = 'Published - Public'
+                } else {
+                  userForm.applicationStatus = 'Published - Private'
+                  userForm2.applicationStatus = 'Published - Private'
+                }
+                await this.userForms.push(userForm);
+                await this.applicationTemplateVal.push(userForm2);
+                // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+                // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
+                console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
+                await this.getFormFields(response.data[i].id);
               }
-              if(userForm.applicationStatus === 0) {
-                userForm.applicationStatus = 'Unpublished'
-              } else if (userForm.applicationStatus === 1) {
-                userForm.applicationStatus = 'Published - Public'
-              } else {
-                userForm.applicationStatus = 'Published - Private'
-              }
-              await this.userForms.push(userForm);
-              console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-              await this.locations[this.valueServices].services[this.valueUserForms].userforms.push(userForm);
-              console.log(this.userForms, 'userForms', this.locations, 'this.locations');
-              await this.getFormFields(response.data[i].id);
-            }
-            this.finishedFormFields = true;
-            console.log(this.userForms, 'userForms with formfields');
-          })
-          .catch(err => {
-            console.log('err get userforms', err);
-          })
+              this.finishedFormFields = true;
+              // console.log(this.userForms, 'userForms with formfields');
+            })
+            .catch(err => {
+              console.log('err get userforms', err);
+            })
+        }
       },
-      async getFormFields(id) {
+      async getFormFields(id,) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
-          .then(response => {
+          .then(async (response) => {
             console.log(response.data, 'formfields for userform', id);
             this.userForms[this.valueFormFields].formfields = response.data;
+            this.applicationTemplateVal[this.valueFormFields].formfields = response.data;
+            // this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields]["formfields"] = response.data;
+            // console.log(this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields].formfields, 'userforms with formfields')
             this.valueFormFields++
-            console.log(this.valueFormFields, 'valueFormFields');
-            this.totalLength += response.data.length;
-            console.log(this.totalLength, 'totalLength');
+            // console.log(this.valueFormFields, 'valueFormFields');
           })
           .catch(err => {
             console.log('err get form fields', err);
           })
       },
+      async loadCompanyDocumentsFunction() {
+        this.loadApplicationLocations = false;
+        this.loadApplicationTemplates = false;
+        this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = true;
+        this.addNewVendorFormLoad = false;
+        this.addNewCompanyTemplateLoad = false;
+        this.step4 = false;
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step3finishedFormFields = false;
+        this.expanded = [];
+        this.singleExpand = true;
+      },
       async loadApplicationLocationsFunction() {
         this.loadApplicationLocations = true;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewVendorFormLoad = false;
         this.addNewCompanyTemplateLoad = false;
         this.step1 = false;
@@ -708,6 +906,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = true;
+        this.loadYourCompanyDocuments = false;
         this.addNewVendorFormLoad = false;
         this.addNewCompanyTemplateLoad = false;
         this.step4 = false;
@@ -725,6 +924,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = true;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewVendorFormLoad = false;
         this.addNewCompanyTemplateLoad = false;
         this.step4 = false;
@@ -741,6 +941,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewCompanyTemplateLoad = false;
       },
       async addNewCompanyTemplateLoading() {
@@ -748,6 +949,7 @@ import draggable from "vuedraggable"
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
         this.addNewCompanyTemplateLoad = true;
         this.newAssignUserForm = {
           formfields : [{
@@ -896,14 +1098,16 @@ import draggable from "vuedraggable"
       },
       async deleteUserForm(userform) {
         console.log(userform, 'userform');
-        for(let i=0; i<userform.formfields.length; i++) {
-          await this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + userform.formfields[i].id)
-            .then(response => {
-              console.log(response, 'success in deleting formfields');
-            })
-            .catch(err => {
-              console.log(err, 'err in deleting formfields')
-            })
+        if(userform.formfields.length > 0) {
+          for(let i=0; i<userform.formfields.length; i++) {
+            await this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + userform.formfields[i].id)
+              .then(response => {
+                console.log(response, 'success in deleting formfields');
+              })
+              .catch(err => {
+                console.log(err, 'err in deleting formfields')
+              })
+          }
         }
         await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
           .then(response => {
@@ -985,6 +1189,7 @@ import draggable from "vuedraggable"
         this.step1 = false;
         this.step2 = true;
         this.locationVal = location
+        console.log('locationVal', this.locationVal)
       },
       async assignToServiceVendor(id) {
         this.step2 = false;
@@ -1000,6 +1205,10 @@ import draggable from "vuedraggable"
       async addNewService() {
         await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
           .then(response => {
+            console.log(this.locationVal, 'locationVal')
+            if(!this.locationVal.services) {
+              this.locationVal.services = [];
+            }
             console.log(response, 'success in adding new service')
             this.locationVal.services.push(response.data.service)
             this.addServiceLoad = false;
@@ -1164,7 +1373,7 @@ import draggable from "vuedraggable"
         console.log(this.filteredSameUserForms, 'filtered same formfields')
         await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.newAssignUserForm.id, userformEdit)
           .then(response => {
-            console.log(response, 'updating formfield ', formfield.id)
+            console.log(response, 'updating formfield ')
           })
           .catch(err => {
             console.log('error in updating formfield', err)
