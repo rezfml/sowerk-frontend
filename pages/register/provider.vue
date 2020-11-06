@@ -57,12 +57,12 @@
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col cols="12" class="d-flex justify-center align-center px-12">
                               <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" style="max-height: 300px; width: 100%; max-width: 300px;" v-if="companyImageFile"></v-img>
-                              
-                              <v-img :aspect-ratio="1" class="my-8 rounded-circle" v-else style="max-height: 300px; width: 100%; max-width: 300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Icon-160.svg"></v-img>
+                               <img v-else src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png" alt="SoWerk rounded icon" style="width: 90px;"/>
+                              <!-- <v-img :aspect-ratio="1" class="my-8 rounded-circle" v-else style="max-height: 300px; width: 100%; max-width: 300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Icon-160.svg"></v-img> -->
                             </v-col>
                             <v-col cols="12" class="d-flex flex-column justify-center">
                               <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Account Photo </v-btn>
+                              <v-btn @click="clickCompanyImageUpload" color="primary" style="min-width: 64px;"outlined rounded class="flex-grow-0">Account Photo </v-btn>
   <!--                            <p class="text-center mb-0">Or</p>-->
 
   <!--                            <v-checkbox class="mt-0">-->
