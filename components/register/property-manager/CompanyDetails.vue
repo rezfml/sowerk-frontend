@@ -12,7 +12,7 @@
               <v-divider></v-divider>
             </v-col>
             <v-row>
-              <v-col cols="12" sm="5" md="6">
+              <v-col cols="12" sm="12" md="6">
                 <v-row fill-height class="pl-2 fill-height">
                   <v-col
                     cols="12"
@@ -47,7 +47,7 @@
                       color="primary"
                       outlined
                       rounded
-                      class="flex-grow-0 px-6"
+                      class="flex-grow-0 px-6 mt-5 mt-md-0"
                       >Upload Logo</v-btn
                     >
                   </v-col>
@@ -99,10 +99,13 @@
                   label="Phone*"
                   type="text"
                   class="card__input black--text"
-                  style="font-size: 15px;"
+                  style="font-size: 12px;"
                   v-model="user.phone"
                   placeholder=""
                   :rules="rules.phoneRules"
+                  v-mask="'(###)###-####'"
+                  :value="currentValue" 
+                  @input="handleInput"
                 ></v-text-field>
               </v-col>
 
@@ -133,7 +136,7 @@
                 <v-divider></v-divider>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-text-field
                   id="company-name"
                   label="Account Name*"
@@ -275,6 +278,15 @@ import VImageInput from 'vuetify-image-input'
 import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
+
+  import Vue from 'vue';
+  import FormLocation from '~/components/FormLocation'
+  import LocationForm from '@/components/register/provider/LocationForm'
+  import InsuranceForm from '~/components/InsuranceForm'
+  import LicenseForm from '@/components/website/LicenseForm'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
+
 export default {
   name: 'CompanyDetails',
   components: {
@@ -295,7 +307,7 @@ export default {
         ],
         emailRules: [
           v => !!v || 'E-mail is required',
-          v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
+          v => /.+@.[a-z]+/.test(v) || 'E-mail must be valid',
           v => (v && v.length <= 100) || 'Email must be less than 100 characters'
         ],
         emailNotRequiredRules: [
@@ -304,7 +316,9 @@ export default {
             (v && v.length <= 100) || 'Email must be less than 100 characters',
         ],
         phoneRules: [
-          (v) => (v && v.length === 10) || 'Phone Number must be 11 digits',
+          v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+          v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
+
         ],
           passwordRules: [
             v => !!v || 'Password is required',
@@ -438,6 +452,14 @@ export default {
   font-size: 0.75em;
 }
 
+.v-input input {
+  font-size: .9em;
+}
+
+.v-input__control {
+  font-size: .9em;
+}
+
 /* TRANSITIONS */
 .fade-enter-active,
 .fade-leave-active {
@@ -465,4 +487,6 @@ export default {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   width: 100%;
 }
+
+
 </style>

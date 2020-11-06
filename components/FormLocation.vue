@@ -225,6 +225,9 @@
           v-model="location.phone"
           :readonly="managerIsUser"
           :rules="rules.phoneRules"
+          v-mask="'(###)###-####'"
+          :value="currentValue" 
+          @input="handleInput"
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
@@ -255,6 +258,8 @@
   import VImageInput from 'vuetify-image-input'
   import * as VueGoogleMaps from '~/node_modules/gmap-vue'
   import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
 
   import Vue from 'vue';
 
@@ -331,7 +336,7 @@
           ],
           emailRules: [
             v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => /.+@.[a-z]+/.test(v) || 'E-mail must be valid',
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           emailNotRequiredRules: [
@@ -339,7 +344,8 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
           ],
         },
       }
