@@ -111,7 +111,7 @@
 
                           <v-text-field
                             label="Phone*"
-                            type="number"
+                            type="tel"
                             placeholder=""
                             class="card__input black--text mb-6"
                             v-model="user.phone"
@@ -186,7 +186,16 @@
                             label="List your LLC Name (If Applicable)"
                             type="text"
                             placeholder=" "
+                            class="pt-5"
                             v-model="company.llcName"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+                          <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Year Business Was Founded*"
+                            type="text"
+                            placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
@@ -233,7 +242,7 @@
                             </div>
                           </div>
                         </v-col>
-
+                    <!--
                         <v-col cols="12" md="6">
                           <v-select
                             :items="serviceOptions"
@@ -245,17 +254,8 @@
                             :rules="rules.requiredRules"
                           ></v-select>
                         </v-col>
+  -->
 
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="Year Business Was Founded*"
-                            type="text"
-                            placeholder=" "
-                            v-model="company.year_founded"
-                            class="pt-5"
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
 
                         <v-col cols="12">
                           <v-textarea
@@ -442,27 +442,29 @@
                     <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
                   </v-col>
 
-                  <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
+                                  <v-divider color="red" class="mt-8 mb-4"></v-divider>
 
-                  <!--                <v-col cols="12" class="mt-2">-->
-                  <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
-                  <!--                  <v-data-table-->
-                  <!--                    :headers="headers"-->
-                  <!--                    :items.sync="locations"-->
-                  <!--                    :items-per-page="10"-->
-                  <!--                  >-->
-                  <!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
-                  <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
-                  <!--                  </v-data-table>-->
-                  <!--                </v-col>-->
+                                <v-col cols="12" class="mt-2">
+                                    <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>
+                                  <v-data-table
+                                      :headers="headers"
+                                      :items.sync="locations"
+                                     :items-per-page="10"
+                                   >
+                                     <template v-slot:item.id="{ item }">{{ locations.indexOf(item)  }}</template>
+                                     <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+                                   
+                                   </v-data-table>
+                                  
+                                 </v-col>
 
-                  <!--                <v-col cols="12">-->
-                  <!--                  <v-checkbox-->
-                  <!--                    label="I agree to the Terms of Service"-->
-                  <!--                    v-on:change="getTosDate"-->
-                  <!--                  >-->
-                  <!--                  </v-checkbox>-->
-                  <!--                </v-col>-->
+                                  <v-col cols="12">
+                                    <v-checkbox
+                                      label="I agree to the Terms of Service"
+                                     v-on:change="getTosDate"
+                                    >
+                                    </v-checkbox>
+                                 </v-col>
 
                 </v-card-text>
               </v-container>
