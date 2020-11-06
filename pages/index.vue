@@ -514,7 +514,22 @@
           </button>
         </div>
       </div>
-      <img />
+
+      <!-- LIKE SYMBOL -->
+      <div class="likeSymbol" style="width: 15%;padding: 0; margin: 0; padding-top: 1050px" >
+        <v-row align="center" class="ma-0 pa-0">
+          <v-col cols="4" class="pr-1">
+            <div style="border-bottom: 9px solid white; border-radius: 25px"></div>
+          </v-col>
+          <v-col cols="4" style="text-align: center" class="pa-0">
+            <img width="60px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/like.png" alt="like thumbs up"/>
+          </v-col>
+          <v-col cols="4" class="pl-1">
+            <div style="border-bottom: 9px solid white; border-radius: 25px;"></div>
+          </v-col>  
+        </v-row>
+      </div>
+
       <div class="joinconnectioncolumn">
         <h1>Vendor Account</h1>
         <div class="joinconnectioncontainer border2">
@@ -1018,6 +1033,16 @@ export default {
 }
 .landinghomereview p {
   font-size: 18px;
+}
+
+@media (max-width: 1280px) {
+  .likeSymbol {
+    display: none;
+  }
+
+  .joinconnection .joinconnectioncolumn{
+    width: 38%;
+  }
 }
 
 @media (max-width: 1060px) {
