@@ -1206,7 +1206,7 @@ export default {
         let { data, status } = await this.$http
           .post(
             'https://www.sowerkbackend.com/api/license/byCompanyId/' +
-              companyId,
+            companyId,
             license
           )
           .catch((e) => e)
@@ -1304,7 +1304,7 @@ export default {
           console.log('error in uploading location image', err)
         })
 
-      this.locations[index].imageUrl = data.data.Location
+      this.locations[index].imageUrl = data.data.Location;
     },
     async postLocations(userId) {
       for (let i = 0; i < this.locations.length; i++) {

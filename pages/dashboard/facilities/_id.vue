@@ -8,7 +8,7 @@
 
         <v-col cols="12" md="8" xl="9" class="pb-12 d-flex flex-column align-center">
           <transition name="slide-fade">
-          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancelEditing="cancelEditing"></ProfileEditCard>
+          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing"></ProfileEditCard>
           </transition>
 <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
 <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
@@ -29,7 +29,7 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
           <FacilitiesCard
-            v-if="vendors && locationApproved"
+            v-if="vendors && locationApproved && !editLocationDetails"
             :title="'Location Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -49,7 +49,7 @@
           </transition>
 
           <transition name="slide-fade">
-          <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation"></ProfileEditCard>
+          <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing"></ProfileEditCard>
           </transition>
         </v-col>
       </v-row>
@@ -328,8 +328,9 @@
       },
       cancelEditing() {
         console.log('CANCELLED');
-        this.editLocation = false;
         this.editLocationDetails = false;
+        this.locationApproved = true;
+        this.locationImageUrl = null;
       },
       async getConnectionTable(id) {
         console.log('user current', this.currentUser, 'current company', this.company);

@@ -13,7 +13,7 @@
         <transition name="slide-fade">
         <div style="" class="d-flex justify-center" v-if="location">
           <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
-            <v-img v-if="!editLocationDetails" :src="location.imageUrl" ></v-img>
+            <v-img v-if="!locationImageUrl" :src="location.imageUrl" ></v-img>
             <v-img v-else :src="locationImageUrl" ></v-img>
           </v-avatar>
         </div>
@@ -114,7 +114,6 @@
           <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE LOCATION</v-btn>
         </v-card-actions>
       </template>
-    </transition>
   </v-card>
 </template>
 

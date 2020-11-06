@@ -261,7 +261,7 @@
 
             </v-form>
             <v-card-actions class="px-0">
-              <v-btn color="primary" outlined class="px-8" @click="cancelEditLocation()">Cancel</v-btn>
+              <v-btn color="primary" outlined class="px-8" v-on:click="cancelEditLocation">Cancel</v-btn>
               <v-spacer></v-spacer>
               <v-btn color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
             </v-card-actions>
@@ -620,6 +620,9 @@
         } else {
           this.location.adminLevel = this.adminOptions[1].value
         }
+
+        await this.uploadLocationImage();
+
         await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit)
           .then(response => {
             console.log(response, 'success')
@@ -635,6 +638,19 @@
         // })
       },
 
+      async uploadLocationImage() {
+        const formData = new FormData();
+        formData.append('file', this.locationImageFile);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading company image', response)
+            this.locationEdit.imageUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading company image', err);
+          })
+      },
+
       selectLocationImage(e) {
         this.locationImageFile = e.target.files[0]
         console.log(this.locationImageFile)
@@ -645,7 +661,8 @@
       },
 
       cancelEditLocation() {
-        this.$emit('cancelEditing');
+        console.log('CANCEL 1');
+        this.$emit('cancel');
       },
 
       clickLocationImageUpload() {
