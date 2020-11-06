@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%">
     <div v-if="locationApproved" style="width: 100%" class="d-flex">
-      <v-col cols="3" class="ml-n6">
+      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">
         <FilterCard
           title="Filter"
           :filters="filters"
@@ -9,7 +9,7 @@
           :loadModal="loadModal"
         ></FilterCard>
       </v-col>
-      <v-col cols="9" class="ml-n4">
+      <v-col cols="12" xl="9">
         <v-card class="white pt-0 mt-12 mb-4">
           <v-progress-circular
             v-if="loading != true"

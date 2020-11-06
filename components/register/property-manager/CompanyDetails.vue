@@ -31,6 +31,7 @@
                       src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
                       alt="SoWerk rounded icon"
                       style="width: 90px;"
+                      v-else
                     />
                     <v-file-input
                       class="company-image-upload ma-0 pa-0"
@@ -139,8 +140,11 @@
                   label="Account Name*"
                   type="text"
                   v-model="company.account_name"
-                  placeholder="The name shown publicly to vendors and platform users"
+                  hint="The name shown publicly to vendors and platform users"
+                  placeholder=" "
+                  validate-on-blur
                   :rules="rules.requiredRules"
+                  autocomplete="new"
                 ></v-text-field>
               </v-col>
 
@@ -275,6 +279,12 @@ import VImageInput from 'vuetify-image-input'
 import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
+import DisableAutocomplete from 'vue-disable-autocomplete';
+
+import Vue from 'vue';
+
+Vue.use(DisableAutocomplete);
+
 export default {
   name: 'CompanyDetails',
   components: {
@@ -295,7 +305,7 @@ export default {
         ],
         emailRules: [
           v => !!v || 'E-mail is required',
-          v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
+          // v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
           v => (v && v.length <= 100) || 'Email must be less than 100 characters'
         ],
         emailNotRequiredRules: [
@@ -362,7 +372,8 @@ export default {
       console.log(this.companyImageFile)
       this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
       console.log(this.companyImageUrl)
-      this.$emit('selectFile', this.companyImageFile)
+      this.$emit('selectFile', this.companyImageFile);
+      this.$emit('selectFileUrl', this.companyImageUrl);
     },
 
     readFile(e) {

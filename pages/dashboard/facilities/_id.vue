@@ -2,13 +2,13 @@
   <v-app class="grey lighten-3 ml-n4" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="width: 100%; height: 100%;">
-        <v-col cols="3">
-          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" ></ProfileCard>
+        <v-col cols="12" md="4" xl="3">
+          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" ></ProfileCard>
         </v-col>
 
-        <v-col cols="9" class="pb-12 d-flex flex-column align-center">
+        <v-col cols="12" md="8" xl="9" class="pb-12 d-flex flex-column align-center">
           <transition name="slide-fade">
-          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true"></ProfileEditCard>
+          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancelEditing="cancelEditing"></ProfileEditCard>
           </transition>
 <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
 <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
@@ -49,7 +49,7 @@
           </transition>
 
           <transition name="slide-fade">
-          <ProfileEditCard :location="location" v-if="editLocationDetails === true"></ProfileEditCard>
+          <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation"></ProfileEditCard>
           </transition>
         </v-col>
       </v-row>
@@ -288,6 +288,7 @@
         pendingApplicants: false,
         editVendorRequirements: false,
         editLocationDetails: false,
+        locationImageUrl: null,
       }
     },
     mounted() {
@@ -324,6 +325,11 @@
           .catch(err => {
             console.log('error in getting company', err)
           })
+      },
+      cancelEditing() {
+        console.log('CANCELLED');
+        this.editLocation = false;
+        this.editLocationDetails = false;
       },
       async getConnectionTable(id) {
         console.log('user current', this.currentUser, 'current company', this.company);
@@ -423,6 +429,7 @@
           })
       },
       async getLocation() {
+        console.log('hello world wtf are you doing');
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         data.created = moment(data.created).format('l').slice(6,10);
@@ -474,6 +481,11 @@
                   console.log(err, 'err');
                 })
             }
+      },
+      selectLocationImageUrl(url) {
+        console.log('hello world');
+        this.locationImageUrl = url;
+        console.log(this.locationImageUrl);
       },
       deleteLocation(locationParam) {
         console.log(locationParam, 'params');

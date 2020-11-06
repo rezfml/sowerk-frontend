@@ -343,8 +343,7 @@
                   <template v-if="editingLocation">
                     <span
                       class="title font-weight-regular text-center my-12 grey--text text--darken-2"
-                      >Now tell us about your first location</span
-                    >
+                    >Now tell us about your first location</span>
                     <v-form class="mx-auto">
                       <v-container>
                         <LocationForm

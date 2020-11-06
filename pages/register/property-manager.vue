@@ -51,6 +51,7 @@
               :bestSelection="bestSelection"
               :fullAddress="fullAddress"
               v-on:selectFile="selectCompanyFile"
+              v-on:selectFileUrl="selectCompanyUrl"
               ref="companyDetails"
             ></CompanyDetails>
 
@@ -68,9 +69,12 @@
 
             <CompanyReview
               :company="company"
+              :headers="headers"
+              :locations="locations"
               :user="user"
               :setPage="setPage"
               :fullAddress="fullAddress"
+              :imageUrl="companyImageUrl"
             ></CompanyReview>
           </v-tabs-items>
           <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
@@ -159,6 +163,7 @@ export default {
       loading: false,
       tab: 0,
       companyImageFile: {},
+      companyImageUrl: null,
       items: ['Company', 'Locations', 'Review'],
       bestSelection: [
         {
@@ -316,7 +321,10 @@ export default {
     selectCompanyFile(file) {
       this.companyImageFile = file;
       console.log(this.companyImageFile);
-      console.log('wtf mate');
+    },
+    selectCompanyUrl(url) {
+      this.companyImageUrl = url;
+      console.log(this.companyImageUrl);
     },
     async uploadCompanyImage() {
       let formData = new FormData();
