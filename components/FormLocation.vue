@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-row style="position: relative;">
           <v-col cols="12" style="width: 100%;">
-            <!--          <client-only>-->
+                      <client-only>
             <GmapMap
               id="locations-map"
               :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
@@ -17,7 +17,7 @@
                 :clickable="true"
               />
             </GmapMap>
-            <!--          </client-only>-->
+                      </client-only>
           </v-col>
         </v-row>
       </v-col>
@@ -344,6 +344,7 @@
       }
     },
     mounted() {
+      console.log("Is this the FormLocation.vue file?gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
       this.formatFullAddress();
     },
     methods: {

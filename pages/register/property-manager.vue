@@ -136,12 +136,12 @@ import CompanyDetails from '~/components/register/property-manager/CompanyDetail
 import CompanyLocations from '~/components/register/property-manager/CompanyLocations'
 import CompanyReview from '~/components/register/property-manager/CompanyReview'
 
-// Vue.use(VueGoogleMaps, {
-//   load: {
-//     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
-//   },
-//   installComponents: true
-// })
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
+  },
+  installComponents: true
+})
 
 export default {
   name: 'property-manager',
