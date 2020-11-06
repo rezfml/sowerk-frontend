@@ -107,8 +107,8 @@
           :items-per-page="10"
           class="pt-16"
           :expanded.sync="expanded"
-          item-key="name"
           show-expand
+          single-expand
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
@@ -625,8 +625,9 @@ import draggable from "vuedraggable"
         locationVal: {}
         }
     },
-    mounted() {
-      this.getLocations(this.currentUser.companies_id);
+    async mounted() {
+      await this.getLocations(this.currentUser.companies_id);
+      // await this.getCompany(this.currentUser.companies_id);
     },
     computed: {
       currentUser() {
@@ -634,25 +635,79 @@ import draggable from "vuedraggable"
       },
     },
     methods: {
+      async getCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(async(response) => {
+            console.log(response.data, 'company');
+            this.locations = response.data.locations;
+            for(let i=0; i<this.locations.length; i++) {
+              console.log('this.locations', this.locations[i])
+              if(this.locations[i].services !== 'There are no services') {
+                for(let j=0; j<this.locations[i].services.length; j++) {
+                  console.log('this.services', this.locations[i].services[j])
+                  if(this.locations[i].services[j].userforms !== 'There are no userforms') {
+                    for(let k=0; k<this.locations[i].services[j].userforms.length; k++) {
+                      console.log('this.userforms', this.locations[i].services[j].userforms[k])
+                      await this.getFormFields(this.locations[i].services[j].userforms.id, i, j)
+                    }
+                  } else {
+                    this.locations[i].services[j].userforms === [];
+                  }
+                }
+              } else {
+                this.locations[i].services === [];
+              }
+            }
+          })
+          .catch(err => {
+            console.log('err in company getting', err)
+          })
+        setTimeout(() => {
+          console.log('this.locations', this.locations)
+          this.loading = true;
+        }, 3000)
+      },
       async getLocations(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
-          .then(async (response) => {
-            console.log(response.data.location, 'locations');
-            for(let i=0; i<response.data.location.length; i++) {
-              this.locations.push(response.data.location[i]);
-              this.addLocations.push(response.data.location[i]);
-              console.log(this.locations, 'this.locations');
-              console.log(this.valueServices, 'this.valueServices')
-              await this.getServices(response.data.location[i].id)
-              this.valueServices++;
-            }
+          .then(async response => {
+            // console.log(response.data, 'locations RESPONSE DATA LOCATION');
+            // this.locations = response.data.location;
+            // console.log(this.locations, 'locations THIS DOT LOCATIONS');
+            // this.addLocations = response.data.location;
+            // for(let i=0; i<this.locations.length; i++) {
+            //   // await this.locations.push(response.data.location[i]);
+            //   // await this.addLocations.push(response.data.location[i]);
+            //   // console.log(this.locations, 'this.locations');
+            //   // console.log(this.valueServices, 'this.valueServices')
+            //   // await this.getServices(response.data.location[i].id)
+            //   this.valueServices++;
+            // }
+            response.data.location.forEach(async (location, index) => {
+              await this.locations.push(location)
+              console.log(this.locations, 'locations THIS DOT LOCATIONS');
+              await this.addLocations.push(location)
+              console.log(this.valueServices, 'valueServices');
+              if(this.locations[index].services[0] !== "There are no services") {
+                for(let i=0; i<location.services.length; i++) {
+                  this.locations[index].services[i].userforms = [];
+                  await this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices);
+                  console.log(this.valueUserForms, 'valueUserForms')
+                  this.valueUserForms++
+                }
+                this.valueServices++;
+              }
+              this.valueUserForms = 0;
+            })
           })
           .catch(err => {
             console.log('err get locations', err);
           })
-        console.log(this.userForms, 'userForms with formfields Locations');
-        console.log(this.locations, 'locations Locations');
-        this.loading = true;
+        setTimeout(() => {
+          console.log(this.userForms, 'userForms with formfields Locations');
+          console.log(this.locations, 'locations Locations');
+          this.loading = true;
+        }, 500)
+
       },
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
@@ -664,61 +719,70 @@ import draggable from "vuedraggable"
                 name: response.data[i].name,
                 userforms: []
               }
-              this.services.push(service)
+              await this.services.push(service)
               this.locations[this.valueServices].services[i] = service;
               this.addLocations[this.valueServices].services[i] = service;
-              console.log(this.services, 'this.services', this.locations, 'this.locations');
-              console.log(this.valueUserForms, 'valueUserForms');
-              await this.getUserforms(response.data[i].id)
-              this.valueUserForms++
+              // console.log(this.services, 'this.services', this.locations, 'this.locations');
+              // console.log(this.valueUserForms, 'valueUserForms');
+              setTimeout(async () => {
+                await this.getUserforms(response.data[i].id)
+                this.valueUserForms++
+              }, 125)
             }
           })
           .catch(err => {
             console.log('err get services', err);
           })
       },
-      async getUserforms(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
-          .then(async (response) => {
-            console.log(response.data, 'userforms response.data');
-            for(let i=0; i<response.data.length; i++) {
-              let userForm = {
-                applicationStatus: response.data[i].applicationStatus,
-                applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
-                id: response.data[i].id,
-                name: response.data[i].name,
-                service_id: response.data[i].service_id,
-                formfields: []
+      async getUserforms(id, valueUserForms, valueServices) {
+        if(this.locations[valueServices].services[valueUserForms] !== 'There are no services') {
+          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
+            .then(async (response) => {
+              this.totalLength += response.data.length;
+              console.log(this.totalLength, 'totalLength!!!!!!!!!!!!');
+              console.log(response.data, 'userforms response.data');
+              console.log(valueServices, 'valueServices', valueUserForms, 'valueUserForms');
+              console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
+              this.locations[valueServices].services[valueUserForms].userforms = response.data;
+              for(let i=0; i<response.data.length; i++) {
+                let userForm = {
+                  applicationStatus: response.data[i].applicationStatus,
+                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                  id: response.data[i].id,
+                  name: response.data[i].name,
+                  service_id: response.data[i].service_id,
+                  formfields: []
+                }
+                if(userForm.applicationStatus === 0) {
+                  userForm.applicationStatus = 'Unpublished'
+                } else if (userForm.applicationStatus === 1) {
+                  userForm.applicationStatus = 'Published - Public'
+                } else {
+                  userForm.applicationStatus = 'Published - Private'
+                }
+                await this.userForms.push(userForm);
+                // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+                this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
+                console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
+                await this.getFormFields(response.data[i].id);
               }
-              if(userForm.applicationStatus === 0) {
-                userForm.applicationStatus = 'Unpublished'
-              } else if (userForm.applicationStatus === 1) {
-                userForm.applicationStatus = 'Published - Public'
-              } else {
-                userForm.applicationStatus = 'Published - Private'
-              }
-              await this.userForms.push(userForm);
-              console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-              await this.locations[this.valueServices].services[this.valueUserForms].userforms.push(userForm);
-              console.log(this.userForms, 'userForms', this.locations, 'this.locations');
-              await this.getFormFields(response.data[i].id);
-            }
-            this.finishedFormFields = true;
-            console.log(this.userForms, 'userForms with formfields');
-          })
-          .catch(err => {
-            console.log('err get userforms', err);
-          })
+              this.finishedFormFields = true;
+              // console.log(this.userForms, 'userForms with formfields');
+            })
+            .catch(err => {
+              console.log('err get userforms', err);
+            })
+        }
       },
-      async getFormFields(id) {
+      async getFormFields(id,) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
-          .then(response => {
+          .then(async (response) => {
             console.log(response.data, 'formfields for userform', id);
             this.userForms[this.valueFormFields].formfields = response.data;
+            this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields]["formfields"] = response.data;
+            console.log(this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields].formfields, 'userforms with formfields')
             this.valueFormFields++
-            console.log(this.valueFormFields, 'valueFormFields');
-            this.totalLength += response.data.length;
-            console.log(this.totalLength, 'totalLength');
+            // console.log(this.valueFormFields, 'valueFormFields');
           })
           .catch(err => {
             console.log('err get form fields', err);
@@ -1042,6 +1106,7 @@ import draggable from "vuedraggable"
         this.step1 = false;
         this.step2 = true;
         this.locationVal = location
+        console.log('locationVal', this.locationVal)
       },
       async assignToServiceVendor(id) {
         this.step2 = false;
@@ -1225,7 +1290,7 @@ import draggable from "vuedraggable"
         console.log(this.filteredSameUserForms, 'filtered same formfields')
         await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.newAssignUserForm.id, userformEdit)
           .then(response => {
-            console.log(response, 'updating formfield ', formfield.id)
+            console.log(response, 'updating formfield ')
           })
           .catch(err => {
             console.log('error in updating formfield', err)
