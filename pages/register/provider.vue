@@ -571,7 +571,6 @@
                               placeholder=" "
                               readonly
                               v-model="user.phone"
-                              
                             >
                             </v-text-field>
                           </v-col>
@@ -918,19 +917,6 @@ export default {
         },
       ],
       rules: {
-        requiredRules: [(v) => !!v || v === 0 || 'Field is required'],
-        usernameRules: [
-          (v) => !!v || 'Name is required',
-          (v) =>
-            (v && v.length <= 100) || 'Name must be less than 100 characters',
-        ],
-        emailRules: [
-          (v) => !!v || 'E-mail is required',
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-          (v) =>
-            (v && v.length <= 100) || 'Email must be less than 100 characters',
-        ],
-        rules: {
           requiredRules: [
             v => !!v || v === 0 || 'Field is required',
           ],
@@ -959,6 +945,14 @@ export default {
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
+      },
+         headerInsurance: [
+        {
+          text: 'ID',
+          align: 'start',
+          sortable: false,
+          value: 'id',
+          class: 'primary--text font-weight-regular',
         },
         {
           text: 'Insurance Company',
@@ -1398,6 +1392,8 @@ export default {
     },
   },
 }
+
+
 </script>
 
 <style scoped>
