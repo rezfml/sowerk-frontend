@@ -59,47 +59,53 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center" style="width: 100%;">
-            <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
-            <v-card-subtitle>Past 30 days</v-card-subtitle>
-            <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
-            <template style="text-align: center width: 100%;">
-              <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
-                <v-select
-                  class="mt-0 mx-4"
-                  dense
-                  label="Step 1 - Choose Your Location"
-                  :items="company.locations"
-                  item-text="name address city state zipcode"
-                  item-value="name address city state zipcode"
-                  style="width: 40%;"
-                >
-                  <template slot="selection" slot-scope="data">
-                    <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                  </template>
-                </v-select>
-                to fill out your
-                <v-select
-                  class="mt-n4 mx-3"
-                  label="Step 2 - Choose Your Application"
-                  :items="userforms"
-                  item-text="id name"
-                  item-value="id name"
-                  style="width: 30%;"
-                >
-                  <template slot="selection" slot-scope="data">
-                    <p ># {{data.item.id}} - {{ data.item.name }}</p>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <p ># {{data.item.id}} - {{ data.item.name }}</p>
-                  </template>
-                </v-select>
-                specialized application.</v-card-text>
-            </template>
-            <v-btn outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
-          </v-card>
+              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
+              <v-card-subtitle>Past 30 days</v-card-subtitle>
+              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
+              <template style="text-align: center width: 100%;">
+                <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
+                  <v-form class="mx-4" style="width: 60%;">
+                    <v-select
+                      dense
+                      label="Step 1 - Choose Your Location"
+                      :items="company.locations"
+                      item-text="name address city state zipcode"
+                      item-value="name address city state zipcode"
+                      style="width: 100%;"
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                      </template>
+                    </v-select>
+                  </v-form>
+                  to fill out your
+                  <v-form class="mx-3" style="width: 50%;">
+                    <v-select
+                      dense
+                      label="Step 2 - Choose Your Application"
+                      :items="userforms"
+                      item-text="name id"
+                      item-value="name id"
+                      style="width: 100%;"
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                      </template>
+                    </v-select>
+                  </v-form>
+                  specialized application.</v-card-text>
+              </template>
+              <v-btn @click="sendMessage" outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
+              <transition name="slide-fade">
+                <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+              </transition>
+            </v-card>
           </transition>
           <!--          <v-card class="d-flex flex-column align-center mt-10">-->
           <!--            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>-->
@@ -142,6 +148,9 @@
         connectionsPast30Days: [],
         companies: [],
         loading: false,
+        messageLocation: {},
+        messageUserForm: {},
+        messageSendLoad: false,
       }
     },
     async mounted() {
@@ -196,7 +205,8 @@
           .catch(err => {
             console.log('err', err);
           })
-      },async getLicenses() {
+      },
+      async getLicenses() {
         await this.$http.get('https://www.sowerkbackend.com/api/license/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data licenses');
@@ -238,7 +248,8 @@
         console.log(this.userforms, 'userforms for company')
       },
       async getUserFormsForLocation(item) {
-        console.log(item)
+        console.log(item, 'getmessagelocation')
+        this.messageLocation = item
         this.userforms = [];
         if(item.services[0] !== 'There are no services') {
           for(let i=0; i<item.services.length; i++) {
@@ -252,6 +263,35 @@
           }
         }
         console.log(this.userforms, 'userforms');
+      },
+      async getUserForms(item) {
+        console.log(item, 'getuserforms');
+        this.messageUserForm = item;
+      },
+      async sendMessage() {
+        this.messageSendLoad = false;
+        const messageVal = {
+          userprofiles_id: this.$store.state.user.user.user.id,
+          service: this.messageUserForm.name,
+          company: this.company.account_name,
+          primary_contact_first_name: this.$store.state.user.user.user.first_name,
+          primary_contact_last_name: this.$store.state.user.user.user.last_name,
+          message: `Hello, ${this.location.contact_first_name}. You are being invited by ${this.company.account_name} to apply for their approved vendor program titled - ${this.messageUserForm.name} at one of their locations located at ${this.messageLocation.address} ${this.messageLocation.city}, ${this.messageLocation.state} ${this.messageLocation.zipcode}. You can search for and apply to the application through SOWerk with the details we have provided you, but you have also been emailed at the following account - ${this.location.email} with a link to the application! Thank you! `,
+          location: this.messageLocation.name + " - " + this.messageLocation.address + " " + this.messageLocation.city + ", " + this.messageLocation.state + " " + this.messageLocation.zipcode,
+          pmMessageRead: false,
+          spMessageRead: false,
+          spLocationId: this.$route.params.id,
+          spLocationName: this.location.name
+        }
+        console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
+        await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.location.companies_id, messageVal)
+          .then(response => {
+            console.log(response, 'success in sending message')
+            this.messageSendLoad = true;
+          })
+          .catch(err => {
+            console.log(err, 'err in sending message')
+          })
       }
     }
   }
