@@ -27,7 +27,7 @@
                       v-if="companyImageUrl"
                     ></v-img>
                     <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
-                    <img
+                    <img v-else
                       src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
                       alt="SoWerk rounded icon"
                       style="width: 90px;"
