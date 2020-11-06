@@ -525,13 +525,13 @@
                 text: 'All Business Search'
               }
             ]
-          },
+          },/*
           {
             to: '/dashboard/sowerk-leads/',
             slug: 'sowerk-leads',
             icon: 'mdi-file-account',
             text: 'SOWerk Leads'
-          },
+          },*/
           {
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
