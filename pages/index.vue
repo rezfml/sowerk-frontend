@@ -73,13 +73,23 @@
       class="skew-top"
     >
       <v-row align="center" justify="center">
-        <v-col cols="11" class="pa-0">
-          <p
+        <v-col cols="12" class="pa-0">
+          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"
             class="mobile-title text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
-            style="word-break: break-word; opacity: .8; font-size: 30px; width: 100%;"
+            style="word-break: break-word; opacity: .8; font-size: 30px; width: 120%;margin-left:-10%;"
           >
-            The Business-to-Business Communication Tools Between Vendors Selling Products & Services To Businesses
+            Businesses & Vendors Come Together On SOWerk
           </p>
+          <v-container v-else>
+          <p 
+            class=" text-lg-h3 text-sm-h6 font-weight-bold white--text pt-10 pb-2"
+            style=" opacity: .8; font-size: 28px; width: 100%;margin:auto !important;min-width:100% !important;font-weight:700"
+          >
+            Businesses & Vendors 
+          </p>
+          <p class=" text-lg-h3 text-sm-h6 font-weight-bold white--text pb-2 pb-sm-10 mx-0 px-0 d-flex align-center"
+            style=" opacity: .8; font-size: 24px; width: 110%;margin:auto !important font-weight:700">Come Together On SOWerk</p>
+          </v-container>
         </v-col>
       </v-row>
 
@@ -514,7 +524,22 @@
           </button>
         </div>
       </div>
-      <img />
+
+      <!-- LIKE SYMBOL -->
+      <div class="likeSymbol" style="width: 15%;padding: 0; margin: 0; padding-top: 1050px" >
+        <v-row align="center" class="ma-0 pa-0">
+          <v-col cols="4" class="pr-1">
+            <div style="border-bottom: 9px solid white; border-radius: 25px"></div>
+          </v-col>
+          <v-col cols="4" style="text-align: center" class="pa-0">
+            <img width="60px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/like.png" alt="like thumbs up"/>
+          </v-col>
+          <v-col cols="4" class="pl-1">
+            <div style="border-bottom: 9px solid white; border-radius: 25px;"></div>
+          </v-col>  
+        </v-row>
+      </div>
+
       <div class="joinconnectioncolumn">
         <h1>Vendor Account</h1>
         <div class="joinconnectioncontainer border2">
@@ -1018,6 +1043,16 @@ export default {
 }
 .landinghomereview p {
   font-size: 18px;
+}
+
+@media (max-width: 1280px) {
+  .likeSymbol {
+    display: none;
+  }
+
+  .joinconnection .joinconnectioncolumn{
+    width: 38%;
+  }
 }
 
 @media (max-width: 1060px) {

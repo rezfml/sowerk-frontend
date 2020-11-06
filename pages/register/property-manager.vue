@@ -139,6 +139,8 @@ import FormLocation from '~/components/FormLocation'
 import CompanyDetails from '~/components/register/property-manager/CompanyDetails'
 import CompanyLocations from '~/components/register/property-manager/CompanyLocations'
 import CompanyReview from '~/components/register/property-manager/CompanyReview'
+import { VueMaskDirective } from 'v-mask'
+Vue.directive('mask', VueMaskDirective);
 
 // Vue.use(VueGoogleMaps, {
 //   load: {

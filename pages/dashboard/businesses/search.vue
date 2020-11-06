@@ -2,7 +2,7 @@
   <v-container class="px-0" style="max-width: 100%">
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
-        <p class="white--text text-h5 font-weight-bold">All Businesses</p>
+        <p class="white--text text-h5 font-weight-bold">All Customers</p>
         <v-card class="white">
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
