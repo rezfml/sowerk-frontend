@@ -140,6 +140,7 @@
       <v-col cols="12" md="6" class="d-flex flex-column">
 
         <span class="mb-12 font-weight-bold" style="font-size: 15px;">Location Service Radius</span>
+        
         <v-slider
           min="0"
           max="200"
@@ -147,7 +148,7 @@
           :thumb-size="36"
           track-color="grey"
           track-fill-color="primary"
-          step="10"
+          step="5"
           ticks
           :tick-labels="miles"
           :readonly="false"
@@ -156,6 +157,7 @@
           class="d-flex align-end"
         >
         </v-slider>
+        <span class="mx-auto" style="font-size: 15px; color:707070;"> This is your typical service area</span>
       </v-col>
 
       <v-col cols="12" md="6">
@@ -311,7 +313,7 @@ export default {
   data() {
     return {
       miles: [
-        '','','','','','','','','','','100','','','','','150','','','','','200'
+        '','','10','','','25','','','','','50','','','','','','','','','','100','','','','','','','','','','150','','','','','','','','','','200'
       ],
       userIsManager: false,
       adminLevel: [
