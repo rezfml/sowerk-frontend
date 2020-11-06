@@ -116,7 +116,7 @@
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
-                            v-mask="'(###)###-####-##'"
+                            v-mask="'(###)###-####'"
                             :value="currentValue" 
                             @input="handleInput"
                             validate-on-blur

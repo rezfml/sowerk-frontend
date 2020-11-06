@@ -103,7 +103,7 @@
                   v-model="user.phone"
                   placeholder=""
                   :rules="rules.phoneRules"
-                  v-mask="'(###)###-####-##'"
+                  v-mask="'(###)###-####'"
                   :value="currentValue" 
                   @input="handleInput"
                 ></v-text-field>
