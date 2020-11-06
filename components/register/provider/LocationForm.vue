@@ -55,6 +55,8 @@
           :items="serviceOptions"
           multiple
           chips
+          hint="Check all that apply"
+          persistent-hint
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
@@ -241,8 +243,11 @@
       <v-text-field
         placeholder=" "
         id="phone"
-        type="number"
+        type="tel"
         v-model="location.phone"
+        v-mask="'(###)###-####'"
+          :value="currentValue" 
+          @input="handleInput"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
