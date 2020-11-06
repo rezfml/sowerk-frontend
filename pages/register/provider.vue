@@ -111,11 +111,14 @@
 
                           <v-text-field
                             label="Phone*"
-                            type="text"
+                            type="number"
                             placeholder=""
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
+                            v-mask="'(###)###-####-##'"
+                            :value="currentValue" 
+                            @input="handleInput"
                             validate-on-blur
                           ></v-text-field>
                         </v-col>
@@ -494,6 +497,8 @@
   import LocationForm from '@/components/register/provider/LocationForm'
   import InsuranceForm from '~/components/InsuranceForm'
   import LicenseForm from '@/components/website/LicenseForm'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
 
   // Vue.use(VueGoogleMaps, {
   //   load: {
@@ -687,7 +692,8 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
           ],
           passwordRules: [
             v => !!v || 'Password is required',

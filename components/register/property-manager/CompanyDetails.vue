@@ -68,6 +68,9 @@
                   v-model="user.phone"
                   placeholder=""
                   :rules="rules.phoneRules"
+                  v-mask="'(###)###-####-##'"
+                  :value="currentValue" 
+                  @input="handleInput"
                 ></v-text-field>
               </v-col>
 
@@ -221,6 +224,15 @@ import VImageInput from 'vuetify-image-input'
 import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
+
+  import Vue from 'vue';
+  import FormLocation from '~/components/FormLocation'
+  import LocationForm from '@/components/register/provider/LocationForm'
+  import InsuranceForm from '~/components/InsuranceForm'
+  import LicenseForm from '@/components/website/LicenseForm'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
+
 export default {
   name: 'CompanyDetails',
   components: {
@@ -250,7 +262,8 @@ export default {
           v => (v && v.length <= 100) || 'Email must be less than 100 characters'
         ],
         phoneRules: [
-          v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+          v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+          v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
         ],
           passwordRules: [
             v => !!v || 'Password is required',
