@@ -99,7 +99,7 @@
                   label="Phone*"
                   type="text"
                   class="card__input black--text"
-                  style="font-size: 12px;"
+                  style="font-size: 15px;"
                   v-model="user.phone"
                   placeholder=""
                   :rules="rules.phoneRules"
