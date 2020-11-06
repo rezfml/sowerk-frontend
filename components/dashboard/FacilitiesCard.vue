@@ -6,6 +6,7 @@
           title="Filter"
           :filters="filters"
           :locationApproved="locationApproved"
+          :loadModal="loadModal"
         ></FilterCard>
       </v-col>
       <v-col cols="9" class="ml-n4">
@@ -37,7 +38,10 @@
               >
                 <template v-slot:item.address="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                    <v-col>
+                      <p>{{item.address}}</p>
+                      <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                    </v-col>
                   </v-row>
                 </template>
                 <template v-slot:item.addressCityState="{item}">
@@ -47,7 +51,7 @@
                 </template>
                 <template v-slot:item.service="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p v-if="company.company_type != 'false'">{{item.services[0]}}</p>
+                    <p v-if="company.company_type != 'false'">{{item.services}}</p>
                     <p v-else>{{item.servicesOffered[0]}}</p>
                   </v-row>
                 </template>
@@ -70,8 +74,10 @@
                 </template>
                 <template v-slot:item.name="{ item }">
                   <v-row class="d-flex" cols="12" md="6">
-                    <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
-                    <p>{{item.name}}</p>
+                    <v-col>
+                      <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
+                      <p>{{item.name}}</p>
+                    </v-col>
                   </v-row>
                 </template>
 
@@ -109,7 +115,7 @@
                   <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-                  <v-btn class="my-1" style="width: 90%;" color="green" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
+                  <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/approved/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
                   <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
@@ -169,7 +175,10 @@
           >
             <template v-slot:item.address="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                <v-col>
+                  <p>{{item.address}}</p>
+                  <p>{{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                </v-col>
               </v-row>
             </template>
             <template v-slot:item.addressCityState="{item}">
@@ -179,7 +188,7 @@
             </template>
             <template v-slot:item.service="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p v-if="company.company_type != 'false'">{{item.services[0]}}</p>
+                <p v-if="company.company_type != 'false'">{{item.services}}</p>
                 <p v-else>{{item.servicesOffered[0]}}</p>
               </v-row>
             </template>
@@ -202,8 +211,10 @@
             </template>
             <template v-slot:item.name="{ item }">
               <v-row class="d-flex" cols="12" md="6">
-                <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
-                <p>{{item.name}}</p>
+                <v-col>
+                  <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
+                  <p>{{item.name}}</p>
+                </v-col>
               </v-row>
             </template>
 
@@ -241,7 +252,7 @@
               <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
               <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
@@ -281,6 +292,7 @@
         <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
       </v-form>
       <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+      <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
     </v-card>
   </div>
 </template>
@@ -288,7 +300,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'locationApproved'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'locationApproved',],
   components: {
     FilterCard
   },
@@ -300,7 +312,7 @@ export default {
       ],
       filters: [
         {
-          name: 'Location',
+          name: 'Proximity',
           items: [
             'State',
             'National',
@@ -419,7 +431,9 @@ export default {
       locationForMessage: {},
       successAssign: false,
       bkClass: 'bk',
-      blurClass: 'blur'
+      blurClass: 'blur',
+      successMessage: false,
+      successText: '',
     }
   },
   async created() {
@@ -452,13 +466,16 @@ export default {
           await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
             .then(res => {
               console.log('SUCCESS', res)
-              alert('Successfully sent message to ' + res.data.messageVal.location)
-              this.loadModal = false;
+              this.successText = 'Successfully sent message to ' + res.data.messageVal.location
+              this.successMessage = true;
             })
             .catch(err => {
               console.log(err);
             })
         })
+      await setTimeout(() => {
+        this.loadModal = false;
+      }, 3500)
     },
     async closeModal() {
       this.loadModal = false;

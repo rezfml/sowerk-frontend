@@ -1,6 +1,33 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container class="px-0 fill-height" style="max-width: 95%;">
+    <v-row style="width: 100%;">
+      <v-col cols="3" class="mx-10">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="25vw"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="3" class="mx-12">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="25vw"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="3" class="mx-10">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, article, article, actions"
+          min-height="50vh"
+          min-width="25vw"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <transition name="slide-fade">
+    <v-container v-if="loading" class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
@@ -15,7 +42,7 @@
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
-            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>
+<!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">About</v-card-title>
             <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
@@ -24,15 +51,15 @@
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
             <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-            <v-card-text>{{location.email}}</v-card-text>
-            <v-card-text>{{location.phone}}</v-card-text>
-            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Insurances</v-card-title>
-            <template v-for="(insurance, index) in insurances">
-              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
-              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
-            </template>
-            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>
+<!--            <v-card-text>{{location.email}}</v-card-text>-->
+<!--            <v-card-text>{{location.phone}}</v-card-text>-->
+<!--            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
+<!--            <v-card-title style="color:#A61C00;">Insurances</v-card-title>-->
+<!--            <template v-for="(insurance, index) in insurances">-->
+<!--              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>-->
+<!--              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>-->
+<!--            </template>-->
+<!--            <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>-->
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">Licenses</v-card-title>
             <template v-for="(license, index) in licenses">
@@ -47,17 +74,52 @@
             <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
             <v-card-subtitle>Past 30 days</v-card-subtitle>
             <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
-            <v-card-text style="text-align: center">You will request this Vendor to fill out your HVAC specialized application for Bass Pro Shops (Memphis, TN).</v-card-text>
+            <template style="text-align: center">
+              <v-card-text class="d-flex flex-wrap justify-center" style="width: 80%;">You will request this Vendor for
+              <v-select
+                class="mt-n4 mx-4"
+                label="Step 1 - Choose Your Location"
+                :items="company.locations"
+                item-text="name address city state zipcode"
+                item-value="name address city state zipcode"
+                style="width: 40%;"
+              >
+                <template slot="selection" slot-scope="data">
+                  <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                </template>
+              </v-select>
+                to fill out your
+              <v-select
+                class="mt-n4 mx-3"
+                label="Step 2 - Choose Your Application"
+                :items="userforms"
+                item-text="name"
+                item-value="name"
+                style="width: 30%;"
+              >
+                <template slot="selection" slot-scope="data">
+                  <p >{{ data.item.name }}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p >{{ data.item.name }}</p>
+                </template>
+              </v-select>
+                specialized application.</v-card-text>
+            </template>
             <v-btn outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
           </v-card>
-          <v-card class="d-flex flex-column align-center mt-10">
-            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>
-            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>
-            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>
-          </v-card>
+<!--          <v-card class="d-flex flex-column align-center mt-10">-->
+<!--            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>-->
+<!--            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>-->
+<!--            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>-->
+<!--          </v-card>-->
         </v-col>
       </v-row>
     </v-container>
+    </transition>
   </v-app>
 </template>
 
@@ -75,11 +137,14 @@
         location: {
 
         },
+        company: {},
+        userforms: [],
         insurances: [],
         licenses: [],
         connections: [],
         connectionsPast30Days: [],
-        companies: []
+        companies: [],
+        loading: false,
       }
     },
     async mounted() {
@@ -88,6 +153,7 @@
       await this.getInsurances();
       await this.getLicenses();
       await this.getConnections(this.location);
+      await this.getUserCompany(this.$store.state.user.user.user.companies_id);
     },
     methods: {
       async getConnections(location) {
@@ -161,11 +227,51 @@
           .catch(err => {
             console.log(err, 'err');
           })
+      },
+      async getUserCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'company')
+            this.company = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err');
+          })
+        console.log(this.userforms, 'userforms for company')
+        this.loading=true;
+      },
+      async getUserFormsForLocation(item) {
+        console.log(item)
+        this.userforms = [];
+        if(item.services[0] !== 'There are no services') {
+          for(let i=0; i<item.services.length; i++) {
+            if(item.services[i].userforms[0] !== 'There are no userforms') {
+              for(let j=0; j<item.services[i].userforms.length; j++) {
+                if(item.services[i].userforms[j].applicationStatus !== 0) {
+                  this.userforms.push(item.services[i].userforms[j])
+                }
+              }
+            }
+          }
+        }
+        console.log(this.userforms, 'userforms');
       }
     }
   }
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

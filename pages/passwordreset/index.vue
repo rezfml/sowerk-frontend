@@ -4,16 +4,35 @@
       <v-row>
         <v-col>
           <v-card class="d-flex flex-column align-center" style="width: 100%">
-              <v-card-title>Hello! Please enter your email account, and we will send an email to the address you entered with instructions to reset your password!</v-card-title>
-              <v-form class="d-flex flex-column align-center" style="width: 50%;">
+            <v-img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="mb-n16 " style="position:relative;" max-height="350" max-width="700" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"/>
+            <v-img  v-else class="mb-n16 " style="position:relative;" max-height="350" max-width="300" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"/>
+              <v-container v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" >
+              <v-card-title class="mt-n16 d-flex justify-center" style="margin:auto;">Forgot Your Keys? We Do It Too.</v-card-title>
+              <v-card-subtitle class="d-flex justify-center" style="margin:auto;">Please enter your email account, and we will send an email to the address you entered with instructions to reset your password!</v-card-subtitle>
+              <v-form class="d-flex flex-column align-center" style="width: 50%;margin:auto">
                 <v-text-field
                   :placeholder="'Email'"
+                  class="d-flex justify-center"
                   v-model="user.email"
                   style="width: 100%;"
                 >
                 </v-text-field>
+                <v-btn class="px-10 py-4 mb-4 d-flex justify-center" color="primary" rounded @click="submit">Submit</v-btn>
+              </v-form>
+              </v-container>
+              <v-container v-else >
+              <v-card-title class="mt-n16" style="width:100%;font-size:1rem;margin:auto;">Forgot Your Keys? We Do It Too.</v-card-title>
+              <v-card-subtitle style="font-size:.75em;margin:auto;">Please enter your email account, and we will send an email to the address you entered with instructions to reset your password!</v-card-subtitle>
+              <v-form class="d-flex flex-column align-center" style="width: 100%;">
+                <v-text-field
+                  :placeholder="'Email'"
+                  v-model="user.email"
+                  style="width: 80%;"
+                >
+                </v-text-field>
                 <v-btn class="px-10 py-4 mb-4" color="primary" rounded @click="submit">Submit</v-btn>
               </v-form>
+              </v-container>
           </v-card>
         </v-col>
 <!--        <v-col>-->

@@ -42,11 +42,14 @@
 
           <v-text-field
             label="Phone Number*"
-            type="number"
+            type="tel"
             class="card__input black--text"
             v-model="phone"
             validate-on-blur
             :rules="rules.phoneRules"
+            v-mask="'(###)###-####'"
+            :value="currentValue" 
+            @input="handleInput"
           ></v-text-field>
         </v-col>
 
@@ -149,6 +152,8 @@
 <script>
   import VImageInput from 'vuetify-image-input'
   import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
 
   import Vue from 'vue';
 
@@ -189,7 +194,7 @@
           ],
           emailRules: [
             v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => /.+@.[a-z]+/.test(v) || 'E-mail must be valid',
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           emailNotRequiredRules: [
@@ -198,13 +203,15 @@
           ],
           phoneRules: [
             v => !!v || 'Phone Number is required',
-            v => (v && v.length === 10) || 'Phone Number must be 10 digits',
+            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
           ],
           passwordRules: [
             v => !!v || 'Password is required',
             v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
             v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
             v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ],

@@ -47,6 +47,7 @@
             <v-tab-item
               eager
             >
+            <!--    This is for the vendor company tab-->
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
                   <v-form class="mx-auto register-form" ref="companyDetails">
@@ -56,11 +57,12 @@
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col cols="12" class="d-flex justify-center align-center px-12">
                               <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" style="max-height: 300px; width: 100%; max-width: 300px;" v-if="companyImageFile"></v-img>
-                              <v-icon v-else :size="100">person</v-icon>
+                               <img v-else src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png" alt="SoWerk rounded icon" style="width: 90px;"/>
+                              <!-- <v-img :aspect-ratio="1" class="my-8 rounded-circle" v-else style="max-height: 300px; width: 100%; max-width: 300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Icon-160.svg"></v-img> -->
                             </v-col>
                             <v-col cols="12" class="d-flex flex-column justify-center">
                               <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-                              <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
+                              <v-btn @click="clickCompanyImageUpload" color="primary" style="min-width: 64px;"outlined rounded class="flex-grow-0">Account Photo </v-btn>
   <!--                            <p class="text-center mb-0">Or</p>-->
 
   <!--                            <v-checkbox class="mt-0">-->
@@ -109,11 +111,14 @@
 
                           <v-text-field
                             label="Phone*"
-                            type="text"
-                            placeholder=" "
+                            type="tel"
+                            placeholder=""
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
+                            v-mask="'(###)###-####'"
+                            :value="currentValue" 
+                            @input="handleInput"
                             validate-on-blur
                           ></v-text-field>
                         </v-col>
@@ -181,7 +186,16 @@
                             label="List your LLC Name (If Applicable)"
                             type="text"
                             placeholder=" "
+                            class="pt-5"
                             v-model="company.llcName"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+                          <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Year Business Was Founded*"
+                            type="text"
+                            placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
@@ -239,6 +253,21 @@
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
+
+                    <!--
+                        <v-col cols="12" md="6">
+                          <v-select
+                            :items="serviceOptions"
+                            v-model="company.servicesOffered"
+                            multiple
+                            chips
+                            label="What Services Do You Offer?"
+                            placeholder=" "
+                            :rules="rules.requiredRules"
+                          ></v-select>
+                        </v-col>
+  -->
+
 
                         <v-col cols="12">
                           <v-textarea
@@ -355,7 +384,7 @@
                       <v-row>
                         <v-col cols="12">
                           <v-card-title class="justify-center headline font-weight-bold"><span class="primary--text ml-2 py-6 mr-2">Optional - </span> SOWerk highly encourages you to upload Company Documents</v-card-title>
-                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Facility Manager when vetting service vendors.</v-card-subtitle>
+                          <v-card-subtitle class="justify-center headline font-weight-bold text-center">Valid documents are important to a Property and Business Manager when vetting service vendors.</v-card-subtitle>
                           <v-card-subtitle class="justify-center headline text-center text-body-1">*Note: These documents are not public and will only be included when you apply to be an approved vendor.</v-card-subtitle>
                           <div class="text-with-lines d-flex justify-center align-center mx-auto" style="width: 90%;">
                             <p class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white">Company Insurance</p>
@@ -444,12 +473,13 @@
                               placeholder=" "
                               readonly
                               v-model="user.phone"
+                              
                             >
                             </v-text-field>
                           </v-col>
 
                           <v-col cols="12">
-                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Corporate Address*</p>
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0">Account Address*</p>
                             <v-text-field
                               v-model="fullAddress"
                               placeholder=" "
@@ -459,7 +489,7 @@
                           </v-col>
 
                           <v-col cols="12">
-                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Corporate Description*</p>
+                            <p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 14px;">Account Description*</p>
                             <p class="mb-1" style="font-size: 16px; min-height: 48px;">{{ company.description ? company.description : '\n' }}</p>
                             <v-divider style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"></v-divider>
                           </v-col>
@@ -470,39 +500,41 @@
                     <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(0)">Edit Information</v-btn>
                   </v-col>
 
-                  <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
+                                  <v-divider color="red" class="mt-8 mb-4"></v-divider>
 
-                  <!--                <v-col cols="12" class="mt-2">-->
-                  <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
-                  <!--                  <v-data-table-->
-                  <!--                    :headers="headers"-->
-                  <!--                    :items.sync="locations"-->
-                  <!--                    :items-per-page="10"-->
-                  <!--                  >-->
-                  <!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
-                  <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
-                  <!--                  </v-data-table>-->
-                  <!--                </v-col>-->
+                                <v-col cols="12" class="mt-2">
+                                    <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>
+                                  <v-data-table
+                                      :headers="headers"
+                                      :items.sync="locations"
+                                     :items-per-page="10"
+                                   >
+                                     <template v-slot:item.id="{ item }">{{ locations.indexOf(item)  }}</template>
+                                     <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+                                   
+                                   </v-data-table>
+                                  
+                                 </v-col>
 
-                  <!--                <v-col cols="12">-->
-                  <!--                  <v-checkbox-->
-                  <!--                    label="I agree to the Terms of Service"-->
-                  <!--                    v-on:change="getTosDate"-->
-                  <!--                  >-->
-                  <!--                  </v-checkbox>-->
-                  <!--                </v-col>-->
+                                  <v-col cols="12">
+                                    <v-checkbox
+                                      label="I agree to the Terms of Service"
+                                     v-on:change="getTosDate"
+                                    >
+                                    </v-checkbox>
+                                 </v-col>
 
                 </v-card-text>
               </v-container>
             </v-tab-item>
           </v-tabs-items>
-          <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-            <v-col xs="12" sm="12" class="bottomNav">
+          <v-card-actions class="py-10 mx-auto d-flex " style="max-width: 80%;">
+            <v-col xs="12" sm="12" class="bottomNav d-flex justify-end">
             <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
             <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
+            <v-btn color="primary" class="px-8 d-flex " @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
             <v-btn color="primary" outlined class="px-8 mx-8 saveBtn" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add <br v-if="$vuetify.breakpoint.mobile"/> Another Location </v-btn>
-            <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
+            <v-btn color="primary" class="px-8 d-flex justify-end" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1)">Next > </v-btn>
             <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
             <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-else-if="tab === 2">Review</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
@@ -525,6 +557,8 @@
   import LocationForm from '@/components/register/provider/LocationForm'
   import InsuranceForm from '~/components/InsuranceForm'
   import LicenseForm from '@/components/website/LicenseForm'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
 
   const naics = require("naics");
 
@@ -721,7 +755,7 @@
           ],
           emailRules: [
             v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => /.+@.[a-z]+/.test(v) || 'E-mail must be valid',
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           emailNotRequiredRules: [
@@ -729,13 +763,15 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
           ],
           passwordRules: [
             v => !!v || 'Password is required',
             v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
             v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
             v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
@@ -1355,4 +1391,5 @@
 /*  margin-left: 7%;*/
 /*}*/
 }
+
 </style>

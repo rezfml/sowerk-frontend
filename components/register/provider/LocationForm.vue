@@ -17,7 +17,7 @@
     <!--        </client-only>-->
     <!--      </v-row>-->
     <!--    </v-col>-->
-
+<!--    This is for the vendor locations tab-->
       <v-col cols="12" md="6">
         <v-row fill-height class="pl-2 fill-height">
           <v-col cols="12" class="d-flex justify-center align-center">
@@ -26,7 +26,6 @@
           </v-col>
           <v-col cols="12" class="d-flex flex-column justify-space-between">
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-            <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
 <!--            <p class="text-center mb-0">Or</p>-->
 
 <!--            <v-checkbox class="mt-0">-->
@@ -56,6 +55,8 @@
           :items="serviceOptions"
           multiple
           chips
+          hint="Check all that apply"
+          persistent-hint
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
@@ -242,8 +243,11 @@
       <v-text-field
         placeholder=" "
         id="phone"
-        type="number"
+        type="tel"
         v-model="location.phone"
+        v-mask="'(###)###-####'"
+          :value="currentValue" 
+          @input="handleInput"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>

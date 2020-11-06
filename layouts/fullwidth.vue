@@ -1,7 +1,7 @@
 <template>
   <v-app dark width="auto" class="d-flex flex-column" style="min-height: 100vh;">
     <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
-    <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;"  >
+    <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;z-index:6"  >
     <v-container class="fill-height" >
       <v-row align="center" justify="center">
         <v-btn text color="white" @click.stop="drawer = !drawer">
@@ -72,17 +72,59 @@
       <v-row style="text-align: center; width: 100%;" class="pb-15 pb-sm-0" align="center">
 
       <!-- TERMS CONDITIONS PRIVACY -->
-      <v-col cols="4" class="text-left  text-sm-right" style="display: flex; flex-direction: column; font-size:11px">
+      <v-col cols="4" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" >
+<!--        // JUST FOR NOW THIS WILL BE ADDED LATER I PROMISE-->
+      <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+      <v-col cols="6" style="text-align:left;" >
         <ul>
-          <li style="list-style: none"><a href="/terms&conditions" style="text-decoration: none;color: white">Terms & Conditions</a></li>
+          <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
+          <li style="list-style: none"><a href="/customerTerms" style="text-decoration: none;color: white">Customer Terms</a></li>
+          <li style="list-style: none"><a href="/acceptableUsePolicy" style="text-decoration: none;color: white">Acceptable Use Policy</a></li>
+          <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
+        </ul>
+      </v-col>
+       <v-col cols="6" style="text-align:left;" >
+        <ul>
+          <li style="list-style: none"><a href="/serviceLevelAgreement" style="text-decoration: none;color: white">Service Level Agreement</a></li>
+          <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
           <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
         </ul>
       </v-col>
+      </v-row>
+      </v-col>
+      
 
         <!-- SOWERK LOGO -->
        <v-col cols="4">
           <img width="120px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk" />
       </v-col>
+
+      <!-- TERMS CONDITIONS PRIVACY  for mobile-->
+      <v-col cols="12" class="text-left d-flex flex-end px-0 mb-n12" style="display: flex; flex-direction: column; font-size:11px;" v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm" >
+
+      <v-row >
+      <v-col cols="6" style="text-align:left;" >
+        <ul class="px-0">
+          <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
+          <li style="list-style: none"><a href="/customerTerms" style="text-decoration: none;color: white">Customer Terms</a></li>
+          <li style="list-style: none"><a href="/acceptableUsePolicy" style="text-decoration: none;color: white">Acceptable Use Policy</a></li>
+        </ul>
+      </v-col>
+       <v-col cols="6" style="text-align:left;" >
+        <ul class="px-0">
+          <li style="list-style: none"><a href="/serviceLevelAgreement" style="text-decoration: none;color: white">Service Level Agreement</a></li>
+          <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
+          <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
+        </ul>
+      </v-col my-0>
+      <v-col cols=12>
+        <ul class="px-0 my-n6">
+          <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
+        </ul>
+      </v-col>
+      </v-row>
+      </v-col>
+
 
       <!-- FOOTER LINKS -->
        <v-col cols="4" style="display: flex; flex-direction: column;" class="d-none d-sm-flex">
@@ -101,8 +143,7 @@
       </v-row>
        <!-- COPYRIGHT -->
       <v-row style="font-size: 10.5px; justify-content: center;">
-        <span>SOWerk &copy; {{ new Date().getFullYear() }}</span><br>
-         <span>All Rights Reserved.</span>
+        <p style="text-align: center;">SOWerk &copy; {{ new Date().getFullYear() }}<br>All Rights Reserved.</p>
       </v-row>
     </v-footer>
   </v-app>
@@ -127,11 +168,11 @@ export default {
           title: 'Businesses',
           path: '../../landingpage/join-product-landing',
         },
-        {
+       /* {
           icon: 'About SOW',
           title: 'About SOW',
           path: '../../landingpage/about',
-        },
+        },*/
         {
           icon: 'Register',
           title: 'Register',
@@ -167,7 +208,7 @@ header {
 
 .desktop-navbar:before {
   background: rgb(34,34,34);
-  background: linear-gradient(180deg, rgba(30,30,30,0.8) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 15%, rgba(0,0,0,0.15) 50%);
   position: absolute;
   content: "";
   height: 200%;
@@ -183,6 +224,14 @@ header {
 .change_color {
     background-color:white;
 }
+
+  @media(max-width: 375px) {
+    img {
+      margin-left: -15px !important;
+    }
+  }
+
+
 
 
 
