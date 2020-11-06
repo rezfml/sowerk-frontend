@@ -74,7 +74,7 @@
       <!-- TERMS CONDITIONS PRIVACY -->
       <v-col cols="4" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" >
 <!--        // JUST FOR NOW THIS WILL BE ADDED LATER I PROMISE-->
-      <v-row v-show="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+      <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
       <v-col cols="6" style="text-align:left;" >
         <ul>
           <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
@@ -100,7 +100,8 @@
       </v-col>
 
       <!-- TERMS CONDITIONS PRIVACY  for mobile-->
-      <v-col cols="12" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" v-show="$vuetify.breakpoint.xs && $vuetify.breakpoint.sm" >
+      <v-col cols="12" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" v-if="$vuetify.breakpoint.xs && $vuetify.breakpoint.sm" >
+
       <v-row >
       <v-col cols="6" style="text-align:left;" >
         <ul>
