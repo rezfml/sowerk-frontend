@@ -225,7 +225,7 @@
           v-model="location.phone"
           :readonly="managerIsUser"
           :rules="rules.phoneRules"
-          v-mask="'(###)###-####-##'"
+          v-mask="'(###)###-####'"
           :value="currentValue" 
           @input="handleInput"
         >

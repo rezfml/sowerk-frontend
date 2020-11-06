@@ -47,7 +47,7 @@
             v-model="phone"
             validate-on-blur
             :rules="rules.phoneRules"
-            v-mask="'(###)###-####-##'"
+            v-mask="'(###)###-####'"
             :value="currentValue" 
             @input="handleInput"
           ></v-text-field>
