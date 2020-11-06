@@ -221,7 +221,7 @@
         <v-text-field
           placeholder=" "
           id="phone"
-          type="number"
+          type="tel"
           v-model="location.phone"
           :readonly="managerIsUser"
           :rules="rules.phoneRules"
