@@ -12,7 +12,7 @@
               <v-divider></v-divider>
             </v-col>
             <v-row>
-              <v-col cols="12" sm="5" md="6">
+              <v-col cols="12" sm="12" md="6">
                 <v-row fill-height class="pl-2 fill-height">
                   <v-col
                     cols="12"
@@ -27,7 +27,7 @@
                       v-if="companyImageUrl"
                     ></v-img>
                     <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
-                    <img
+                    <img v-else
                       src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
                       alt="SoWerk rounded icon"
                       style="width: 90px;"
@@ -47,7 +47,7 @@
                       color="primary"
                       outlined
                       rounded
-                      class="flex-grow-0 px-6"
+                      class="flex-grow-0 px-6 mt-5 mt-md-0"
                       >Upload Logo</v-btn
                     >
                   </v-col>
@@ -136,7 +136,7 @@
                 <v-divider></v-divider>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-text-field
                   id="company-name"
                   label="Account Name*"
@@ -452,6 +452,14 @@ export default {
   font-size: 0.75em;
 }
 
+.v-input input {
+  font-size: .9em;
+}
+
+.v-input__control {
+  font-size: .9em;
+}
+
 /* TRANSITIONS */
 .fade-enter-active,
 .fade-leave-active {
@@ -479,4 +487,6 @@ export default {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   width: 100%;
 }
+
+
 </style>
