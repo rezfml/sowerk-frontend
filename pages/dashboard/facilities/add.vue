@@ -18,9 +18,13 @@
                   id="locations-map"
                   style="width: 100%; height: 100%; "
                   ref="location-map"
-                  :center="{lat:38, lng:-95.5}"
-                  :zoom="4"
+                  :center="this.mapOptions.center"
+                  :zoom="this.mapOptions.zoom"
+                  :options="mapOptions"
                 >
+                  <gmap-marker
+                    :position="this.item"
+                  />
                 </GmapMap>
               </client-only>
             </v-col>
@@ -62,6 +66,9 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                         <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
                       </div>
                     </div>
+                    <v-row>
+                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenLocation">Drop Pin At Above Written Location</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getLocation">Use Current Location</v-btn>
+                    </v-row>
                   </v-col>
                   <v-col cols="12">
                     <v-textarea
@@ -186,6 +193,20 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           imageUrl: ''
         },
 
+        item: {
+          lat: null,
+          lng: null
+        },
+        mapOptions: {
+          center: { lat: 38, lng: -95.5 },
+          zoom: 4,
+          fullscreenControl: false,
+          mapTypeControl: false,
+          rotateControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          zoomControl: false
+        },
         filters: [
           {
             name: 'Proximity',
@@ -370,6 +391,30 @@ on your account dashboard. Example: SOWerk Cafe #013)"
             this.$router.push('../../../dashboard/facilities')
           })
           .catch(e => e);
+      },
+      getLocation() {
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(this.setLocation, this.locationError)
+        else alert('Geolocation is not supported by this browser.')
+      },
+      setLocation(pos) {
+        this.mapOptions = { ...this.mapOptions, center: { lat: pos.coords.latitude, lng: pos.coords.longitude } }
+        this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+        this.mapOptions.zoom = 11
+        this.item.lat = pos.coords.latitude
+        this.item.lng = pos.coords.longitude
+      },
+      locationError(error) {
+        if (error.PERMISSION_DENIED) alert('User denied the request for Geolocation.')
+        else if (error.POSITION_UNAVAILABLE) alert('Location information is unavailable.')
+        else if (error.TIMEOUT) alert('The request to get user location timed out.')
+        else alert('An unknown error occurred.')
+      },
+      useWrittenLocation() {
+        this.item.lat = this.form.latitude
+        this.item.lng = this.form.longitude
+        this.mapOptions = { ...this.mapOptions, center: { lat: this.form.latitude, lng: this.form.longitude } }
+        this.center = { lat: this.form.latitude, lng: this.form.longitude }
+        this.mapOptions.zoom = 13
       }
     }
   }

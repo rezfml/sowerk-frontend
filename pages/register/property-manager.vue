@@ -142,12 +142,12 @@ import CompanyReview from '~/components/register/property-manager/CompanyReview'
 import { VueMaskDirective } from 'v-mask'
 Vue.directive('mask', VueMaskDirective);
 
-// Vue.use(VueGoogleMaps, {
-//   load: {
-//     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
-//   },
-//   installComponents: true
-// })
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
+  },
+  installComponents: true
+})
 
 export default {
   name: 'property-manager',
