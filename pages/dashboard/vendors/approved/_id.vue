@@ -58,7 +58,7 @@
             min-width="20vw"
           ></v-skeleton-loader>
           <transition name="slide-fade">
-            <v-card v-if="loading" class="d-flex flex-column align-center" style="width: 100%;">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
               <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
               <v-card-subtitle>Past 30 days</v-card-subtitle>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
@@ -107,6 +107,30 @@
               </transition>
             </v-card>
           </transition>
+          <transition name="slide-fade">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">
+              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>
+              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>
+              <v-btn outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>
+              <template v-for="(review, index) in reviews">
+                <v-divider></v-divider>
+                <template>
+                  <v-rating
+                    empty-icon="$mdiStarOutline"
+                    full-icon="$mdiStar"
+                    half-icon="$mdiStarHalfFull"
+                    half-increments
+                    hover
+                    length="5"
+                    size="64"
+                    :value="review.stars"
+                  ></v-rating>
+                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>
+                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>
+                </template>
+              </template>
+            </v-card>
+          </transition>
           <!--          <v-card class="d-flex flex-column align-center mt-10">-->
           <!--            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>-->
           <!--            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>-->
@@ -120,6 +144,23 @@
             min-height="50vh"
             min-width="20vw"
           ></v-skeleton-loader>
+          <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
+            <v-card-title style="color: #A61c00">Your Connection Details</v-card-title>
+            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+            <v-card-text>Status: <span style="color: #A61c00">Approved Vendor</span></v-card-text>
+            <v-card-text>Approved Connections: <span style="color: #A61c00">{{singleCompanyConnections.length}}</span></v-card-text>
+<!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
+<!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
+            <v-card-title style="color: #A61c00">Related To You</v-card-title>
+            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+            <v-card-text>Your Notes On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
+            <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
+            <v-card-title style="color: #A61c00">Vendor Provided Documents</v-card-title>
+            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+            <v-card-title style="color: #A61c00">Other Details</v-card-title>
+            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+            <v-card-text>Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -151,6 +192,9 @@
         messageLocation: {},
         messageUserForm: {},
         messageSendLoad: false,
+        reviews: [],
+        singleCompanyConnections: [],
+        vendorMessages: [],
       }
     },
     async mounted() {
@@ -160,6 +204,8 @@
       await this.getLicenses();
       await this.getConnections(this.location);
       await this.getUserCompany(this.$store.state.user.user.user.companies_id);
+      await this.getReviews();
+      await this.getMessages();
     },
     methods: {
       async getConnections(location) {
@@ -175,6 +221,8 @@
                   }
                 }
               }
+              this.singleCompanyConnections = this.connections.filter(connection => connection.pmcompanies_id = this.$store.state.user.user.user.companies_id)
+              console.log(this.singleCompanyConnections, 'single company connections')
             }
           })
           .catch(err => {
@@ -291,6 +339,27 @@
           })
           .catch(err => {
             console.log(err, 'err in sending message')
+          })
+      },
+      async getReviews() {
+        await this.$http.get('https://www.sowerkbackend.com/api/locationreviews/byLocationId/' + this.$route.params.id)
+          .then(response => {
+            console.log(response.data, 'response.data for location reviews')
+            this.reviews = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err in location reviews')
+          })
+      },
+      async getMessages() {
+
+        await this.$http.get('https://www.sowerkbackend.com/api/messages/byUserId/' + this.$store.state.user.user.user.id)
+          .then(response => {
+            console.log(response.data, 'message by user response.data')
+            this.vendorMessages = response.data.filter(message => message.spLocationId = this.$route.params.id)
+          })
+          .catch(err => {
+            console.log(err, 'err in getting messages by response.data')
           })
       }
     }
