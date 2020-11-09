@@ -263,7 +263,7 @@
         <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">SOWERK NATIONAL</v-card-title>
         <!--<v-card-title class="d-flex flex-column justify-center " style="font-size:1.1vw;font-weight:600">SOWERK PRO</v-card-title>-->  
         <v-card-subtitle class="mt-12 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$125.00<span class="ml-n0" style="font-size:.7vw">/monthly</span></v-card-subtitle>
-        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $1500.00 Per Year</p>
+        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $1,500.00 Per Year</p>
         <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
           <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;color:black">PACKAGE INCLUDES</v-card-text>
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
@@ -377,7 +377,7 @@
         <v-card-title class="d-flex flex-column justify-center mx-n1" style="width:102%;font-size:5.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:2%;font-weight:bold">SOWERK NATIONAL</v-card-title>
        <!-- <v-card-title class="d-flex flex-column justify-center " style="font-size:8vw">SOWERK PRO</v-card-title>-->
         <v-card-subtitle class="mt-6 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:12vw">$125.00<span class="ml-n10" style="font-size:5vw">/monthly</span></v-card-subtitle>
-        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $1500.00 Per Year</p>
+        <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $1,500.00 Per Year</p>
         <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
           <v-card-text class="d-flex justify-center mt-0" style="font-size:5vw;font-weight:bold;color:black">PACKAGE INCLUDES</v-card-text>
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:5vw;color:#707070; ">
