@@ -75,7 +75,7 @@
                   <v-form class="mx-auto register-form" ref="companyDetails">
                     <v-container>
                       <v-row >
-                        <v-col cols="12" sm="5" md="6" class="mb-12">
+                        <v-col cols="12" sm="5" md="6" class="mb-8">
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col
                               cols="12"
@@ -94,13 +94,13 @@
                                 <v-col
                                   style="display:flex; flex-direction: column; align-items: center"
                                 >
-                                  <v-img
+                                  <img
                                     :src="companyImageUrl"
                                     :aspect-ratio="1"
                                     class="my-8 rounded-circle"
                                     id="accountPhoto"
-                                    style="max-height: 250px; width: 100%; max-width: 250px;"
-                                  ></v-img>
+                                    style="max-height: 200px; width: 100%; max-width: 200px;"
+                                  ></img>
                                   <!-- EDIT BUTTON -->
                                   <v-btn
                                     v-if="companyImageUrl && !savedImage"
@@ -112,7 +112,7 @@
                                   >
                                     <v-icon medium
                                       >mdi-account-edit-outline</v-icon
-                                    >
+                                    ><span>Edit</span>
                                   </v-btn>
                                 </v-col>
                               </template>
