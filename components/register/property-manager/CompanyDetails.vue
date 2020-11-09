@@ -262,7 +262,7 @@
                   id="company-description"
                   label="Company Profile Description*"
                   v-model="company.description"
-                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
+                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationships with vendors."
                   :rules="rules.requiredRules"
                 ></v-textarea>
               </v-col>
