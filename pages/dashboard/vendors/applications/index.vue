@@ -467,10 +467,13 @@
                     style="width: 95%;"
                   >
                     <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
-                      <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
+                      <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
                         <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                        <p style="width: 70%; text-align: center">{{index}} - {{form.name}} - {{form.id}}</p>
-                        <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
+                        <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        <div class="d-flex justify-end" style="width: 100%;">
+                          <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
+                        </div>
                       </v-card-title>
                     </v-card>
                   </draggable>
@@ -499,27 +502,27 @@
                       <td :colspan="headers.length" style="width: 100%;">
                         <v-simple-table style="width: 100%;">
                           <template v-slot:default>
-                            <thead style="width: 100%;">
-                            <tr style="width: 100%;">
-                              <th style="width: 30%;">Question</th>
-                              <th style="width: 70%;">Name</th>
-                            </tr>
-                            </thead>
-                            <tbody style="width: 100%;">
-                            <draggable
-                              style="width: 20vw !important;"
-                              class="dragArea list-group"
-                              :list="item.applicationtemplatesformfields"
-                              :group="{ name: 'formName', pull: 'clone', put: false }"
-                            >
-                              <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
-                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
-                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
-                                </v-card>
-                              </tr>
-                            </draggable>
-                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+<!--                            <thead>-->
+<!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+<!--                              <th style="width: 30%;">Question</th>-->
+<!--                              <th style="width: 60%;">Name</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+                            <tbody style="width: 95%;">
+                              <draggable
+                                style="width: 100% !important;"
+                                class="dragArea list-group"
+                                :list="item.applicationtemplatesformfields"
+                                :group="{ name: 'formName', pull: 'clone', put: false }"
+                              >
+                                <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                    <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                    <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                  </v-card>
+                                </tr>
+                              </draggable>
+                              <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
                             </tbody>
                           </template>
                         </v-simple-table>
@@ -546,22 +549,24 @@
                       <td :colspan="headers.length" style="width: 100%;">
                         <v-simple-table style="width: 100%;">
                           <template v-slot:default>
-                            <thead style="width: 100%;">
-                            <tr style="width: 100%;">
-                              <th style="width: 35%;">Question</th>
-                              <th style="width: 65%;">Name</th>
-                            </tr>
-                            </thead>
-                            <tbody style="width: 100%;">
+                            <!--                            <thead>-->
+                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                            <!--                              <th style="width: 30%;">Question</th>-->
+                            <!--                              <th style="width: 60%;">Name</th>-->
+                            <!--                            </tr>-->
+                            <!--                            </thead>-->
+                            <tbody style="width: 95%;">
                             <draggable
-                              style="width: 100%;"
+                              style="width: 100% !important;"
                               class="dragArea list-group"
                               :list="item.companytemplatesformfields"
                               :group="{ name: 'formName', pull: 'clone', put: false }"
                             >
-                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;">
-                                <td style="width: 30%;"><v-icon style="color: #707070; width: 10%; border-bottom: 1px solid grey">mdi-cursor-move</v-icon> Question# {{(app.order + 1)}}</td>
-                                <td style="width: 70%;">{{app.name}}</td>
+                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                </v-card>
                               </tr>
                             </draggable>
                             <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
@@ -627,11 +632,44 @@
       <v-card class="d-flex flex-column align-center justify-center" style="z-index:2; position:fixed; top: 20vh; left: 20vw; width: 75vw; height: 70vh; box-shadow: 8px 8px 8px 8px gray" overflow-y-auto v-if="addServiceLoad && step2">
         <v-card-title class="mb-4" style="color: #a61c00; font-size: 40px;">Add A Service Here</v-card-title>
         <v-form style="width: 90%;" class="d-flex flex-column align-center">
-          <v-text-field
-            style="width: 80%;"
-          label="Service Name Goes Here"
-          v-model="serviceAdd.name"
-          ></v-text-field>
+<!--          <v-text-field-->
+<!--            style="width: 80%;"-->
+<!--          label="Service Name Goes Here"-->
+<!--          v-model="serviceAdd.name"-->
+<!--          ></v-text-field>-->
+          <v-select
+            :items="sectors"
+            label="First, select your sector."
+            placeholder=" "
+            item-text="title"
+            item-value="code"
+            style="width: 90%;"
+            @change="getSectorChildren"
+          ></v-select>
+          <template v-if="companySector">
+            <v-select
+              :items="industryLevel1"
+              placeholder=" "
+              label="Next, select a sub-sector."
+              item-text="title"
+              item-value="code"
+              v-model="companyLevel1"
+              style="width: 90%;"
+              @change="getLevel1Children"
+            ></v-select>
+          </template>
+          <template v-if="companyLevel1">
+            <v-select
+              :items="industryLevel2"
+              label="Finally, select your final sub-category."
+              placeholder=" "
+              item-text="title"
+              item-value="code"
+              v-model="companyLevel2"
+              style="width: 90%;"
+              @change="getLevel2Children"
+            ></v-select>
+          </template>
           <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>
         </v-form>
         <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
@@ -645,6 +683,7 @@
 
 import CustomFormCard from '@/components/dashboard/CustomFormCard'
 import draggable from "vuedraggable"
+const naics = require("naics");
 
   export default {
     name: 'applications',
@@ -792,12 +831,26 @@ import draggable from "vuedraggable"
           'Unpublished'
         ],
         saveLoad: true,
-        locationVal: {}
+        locationVal: {},
+        companySector: null,
+        companyLevel1: null,
+        companyLevel2: null,
+        companyLevel3: null,
+        sectors: [],
+        industryLevel1: [],
+        industryLevel2: [],
+        industryLevel3: [],
+        industryLevel4: [],
         }
     },
     async mounted() {
       await this.getLocations(this.currentUser.companies_id);
       // await this.getCompany(this.currentUser.companies_id);
+      let codes = naics.Industry.sectors();
+      for(const code of codes) {
+        this.sectors.push(code);
+      }
+      console.log(this.sectors, 'sectors');
     },
     computed: {
       currentUser() {
@@ -805,6 +858,47 @@ import draggable from "vuedraggable"
       },
     },
     methods: {
+      getSectorChildren(e) {
+        console.log(e);
+        if(this.companySector) {
+          this.companySector = null;
+          this.companyLevel1 = null;
+          this.companyLevel2 = null;
+          this.companyLevel3 = null;
+        }
+        this.industryLevel1 = [];
+        this.industryLevel2 = [];
+        this.companySector = e;
+        let industry = naics.Industry.from(this.companySector);
+        let categories = industry.children();
+        console.log(industry, 'industry', categories, 'categories')
+        this.serviceAdd.name = industry.title
+        for(const category of categories) {
+          this.industryLevel1.push(category);
+        }
+      },
+      getLevel1Children() {
+        console.log(this.companyLevel1, 'companyLevel1');
+        let industry = naics.Industry.from(this.companyLevel1);
+        this.serviceAdd.name = industry.title
+        let categories = industry.children();
+        console.log(industry, 'level 1 industry', categories, 'level1 industry')
+        this.industryLevel2 = [];
+        for(const category of categories) {
+          this.industryLevel2.push(category);
+        }
+      },
+      getLevel2Children() {
+        console.log(this.companyLevel2, 'companyLevel2');
+        let industry = naics.Industry.from(this.companyLevel2);
+        let categories = industry.children();
+        console.log(categories, 'level1 industry')
+        this.industryLevel3 = [];
+        this.serviceAdd.name = industry.title
+        for(const category of categories) {
+          this.industryLevel3.push(category);
+        }
+      },
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(async(response) => {
@@ -1052,6 +1146,19 @@ import draggable from "vuedraggable"
         this.loadYourCompanyTemplates = false;
         this.loadYourCompanyDocuments = false;
         this.addNewCompanyTemplateLoad = false;
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+        let codes = naics.Industry.sectors();
+        for(const code of codes) {
+          this.sectors.push(code);
+        }
       },
       async addNewCompanyTemplateLoading() {
         this.addNewVendorFormLoad = false;
@@ -1316,6 +1423,19 @@ import draggable from "vuedraggable"
       },
       async closeService() {
         this.addServiceLoad = false;
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+        let codes = naics.Industry.sectors();
+        for(const code of codes) {
+          this.sectors.push(code);
+        }
       },
       async addNewService() {
         await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
@@ -1332,6 +1452,19 @@ import draggable from "vuedraggable"
             alert('err in adding new service');
             console.log(err, 'err in adding new service');
           })
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+        let codes = naics.Industry.sectors();
+        for(const code of codes) {
+          this.sectors.push(code);
+        }
       },
       async userformEditActive(userform) {
         console.log(userform.active, 'active userform');
@@ -1496,7 +1629,7 @@ import draggable from "vuedraggable"
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
-        }, 1000)
+        }, 1500)
       },
       async saveCompanyTemplate() {
         this.saveLoad = false;
@@ -1612,6 +1745,9 @@ import draggable from "vuedraggable"
         console.log('updateSingleFormfield', formfieldVal);
         this.newAssignUserForm.formfields[formfieldVal.order] = formfieldVal
         this.openEditFormFieldLoad = false;
+      },
+      async removeItem(index) {
+          this.newAssignUserForm.formfields.splice(index, 1);
       }
     }
   }
