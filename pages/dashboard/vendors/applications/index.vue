@@ -255,7 +255,10 @@
           <v-card>
             <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
             <v-card-text class="pt-16 ml-4">Upload here any company document or template that you will use to share with vendors to download, complete and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-            <v-btn color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            <v-img v-if="companyDocumentImageUrl" style="width: 10vw;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"></v-img>
+            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+            <v-btn @click="submitCompanyDocumentImage" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-8 mb-16 ml-4">Submit</v-btn>
           </v-card>
         </v-col>
         <v-col cols="6">
@@ -694,6 +697,8 @@ const naics = require("naics");
     },
     data () {
       return {
+        companyDocumentImageUrl: null,
+        companyDocumentImageFile: null,
         expanded: [],
         singleExpand: true,
         locations: [],
@@ -701,6 +706,7 @@ const naics = require("naics");
         userForms: [],
         applicationTemplateVal: [],
         companyDocuments: [],
+        companyDocument: {},
         finishedFormFields: false,
         totalLength: 0,
         valueServices: 0,
@@ -775,7 +781,7 @@ const naics = require("naics");
         ],
         companyDocumentsHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-regular'},
-          { text: 'Upload Date', value: 'uploadDate', class: 'primary--text font-weight-regular'},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         addLocations: [
@@ -1765,7 +1771,45 @@ const naics = require("naics");
           .catch(err => {
             console.log(err, 'err in getting company documents for this company')
           })
-      }
+      },
+      async selectCompanyDocumentsImage(e) {
+        this.companyDocument.documentUrl = e.target.files[0];
+        this.companyDocument.documentName = e.target.files[0].name;
+        this.companyDocument.required = true;
+        console.log(this.companyDocumentImageFile);
+        this.companyDocumentImageUrl = URL.createObjectURL(this.companyDocument.documentUrl);
+        console.log(this.companyDocumentImageUrl);
+      },
+      async submitCompanyDocumentImage() {
+        let formData = new FormData();
+        formData.append('file', this.companyDocument.documentUrl);
+        console.log(formData, 'formdata');
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(async (response) => {
+            console.log(response.data, 'response.data for company document upload')
+            this.companyDocument.documentUrl = response.data.data.Location;
+            this.companyDocument.companies_id = this.currentUser.companies_id;
+            console.log(this.companyDocument, 'THIS.COMPANY DOCUMENT')
+            this.companyDocuments.push(this.companyDocument)
+            await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id, this.companyDocument)
+              .then(response => {
+                console.log('response.data for on submitcompanydocumentimage')
+              })
+              .catch(err => {
+                console.log('err in posting new company document')
+              })
+          })
+          .catch(err => {
+            console.log('error in uploading location image', err)
+          })
+      },
+      async clickCompanyDocumentsImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyDocumentImage').click();
+      },
     }
   }
 
