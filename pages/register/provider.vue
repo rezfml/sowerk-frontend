@@ -67,171 +67,170 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" lg="6" class="mb-12 px-6">
-                          <v-row fill-height class="fill-height">
-                            <v-col
-                              cols="12"
-                              class="d-flex justify-center align-center px-4 flex-column flex-md-row"
-                            >
-                              <!----------- DEFAULT WRENCH ICON ------------->
-                              <img
-                                v-if="!companyImageFile"
-                                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
-                                alt="SoWerk rounded icon"
-                                style="width: 90px;"
-                              />
+                         
+                         <v-row fill-height class="fill-height">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-center align-center px-4 flex-column flex-md-row"
+                            >
+                              <!----------- DEFAULT WRENCH ICON ------------->
+                              <img
+                                v-if="!objectUrl"
+                                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
+                                alt="SoWerk rounded icon"
+                                style="width: 90px;"
+                              />
+                              <!------------ AVATAR ROUND  ----------->
+                              <!-- <v-row v-else style="margin:0 ;flex-direction: column; text-align:center; align-items: center"> -->
+                              <template v-else>
+                                <v-col
+                                  cols="12"
+                                  sm="6"
+                                  class="text-center pa-0"
+                                >
+                                  <v-img
+                                    :src="companyImageUrl"
+                                    :aspect-ratio="1"
+                                    class=" rounded-circle"
+                                    style="max-height: 200px; width: 100%; max-width: 200px; margin: 0 auto;"
+                                  />
+                                  <!-- BUTTON TO EDIT IMAGE -->
+                                  <v-btn
+                                    v-if="cropped"
+                                    icon="icon"
+                                    small
+                                    @click="croppedImage"
+                                    @change="setupCropper"
+                                    style="float: right;"
+                                  >
+                                    <v-icon medium
+                                      >mdi-account-edit-outline</v-icon
+                                    >
+                                  </v-btn>
+                                </v-col>
+                              </template>
+                              <!-- </v-row> -->
+                              <!-- CROPPER TOOL -->
+                              <!-- <v-row v-if="objectUrl" v-show="!cropped" style="flex-direction: column;"> -->
+                              <template v-if="objectUrl">
+                                <!-- <v-col class="text-center" cols="12" sm="6">
+                                  <div class="overline">Preview</div>
+                                  <div class="image-container elevation-4"><img class="image-preview" :src="previewCropped" /></div>
+                                </v-col> -->
 
-                              <!------------ AVATAR ROUND  ----------->
-                              <!-- <v-row v-else style="margin:0 ;flex-direction: column; text-align:center; align-items: center"> -->
-                              <template v-else>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                  class="text-center pa-0"
-                                >
-                                  <v-img
-                                    :src="companyImageUrl"
-                                    :aspect-ratio="1"
-                                    class=" rounded-circle"
-                                    style="max-height: 200px; width: 100%; max-width: 200px; margin: 0 auto;"
-                                  />
+                                <v-col
+                                  v-show="!cropped"
+                                  class="text-center pa-0"
+                                  style="max-width: 100%"
+                                  cols="12"
+                                  sm="6"
+                                >
+                                  <div class="overline mt-10">Original</div>
+                                  <div class="image-container elevation-4">
+                                    <img
+                                      class="image-preview"
+                                      ref="source"
+                                      :src="objectUrl"
+                                    />
+                                  </div>
+                                  <div class="d-flex justify-center">
+                                    <v-btn
+                                      icon="icon"
+                                      small="small"
+                                      @click="resetCropper"
+                                    >
+                                      <v-icon small="small"
+                                        >mdi-aspect-ratio</v-icon
+                                      >
+                                    </v-btn>
+                                    <div class="mx-2"></div>
+                                    <v-btn
+                                      icon="icon"
+                                      small="small"
+                                      @click="rotateLeft"
+                                    >
+                                      <v-icon small="small"
+                                        >mdi-rotate-left</v-icon
+                                      >
+                                    </v-btn>
+                                    <v-btn
+                                      icon="icon"
+                                      small="small"
+                                      @click="rotateRight"
+                                    >
+                                      <v-icon small="small"
+                                        >mdi-rotate-right</v-icon
+                                      >
+                                    </v-btn>
+                                  </div>
+                                  <v-card-actions
+                                    style="justify-content: center;"
+                                    class="pt-0"
+                                  >
+                                    <!-- BUTTON TO CROP -->
+                                    <v-btn
+                                      color="primary"
+                                      small="small"
+                                      :disabled="!objectUrl"
+                                      @click="cropImage"
+                                      >Crop</v-btn
+                                    >
+                                    <!-- BUTTON TO SAVE -->
+                                    <v-btn
+                                      color="primary"
+                                      small="small"
+                                      :disabled="!objectUrl"
+                                      @click="cropped = !cropped"
+                                      >SAVE</v-btn
+                                    >
+                                  </v-card-actions>
+                                </v-col>
+                                
+                              </template>
+                              <!-- </v-row> -->
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              class="d-flex flex-column justify-center align-center"
+                            >
+                              <!-------------- FILE UPLOAD SECTION ------------>
+                              <v-file-input
+                                class="company-image-upload ma-0 pa-0"
+                                v-model="selectedFile"
+                                @change="setupCropper"
+                                v-on:change.native="selectCompanyImage"
+                                id="companyImage"
+                                style="visibility: hidden; height: 0; max-height: 0;"
+                              ></v-file-input>
+                              <!-- BUTTON TO ADD IMAGE -->
+                              <v-btn
+                                @click="
+                                  clickCompanyImageUpload()
+                                  croppedImage()
+                                "
+                                
+                              
+                                color="primary"
+                                style="min-width: 64px;"
+                                outlined
+                                rounded
+                                class="flex-grow-0"
+                                >Account Photo
+                              </v-btn>
+                              <!--                            <p class="text-center mb-0">Or</p>-->
+                              <!--                            <v-checkbox class="mt-0">-->
+                              <!--                              <template v-slot:label>-->
+                              <!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
+                              <!--                              </template>-->
+                              <!--                            </v-checkbox>-->
+                            </v-col>
+                            <!--                            <v-file-input-->
+                            <!--                              clearable-->
+                            <!--                              full-width-->
+                            <!--                              v-on:input.native="selectCompanyImage"-->
+                            <!--                            />-->
+                          </v-row>
 
-                                  <!-- BUTTON TO EDIT IMAGE -->
-                                  <v-btn
-                                    v-if="cropped"
-                                    icon="icon"
-                                    small
-                                    @click="croppedImage"
-                                    @change="setupCropper"
-                                    style="float: right;"
-                                  >
-                                    <v-icon medium
-                                      >mdi-account-edit-outline</v-icon
-                                    >
-                                  </v-btn>
-                                </v-col>
-                              </template>
-                              <!-- </v-row> -->
-
-                              <!-- CROPPER TOOL -->
-                              <!-- <v-row v-if="objectUrl" v-show="!cropped" style="flex-direction: column;"> -->
-                              <template v-if="objectUrl">
-                                <v-col
-                                  v-show="!cropped"
-                                  class="text-center pa-0"
-                                  style="max-width: 100%"
-                                  cols="12"
-                                  sm="6"
-                                >
-                                  <div class="overline mt-10">Original</div>
-                                  <div class="image-container elevation-4">
-                                    <img
-                                      class="image-preview"
-                                      ref="source"
-                                      :src="objectUrl"
-                                    />
-                                  </div>
-                                  <div class="d-flex justify-center">
-                                    <v-btn
-                                      icon="icon"
-                                      small="small"
-                                      @click="resetCropper"
-                                    >
-                                      <v-icon small="small"
-                                        >mdi-aspect-ratio</v-icon
-                                      >
-                                    </v-btn>
-                                    <div class="mx-2"></div>
-                                    <v-btn
-                                      icon="icon"
-                                      small="small"
-                                      @click="rotateLeft"
-                                    >
-                                      <v-icon small="small"
-                                        >mdi-rotate-left</v-icon
-                                      >
-                                    </v-btn>
-                                    <v-btn
-                                      icon="icon"
-                                      small="small"
-                                      @click="rotateRight"
-                                    >
-                                      <v-icon small="small"
-                                        >mdi-rotate-right</v-icon
-                                      >
-                                    </v-btn>
-                                  </div>
-
-                                  <v-card-actions
-                                    style="justify-content: center;"
-                                    class="pt-0"
-                                  >
-                                    <!-- BUTTON TO CROP -->
-                                    <v-btn
-                                      color="primary"
-                                      small="small"
-                                      :disabled="!objectUrl"
-                                      @click="cropImage"
-                                      >Crop</v-btn
-                                    >
-                                    <!-- BUTTON TO SAVE -->
-                                    <v-btn
-                                      color="primary"
-                                      small="small"
-                                      :disabled="!objectUrl"
-                                      @click="cropped = !cropped"
-                                      >SAVE</v-btn
-                                    >
-                                  </v-card-actions>
-                                </v-col>
-                                <!-- <v-col class="text-center" cols="12" sm="6">
-                          <div class="overline">Preview</div>
-                          <div class="image-container elevation-4"><img class="image-preview" :src="previewCropped" /></div>
-                      </v-col> -->
-                              </template>
-                              <!-- </v-row> -->
-                            </v-col>
-
-                            <v-col
-                              cols="12"
-                              class="d-flex flex-column justify-center align-center"
-                            >
-                              <!-------------- FILE UPLOAD SECTION ------------>
-                              <v-file-input
-                                class="company-image-upload ma-0 pa-0"
-                                v-model="selectedFile"
-                                @change="setupCropper"
-                                v-on:change.native="selectCompanyImage"
-                                id="companyImage"
-                                style="visibility: hidden; height: 0; max-height: 0;"
-                              ></v-file-input>
-
-                              <!-- BUTTON TO ADD IMAGE -->
-                              <v-btn
-                                @click="
-                                  clickCompanyImageUpload()
-                                  croppedImage()
-                                "
-                                color="primary"
-                                style="min-width: 64px;"
-                                outlined
-                                rounded
-                                class="flex-grow-0"
-                                >Account Photo
-                              </v-btn>
-                              <!--                            <p class="text-center mb-0">Or</p>-->
-
-                              <!--                            <v-checkbox class="mt-0">-->
-                              <!--                              <template v-slot:label>-->
-                              <!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
-                              <!--                              </template>-->
-                              <!--                            </v-checkbox>-->
-                            </v-col>
-                            <!--                            <v-file-input-->
-                            <!--                              clearable-->
-                            <!--                              full-width-->
-                            <!--                              v-on:input.native="selectCompanyImage"-->
-                            <!--                            />-->
-                          </v-row>
                         </v-col>
 
                         <v-col
@@ -1123,15 +1122,15 @@ export default {
     },
     rotateLeft() {
       this.cropper.rotate(-90)
-      const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
-      console.log(canvas)
-      this.companyImageUrl = canvas
+      // const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
+      // console.log(canvas)
+      // this.companyImageUrl = canvas
     },
     rotateRight() {
       this.cropper.rotate(90)
-      const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
-      console.log(canvas)
-      this.companyImageUrl = canvas
+      // const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
+      // console.log(canvas)
+      // this.companyImageUrl = canvas
     },
     setupCropper(companyImageFile) {
       if (this.cropper) {
@@ -1151,6 +1150,7 @@ export default {
 
       this.objectUrl = window.URL.createObjectURL(companyImageFile)
       this.$nextTick(this.setupCropperInstance)
+      
     },
     setupCropperInstance() {
       this.cropper = new Cropper(this.$refs.source, {
@@ -1175,13 +1175,14 @@ export default {
       this.insuranceFiles[index].file = file
     },
     selectLicenseFile(file, index) {
-      this.licenseFiles[index].file = file
+      this.licenseFiles[index].file = files
     },
     selectCompanyImage(e) {
       this.companyImageFile = e.target.files[0]
-      console.log(this.companyImageFile)
+      // this.companyImageFile = e.target.files[0]
+      // console.log(this.companyImageFile)
       this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
-      console.log(this.companyImageUrl)
+      // this.companyImageUrl.srcObject = this.companyImageFile
     },
     focusAddressField() {
       console.log('focus')
