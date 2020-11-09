@@ -267,6 +267,10 @@
               :items="companyDocuments"
               :headers="companyDocumentsHeaders"
             >
+              <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+                <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;">Remove</v-btn>
+                <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%;">View</v-btn>
+              </template>
             </v-data-table>
           </v-card>
         </v-col>
@@ -1768,6 +1772,16 @@ const naics = require("naics");
           })
           .catch(err => {
             console.log(err, 'err in getting company documents for this company')
+          })
+      },
+      async deleteCompanyDocument(document, index) {
+        await this.$http.delete('https://www.sowerkbackend.com/api/companydocuments/' + document.id)
+          .then(response => {
+            console.log(response, 'success in deleting company document')
+            this.companyDocuments.splice(index, 1);
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting company document')
           })
       },
       async selectCompanyDocumentsImage(e) {
