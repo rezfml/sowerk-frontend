@@ -55,6 +55,8 @@
           :items="serviceOptions"
           multiple
           chips
+          hint="Check all that apply"
+          persistent-hint
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
@@ -138,6 +140,7 @@
       <v-col cols="12" md="6" class="d-flex flex-column">
 
         <span class="mb-12 font-weight-bold" style="font-size: 15px;">Location Service Radius</span>
+        
         <v-slider
           min="0"
           max="200"
@@ -145,7 +148,7 @@
           :thumb-size="36"
           track-color="grey"
           track-fill-color="primary"
-          step="10"
+          step="5"
           ticks
           :tick-labels="miles"
           :readonly="false"
@@ -154,6 +157,7 @@
           class="d-flex align-end"
         >
         </v-slider>
+        <span class="mx-auto" style="font-size: 15px; color:707070;"> This is your typical service area</span>
       </v-col>
 
       <v-col cols="12" md="6">
@@ -241,8 +245,11 @@
       <v-text-field
         placeholder=" "
         id="phone"
-        type="number"
+        type="tel"
         v-model="location.phone"
+        v-mask="'(###)###-####'"
+          :value="currentValue" 
+          @input="handleInput"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
@@ -306,7 +313,7 @@ export default {
   data() {
     return {
       miles: [
-        '','','','','','','','','','','100','','','','','150','','','','','200'
+        '','','10','','','25','','','','','50','','','','','','','','','','100','','','','','','','','','','150','','','','','','','','','','200'
       ],
       userIsManager: false,
       adminLevel: [

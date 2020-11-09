@@ -42,7 +42,7 @@
 
           <v-text-field
             label="Phone Number*"
-            type="number"
+            type="tel"
             class="card__input black--text"
             v-model="phone"
             validate-on-blur

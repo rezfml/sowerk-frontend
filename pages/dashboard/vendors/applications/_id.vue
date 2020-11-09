@@ -20,9 +20,6 @@
     </v-row>
     <transition name="slide-fade">
       <v-row v-if="loading" class="d-flex justify-start wrap-row" style="width: 100%;">
-      <v-card-text style="width: 40%;">Location - {{location.name}}</v-card-text>
-      <v-card-text style="width: 40%;">Category - {{service.name}}</v-card-text>
-      <v-spacer style="width: 20%;"></v-spacer>
       <v-btn @click="saveUserForm" style="width: 30%;" color="primary" rounded class="my-2 mx-2">Save</v-btn>
       <v-btn :href="'../../vendors/applications'" style="width: 30%;" color="#707070" rounded outlined class="my-2 mx-2">Exit</v-btn>
     </v-row>
@@ -33,8 +30,8 @@
     <transition name="slide-fade">
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
       <v-col style="width: 55%;">
-        <v-card class="d-flex flex-column align-center">
-          <v-text-field v-model="userForms.name"></v-text-field>
+        <v-card class="d-flex flex-column align-center" style="width: 100%;">
+          <v-card-title style="width: 100%;">{{location.name}} - {{service.name}} <v-text-field v-model="userForms.name"></v-text-field></v-card-title>
           <draggable
             class="dragArea list-group"
             group="formName"

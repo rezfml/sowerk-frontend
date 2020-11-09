@@ -3,10 +3,19 @@
     style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/building-1080602.jpg') ; background-size: cover; background-position: center;"
   >
     <v-row
+      v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs"
+      class="mx-auto my-n16"
+    >
+      <v-img
+        class="mb-n16"
+        src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153.png"
+      ></v-img>
+    </v-row>
+    <v-row
       align="center"
       justify="center"
       style="max-width: 1440px;"
-      class="mx-auto py-12"
+      class="mx-auto py-16 mt-n16"
     >
       <v-col
         cols="12"
@@ -66,171 +75,161 @@
                   <v-form class="mx-auto register-form" ref="companyDetails">
                     <v-container>
                       <v-row>
-                        <v-col cols="12" lg="6" class="mb-12 px-6">
-                         
-                         <v-row fill-height class="fill-height">
-                            <v-col
-                              cols="12"
-                              class="d-flex justify-center align-center px-4 flex-column flex-md-row"
-                            >
-                              <!----------- DEFAULT WRENCH ICON ------------->
-                              <img
-                                v-if="!objectUrl"
-                                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
-                                alt="SoWerk rounded icon"
-                                style="width: 90px;"
-                              />
-                              <!------------ AVATAR ROUND  ----------->
-                              <!-- <v-row v-else style="margin:0 ;flex-direction: column; text-align:center; align-items: center"> -->
-                              <template v-else>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                  class="text-center pa-0"
-                                >
-                                  <v-img
-                                    :src="companyImageUrl"
-                                    :aspect-ratio="1"
-                                    class=" rounded-circle"
-                                    style="max-height: 200px; width: 100%; max-width: 200px; margin: 0 auto;"
-                                  />
-                                  <!-- BUTTON TO EDIT IMAGE -->
-                                  <v-btn
-                                    v-if="cropped"
-                                    icon="icon"
-                                    small
-                                    @click="croppedImage"
-                                    @change="setupCropper"
-                                    style="float: right;"
-                                  >
-                                    <v-icon medium
-                                      >mdi-account-edit-outline</v-icon
-                                    >
-                                  </v-btn>
-                                </v-col>
-                              </template>
-                              <!-- </v-row> -->
-                              <!-- CROPPER TOOL -->
-                              <!-- <v-row v-if="objectUrl" v-show="!cropped" style="flex-direction: column;"> -->
-                              <template v-if="objectUrl">
-                                <!-- <v-col class="text-center" cols="12" sm="6">
-                                  <div class="overline">Preview</div>
-                                  <div class="image-container elevation-4"><img class="image-preview" :src="previewCropped" /></div>
-                                </v-col> -->
+                        <v-col cols="12" sm="5" md="6" class="mb-12 px-12">
+                          <v-row fill-height class="pl-2 fill-height">
+                            <v-col
+                              cols="12"
+                              class="d-flex justify-center align-center px-12"
+                            >
+                              <!-- DEFAULT WRENCH ICON -->
+                              <img
+                                v-if="!companyImageUrl"
+                                src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
+                                alt="SoWerk rounded icon"
+                                style="width: 90px;"
+                              />
 
-                                <v-col
-                                  v-show="!cropped"
-                                  class="text-center pa-0"
-                                  style="max-width: 100%"
-                                  cols="12"
-                                  sm="6"
-                                >
-                                  <div class="overline mt-10">Original</div>
-                                  <div class="image-container elevation-4">
-                                    <img
-                                      class="image-preview"
-                                      ref="source"
-                                      :src="objectUrl"
-                                    />
-                                  </div>
-                                  <div class="d-flex justify-center">
-                                    <v-btn
-                                      icon="icon"
-                                      small="small"
-                                      @click="resetCropper"
-                                    >
-                                      <v-icon small="small"
-                                        >mdi-aspect-ratio</v-icon
-                                      >
-                                    </v-btn>
-                                    <div class="mx-2"></div>
-                                    <v-btn
-                                      icon="icon"
-                                      small="small"
-                                      @click="rotateLeft"
-                                    >
-                                      <v-icon small="small"
-                                        >mdi-rotate-left</v-icon
-                                      >
-                                    </v-btn>
-                                    <v-btn
-                                      icon="icon"
-                                      small="small"
-                                      @click="rotateRight"
-                                    >
-                                      <v-icon small="small"
-                                        >mdi-rotate-right</v-icon
-                                      >
-                                    </v-btn>
-                                  </div>
-                                  <v-card-actions
-                                    style="justify-content: center;"
-                                    class="pt-0"
-                                  >
-                                    <!-- BUTTON TO CROP -->
-                                    <v-btn
-                                      color="primary"
-                                      small="small"
-                                      :disabled="!objectUrl"
-                                      @click="cropImage"
-                                      >Crop</v-btn
-                                    >
-                                    <!-- BUTTON TO SAVE -->
-                                    <v-btn
-                                      color="primary"
-                                      small="small"
-                                      :disabled="!objectUrl"
-                                      @click="cropped = !cropped"
-                                      >SAVE</v-btn
-                                    >
-                                  </v-card-actions>
-                                </v-col>
-                                
-                              </template>
-                              <!-- </v-row> -->
-                            </v-col>
-                            <v-col
-                              cols="12"
-                              class="d-flex flex-column justify-center align-center"
-                            >
-                              <!-------------- FILE UPLOAD SECTION ------------>
-                              <v-file-input
-                                class="company-image-upload ma-0 pa-0"
-                                v-model="selectedFile"
-                                @change="setupCropper"
-                                v-on:change.native="selectCompanyImage"
-                                id="companyImage"
-                                style="visibility: hidden; height: 0; max-height: 0;"
-                              ></v-file-input>
-                              <!-- BUTTON TO ADD IMAGE -->
-                              <v-btn
-                                @click="
-                                  clickCompanyImageUpload()
-                                  croppedImage()
-                                "
-                                
-                              
-                                color="primary"
-                                style="min-width: 64px;"
-                                outlined
-                                rounded
-                                class="flex-grow-0"
-                                >Account Photo
-                              </v-btn>
-                              <!--                            <p class="text-center mb-0">Or</p>-->
-                              <!--                            <v-checkbox class="mt-0">-->
-                              <!--                              <template v-slot:label>-->
-                              <!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
-                              <!--                              </template>-->
-                              <!--                            </v-checkbox>-->
-                            </v-col>
-                            <!--                            <v-file-input-->
-                            <!--                              clearable-->
-                            <!--                              full-width-->
-                            <!--                              v-on:input.native="selectCompanyImage"-->
-                            <!--                            />-->
-                          </v-row>
+                              <!-- PROFILE PIC ROUNDED -->
+                              <v-img
+                                v-else-if="!savedImage"
+                                :src="companyImageUrl"
+                                :aspect-ratio="1"
+                                class="my-8 rounded-circle"
+                                id="accountPhoto"
+                                style="max-height: 250px; width: 100%; max-width: 250px;"
+                              ></v-img>
+                              <v-btn
+                                v-if="companyImageUrl && !savedImage"
+                                icon="icon"
+                                small
+                                @click="savedImage = true"
+                                @change="setupCropper"
+                                style="float: right;"
+                              >
+                                <v-icon medium>mdi-account-edit-outline</v-icon>
+                              </v-btn>
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              class="d-flex flex-column justify-center"
+                            >
+                              <v-file-input
+                                class="company-image-upload ma-0 pa-0"
+                                :class="{
+                                  'company-image-upload--selected': companyImageFile
+                                }"
+                                v-model="companyImageFile"
+                                v-on:change.native="selectCompanyImage"
+                                @change="setupCropper"
+                                id="companyImage"
+                                style="visibility: hidden; height: 0; max-height: 0;"
+                              ></v-file-input>
 
+                              <v-row v-if="companyImageUrl" v-show="savedImage">
+                                <v-col class="text-center" cols="12" sm="6">
+                                  <div class="overline">Original</div>
+                                  <div class="image-container elevation-4">
+                                    <img
+                                      class="image-preview"
+                                      ref="source"
+                                      :src="companyImageUrl"
+                                    />
+                                  </div>
+                                  <div class="d-flex justify-center">
+                                    <v-btn
+                                      icon="icon"
+                                      small="small"
+                                      @click="resetCropper"
+                                    >
+                                      <v-icon small="small"
+                                        >mdi-aspect-ratio</v-icon
+                                      >
+                                    </v-btn>
+                                    <div class="mx-2"></div>
+                                    <v-btn
+                                      icon="icon"
+                                      small="small"
+                                      @click="rotateLeft"
+                                    >
+                                      <v-icon small="small"
+                                        >mdi-rotate-left</v-icon
+                                      >
+                                    </v-btn>
+                                    <v-btn
+                                      icon="icon"
+                                      small="small"
+                                      @click="rotateRight"
+                                    >
+                                      <v-icon small="small"
+                                        >mdi-rotate-right</v-icon
+                                      >
+                                    </v-btn>
+                                  </div>
+                                </v-col>
+                                <v-col class="text-center" cols="12" sm="6">
+                                  <div class="overline">Preview</div>
+                                  <div class="image-container elevation-4">
+                                    <img
+                                      class="image-preview"
+                                      :src="previewCropped"
+                                    />
+                                  </div>
+                                </v-col>
+
+                                <v-card-actions
+                                  style="display:flex; justify-content:center"
+                                >
+                                  <v-spacer></v-spacer>
+                                  <v-btn
+                                    color="primary"
+                                    small="small"
+                                    :disabled="!companyImageUrl"
+                                    @click="
+                                      savedImage = !savedImage
+                                      savedCroppedImage()
+                                    "
+                                  >
+                                    SAVE</v-btn
+                                  >
+                                  <v-btn
+                                    color="primary"
+                                    small="small"
+                                    :disabled="!companyImageUrl"
+                                    @click="clickCompanyImageUpload()"
+                                  >
+                                    UPLOAD</v-btn
+                                  >
+                                </v-card-actions>
+                              </v-row>
+
+                              <v-btn
+                                @click="
+                                  clickCompanyImageUpload()
+                                  savedImage = !savedImage
+                                "
+                                color="primary"
+                                style="min-width: 64px;"
+                                outlined
+                                rounded
+                               
+                                v-show="!companyImageUrl"
+                                class="flex-grow-0"
+                                >Account Photo
+                              </v-btn>
+                              <!--                            <p class="text-center mb-0">Or</p>-->
+
+                              <!--                            <v-checkbox class="mt-0">-->
+                              <!--                              <template v-slot:label>-->
+                              <!--                                <p class="mb-0 font-weight-medium" style="line-height: 1.3em;">Don't have a logo? Use Company Name</p>-->
+                              <!--                              </template>-->
+                              <!--                            </v-checkbox>-->
+                            </v-col>
+                            <!--                            <v-file-input-->
+                            <!--                              clearable-->
+                            <!--                              full-width-->
+                            <!--                              v-on:input.native="selectCompanyImage"-->
+                            <!--                            />-->
+                          </v-row>
                         </v-col>
 
                         <v-col
@@ -269,7 +268,7 @@
 
                           <v-text-field
                             label="Phone*"
-                            type="number"
+                            type="tel"
                             placeholder=" "
                             class="card__input black--text mb-6"
                             v-model="user.phone"
@@ -346,12 +345,21 @@
                             label="List your LLC Name (If Applicable)"
                             type="text"
                             placeholder=" "
+                            class="pt-5"
                             v-model="company.llcName"
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            label="Year Business Was Founded*"
+                            type="text"
+                            placeholder=" "
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
 
-                        <v-col cols="12">
+                        <v-col cols="12" md="9">
                           <div class="v-input__control">
                             <div class="v-input__slot">
                               <div
@@ -403,6 +411,18 @@
                           </div>
                         </v-col>
 
+                        <v-col cols="12" md="3">
+                          <v-text-field
+                            label="Year Business Was Founded*"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.year_founded"
+                            class="pt-5"
+                            :rules="rules.requiredRules"
+                          ></v-text-field>
+                        </v-col>
+
+                        <!--
                         <v-col cols="12" md="6">
                           <v-select
                             :items="serviceOptions"
@@ -414,17 +434,7 @@
                             :rules="rules.requiredRules"
                           ></v-select>
                         </v-col>
-
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="Year Business Was Founded*"
-                            type="text"
-                            placeholder=" "
-                            v-model="company.year_founded"
-                            class="pt-5"
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
+  -->
 
                         <v-col cols="12">
                           <v-textarea
@@ -434,6 +444,54 @@
                             placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-textarea>
+                        </v-col>
+
+                        <v-col cols="12">
+                          <p class="font-weight-bold text-h5">Services</p>
+                          <v-divider class="mb-12"></v-divider>
+                          <v-list>
+                            <v-list-item
+                              v-for="(service, index) in servicesProvided"
+                            ></v-list-item>
+                          </v-list>
+                          <v-select
+                            :items="sectors"
+                            label="First, select your sector."
+                            placeholder=" "
+                            item-text="title"
+                            item-value="code"
+                            @change="getSectorChildren"
+                          ></v-select>
+                          <template v-if="companySector">
+                            <v-select
+                              :items="industryLevel1"
+                              placeholder=" "
+                              item-text="title"
+                              item-value="code"
+                              v-model="companyLevel1"
+                              @change="getLevel1Children"
+                            ></v-select>
+                          </template>
+                          <template v-if="companyLevel1">
+                            <v-select
+                              :items="industryLevel2"
+                              placeholder=" "
+                              item-text="title"
+                              item-value="code"
+                              v-model="companyLevel2"
+                              @change="getLevel2Children"
+                            ></v-select>
+                          </template>
+                          <!--                          <template v-if="companyLevel2">-->
+                          <!--                            <v-select-->
+                          <!--                              :items="industryLevel3"-->
+                          <!--                              placeholder=" "-->
+                          <!--                              item-text="title"-->
+                          <!--                              item-value="code"-->
+                          <!--                              v-model="companyLevel3"-->
+                          <!--                              @change="getLevel3Children"-->
+                          <!--                            ></v-select>-->
+                          <!--                          </template>-->
                         </v-col>
                       </v-row>
                     </v-container>
@@ -724,28 +782,28 @@
                       >Edit Information</v-btn
                     >
                   </v-col>
-
-                  <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
-
-                  <!--                <v-col cols="12" class="mt-2">-->
-                  <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
-                  <!--                  <v-data-table-->
-                  <!--                    :headers="headers"-->
-                  <!--                    :items.sync="locations"-->
-                  <!--                    :items-per-page="10"-->
-                  <!--                  >-->
-                  <!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
-                  <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
-                  <!--                  </v-data-table>-->
-                  <!--                </v-col>-->
-
-                  <!--                <v-col cols="12">-->
-                  <!--                  <v-checkbox-->
-                  <!--                    label="I agree to the Terms of Service"-->
-                  <!--                    v-on:change="getTosDate"-->
-                  <!--                  >-->
-                  <!--                  </v-checkbox>-->
-                  <!--                </v-col>-->
+                  <!--
+                  <v-divider color="red" class="mt-8 mb-4"></v-divider>
+                    <v-col cols="12" class="mt-2">
+                      <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>
+                        <v-data-table
+                            :headers="headers"
+                            :items.sync="locations"
+                            :items-per-page="10"
+                          >
+                          <template v-slot:item.id="{ item }">{{ locations.indexOf(item)  }}</template>
+                          <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+                        </v-data-table>
+                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(1)">Edit Locations</v-btn>
+                 
+                    </v-col>-->
+                  <v-col cols="12">
+                    <v-checkbox
+                      label="I agree to the Terms of Service"
+                      v-on:change="getTosDate"
+                    >
+                    </v-checkbox>
+                  </v-col>
                 </v-card-text>
               </v-container>
             </v-tab-item>
@@ -819,24 +877,22 @@
 import VImageInput from 'vuetify-image-input'
 // import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
-
 import Vue from 'vue'
 import FormLocation from '~/components/FormLocation'
 import LocationForm from '@/components/register/provider/LocationForm'
 import InsuranceForm from '~/components/InsuranceForm'
 import LicenseForm from '@/components/website/LicenseForm'
 import { VueMaskDirective } from 'v-mask'
-Vue.directive('mask', VueMaskDirective)
 import Cropper from 'cropperjs'
 import debounce from 'lodash/debounce'
-
+Vue.directive('mask', VueMaskDirective)
+const naics = require('naics')
 // Vue.use(VueGoogleMaps, {
 //   load: {
 //     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
 //   },
 //   installComponents: true
 // })
-
 export default {
   name: 'provider',
   layout: 'fullwidth',
@@ -850,17 +906,12 @@ export default {
   },
   data() {
     return {
-      //CropperJS
-      cropper: null,
-      objectUrl: null,
-      previewCropped: null,
-      selectedFile: null,
-      imageUrl: null,
-      debouncedUpdatePreview: debounce(this.updatePreview, 257),
-      cropped: false,
-      // here
       loading: false,
       tab: 0,
+      cropper: null,
+      previewCropped: null,
+      debouncedUpdatePreview: debounce(this.updatePreview, 257),
+      savedImage: false,
       items: ['Company', 'Locations', 'Documents', 'Review'],
       company: {
         // email: '',
@@ -878,6 +929,10 @@ export default {
         servicesOffered: [],
         imgUrl: null,
       },
+      companySector: null,
+      companyLevel1: null,
+      companyLevel2: null,
+      companyLevel3: null,
       confirmPassword: null,
       bestSelection: [
         {
@@ -1000,6 +1055,11 @@ export default {
       editingLocation: true,
       editingInsurance: true,
       editingLicense: true,
+      sectors: [],
+      industryLevel1: [],
+      industryLevel2: [],
+      industryLevel3: [],
+      industryLevel4: [],
       headers: [
         {
           text: 'Location Name',
@@ -1105,6 +1165,11 @@ export default {
   },
   mounted() {
     vueGoogleMapsInit()
+    let codes = naics.Industry.sectors()
+    for (const code of codes) {
+      this.sectors.push(code)
+    }
+    console.log(this.sectors)
   },
   computed: {
     confirmPasswordRules() {
@@ -1116,41 +1181,72 @@ export default {
     },
   },
   methods: {
-    // here
+    getSectorChildren(e) {
+      console.log(e)
+      if (this.companySector) {
+        this.companySector = null
+        this.companyLevel1 = null
+        this.companyLevel2 = null
+        this.companyLevel3 = null
+      }
+      this.industryLevel1 = []
+      this.industryLevel2 = []
+      this.companySector = e
+      let industry = naics.Industry.from(this.companySector)
+      let categories = industry.children()
+      for (const category of categories) {
+        this.industryLevel1.push(category)
+      }
+    },
+    getLevel1Children() {
+      console.log(this.companyLevel1)
+      let industry = naics.Industry.from(this.companyLevel1)
+      let categories = industry.children()
+      this.industryLevel2 = []
+      for (const category of categories) {
+        this.industryLevel2.push(category)
+      }
+    },
+    getLevel2Children() {
+      console.log(this.companyLevel2)
+      let industry = naics.Industry.from(this.companyLevel2)
+      let categories = industry.children()
+      this.industryLevel3 = []
+      for (const category of categories) {
+        this.industryLevel3.push(category)
+      }
+    },
+    // getLevel3Children() {
+    //   console.log(this.companyLevel3);
+    // },
+
     resetCropper() {
       this.cropper.reset()
     },
     rotateLeft() {
       this.cropper.rotate(-90)
-      // const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
-      // console.log(canvas)
-      // this.companyImageUrl = canvas
     },
     rotateRight() {
       this.cropper.rotate(90)
-      // const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
-      // console.log(canvas)
-      // this.companyImageUrl = canvas
     },
     setupCropper(companyImageFile) {
       if (this.cropper) {
         this.cropper.destroy()
       }
 
-      if (this.objectUrl) {
-        window.URL.revokeObjectURL(this.objectUrl)
+      if (this.companyImageUrl) {
+        window.URL.revokeObjectURL(this.companyImageUrl)
       }
 
       if (!companyImageFile) {
         this.cropper = null
-        this.objectUrl = null
+        this.companyImageUrl = null
         this.previewCropped = null
         return
       }
 
-      this.objectUrl = window.URL.createObjectURL(companyImageFile)
+      this.companyImageUrl = window.URL.createObjectURL(companyImageFile)
       this.$nextTick(this.setupCropperInstance)
-      
     },
     setupCropperInstance() {
       this.cropper = new Cropper(this.$refs.source, {
@@ -1162,27 +1258,26 @@ export default {
       const canvas = this.cropper.getCroppedCanvas()
       this.previewCropped = canvas.toDataURL('image/png')
     },
-    cropImage() {
-      const canvas = this.cropper.getCroppedCanvas().toDataURL('image/png')
-      console.log(canvas)
-      this.companyImageUrl = canvas
+    savedCroppedImage() {
+      const canvas = this.cropper.getCroppedCanvas()
+      this.companyImageUrl = canvas.toDataURL('image/png')
     },
-    croppedImage() {
-      this.cropped = false
-    },
-    // here
     selectInsuranceFile(file, index) {
       this.insuranceFiles[index].file = file
     },
     selectLicenseFile(file, index) {
-      this.licenseFiles[index].file = files
+      this.licenseFiles[index].file = file
     },
     selectCompanyImage(e) {
-      this.companyImageFile = e.target.files[0]
-      // this.companyImageFile = e.target.files[0]
-      // console.log(this.companyImageFile)
-      this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
-      // this.companyImageUrl.srcObject = this.companyImageFile
+      if (this.companyImageFile = e.target.files[0]) {
+        this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
+        return this.companyImageUrl
+        console.log(this.companyImageUrl)
+      } else {
+        this.companyImageFile = e.target.files[0]
+        console.log(this.companyImageFile)
+        console.log('Else nothing')
+      }
     },
     focusAddressField() {
       console.log('focus')
@@ -1212,7 +1307,6 @@ export default {
       //   }
       //   return true;
       // }
-
       console.log(tab)
       console.log(this.$refs.companyDetails.$refs.register)
       return true
@@ -1327,11 +1421,9 @@ export default {
         companies_id: null,
       }
       this.insurances.push(newInsurance)
-
       let newInsuranceFile = {
         file: null,
       }
-
       this.insuranceFiles.push(newInsuranceFile)
     },
     addLicense() {
@@ -1355,7 +1447,6 @@ export default {
     },
     async register() {
       this.loading = true
-
       await this.uploadCompanyImage()
       if (this.insuranceFiles.length > 0) {
         this.loopInsuranceFilesForUpload()
@@ -1363,12 +1454,9 @@ export default {
       if (this.licenseFiles.length > 0) {
         this.loopLicenseFilesForUpload()
       }
-
       await this.loopLocationImages()
-
       console.log(this.company, 'this.company')
       console.log(this.locations, 'this.locations')
-
       await this.$http
         .post('https://www.sowerkbackend.com/api/companies', this.company)
         .then((response) => {
@@ -1491,7 +1579,6 @@ export default {
         .catch((err) => {
           console.log('error in uploading location image', err)
         })
-
       this.locations[index].imageUrl = data.data.Location
     },
     async postLocations(userId) {
@@ -1550,10 +1637,8 @@ export default {
           name: serviceProvided,
           description: serviceProvided,
         }
-
         this.formattedServicesProvided.push(serviceObject)
       })
-
       console.log(this.formattedServicesProvided)
     },
     // getTosDate(e) {
@@ -1595,12 +1680,10 @@ export default {
 /*  max-height: 300px;*/
 /*  width: 100%;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__control {*/
 /*  height: 100%;*/
 /*  position: relative;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__control:before {*/
 /*  position: absolute;*/
 /*  width: 100%;*/
@@ -1615,60 +1698,47 @@ export default {
 /*  align-items: center;*/
 /*  pointer-events: none;*/
 /*}*/
-
 /*.company-image-upload--selected >>> .v-input__control:before {*/
 /*  content: '';*/
 /*}*/
-
 /*.company-image-upload--selected >>> .v-input__icon.v-input__icon--clear {*/
 /*  z-index: 10;*/
 /*  background-color: white;*/
 /*  border-radius: 0!important;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__append-inner {*/
 /*  margin-top: 0!important;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__icon.v-input__icon--clear > button {*/
 /*  color: #333;*/
-
 /*}*/
-
 /*.company-image-upload >>> .v-input__slot {*/
 /*  height: 100%;*/
 /*  background-color: transparent;*/
 /*  border-radius: 10px;*/
 /*  border: 2px dotted grey;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__slot:hover {*/
 /*  cursor: pointer;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__prepend-outer {*/
 /*  display: none;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__slot:before {*/
 /*  height: 100%;*/
 /*  border-width: 0;*/
 /*}*/
-
 /*.company-image-upload >>> .v-text-field__slot {*/
 /*  height: 100%;*/
 /*  width: 100%;*/
 /*}*/
-
 /*.company-image-upload >>> .v-input__slot:after {*/
 /*  display: none;*/
 /*}*/
-
 .form__address::v-deep input {
   border: 2px solid red !important;
   width: 600px;
 }
-
 .v-input__slot:before {
   border-color: rgba(0, 0, 0, 0.42);
   border-style: solid;
@@ -1680,29 +1750,24 @@ export default {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   width: 100%;
 }
-
 .form-control {
   padding: 2px 0;
   position: relative;
   z-index: 3;
 }
-
 .v-label {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   top: 0;
 }
-
 .v-label--focus {
   top: -1.5em;
   color: #a61c00;
   font-size: 0.75em;
 }
-
 .v-label--filled {
   top: -1.5em;
   font-size: 0.75em;
 }
-
 /* TRANSITIONS */
 .fade-enter-active,
 .fade-leave-active {
@@ -1711,17 +1776,14 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-
 .text-with-lines {
   position: relative;
   width: 100%;
 }
-
 .text-with-lines p {
   position: relative;
   z-index: 1;
 }
-
 .text-with-lines:after {
   content: '';
   position: absolute;
@@ -1731,7 +1793,6 @@ export default {
   left: 0;
   background-color: #a61c00;
 }
-
 .register-form >>> .v-label {
   color: black;
   font-weight: bold;
