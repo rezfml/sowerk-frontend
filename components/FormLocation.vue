@@ -351,7 +351,6 @@
       }
     },
     mounted() {
-      console.log("Is this the FormLocation.vue file?gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
       this.formatFullAddress();
     },
     methods: {
@@ -374,12 +373,9 @@
       },
       selectLocationImage(e) {
         this.location.imageUrl = e.target.files[0];
-        console.log(this.location.imageUrl);
         this.locationImageUrl = URL.createObjectURL(this.location.imageUrl);
-        console.log(this.locationImageUrl);
       },
       clickLocationImageUpload() {
-        console.log(this);
         // let imageInput = this.$refs.companyImage;
         // console.log(imageInput);
         // imageInput.$el.click();
