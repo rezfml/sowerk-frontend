@@ -33,6 +33,7 @@
             active-class="primary white--text elevation-10"
             hide-slider
             style="position: relative;"
+            :vertical="$vuetify.breakpoint.mobile"
           >
             <v-tab
               v-for="(item, index) in items"
@@ -152,28 +153,16 @@
                           <p class="font-weight-bold text-h6">Company Details</p>
                         </v-col>
 
-                        <v-col cols="12" sm="6">
+                        <v-col cols="12" md="3">
                           <v-text-field
-                            id="account-name"
-                            label="Account Name*"
-                            placeholder=" "
-                            v-model="company.account_name"
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-text-field
-                            id="brand-name"
-                            label="Brand Name*"
+                            label="Year Founded*"
                             type="text"
                             placeholder=" "
-                            v-model="company.brand_name"
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12" sm="6">
+                        <v-col cols="12" md="9">
                           <v-select
                             id="company-best"
                             label="What Best Describes You*"
@@ -185,79 +174,88 @@
                           ></v-select>
                         </v-col>
 
-                        <v-col cols="12" sm="6" v-if="company.isFranchise">
+                        <v-col cols="12">
                           <v-text-field
-                            id="company-llc"
-                            label="List your LLC Name (If Applicable)"
-                            type="text"
+                            id="account-name"
+                            label="Account Name*"
                             placeholder=" "
-                            class="pt-5"
-                            v-model="company.llcName"
+                            v-model="company.account_name"
                             :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
-                          <v-col cols="12" md="6">
-                          <v-text-field
-                            label="Year Business Was Founded*"
-                            type="text"
-                            placeholder=" "
-                            :rules="rules.requiredRules"
+                            v-if="!company.isFranchise"
                           ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12">
-                          <div class="v-input__control">
-                            <div class="v-input__slot">
-                              <div class="v-text-field__slot" style="width: 100%;">
-                                <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
-                                <client-only>
-<!--                                  <form autocomplete="off">-->
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            id="brand-name"
+                            label="Franchise Brand Name*"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.brand_name"
+                            :rules="rules.requiredRules"
+                            v-if="company.isFranchise"
+                            hint=" "
+                            persistent-hint
+                            class="py-4"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6" v-if="company.isFranchise">
+                          <v-text-field
+                            id="company-llc"
+                            label="Registered Company Name"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.llcName"
+                            :rules="rules.requiredRules"
+                            hint="Cannot be your Franchise Brand Name"
+                            persistent-hint
+                            class="py-4"
+                          ></v-text-field>
+                        </v-col>
+
+<!--                        <v-col cols="12">-->
+<!--                          <div class="v-input__control">-->
+<!--                            <div class="v-input__slot">-->
+<!--                              <div class="v-text-field__slot" style="width: 100%;">-->
+<!--                                <label><p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>-->
+<!--                                <client-only>-->
+<!--&lt;!&ndash;                                  <form autocomplete="off">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <vue-google-autocomplete&ndash;&gt;-->
+<!--&lt;!&ndash;                                      id="company-address"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      classname="form-control"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      v-on:placechanged="getAddressData"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      placeholder=""&ndash;&gt;-->
+<!--&lt;!&ndash;                                      style="width: 100%; font-size: 16px; padding: 2px 0"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      v-on:focus.native="animateAddressFieldOnFocus"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      v-on:blur.native="animateAddressFieldOnFocus"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      v-on:input.native="animateAddressFieldOnFilled"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      v-model="fullAddress"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      :rules="rules.requiredRules"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      required&ndash;&gt;-->
+<!--&lt;!&ndash;                                    >&ndash;&gt;-->
+<!--&lt;!&ndash;                                      &ndash;&gt;-->
+<!--&lt;!&ndash;                                    </vue-google-autocomplete>&ndash;&gt;-->
 <!--                                    <vue-google-autocomplete-->
 <!--                                      id="company-address"-->
 <!--                                      classname="form-control"-->
 <!--                                      v-on:placechanged="getAddressData"-->
-<!--                                      placeholder=""-->
 <!--                                      style="width: 100%; font-size: 16px; padding: 2px 0"-->
-<!--                                      v-on:focus.native="animateAddressFieldOnFocus"-->
-<!--                                      v-on:blur.native="animateAddressFieldOnFocus"-->
-<!--                                      v-on:input.native="animateAddressFieldOnFilled"-->
-<!--                                      v-model="fullAddress"-->
+<!--                                      placeholder=""-->
 <!--                                      :rules="rules.requiredRules"-->
-<!--                                      required-->
+<!--                                      v-on:focus="focusAddressField"-->
+<!--                                      v-on:input="focusAddressField"-->
+<!--                                      v-model="fullAddress"-->
+<!--                                      onfocus="this.setAttribute('autocomplete', 'new-password');"-->
 <!--                                    >-->
-<!--                                      -->
+
 <!--                                    </vue-google-autocomplete>-->
-                                    <vue-google-autocomplete
-                                      id="company-address"
-                                      classname="form-control"
-                                      v-on:placechanged="getAddressData"
-                                      style="width: 100%; font-size: 16px; padding: 2px 0"
-                                      placeholder=""
-                                      :rules="rules.requiredRules"
-                                      v-on:focus="focusAddressField"
-                                      v-on:input="focusAddressField"
-                                      v-model="fullAddress"
-                                      onfocus="this.setAttribute('autocomplete', 'new-password');"
-                                    >
-
-                                    </vue-google-autocomplete>
-<!--                                  </form>-->
-                                </client-only>
-                              </div>
-                            </div>
-                          </div>
-                        </v-col>
-
-                        <v-col cols="12" md="3">
-                          <v-text-field
-                            label="Year Business Was Founded*"
-                            type="text"
-                            placeholder=" "
-                            v-model="company.year_founded"
-                            class="pt-5"
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
+<!--&lt;!&ndash;                                  </form>&ndash;&gt;-->
+<!--                                </client-only>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </v-col>-->
 
                     <!--
                         <v-col cols="12" md="6">
@@ -270,7 +268,7 @@
                             placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-select>
-                          <!-- <v-combobox
+                           <v-combobox
                             :items="serviceOptions"
                             v-model="company.servicesOffered"
                             multiple
@@ -279,18 +277,6 @@
                             placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-combobox> -->
-                        </v-col>
-
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="Year Business Was Founded*"
-                            type="text"
-                            placeholder=" "
-                            v-model="company.year_founded"
-                            class="pt-5"
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
 
                         <v-col cols="12">
                           <v-textarea
@@ -762,6 +748,7 @@
         industryLevel2: [],
         industryLevel3: [],
         industryLevel4: [],
+        validateDetails: false,
         headers: [
           { text: 'Location Name', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
@@ -900,16 +887,17 @@
         console.log(this.locations)
       },
       validate(tab) {
-        // console.log(this.$refs.companyDetails);
-        // if(tab == 0) {
-        //   if (!this.$refs.companyDetails.validate()) {
-        //     this.$nextTick(() => {
-        //       this.$vuetify.goTo('.error--text');
-        //     });
-        //     return false;
-        //   }
-        //   return true;
-        // }
+        console.log(this.$refs.companyDetails);
+
+        if(tab == 0) {
+          if (!this.$refs.companyDetails.validate()) {
+            this.$nextTick(() => {
+              this.$vuetify.goTo('.error--text');
+            });
+            return false;
+          }
+          return true;
+        }
 
         console.log(tab);
         console.log(this.$refs.companyDetails.$refs.register);
@@ -951,7 +939,6 @@
         this.editingInsurance = true;
       },
       getAddressData(addressData) {
-        console.log('wtf mate');
         console.log(addressData);
         this.company.address = addressData.street_number + ' ' + addressData.route;
         this.company.city = addressData.locality;

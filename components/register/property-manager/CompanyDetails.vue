@@ -283,17 +283,16 @@ import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
 
-  import Vue from 'vue';
-  import FormLocation from '~/components/FormLocation'
-  import LocationForm from '@/components/register/provider/LocationForm'
-  import InsuranceForm from '~/components/InsuranceForm'
-  import LicenseForm from '@/components/website/LicenseForm'
-  import { VueMaskDirective } from 'v-mask'
-  Vue.directive('mask', VueMaskDirective);
+import Vue from 'vue';
+import FormLocation from '~/components/FormLocation'
+import LocationForm from '@/components/register/provider/LocationForm'
+import InsuranceForm from '~/components/InsuranceForm'
+import LicenseForm from '@/components/website/LicenseForm'
+import { VueMaskDirective } from 'v-mask'
+Vue.directive('mask', VueMaskDirective);
 
 import DisableAutocomplete from 'vue-disable-autocomplete';
 
-import Vue from 'vue';
 
 Vue.use(DisableAutocomplete);
 
