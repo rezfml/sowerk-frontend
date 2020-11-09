@@ -256,9 +256,7 @@
             <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
             <v-card-text class="pt-16 ml-4">Upload here any company document or template that you will use to share with vendors to download, complete and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
             <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
-            <v-img v-if="companyDocumentImageUrl" style="width: 10vw;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"></v-img>
-            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-            <v-btn @click="submitCompanyDocumentImage" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-8 mb-16 ml-4">Submit</v-btn>
+            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-card>
         </v-col>
         <v-col cols="6">
@@ -1779,29 +1777,29 @@ const naics = require("naics");
         console.log(this.companyDocumentImageFile);
         this.companyDocumentImageUrl = URL.createObjectURL(this.companyDocument.documentUrl);
         console.log(this.companyDocumentImageUrl);
-      },
-      async submitCompanyDocumentImage() {
-        let formData = new FormData();
-        formData.append('file', this.companyDocument.documentUrl);
-        console.log(formData, 'formdata');
-        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
-          .then(async (response) => {
-            console.log(response.data, 'response.data for company document upload')
-            this.companyDocument.documentUrl = response.data.data.Location;
-            this.companyDocument.companies_id = this.currentUser.companies_id;
-            console.log(this.companyDocument, 'THIS.COMPANY DOCUMENT')
-            this.companyDocuments.push(this.companyDocument)
-            await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id, this.companyDocument)
-              .then(response => {
-                console.log('response.data for on submitcompanydocumentimage')
-              })
-              .catch(err => {
-                console.log('err in posting new company document')
-              })
-          })
-          .catch(err => {
-            console.log('error in uploading location image', err)
-          })
+        setTimeout(() => {
+          let formData = new FormData();
+          formData.append('file', this.companyDocument.documentUrl);
+          console.log(formData, 'formdata');
+          this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+            .then(async (response) => {
+              console.log(response, 'response.data for company document upload')
+              this.companyDocument.documentUrl = response.data.data.Location;
+              this.companyDocument.companies_id = this.currentUser.companies_id;
+              console.log(this.companyDocument, 'THIS.COMPANY DOCUMENT')
+              await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id, this.companyDocument)
+                .then(response => {
+                  console.log('response.data for on submitcompanydocumentimage')
+                  this.getCompanyDocuments()
+                })
+                .catch(err => {
+                  console.log('err in posting new company document')
+                })
+            })
+            .catch(err => {
+              console.log('error in uploading location image', err)
+            })
+        }, 250)
       },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);
