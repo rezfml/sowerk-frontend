@@ -951,16 +951,18 @@ const naics = require("naics");
               console.log(this.locations, 'locations THIS DOT LOCATIONS');
               await this.addLocations.push(location)
               console.log(this.valueServices, 'valueServices');
-              if(this.locations[index].services[0] !== "There are no services") {
-                for(let i=0; i<location.services.length; i++) {
-                  this.locations[index].services[i].userforms = [];
-                  await this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices);
-                  console.log(this.valueUserForms, 'valueUserForms')
-                  this.valueUserForms++
+              setTimeout(() => {
+                if (this.locations[index].services[0] !== 'There are no services') {
+                  for (let i = 0; i < location.services.length; i++) {
+                    this.locations[index].services[i].userforms = []
+                    this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
+                    console.log(this.valueUserForms, 'valueUserForms')
+                    this.valueUserForms++
+                  }
                 }
-                this.valueServices++;
-              }
+              this.valueServices++;
               this.valueUserForms = 0;
+              }, 1000)
             })
           })
           .catch(err => {
@@ -1010,46 +1012,46 @@ const naics = require("naics");
               // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
               // this.locations[valueServices].services[valueUserForms].userforms = response.data;
               setTimeout(() => {
-
-              }, 250);
-              for(let i=0; i<response.data.length; i++) {
-                let userForm = {
-                  applicationStatus: response.data[i].applicationStatus,
-                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
-                  id: response.data[i].id,
-                  name: response.data[i].name,
-                  service_id: response.data[i].service_id,
-                  formfields: []
-                };
-                let userForm2 = {
-                  applicationStatus: response.data[i].applicationStatus,
-                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
-                  id: response.data[i].id,
-                  name: response.data[i].name,
-                  service_id: response.data[i].service_id,
-                  formfields: [],
-                  locationName: this.locations[valueServices].name,
-                  locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
-                  serviceName: this.locations[valueServices].services[valueUserForms].name
-                };
-                if(userForm.applicationStatus === 0) {
-                  userForm.applicationStatus = 'Unpublished'
-                  userForm2.applicationStatus = 'Unpublished'
-                } else if (userForm.applicationStatus === 1) {
-                  userForm.applicationStatus = 'Published - Public'
-                  userForm2.applicationStatus = 'Published - Public'
-                } else {
-                  userForm.applicationStatus = 'Published - Private'
-                  userForm2.applicationStatus = 'Published - Private'
+                for(let i=0; i<response.data.length; i++) {
+                  let userForm = {
+                    applicationStatus: response.data[i].applicationStatus,
+                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                    id: response.data[i].id,
+                    name: response.data[i].name,
+                    service_id: response.data[i].service_id,
+                    formfields: []
+                  };
+                  let userForm2 = {
+                    applicationStatus: response.data[i].applicationStatus,
+                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                    id: response.data[i].id,
+                    name: response.data[i].name,
+                    service_id: response.data[i].service_id,
+                    formfields: [],
+                    locationName: this.locations[valueServices].name,
+                    locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
+                    serviceName: this.locations[valueServices].services[valueUserForms].name
+                  };
+                  if(userForm.applicationStatus === 0) {
+                    userForm.applicationStatus = 'Unpublished'
+                    userForm2.applicationStatus = 'Unpublished'
+                  } else if (userForm.applicationStatus === 1) {
+                    userForm.applicationStatus = 'Published - Public'
+                    userForm2.applicationStatus = 'Published - Public'
+                  } else {
+                    userForm.applicationStatus = 'Published - Private'
+                    userForm2.applicationStatus = 'Published - Private'
+                  }
+                  this.userForms.push(userForm);
+                  this.applicationTemplateVal.push(userForm2);
+                  console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
+                  // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+                  // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
+                  console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
+                  this.getFormFields(response.data[i].id);
                 }
-                await this.userForms.push(userForm);
-                await this.applicationTemplateVal.push(userForm2);
-                // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-                // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
-                console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
-                await this.getFormFields(response.data[i].id);
-              }
-              this.finishedFormFields = true;
+                this.finishedFormFields = true;
+              }, 250);
               // console.log(this.userForms, 'userForms with formfields');
             })
             .catch(err => {
@@ -1060,12 +1062,12 @@ const naics = require("naics");
       async getFormFields(id,) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(async (response) => {
-            console.log(response.data, 'formfields for userform', id);
+            console.log(response.data, 'formfields for userform', id, this.valueFormFields, 'valueFormFields');
             this.userForms[this.valueFormFields].formfields = response.data;
             this.applicationTemplateVal[this.valueFormFields].formfields = response.data;
+            this.valueFormFields++
             // this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields]["formfields"] = response.data;
             // console.log(this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields].formfields, 'userforms with formfields')
-            this.valueFormFields++
             // console.log(this.valueFormFields, 'valueFormFields');
           })
           .catch(err => {
@@ -1073,6 +1075,9 @@ const naics = require("naics");
           })
       },
       async loadCompanyDocumentsFunction() {
+        if(this.loadApplicationTemplates != true) {
+          await this.getCompanyDocuments();
+        }
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
@@ -1402,6 +1407,7 @@ const naics = require("naics");
             })
       },
       async getServiceForVendor(location) {
+        this.locationVal = {};
         this.step1 = false;
         this.step2 = true;
         this.locationVal = location
@@ -1748,6 +1754,17 @@ const naics = require("naics");
       },
       async removeItem(index) {
           this.newAssignUserForm.formfields.splice(index, 1);
+      },
+      async getCompanyDocuments() {
+        this.companyDocuments = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'companyDocuments response.data')
+            this.companyDocuments = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting company documents for this company')
+          })
       }
     }
   }
