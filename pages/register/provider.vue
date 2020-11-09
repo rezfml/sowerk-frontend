@@ -74,8 +74,8 @@
                 <v-card-text class="pa-0">
                   <v-form class="mx-auto register-form" ref="companyDetails">
                     <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="5" md="6" class="mb-12 px-12">
+                      <v-row >
+                        <v-col cols="12" sm="5" md="6" class="mb-12">
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col
                               cols="12"
@@ -90,25 +90,35 @@
                               />
 
                               <!-- PROFILE PIC ROUNDED -->
-                              <v-img
-                                v-else-if="!savedImage"
-                                :src="companyImageUrl"
-                                :aspect-ratio="1"
-                                class="my-8 rounded-circle"
-                                id="accountPhoto"
-                                style="max-height: 250px; width: 100%; max-width: 250px;"
-                              ></v-img>
-                              <v-btn
-                                v-if="companyImageUrl && !savedImage"
-                                icon="icon"
-                                small
-                                @click="savedImage = true"
-                                @change="setupCropper"
-                                style="float: right;"
-                              >
-                                <v-icon medium>mdi-account-edit-outline</v-icon>
-                              </v-btn>
+                              <template v-else-if="!savedImage">
+                                <v-col
+                                  style="display:flex; flex-direction: column; align-items: center"
+                                >
+                                  <v-img
+                                    :src="companyImageUrl"
+                                    :aspect-ratio="1"
+                                    class="my-8 rounded-circle"
+                                    id="accountPhoto"
+                                    style="max-height: 250px; width: 100%; max-width: 250px;"
+                                  ></v-img>
+                                  <!-- EDIT BUTTON -->
+                                  <v-btn
+                                    v-if="companyImageUrl && !savedImage"
+                                    icon="icon"
+                                    small
+                                    @click="savedImage = true"
+                                    @change="setupCropper"
+                                    style="float: right; color:#a61c00;"
+                                  >
+                                    <v-icon medium
+                                      >mdi-account-edit-outline</v-icon
+                                    >
+                                  </v-btn>
+                                </v-col>
+                              </template>
                             </v-col>
+
+                            <!-- FILE INPUT -->
                             <v-col
                               cols="12"
                               class="d-flex flex-column justify-center"
@@ -125,7 +135,7 @@
                                 style="visibility: hidden; height: 0; max-height: 0;"
                               ></v-file-input>
 
-                              <v-row v-if="companyImageUrl" v-show="savedImage">
+                              <v-row v-if="companyImageUrl" v-show="savedImage" style="justify-content: center">
                                 <v-col class="text-center" cols="12" sm="6">
                                   <div class="overline">Original</div>
                                   <div class="image-container elevation-4">
@@ -177,12 +187,13 @@
                                 </v-col>
 
                                 <v-card-actions
-                                  style="display:flex; justify-content:center"
+                                  style="display:flex; justify-content:center;"
                                 >
                                   <v-spacer></v-spacer>
                                   <v-btn
                                     color="primary"
                                     small="small"
+                                    class="mx-4"
                                     :disabled="!companyImageUrl"
                                     @click="
                                       savedImage = !savedImage
@@ -194,6 +205,7 @@
                                   <v-btn
                                     color="primary"
                                     small="small"
+                                    class="mx-4"
                                     :disabled="!companyImageUrl"
                                     @click="clickCompanyImageUpload()"
                                   >
@@ -211,7 +223,6 @@
                                 style="min-width: 64px;"
                                 outlined
                                 rounded
-                               
                                 v-show="!companyImageUrl"
                                 class="flex-grow-0"
                                 >Account Photo
@@ -1269,7 +1280,7 @@ export default {
       this.licenseFiles[index].file = file
     },
     selectCompanyImage(e) {
-      if (this.companyImageFile = e.target.files[0]) {
+      if ((this.companyImageFile = e.target.files[0])) {
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
         return this.companyImageUrl
         console.log(this.companyImageUrl)
