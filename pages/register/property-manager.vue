@@ -22,7 +22,7 @@
           <v-card-title class="justify-center headline font-weight-bold"
           ><img src="https://sowerk-images.s3.us-east-2.amazonaws.com/urbancopy_1.png" style="height:10vh; margin-right: 10px;"alt="property and facility manager Icon">
             <span class="primary--text ml-2 py-6"
-            >Property Manager Information</span
+            >Business Information</span
             ></v-card-title
           >
           <v-tabs
@@ -51,6 +51,7 @@
               :bestSelection="bestSelection"
               :fullAddress="fullAddress"
               v-on:selectFile="selectCompanyFile"
+              v-on:selectFileUrl="selectCompanyUrl"
               ref="companyDetails"
             ></CompanyDetails>
 
@@ -68,9 +69,12 @@
 
             <CompanyReview
               :company="company"
+              :headers="headers"
+              :locations="locations"
               :user="user"
               :setPage="setPage"
               :fullAddress="fullAddress"
+              :imageUrl="companyImageUrl"
             ></CompanyReview>
           </v-tabs-items>
           <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
@@ -135,6 +139,8 @@ import FormLocation from '~/components/FormLocation'
 import CompanyDetails from '~/components/register/property-manager/CompanyDetails'
 import CompanyLocations from '~/components/register/property-manager/CompanyLocations'
 import CompanyReview from '~/components/register/property-manager/CompanyReview'
+import { VueMaskDirective } from 'v-mask'
+Vue.directive('mask', VueMaskDirective);
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -159,6 +165,7 @@ export default {
       loading: false,
       tab: 0,
       companyImageFile: {},
+      companyImageUrl: null,
       items: ['Company', 'Locations', 'Review'],
       bestSelection: [
         {
@@ -316,7 +323,10 @@ export default {
     selectCompanyFile(file) {
       this.companyImageFile = file;
       console.log(this.companyImageFile);
-      console.log('wtf mate');
+    },
+    selectCompanyUrl(url) {
+      this.companyImageUrl = url;
+      console.log(this.companyImageUrl);
     },
     async uploadCompanyImage() {
       let formData = new FormData();

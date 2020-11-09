@@ -43,7 +43,7 @@
       <!--        </client-only>-->
       <!--      </v-row>-->
       <!--    </v-col>-->
-
+       <!--    This is for the property locations tab-->
       <v-col cols="12">
         <v-row class="d-flex align-center">
           <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
@@ -51,6 +51,7 @@
             <v-img v-else style="width: 10vw;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"></v-img>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
             <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
+
           </v-col>
           <v-col cols="12" md="6" class="d-flex flex-column justify-center
 ">
@@ -220,10 +221,13 @@
         <v-text-field
           placeholder=" "
           id="phone"
-          type="number"
+          type="tel"
           v-model="location.phone"
           :readonly="managerIsUser"
           :rules="rules.phoneRules"
+          v-mask="'(###)###-####'"
+          :value="currentValue" 
+          @input="handleInput"
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
@@ -254,6 +258,8 @@
   import VImageInput from 'vuetify-image-input'
   import * as VueGoogleMaps from '~/node_modules/gmap-vue'
   import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
 
   import Vue from 'vue';
 
@@ -330,7 +336,7 @@
           ],
           emailRules: [
             v => !!v || 'E-mail is required',
-            v => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => /.+@.[a-z]+/.test(v) || 'E-mail must be valid',
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           emailNotRequiredRules: [
@@ -338,7 +344,8 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
+            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
           ],
         },
       }

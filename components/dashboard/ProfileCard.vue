@@ -1,19 +1,20 @@
 <template>
-  <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column" max-height="auto">
+  <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column pt-12" max-height="auto">
     <v-skeleton-loader
       v-if="!loadCompany && !location"
       type="card-avatar, actions, article, article, article, actions"
       min-height="90vh"
     ></v-skeleton-loader>
       <template>
-        <transition name="slide-fade">
-        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>
-        </transition>
+<!--        <transition name="slide-fade">-->
+<!--        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
+<!--        </transition>-->
 
         <transition name="slide-fade">
-        <div style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center" v-if="location">
-          <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10">
-            <v-img  :src="location.imageUrl" ></v-img>
+        <div style="" class="d-flex justify-center" v-if="location">
+          <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
+            <v-img v-if="!locationImageUrl" :src="location.imageUrl" ></v-img>
+            <v-img v-else :src="locationImageUrl" ></v-img>
           </v-avatar>
         </div>
         </transition>
@@ -27,10 +28,10 @@
         </transition>
 
         <transition name="slide-fade">
-        <v-card-title v-if="loadCompany || location" class="text-center mt-12 pt-12">
+        <v-card-title v-if="loadCompany || location" class="text-center mt-0 pt-12">
 
           <v-row v-if="location" style="text-align: center;" class="">
-            <v-card-text class="mx-auto text-center primary--text mb-n6" style="font-size: 24px;">{{ location.name }}</v-card-text>
+            <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px; word-break: normal">{{ location.name }}</v-card-text>
             <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
             <v-card-text v-else class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
             <v-row class="d-flex justify-center" style="width: 100%;">
@@ -44,8 +45,8 @@
 
             <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
-            <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Staff Admin</span>
-              <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Super Admin</span></v-card-text>
+            <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Super Admin</span>
+              <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Staff Account</span></v-card-text>
 
             <v-card-text class="mx-auto mb-n6" style="font-size: 14px !important; word-break: break-word!important;">{{location.email}}</v-card-text>
 
@@ -113,7 +114,6 @@
           <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE LOCATION</v-btn>
         </v-card-actions>
       </template>
-    </transition>
   </v-card>
 </template>
 
@@ -133,6 +133,8 @@
       "pendingApplication",
       "editVendorRequirement",
       "editLocationDetail",
+      "editLocation",
+      "locationImageUrl"
     ],
     data() {
       return {
@@ -146,6 +148,7 @@
       if(this.user) {
         this.getCompany(this.user.companies_id)
       }
+      console.log(this.locationImageUrl);
     },
     computed: {
       currentUser() {

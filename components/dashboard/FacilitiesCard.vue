@@ -1,7 +1,8 @@
 <template>
-  <div style="width: 100%">
+<v-container>
+  <div style="width: 100%" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
     <div v-if="locationApproved" style="width: 100%" class="d-flex">
-      <v-col cols="3" class="ml-n6">
+      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">
         <FilterCard
           title="Filter"
           :filters="filters"
@@ -9,7 +10,7 @@
           :loadModal="loadModal"
         ></FilterCard>
       </v-col>
-      <v-col cols="9" class="ml-n4">
+      <v-col cols="12" xl="9">
         <v-card class="white pt-0 mt-12 mb-4">
           <v-progress-circular
             v-if="loading != true"
@@ -295,6 +296,160 @@
       <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
     </v-card>
   </div>
+
+  <div style="width: 100%" v-else >
+    
+    <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
+      <v-progress-circular
+        v-if="loading != true"
+        indeterminate
+        color="primary"
+        :size="20"
+      ></v-progress-circular>
+      <v-container class="pt-0" fluid v-if="loading === true">
+        <v-card-title
+          style="position: absolute; top: -30px; left: 25px; width: 95%; border-radius: 3px; font-size: 18px;"
+          class="primary white--text font-weight-regular red-gradient"
+        >{{ title }}</v-card-title>
+        <v-card-actions class="d-flex justify-end px-4 py-8">
+          <v-row class="py-0">
+            <v-spacer></v-spacer>
+            <v-col cols="12" class="py-0">
+              <v-text-field label="Search" light></v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-actions>
+        <v-card-text class="pt-n6 pb-2 mt-n12">
+          <v-data-table
+            :headers="tableProperties"
+            :items="items"
+            :items-per-page="10"
+            :hide-default-header="true"
+          >
+            <template v-slot:item.address="{item}">
+              <v-row class="d-flex" cols="12" md="6">
+                <h3>Address</h3>
+                <v-row>
+                <v-col>
+                  <p>{{item.address}}</p>
+                  <p>{{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                </v-col>
+                </v-row>
+              </v-row>
+            </template>
+
+            <template v-slot:item.service="{item}">
+              <v-row class="d-flex" cols="12" md="6">
+                <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                <p v-else>{{item.servicesOffered[0]}}</p>
+              </v-row>
+            </template>
+            <template v-slot:item.services="{item}">
+              <v-row class="d-flex" cols="12" md="6">
+                <p>{{item.services[0]}}</p>
+              </v-row>
+            </template>
+            <template v-slot:item.companyName="{item}">
+              <v-row class="d-flex" cols="12" md="6">
+                <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+                <p v-else>
+                  <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    :size="20"
+                  ></v-progress-circular>
+                </p>
+              </v-row>
+            </template>
+            <template v-slot:item.name="{ item }">
+              <v-row class="d-flex" cols="12" md="6">
+                <h3>Location Name</h3>
+                <v-row>
+                <v-col>
+                  <p>{{item.name}}</p>
+                </v-col>
+                </v-row>
+              </v-row>
+            </template>
+
+            <template class="d-flex" v-slot:item.full_name="{ item }">
+              <h3>Contact Name</h3>
+              <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+            </template>
+
+            <template class="d-flex" v-slot:item.fullname="{ item }">
+              <div>
+                <h3>Contact Name</h3>
+                <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                <p v-else>{{ item.name }}</p>
+              </div>
+            </template>
+
+            <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+              <v-btn block color="primary" :to="slug + item.application_id"
+              >Review</v-btn
+              >
+            </template>
+            <template
+              v-slot:item.actions="{ item }"
+              v-else-if="action === 'Apply'"
+            >
+              <v-btn
+                block
+                color="primary"
+                :to="slug + item.location_id + '/application-form/' + item.id"
+              >Apply</v-btn
+              >
+            </template>
+            <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+              <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+              <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+            </template>
+            <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+            </template>
+            <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+              <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
+            </template>
+            <template v-slot:item.actions="{ item }" v-else>
+              <nuxt-link :to="slug + item.id" append>
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined>
+                  View
+                </v-btn>
+              </nuxt-link>
+              <!--            <v-icon small @click="deleteItem(item)">-->
+              <!--              mdi-delete-->
+              <!--            </v-icon>-->
+            </template>
+          </v-data-table>
+        </v-card-text>
+        <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+          <v-btn
+            color="primary"
+            class="px-8"
+            rounded
+            outlined
+            small
+            style="font-size: 12px"
+          >View All</v-btn
+          >
+        </v-card-actions>
+      </v-container>
+    </v-card>
+    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+    >
+      <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+      <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
+      <v-form style="width: 80%;">
+        <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+        <v-btn @click="closeModal">Exit Message</v-btn>
+        <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+      </v-form>
+      <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+      <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
+    </v-card>
+  </div>
+  </v-container>
 </template>
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'

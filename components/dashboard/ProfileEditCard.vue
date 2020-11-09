@@ -1,5 +1,5 @@
 <template>
-  <v-card class="white pt-0 mt-9">
+  <v-card class="white pt-0 mt-0">
     <v-container>
       <v-skeleton-loader
         v-if="!loadCompany && !location"
@@ -17,6 +17,47 @@
                 <v-col cols="12" class="pb-0 mt-3">
                   <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Details</v-subheader>
                 </v-col>
+
+                <v-col
+                  cols="12"
+                  class="d-flex flex-column align-center"
+                  style="justify-content: space-evenly"
+                >
+                  <v-img
+                    :src="location.imageUrl"
+                    :aspect-ratio="1"
+                    class="my-8 rounded-circle flex-grow-1"
+                    style="width: 100%; max-width: 300px;"
+                    v-if="location.imageUrl && !locationImageUrl"
+                  ></v-img>
+                  <v-img
+                    :src="locationImageUrl"
+                    :aspect-ratio="1"
+                    class="my-8 rounded-circle flex-grow-1"
+                    style="width: 100%; max-width: 300px;"
+                    v-else-if="locationImageUrl"
+                  ></v-img>
+                  <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
+                  <v-file-input
+                    class="company-image-upload ma-0 pa-0"
+                    :class="{
+                        'company-image-upload--selected': locationImageFile
+                      }"
+                    v-model="locationImageFile"
+                    v-on:change.native="selectLocationImage"
+                    id="locationImage"
+                    style="visibility: hidden; height: 0; max-height: 0;"
+                  ></v-file-input>
+                  <v-btn
+                    @click="clickLocationImageUpload"
+                    color="primary"
+                    outlined
+                    rounded
+                    class="flex-grow-0 px-6"
+                  >Edit Logo</v-btn
+                  >
+                </v-col>
+
                 <v-col cols="12" class="pt-0">
                   <v-text-field
                     light
@@ -200,7 +241,6 @@
                 <v-col cols="12" md="6" class="py-0">
                   <v-select id="location-Admin"
                             label="Admin Level"
-                            readonly
                             :items="adminOptions"
                             v-model="location.adminLevel">
 
@@ -220,7 +260,11 @@
               </v-row>
 
             </v-form>
-            <v-btn color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
+            <v-card-actions class="px-0">
+              <v-btn color="primary" outlined class="px-8" v-on:click="cancelEditLocation">Cancel</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
+            </v-card-actions>
           </v-card-text>
         </template>
       </transition>
@@ -466,7 +510,8 @@
     props: [
       'location',
       'user',
-      'adminLevels'
+      'adminLevels',
+      'editLocation'
     ],
     data() {
       return {
@@ -514,6 +559,8 @@
         loadCompany: false,
         currentUserVal: {},
         loadUpdateCompany: true,
+        locationImageFile: null,
+        locationImageUrl: null,
       }
     },
     async mounted() {
@@ -573,6 +620,9 @@
         } else {
           this.location.adminLevel = this.adminOptions[1].value
         }
+
+        await this.uploadLocationImage();
+
         await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit)
           .then(response => {
             console.log(response, 'success')
@@ -586,6 +636,41 @@
         // this.$nextTick(function() {
         //   this.locationEdit = data;
         // })
+      },
+
+      async uploadLocationImage() {
+        const formData = new FormData();
+        formData.append('file', this.locationImageFile);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading company image', response)
+            this.locationEdit.imageUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading company image', err);
+          })
+      },
+
+      selectLocationImage(e) {
+        this.locationImageFile = e.target.files[0]
+        console.log(this.locationImageFile)
+        this.locationImageUrl = URL.createObjectURL(this.locationImageFile)
+        console.log(this.locationImageUrl);
+        // this.$emit('selectFile', this.locationImageFile);
+        this.$emit('selectFileUrl', this.locationImageUrl);
+      },
+
+      cancelEditLocation() {
+        console.log('CANCEL 1');
+        this.$emit('cancel');
+      },
+
+      clickLocationImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('locationImage').click();
       },
 
       // Since vue-google-autocomplete is not a vuetify input field, we need this method to add a class to the address label to animate it on focus
