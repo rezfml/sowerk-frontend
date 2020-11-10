@@ -76,7 +76,7 @@
                     <v-container>
                       <v-row >
                         <v-col cols="12" sm="5" md="6" class="mb-8">
-                          <v-row fill-height class="pl-2 fill-height">
+                          <v-row fill-height class="fill-height">
                             <v-col
                               cols="12"
                               class="d-flex justify-center align-center px-12"
@@ -122,6 +122,7 @@
                               cols="12"
                               class="d-flex flex-column justify-center"
                             >
+                            <!-- Two file inputs as a work around for the file cancel issue -->
                               <v-file-input
                                 class="company-image-upload ma-0 pa-0"
                                 :class="{
@@ -133,7 +134,7 @@
                                 id="companyImage"
                                 style="visibility: hidden; height: 0; max-height: 0;"
                               ></v-file-input>
-                              <v-file-input
+                              <!-- <v-file-input
                                 class="company-image-upload ma-0 pa-0"
                                 :class="{
                                   'company-image-upload--selected': companyImageFile
@@ -143,7 +144,7 @@
                                 @change="setupCropper"
                                 id="companyImage2"
                                 style="visibility: hidden; height: 0; max-height: 0;"
-                              ></v-file-input>
+                              ></v-file-input> -->
 
                               <v-row v-if="companyImageUrl" v-show="savedImage" style="justify-content: center">
                                 <v-col class="text-center" cols="12" sm="6">
@@ -217,12 +218,36 @@
                                     small="small"
                                     class="mx-4"
                                     :disabled="!companyImageUrl"
-                                    @click="clickCompanyImageUploadTwo()"
+                                    @click="clickCompanyImageUpload()"
                                   >
                                     UPLOAD</v-btn
                                   >
                                 </v-card-actions>
                               </v-row>
+
+
+
+
+
+                               <!-- <div>
+    <div size="120" class="user">
+      <v-img :src="image_name" class="profile-img"></v-img>
+      <v-icon class="icon primary white--text" @click="$refs.FileInput.click()">mdi-upload</v-icon>
+      <input ref="FileInput" type="file" style="display: none;" @change="onFileSelect" />
+    </div>
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-text>
+          <VueCropper v-show="selectedFile" ref="cropper" :src="selectedFile" alt="Source Image"></VueCropper>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn class="primary" @click="saveImage(), (dialog = false)">Crop</v-btn>
+          <v-btn color="primary" text @click="dialog = false">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div> -->
+
 
                               <v-btn
                                 @click="
@@ -896,6 +921,7 @@
 
 <script>
 import VImageInput from 'vuetify-image-input'
+import { mapState } from 'vuex'
 // import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 import Vue from 'vue'
@@ -905,6 +931,8 @@ import InsuranceForm from '~/components/InsuranceForm'
 import LicenseForm from '@/components/website/LicenseForm'
 import { VueMaskDirective } from 'v-mask'
 import Cropper from 'cropperjs'
+import VueCropper from 'vue-cropperjs';
+import 'cropperjs/dist/cropper.css'
 import debounce from 'lodash/debounce'
 Vue.directive('mask', VueMaskDirective)
 const naics = require('naics')
@@ -924,7 +952,9 @@ export default {
     InsuranceForm,
     LicenseForm,
     LocationForm,
+    VueCropper
   },
+  props: ['image_name'],
   data() {
     return {
       loading: false,
@@ -933,6 +963,14 @@ export default {
       previewCropped: null,
       debouncedUpdatePreview: debounce(this.updatePreview, 257),
       savedImage: false,
+      cloned: {},
+      mime_type: '',
+      croppedImage: '',
+      autoCrop: false,
+      selectedFile: '',
+      image: '',
+      dialog: false,
+      files: '',
       items: ['Company', 'Locations', 'Documents', 'Review'],
       company: {
         // email: '',
@@ -1193,6 +1231,7 @@ export default {
     console.log(this.sectors)
   },
   computed: {
+    ...mapState(['user']),
     confirmPasswordRules() {
       return [
         () =>
@@ -1201,6 +1240,7 @@ export default {
       ]
     },
   },
+
   methods: {
     getSectorChildren(e) {
       console.log(e)
@@ -1292,17 +1332,49 @@ export default {
     selectCompanyImage(e) {
       let file = e.target.files[0]
       if (this.companyImageFile = file) {
+        this.cloned = {...file}
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
-        return this.companyImageUrl
+        // return this.companyImageUrl
         console.log(this.companyImageUrl)
       } else {
-        this.companyImageUrl = document.getElementById('accountPhoto').src="companyImageUrl"
-        console.log(file)
+        this.companyImageUrl = this.cloned
+        console.log(this.cloned)
         console.log(this.companyImageUrl)
         console.log(this.companyImageFile)
-        console.log('Else nothing')
+        console.log('Cancel Clicked')
       }
     },
+    //  saveImage() {
+    //   const userId = this.$route.params.user_id
+    //   this.cropedImage = this.$refs.cropper.getCroppedCanvas().toDataURL()
+    //   this.$refs.cropper.getCroppedCanvas().toBlob((blob) => {
+    //     const formData = new FormData()
+    //     formData.append('profile_photo', blob, 'name.jpeg')
+    //     // axios
+    //     //   .post('/api/user/' + userId + '/profile-photo', formData)
+    //     //   .then((response) => {
+    //     //   })
+    //     //   .catch(function (error) {
+    //     //     console.log(error)
+    //     //   })
+    //   }, this.mime_type)
+    // },
+    // onFileSelect(e) {
+    //    const file = e.target.files[0]
+    //   this.mime_type = file.type
+    //   console.log(this.mime_type)
+    //   if (typeof FileReader === 'function') {
+    //     this.dialog = true
+    //     const reader = new FileReader()
+    //     reader.onload = (e) => {
+    //       this.selectedFile = e.target.result
+    //       this.$refs.cropper.replace(this.selectedFile)
+    //     }
+    //     reader.readAsDataURL(file)
+    //   } else {
+    //     alert ('Sorry, FileReader Not Supported.')
+    //   }
+    // },
     focusAddressField() {
       console.log('focus')
     },
@@ -1311,10 +1383,10 @@ export default {
       document.getElementById('companyImage').click()
     },
     // Solved the issue when user cancels a second time
-    clickCompanyImageUploadTwo() {
-      console.log(this)
-      document.getElementById('companyImage2').click()
-    },
+    // clickCompanyImageUploadTwo() {
+    //   console.log(this)
+    //   document.getElementById('companyImage2').click()
+    // },
     nextPageIfNotLast() {
       console.log(this.tab)
       if (this.tab === 3) return
@@ -1700,6 +1772,36 @@ export default {
   display: block;
   max-height: 229px;
   max-width: 100%;
+}
+
+
+
+.user {
+  width: 140px;
+  height: 140px;
+  border-radius: 100%;
+  border: 3px solid #a61c00;
+  position: relative;
+}
+.profile-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.icon {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  background: #e2e2e2;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  color: #0000ff;
+  font-size: 14px;
+  cursor: pointer;
 }
 /*.company-image-upload {*/
 /*  height: 100vh;*/
