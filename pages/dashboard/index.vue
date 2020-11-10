@@ -7,7 +7,7 @@
 <!--        :size="50"-->
 <!--      ></v-progress-circular>-->
 <!--    </v-col>-->
-    <v-container class="px-8" fluid>
+    <v-container class="px-8" fluid id="v-step-0">
 <!--      <v-row v-if="hidden !== true">-->
 <!--        <v-card color="primary" class="d-flex" style="width: 100%;">-->
 <!--          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?-->
