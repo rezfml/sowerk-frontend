@@ -185,7 +185,7 @@
               <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
                 <v-text-field
                   id="company-llc"
-                  label="List your LLC Name (If Applicable)"
+                  label="List Legal Company Name"
                   type="text"
                   v-model="company.llcName"
                   placeholder=" "

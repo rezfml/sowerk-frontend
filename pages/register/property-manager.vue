@@ -169,11 +169,11 @@ export default {
       items: ['Company', 'Locations', 'Review'],
       bestSelection: [
         {
-          text: '- I own this brand',
+          text: '- I/We Own The Brand',
           value: 0
         },
         {
-          text: '- I am a franchisee of this brand',
+          text: '- I/We Are A Franchise Of This Brand',
           value: 1
         }
       ],
