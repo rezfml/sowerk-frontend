@@ -136,6 +136,21 @@
                     @click="setPage(0)"
                     >Edit Information</v-btn
                   >
+                  <!--
+                  <v-divider color="red" class="mt-8 mb-4"></v-divider>
+                    <v-col cols="12" class="mt-2">
+                      <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>
+                        <v-data-table
+                            :headers="headers"
+                            :items.sync="locations"
+                            :items-per-page="10"
+                          >
+                          <template v-slot:item.id="{ item }">{{ locations.indexOf(item)  }}</template>
+                          <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
+                        </v-data-table>
+                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(1)">Edit Locations</v-btn>
+                 
+                    </v-col>-->
                 </v-col>
 
 <!--                <v-col cols="12">-->

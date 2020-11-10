@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-row style="position: relative;">
           <v-col cols="12" style="width: 100%;">
-            <!--          <client-only>-->
+                      <client-only>
             <GmapMap
               id="locations-map"
               :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
@@ -17,7 +17,7 @@
                 :clickable="true"
               />
             </GmapMap>
-            <!--          </client-only>-->
+                      </client-only>
           </v-col>
         </v-row>
       </v-col>
@@ -100,20 +100,6 @@
                   v-model="fullAddress"
                   value=""
                 >
-<!--                  <vue-google-autocomplete-->
-<!--                    id="company-address"-->
-<!--                    ref="googleAutocomplete"-->
-<!--                    name="company_address"-->
-<!--                    classname="form-control py-3 text-body-1"-->
-<!--                    v-on:placechanged="getAddressData"-->
-<!--                    placeholder=""-->
-<!--                    style="width: 100%;"-->
-<!--                    v-on:focus.native="animateAddressFieldOnFocus"-->
-<!--                    v-on:blur.native="animateAddressFieldOnFocus"-->
-<!--                    v-on:input.native="animateAddressFieldOnFilled"-->
-<!--                    v-model="fullAddress"-->
-<!--                    value=""-->
-<!--                  >-->
                 </vue-google-autocomplete>
               </client-only>
             </div>
@@ -358,8 +344,7 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
-            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
+            (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
           ],
         },
       }

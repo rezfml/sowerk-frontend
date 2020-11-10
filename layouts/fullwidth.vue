@@ -92,7 +92,7 @@
       </v-col>
       </v-row>
       </v-col>
-      
+
 
         <!-- SOWERK LOGO -->
        <v-col cols="4">
@@ -127,7 +127,7 @@
 
 
       <!-- FOOTER LINKS -->
-       <v-col cols="4" style="display: flex; flex-direction: column;" class="d-none d-sm-flex">
+       <v-col cols="4" style="display: flex; flex-direction: column; align-items: flex-end" class="d-none d-sm-flex">
          <ul>
          <li :href=item.path
           v-for="item in items"

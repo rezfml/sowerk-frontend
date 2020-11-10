@@ -134,7 +134,7 @@
                 <v-divider></v-divider>
               </v-col>
 
-              <v-col cols="12" md="6">
+              <v-col cols="12" sm="6">
                 <v-text-field
                   id="company-name"
                   label="Account Name*"
@@ -264,7 +264,7 @@
                   id="company-description"
                   label="Company Profile Description*"
                   v-model="company.description"
-                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
+                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationships with vendors."
                   :rules="rules.requiredRules"
                 ></v-textarea>
               </v-col>
@@ -281,14 +281,11 @@ import VImageInput from 'vuetify-image-input'
 import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
+// import DisableAutocomplete from 'vue-disable-autocomplete';
 
 import Vue from 'vue';
-import FormLocation from '~/components/FormLocation'
-import LocationForm from '@/components/register/provider/LocationForm'
-import InsuranceForm from '~/components/InsuranceForm'
-import LicenseForm from '@/components/website/LicenseForm'
-import { VueMaskDirective } from 'v-mask'
-Vue.directive('mask', VueMaskDirective);
+
+// Vue.use(DisableAutocomplete);
 
 export default {
   name: 'CompanyDetails',
@@ -319,9 +316,7 @@ export default {
             (v && v.length <= 100) || 'Email must be less than 100 characters',
         ],
         phoneRules: [
-          v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
-          v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
-
+          (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
         ],
           passwordRules: [
             v => !!v || 'Password is required',
@@ -342,10 +337,6 @@ export default {
       },
       confirmPassword: null,
     }
-  },
-  mounted() {
-    console.log(this.$refs);
-    // this.$refs.googleAutocomplete.$el.setAttribute('autocomplete', 'disabled');
   },
   computed: {
     confirmPasswordRules() {
@@ -461,14 +452,6 @@ export default {
   font-size: 0.75em;
 }
 
-.v-input input {
-  font-size: .9em;
-}
-
-.v-input__control {
-  font-size: .9em;
-}
-
 /* TRANSITIONS */
 .fade-enter-active,
 .fade-leave-active {
@@ -496,6 +479,4 @@ export default {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   width: 100%;
 }
-
-
 </style>

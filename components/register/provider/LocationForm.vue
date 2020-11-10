@@ -17,22 +17,16 @@
     <!--        </client-only>-->
     <!--      </v-row>-->
     <!--    </v-col>-->
-<!--    This is for the vendor locations tab-->
+
       <v-col cols="12" md="6">
         <v-row fill-height class="pl-2 fill-height">
           <v-col cols="12" class="d-flex justify-center align-center">
-            <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="location.imageUrl" max-height="300" max-width="300"></v-img>
+            <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle" v-if="location.imageUrl"></v-img>
             <v-icon v-else :size="100">person</v-icon>
           </v-col>
           <v-col cols="12" class="d-flex flex-column justify-space-between">
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
-            <v-btn
-              @click="clickLocationImageUpload"
-              color="primary"
-              outlined
-              rounded
-              class="flex-grow-0"
-            >Upload Logo</v-btn>
+            <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded class="flex-grow-0">Upload Logo</v-btn>
 <!--            <p class="text-center mb-0">Or</p>-->
 
 <!--            <v-checkbox class="mt-0">-->
@@ -62,8 +56,6 @@
           :items="serviceOptions"
           multiple
           chips
-          hint="Check all that apply"
-          persistent-hint
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Service Provided*</p>
@@ -72,20 +64,45 @@
       </v-col>
 
       <v-row class="mt-12">
-
-        <v-col cols="12" md="10" class="mx-0">
-          <v-text-field
-            id="description"
-            v-model="location.description"
-            placeholder=" "
-          >
-            <template v-slot:label>
-              <p class="grey--text text--darken-4 font-weight-bold">Business Description*</p>
-            </template>
-          </v-text-field>
+        <v-col cols="12" md="6">
+          <div class="v-input__control">
+<!--            <v-btn :disabled="fullAddress" @click="getLocation">Use Current Location</v-btn>-->
+            <div class="v-input__slot">
+              <div class="v-text-field__slot" style="width: 100%;" ref="addressField">
+                <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
+                <client-only>
+<!--                  <form autocomplete="off">-->
+<!--                    <vue-google-autocomplete-->
+<!--                      :id="'location-address&#45;&#45;' + index"-->
+<!--                      classname="form-control"-->
+<!--                      v-on:placechanged="getAddressData"-->
+<!--                      placeholder=""-->
+<!--                      style="width: 100%; font-size: 16px; padding: 2px 0"-->
+<!--                      v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                      v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                      v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                      v-model="fullAddress"-->
+<!--                      autocomplete="none"-->
+<!--                    >-->
+<!--                  </form>-->
+                  <vue-google-autocomplete
+                    :id="'location-address--' + index + ' addressField'"
+                    classname="form-control"
+                    v-on:placechanged="getAddressData"
+                    placeholder=""
+                    style="width: 100%; font-size: 16px; padding: 2px 0"
+                    v-model="fullAddress"
+                    autocomplete="none"
+                    onfocus="this.setAttribute('autocomplete', 'new-password');"
+                  >
+                  </vue-google-autocomplete>
+                </client-only>
+              </div>
+            </div>
+          </div>
         </v-col>
 
-        <v-col cols="12" md="2">
+        <v-col cols="12" md="6">
           <!--      <v-checkbox v-model="location.pfLogoCheckbox"-->
           <!--                  :label="`This location will be managed by: ${user.first_name} ${user.last_name}`">-->
           <!--        <template v-slot:label>-->
@@ -107,45 +124,20 @@
         </v-col>
       </v-row>
 
-    <v-col cols="12" class="px-0 mb-12">
-      <div class="v-input__control">
-        <div class="v-input__slot">
-          <div class="v-text-field__slot" style="width: 100%;" ref="addressField">
-            <label><p class="grey--text text--darken-4 font-weight-bold mb-0" style="font-size: 15px">Address*</p></label>
-            <client-only>
-              <form autocomplete="off">
-                <!--                    <vue-google-autocomplete-->
-                <!--                      :id="'location-address&#45;&#45;' + index"-->
-                <!--                      classname="form-control"-->
-                <!--                      v-on:placechanged="getAddressData"-->
-                <!--                      placeholder=""-->
-                <!--                      style="width: 100%; font-size: 16px; padding: 2px 0"-->
-                <!--                      v-on:focus.native="animateAddressFieldOnFocus"-->
-                <!--                      v-on:blur.native="animateAddressFieldOnFocus"-->
-                <!--                      v-on:input.native="animateAddressFieldOnFilled"-->
-                <!--                      v-model="fullAddress"-->
-                <!--                      autocomplete="none"-->
-                <!--                    >-->
-              </form>
-              <vue-google-autocomplete
-                :id="'location-address--' + index + ' addressField'"
-                classname="form-control"
-                v-on:placechanged="getAddressData"
-                placeholder=""
-                style="width: 100%; font-size: 16px; padding: 2px 0"
-                v-model="fullAddress"
-                autocomplete="none"
-                onfocus="this.setAttribute('autocomplete', 'new-password');"
-              >
-              </vue-google-autocomplete>
-            </client-only>
-          </div>
-        </div>
-      </div>
+    <v-col cols="12" class="mx-0 px-0">
+      <v-text-field
+        id="description"
+        v-model="location.description"
+        placeholder=" "
+      >
+        <template v-slot:label>
+          <p class="grey--text text--darken-4 font-weight-bold">Business Description*</p>
+        </template>
+      </v-text-field>
     </v-col>
 
-    <template>
-      <v-col cols="12" md="5" class="d-flex flex-column pl-0">
+    <template v-if="fullAddress">
+      <v-col cols="12" md="6" class="d-flex flex-column">
 
         <span class="mb-12 font-weight-bold" style="font-size: 15px;">Location Service Radius</span>
         <v-slider
@@ -166,14 +158,15 @@
         </v-slider>
       </v-col>
 
-      <v-col cols="12" md="7" class="pr-0">
+      <v-col cols="12" md="6">
         <client-only>
           <GmapMap
             id="locations-map"
             :center="{lat: location.latitude ? location.latitude : 38 , lng: location.longitude ? location.longitude : -96}"
-            :zoom="location.latitude ? 10 : 3.5"
-            style="height: 300px; border-radius: 10px; overflow: hidden;"
+            :zoom="location.latitude ? 14 : 4"
+            style="height: 250px; border-radius: 10px; overflow: hidden;"
             ref="locationMap"
+            :options="mapOptions"
           >
             <GmapMarker
               :position="{lat: location.latitude, lng: location.longitude}"
@@ -188,6 +181,52 @@
         </client-only>
       </v-col>
     </template>
+<!--    <template v-if="item.lat<89">-->
+<!--      <v-col cols="12" md="6" class="d-flex flex-column">-->
+
+<!--        <span class="mb-12 font-weight-bold" style="font-size: 15px;">Location Service Radius</span>-->
+<!--        <v-slider-->
+<!--          min="0"-->
+<!--          max="200"-->
+<!--          thumb-label="always"-->
+<!--          :thumb-size="36"-->
+<!--          track-color="grey"-->
+<!--          track-fill-color="primary"-->
+<!--          step="10"-->
+<!--          ticks-->
+<!--          :tick-labels="miles"-->
+<!--          :readonly="false"-->
+<!--          v-model="location.radius"-->
+<!--          v-on:input="emitRadiusSlider"-->
+<!--          class="d-flex align-end"-->
+<!--        >-->
+<!--        </v-slider>-->
+<!--      </v-col>-->
+<!--item.lat-->
+<!--      item.lng-->
+<!--      <v-col cols="12" md="6">-->
+<!--        <client-only>-->
+<!--          <GmapMap-->
+<!--            id="locations-map"-->
+<!--            :center="{lat: this.item.lat ? item.lat : 38 , lng: item.lng ? item.lng : -96}"-->
+<!--            :zoom="item.lat ? 14 : 4"-->
+<!--            style="height: 250px; border-radius: 10px; overflow: hidden;"-->
+<!--            ref="locationMap"-->
+<!--            :options="mapOptions"-->
+<!--          >-->
+<!--            <GmapMarker-->
+<!--              :position="{lat: this.item.lat, lng: this.item.lng}"-->
+<!--              :clickable="true"-->
+<!--            />-->
+<!--            <GmapCircle-->
+<!--              :center="{lat: item.lat, lng: item.lng}"-->
+<!--              :radius="radius * 1609.344"-->
+<!--              ref="mapCircle"-->
+<!--            />-->
+<!--          </GmapMap>-->
+<!--        </client-only>-->
+<!--      </v-col>-->
+<!--    </template>-->
 
     <v-col cols="12" class="my-8 d-flex justify-center">
       <span class="text-h6 mb-0">Add Location Manager or Franchisee</span>
@@ -251,7 +290,7 @@
       <v-text-field
         placeholder=" "
         id="phone"
-        type="tel"
+        type="number"
         v-model="location.phone"
         v-mask="'(###)###-####'"
       >
@@ -312,7 +351,7 @@ export default {
     }
   },
   components: {
-    VImageInput
+    VImageInput,
   },
   data() {
     return {
@@ -366,6 +405,20 @@ export default {
       radius: null,
       locationImageFile: null,
       locationImageUrl: null,
+      mapOptions: {
+        center: { lat: 10, lng: -10 },
+        zoom: 11,
+        fullscreenControl: false,
+        mapTypeControl: false,
+        rotateControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        zoomControl: false
+      },
+      item: {
+        lat: 90,
+        lng: -90
+      }
     }
   },
   mounted() {
@@ -460,6 +513,25 @@ export default {
 
       this.location = location;
     },
+    getLocation() {
+      if (navigator.geolocation) navigator.geolocation.getCurrentPosition(this.setLocation, this.locationError)
+      else alert('Geolocation is not supported by this browser.')
+    },
+    setLocation(pos) {
+      this.mapOptions = { ...this.mapOptions, center: { lat: pos.coords.latitude, lng: pos.coords.longitude } }
+      this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+      this.item.lat = pos.coords.latitude
+      this.item.lng = pos.coords.longitude
+      console.log("Hellooooooo")
+      console.log(this.fullAddress, "fullAddress")
+      console.log(this.item, "heyhey")
+    },
+    locationError(error) {
+      if (error.PERMISSION_DENIED) alert('User denied the request for Geolocation.')
+      else if (error.POSITION_UNAVAILABLE) alert('Location information is unavailable.')
+      else if (error.TIMEOUT) alert('The request to get user location timed out.')
+      else alert('An unknown error occurred.')
+    }
     // async getStateData(i) {
     //
     //   let apiPath = "https://nominatim.openstreetmap.org/search.php";

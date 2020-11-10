@@ -19,9 +19,9 @@
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mb-8">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event you have a special requirement for only one of your locations (i.e. local permit requirement) take that company template and add a custom question that is only visible to that facility.</p>
+              <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
               <v-col class="d-flex flex-column align-center">
-                <v-btn @click="loadApplicationLocationsFunction" class="py-4 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -150,7 +150,7 @@
 <!--    </v-row>-->
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Sowerk Application Templates</v-card-title>
+      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">SOWerk Application Templates</v-card-title>
       <template v-if="loading" style="width: 100%;">
         <v-data-table
           :headers="headers"
@@ -185,10 +185,12 @@
             <p>{{item.applicationtemplatesformfields.length}}</p>
           </template>
           <template v-slot:item.actions="{item}">
-            <div class="d-flex">
+            <div class="d-flex" v-if="$vuetify.breakpoint.xl">
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Location</v-btn>
               <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 37.5%;">Add to Company Templates</v-btn>
             </div>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Location</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Add to Company Templates</v-btn>
           </template>
         </v-data-table>
       </template>
@@ -238,11 +240,14 @@
             <p>{{item.companytemplatesformfields.length}}</p>
           </template>
           <template v-slot:item.actions="{item}">
-            <div class="d-flex">
+            <div class="d-flex" v-if="$vuetify.breakpoint.xl">
               <v-btn @click="viewCompanyTemplate(item)" class="mx-2" style="width: 30%;">Edit</v-btn>
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Add to Location</v-btn>
               <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 30%;">Delete</v-btn>
             </div>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="viewCompanyTemplate(item)" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Add to Location</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Delete</v-btn>
           </template>
         </v-data-table>
       </template>
@@ -253,19 +258,24 @@
       <v-row class="mt-8" v-if="loadYourCompanyDocuments">
         <v-col cols="6">
           <v-card>
-            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
-            <v-card-text class="pt-16 ml-4">Upload here any company document or template that you will use to share with vendors to download, complete and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-            <v-btn color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
+            <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card>
-            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
             <v-data-table
               class="pt-16"
               :items="companyDocuments"
               :headers="companyDocumentsHeaders"
             >
+              <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+                <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;">Remove</v-btn>
+                <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%;">View</v-btn>
+              </template>
             </v-data-table>
           </v-card>
         </v-col>
@@ -467,10 +477,13 @@
                     style="width: 95%;"
                   >
                     <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
-                      <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
+                      <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
                         <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                        <p style="width: 70%; text-align: center">{{index}} - {{form.name}} - {{form.id}}</p>
-                        <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
+                        <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        <div class="d-flex justify-end" style="width: 100%;">
+                          <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
+                        </div>
                       </v-card-title>
                     </v-card>
                   </draggable>
@@ -499,27 +512,27 @@
                       <td :colspan="headers.length" style="width: 100%;">
                         <v-simple-table style="width: 100%;">
                           <template v-slot:default>
-                            <thead style="width: 100%;">
-                            <tr style="width: 100%;">
-                              <th style="width: 30%;">Question</th>
-                              <th style="width: 70%;">Name</th>
-                            </tr>
-                            </thead>
-                            <tbody style="width: 100%;">
-                            <draggable
-                              style="width: 20vw !important;"
-                              class="dragArea list-group"
-                              :list="item.applicationtemplatesformfields"
-                              :group="{ name: 'formName', pull: 'clone', put: false }"
-                            >
-                              <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
-                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
-                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
-                                </v-card>
-                              </tr>
-                            </draggable>
-                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+<!--                            <thead>-->
+<!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+<!--                              <th style="width: 30%;">Question</th>-->
+<!--                              <th style="width: 60%;">Name</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+                            <tbody style="width: 95%;">
+                              <draggable
+                                style="width: 100% !important;"
+                                class="dragArea list-group"
+                                :list="item.applicationtemplatesformfields"
+                                :group="{ name: 'formName', pull: 'clone', put: false }"
+                              >
+                                <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                    <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                    <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                  </v-card>
+                                </tr>
+                              </draggable>
+                              <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
                             </tbody>
                           </template>
                         </v-simple-table>
@@ -546,22 +559,24 @@
                       <td :colspan="headers.length" style="width: 100%;">
                         <v-simple-table style="width: 100%;">
                           <template v-slot:default>
-                            <thead style="width: 100%;">
-                            <tr style="width: 100%;">
-                              <th style="width: 35%;">Question</th>
-                              <th style="width: 65%;">Name</th>
-                            </tr>
-                            </thead>
-                            <tbody style="width: 100%;">
+                            <!--                            <thead>-->
+                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                            <!--                              <th style="width: 30%;">Question</th>-->
+                            <!--                              <th style="width: 60%;">Name</th>-->
+                            <!--                            </tr>-->
+                            <!--                            </thead>-->
+                            <tbody style="width: 95%;">
                             <draggable
-                              style="width: 100%;"
+                              style="width: 100% !important;"
                               class="dragArea list-group"
                               :list="item.companytemplatesformfields"
                               :group="{ name: 'formName', pull: 'clone', put: false }"
                             >
-                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;">
-                                <td style="width: 30%;"><v-icon style="color: #707070; width: 10%; border-bottom: 1px solid grey">mdi-cursor-move</v-icon> Question# {{(app.order + 1)}}</td>
-                                <td style="width: 70%;">{{app.name}}</td>
+                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                </v-card>
                               </tr>
                             </draggable>
                             <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
@@ -627,11 +642,44 @@
       <v-card class="d-flex flex-column align-center justify-center" style="z-index:2; position:fixed; top: 20vh; left: 20vw; width: 75vw; height: 70vh; box-shadow: 8px 8px 8px 8px gray" overflow-y-auto v-if="addServiceLoad && step2">
         <v-card-title class="mb-4" style="color: #a61c00; font-size: 40px;">Add A Service Here</v-card-title>
         <v-form style="width: 90%;" class="d-flex flex-column align-center">
-          <v-text-field
-            style="width: 80%;"
-          label="Service Name Goes Here"
-          v-model="serviceAdd.name"
-          ></v-text-field>
+<!--          <v-text-field-->
+<!--            style="width: 80%;"-->
+<!--          label="Service Name Goes Here"-->
+<!--          v-model="serviceAdd.name"-->
+<!--          ></v-text-field>-->
+          <v-select
+            :items="sectors"
+            label="First, select your sector."
+            placeholder=" "
+            item-text="title"
+            item-value="code"
+            style="width: 90%;"
+            @change="getSectorChildren"
+          ></v-select>
+          <template v-if="companySector">
+            <v-select
+              :items="industryLevel1"
+              placeholder=" "
+              label="Next, select a sub-sector."
+              item-text="title"
+              item-value="code"
+              v-model="companyLevel1"
+              style="width: 90%;"
+              @change="getLevel1Children"
+            ></v-select>
+          </template>
+          <template v-if="companyLevel1">
+            <v-select
+              :items="industryLevel2"
+              label="Finally, select your final sub-category."
+              placeholder=" "
+              item-text="title"
+              item-value="code"
+              v-model="companyLevel2"
+              style="width: 90%;"
+              @change="getLevel2Children"
+            ></v-select>
+          </template>
           <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>
         </v-form>
         <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
@@ -645,6 +693,7 @@
 
 import CustomFormCard from '@/components/dashboard/CustomFormCard'
 import draggable from "vuedraggable"
+const naics = require("naics");
 
   export default {
     name: 'applications',
@@ -655,6 +704,8 @@ import draggable from "vuedraggable"
     },
     data () {
       return {
+        companyDocumentImageUrl: null,
+        companyDocumentImageFile: null,
         expanded: [],
         singleExpand: true,
         locations: [],
@@ -662,6 +713,7 @@ import draggable from "vuedraggable"
         userForms: [],
         applicationTemplateVal: [],
         companyDocuments: [],
+        companyDocument: {},
         finishedFormFields: false,
         totalLength: 0,
         valueServices: 0,
@@ -736,7 +788,7 @@ import draggable from "vuedraggable"
         ],
         companyDocumentsHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-regular'},
-          { text: 'Upload Date', value: 'uploadDate', class: 'primary--text font-weight-regular'},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         addLocations: [
@@ -792,12 +844,26 @@ import draggable from "vuedraggable"
           'Unpublished'
         ],
         saveLoad: true,
-        locationVal: {}
+        locationVal: {},
+        companySector: null,
+        companyLevel1: null,
+        companyLevel2: null,
+        companyLevel3: null,
+        sectors: [],
+        industryLevel1: [],
+        industryLevel2: [],
+        industryLevel3: [],
+        industryLevel4: [],
         }
     },
     async mounted() {
       await this.getLocations(this.currentUser.companies_id);
       // await this.getCompany(this.currentUser.companies_id);
+      let codes = naics.Industry.sectors();
+      for(const code of codes) {
+        this.sectors.push(code);
+      }
+      console.log(this.sectors, 'sectors');
     },
     computed: {
       currentUser() {
@@ -805,6 +871,47 @@ import draggable from "vuedraggable"
       },
     },
     methods: {
+      getSectorChildren(e) {
+        console.log(e);
+        if(this.companySector) {
+          this.companySector = null;
+          this.companyLevel1 = null;
+          this.companyLevel2 = null;
+          this.companyLevel3 = null;
+        }
+        this.industryLevel1 = [];
+        this.industryLevel2 = [];
+        this.companySector = e;
+        let industry = naics.Industry.from(this.companySector);
+        let categories = industry.children();
+        console.log(industry, 'industry', categories, 'categories')
+        this.serviceAdd.name = industry.title
+        for(const category of categories) {
+          this.industryLevel1.push(category);
+        }
+      },
+      getLevel1Children() {
+        console.log(this.companyLevel1, 'companyLevel1');
+        let industry = naics.Industry.from(this.companyLevel1);
+        this.serviceAdd.name = industry.title
+        let categories = industry.children();
+        console.log(industry, 'level 1 industry', categories, 'level1 industry')
+        this.industryLevel2 = [];
+        for(const category of categories) {
+          this.industryLevel2.push(category);
+        }
+      },
+      getLevel2Children() {
+        console.log(this.companyLevel2, 'companyLevel2');
+        let industry = naics.Industry.from(this.companyLevel2);
+        let categories = industry.children();
+        console.log(categories, 'level1 industry')
+        this.industryLevel3 = [];
+        this.serviceAdd.name = industry.title
+        for(const category of categories) {
+          this.industryLevel3.push(category);
+        }
+      },
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(async(response) => {
@@ -857,16 +964,18 @@ import draggable from "vuedraggable"
               console.log(this.locations, 'locations THIS DOT LOCATIONS');
               await this.addLocations.push(location)
               console.log(this.valueServices, 'valueServices');
-              if(this.locations[index].services[0] !== "There are no services") {
-                for(let i=0; i<location.services.length; i++) {
-                  this.locations[index].services[i].userforms = [];
-                  await this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices);
-                  console.log(this.valueUserForms, 'valueUserForms')
-                  this.valueUserForms++
+              setTimeout(() => {
+                if (this.locations[index].services[0] !== 'There are no services') {
+                  for (let i = 0; i < location.services.length; i++) {
+                    this.locations[index].services[i].userforms = []
+                    this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
+                    console.log(this.valueUserForms, 'valueUserForms')
+                    this.valueUserForms++
+                  }
                 }
-                this.valueServices++;
-              }
+              this.valueServices++;
               this.valueUserForms = 0;
+              }, 1000)
             })
           })
           .catch(err => {
@@ -916,46 +1025,46 @@ import draggable from "vuedraggable"
               // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
               // this.locations[valueServices].services[valueUserForms].userforms = response.data;
               setTimeout(() => {
-
-              }, 250);
-              for(let i=0; i<response.data.length; i++) {
-                let userForm = {
-                  applicationStatus: response.data[i].applicationStatus,
-                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
-                  id: response.data[i].id,
-                  name: response.data[i].name,
-                  service_id: response.data[i].service_id,
-                  formfields: []
-                };
-                let userForm2 = {
-                  applicationStatus: response.data[i].applicationStatus,
-                  applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
-                  id: response.data[i].id,
-                  name: response.data[i].name,
-                  service_id: response.data[i].service_id,
-                  formfields: [],
-                  locationName: this.locations[valueServices].name,
-                  locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
-                  serviceName: this.locations[valueServices].services[valueUserForms].name
-                };
-                if(userForm.applicationStatus === 0) {
-                  userForm.applicationStatus = 'Unpublished'
-                  userForm2.applicationStatus = 'Unpublished'
-                } else if (userForm.applicationStatus === 1) {
-                  userForm.applicationStatus = 'Published - Public'
-                  userForm2.applicationStatus = 'Published - Public'
-                } else {
-                  userForm.applicationStatus = 'Published - Private'
-                  userForm2.applicationStatus = 'Published - Private'
+                for(let i=0; i<response.data.length; i++) {
+                  let userForm = {
+                    applicationStatus: response.data[i].applicationStatus,
+                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                    id: response.data[i].id,
+                    name: response.data[i].name,
+                    service_id: response.data[i].service_id,
+                    formfields: []
+                  };
+                  let userForm2 = {
+                    applicationStatus: response.data[i].applicationStatus,
+                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
+                    id: response.data[i].id,
+                    name: response.data[i].name,
+                    service_id: response.data[i].service_id,
+                    formfields: [],
+                    locationName: this.locations[valueServices].name,
+                    locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
+                    serviceName: this.locations[valueServices].services[valueUserForms].name
+                  };
+                  if(userForm.applicationStatus === 0) {
+                    userForm.applicationStatus = 'Unpublished'
+                    userForm2.applicationStatus = 'Unpublished'
+                  } else if (userForm.applicationStatus === 1) {
+                    userForm.applicationStatus = 'Published - Public'
+                    userForm2.applicationStatus = 'Published - Public'
+                  } else {
+                    userForm.applicationStatus = 'Published - Private'
+                    userForm2.applicationStatus = 'Published - Private'
+                  }
+                  this.userForms.push(userForm);
+                  this.applicationTemplateVal.push(userForm2);
+                  console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
+                  // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+                  // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
+                  console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
+                  this.getFormFields(response.data[i].id);
                 }
-                await this.userForms.push(userForm);
-                await this.applicationTemplateVal.push(userForm2);
-                // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-                // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
-                console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
-                await this.getFormFields(response.data[i].id);
-              }
-              this.finishedFormFields = true;
+                this.finishedFormFields = true;
+              }, 250);
               // console.log(this.userForms, 'userForms with formfields');
             })
             .catch(err => {
@@ -966,12 +1075,12 @@ import draggable from "vuedraggable"
       async getFormFields(id,) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(async (response) => {
-            console.log(response.data, 'formfields for userform', id);
+            console.log(response.data, 'formfields for userform', id, this.valueFormFields, 'valueFormFields');
             this.userForms[this.valueFormFields].formfields = response.data;
             this.applicationTemplateVal[this.valueFormFields].formfields = response.data;
+            this.valueFormFields++
             // this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields]["formfields"] = response.data;
             // console.log(this.locations[this.valueServices].services[this.valueUserForms].userforms[this.valueFormFields].formfields, 'userforms with formfields')
-            this.valueFormFields++
             // console.log(this.valueFormFields, 'valueFormFields');
           })
           .catch(err => {
@@ -979,6 +1088,9 @@ import draggable from "vuedraggable"
           })
       },
       async loadCompanyDocumentsFunction() {
+        if(this.loadApplicationTemplates != true) {
+          await this.getCompanyDocuments();
+        }
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
@@ -1052,6 +1164,19 @@ import draggable from "vuedraggable"
         this.loadYourCompanyTemplates = false;
         this.loadYourCompanyDocuments = false;
         this.addNewCompanyTemplateLoad = false;
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+        let codes = naics.Industry.sectors();
+        for(const code of codes) {
+          this.sectors.push(code);
+        }
       },
       async addNewCompanyTemplateLoading() {
         this.addNewVendorFormLoad = false;
@@ -1295,6 +1420,7 @@ import draggable from "vuedraggable"
             })
       },
       async getServiceForVendor(location) {
+        this.locationVal = {};
         this.step1 = false;
         this.step2 = true;
         this.locationVal = location
@@ -1316,6 +1442,19 @@ import draggable from "vuedraggable"
       },
       async closeService() {
         this.addServiceLoad = false;
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+        let codes = naics.Industry.sectors();
+        for(const code of codes) {
+          this.sectors.push(code);
+        }
       },
       async addNewService() {
         await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
@@ -1332,6 +1471,19 @@ import draggable from "vuedraggable"
             alert('err in adding new service');
             console.log(err, 'err in adding new service');
           })
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+        let codes = naics.Industry.sectors();
+        for(const code of codes) {
+          this.sectors.push(code);
+        }
       },
       async userformEditActive(userform) {
         console.log(userform.active, 'active userform');
@@ -1496,7 +1648,7 @@ import draggable from "vuedraggable"
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
-        }, 1000)
+        }, 1500)
       },
       async saveCompanyTemplate() {
         this.saveLoad = false;
@@ -1612,7 +1764,69 @@ import draggable from "vuedraggable"
         console.log('updateSingleFormfield', formfieldVal);
         this.newAssignUserForm.formfields[formfieldVal.order] = formfieldVal
         this.openEditFormFieldLoad = false;
-      }
+      },
+      async removeItem(index) {
+          this.newAssignUserForm.formfields.splice(index, 1);
+      },
+      async getCompanyDocuments() {
+        this.companyDocuments = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'companyDocuments response.data')
+            this.companyDocuments = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting company documents for this company')
+          })
+      },
+      async deleteCompanyDocument(document, index) {
+        await this.$http.delete('https://www.sowerkbackend.com/api/companydocuments/' + document.id)
+          .then(response => {
+            console.log(response, 'success in deleting company document')
+            this.companyDocuments.splice(index, 1);
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting company document')
+          })
+      },
+      async selectCompanyDocumentsImage(e) {
+        this.companyDocument.documentUrl = e.target.files[0];
+        this.companyDocument.documentName = e.target.files[0].name;
+        this.companyDocument.required = true;
+        console.log(this.companyDocumentImageFile);
+        this.companyDocumentImageUrl = URL.createObjectURL(this.companyDocument.documentUrl);
+        console.log(this.companyDocumentImageUrl);
+        setTimeout(() => {
+          let formData = new FormData();
+          formData.append('file', this.companyDocument.documentUrl);
+          console.log(formData, 'formdata');
+          this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+            .then(async (response) => {
+              console.log(response, 'response.data for company document upload')
+              this.companyDocument.documentUrl = response.data.data.Location;
+              this.companyDocument.companies_id = this.currentUser.companies_id;
+              console.log(this.companyDocument, 'THIS.COMPANY DOCUMENT')
+              await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id, this.companyDocument)
+                .then(response => {
+                  console.log('response.data for on submitcompanydocumentimage')
+                  this.getCompanyDocuments()
+                })
+                .catch(err => {
+                  console.log('err in posting new company document')
+                })
+            })
+            .catch(err => {
+              console.log('error in uploading location image', err)
+            })
+        }, 250)
+      },
+      async clickCompanyDocumentsImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyDocumentImage').click();
+      },
     }
   }
 
