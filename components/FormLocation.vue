@@ -226,7 +226,7 @@
           :readonly="managerIsUser"
           :rules="rules.phoneRules"
           v-mask="'(###)###-####'"
-          :value="currentValue" 
+          :value="currentValue"
           @input="handleInput"
         >
           <template v-slot:label>
@@ -344,13 +344,13 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length <= 15) || 'Phone Number cannot be greater than 12 digits',
-            v => (v && v.length >= 13) || 'Phone Number must be at than 10 digits',
+            (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
           ],
         },
       }
     },
     mounted() {
+      console.log("Is this the FormLocation.vue file?gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
       this.formatFullAddress();
     },
     methods: {
@@ -373,9 +373,12 @@
       },
       selectLocationImage(e) {
         this.location.imageUrl = e.target.files[0];
+        console.log(this.location.imageUrl);
         this.locationImageUrl = URL.createObjectURL(this.location.imageUrl);
+        console.log(this.locationImageUrl);
       },
       clickLocationImageUpload() {
+        console.log(this);
         // let imageInput = this.$refs.companyImage;
         // console.log(imageInput);
         // imageInput.$el.click();
