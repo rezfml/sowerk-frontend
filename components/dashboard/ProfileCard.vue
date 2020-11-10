@@ -21,7 +21,7 @@
 
         <transition name="slide-fade">
         <div v-if="loadCompany" style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center" v-else>
-          <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10">
+          <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10 mb-12 mt-n12">
             <v-img  :src="company.imgUrl" ></v-img>
           </v-avatar>
         </div>
@@ -56,8 +56,8 @@
           </v-row>
 
           <v-row v-else-if="user">
-            <v-col cols="12" class="py-1">
-              <p class="mx-auto text-center primary--text mb-0" style="font-size: 24px;">{{ company.account_name }}</p>
+            <v-col cols="12" class="py-1 mt-12">
+              <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px;">{{ company.account_name }}</p>
               <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
             </v-col>
             <v-col cols="12" class="py-1">
