@@ -77,6 +77,117 @@
           color="primary"
           :size="20"
         ></v-progress-circular>
+
+        <transition name="slide-fade">
+          <v-container class="" overflow-y-auto>
+            <v-row class="d-flex justify-center" style="width: 100%;">
+              <v-col cols="12" class="d-flex flex-column align-center">
+                <v-row class="mb-n8" v-if="$vuetify.breakpoint.xl">
+                  <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                  <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                </v-row>
+                <v-row style="width: 100%;" class="mb-n8 d-flex flex-column align-center" v-else>
+                  <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded style="width: 90%; z-index: 1" class="mx-2 my-1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                  <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded style="width: 90%; z-index: 1" class="mx-2 my-1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                </v-row>
+                <transition name="slide-fade">
+                  <v-data-table
+                    :headers="applicationDragNDropHeaders"
+                    :items="applicationTemplates"
+                    :items-per-page="10"
+                    class="pt-16"
+                    :expanded.sync="expanded"
+                    show-expand
+                    single-expand
+                    style="width: 100%;"
+                    v-if="sowerkDragNDrop"
+                  >
+                    <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                      <td :colspan="headers.length" style="width: 100%;">
+                        <v-simple-table style="width: 100%;">
+                          <template v-slot:default>
+                            <!--                            <thead>-->
+                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                            <!--                              <th style="width: 30%;">Question</th>-->
+                            <!--                              <th style="width: 60%;">Name</th>-->
+                            <!--                            </tr>-->
+                            <!--                            </thead>-->
+                            <tbody style="width: 95%;">
+                            <draggable
+                              style="width: 100% !important;"
+                              class="dragArea list-group"
+                              :list="item.applicationtemplatesformfields"
+                              :group="{ name: 'formName', pull: 'clone', put: false }"
+                            >
+                              <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order)}}</v-card-text>
+                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                </v-card>
+                              </tr>
+                            </draggable>
+                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </td>
+                    </template>
+                    <template v-slot:item.questions="{item}">
+                      <p v-if="item.applicationtemplatesformfields">{{item.applicationtemplatesformfields.length}}</p>
+                    </template>
+                  </v-data-table>
+                </transition>
+                <transition name="slide-fade">
+                  <v-data-table
+                    :headers="applicationDragNDropHeaders"
+                    :items="companyTemplates"
+                    :items-per-page="10"
+                    class="pt-16"
+                    :expanded.sync="expanded"
+                    show-expand
+                    single-expand
+                    style="width: 100%;"
+                    v-if="companyDragNDrop"
+                  >
+                    <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                      <td :colspan="headers.length" style="width: 100%;">
+                        <v-simple-table style="width: 100%;">
+                          <template v-slot:default>
+                            <!--                            <thead>-->
+                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                            <!--                              <th style="width: 30%;">Question</th>-->
+                            <!--                              <th style="width: 60%;">Name</th>-->
+                            <!--                            </tr>-->
+                            <!--                            </thead>-->
+                            <tbody style="width: 95%;">
+                            <draggable
+                              style="width: 100% !important;"
+                              class="dragArea list-group"
+                              :list="item.companytemplatesformfields"
+                              :group="{ name: 'formName', pull: 'clone', put: false }"
+                            >
+                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                </v-card>
+                              </tr>
+                            </draggable>
+                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </td>
+                    </template>
+                    <template v-slot:item.questions="{item}">
+                      <p v-if="item.companytemplatesformfields">{{item.companytemplatesformfields.length}}</p>
+                    </template>
+                  </v-data-table>
+                </transition>
+              </v-col>
+            </v-row>
+          </v-container>
+        </transition>
       </v-col>
     </v-row>
     </transition>
@@ -162,15 +273,33 @@
           'date'
         ],
         saveLoad: true,
-        colors: ["#a61c00", "#707070"]
+        colors: ["#a61c00", "#707070"],
+        sowerkDragNDrop: true,
+        companyDragNDrop: false,
+        applicationTemplates: [],
+        companyTemplates: [],
+        applicationDragNDropHeaders: [
+          { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
+          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
+          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
+        ],
+        expanded: [],
+        singleExpand: true,
+        newAssignUserForm: {},
       }
     },
-    created() {
-      this.getUserforms(this.$route.params.id)
+    async created() {
+      await this.getUserforms(this.$route.params.id)
       console.log(this.$route.params.id)
+      await this.getApplicationTemplates();
+      await this.getCompanyTemplates();
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
     },
     methods: {
-
       async getUserforms(id) {
         console.log(id, 'id')
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
@@ -208,7 +337,7 @@
             this.location = response.data
           })
       },
-       async getFormFields(id) {
+      async getFormFields(id) {
          await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
            .then(response => {
              console.log(response.data, 'formfields for userform', id);
@@ -330,7 +459,73 @@
         console.log('updateSingleFormfield', formfieldVal);
         this.userForms.formfields[formfieldVal.order] = formfieldVal
         this.openEditFormFieldLoad = false;
-      }
+      },
+      async getApplicationTemplates() {
+        this.applicationTemplates = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/applicationtemplates')
+          .then(async(response) => {
+            console.log(response, 'applicationtemplates');
+            for(let i=0; i<response.data.length; i++) {
+              let userForm = {
+                active: response.data[i].active,
+                id: response.data[i].id,
+                service_name: response.data[i].service_name,
+                form_name: response.data[i].form_name,
+                applicationtemplatesformfields: []
+              }
+              this.applicationTemplates.push(userForm);
+              await this.getApplicationTemplatesFormFields(response.data[i].id, i);
+            }
+            console.log(this.applicationTemplates, 'application templates this.applicationtemplates')
+          })
+          .catch(err => {
+            console.log(err, 'err in applicationTemplates')
+          })
+      },
+      async getApplicationTemplatesFormFields(id, indexPostion) {
+
+        await this.$http.get('https://www.sowerkbackend.com/api/applicationtemplatesformfields/byApplicationTemplatesId/' + id)
+          .then(response => {
+            console.log(response.data, 'formfields for application template userform', id);
+            this.applicationTemplates[indexPostion].applicationtemplatesformfields = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in application templates form fields')
+          })
+      },
+      async getCompanyTemplates() {
+        this.companyTemplates = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/companytemplates/byCompanyId/' + this.currentUser.companies_id)
+          .then(async(response) => {
+            console.log(response, 'companyTemplates');
+            for(let i=0; i<response.data.length; i++) {
+              let userForm = {
+                active: response.data[i].active,
+                id: response.data[i].id,
+                service_name: response.data[i].service_name,
+                form_name: response.data[i].form_name,
+                companytemplatesformfields: []
+              }
+              this.companyTemplates.push(userForm);
+              await this.getCompanyTemplatesFormFields(response.data[i].id, i);
+            }
+            console.log(this.companyTemplates, 'application templates for company')
+          })
+          .catch(err => {
+            console.log(err, 'err in companyTemplates')
+          })
+      },
+      async getCompanyTemplatesFormFields(id, indexPostion) {
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + id)
+          .then(response => {
+            console.log(response.data, 'formfields for company userform', id);
+            this.companyTemplates[indexPostion].companytemplatesformfields = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in application templates form fields')
+          })
+      },
     }
   }
 
