@@ -614,18 +614,28 @@
     </section> -->
 
     <!-- SOWERK PRICING SECTION -->
-    <v-container fluid class="d-flex align-center justify-center" style="background: #EDEDED">
+    <v-container
+      fluid
+      class="d-flex align-center justify-center"
+      style="background: #EDEDED"
+    >
       <v-row style="max-width: 95%;">
-        <v-row class="justify-space-between flex-wrap: wrap">
+        <v-row class="justify-center flex-wrap: wrap">
           <!-- SOWERK BASIC CARD -->
-          <v-col cols="12" lg="2" md="12" class="d-flex pa-0" style="max-height: 100%;">
+          <v-col
+            cols="12"
+            lg="2"
+            md="12"
+            class="d-flex pa-0 mx-auto"
+            style="max-height: 100%; width: 20%;"
+          >
             <v-card
-              class="text-center flex-grow-1 pa-2"
+              class="text-center flex-grow-1"
               style="border-radius: 24px; border-top: 45px solid #707070; border-left: 4px solid #707070; border-right: 4px solid #707070; border-bottom: 4px solid #707070; "
             >
               <v-card-text
                 class="text-body-1 white--text font-weight-bold text-uppercase"
-                style="margin-top:-55px;"
+                style="margin-top:-50px;"
                 >Sowerk Basic</v-card-text
               >
               <!-- <v-card-text class="text-h5 black--text font-weight-bold">SOWERK BASIC</v-card-text> -->
@@ -642,7 +652,7 @@
               >
               <v-col cols="12" class="pt-1" style="max-width: 100%;">
                 <ul
-                  style="list-style: none; text-align: center; font-size: 14px; padding-left: 0; color:#666666; line-height: 3em;"
+                  style="list-style: none; text-align: center; font-size: 15px; padding-left: 0; color:#666666; line-height: 3em;"
                 >
                   <li>1 User License</li>
                   <li>SOWerk Profile</li>
@@ -653,7 +663,7 @@
           </v-col>
 
           <!-- SOWERK STARTER CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0">
+          <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto">
             <v-card
               class="text-center pa-2"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -677,7 +687,7 @@
               >
               <v-col cols="12" class="pt-1" style="max-width: 100%;">
                 <ul
-                  style="list-style: none; text-align: center; font-size: 14px; padding-left: 0; color:#666666; line-height: 3em;"
+                  style="list-style: none; text-align: center; font-size: 15px; padding-left: 0; color:#666666; line-height: 3em;"
                 >
                   <li><span style="color: #a61c00">3</span> User Licenses</li>
                   <li>
@@ -695,7 +705,7 @@
           </v-col>
 
           <!-- SOWERK ADVANCED CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0">
+          <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto">
             <v-card
               class="text-center pa-2"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -719,7 +729,7 @@
               >
               <v-col cols="12" class="pt-1" style="max-width: 100%;">
                 <ul
-                  style="list-style: none; text-align: center; font-size: 14px; padding-left: 0; color:#666666; line-height: 3em;"
+                  style="list-style: none; text-align: center; font-size: 15px; padding-left: 0; color:#666666; line-height: 3em;"
                 >
                   <li><span style="color: #a61c00">5</span> User Licenses</li>
                   <li>
@@ -737,7 +747,7 @@
           </v-col>
 
           <!-- SOWERK PRO CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0">
+          <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto">
             <v-card
               class="text-center pa-2"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -761,7 +771,7 @@
               >
               <v-col cols="12" class="pt-1" style="max-width: 100%;">
                 <ul
-                  style="list-style: none; text-align: center; font-size: 14px; padding-left: 0; color:#666666; line-height: 3em;"
+                  style="list-style: none; text-align: center; font-size: 15px; padding-left: 0; color:#666666; line-height: 3em;"
                 >
                   <li><span style="color: #a61c00">10</span> User Licenses</li>
                   <li>
@@ -779,7 +789,13 @@
           </v-col>
 
           <!-- SOWERK NATIONAL CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0">
+          <v-col
+            cols="12"
+            lg="2"
+            md="3"
+            class="pa-0 mx-auto"
+            style="width: 20%"
+          >
             <v-card
               class="text-center pa-2"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -803,7 +819,7 @@
               >
               <v-col cols="12" class="pt-1" style="max-width: 100%;">
                 <ul
-                  style="list-style: none; text-align: center; font-size: 14px; padding-left: 0; color:#666666; line-height: 3em;"
+                  style="list-style: none; text-align: center; font-size: 15px; padding-left: 0; color:#666666; line-height: 3em;"
                 >
                   <li><span style="color: #a61c00">15</span> User Licenses</li>
                   <li>
@@ -843,13 +859,13 @@
               </v-card-text>
             </v-card>
           </v-col>
+          <v-col cols="12" class="text-center">
+            <v-btn class="white--text py-6" style="width: 80%; background-color: #A61C00; border-radius: 20px;">GET STARTED NOW</v-btn>
+          </v-col>
         </v-row>
       </v-row>
     </v-container>
 
-  
-
-   
     <section
       style="background-color:#2b2b2b;
     transform-origin: top left;
