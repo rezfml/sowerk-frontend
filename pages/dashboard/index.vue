@@ -1,6 +1,6 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-container class="px-8" fluid>
+    <v-container class="px-8" fluid id="v-step-0">
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <v-skeleton-loader
