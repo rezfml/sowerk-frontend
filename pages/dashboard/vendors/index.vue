@@ -237,13 +237,13 @@
           }
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
+          // {
+          //   text: 'ID',
+          //   align: 'start',
+          //   sortable: false,
+          //   value: 'id',
+          //   class: 'primary--text font-weight-regular'
+          // },
           { text: 'Service', value: 'services', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },

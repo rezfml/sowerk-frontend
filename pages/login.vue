@@ -68,7 +68,7 @@
 
               <v-btn rounded color="primary" type="submit" value="LET'S GO" style="text-align: center;" class="px-10 mb-4 mx-auto center" v-on:click="login" >LET'S GO</v-btn>
 
-              <v-btn to="../register" class="mb-4" text>Not On SOWerk? Setup Your Business Here</v-btn>
+              <v-btn to="../register" class="mb-4" text>Not On SOWerk? Set Up Your Business Here</v-btn>
               <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="sendReset" >Forgot Password?</v-btn>-->
             </v-form>
           </v-card-text>
