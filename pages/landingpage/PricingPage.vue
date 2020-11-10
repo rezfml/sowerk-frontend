@@ -1,4 +1,11 @@
 <template>
+<v-container fluid style="background: url('https://sowerk-images.s3.us-east-2.amazonaws.com/pricingBg.png') cover, center;">  
+<v-card>
+    <v-text>SOWerk Vendors Start Now For Free</v-text>
+    <v-text>No Credit Card Needed - Get Started In Minutes - It's 100% Free</v-text>
+    <v-btn>GET STARTED NOW</v-btn>
+  </v-card>
+</v-container>
   <div class="head" id="aboutcontainer" style="background-color:rgb(237,237,237)">
     <section v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" style="margin-bottom:20%;" class="abouthero" >
       <h1 style="width:90%;font-size:3.5vw;margin-top:90px;">SOWerk Vendors Start Now For Free</h1>
