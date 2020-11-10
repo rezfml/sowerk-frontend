@@ -89,15 +89,31 @@
               <client-only>
                 <vue-google-autocomplete
                   :id="'location-address--' + index"
-                  classname="form-control"
+                  ref="googleAutocomplete"
+                  classname="form-control py-3 text-body-1"
                   v-on:placechanged="getAddressData"
-                  placeholder=""
+                  placeholder=" "
                   style="width: 100%; font-size: 16px"
                   v-on:focus.native="animateAddressFieldOnFocus"
                   v-on:blur.native="animateAddressFieldOnFocus"
                   v-on:input.native="animateAddressFieldOnFilled"
                   v-model="fullAddress"
+                  value=""
                 >
+<!--                  <vue-google-autocomplete-->
+<!--                    id="company-address"-->
+<!--                    ref="googleAutocomplete"-->
+<!--                    name="company_address"-->
+<!--                    classname="form-control py-3 text-body-1"-->
+<!--                    v-on:placechanged="getAddressData"-->
+<!--                    placeholder=""-->
+<!--                    style="width: 100%;"-->
+<!--                    v-on:focus.native="animateAddressFieldOnFocus"-->
+<!--                    v-on:blur.native="animateAddressFieldOnFocus"-->
+<!--                    v-on:input.native="animateAddressFieldOnFilled"-->
+<!--                    v-model="fullAddress"-->
+<!--                    value=""-->
+<!--                  >-->
                 </vue-google-autocomplete>
               </client-only>
             </div>
@@ -225,9 +241,7 @@
           v-model="location.phone"
           :readonly="managerIsUser"
           :rules="rules.phoneRules"
-          v-mask="'(###)###-####'"
-          :value="currentValue" 
-          @input="handleInput"
+          v-mask="'(###) ###-####'"
         >
           <template v-slot:label>
             <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
@@ -351,6 +365,7 @@
       }
     },
     mounted() {
+      vueGoogleMapsInit();
       this.formatFullAddress();
     },
     methods: {
@@ -392,6 +407,7 @@
       animateAddressFieldOnFocus(e) {
         let addressLabel = e.target.previousElementSibling;
         addressLabel.classList.toggle('v-label--focus');
+        this.$refs.googleAutocomplete.$el.setAttribute('autocomplete', 'disabled');
       },
       animateAddressFieldOnFilled(e) {
         if(e.target != "") {

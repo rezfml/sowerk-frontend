@@ -254,8 +254,6 @@
         type="tel"
         v-model="location.phone"
         v-mask="'(###)###-####'"
-          :value="currentValue" 
-          @input="handleInput"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>

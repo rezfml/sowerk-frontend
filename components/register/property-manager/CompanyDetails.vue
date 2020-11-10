@@ -100,13 +100,10 @@
                   label="Phone*"
                   type="tel"
                   class="card__input black--text"
-                  style="font-size: 12px;"
                   v-model="user.phone"
-                  placeholder=""
+                  placeholder=" "
                   :rules="rules.phoneRules"
-                  v-mask="'(###)###-####'"
-                  :value="currentValue"
-                  @input="handleInput"
+                  v-mask="'(###) ###-####'"
                 ></v-text-field>
               </v-col>
 
@@ -243,8 +240,9 @@
                       <client-only>
                         <vue-google-autocomplete
                           id="company-address"
+                          ref="googleAutocomplete"
                           name="company_address"
-                          classname="form-control"
+                          classname="form-control py-3 text-body-1"
                           v-on:placechanged="getAddressData"
                           placeholder=""
                           style="width: 100%;"
@@ -252,6 +250,7 @@
                           v-on:blur.native="animateAddressFieldOnFocus"
                           v-on:input.native="animateAddressFieldOnFilled"
                           v-model="fullAddress"
+                          value=""
                         >
                         </vue-google-autocomplete>
                       </client-only>
@@ -290,11 +289,6 @@ import InsuranceForm from '~/components/InsuranceForm'
 import LicenseForm from '@/components/website/LicenseForm'
 import { VueMaskDirective } from 'v-mask'
 Vue.directive('mask', VueMaskDirective);
-
-import DisableAutocomplete from 'vue-disable-autocomplete';
-
-
-Vue.use(DisableAutocomplete);
 
 export default {
   name: 'CompanyDetails',
@@ -348,6 +342,10 @@ export default {
       },
       confirmPassword: null,
     }
+  },
+  mounted() {
+    console.log(this.$refs);
+    // this.$refs.googleAutocomplete.$el.setAttribute('autocomplete', 'disabled');
   },
   computed: {
     confirmPasswordRules() {
@@ -407,6 +405,7 @@ export default {
     animateAddressFieldOnFocus(e) {
       let addressLabel = e.target.previousElementSibling
       addressLabel.classList.toggle('v-label--focus')
+      this.$refs.googleAutocomplete.$el.setAttribute('autocomplete', 'disabled');
     },
     animateAddressFieldOnFilled(e) {
       if (e.target != '') {

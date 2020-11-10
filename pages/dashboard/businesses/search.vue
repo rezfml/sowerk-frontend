@@ -95,7 +95,7 @@ export default {
   methods: {
     async getActiveUserforms() {
         this.loading = true;
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/userforms/active').catch(e => e);
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/userforms/byStatusId/1').catch(e => e);
         this.activeUserforms = data;
     },
     async getAllCompanies() {

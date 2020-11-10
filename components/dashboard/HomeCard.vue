@@ -48,8 +48,8 @@
             </v-row>
           </template>
           <template v-slot:item.imageUrl="{ item }">
-            <v-row class="d-flex" cols="12" lg="6" >
-                <v-img :src="item.imageUrl" :aspect-ratio="1" height="50px" width="50px" style="border-radius: 50%;" class="mr-4 my-1"/>
+            <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -95,7 +95,7 @@
 
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
-              <v-btn class="my-1" style="width: 90%; color: white;" color="#707070" >
+              <v-btn class="my-1" block color="primary" >
                 View
               </v-btn>
             </nuxt-link>
@@ -107,8 +107,8 @@
           <template v-slot:footer v-if="action != 'View'">
             <v-row class="d-flex justify-end mt-4" style="width: 100%;">
 
-              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined large>Add New Location</v-btn>
-              <v-btn :to='slug' color="primary"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
+              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined >Add New Location</v-btn>
+              <v-btn :to='slug' color="primary"  class="px-16 ml-8 mt-2" rounded outlined>View All</v-btn>
             </v-row>
           </template>
         </v-data-table>

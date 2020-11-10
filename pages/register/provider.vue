@@ -123,8 +123,6 @@
                             v-model="user.phone"
                             :rules="rules.phoneRules"
                             v-mask="'(###)###-####'"
-                            :value="currentValue"
-                            @input="handleInput"
                             validate-on-blur
                           ></v-text-field>
                         </v-col>
