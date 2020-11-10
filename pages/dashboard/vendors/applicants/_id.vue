@@ -55,14 +55,37 @@
             </v-row>
             <v-row class="px-12">
               <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
-                <p style="color: #D9D9D9; font-size: 14px;" class="mb-n1 mt-1">Question #{{index}} - {{formfield.name}}</p>
+                <p style="color: #D9D9D9; font-size: 14px;" class="mb-n1 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
                 <v-text-field readonly style="width: 100%; font-size: 18px;" :value="application.subData[index].value" :name="formfield.name">
                 </v-text-field>
               </v-col>
             </v-row>
-            <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;">
+            <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;" v-if="!isDenying">
               <v-btn @click="Deny" large>Deny</v-btn>
               <v-btn @click="Approve" color="primary" large>Approve</v-btn>
+            </v-row>
+            <v-row v-if="isDenying" class="px-12 mt-8">
+              <v-col cols="12">
+                <p class="text-h5 mb-2">Reason For Denial</p>
+                <v-divider></v-divider>
+              </v-col>
+              <v-col cols="12">
+                <v-row class="px-3 my-6">
+                  <v-select
+                    :items="denialOptions"
+                    placeholder="Select Denial Reason"
+                    v-model="denial_reason"
+                    :rules="rules.requiredRules"
+                    ref="denialSelect"
+                    required
+                  ></v-select>
+                </v-row>
+                <v-row class="px-3 mb-4">
+                  <v-btn @click="cancelDeny" large>Cancel</v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="submitDenial" color="primary" large>Submit</v-btn>
+                </v-row>
+              </v-col>
             </v-row>
           </v-card>
         </v-col>
@@ -119,6 +142,34 @@ import * as moment from 'moment'
           userprofiles_id: this.$store.state.user.user.user.id,
         },
         sendToId: Number,
+        isDenying: false,
+        denialOptions: [
+          'Available Vendor Position(s) Filled At This Time',
+          'Proximity To Location Was An Issue',
+          'Missing Application Requirements',
+          'Qualifications Not Yet Met- Reapply Optional in 30 Days',
+          'Qualifications Not Yet Met- Reapply Optional in 60 Days',
+          'Qualifications Not Yet Met- Reapply Optional in 90 Days',
+        ],
+        denial_reason: null,
+        rules: {
+          requiredRules: [
+            v => !!v || v === 0 || 'Field is required',
+          ],
+        },
+        denialMessage: {
+          service: '',
+          company: '',
+          primary_contact_first_name: this.$store.state.user.user.user.first_name,
+          primary_contact_last_name: this.$store.state.user.user.user.last_name,
+          message: '',
+          location: '',
+          userprofiles_id: this.$store.state.user.user.user.id,
+          pmMessageRead: false,
+          spMessageRead: false,
+          spLocationId: Number,
+          spLocationName: Number
+        }
       }
     },
     async mounted() {
@@ -248,6 +299,15 @@ import * as moment from 'moment'
             console.log('err', err);
           })
       },
+      validate() {
+        if (!this.$refs.denialSelect.validate()) {
+          this.$nextTick(() => {
+            this.$vuetify.goTo('.error--text');
+          });
+          return false;
+        }
+        return true;
+      },
       async Approve() {
         const approvalChanges = {
           approval_status: 1
@@ -273,17 +333,68 @@ import * as moment from 'moment'
           })
       },
       async Deny() {
+        console.log('hello world, you have been denied');
+        this.isDenying = true;
+
+      },
+      async submitDenial() {
+        if(!this.validate()) return;
         const denialChanges = {
-          approval_status: 2
+          approval_status: 2,
+          denial_reason: this.denial_reason
         }
-        await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.application.id, denialChanges)
+
+        this.application.approval_status = 2;
+        this.application.denial_reason = this.denial_reason;
+
+        console.log(denialChanges);
+
+        // await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.application.id, denialChanges)
+        //   .then(response => {
+        //     console.log('success in changes', response)
+        //     this.failure = true;
+        //   })
+        //   .catch(err => {
+        //     console.log('err', err);
+        //   })
+
+        await this.messageVendorAboutDenial();
+
+        // this.$router.push('/dashboard/vendors/applicants');
+      },
+      async messageVendorAboutDenial() {
+        console.log(this.application);
+
+        let pmLocation;
+
+        await this.$http.get('https://www.sowerkbackend.com/api/services/' + this.application.pmservices_id)
           .then(response => {
-            console.log('success in changes', response)
-            this.failure = true;
+            console.log('SUCCESS', response)
+            this.denialMessage.service = response.data.service.name;
           })
           .catch(err => {
-            console.log('err', err);
+            console.log(err);
           })
+
+        // Get Property Manager Location that application was sent to
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.pmlocations_id)
+          .then(response => {
+            console.log('SUCCESS', response)
+            pmLocation = response.data.service.name;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        this.denialMessage.location = this.location;
+        // this.denialMessage.company =
+        this.denialMessage.message = "Your " + this.denialMessage.service + " application to " + pmLocation + " was denied for the following reason: \n\n" + this.application.denial_reason;
+        console.log(this.denialMessage.message);
+
+      },
+      async cancelDeny() {
+        this.isDenying = false;
+        this.denial_reason = null;
       },
       async submit() {
         console.log(this.messageForm)

@@ -28,7 +28,6 @@
     "naics": "^1.2.1",
     "nuxt": "^2.14.6",
     "v-mask": "^2.2.3",
-    "vue-disable-autocomplete": "0.0.4",
     "vue-google-autocomplete": "^1.1.0",
     "vue-image-upload-croppie": "^1.0.6",
     "vue-moment": "^4.1.0",

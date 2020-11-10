@@ -25,7 +25,7 @@
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
             <v-col cols="12" class="pa-0 ma-0 d-flex flex-column align-left" >
               <template v-if="company">
-                <v-list-item-title style="font-size: 1rem;">{{company.account_name}}</v-list-item-title>
+                <v-list-item-title style="font-size: 1rem; align-self: flex-start;">{{company.account_name}}</v-list-item-title>
               </template>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
             </v-col>
