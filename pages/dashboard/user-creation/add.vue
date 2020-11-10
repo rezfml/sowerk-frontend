@@ -20,7 +20,7 @@
         <div>
           <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
           <p>Please Note The Difference Between Account Level Permissions.</p>
-          <p><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, acccess any vendor applicants, or approved vendors.</p>
+          <p><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</p>
           <p><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
         </div>
       </v-form>

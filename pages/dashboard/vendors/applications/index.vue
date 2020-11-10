@@ -19,9 +19,9 @@
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mb-8">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event you have a special requirement for only one of your locations (i.e. local permit requirement) take that company template and add a custom question that is only visible to that facility.</p>
+              <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
               <v-col class="d-flex flex-column align-center">
-                <v-btn @click="loadApplicationLocationsFunction" class="py-4 my-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -150,7 +150,7 @@
 <!--    </v-row>-->
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Sowerk Application Templates</v-card-title>
+      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">SOWerk Application Templates</v-card-title>
       <template v-if="loading" style="width: 100%;">
         <v-data-table
           :headers="headers"
@@ -185,10 +185,12 @@
             <p>{{item.applicationtemplatesformfields.length}}</p>
           </template>
           <template v-slot:item.actions="{item}">
-            <div class="d-flex">
+            <div class="d-flex" v-if="$vuetify.breakpoint.xl">
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Location</v-btn>
               <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 37.5%;">Add to Company Templates</v-btn>
             </div>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Location</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Add to Company Templates</v-btn>
           </template>
         </v-data-table>
       </template>
@@ -238,11 +240,14 @@
             <p>{{item.companytemplatesformfields.length}}</p>
           </template>
           <template v-slot:item.actions="{item}">
-            <div class="d-flex">
+            <div class="d-flex" v-if="$vuetify.breakpoint.xl">
               <v-btn @click="viewCompanyTemplate(item)" class="mx-2" style="width: 30%;">Edit</v-btn>
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Add to Location</v-btn>
               <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 30%;">Delete</v-btn>
             </div>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="viewCompanyTemplate(item)" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Add to Location</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Delete</v-btn>
           </template>
         </v-data-table>
       </template>
@@ -253,15 +258,15 @@
       <v-row class="mt-8" v-if="loadYourCompanyDocuments">
         <v-col cols="6">
           <v-card>
-            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
-            <v-card-text class="pt-16 ml-4">Upload here any company document or template that you will use to share with vendors to download, complete and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
+            <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
             <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card>
-            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 20px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
+            <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
             <v-data-table
               class="pt-16"
               :items="companyDocuments"
