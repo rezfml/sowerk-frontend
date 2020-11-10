@@ -315,7 +315,7 @@ export default {
             (v && v.length <= 100) || 'Email must be less than 100 characters',
         ],
         phoneRules: [
-          (v) => (v && v.length === 10) || 'Phone Number must be 11 digits',
+          (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
         ],
           passwordRules: [
             v => !!v || 'Password is required',
