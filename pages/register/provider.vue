@@ -1016,7 +1016,7 @@
     methods: {
       getSectorChildren(e) {
         console.log(e);
-        if(this.companySector) {
+        if (this.companySector) {
           this.companySector = null;
           this.companyLevel1 = null;
           this.companyLevel2 = null;
@@ -1027,7 +1027,7 @@
         this.companySector = e;
         let industry = naics.Industry.from(this.companySector);
         let categories = industry.children();
-        for(const category of categories) {
+        for (const category of categories) {
           this.industryLevel1.push(category);
         }
       },
@@ -1036,7 +1036,7 @@
         let industry = naics.Industry.from(this.companyLevel1);
         let categories = industry.children();
         this.industryLevel2 = [];
-        for(const category of categories) {
+        for (const category of categories) {
           this.industryLevel2.push(category);
         }
       },
@@ -1045,7 +1045,7 @@
         let industry = naics.Industry.from(this.companyLevel2);
         let categories = industry.children();
         this.industryLevel3 = [];
-        for(const category of categories) {
+        for (const category of categories) {
           this.industryLevel3.push(category);
         }
       },
@@ -1077,14 +1077,14 @@
       nextPageIfNotLast() {
         console.log(this.tab);
         if (this.tab === 3) return;
-        if(!this.validate(this.tab)) return;
+        if (!this.validate(this.tab)) return;
         this.tab += 1
         console.log(this.locations)
       },
       validate(tab) {
         console.log(this.$refs.companyDetails);
 
-        if(tab == 0) {
+        if (tab == 0) {
           if (!this.$refs.companyDetails.validate()) {
             this.$nextTick(() => {
               this.$vuetify.goTo('.error--text');
@@ -1099,7 +1099,7 @@
         return true;
       },
       prevPageIfNotFirst() {
-        if(this.tab === 0) return;
+        if (this.tab === 0) return;
         this.tab -= 1;
       },
       setTab(tabIndex) {
@@ -1142,162 +1142,99 @@
         this.formatFullAddress();
       },
       formatFullAddress() {
-        if(!this.company.address) return;
+        if (!this.company.address) return;
         this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
         console.log(this.fullAddress);
       },
-      onRadiusSlide(value, index) {
-
-      console.log(tab)
-      console.log(this.$refs.companyDetails.$refs.register)
-      return true
-    },
-    prevPageIfNotFirst() {
-      if (this.tab === 0) return
-      this.tab -= 1
-    },
-    setTab(tabIndex) {
-      console.log(tabIndex)
-    },
-    finishEditing() {
-      this.editingLocation = false
-      console.log(this.location)
-      this.locations[this.editingIndex] = this.location
-      this.editingIndex = null
-    },
-    finishEditingInsuranceLicense() {
-      this.editingInsurance = false
-      this.editingLicense = false
-      this.insurances[this.editingIndexInsurance] = this.insurance
-      this.licenses[this.editingIndexLicense] = this.license
-      this.editingIndexInsurance = null
-      this.editingIndexInsurance = null
-    },
-    editLocation(index) {
-      console.log(index)
-      this.editingIndex = index
-      this.location = this.locations[index]
-      console.log(this.location)
-      this.editingLocation = true
-    },
-    editInsurance(index) {
-      console.log(index)
-      this.editingIndexInsurance = index
-      this.insurance = this.insurances[index]
-      console.log(this.insurance)
-      this.editingInsurance = true
-    },
-    getAddressData(addressData) {
-      console.log('wtf mate')
-      console.log(addressData)
-      this.company.address = addressData.street_number + ' ' + addressData.route
-      this.company.city = addressData.locality
-      this.company.state = addressData.administrative_area_level_1
-      this.company.zipcode = addressData.postal_code
-      this.formatFullAddress()
-    },
-    formatFullAddress() {
-      if (!this.company.address) return
-      this.fullAddress =
-        this.company.address +
-        ', ' +
-        this.company.city +
-        ', ' +
-        this.company.state +
-        ' ' +
-        this.company.zipcode
-      console.log(this.fullAddress)
-    },
-    onRadiusSlide(value, index) {},
-    animateAddressFieldOnFocus(e) {
-      let addressLabel = e.target.previousElementSibling
-      addressLabel.classList.toggle('v-label--focus')
-    },
-    animateAddressFieldOnFilled(e) {
-      if (e.target !== '') {
-        if (
-          e.target.previousElementSibling.classList.contains('v-label--filled')
-        ) {
+      animateAddressFieldOnFocus(e) {
+        let addressLabel = e.target.previousElementSibling
+        addressLabel.classList.toggle('v-label--focus')
+      },
+      animateAddressFieldOnFilled(e) {
+        if (e.target !== '') {
+          if (
+            e.target.previousElementSibling.classList.contains('v-label--filled')
+          ) {
+          } else {
+            e.target.previousElementSibling.classList.add('v-label--filled')
+          }
         } else {
-          e.target.previousElementSibling.classList.add('v-label--filled')
+          e.target.previousElementSibling.classList.remove('v-label--filled')
         }
-      } else {
-        e.target.previousElementSibling.classList.remove('v-label--filled')
-      }
-    },
-    convertMilesToMeters(miles) {
-      return miles * 1609.34
-    },
-    addLocation() {
-      let newLocation = {
-        name: null,
-        address: null,
-        city: null,
-        state: null,
-        zipcode: null,
-        contact_first_name: null,
-        contact_last_name: null,
-        phone: null,
-        email: null,
-        latitude: null,
-        longitude: null,
-        radius: 0,
-        year_founded: '',
-        companies_id: null,
-      }
-      this.locations.push(newLocation)
-      this.location = this.locations[this.locations.length - 1]
-      this.editingIndex = this.locations.length - 1
-      this.editingLocation = true
-    },
-    addInsurance() {
-      this.editingInsurance = true
-      let newInsurance = {
-        name: '',
-        insuranceCompany: '',
-        policyNumber: '',
-        expirationDateVal: '',
-        documentUrl: '',
-        documentVisible: false,
-        companies_id: null,
-      }
-      this.insurances.push(newInsurance)
+      },
+      convertMilesToMeters(miles) {
+        return miles * 1609.34
+      },
+      addLocation() {
+        let newLocation = {
+          name: null,
+          address: null,
+          city: null,
+          state: null,
+          zipcode: null,
+          contact_first_name: null,
+          contact_last_name: null,
+          phone: null,
+          email: null,
+          latitude: null,
+          longitude: null,
+          radius: 0,
+          year_founded: '',
+          companies_id: null,
+        }
+        this.locations.push(newLocation)
+        this.location = this.locations[this.locations.length - 1]
+        this.editingIndex = this.locations.length - 1
+        this.editingLocation = true
+      },
+      addInsurance() {
+        this.editingInsurance = true
+        let newInsurance = {
+          name: '',
+          insuranceCompany: '',
+          policyNumber: '',
+          expirationDateVal: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null,
+        }
+        this.insurances.push(newInsurance)
 
-      let newInsuranceFile = {
-        file: null,
-      }
+        let newInsuranceFile = {
+          file: null,
+        }
 
-      this.insuranceFiles.push(newInsuranceFile)
-    },
-    addLicense() {
-      this.editingLicense = true
-      let newLicense = {
-        name: '',
-        insuranceCompany: '',
-        policyNumber: '',
-        expirationDate: '',
-        documentUrl: '',
-        documentVisible: false,
-        companies_id: null,
-      }
-      this.licenses.push(newLicense)
-    },
-    saveCompanyAddress(addressObj) {
-      this.company.address = addressObj.street_number + ' ' + addressObj.route
-      this.company.city = addressObj.locality
-      this.company.state = addressObj.administrative_area_level_1
-      this.company.zipcode = addressObj.postal_code
-    },
-    async register() {
-      this.loading = true
+        this.insuranceFiles.push(newInsuranceFile)
+      },
+      addLicense() {
+        this.editingLicense = true
+        let newLicense = {
+          name: '',
+          insuranceCompany: '',
+          policyNumber: '',
+          expirationDate: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null,
+        }
+        this.licenses.push(newLicense)
+      },
+      saveCompanyAddress(addressObj) {
+        this.company.address = addressObj.street_number + ' ' + addressObj.route
+        this.company.city = addressObj.locality
+        this.company.state = addressObj.administrative_area_level_1
+        this.company.zipcode = addressObj.postal_code
+      },
+      async register() {
+        this.loading = true
 
-      await this.uploadCompanyImage()
-      if (this.insuranceFiles.length > 0) {
-        this.loopInsuranceFilesForUpload()
-      }
-      if (this.licenseFiles.length > 0) {
-        this.loopLicenseFilesForUpload()
-      }
+        await this.uploadCompanyImage()
+        if (this.insuranceFiles.length > 0) {
+          this.loopInsuranceFilesForUpload()
+        }
+        if (this.licenseFiles.length > 0) {
+          this.loopLicenseFilesForUpload()
+        }
 
         await this.loopLocationImages();
 
@@ -1326,14 +1263,14 @@
       async postLicenses(companyId) {
         for (const license of this.licenses) {
           license.companies_id = companyId;
-          let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
+          let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
           console.log(data);
         }
       },
       async postInsurances(companyId) {
         for (const insurance of this.insurances) {
           insurance.companies_id = companyId;
-          let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
+          let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
           console.log(data);
         }
       },
@@ -1350,7 +1287,7 @@
           })
       },
       loopInsuranceFilesForUpload() {
-        this.insuranceFiles.forEach((insuranceFile, index) =>{
+        this.insuranceFiles.forEach((insuranceFile, index) => {
           this.uploadInsuranceFile(insuranceFile, index);
         })
 
@@ -1371,40 +1308,40 @@
           })
       },
       loopLicenseFilesForUpload() {
-        this.licenseFiles.forEach((licenseFile, index) =>{
+        this.licenseFiles.forEach((licenseFile, index) => {
           this.uploadLicenseFile(licenseFile, index);
         })
-        .catch((err) => {
-          console.log(err, 'error in uploading license files')
+          .catch((err) => {
+            console.log(err, 'error in uploading license files')
+          })
+      },
+      async registerUser(company_id) {
+        this.user.companies_id = company_id
+        let { data, status } = await this.$http
+          .post('https://www.sowerkbackend.com/api/auth/register', this.user)
+          .catch((e) => e)
+        await this.postLocations(data.user.companies_id)
+      },
+      async loopLocationImages() {
+        this.locations.forEach((location, index) => {
+          const formData = new FormData()
+          console.log(location)
+          formData.append('file', location.imageUrl)
+          this.uploadLocationImage(formData, index)
         })
-    },
-    async registerUser(company_id) {
-      this.user.companies_id = company_id
-      let { data, status } = await this.$http
-        .post('https://www.sowerkbackend.com/api/auth/register', this.user)
-        .catch((e) => e)
-      await this.postLocations(data.user.companies_id)
-    },
-    async loopLocationImages() {
-      this.locations.forEach((location, index) => {
-        const formData = new FormData()
-        console.log(location)
-        formData.append('file', location.imageUrl)
-        this.uploadLocationImage(formData, index)
-      })
-      console.log(this.locations)
-    },
-    async uploadLocationImage(formData, index) {
-      let { data, status } = await this.$http
-        .post('https://www.sowerkbackend.com/api/upload', formData)
-        .catch((err) => {
-          console.log('error in uploading location image', err)
-        })
+        console.log(this.locations)
+      },
+      async uploadLocationImage(formData, index) {
+        let { data, status } = await this.$http
+          .post('https://www.sowerkbackend.com/api/upload', formData)
+          .catch((err) => {
+            console.log('error in uploading location image', err)
+          })
 
         this.locations[index].imageUrl = data.data.Location;
       },
       async postLocations(userId) {
-        for(let i = 0; i < this.locations.length; i++) {
+        for (let i = 0; i < this.locations.length; i++) {
           this.locations[i].companies_id = userId;
           this.locations[i].zipcode = Number(this.locations[i].zipcode)
         }
@@ -1420,7 +1357,7 @@
         await this.getUserLocations(userId);
       },
       async getUserLocations(userId) {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        let { data, status } = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
         await this.postServicesPerLocation(data);
       },
@@ -1430,57 +1367,38 @@
             let serviceObject = {
               name: service,
             }
-            let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
             console.log(data);
           }
           let { data, status } = await this.$http
             .post(
               'https://www.sowerkbackend.com/api/services/byLocationId/' +
-                location.id,
+              location.id,
               serviceObject
             )
             .catch((e) => e)
           console.log(data)
         }
-      }
-      this.loading = false
-      await this.$router.push('/register/verify')
-    },
-    formatServices() {
-      console.log(this.servicesProvided)
-      this.servicesProvided.forEach((serviceProvided, index) => {
-        let serviceObject = {
-          name: serviceProvided,
-          description: serviceProvided,
-        }
+        this.loading = false;
+        await this.$router.push('/register/verify')
+      },
+      formatServices() {
+        console.log(this.servicesProvided)
+        this.servicesProvided.forEach((serviceProvided, index) => {
+          let serviceObject = {
+            name: serviceProvided,
+            description: serviceProvided,
+          }
 
-        this.formattedServicesProvided.push(serviceObject)
-      })
+          this.formattedServicesProvided.push(serviceObject)
+        })
 
-      console.log(this.formattedServicesProvided)
-    },
-    // getTosDate(e) {
-    //   if(e) {
-    //     let today = new Date();
-    //     let dateString;
-    //     let timeString;
-    //     let dd = String(today.getUTCDate()).padStart(2, '0');
-    //     let mm = String(today.getUTCMonth() + 1).padStart(2, '0'); //January is 0!
-    //     let yyyy = today.getUTCFullYear();
-    //     let HH = String(today.getUTCHours()).padStart(2, '0');
-    //     let MM = String(today.getUTCMinutes()).padStart(2, '0');
-    //     let SS = String(today.getUTCSeconds()).padStart(2, '0');
-    //
-    //     dateString = [yyyy, mm, dd].join('-');
-    //     timeString = [HH, MM, SS].join(':');
-    //     today = dateString + ' ' + timeString;
-    //     // this.company.tos_date = today;
-    //   }
-    // },
-    setPage(tab) {
-      this.tab = tab
-    },
-  },
+        console.log(this.formattedServicesProvided)
+      },
+      setPage(tab) {
+        this.tab = tab;
+      },
+    }
 }
 
 
