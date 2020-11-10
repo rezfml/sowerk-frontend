@@ -194,10 +194,10 @@ export default {
     updateScroll() {
        this.scrollPosition = window.scrollY
     }
-},
-mounted() {
-    window.addEventListener('scroll', this.updateScroll);
-}
+  },
+  mounted() {
+      window.addEventListener('scroll', this.updateScroll);
+  }
 }
 </script>
 
