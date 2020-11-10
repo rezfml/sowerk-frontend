@@ -476,6 +476,8 @@ export default {
         this.uploadLocationImage(formData, index);
       });
       console.log(this.locations);
+      this.loading = false;
+      this.$router.push('/login');
     },
     async uploadLocationImage(formData, index) {
       // let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/upload', formData).catch(err => {

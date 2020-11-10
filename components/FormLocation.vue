@@ -226,7 +226,7 @@
           type="tel"
           v-model="location.phone"
           :readonly="managerIsUser"
-          :rules="rules.phoneRules"
+          :rules="rules.requiredRules"
           v-mask="'(###) ###-####'"
         >
           <template v-slot:label>
