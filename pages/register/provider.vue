@@ -99,16 +99,15 @@
                                     :aspect-ratio="1"
                                     class="my-8 rounded-circle"
                                     id="accountPhoto"
-                                    style="max-height: 200px; width: 100%; max-width: 200px;"
+                                    style="max-height: 250px; width: 100%; max-width: 250px;"
                                   ></img>
                                   <!-- EDIT BUTTON -->
                                   <v-btn
                                     v-if="companyImageUrl && !savedImage"
                                     icon="icon"
-                                    small
+                                    medium
                                     @click="savedImage = true"
                                     @change="setupCropper"
-                                    style="float: right; color:#a61c00;"
                                   >
                                     <v-icon medium
                                       >mdi-account-edit-outline</v-icon
@@ -132,6 +131,17 @@
                                 v-on:change.native="selectCompanyImage"
                                 @change="setupCropper"
                                 id="companyImage"
+                                style="visibility: hidden; height: 0; max-height: 0;"
+                              ></v-file-input>
+                              <v-file-input
+                                class="company-image-upload ma-0 pa-0"
+                                :class="{
+                                  'company-image-upload--selected': companyImageFile
+                                }"
+                                v-model="companyImageFile"
+                                v-on:change.native="selectCompanyImage"
+                                @change="setupCropper"
+                                id="companyImage2"
                                 style="visibility: hidden; height: 0; max-height: 0;"
                               ></v-file-input>
 
@@ -207,7 +217,7 @@
                                     small="small"
                                     class="mx-4"
                                     :disabled="!companyImageUrl"
-                                    @click="clickCompanyImageUpload()"
+                                    @click="clickCompanyImageUploadTwo()"
                                   >
                                     UPLOAD</v-btn
                                   >
@@ -1280,12 +1290,15 @@ export default {
       this.licenseFiles[index].file = file
     },
     selectCompanyImage(e) {
-      if ((this.companyImageFile = e.target.files[0])) {
+      let file = e.target.files[0]
+      if (this.companyImageFile = file) {
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
         return this.companyImageUrl
         console.log(this.companyImageUrl)
       } else {
-        this.companyImageFile = e.target.files[0]
+        this.companyImageUrl = document.getElementById('accountPhoto').src="companyImageUrl"
+        console.log(file)
+        console.log(this.companyImageUrl)
         console.log(this.companyImageFile)
         console.log('Else nothing')
       }
@@ -1295,10 +1308,12 @@ export default {
     },
     clickCompanyImageUpload() {
       console.log(this)
-      // let imageInput = this.$refs.companyImage;
-      // console.log(imageInput);
-      // imageInput.$el.click();
       document.getElementById('companyImage').click()
+    },
+    // Solved the issue when user cancels a second time
+    clickCompanyImageUploadTwo() {
+      console.log(this)
+      document.getElementById('companyImage2').click()
     },
     nextPageIfNotLast() {
       console.log(this.tab)
