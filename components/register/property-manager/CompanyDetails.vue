@@ -410,6 +410,7 @@ export default {
       this.profileImageUrl = URL.createObjectURL(this.profileImageUrl);
       console.log(this.profileImageUrl);
       this.$emit('selectFile', this.profileImageFile)
+      this.$emit('selectFileUrl', this.profileImageUrl);
     },
 
     readFile(e) {
