@@ -250,6 +250,7 @@
                           v-on:input.native="animateAddressFieldOnFilled"
                           v-model="fullAddress"
                         >
+
                         </vue-google-autocomplete>
                       </client-only>
                     </div>
@@ -279,11 +280,11 @@ import VImageInput from 'vuetify-image-input'
 import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
-import DisableAutocomplete from 'vue-disable-autocomplete';
+// import DisableAutocomplete from 'vue-disable-autocomplete';
 
 import Vue from 'vue';
 
-Vue.use(DisableAutocomplete);
+// Vue.use(DisableAutocomplete);
 
 export default {
   name: 'CompanyDetails',
