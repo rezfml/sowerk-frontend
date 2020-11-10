@@ -121,13 +121,114 @@
     min-height: unset !important;
   }
 
+  #v-step-46f34eda {
+    width: 400px !important;
+    transform: translate3d(30vw, 5px, 0px) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #v-step-46f34eda .v-step__header {
+    width: 100% !important;
+    font-size: 30px;
+    border-radius: 5px;
+  }
+  #v-step-46f34eda .v-step__content {
+    width: 100% !important;
+    font-size: 18px;
+    background: #50596c !important;
+  }
+  #v-step-46f34eda .v-step__buttons {
+    width: 100% !important;
+    font-size: 25px;
+    background: #50596c !important;
+  }
+  #v-step-46f34eda .v-step__buttons button {
+    width: 45%;
+    margin: 0 1% 0 1%;
+    font-size: 25px;
+    border-radius: 10px;
+  }
   #v-step-6b1ad225 {
     margin-right: -325px !important;
+    width: 400px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #v-step-6b1ad225 .v-step__header {
+    width: 100% !important;
+    font-size: 25px;
+    border-radius: 5px;
+  }
+  #v-step-6b1ad225 .v-step__content {
+    width: 100% !important;
+    font-size: 15px;
+    background: #50596c !important;
+  }
+  #v-step-6b1ad225 .v-step__buttons {
+    width: 100% !important;
+    background: #50596c !important;
+  }
+  #v-step-6b1ad225 .v-step__buttons button {
+    width: 30%;
+    margin: 0 1% 0 1%;
+    font-size: 18px;
+    border-radius: 10px;
   }
   #v-step-bfa546c4 {
     margin-right: -325px !important;
+    width: 400px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #v-step-bfa546c4 .v-step__header {
+    width: 100% !important;
+    font-size: 25px;
+    border-radius: 5px;
+  }
+  #v-step-bfa546c4 .v-step__content {
+    width: 100% !important;
+    font-size: 15px;
+    background: #50596c !important;
+  }
+  #v-step-bfa546c4 .v-step__buttons {
+    width: 100% !important;
+    background: #50596c !important;
+  }
+  #v-step-bfa546c4 .v-step__buttons button {
+    width: 30%;
+    margin: 0 1% 0 1%;
+    font-size: 18px;
+    border-radius: 10px;
   }
   #v-step-0fcc61c7 {
     margin-right: -325px !important;
+    width: 400px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #v-step-0fcc61c7 .v-step__header {
+    width: 100% !important;
+    font-size: 25px;
+    border-radius: 5px;
+  }
+  #v-step-0fcc61c7 .v-step__content {
+    width: 100% !important;
+    font-size: 15px;
+    background: #50596c !important;
+  }
+  #v-step-0fcc61c7 .v-step__buttons {
+    width: 100% !important;
+    font-size: 25px;
+    background: #50596c !important;
+  }
+  #v-step-0fcc61c7 .v-step__buttons button {
+    width: 45%;
+    margin: 0 1% 0 1%;
+    font-size: 25px;
+    border-radius: 10px;
   }
 </style>
