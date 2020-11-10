@@ -50,7 +50,8 @@
             header: {
               title: 'Welcome to your SOWerk dashboard!',
             },
-            content: `<p>This page is specific to you and your account level access. If you are an administrator you will see and manage all locations, Vendors, and Vendor management tools. However, if you only have staff-level access to a specific location(s) this dashboard revolves around only your needs. Enjoy!</p>`,
+            content: `<p>This page is specific to you and your account level access.<br/><br/>If you have administrator access your dashboard will show all account locations, all account Vendors, and every Vendor management tool.<br/><br/>However, if you only have staff-level access to a specific location(s) then this dashboard revolves specifically around your needs. Enjoy!
+</p>`,
             params: {
               placement: 'bottom',
               highlight: true,
@@ -71,7 +72,7 @@
             header: {
               title: 'Step 2) Build Vendor Requirements',
             },
-            content: `<p>Once locations are established it’s time to define your Vendor requirements. Don’t worry we make this easy. You can utilize SOWerk templates to help get you started and completely customize a Vendor application by each location. </p>`,
+            content: `<p>Once locations are established it’s time to define your Vendor requirements. Don’t worry, we make this easy.<br/><br/>You can utilize SOWerk templates to help get you started. The power to vet is all yours! You can completely customize any Vendor application by service/supply category and at each location. If you have the same requirements at all locations administrators can build company templates. </p>`,
             params: {
               placement: "top",
             }
@@ -81,7 +82,7 @@
             header: {
               title: 'Step 3) Connect With Vendors',
             },
-            content: `<p>Your locations built and your Vendor requirements are set. It’s time to mix and mingle! You can send invites to Vendors you already know to apply or as pre-approved, or search the SOWerk Vendor directory. </p>`,
+            content: `<p>Your locations built and your Vendor requirements are set. It’s time to mix and mingle!<br/><br/>Use the Vendor invite tool to send invitations to those Vendors you wish to apply on SOWerk for your Vendor requirements or invite pre-approved Vendors to connect on SOWerk without application. You can also search the SOWerk Vendor directory to find vendors to invite. </p>`,
             params: {
               placement: "top",
             }
@@ -104,7 +105,9 @@
       this.company = data;
       this.companyType = data.company_type;
       console.log(this.companyType);
-      this.$tours['myTour'].start();
+      setTimeout(() => {
+        this.$tours['myTour'].start();
+      }, 5000)
     },
     computed: {
       currentUser() {
