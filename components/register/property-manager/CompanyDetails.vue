@@ -102,7 +102,7 @@
                   class="card__input black--text"
                   v-model="user.phone"
                   placeholder=" "
-                  :rules="rules.phoneRules"
+                  :rules="rules.requiredRules"
                   v-mask="'(###) ###-####'"
                 ></v-text-field>
               </v-col>

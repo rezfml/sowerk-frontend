@@ -29,7 +29,7 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
           <FacilitiesCard
-            v-if="vendors && locationApproved && !editLocationDetails"
+            v-if="vendors && !editLocationDetails"
             :title="'Location Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
