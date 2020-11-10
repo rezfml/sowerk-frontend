@@ -237,7 +237,6 @@ export default {
         adminLevel: 0,
         imageUrl: null,
         pfLogoCheckbox: false,
-        companies_id: Number,
       },
       editingIndex: 0,
       imageUrlLocation: '',
@@ -429,7 +428,6 @@ export default {
         adminLevel: null,
         imageUrl: null,
         pfLogoCheckbox: false,
-        companies_id: this.user.companies_id,
       }
 
       this.locations.push(newLocation)
@@ -466,8 +464,9 @@ export default {
           this.user
         )
         .catch((e) => e)
-      console.log('user', data)
-      await this.postLocations(data.user.companies_id)
+      console.log('user', data);
+
+      await this.loopLocationImages();
     },
     async loopLocationImages() {
       this.locations.forEach((location, index) => {
@@ -479,211 +478,226 @@ export default {
       console.log(this.locations);
     },
     async uploadLocationImage(formData, index) {
-      let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/upload', formData).catch(err => {
-        console.log('error in uploading location image', err)
-      })
+      // let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/upload', formData).catch(err => {
+      //   console.log('error in uploading location image', err)
+      // })
 
-      this.locations[index].imageUrl = data.data.Location;
-    },
-    async postLocations(userId) {
-      console.log(this.locations, 'this.locations');
-      await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+      await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
         .then(async (response) => {
-          console.log('user locations post: ', response.data);
-          await this.getUserLocations(userId)
+          console.log('image upload response ', response.data.data.Location);
+          this.locations[index].imageUrl = response.data.data.Location;
+          console.log(this.locations[index]);
+          await this.postLocation(this.locations[index]);
         })
         .catch((e) => console.log('err', e));
     },
-    async getUserLocations(userId) {
-      await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + userId)
+    async postLocation(location) {
+      console.log(this.locations, 'this.locations');
+      location.phone = location.phone.replace(/[^\d]/g, '');
+      await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.user.companies_id, location)
         .then(async (response) => {
-          console.log('get companys locations: ', response.data.location)
-          await this.postServicesPerLocation(response.data.location)
+          console.log('user location post: ', response.data);
         })
-        .catch((e) => e)
+        .catch((e) => console.log('err', e));
     },
-    async postServicesPerLocation(locationsVal) {
-      console.log(locationsVal, 'locations');
-      for (const locationVal of locationsVal) {
-        console.log(locationVal, 'location', locationsVal, 'locations');
-        for (const service of this.services) {
-          console.log(service, 'service', this.services, 'this.services');
-          let serviceObject = {
-            name: service,
-            locations_id: locationVal.id
-          };
-          let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + locationVal.id, serviceObject)
-            .catch((e) => e)
-          console.log(data)
-        }
-      }
-      await this.postUserformsPerService()
-    },
-    async getServicesPerLocation(id) {
-      let { data, status } = await this.$http
-        .get(
-          'https://www.sowerkbackend.com/api/services/byLocationId/' +
-            id
-        )
-        .catch((e) => e)
-      console.log(data)
-    },
-    async getAllServices() {
-      let { data, status } = await this.$http
-        .get(
-          'https://www.sowerkbackend.com/api/companies/' +
-            this.user.companies_id
-        )
-        .catch((e) => e)
-      console.log(data)
-      return data.locations
-    },
-    async postUserformsPerService() {
-      let locations = await this.getAllServices()
-      console.log(locations)
-      for (const location of locations) {
-        for (const service of location.services) {
-          let userformObject = {
-            name: service.name,
-          }
-          let { data, status } = await this.$http
-            .post(
-              'https://www.sowerkbackend.com/api/userforms/byServiceId/' +
-                service.id,
-              userformObject
-            )
-            .catch((e) => e)
-          console.log(data)
-          await this.getUserforms(service.id)
-        }
-      }
-    },
-    async getUserforms(id) {
-      let { data, status } = await this.$http
-        .get(
-          'https://www.sowerkbackend.com/api/userforms/byServiceId/' +
-            id
-        )
-        .catch((e) => e)
-      console.log(data)
-      await this.postFormFieldsToUserforms(data)
-    },
- async postFormFieldsToUserforms(userforms) {
-        for(const userform of userforms) {
-          let fields = [
-            {
-              "name": "Company Name",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Company Founded",
-              "type": "number",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Address",
-              "type": "address",
-              "value": "address",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Service Provided",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "First Name",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Last Name",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Email",
-              "type": "email",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Phone",
-              "type": "number",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "What is your regular time/hour rate for your service?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "What are your regular rate hours M-F, 8am - 5pm?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "Do you charge for quotes that do not involve a technician?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "How quick can you return quotes, once you have all of your pricing?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "What markets do you serve?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "What do you consider as local for a service market?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-            {
-              "name": "What other similar businesses do you support?*",
-              "type": "text",
-              "value": "",
-              "required": true,
-              "options": "",
-            },
-          ];
-          for (const field of fields) {
-            let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
-          }
-        }
-        this.loading = false;
-        await this.$router.push('/register/verify');
-      },
+    // async postLocations(userId) {
+    //   console.log(this.locations, 'this.locations');
+    //   await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+    //     .then(async (response) => {
+    //       console.log('user locations post: ', response.data);
+    //     })
+    //     .catch((e) => console.log('err', e));
+    // },
+ //    async getUserLocations(userId) {
+ //      await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + userId)
+ //        .then(async (response) => {
+ //          console.log('get companys locations: ', response.data.location)
+ //          await this.postServicesPerLocation(response.data.location)
+ //        })
+ //        .catch((e) => e)
+ //    },
+ //    async postServicesPerLocation(locationsVal) {
+ //      console.log(locationsVal, 'locations');
+ //      for (const locationVal of locationsVal) {
+ //        console.log(locationVal, 'location', locationsVal, 'locations');
+ //        for (const service of this.services) {
+ //          console.log(service, 'service', this.services, 'this.services');
+ //          let serviceObject = {
+ //            name: service,
+ //            locations_id: locationVal.id
+ //          };
+ //          let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + locationVal.id, serviceObject)
+ //            .catch((e) => e)
+ //          console.log(data)
+ //        }
+ //      }
+ //      await this.postUserformsPerService()
+ //    },
+ //    async getServicesPerLocation(id) {
+ //      let { data, status } = await this.$http
+ //        .get(
+ //          'https://www.sowerkbackend.com/api/services/byLocationId/' +
+ //            id
+ //        )
+ //        .catch((e) => e)
+ //      console.log(data)
+ //    },
+ //    async getAllServices() {
+ //      let { data, status } = await this.$http
+ //        .get(
+ //          'https://www.sowerkbackend.com/api/companies/' +
+ //            this.user.companies_id
+ //        )
+ //        .catch((e) => e)
+ //      console.log(data)
+ //      return data.locations
+ //    },
+ //    async postUserformsPerService() {
+ //      let locations = await this.getAllServices()
+ //      console.log(locations)
+ //      for (const location of locations) {
+ //        for (const service of location.services) {
+ //          let userformObject = {
+ //            name: service.name,
+ //          }
+ //          let { data, status } = await this.$http
+ //            .post(
+ //              'https://www.sowerkbackend.com/api/userforms/byServiceId/' +
+ //                service.id,
+ //              userformObject
+ //            )
+ //            .catch((e) => e)
+ //          console.log(data)
+ //          await this.getUserforms(service.id)
+ //        }
+ //      }
+ //    },
+ //    async getUserforms(id) {
+ //      let { data, status } = await this.$http
+ //        .get(
+ //          'https://www.sowerkbackend.com/api/userforms/byServiceId/' +
+ //            id
+ //        )
+ //        .catch((e) => e)
+ //      console.log(data)
+ //      await this.postFormFieldsToUserforms(data)
+ //    },
+ // async postFormFieldsToUserforms(userforms) {
+ //        for(const userform of userforms) {
+ //          let fields = [
+ //            {
+ //              "name": "Company Name",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Company Founded",
+ //              "type": "number",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Address",
+ //              "type": "address",
+ //              "value": "address",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Service Provided",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "First Name",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Last Name",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Email",
+ //              "type": "email",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Phone",
+ //              "type": "number",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "What is your regular time/hour rate for your service?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "What are your regular rate hours M-F, 8am - 5pm?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "Do you charge for quotes that do not involve a technician?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "How quick can you return quotes, once you have all of your pricing?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "What markets do you serve?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "What do you consider as local for a service market?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //            {
+ //              "name": "What other similar businesses do you support?*",
+ //              "type": "text",
+ //              "value": "",
+ //              "required": true,
+ //              "options": "",
+ //            },
+ //          ];
+ //          for (const field of fields) {
+ //            let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + userform.id, field).catch(e => e);
+ //          }
+ //        }
+ //        this.loading = false;
+ //        await this.$router.push('/register/verify');
+ //      },
       getTosDate(e) {
         if(e) {
           let today = new Date();
