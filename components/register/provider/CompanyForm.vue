@@ -48,8 +48,6 @@
             validate-on-blur
             :rules="rules.phoneRules"
             v-mask="'(###)###-####'"
-            :value="currentValue" 
-            @input="handleInput"
           ></v-text-field>
         </v-col>
 

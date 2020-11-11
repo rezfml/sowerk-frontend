@@ -2,7 +2,7 @@
 <v-container>
   <v-card class="white pt-0 mt-12 mb-4" style="width: 100%" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm ">
     <v-container class="pt-0" fluid >
-      <v-card-title 
+      <v-card-title
         style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient TitleCard"
         >{{ title }}</v-card-title>
@@ -22,15 +22,15 @@
           :items="items"
           :items-per-page="10"
           :hide-default-footer="true"
-          
+
           cols="12"
         >
           <template v-slot:item.address="{item}">
-            <v-row class="d-flex-column" cols="12" lg="6">
-              <v-row>
+            <v-row class="d-flex" cols="12" lg="6">
+              <v-col>
                 <p>{{item.address}}</p>
                 <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
-              </v-row>
+              </v-col>
               <v-progress-circular
                 v-if="loading === false"
                 indeterminate
@@ -40,8 +40,8 @@
             </v-row>
           </template>
           <template v-slot:item.imageUrl="{ item }">
-            <v-row class="d-flex" cols="12" lg="6" >
-                <v-img :src="item.imageUrl" :aspect-ratio="1" height="50px" width="50px" style="border-radius: 50%;" class="mr-4 my-1"/>
+            <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -87,7 +87,7 @@
 
           <template v-slot:item.actions="{ item }" v-else>
             <nuxt-link :to="slug + item.id" append>
-              <v-btn class="my-1" style="width: 90%; color: white;" color="#707070" >
+              <v-btn class="my-1" block color="primary" >
                 View
               </v-btn>
             </nuxt-link>
@@ -98,8 +98,9 @@
 
           <template v-slot:footer v-if="action != 'View'">
             <v-row class="d-flex justify-end mt-4" style="width: 100%;">
-              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined large>Add New Location</v-btn>
-              <v-btn :to='slug' color="primary"  class="px-16 ml-8 mt-2" rounded outlined large>View All</v-btn>
+
+              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined >Add New Location</v-btn>
+              <v-btn :to='slug' color="primary"  class="px-16 ml-8 mt-2" rounded outlined>View All</v-btn>
             </v-row>
           </template>
         </v-data-table>
@@ -120,7 +121,7 @@
 </v-card>
 <v-card class="white pt-0 mt-12 mb-4" style="min-width: 120% !important;margin-left:-10%;" v-else>
 <v-container class="pt-0" fluid  >
-      <v-card-title 
+      <v-card-title
         style="position: absolute; top: -0px; left: 35px; width: 92%; border-radius: 3px; font-size: 14px;"
         class="primary white--text font-weight-regular red-gradient TitleCard"
         >{{ title }}</v-card-title>
@@ -143,7 +144,7 @@
           :hide-default-header="true"
 
         >
-        
+
           <template v-slot:item.imageUrl="{item}"  >
             <v-row class="d-flex flex-start order-0">
             </v-row>
@@ -169,7 +170,7 @@
 
           <template v-slot:item.name="{ item }" >
             <v-row class="d-flex " cols="12" lg="6"  >
-              
+
               <h3>Location Name</h3>
             </v-row>
             <v-col>
@@ -178,7 +179,7 @@
             </v-row>
             </v-col>
           </template>
-          
+
 
           <template v-slot:item.full_name="{ item }" >
             <v-row class="d-flex mt-4" cols="12" lg="6" >
@@ -212,9 +213,9 @@
               <h3>Phone Number</h3>
             </v-row>
            <p class="mb-4"> {{ item.phone }}</p>
-            
+
           </template>
-          
+
           <template v-slot:item.actions="{ item }" v-if="action === 'Review'" >
             <v-btn class="my-12 "  block color="primary" :to="slug + item.application_id">Review</v-btn>
           </template>

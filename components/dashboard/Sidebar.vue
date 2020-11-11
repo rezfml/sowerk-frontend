@@ -12,7 +12,7 @@
       <v-list-item >
         <v-list-item-content class="py-0">
           <v-list-item-title class="title text-center">
-            <v-img src="/SoWerk-Logo.png" style="height: 50px; width: 100%; object-fit: cover; object-position: center;"></v-img>
+            <v-btn style="height: 50px; width: 100%;" text color="transparent" :to="'../'" target="_blank"><v-img src="/SoWerk-Logo.png" style="height: 50px; width: 100%; object-fit: cover; object-position: center;"></v-img></v-btn>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -25,7 +25,7 @@
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
             <v-col cols="12" class="pa-0 ma-0 d-flex flex-column align-left" >
               <template v-if="company">
-                <v-list-item-title style="font-size: 1rem;">{{company.account_name}}</v-list-item-title>
+                <v-list-item-title style="font-size: 1rem; align-self: flex-start;">{{company.account_name}}</v-list-item-title>
               </template>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
             </v-col>
@@ -50,11 +50,11 @@
 
       <div v-if="company && company.company_type === 'true'">
         <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to" exact>
+          <v-list-item v-if="!link.children" :key="index" :id="link.id" :to="link.to" exact>
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
-          <v-list-group v-else :key="index" class="list-group">
+          <v-list-group v-else :key="index" class="list-group" :id="link.id">
             <template v-slot:activator>
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title>{{ link.text }}</v-list-item-title>
@@ -66,17 +66,17 @@
           </v-list-group>
         </template>
         <template v-if="user.is_superuser === false" v-for="(link, index) in pmStaffitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to">
+          <v-list-item v-if="!link.children" :id="link.id" :key="index" :to="link.to">
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
           <v-list-group v-else :key="index" class="list-group">
-            <template v-slot:activator>
+            <template v-slot:activator :id="link.id">
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title>{{ link.text }}</v-list-item-title>
             </template>
             <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5)" :to="child.to" exact-active-class="v-list-item--exact">
-              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-if="j < link.children.length - 1" >{{ child.text }}</v-list-item-title>
               <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
             </v-list-item>
           </v-list-group>
@@ -176,7 +176,7 @@
 
      <div v-if="company && company.company_type === 'true'">
         <template v-if="user.is_superuser === true" v-for="(link, index) in pmitems" >
-          <v-list-item v-if="!link.children" :key="index" :to="link.to" style="color:white;">
+          <v-list-item v-if="!link.children" :id="link.id" :key="index" :to="link.to" style="color:white;">
             <v-list-item-icon><v-icon style="color:white;">{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title style="color:white;">{{ link.text }}</v-list-item-title>
           </v-list-item>
@@ -192,7 +192,7 @@
           </v-list-group>
         </template>
         <template v-if="user.is_superuser === false" v-for="(link, index) in pmStaffitems">
-          <v-list-item v-if="!link.children" :key="index" :to="link.to" style="color:white;">
+          <v-list-item v-if="!link.children" :key="index" :id="link.id" :to="link.to" style="color:white;">
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item>
@@ -218,6 +218,7 @@
             style="text-decoration: none;"
             v-on:click="setActiveLink(link.slug)"
             :class="link.class"
+            :id="link.id"
           >
             <v-list-item>
               <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
@@ -260,13 +261,15 @@
             to: '/dashboard',
             slug: 'home',
             icon: 'dashboard',
-            text: 'Dashboard'
+            text: 'Dashboard',
+            id: 'dashboard'
           },
           {
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
             text: 'My Locations',
+            id: 'mylocations',
             children: [
               {
                 to: '/dashboard/facilities/',
@@ -285,6 +288,7 @@
             slug: 'vendors',
             icon: 'mdi-account-check',
             text: 'Vendors',
+            id: 'vendors',
             children: [
               {
                 to: '/dashboard/vendors/approved',
@@ -324,6 +328,7 @@
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
             text: 'Messages & Alerts',
+            id: 'messages',
             children: [
               {
                 to: '/dashboard/messages-and-alerts/',
@@ -341,13 +346,15 @@
             to: '/dashboard/feedback/',
             slug: 'feedback',
             icon: 'mdi-comment-question',
-            text: 'Support & Feedback'
+            text: 'Support & Feedback',
+            id: 'supportfeedback',
           },
           {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
+            id: 'settings',
             class: 'fixed-bottom',
             children: [
               {
@@ -377,13 +384,15 @@
             to: '/dashboard',
             slug: 'home',
             icon: 'dashboard',
-            text: 'Dashboard'
+            text: 'Dashboard',
+            id: 'dashboard'
           },
           {
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
             text: 'My Locations',
+            id: 'mylocations',
             children: [
               {
                 to: '/dashboard/facilities/',
@@ -397,6 +406,7 @@
             slug: 'vendors',
             icon: 'mdi-account-check',
             text: 'Vendors',
+            id: 'vendors',
             children: [
               {
                 to: '/dashboard/vendors/approved',
@@ -436,6 +446,7 @@
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
             text: 'Messages & Alerts',
+            id: 'messages',
             children: [
               {
                 to: '/dashboard/messages-and-alerts/',
@@ -453,13 +464,15 @@
             to: '/dashboard/feedback/',
             slug: 'feedback',
             icon: 'mdi-comment-question',
-            text: 'Support & Feedback'
+            text: 'Support & Feedback',
+            id: 'supportfeedback',
           },
           {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
+            id: 'settings',
             class: 'fixed-bottom',
             children: [
               {
@@ -483,13 +496,15 @@
             to: '/dashboard',
             slug: 'home',
             icon: 'dashboard',
-            text: 'Dashboard'
+            text: 'Dashboard',
+            id: 'dashboard'
           },
           {
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
             text: 'My Locations',
+            id: 'mylocations',
             children: [
               {
                 to: '/dashboard/facilities/',
@@ -542,13 +557,15 @@
             to: '/dashboard/feedback/',
             slug: 'feedback',
             icon: 'mdi-comment-question',
-            text: 'Support & Feedback'
+            text: 'Support & Feedback',
+            id: 'supportfeedback',
           },
           {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
             text: 'Settings',
+            id: 'settings',
             class: 'fixed-bottom'
           },
         ],

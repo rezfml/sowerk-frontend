@@ -92,7 +92,7 @@
       </v-col>
       </v-row>
       </v-col>
-      
+
 
         <!-- SOWERK LOGO -->
        <v-col cols="4">
@@ -116,7 +116,7 @@
           <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
           <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
         </ul>
-      </v-col my-0>
+      </v-col>
       <v-col cols=12>
         <ul class="px-0 my-n6">
           <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
@@ -127,7 +127,7 @@
 
 
       <!-- FOOTER LINKS -->
-       <v-col cols="4" style="display: flex; flex-direction: column;" class="d-none d-sm-flex">
+       <v-col cols="4" style="display: flex; flex-direction: column; align-items: flex-end" class="d-none d-sm-flex">
          <ul>
          <li :href=item.path
           v-for="item in items"
@@ -194,10 +194,10 @@ export default {
     updateScroll() {
        this.scrollPosition = window.scrollY
     }
-},
-mounted() {
-    window.addEventListener('scroll', this.updateScroll);
-}
+  },
+  mounted() {
+      window.addEventListener('scroll', this.updateScroll);
+  }
 }
 </script>
 
@@ -211,7 +211,7 @@ header {
   background: linear-gradient(180deg, rgba(255,255,255,0.3) 15%, rgba(0,0,0,0.15) 50%);
   position: absolute;
   content: "";
-  height: 200%;
+  height: 125%;
   width: 100%;
   top: 0;
   transform: translateY(0px);

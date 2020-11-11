@@ -32,7 +32,7 @@
           :search="search"
           :items-per-page="10"
           style="width:100%;height:auto;"
-
+          v-if="items"
         >
           <template v-slot:item.first_name="{item}">
             <p>{{item.first_name}} {{item.last_name}}</p>
@@ -61,7 +61,7 @@
             <div class="d-flex flex-column align-center">
               <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
-              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
             </div>
           </template>
 
@@ -74,6 +74,7 @@
           :search="search"
           :items-per-page="10"
           class="mobileTable"
+          v-if="items"
         >
           <template v-slot:item.first_name="{item}">
             <p>{{item.first_name}} {{item.last_name}}</p>
@@ -102,7 +103,7 @@
             <div class="d-flex flex-column align-center" style="margin-top:50%;">
               <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
-              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
             </div>
           </template>
 
@@ -140,6 +141,8 @@
             :viewLocation="true"
             :locationAssignUser="locationAssignUser"
             :assignUserToLocation="assignUserToLocation"
+            :massAssignUserToLocation="massAssignUserToLocation"
+            :submitMassAssignUserToLocation="submitMassAssignUserToLocation"
           ></FacilitiesCard>
           <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
         </v-card>
@@ -176,6 +179,8 @@
             :viewLocation="true"
             :locationAssignUser="locationAssignUser"
             :assignUserToLocation="assignUserToLocation"
+            :massAssignUserToLocation="massAssignUserToLocation"
+            :submitMassAssignUserToLocation="submitMassAssignUserToLocation"
           ></FacilitiesCard>
           <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
         </v-card>
@@ -189,7 +194,7 @@
   import FacilitiesCard from '~/components/dashboard/FacilitiesCard'
 export default {
   name: 'UserCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'currentUser', 'locations', 'getLocations', 'getUsers'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'currentUser', 'locations', 'getLocations', 'getUsers', 'viewLocation'],
   components: {
     HomeCard,
     FacilitiesCard
@@ -223,6 +228,7 @@ export default {
         { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
       ],
+      massLocation: [],
     }
   },
   mounted() {
@@ -324,6 +330,70 @@ export default {
         await this.getUsers();
       }, 500)
     },
+    async massAssignUserToLocation(location) {
+      document.getElementById(location.id).checked = !document.getElementById(location.id).checked
+      console.log(document.getElementById(location.id).checked, 'checked');
+      const checkboxes = document.querySelectorAll('input[name="massAssign"]:checked');
+      console.log(checkboxes, 'checkboxes');
+      if(document.getElementById(location.id).checked === true) {
+        console.log('location for mass assign', location)
+        this.massLocation.push(location)
+      } else {
+        this.massLocation = this.massLocation.filter(locationVal => {
+          if(locationVal !== location) {
+            return locationVal
+          }
+        })
+      }
+
+      console.log(this.massLocation, 'massLocation')
+    },
+    async submitMassAssignUserToLocation() {
+      let locationAssign = {
+        email: "",
+        phone: "",
+        contact_first_name: "",
+        contact_last_name: "",
+        adminLevel: Number
+      };
+      if(this.locationAssignUser.is_superuser === true) {
+        locationAssign = {
+          email: this.locationAssignUser.email,
+          phone: this.locationAssignUser.phone,
+          contact_first_name: this.locationAssignUser.first_name,
+          contact_last_name: this.locationAssignUser.last_name,
+          adminLevel: 1
+        }
+      } else {
+        locationAssign = {
+          email: this.locationAssignUser.email,
+          phone: this.locationAssignUser.phone,
+          contact_first_name: this.locationAssignUser.first_name,
+          contact_last_name: this.locationAssignUser.last_name,
+          adminLevel: 0
+        }
+      }
+      if (this.massLocation.length > 0) {
+        for(let i=0; i<this.massLocation.length; i++) {
+          await setTimeout(async () => {
+            await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.massLocation[i].id, locationAssign)
+              .then(async (response) => {
+                console.log('success', response)
+                this.successAssign = true;
+                this.locationAssignLoad = false;
+              })
+              .catch(err => {
+                console.log(err, 'err')
+                alert('Error in assigning user to this location')
+              })
+          }, 500)
+        }
+        await this.getLocations();
+        await this.getUsers();
+      } else {
+        alert('Please select the checkboxes for each location that you want to assign to the user!')
+      }
+    }
   }
 }
 

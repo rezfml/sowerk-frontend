@@ -405,7 +405,7 @@
         return date.getFullYear();
       },
       async getActiveUserforms(location) {
-        await this.$http.get('https://www.sowerkbackend.com/api/userforms/active')
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byStatusId/1')
           .then(response => {
             let activeUserforms = response.data;
             this.myActiveUserforms = [];

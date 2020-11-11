@@ -55,7 +55,7 @@
                       color="primary"
                       outlined
                       rounded
-                      class="flex-grow-0 px-6"
+                      class="flex-grow-0 px-6 mt-5 mt-md-0"
                       >Upload Logo</v-btn
                     >
                   </v-col>
@@ -105,12 +105,12 @@
 
                 <v-text-field
                   label="Phone*"
-                  type="text"
+                  type="tel"
                   class="card__input black--text"
-                  style="font-size: 12px;"
                   v-model="user.phone"
-                  placeholder=""
-                  :rules="rules.phoneRules"
+                  placeholder=" "
+                  :rules="rules.requiredRules"
+                  v-mask="'(###) ###-####'"
                 ></v-text-field>
               </v-col>
 
@@ -180,6 +180,7 @@
                   id="brand-name"
                   label="Brand Name*"
                   type="text"
+                  hint="The name your brand is associated with."
                   placeholder=" "
                   v-model="company.brand_name"
                   :rules="rules.requiredRules"
@@ -212,7 +213,7 @@
               <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
                 <v-text-field
                   id="company-llc"
-                  label="List your LLC Name (If Applicable)"
+                  label="List Legal Company Name"
                   type="text"
                   v-model="company.llcName"
                   placeholder=" "
@@ -267,8 +268,9 @@
                       <client-only>
                         <vue-google-autocomplete
                           id="company-address"
+                          ref="googleAutocomplete"
                           name="company_address"
-                          classname="form-control"
+                          classname="form-control py-3 text-body-1"
                           v-on:placechanged="getAddressData"
                           placeholder=""
                           style="width: 100%;"
@@ -276,6 +278,7 @@
                           v-on:blur.native="animateAddressFieldOnFocus"
                           v-on:input.native="animateAddressFieldOnFilled"
                           v-model="fullAddress"
+                          value=""
                         >
                         </vue-google-autocomplete>
                       </client-only>
@@ -436,6 +439,7 @@ export default {
     animateAddressFieldOnFocus(e) {
       let addressLabel = e.target.previousElementSibling
       addressLabel.classList.toggle('v-label--focus')
+      this.$refs.googleAutocomplete.$el.setAttribute('autocomplete', 'disabled');
     },
     animateAddressFieldOnFilled(e) {
       if (e.target != '') {

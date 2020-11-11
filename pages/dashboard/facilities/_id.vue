@@ -29,7 +29,7 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
           <FacilitiesCard
-            v-if="vendors && locationApproved && !editLocationDetails"
+            v-if="vendors && !editLocationDetails && locationApproved"
             :title="'Location Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -394,7 +394,7 @@
           .catch(e => console.log(e, 'error'));
         // this.loading = true;
         this.locationApproved = true;
-        console.log('loading', this.loading)
+        console.log('loading', this.loading, 'locationApproved', this.locationApproved)
       },
       async getBusinesses(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
@@ -445,7 +445,7 @@
                 .then(async (response) => {
                   console.log(response.data, 'yoooo approved');
                   if(response.data.length === 0) {
-                    // this.loading = true;
+                    this.locationApproved = true;
                   }
                   for(let i = 0; i<response.data.length; i++) {
                     if(response.data[i].approval_status === 1) {

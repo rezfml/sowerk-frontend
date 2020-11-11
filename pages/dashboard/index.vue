@@ -1,24 +1,6 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-<!--    <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
-<!--      <v-progress-circular-->
-<!--        indeterminate-->
-<!--        color="primary"-->
-<!--        :size="50"-->
-<!--      ></v-progress-circular>-->
-<!--    </v-col>-->
-    <v-container class="px-8" fluid>
-<!--      <v-row v-if="hidden !== true">-->
-<!--        <v-card color="primary" class="d-flex" style="width: 100%;">-->
-<!--          <v-card-text class="ml-16" style="color: white; font-size: 24px; align-items:baseline;">New to SOWerk?-->
-<!--            <span>-->
-<!--                <v-btn :href="'../../landingpage/about'" color="white" class="mt-2 mr-16" style="margin-bottom: 10px !important;" outlined rounded >Learn More</v-btn>-->
-<!--            </span>-->
-<!--          </v-card-text>-->
-
-<!--          <v-btn @click="exit" color="white" class="mt-2" style="z-index:7"text depressed>X</v-btn>-->
-<!--        </v-card>-->
-<!--      </v-row>-->
+    <v-container class="px-8" fluid id="v-step-0">
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <v-skeleton-loader
@@ -59,14 +41,6 @@
           slug="/dashboard/facilities/"
         ></HomeCard>
       </transition>
-<!--      <v-row v-if="company && company.company_type !== 'false'">-->
-<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
-<!--        </v-col>-->
 
       <v-row v-if="company && company.company_type !== 'false'">
         <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
@@ -86,7 +60,6 @@
         <v-col v-if="company && company.company_type === 'false'" col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
           <StatCard :stat="stat"></StatCard>
         </v-col>
-      </v-row>
 <!--      <v-card class="white pt-0 mt-12" v-if="company && company.company_type !== 'false'">-->
 <!--        <v-container fluid >-->
 <!--          <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white&#45;&#45;text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>-->

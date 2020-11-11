@@ -14,8 +14,8 @@
               <v-col cols="12">
                 <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png" aspect-ratio="1" style="height: 25vh; max-height: 25vh;"></v-img>
                 <p class="primary--text text-center font-weight-bold text-h5">Invite a Service Provider to join SOWerk And Connect For Free</p>
-                <p class="text-center text-h6">Enter the Service Providers information below, add another line and invite multiple at once.</p>
-                <p class="text-body-1 text-center">(Note* by selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk with a free connection, but will still have to submit an application to your business.)</p>
+                <p class="text-center text-h6">Enter the Service Provider's information below, add another line, and invite multiple providers at once.</p>
+                <p class="text-body-1 text-center">(Note: By selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk with a free connection, but will still have to submit an application to your business.)</p>
               </v-col>
               <v-col cols="12">
                 <v-data-table

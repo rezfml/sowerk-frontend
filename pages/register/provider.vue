@@ -48,6 +48,7 @@
             active-class="primary white--text elevation-10"
             hide-slider
             style="position: relative;"
+            :vertical="$vuetify.breakpoint.mobile"
           >
             <v-tab
               v-for="(item, index) in items"
@@ -164,6 +165,7 @@
                             class="card__input black--text mb-6"
                             v-model="user.phone"
                             :rules="rules.phoneRules"
+                            v-mask="'(###)###-####'"
                             validate-on-blur
                           ></v-text-field>
                         </v-col>
@@ -194,28 +196,16 @@
                           </p>
                         </v-col>
 
-                        <v-col cols="12" sm="6">
+                        <v-col cols="12" md="3">
                           <v-text-field
-                            id="account-name"
-                            label="Account Name*"
-                            placeholder="The name shown publicly to businesses and platform users "
-                            v-model="company.account_name"
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6">
-                          <v-text-field
-                            id="brand-name"
-                            label="Brand Name*"
+                            label="Year Founded*"
                             type="text"
                             placeholder=" "
-                            v-model="company.brand_name"
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12" sm="6">
+                        <v-col cols="12" md="9">
                           <v-select
                             id="company-best"
                             label="What Best Describes You*"
@@ -227,14 +217,43 @@
                           ></v-select>
                         </v-col>
 
-                        <v-col cols="12" sm="6" v-if="company.isFranchise">
+                        <v-col cols="12">
+                          <v-text-field
+                            id="account-name"
+                            label="Account Name*"
+                            placeholder=" "
+                            v-model="company.account_name"
+                            :rules="rules.requiredRules"
+                            v-if="!company.isFranchise"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            id="brand-name"
+                            label="Franchise Brand Name*"
+                            type="text"
+                            placeholder=" "
+                            v-model="company.brand_name"
+                            :rules="rules.requiredRules"
+                            v-if="company.isFranchise"
+                            hint=" "
+                            persistent-hint
+                            class="py-4"
+                          ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" md="6" v-if="company.isFranchise">
                           <v-text-field
                             id="company-llc"
-                            label="List your LLC Name (If Applicable)"
+                            label="Registered Company Name"
                             type="text"
                             placeholder=" "
                             v-model="company.llcName"
                             :rules="rules.requiredRules"
+                            hint="Cannot be your Franchise Brand Name"
+                            persistent-hint
+                            class="py-4"
                           ></v-text-field>
                         </v-col>
 
@@ -296,7 +315,7 @@
                             v-model="company.servicesOffered"
                             multiple
                             chips
-                            label="What Services Do You Offer? "
+                            label="What Services Do You Offer?"
                             placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-select>
@@ -316,8 +335,6 @@
                             label="Year Business Was Founded*"
                             type="text"
                             placeholder=" "
-                            v-model="company.year_founded"
-                            class="pt-5"
                             :rules="rules.requiredRules"
                           ></v-text-field>
                         </v-col>
@@ -331,6 +348,53 @@
                             :rules="rules.requiredRules"
                           ></v-textarea>
                         </v-col>
+
+                        <v-col cols="12">
+                          <p class="font-weight-bold text-h5">Services</p>
+                          <v-divider class="mb-12"></v-divider>
+                          <v-list>
+                            <v-list-item v-for="(service, index) in servicesProvided"></v-list-item>
+                          </v-list>
+                          <v-select
+                            :items="sectors"
+                            label="First, select your sector."
+                            placeholder=" "
+                            item-text="title"
+                            item-value="code"
+                            @change="getSectorChildren"
+                          ></v-select>
+                          <template v-if="companySector">
+                            <v-select
+                              :items="industryLevel1"
+                              placeholder=" "
+                              item-text="title"
+                              item-value="code"
+                              v-model="companyLevel1"
+                              @change="getLevel1Children"
+                            ></v-select>
+                          </template>
+                          <template v-if="companyLevel1">
+                            <v-select
+                              :items="industryLevel2"
+                              placeholder=" "
+                              item-text="title"
+                              item-value="code"
+                              v-model="companyLevel2"
+                              @change="getLevel2Children"
+                            ></v-select>
+                          </template>
+<!--                          <template v-if="companyLevel2">-->
+<!--                            <v-select-->
+<!--                              :items="industryLevel3"-->
+<!--                              placeholder=" "-->
+<!--                              item-text="title"-->
+<!--                              item-value="code"-->
+<!--                              v-model="companyLevel3"-->
+<!--                              @change="getLevel3Children"-->
+<!--                            ></v-select>-->
+<!--                          </template>-->
+                        </v-col>
+
                       </v-row>
                     </v-container>
                   </v-form>
@@ -620,27 +684,6 @@
                     >
                   </v-col>
 
-                  <!--                <v-divider color="red" class="mt-8 mb-4"></v-divider>-->
-
-                  <!--                <v-col cols="12" class="mt-2">-->
-                  <!--                  <h2 class="mb-4 mx-auto font-weight-bold text-center">Review Company Locations</h2>-->
-                  <!--                  <v-data-table-->
-                  <!--                    :headers="headers"-->
-                  <!--                    :items.sync="locations"-->
-                  <!--                    :items-per-page="10"-->
-                  <!--                  >-->
-                  <!--                    <template v-slot:item.id="{ item }">{{ locations.indexOf(item) + 1 }}</template>-->
-                  <!--                    <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>-->
-                  <!--                  </v-data-table>-->
-                  <!--                </v-col>-->
-
-                  <!--                <v-col cols="12">-->
-                  <!--                  <v-checkbox-->
-                  <!--                    label="I agree to the Terms of Service"-->
-                  <!--                    v-on:change="getTosDate"-->
-                  <!--                  >-->
-                  <!--                  </v-checkbox>-->
-                  <!--                </v-col>-->
                 </v-card-text>
               </v-container>
             </v-tab-item>
@@ -711,211 +754,206 @@
 </template>
 
 <script>
-import VImageInput from 'vuetify-image-input'
-// import * as VueGoogleMaps from '~/node_modules/gmap-vue'
-import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
+  import VImageInput from 'vuetify-image-input'
+  // import * as VueGoogleMaps from '~/node_modules/gmap-vue'
+  import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
-import Vue from 'vue'
-import FormLocation from '~/components/FormLocation'
-import LocationForm from '@/components/register/provider/LocationForm'
-import InsuranceForm from '~/components/InsuranceForm'
-import LicenseForm from '@/components/website/LicenseForm'
 
-// Vue.use(VueGoogleMaps, {
-//   load: {
-//     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
-//   },
-//   installComponents: true
-// })
+  import Vue from 'vue';
+  import FormLocation from '~/components/FormLocation'
+  import LocationForm from '@/components/register/provider/LocationForm'
+  import InsuranceForm from '~/components/InsuranceForm'
+  import LicenseForm from '@/components/website/LicenseForm'
+  import { VueMaskDirective } from 'v-mask'
+  Vue.directive('mask', VueMaskDirective);
 
-export default {
-  name: 'provider',
-  layout: 'fullwidth',
-  components: {
-    FormLocation,
-    VImageInput,
-    GmapCluster,
-    InsuranceForm,
-    LicenseForm,
-    LocationForm,
-  },
-  data() {
-    return {
-      loading: false,
-      tab: 0,
-      items: ['Company', 'Locations', 'Documents', 'Review'],
-      company: {
-        // email: '',
-        account_name: '',
-        brand_name: '',
-        address: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        description: '',
-        // phone: '',
-        year_founded: '',
-        company_type: false,
-        isFranchise: false,
-        servicesOffered: [],
-        imgUrl: null,
-      },
-      confirmPassword: null,
-      bestSelection: [
-        {
-          text: '- I own this brand',
-          value: false,
+  const naics = require("naics");
+
+  // Vue.use(VueGoogleMaps, {
+  //   load: {
+  //     key: 'AIzaSyBwenW5IeaHFqdpup30deLmFlTdDgOMM6Q',
+  //   },
+  //   installComponents: true
+  // })
+
+  export default {
+    name: 'provider',
+    layout: 'fullwidth',
+    components: {
+      FormLocation,
+      VImageInput,
+      GmapCluster,
+      InsuranceForm,
+      LicenseForm,
+      LocationForm
+    },
+    data() {
+      return {
+        loading: false,
+        tab: 0,
+        items: [
+          'Company',
+          'Locations',
+          'Documents',
+          'Review'
+        ],
+        company: {
+          // email: '',
+          account_name: '',
+          brand_name: '',
+          address: '',
+          city: '',
+          state: '',
+          zipcode: '',
+          description: '',
+          // phone: '',
+          year_founded: '',
+          company_type: false,
+          isFranchise: false,
+          servicesOffered: [],
+          imgUrl: null,
         },
-        {
-          text: '- I am a franchisee of this brand',
-          value: true,
+        companySector: null,
+        companyLevel1: null,
+        companyLevel2: null,
+        companyLevel3: null,
+        confirmPassword: null,
+        bestSelection: [
+          {
+            text: "- I own this brand",
+            value: false
+          },
+          {
+            text: "- I am a franchisee of this brand",
+            value: true
+          }
+        ],
+        user: {
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          is_superuser: true,
+          phone: '',
+          companies_id: null
         },
-      ],
-      user: {
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        is_superuser: true,
-        phone: '',
-        companies_id: null,
-      },
-      insurances: [
-        {
+        insurances: [
+          {
+            name: '',
+            policyNumber: '',
+            expirationDateVal: '',
+            documentUrl: '',
+            documentVisible: false,
+            companies_id: null
+          }
+        ],
+        insurance: {
           name: '',
+          insuranceCompany: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
           documentVisible: false,
-          companies_id: null,
+          companies_id: null
         },
-      ],
-      insurance: {
-        name: '',
-        insuranceCompany: '',
-        policyNumber: '',
-        expirationDateVal: '',
-        documentUrl: '',
-        documentVisible: false,
-        companies_id: null,
-      },
-      insuranceFiles: [],
-      licenses: [
-        {
+        insuranceFiles: [],
+        licenses: [
+          {
+            type: '',
+            licenseNumber: '',
+            licenseLocation: '',
+            expirationDate: '',
+            documentUrl: '',
+            documentVisible: false,
+            companies_id: null
+          }
+        ],
+        license: {
           type: '',
           licenseNumber: '',
           licenseLocation: '',
           expirationDate: '',
           documentUrl: '',
           documentVisible: false,
-          companies_id: null,
+          companies_id: null
         },
-      ],
-      license: {
-        type: '',
-        licenseNumber: '',
-        licenseLocation: '',
-        expirationDate: '',
-        documentUrl: '',
-        documentVisible: false,
-        companies_id: null,
-      },
-      licenseFiles: [],
-      companyImageFile: null,
-      companyImageUrl: null,
-      options: {
-        adminLevel: [
-          {
-            text: 'Super User',
-            value: 'superuser',
-          },
-          {
-            text: 'Staff Account',
-            value: 'staff',
-          },
+        licenseFiles: [],
+        companyImageFile: null,
+        companyImageUrl: null,
+        options: {
+          adminLevel: [
+            {
+              text: 'Super User',
+              value: 'superuser',
+            },
+            {
+              text: 'Staff Account',
+              value: 'staff'
+            }
+          ]
+        },
+        servicesProvided: [],
+        serviceOptions: [
+          'HVAC',
+          'Roofing',
+          'General Contractor',
+          'Plumbing',
+          'Window/Glass Repair',
+          'Electrician',
+          'Landscaper',
+          'Painting',
+          'Paving',
+          'Excavation',
+          'Pest Control',
+          'Waste Management',
+          'Engineering',
+          'Water Damage Repair'
         ],
-      },
-      servicesProvided: [],
-      serviceOptions: [
-        'HVAC',
-        'Roofing',
-        'General Contractor',
-        'Plumbing',
-        'Window/Glass Repair',
-        'Electrician',
-        'Landscaper',
-        'Painting',
-        'Paving',
-        'Excavation',
-        'Pest Control',
-        'Waste Management',
-        'Engineering',
-        'Water Damage Repair',
-      ],
-      fullAddress: null,
-      locations: [],
-      location: {
-        name: null,
-        address: null,
-        city: null,
-        state: null,
-        zipcode: null,
-        contact_first_name: null,
-        contact_last_name: null,
-        phone: null,
-        email: null,
-        latitude: null,
-        longitude: null,
-        radius: 0,
-        year_founded: '',
-        pfLogoCheckbox: false,
-        imageUrl: null,
-        companies_id: null,
-      },
-      formattedServicesProvided: [],
-      editingIndex: 0,
-      editingIndexInsurance: 0,
-      editingIndexLicense: 0,
-      imageUrlLocation: '',
-      autocomplete: null,
-      markers: [],
-      editingLocation: true,
-      editingInsurance: true,
-      editingLicense: true,
-      headers: [
-        {
-          text: 'Location Name',
-          value: 'name',
-          class: 'primary--text font-weight-regular',
+        fullAddress: null,
+        locations: [],
+        location: {
+          name: null,
+          address: null,
+          city: null,
+          state: null,
+          zipcode: null,
+          contact_first_name: null,
+          contact_last_name: null,
+          phone: null,
+          email: null,
+          latitude: null,
+          longitude: null,
+          radius: 0,
+          year_founded: '',
+          pfLogoCheckbox: false,
+          imageUrl: null,
+          companies_id: null
         },
-        {
-          text: 'Address',
-          value: 'address',
-          class: 'primary--text font-weight-regular',
-        },
-        {
-          text: 'Contact Name',
-          value: 'full_name',
-          class: 'primary--text font-weight-regular',
-        },
-        {
-          text: 'Phone',
-          value: 'phone',
-          class: 'primary--text font-weight-regular',
-        },
-        {
-          text: 'Email',
-          value: 'email',
-          class: 'primary--text font-weight-regular',
-        },
-        {
-          text: '',
-          value: 'actions',
-          sortable: false,
-          class: 'primary--text font-weight-regular',
-        },
-      ],
-      rules: {
+        formattedServicesProvided: [],
+        editingIndex: 0,
+        editingIndexInsurance: 0,
+        editingIndexLicense: 0,
+        imageUrlLocation: '',
+        autocomplete: null,
+        markers: [],
+        editingLocation: true,
+        editingInsurance: true,
+        editingLicense: true,
+        sectors: [],
+        industryLevel1: [],
+        industryLevel2: [],
+        industryLevel3: [],
+        industryLevel4: [],
+        validateDetails: false,
+        headers: [
+          { text: 'Location Name', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
+          { text: 'Contact Name', value: 'full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
+          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
+        rules: {
           requiredRules: [
             v => !!v || v === 0 || 'Field is required',
           ],
@@ -944,452 +982,423 @@ export default {
             v => (v && v.length >= 6) || 'Password must be at least 6 characters',
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
-      },
-         headerInsurance: [
-        {
-          text: 'ID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-          class: 'primary--text font-weight-regular',
         },
-        {
-          text: 'Insurance Company',
-          value: 'name',
-          class: 'primary--text font-weight-regular',
-        },
-        {
-          text: 'Policy Number',
-          value: 'policyNumber',
-          class: 'primary--text font-weight-regular',
-        },
-        {
-          text: 'Expiration Date',
-          value: 'expirationDate',
-          class: 'primary--text font-weight-regular',
-        },
-      ],
-    }
-  },
-  mounted() {
-    vueGoogleMapsInit()
-  },
-  computed: {
-    confirmPasswordRules() {
-      return [
-        () =>
-          this.user.password === this.confirmPassword || 'Password must match',
-        (v) => !!v || 'Confirmation Password is required',
-      ]
+        headerInsurance: [
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: false,
+            value: 'id',
+            class: 'primary--text font-weight-regular'
+          },
+          { text: "Insurance Company", value: 'name', class: 'primary--text font-weight-regular'},
+          { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-regular'},
+          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-regular'},
+        ]
+      }
     },
-  },
-  methods: {
-    selectInsuranceFile(file, index) {
-      this.insuranceFiles[index].file = file
+    mounted() {
+      vueGoogleMapsInit();
+      let codes = naics.Industry.sectors();
+      for(const code of codes) {
+        this.sectors.push(code);
+      }
+      console.log(this.sectors);
     },
-    selectLicenseFile(file, index) {
-      this.licenseFiles[index].file = file
+    computed: {
+      confirmPasswordRules() {
+        return [
+          () => (this.user.password === this.confirmPassword) || 'Password must match',
+          v => !!v || 'Confirmation Password is required'
+        ];
+      }
     },
-    selectCompanyImage(e) {
-      this.companyImageFile = e.target.files[0]
-      console.log(this.companyImageFile)
-      this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
-      console.log(this.companyImageUrl)
-    },
-    focusAddressField() {
-      console.log('focus')
-    },
-    clickCompanyImageUpload() {
-      console.log(this)
-      // let imageInput = this.$refs.companyImage;
-      // console.log(imageInput);
-      // imageInput.$el.click();
-      document.getElementById('companyImage').click()
-    },
-    nextPageIfNotLast() {
-      console.log(this.tab)
-      if (this.tab === 3) return
-      if (!this.validate(this.tab)) return
-      this.tab += 1
-      console.log(this.locations)
-    },
-    validate(tab) {
-      // console.log(this.$refs.companyDetails);
-      // if(tab == 0) {
-      //   if (!this.$refs.companyDetails.validate()) {
-      //     this.$nextTick(() => {
-      //       this.$vuetify.goTo('.error--text');
-      //     });
-      //     return false;
-      //   }
-      //   return true;
-      // }
-
-      console.log(tab)
-      console.log(this.$refs.companyDetails.$refs.register)
-      return true
-    },
-    prevPageIfNotFirst() {
-      if (this.tab === 0) return
-      this.tab -= 1
-    },
-    setTab(tabIndex) {
-      console.log(tabIndex)
-    },
-    finishEditing() {
-      this.editingLocation = false
-      console.log(this.location)
-      this.locations[this.editingIndex] = this.location
-      this.editingIndex = null
-    },
-    finishEditingInsuranceLicense() {
-      this.editingInsurance = false
-      this.editingLicense = false
-      this.insurances[this.editingIndexInsurance] = this.insurance
-      this.licenses[this.editingIndexLicense] = this.license
-      this.editingIndexInsurance = null
-      this.editingIndexInsurance = null
-    },
-    editLocation(index) {
-      console.log(index)
-      this.editingIndex = index
-      this.location = this.locations[index]
-      console.log(this.location)
-      this.editingLocation = true
-    },
-    editInsurance(index) {
-      console.log(index)
-      this.editingIndexInsurance = index
-      this.insurance = this.insurances[index]
-      console.log(this.insurance)
-      this.editingInsurance = true
-    },
-    getAddressData(addressData) {
-      console.log('wtf mate')
-      console.log(addressData)
-      this.company.address = addressData.street_number + ' ' + addressData.route
-      this.company.city = addressData.locality
-      this.company.state = addressData.administrative_area_level_1
-      this.company.zipcode = addressData.postal_code
-      this.formatFullAddress()
-    },
-    formatFullAddress() {
-      if (!this.company.address) return
-      this.fullAddress =
-        this.company.address +
-        ', ' +
-        this.company.city +
-        ', ' +
-        this.company.state +
-        ' ' +
-        this.company.zipcode
-      console.log(this.fullAddress)
-    },
-    onRadiusSlide(value, index) {},
-    animateAddressFieldOnFocus(e) {
-      let addressLabel = e.target.previousElementSibling
-      addressLabel.classList.toggle('v-label--focus')
-    },
-    animateAddressFieldOnFilled(e) {
-      if (e.target !== '') {
-        if (
-          e.target.previousElementSibling.classList.contains('v-label--filled')
-        ) {
-        } else {
-          e.target.previousElementSibling.classList.add('v-label--filled')
+    methods: {
+      getSectorChildren(e) {
+        console.log(e);
+        if (this.companySector) {
+          this.companySector = null;
+          this.companyLevel1 = null;
+          this.companyLevel2 = null;
+          this.companyLevel3 = null;
         }
-      } else {
-        e.target.previousElementSibling.classList.remove('v-label--filled')
-      }
-    },
-    convertMilesToMeters(miles) {
-      return miles * 1609.34
-    },
-    addLocation() {
-      let newLocation = {
-        name: null,
-        address: null,
-        city: null,
-        state: null,
-        zipcode: null,
-        contact_first_name: null,
-        contact_last_name: null,
-        phone: null,
-        email: null,
-        latitude: null,
-        longitude: null,
-        radius: 0,
-        year_founded: '',
-        companies_id: null,
-      }
-      this.locations.push(newLocation)
-      this.location = this.locations[this.locations.length - 1]
-      this.editingIndex = this.locations.length - 1
-      this.editingLocation = true
-    },
-    addInsurance() {
-      this.editingInsurance = true
-      let newInsurance = {
-        name: '',
-        insuranceCompany: '',
-        policyNumber: '',
-        expirationDateVal: '',
-        documentUrl: '',
-        documentVisible: false,
-        companies_id: null,
-      }
-      this.insurances.push(newInsurance)
+        this.industryLevel1 = [];
+        this.industryLevel2 = [];
+        this.companySector = e;
+        let industry = naics.Industry.from(this.companySector);
+        let categories = industry.children();
+        for (const category of categories) {
+          this.industryLevel1.push(category);
+        }
+      },
+      getLevel1Children() {
+        console.log(this.companyLevel1);
+        let industry = naics.Industry.from(this.companyLevel1);
+        let categories = industry.children();
+        this.industryLevel2 = [];
+        for (const category of categories) {
+          this.industryLevel2.push(category);
+        }
+      },
+      getLevel2Children() {
+        console.log(this.companyLevel2);
+        let industry = naics.Industry.from(this.companyLevel2);
+        let categories = industry.children();
+        this.industryLevel3 = [];
+        for (const category of categories) {
+          this.industryLevel3.push(category);
+        }
+      },
+      // getLevel3Children() {
+      //   console.log(this.companyLevel3);
+      // },
+      selectInsuranceFile(file, index) {
+        this.insuranceFiles[index].file = file;
+      },
+      selectLicenseFile(file, index) {
+        this.licenseFiles[index].file = file;
+      },
+      selectCompanyImage(e) {
+        this.companyImageFile = e.target.files[0];
+        console.log(this.companyImageFile);
+        this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
+        console.log(this.companyImageUrl);
+      },
+      focusAddressField() {
+        console.log('focus');
+      },
+      clickCompanyImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyImage').click();
+      },
+      nextPageIfNotLast() {
+        console.log(this.tab);
+        if (this.tab === 3) return;
+        if (!this.validate(this.tab)) return;
+        this.tab += 1
+        console.log(this.locations)
+      },
+      validate(tab) {
+        console.log(this.$refs.companyDetails);
 
-      let newInsuranceFile = {
-        file: null,
-      }
+        if (tab == 0) {
+          if (!this.$refs.companyDetails.validate()) {
+            this.$nextTick(() => {
+              this.$vuetify.goTo('.error--text');
+            });
+            return false;
+          }
+          return true;
+        }
 
-      this.insuranceFiles.push(newInsuranceFile)
-    },
-    addLicense() {
-      this.editingLicense = true
-      let newLicense = {
-        name: '',
-        insuranceCompany: '',
-        policyNumber: '',
-        expirationDate: '',
-        documentUrl: '',
-        documentVisible: false,
-        companies_id: null,
-      }
-      this.licenses.push(newLicense)
-    },
-    saveCompanyAddress(addressObj) {
-      this.company.address = addressObj.street_number + ' ' + addressObj.route
-      this.company.city = addressObj.locality
-      this.company.state = addressObj.administrative_area_level_1
-      this.company.zipcode = addressObj.postal_code
-    },
-    async register() {
-      this.loading = true
+        console.log(tab);
+        console.log(this.$refs.companyDetails.$refs.register);
+        return true;
+      },
+      prevPageIfNotFirst() {
+        if (this.tab === 0) return;
+        this.tab -= 1;
+      },
+      setTab(tabIndex) {
+        console.log(tabIndex)
+      },
+      finishEditing() {
+        this.editingLocation = false;
+        console.log(this.location);
+        this.locations[this.editingIndex] = this.location;
+        this.editingIndex = null;
+      },
+      finishEditingInsuranceLicense() {
+        this.editingInsurance = false;
+        this.editingLicense = false;
+        this.insurances[this.editingIndexInsurance] = this.insurance;
+        this.licenses[this.editingIndexLicense] = this.license;
+        this.editingIndexInsurance = null;
+        this.editingIndexInsurance = null;
+      },
+      editLocation(index) {
+        console.log(index);
+        this.editingIndex = index;
+        this.location = this.locations[index];
+        console.log(this.location);
+        this.editingLocation = true;
+      },
+      editInsurance(index) {
+        console.log(index);
+        this.editingIndexInsurance = index;
+        this.insurance = this.insurances[index];
+        console.log(this.insurance);
+        this.editingInsurance = true;
+      },
+      getAddressData(addressData) {
+        console.log(addressData);
+        this.company.address = addressData.street_number + ' ' + addressData.route;
+        this.company.city = addressData.locality;
+        this.company.state = addressData.administrative_area_level_1;
+        this.company.zipcode = addressData.postal_code;
+        this.formatFullAddress();
+      },
+      formatFullAddress() {
+        if (!this.company.address) return;
+        this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
+        console.log(this.fullAddress);
+      },
+      animateAddressFieldOnFocus(e) {
+        let addressLabel = e.target.previousElementSibling
+        addressLabel.classList.toggle('v-label--focus')
+      },
+      animateAddressFieldOnFilled(e) {
+        if (e.target !== '') {
+          if (
+            e.target.previousElementSibling.classList.contains('v-label--filled')
+          ) {
+          } else {
+            e.target.previousElementSibling.classList.add('v-label--filled')
+          }
+        } else {
+          e.target.previousElementSibling.classList.remove('v-label--filled')
+        }
+      },
+      convertMilesToMeters(miles) {
+        return miles * 1609.34
+      },
+      addLocation() {
+        let newLocation = {
+          name: null,
+          address: null,
+          city: null,
+          state: null,
+          zipcode: null,
+          contact_first_name: null,
+          contact_last_name: null,
+          phone: null,
+          email: null,
+          latitude: null,
+          longitude: null,
+          radius: 0,
+          year_founded: '',
+          companies_id: null,
+        }
+        this.locations.push(newLocation)
+        this.location = this.locations[this.locations.length - 1]
+        this.editingIndex = this.locations.length - 1
+        this.editingLocation = true
+      },
+      addInsurance() {
+        this.editingInsurance = true
+        let newInsurance = {
+          name: '',
+          insuranceCompany: '',
+          policyNumber: '',
+          expirationDateVal: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null,
+        }
+        this.insurances.push(newInsurance)
 
-      await this.uploadCompanyImage()
-      if (this.insuranceFiles.length > 0) {
-        this.loopInsuranceFilesForUpload()
-      }
-      if (this.licenseFiles.length > 0) {
-        this.loopLicenseFilesForUpload()
-      }
+        let newInsuranceFile = {
+          file: null,
+        }
 
-      await this.loopLocationImages()
+        this.insuranceFiles.push(newInsuranceFile)
+      },
+      addLicense() {
+        this.editingLicense = true
+        let newLicense = {
+          name: '',
+          insuranceCompany: '',
+          policyNumber: '',
+          expirationDate: '',
+          documentUrl: '',
+          documentVisible: false,
+          companies_id: null,
+        }
+        this.licenses.push(newLicense)
+      },
+      saveCompanyAddress(addressObj) {
+        this.company.address = addressObj.street_number + ' ' + addressObj.route
+        this.company.city = addressObj.locality
+        this.company.state = addressObj.administrative_area_level_1
+        this.company.zipcode = addressObj.postal_code
+      },
+      async register() {
+        this.loading = true
 
-      console.log(this.company, 'this.company')
-      console.log(this.locations, 'this.locations')
+        await this.uploadCompanyImage()
+        if (this.insuranceFiles.length > 0) {
+          this.loopInsuranceFilesForUpload()
+        }
+        if (this.licenseFiles.length > 0) {
+          this.loopLicenseFilesForUpload()
+        }
 
-      await this.$http
-        .post('https://www.sowerkbackend.com/api/companies', this.company)
-        .then((response) => {
-          console.log('post company:', response)
-          this.user.companies_id = response.data.companies.id
-          this.registerUser(response.data.companies.id)
-          this.postLicenses(response.data.companies.id)
-          this.postInsurances(response.data.companies.id)
-          this.postLocations(response.data.companies.id)
-          this.$router.push('/verify')
+        await this.loopLocationImages();
+
+        console.log(this.company, 'this.company');
+        console.log(this.locations, 'this.locations');
+
+        await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company)
+          .then(response => {
+            console.log('post company:', response)
+            this.user.companies_id = response.data.companies.id;
+            this.registerUser(response.data.companies.id);
+            this.postLicenses(response.data.companies.id);
+            this.postInsurances(response.data.companies.id);
+            this.postLocations(response.data.companies.id);
+            this.$router.push('/verify');
+          })
+          .catch(err => {
+            console.log('error in posting companies registering', err)
+          })
+        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
+        //   .then(response => {
+        //     console.log(response);
+        //   })
+
+      },
+      async postLicenses(companyId) {
+        for (const license of this.licenses) {
+          license.companies_id = companyId;
+          let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/license/byCompanyId/' + companyId, license).catch(e => e);
+          console.log(data);
+        }
+      },
+      async postInsurances(companyId) {
+        for (const insurance of this.insurances) {
+          insurance.companies_id = companyId;
+          let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
+          console.log(data);
+        }
+      },
+      async uploadCompanyImage() {
+        const formData = new FormData();
+        formData.append('file', this.companyImageFile);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading company image', response)
+            this.company.imgUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading company image', err);
+          })
+      },
+      loopInsuranceFilesForUpload() {
+        this.insuranceFiles.forEach((insuranceFile, index) => {
+          this.uploadInsuranceFile(insuranceFile, index);
         })
-        .catch((err) => {
-          console.log('error in posting companies registering', err)
+
+      },
+      async uploadInsuranceFile(insuranceFile, index) {
+        let formData = new FormData();
+        formData.append('file', insuranceFile.file);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading insurance file', response)
+            this.insurances[index].documentUrl = response.data.data.Location;
+            this.loading = false;
+            console.log(this.insurances);
+            return this.insurances;
+          })
+          .catch(err => {
+            console.log('error in uploading insurance file', err);
+          })
+      },
+      loopLicenseFilesForUpload() {
+        this.licenseFiles.forEach((licenseFile, index) => {
+          this.uploadLicenseFile(licenseFile, index);
         })
-      // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
-      //   .then(response => {
-      //     console.log(response);
-      //   })
-    },
-    async postLicenses(companyId) {
-      for (const license of this.licenses) {
-        license.companies_id = companyId
+          .catch((err) => {
+            console.log(err, 'error in uploading license files')
+          })
+      },
+      async registerUser(company_id) {
+        this.user.companies_id = company_id
         let { data, status } = await this.$http
-          .post(
-            'https://www.sowerkbackend.com/api/license/byCompanyId/' +
-            companyId,
-            license
-          )
+          .post('https://www.sowerkbackend.com/api/auth/register', this.user)
           .catch((e) => e)
-        console.log(data)
-      }
-    },
-    async postInsurances(companyId) {
-      for (const insurance of this.insurances) {
-        insurance.companies_id = companyId
+        await this.postLocations(data.user.companies_id)
+      },
+      async loopLocationImages() {
+        this.locations.forEach((location, index) => {
+          const formData = new FormData()
+          console.log(location)
+          formData.append('file', location.imageUrl)
+          this.uploadLocationImage(formData, index)
+        })
+        console.log(this.locations)
+      },
+      async uploadLocationImage(formData, index) {
         let { data, status } = await this.$http
-          .post(
-            'https://www.sowerkbackend.com/api/insurance/byCompanyId/' +
-              companyId,
-            insurance
-          )
-          .catch((e) => e)
-        console.log(data)
-      }
-    },
-    async uploadCompanyImage() {
-      const formData = new FormData()
-      formData.append('file', this.companyImageFile)
-      await this.$http
-        .post('https://www.sowerkbackend.com/api/upload', formData)
-        .then((response) => {
-          console.log('success in uploading company image', response)
-          this.company.imgUrl = response.data.data.Location
-        })
-        .catch((err) => {
-          console.log('error in uploading company image', err)
-        })
-    },
-    loopInsuranceFilesForUpload() {
-      this.insuranceFiles.forEach((insuranceFile, index) => {
-        this.uploadInsuranceFile(insuranceFile, index)
-      })
-    },
-    async uploadInsuranceFile(insuranceFile, index) {
-      let formData = new FormData()
-      formData.append('file', insuranceFile.file)
-      await this.$http
-        .post('https://www.sowerkbackend.com/api/upload', formData)
-        .then((response) => {
-          console.log('success in uploading insurance file', response)
-          this.insurances[index].documentUrl = response.data.data.Location
-          this.loading = false
-          console.log(this.insurances)
-          return this.insurances
-        })
-        .catch((err) => {
-          console.log('error in uploading insurance file', err)
-        })
-    },
-    loopLicenseFilesForUpload() {
-      this.licenseFiles.forEach((licenseFile, index) => {
-        this.uploadLicenseFile(licenseFile, index)
-      })
-    },
-    async uploadLicenseFile(licenseFile, index) {
-      let formData = new FormData()
-      formData.append('file', licenseFile.file)
-      await this.$http
-        .post('https://www.sowerkbackend.com/api/upload', formData)
-        .then((response) => {
-          console.log('successfully uploaded license file', response)
-          this.licenses[index].documentUrl = response.data.data.Location
-          this.loading = false
-          console.log(this.licenses)
-          return this.licenses
-        })
-        .catch((err) => {
-          console.log(err, 'error in uploading license files')
-        })
-    },
-    async registerUser(company_id) {
-      this.user.companies_id = company_id
-      let { data, status } = await this.$http
-        .post('https://www.sowerkbackend.com/api/auth/register', this.user)
-        .catch((e) => e)
-      await this.postLocations(data.user.companies_id)
-    },
-    async loopLocationImages() {
-      this.locations.forEach((location, index) => {
-        const formData = new FormData()
-        console.log(location)
-        formData.append('file', location.imageUrl)
-        this.uploadLocationImage(formData, index)
-      })
-      console.log(this.locations)
-    },
-    async uploadLocationImage(formData, index) {
-      let { data, status } = await this.$http
-        .post('https://www.sowerkbackend.com/api/upload', formData)
-        .catch((err) => {
-          console.log('error in uploading location image', err)
-        })
+          .post('https://www.sowerkbackend.com/api/upload', formData)
+          .catch((err) => {
+            console.log('error in uploading location image', err)
+          })
 
-      this.locations[index].imageUrl = data.data.Location;
-    },
-    async postLocations(userId) {
-      for (let i = 0; i < this.locations.length; i++) {
-        this.locations[i].companies_id = userId
-        this.locations[i].zipcode = Number(this.locations[i].zipcode)
-      }
-      await this.$http
-        .post(
-          'https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' +
-            userId,
-          this.locations
-        )
-        .then((response) => {
-          console.log('success in posting group locations', response)
-        })
-        .catch((err) => {
-          console.log('error in posting group locations', err, this.locations)
-        })
-      // this.loading = false;
-      // if (this.$error(status, message, errors)) return;
-      await this.getUserLocations(userId)
-    },
-    async getUserLocations(userId) {
-      let { data, status } = await this.$http
-        .get(
-          'https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId
-        )
-        .catch((e) => e)
-      console.log('get companys locations: ', data)
-      await this.postServicesPerLocation(data)
-    },
-    async postServicesPerLocation(locations) {
-      for (const location of locations) {
-        for (const service of this.servicesProvided) {
-          let serviceObject = {
-            name: service,
+        this.locations[index].imageUrl = data.data.Location;
+      },
+      async postLocations(userId) {
+        for (let i = 0; i < this.locations.length; i++) {
+          this.locations[i].companies_id = userId;
+          this.locations[i].zipcode = Number(this.locations[i].zipcode)
+        }
+        await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+          .then(response => {
+            console.log('success in posting group locations', response)
+          })
+          .catch(err => {
+            console.log('error in posting group locations', err, this.locations)
+          })
+        // this.loading = false;
+        // if (this.$error(status, message, errors)) return;
+        await this.getUserLocations(userId);
+      },
+      async getUserLocations(userId) {
+        let { data, status } = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
+        console.log('get companys locations: ', data)
+        await this.postServicesPerLocation(data);
+      },
+      async postServicesPerLocation(locations) {
+        for (const location of locations) {
+          for (const service of this.servicesProvided) {
+            let serviceObject = {
+              name: service,
+            }
+            let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + location.id, serviceObject).catch(e => e);
+            console.log(data);
           }
           let { data, status } = await this.$http
             .post(
               'https://www.sowerkbackend.com/api/services/byLocationId/' +
-                location.id,
+              location.id,
               serviceObject
             )
             .catch((e) => e)
           console.log(data)
         }
-      }
-      this.loading = false
-      await this.$router.push('/register/verify')
-    },
-    formatServices() {
-      console.log(this.servicesProvided)
-      this.servicesProvided.forEach((serviceProvided, index) => {
-        let serviceObject = {
-          name: serviceProvided,
-          description: serviceProvided,
-        }
+        this.loading = false;
+        await this.$router.push('/register/verify')
+      },
+      formatServices() {
+        console.log(this.servicesProvided)
+        this.servicesProvided.forEach((serviceProvided, index) => {
+          let serviceObject = {
+            name: serviceProvided,
+            description: serviceProvided,
+          }
 
-        this.formattedServicesProvided.push(serviceObject)
-      })
+          this.formattedServicesProvided.push(serviceObject)
+        })
 
-      console.log(this.formattedServicesProvided)
-    },
-    // getTosDate(e) {
-    //   if(e) {
-    //     let today = new Date();
-    //     let dateString;
-    //     let timeString;
-    //     let dd = String(today.getUTCDate()).padStart(2, '0');
-    //     let mm = String(today.getUTCMonth() + 1).padStart(2, '0'); //January is 0!
-    //     let yyyy = today.getUTCFullYear();
-    //     let HH = String(today.getUTCHours()).padStart(2, '0');
-    //     let MM = String(today.getUTCMinutes()).padStart(2, '0');
-    //     let SS = String(today.getUTCSeconds()).padStart(2, '0');
-    //
-    //     dateString = [yyyy, mm, dd].join('-');
-    //     timeString = [HH, MM, SS].join(':');
-    //     today = dateString + ' ' + timeString;
-    //     // this.company.tos_date = today;
-    //   }
-    // },
-    setPage(tab) {
-      this.tab = tab
-    },
-  },
+        console.log(this.formattedServicesProvided)
+      },
+      setPage(tab) {
+        this.tab = tab;
+      },
+    }
 }
 
 

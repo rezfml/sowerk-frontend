@@ -292,6 +292,7 @@
         id="phone"
         type="number"
         v-model="location.phone"
+        v-mask="'(###)###-####'"
       >
         <template v-slot:label>
           <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>

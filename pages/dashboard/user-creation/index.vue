@@ -29,6 +29,7 @@
           :locations="locations"
           :getUsers="getUsers"
           :getLocations="getLocations"
+          :viewLocation='viewLocation'
         >
         </UserCard>
         <UserCard
@@ -44,6 +45,7 @@
           :locations="locations"
           :getUsers="getUsers"
           :getLocations="getLocations"
+          :viewLocation='viewLocation'
         >
 
         </UserCard>
@@ -83,6 +85,7 @@ export default {
         { text: 'Actions', value: 'useractions', class: 'primary--text font-weight-regular' },
       ],
       company: {},
+      viewLocation: false,
     }
   },
   async mounted() {
