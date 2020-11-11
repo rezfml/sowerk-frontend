@@ -29,11 +29,11 @@
     </v-row>
     <transition name="slide-fade">
       <template v-if="loading">
-      <v-container class="px-0" style="max-width: 95%;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
+      <v-container class="px-0" style="max-width: 95%; position: absolute; top: 20px; left: 20px;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
         <v-row>
           <v-col cols="12" class="d-flex flex-column justify-start">
             <ActiveApplicationsCard
-              v-if="applications.length > 0"
+              v-if="applications"
               :title="'My Active Applications'"
               :tableProperties="headers"
               :viewAll="false"
@@ -45,7 +45,7 @@
         </v-row>
       </v-container>
 
-      <v-container class="px-0" style="max-width: 95%;" v-else>
+      <v-container class="px-0" style="max-width: 95%; position: absolute; top: 20px; left: 20px;" v-else>
         <v-row>
 <!--          <v-col cols="3">-->
 <!--            <FilterCard-->

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
+  <v-card class="white pt-0 mb-4" style="width: 100%">
     <v-container class="pt-0" fluid>
       <v-card-title
               style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
