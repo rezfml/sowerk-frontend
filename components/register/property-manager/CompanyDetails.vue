@@ -134,7 +134,19 @@
                 <v-divider></v-divider>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="12">
+                <v-select
+                  id="company-best"
+                  label="What Best Describes You*"
+                  item-text="text"
+                  item-value="value"
+                  placeholder=" "
+                  :items="bestSelection"
+                  v-model="company.isFranchise"
+                ></v-select>
+              </v-col>
+
+              <v-col cols="12" sm="12" v-if="company.isFranchise === 0">
                 <v-text-field
                   id="company-name"
                   label="Account Name*"
@@ -148,7 +160,7 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
                 <v-text-field
                   id="brand-name"
                   label="Brand Name*"
@@ -158,18 +170,6 @@
                   v-model="company.brand_name"
                   :rules="rules.requiredRules"
                 ></v-text-field>
-              </v-col>
-
-              <v-col cols="12" sm="6">
-                <v-select
-                  id="company-best"
-                  label="What Best Describes You*"
-                  item-text="text"
-                  item-value="value"
-                  placeholder=" "
-                  :items="bestSelection"
-                  v-model="company.isFranchise"
-                ></v-select>
               </v-col>
 
               <!-- <v-col cols="12" sm="6" v-if="company.isFranchise === 1">
