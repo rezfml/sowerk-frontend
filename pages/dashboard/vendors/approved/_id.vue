@@ -145,17 +145,17 @@
             min-width="20vw"
           ></v-skeleton-loader>
           <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
-            <v-card-title style="color: #A61c00">Your Connection Details</v-card-title>
+            <v-card-title style="color: #A61c00; font-size: 24px;">Your Connection Details</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
             <v-card-text>Status: <span style="color: #A61c00">Approved Vendor</span></v-card-text>
             <v-card-text>Approved Connections: <span style="color: #A61c00">{{singleCompanyConnections.length}}</span></v-card-text>
 <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
 <!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
-            <v-card-title style="color: #A61c00">Related To You</v-card-title>
+            <v-card-title style="color: #A61c00; font-size: 24px;">Related To You</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
             <v-card-text>Your Notes On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
             <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
-            <v-card-title style="color: #A61c00">Vendor Provided Documents</v-card-title>
+            <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
             <v-card-title style="color: #A61c00">Other Details</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>

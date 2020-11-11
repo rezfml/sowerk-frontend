@@ -120,6 +120,13 @@
               v-else-if="editingLocation && tab === 1"
             >Finish Location
             </v-btn>
+            <v-btn
+              color="#707070"
+              style="color: white;"
+              class="px-8"
+              @click="goBackLocations"
+              v-if="editingLocation && tab === 1 && locations.length >0"
+            >Cancel And Go Back To Locations</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2"
             >Submit</v-btn
             >
@@ -440,6 +447,10 @@ export default {
       this.location = this.locations[this.locations.length - 1]
       this.editingIndex = this.locations.length - 1
       this.editingLocation = true
+    },
+    goBackLocations() {
+      this.editingLocation = false;
+      this.locations.pop();
     },
     saveCompanyAddress(addressObj) {
       this.company.address = addressObj.street_number + ' ' + addressObj.route
