@@ -274,6 +274,45 @@
           <v-card-text class="py-0">
             <v-form>
               <v-row v-if="loadCompany">
+                <v-col
+                  cols="12"
+                  class="d-flex flex-column align-center"
+                  style="justify-content: space-evenly"
+                >
+                  <v-img
+                    :src="company.imgUrl"
+                    :aspect-ratio="1"
+                    class="my-8 rounded-circle flex-grow-1"
+                    style="width: 100%; max-width: 300px;"
+                    v-if="company.imgUrl && !companyImageUrl"
+                  ></v-img>
+                  <v-img
+                    :src="companyImageUrl"
+                    :aspect-ratio="1"
+                    class="my-8 rounded-circle flex-grow-1"
+                    style="width: 100%; max-width: 300px;"
+                    v-else-if="companyImageUrl"
+                  ></v-img>
+                  <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
+                  <v-file-input
+                    class="company-image-upload ma-0 pa-0"
+                    :class="{
+                        'company-image-upload--selected': companyImageFile
+                      }"
+                    v-model="companyImageFile"
+                    v-on:change.native="selectCompanyImage"
+                    id="companyImage"
+                    style="visibility: hidden; height: 0; max-height: 0;"
+                  ></v-file-input>
+                  <v-btn
+                    @click="clickCompanyImageUpload"
+                    color="primary"
+                    outlined
+                    rounded
+                    class="flex-grow-0 px-6"
+                  >Edit Logo</v-btn
+                  >
+                </v-col>
                 <v-col cols="12" class="pb-0 mt-3">
                   <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Profile</v-subheader>
                 </v-col>
@@ -561,6 +600,8 @@
         loadUpdateCompany: true,
         locationImageFile: null,
         locationImageUrl: null,
+        companyImageFile: null,
+        companyImageUrl: null,
       }
     },
     async mounted() {
@@ -650,6 +691,18 @@
             console.log('error in uploading company image', err);
           })
       },
+      async uploadCompanyImage() {
+        const formData = new FormData();
+        formData.append('file', this.companyImageFile);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading company image', response)
+            this.company.imgUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading company image', err);
+          })
+      },
 
       selectLocationImage(e) {
         this.locationImageFile = e.target.files[0]
@@ -658,6 +711,14 @@
         console.log(this.locationImageUrl);
         // this.$emit('selectFile', this.locationImageFile);
         this.$emit('selectFileUrl', this.locationImageUrl);
+      },
+      selectCompanyImage(e) {
+        this.companyImageFile = e.target.files[0]
+        console.log(this.companyImageFile)
+        this.companyImageUrl = URL.createObjectURL(this.companyImageFile)
+        console.log(this.companyImageUrl);
+        // this.$emit('selectFile', this.companyImageFile);
+        this.$emit('selectFileUrl', this.companyImageUrl);
       },
 
       cancelEditLocation() {
@@ -671,6 +732,13 @@
         // console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('locationImage').click();
+      },
+      clickCompanyImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyImage').click();
       },
 
       // Since vue-google-autocomplete is not a vuetify input field, we need this method to add a class to the address label to animate it on focus
@@ -709,6 +777,7 @@
       },
       async updateCompany() {
         this.loadUpdateCompany = false;
+        await this.uploadCompanyImage();
         console.log(this.currentUserVal, 'currentUser', this.company, 'current Company');
         const userChanges = {
           first_name: this.currentUserVal.first_name,
@@ -727,7 +796,8 @@
           email: this.company.email,
           phone: this.company.phone,
           year_founded: this.company.year_founded,
-          description: this.company.description
+          description: this.company.description,
+          imgUrl: this.company.imgUrl
         }
         await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUserVal.id, userChanges)
           .then(response => {
