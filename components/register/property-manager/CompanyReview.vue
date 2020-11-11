@@ -1,8 +1,8 @@
 <template>
        <v-tab-item eager>
             <v-container style="max-width: 80%;" mx-auto>
-                <v-col cols="12">
-                  <v-card-text class="pa-0" style="width: 100%;">Let's Review Your Details</v-card-text>
+                <v-col cols="12" class="d-flex justify-center">
+                  <h2 class="pa-0" style="width: 100%; color:#a61c00; text-align: center;">Let's Review Your Details</h2>
                 </v-col>
                 <v-col cols="12" class="align-center text-center mx-auto">
                   <v-img :src="imageUrl" max-height="300px" max-width="300px" aspect-ratio="1" v-if="imageUrl" class="mx-auto rounded-circle"></v-img>
@@ -149,7 +149,7 @@
                           <template v-slot:item.full_name="{ item }">{{ item.contact_first_name }} {{ item.contact_last_name }}</template>
                         </v-data-table>
                         <v-btn class="mx-auto mt-4" color="primary" outlined rounded @click="setPage(1)">Edit Locations</v-btn>
-                 
+
                     </v-col>-->
                 </v-col>
 

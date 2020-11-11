@@ -11,42 +11,42 @@
         class="mt-12"
       ></MessageCompanyCard>
     </v-row>
-    <v-form class="my-10" style="width: 80%;" v-if="companySelection === true">
+    <v-form class="my-10 d-flex flex-column align-center" style="width: 80%;" v-if="companySelection === true">
       <v-col cols="12" class="d-flex justify-center">
-        <v-text-field class="mx-2" style="width: 30%;" readonly label="Company" v-model="messageForm.company"></v-text-field>
-        <v-text-field class="mx-2" style="width: 20%;" readonly label="First Name" v-model="messageForm.primary_contact_first_name"></v-text-field>
-        <v-text-field class="mx-2" style="width: 20%;" readonly label="Last Name" v-model="messageForm.primary_contact_last_name"></v-text-field>
+        <v-text-field class="mx-2 text-h6" style="width: 30%;" readonly label="From" v-model="messageForm.company"></v-text-field>
+        <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="First Name" v-model="messageForm.primary_contact_first_name"></v-text-field>
+        <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="Last Name" v-model="messageForm.primary_contact_last_name"></v-text-field>
       </v-col>
       <v-col cols="12" class="d-flex">
-        <v-select cols="8"  placeholder="Your Location Goes Here" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+        <v-select cols="8"  label="Which Location" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
-            <p @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
           <template slot="item" slot-scope="data">
-            <p @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
         </v-select>
-        <v-select cols="4"  placeholder="Your Service For Location Goes Here" v-model="messageForm.service" :items="services" name="service" item-text="name" item-value="name" class="text-caption mx-1">
+        <v-select cols="4"  label="Your Service For Location Goes Here" v-model="messageForm.service" :items="services" name="service" item-text="name" item-value="name" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
-            <p>{{ data.item.name }}</p>
+            <v-card-text class="text-h6">{{ data.item.name }}</v-card-text>
           </template>
           <template slot="item" slot-scope="data">
-            <p>{{ data.item.name }}</p>
+            <v-card-text class="text-h6">{{ data.item.name }}</v-card-text>
           </template>
         </v-select>
       </v-col>
       <v-col cols="12" class="d-flex">
-        <v-select cols="12"  placeholder="Send To Location Goes Here" :items="spcompanylocations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+        <v-select cols="12"  label="To" :items="spcompanylocations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
-            <p @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            <v-card-text class="text-h6" @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
           <template slot="item" slot-scope="data">
-            <p @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            <v-card-text class="text-h6" @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
         </v-select>
       </v-col>
-      <v-text-field placeholder="Message Goes Here" v-model="messageForm.message"></v-text-field>
-      <v-btn @click="submit">Send Message</v-btn>
+      <v-text-field style="width: 100%;" class="text-h6" placeholder="Message Goes Here" v-model="messageForm.message"></v-text-field>
+      <v-btn color="primary" class="py-5 px-10" large @click="submit">Send Message</v-btn>
     </v-form>
   </div>
 </template>
