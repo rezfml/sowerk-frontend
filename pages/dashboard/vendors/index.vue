@@ -26,7 +26,7 @@
       </v-col>
     </v-row>
     <transition name="slide-fade">
-    <v-container class="px-0" style="max-width: 95%;" v-if="loading">
+    <v-container class="px-0" style="max-width: 95%; position: absolute; top: 10px; left: 10px;" v-if="loading">
 <!--      <v-row class="d-flex align-center" style="width: 100%">-->
 <!--        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
 <!--        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">-->
@@ -59,7 +59,7 @@
 <!--        </v-col>-->
         <v-col cols="12" class="d-flex flex-column justify-space-between">
           <FacilitiesCard
-            v-if="vendors.length > 0 && loading === true"
+            v-if="vendors && loading === true"
             :title="'Find A SOWerk Vendor'"
             :items="vendors"
             :tableProperties="headers"
