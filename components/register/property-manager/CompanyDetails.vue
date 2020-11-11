@@ -8,12 +8,19 @@
         <v-form class="mx-auto register-form" ref="register">
           <v-container>
             <v-col cols="12">
-              <h2 class="mt-8 mb-4">Your Information</h2>
+              <h2 class="mt-8 mb-4">Profile Information</h2>
               <v-divider></v-divider>
             </v-col>
             <v-row>
               <v-col cols="12" sm="5" md="6">
                 <v-row fill-height class="pl-2 fill-height">
+                  <v-col cols="12" class="d-flex flex-column justify-space-between align-center">
+                    <v-img :src="profileImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="profileImageUrl"></v-img>
+                    <v-icon v-else :size="100" class="flex-grow-1">person</v-icon>
+                    <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : profileImageFile}" v-model="profileImageFile" v-on:change.native="selectProfileImage" id="profileImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+                    <v-btn @click="clickProfileImageUpload" color="primary" outlined rounded class="flex-grow-0 px-6">Upload Profile Picture</v-btn>
+                  </v-col>
+
                   <v-col
                     cols="12"
                     class="d-flex flex-column align-center"
@@ -148,6 +155,26 @@
                 ></v-text-field>
               </v-col>
 
+              <v-col cols="12" sm="5" md="6">
+                <v-row fill-height class="pl-2 fill-height">
+                  <v-col cols="12" class="d-flex flex-column justify-space-between align-center">
+                    <v-img :src="companyImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="companyImageUrl"></v-img>
+                    <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png" alt="SoWerk rounded icon" style="width: 90px; margin-bottom: 10px"></v-img>
+                    <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload--selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
+                    <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded class="flex-grow-0 px-6">Upload Company Logo</v-btn>
+                  </v-col>
+                  <!--                  <v-col cols="12" md="6" class="d-flex flex-column justify-center">-->
+                  <!--                    <v-file-input class="company-image-upload ma-0 pa-0" :class="{'company-image-upload&#45;&#45;selected' : companyImageFile}" v-model="companyImageFile" v-on:change.native="selectCompanyImage" id="companyImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>-->
+                  <!--                    <v-btn @click="clickCompanyImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>-->
+                  <!--                  </v-col>-->
+                  <!--                            <v-file-input-->
+                  <!--                              clearable-->
+                  <!--                              full-width-->
+                  <!--                              v-on:input.native="selectCompanyImage"-->
+                  <!--                            />-->
+                </v-row>
+              </v-col>
+
               <v-col cols="12" sm="6">
                 <v-text-field
                   id="brand-name"
@@ -265,7 +292,7 @@
                   id="company-description"
                   label="Company Profile Description*"
                   v-model="company.description"
-                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationships with vendors."
+                  placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
                   :rules="rules.requiredRules"
                 ></v-textarea>
               </v-col>
@@ -282,11 +309,11 @@ import VImageInput from 'vuetify-image-input'
 import * as VueGoogleMaps from '~/node_modules/gmap-vue'
 import GmapCluster from '~/node_modules/gmap-vue/dist/components/cluster'
 
-// import DisableAutocomplete from 'vue-disable-autocomplete';
+import DisableAutocomplete from 'vue-disable-autocomplete';
 
 import Vue from 'vue';
 
-// Vue.use(DisableAutocomplete);
+Vue.use(DisableAutocomplete);
 
 export default {
   name: 'CompanyDetails',
@@ -299,6 +326,8 @@ export default {
     return {
       companyImageUrl: null,
       companyImageFile: null,
+      profileImageUrl: null,
+      profileImageFile: null,
       rules: {
         requiredRules: [(v) => !!v || v === 0 || 'Field is required'],
         usernameRules: [
@@ -317,7 +346,7 @@ export default {
             (v && v.length <= 100) || 'Email must be less than 100 characters',
         ],
         phoneRules: [
-          (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
+          (v) => (v && v.length === 10) || 'Phone Number must be 11 digits',
         ],
           passwordRules: [
             v => !!v || 'Password is required',
@@ -378,6 +407,14 @@ export default {
       this.$emit('selectFile', this.companyImageFile);
       this.$emit('selectFileUrl', this.companyImageUrl);
     },
+    selectProfileImage(e) {
+      this.profileImageFile = e.target.files[0];
+      console.log(this.profileImageFile);
+      this.profileImageUrl = URL.createObjectURL(this.profileImageUrl);
+      console.log(this.profileImageUrl);
+      this.$emit('selectFile', this.profileImageFile)
+      this.$emit('selectFileUrl', this.profileImageUrl);
+    },
 
     readFile(e) {
       this.selectedFile = e.target.files[0]
@@ -394,6 +431,11 @@ export default {
       // imageInput.$el.click();
       document.getElementById('companyImage').click()
     },
+    clickProfileImageUpload() {
+      console.log(this);
+      document.getElementById('profileImage').click();
+    },
+
     animateAddressFieldOnFocus(e) {
       let addressLabel = e.target.previousElementSibling
       addressLabel.classList.toggle('v-label--focus')
