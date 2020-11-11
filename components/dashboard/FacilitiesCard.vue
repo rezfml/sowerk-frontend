@@ -2,15 +2,15 @@
 <v-container>
   <div style="width: 100%" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
     <div v-if="locationApproved" style="width: 100%" class="d-flex">
-      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">
-        <FilterCard
-          title="Filter"
-          :filters="filters"
-          :locationApproved="locationApproved"
-          :loadModal="loadModal"
-        ></FilterCard>
-      </v-col>
-      <v-col cols="12" xl="9">
+<!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
+<!--        <FilterCard-->
+<!--          title="Filter"-->
+<!--          :filters="filters"-->
+<!--          :locationApproved="locationApproved"-->
+<!--          :loadModal="loadModal"-->
+<!--        ></FilterCard>-->
+<!--      </v-col>-->
+      <v-col cols="12" xl="12">
         <v-card class="white pt-0 mt-12 mb-4">
           <v-progress-circular
             v-if="loading != true"
@@ -64,7 +64,7 @@
                 </template>
                 <template v-slot:item.companyName="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+                    <p v-if="item.name">{{item.name}}</p>
                     <p v-else>
                       <v-progress-circular
                         indeterminate
@@ -74,10 +74,16 @@
                     </p>
                   </v-row>
                 </template>
+                <template v-slot:item.imageUrl="{ item }">
+                  <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                    <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                    <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                    <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  </v-row>
+                </template>
                 <template v-slot:item.name="{ item }">
                   <v-row class="d-flex" cols="12" md="6">
                     <v-col>
-                      <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
                       <p>{{item.name}}</p>
                     </v-col>
                   </v-row>
@@ -216,10 +222,16 @@
                 </p>
               </v-row>
             </template>
+            <template v-slot:item.imageUrl="{ item }">
+              <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+              </v-row>
+            </template>
             <template v-slot:item.name="{ item }">
               <v-row class="d-flex" cols="12" md="6">
                 <v-col>
-                  <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="40" max-width="40" style="border-radius: 50%;" class="mr-4"/>
                   <p>{{item.name}}</p>
                 </v-col>
               </v-row>

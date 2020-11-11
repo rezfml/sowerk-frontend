@@ -47,13 +47,13 @@
 
       <v-container class="px-0" style="max-width: 95%;" v-else>
         <v-row>
-          <v-col cols="3">
-            <FilterCard
-              title="Filter"
-              :filters="filters"
-            ></FilterCard>
-          </v-col>
-          <v-col cols="9" class="d-flex flex-column justify-start">
+<!--          <v-col cols="3">-->
+<!--            <FilterCard-->
+<!--              title="Filter"-->
+<!--              :filters="filters"-->
+<!--            ></FilterCard>-->
+<!--          </v-col>-->
+          <v-col cols="12" class="d-flex flex-column justify-start">
             <ActiveApplicationsCard
               v-if="applications"
               :title="'My Active Applications'"

@@ -383,7 +383,7 @@
               </v-form>
               <div style="width: 100%;" class="d-flex justify-space-between">
                 <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
-                <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="green" outlined>Update Form Field</v-btn>
+                <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="white" style="background: #707070;" outlined>Update Form Field</v-btn>
               </div>
               <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
             </v-card>
@@ -765,13 +765,6 @@ const naics = require("naics");
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
           { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
@@ -783,13 +776,6 @@ const naics = require("naics");
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
         ],
         tableHeaders: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
@@ -823,16 +809,16 @@ const naics = require("naics");
             type: 'select',
             value: ''
           },
-          {
-            id: 0,
-            name: 'File Upload',
-            userform_id: Number,
-            options: "",
-            order: Number,
-            required: true,
-            type: 'file',
-            value: ''
-          },
+          // {
+          //   id: 0,
+          //   name: 'File Upload',
+          //   userform_id: Number,
+          //   options: "",
+          //   order: Number,
+          //   required: true,
+          //   type: 'file',
+          //   value: ''
+          // },
         ],
         originalUserForms: {},
         step3finishedFormFields: false,
@@ -844,7 +830,9 @@ const naics = require("naics");
         typeSelect: [
           'text',
           'number',
-          'date'
+          'date',
+          // 'file',
+          'select',
         ],
         applicationOptions: [
           'Published - Public',

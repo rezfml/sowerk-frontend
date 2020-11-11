@@ -11,13 +11,13 @@
       <template v-if="company && company.company_type === 'true'">
         <v-container class="px-0" style="max-width: 95%;">
           <v-row>
-            <v-col cols="3">
-              <FilterCard
-                title="Filter"
-                :filters="filters"
-              ></FilterCard>
-            </v-col>
-            <v-col cols="9" class="d-flex flex-column justify-space-between">
+<!--            <v-col cols="3">-->
+<!--              <FilterCard-->
+<!--                title="Filter"-->
+<!--                :filters="filters"-->
+<!--              ></FilterCard>-->
+<!--            </v-col>-->
+            <v-col cols="12" class="d-flex flex-column justify-space-between">
               <HomeCard
                 v-if="services"
                 :title="'Businesses'"

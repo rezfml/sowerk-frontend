@@ -36,6 +36,7 @@
         <HomeCard
           v-if="locations && locationApproved===true"
           :items="locations"
+          :company="company"
           :title="'Locations You Manage - ' + locations.length"
           :tableProperties="headers"
           slug="/dashboard/facilities/"

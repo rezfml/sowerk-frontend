@@ -61,23 +61,23 @@
       </v-row>
 
       <v-row v-else>
-        <v-col cols="3">
-          <v-skeleton-loader
-            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"
-            type="card-avatar, article, article, actions"
-            min-height="50vh"
-            min-width="15vw"
-          ></v-skeleton-loader>
-          <transition name="slide-fade">
-            <FilterCard
-              title="Filter"
-              :filters="filters"
-              :locationApproved="locationApproved"
-              v-if="loading"
-            ></FilterCard>
-          </transition>
-        </v-col>
-        <v-col cols="9">
+<!--        <v-col cols="3">-->
+<!--          <v-skeleton-loader-->
+<!--            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"-->
+<!--            type="card-avatar, article, article, actions"-->
+<!--            min-height="50vh"-->
+<!--            min-width="15vw"-->
+<!--          ></v-skeleton-loader>-->
+<!--          <transition name="slide-fade">-->
+<!--            <FilterCard-->
+<!--              title="Filter"-->
+<!--              :filters="filters"-->
+<!--              :locationApproved="locationApproved"-->
+<!--              v-if="loading"-->
+<!--            ></FilterCard>-->
+<!--          </transition>-->
+<!--        </v-col>-->
+        <v-col cols="12">
           <v-skeleton-loader
             v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"
             type="card-avatar, card-avatar, article, article, actions"
