@@ -74,7 +74,23 @@
               <v-col cols="12" class="d-flex justify-end">
                 <v-btn color="primary" text @click="addInvitee">+ Add Another Line</v-btn>
               </v-col>
-              <v-col class="d-flex justify-space-between my-12">
+              <!--  EXTRA SMALL BREAKPOINT FOR BTN-->
+              <v-col v-if="$vuetify.breakpoint.xs" class="d-flex flex-column justify-space-between my-12" >
+                <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Return To Dashboard</v-btn>
+                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
+              </v-col>
+              <!--  SMALL BREAKPOINT FOR BTN-->
+              <v-col v-if="$vuetify.breakpoint.sm" class="d-flex flex-column justify-space-between my-12" >
+                <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Return To Dashboard</v-btn>
+                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
+              </v-col>
+              <!--  MEDIUM BREAKPOINT FOR BTN-->
+              <v-col v-if="$vuetify.breakpoint.md" class="d-flex justify-space-between my-12" >
+                <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
+                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
+              </v-col>
+              <!--  LARGE BREAKPOINT FOR BTN-->
+              <v-col v-if="$vuetify.breakpoint.lg" class="d-flex justify-space-between my-12">
                 <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
                 <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
               </v-col>
