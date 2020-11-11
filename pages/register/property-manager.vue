@@ -59,6 +59,7 @@
               :company="company"
               :user="user"
               :editLocation="editLocation"
+              :deleteLocation="deleteLocation"
               :editingLocation="editingLocation"
               :location="location"
               :locations="locations"
@@ -368,6 +369,11 @@ export default {
       this.location = this.locations[index]
       console.log(this.location)
       this.editingLocation = true
+    },
+    deleteLocation(index) {
+      console.log(index, 'deleteLocation!')
+      this.locations.splice(1, index)
+      console.log(this.locations, 'locations')
     },
     getAddressData(addressData) {
       console.log(addressData)

@@ -41,7 +41,7 @@
                   mdi-pencil
                 </v-icon>
               </v-btn>
-              <v-icon small @click="deleteItem(item)">
+              <v-icon small @click="deleteLocation(locations.indexOf(item))">
                 mdi-delete
               </v-icon>
             </template>
@@ -76,6 +76,13 @@ export default {
         this.location = this.locations[index]
         console.log(this.location)
         this.editingLocation = true
+      },
+    },
+    deleteLocation: {
+      type: Function,
+      deleteLocation(index) {
+        console.log(index, 'deleteLocation!')
+        this.locations.splice(1, index)
       },
     },
     editingLocation: {
