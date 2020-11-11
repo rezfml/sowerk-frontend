@@ -21,7 +21,7 @@
 
         <transition name="slide-fade">
           <div v-if="loadCompany" style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center" v-else>
-          <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10 mb-12 mt-n12">
+          <v-avatar style=" border: 3px solid #212121;" size="125" rounded class="text-center mx-auto elevation-10 mb-12 mt-n12">
             <v-img v-if="company.imgUrl === ''" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
             <v-img v-else :src="company.imgUrl" ></v-img>
           </v-avatar>
@@ -61,7 +61,7 @@
                 <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px;">{{ company.account_name }}</p>
                 <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
               </v-col>
-              <v-col cols="12" class="py-1">
+              <v-col cols="12" class="py-1 text-body-1">
                 <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
                 <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Facilities Nationwide</p>
               </v-col>
@@ -109,7 +109,7 @@
 
 
         <v-spacer></v-spacer>
-        <v-card-actions class="d-flex justify-center">
+        <v-card-actions class="d-flex justify-center py-6">
           <v-btn v-if="this.user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
           <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE LOCATION</v-btn>
         </v-card-actions>
