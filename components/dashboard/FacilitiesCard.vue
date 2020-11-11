@@ -120,6 +120,10 @@
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
                   <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
+                  <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Location"></v-checkbox>
+                </template>
+                <template slot=footer v-if="viewLocation === true">
+                  <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else>
                   <nuxt-link :to="slug + item.id" append>
@@ -257,6 +261,10 @@
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
               <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
+              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Location"></v-checkbox>
+            </template>
+            <template slot=footer v-if="viewLocation === true">
+              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
               <nuxt-link :to="slug + item.id" append>
@@ -298,7 +306,7 @@
   </div>
 
   <div style="width: 100%" v-else >
-    
+
     <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
         v-if="loading != true"
@@ -409,7 +417,11 @@
               <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
-              <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
+              <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
+              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Location"></v-checkbox>
+            </template>
+            <template slot=footer v-if="viewLocation === true">
+              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
               <nuxt-link :to="slug + item.id" append>
@@ -455,7 +467,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'locationApproved',],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'massAssignUserToLocation', 'locationApproved', 'submitMassAssignUserToLocation'],
   components: {
     FilterCard
   },
@@ -593,7 +605,7 @@ export default {
   },
   async created() {
     console.log(this.items, 'yayyy FACILITIES CARD');
-    console.log(this.locationAssignUser, 'user for location assign')
+    //console.log(this.locationAssignUser, 'user for location assign')
     this.loadingFunc(this.items);
   },
   methods: {

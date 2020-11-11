@@ -5,7 +5,7 @@
       <nuxt :steps="steps" :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh;" />
     </v-content>
 
-    <v-tour name="myTour" :steps="steps" :options="myOptions">
+    <v-tour v-if="windowLocation === 'http://localhost:3000/dashboard' || windowLocation === 'https://www.sowerk.com/dashboard'" name="myTour" :steps="steps" :options="myOptions">
     </v-tour>
   </v-app>
 </template>
@@ -97,7 +97,8 @@
               placement: "top",
             }
           }
-        ]
+        ],
+        windowLocation: '',
       }
     },
     async mounted() {
@@ -105,6 +106,8 @@
       this.company = data;
       this.companyType = data.company_type;
       console.log(this.companyType);
+      this.windowLocation = window.location.href;
+      console.log(this.windowLocation, 'windowLocation')
       setTimeout(() => {
         this.$tours['myTour'].start();
       }, 5000)

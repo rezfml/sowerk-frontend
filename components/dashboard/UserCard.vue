@@ -140,6 +140,8 @@
             :viewLocation="true"
             :locationAssignUser="locationAssignUser"
             :assignUserToLocation="assignUserToLocation"
+            :massAssignUserToLocation="massAssignUserToLocation"
+            :submitMassAssignUserToLocation="submitMassAssignUserToLocation"
           ></FacilitiesCard>
           <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
         </v-card>
@@ -176,6 +178,8 @@
             :viewLocation="true"
             :locationAssignUser="locationAssignUser"
             :assignUserToLocation="assignUserToLocation"
+            :massAssignUserToLocation="massAssignUserToLocation"
+            :submitMassAssignUserToLocation="submitMassAssignUserToLocation"
           ></FacilitiesCard>
           <v-btn @click="assignExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
         </v-card>
@@ -223,6 +227,7 @@ export default {
         { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
       ],
+      massLocation: [],
     }
   },
   mounted() {
@@ -324,6 +329,70 @@ export default {
         await this.getUsers();
       }, 500)
     },
+    async massAssignUserToLocation(location) {
+      document.getElementById(location.id).checked = !document.getElementById(location.id).checked
+      console.log(document.getElementById(location.id).checked, 'checked');
+      const checkboxes = document.querySelectorAll('input[name="massAssign"]:checked');
+      console.log(checkboxes, 'checkboxes');
+      if(document.getElementById(location.id).checked === true) {
+        console.log('location for mass assign', location)
+        this.massLocation.push(location)
+      } else {
+        this.massLocation = this.massLocation.filter(locationVal => {
+          if(locationVal !== location) {
+            return locationVal
+          }
+        })
+      }
+
+      console.log(this.massLocation, 'massLocation')
+    },
+    async submitMassAssignUserToLocation() {
+      let locationAssign = {
+        email: "",
+        phone: "",
+        contact_first_name: "",
+        contact_last_name: "",
+        adminLevel: Number
+      };
+      if(this.locationAssignUser.is_superuser === true) {
+        locationAssign = {
+          email: this.locationAssignUser.email,
+          phone: this.locationAssignUser.phone,
+          contact_first_name: this.locationAssignUser.first_name,
+          contact_last_name: this.locationAssignUser.last_name,
+          adminLevel: 1
+        }
+      } else {
+        locationAssign = {
+          email: this.locationAssignUser.email,
+          phone: this.locationAssignUser.phone,
+          contact_first_name: this.locationAssignUser.first_name,
+          contact_last_name: this.locationAssignUser.last_name,
+          adminLevel: 0
+        }
+      }
+      if (this.massLocation.length > 0) {
+        for(let i=0; i<this.massLocation.length; i++) {
+          await setTimeout(async () => {
+            await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.massLocation[i].id, locationAssign)
+              .then(async (response) => {
+                console.log('success', response)
+                this.successAssign = true;
+                this.locationAssignLoad = false;
+              })
+              .catch(err => {
+                console.log(err, 'err')
+                alert('Error in assigning user to this location')
+              })
+          }, 500)
+        }
+        await this.getLocations();
+        await this.getUsers();
+      } else {
+        alert('Please select the checkboxes for each location that you want to assign to the user!')
+      }
+    }
   }
 }
 
