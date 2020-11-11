@@ -56,6 +56,7 @@
             <FacilitiesCard
               :title="'Your Facilities - ' + locations.length"
               :items="locations"
+              :company="company"
               :tableProperties="headers"
               :viewAll="false"
               slug="/dashboard/facilities/"
@@ -132,21 +133,21 @@
 <!--            :size="50"-->
 <!--          ></v-progress-circular>-->
 <!--        </v-col>-->
-        <v-col cols="3">
-          <v-skeleton-loader
-            v-if="!loading"
-            type="article, article, article, actions"
-            min-height="50vh"
-          ></v-skeleton-loader>
-          <transition name="slide-fade">
-            <FilterCard
-              title="Filter"
-              :filters="filters"
-              v-if="loading"
-            ></FilterCard>
-          </transition>
-        </v-col>
-        <v-col cols="9" class="d-flex flex-column justify-start">
+<!--        <v-col cols="3">-->
+<!--          <v-skeleton-loader-->
+<!--            v-if="!loading"-->
+<!--            type="article, article, article, actions"-->
+<!--            min-height="50vh"-->
+<!--          ></v-skeleton-loader>-->
+<!--          <transition name="slide-fade">-->
+<!--            <FilterCard-->
+<!--              title="Filter"-->
+<!--              :filters="filters"-->
+<!--              v-if="loading"-->
+<!--            ></FilterCard>-->
+<!--          </transition>-->
+<!--        </v-col>-->
+        <v-col cols="12" class="d-flex flex-column justify-start">
           <v-skeleton-loader
             v-if="!loading"
             type="card-avatar, article, article, article, actions"
@@ -156,6 +157,7 @@
             <FacilitiesCard
               :title="'Your Facilities - ' + locations.length"
               :items="locations"
+              :company="company"
               :tableProperties="headers"
               :viewAll="false"
               :viewLocation="viewLocation"
@@ -198,6 +200,7 @@
     data() {
       return {
         loading: false,
+        company: {},
         locations: [
         ],
         filters: [
@@ -306,13 +309,7 @@
           }
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
           { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
@@ -334,6 +331,7 @@
       }
     },
     mounted() {
+      this.getCompany();
       this.getLocations();
       console.log(this.currentUser);
     },
@@ -343,6 +341,11 @@
       },
     },
     methods: {
+      async getCompany() {
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        if (this.$error(status, data.message, data.errors)) return;
+        this.company = data;
+      },
       async getLocations() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;

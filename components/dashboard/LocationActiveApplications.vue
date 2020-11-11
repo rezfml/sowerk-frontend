@@ -1,12 +1,12 @@
 <template>
   <div style="width: 100%" class="d-flex">
-    <v-col cols="3">
-          <FilterCard
-            title="Filter"
-            :filters="filters"
-          ></FilterCard>
-    </v-col>
-    <v-col cols="9" class="d-flex flex-column justify-start">
+<!--    <v-col cols="3">-->
+<!--          <FilterCard-->
+<!--            title="Filter"-->
+<!--            :filters="filters"-->
+<!--          ></FilterCard>-->
+<!--    </v-col>-->
+    <v-col cols="12" class="d-flex flex-column justify-start">
       <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
         <v-container class="pt-0" fluid>
           <v-card-title

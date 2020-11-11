@@ -765,13 +765,6 @@ const naics = require("naics");
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
           { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
@@ -783,13 +776,6 @@ const naics = require("naics");
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
         ],
         tableHeaders: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
           { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },

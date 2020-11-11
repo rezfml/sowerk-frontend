@@ -41,7 +41,9 @@
           </template>
           <template v-slot:item.imageUrl="{ item }">
             <v-row class="d-flex" cols="12" lg="6" justify="center" >
-                <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+              <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+              <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+              <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
             </v-row>
           </template>
           <template v-slot:item.name="{ item }">
@@ -267,14 +269,14 @@
 <script>
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'loading'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'loading', 'company'],
   data() {
     return {
       locations: null
     }
   },
   mounted() {
-    console.log(this.items, 'items');
+    console.log(this.items, 'items', 'company', this.company);
   }
 }
 </script>
