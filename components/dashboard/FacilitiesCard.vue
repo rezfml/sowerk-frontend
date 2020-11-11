@@ -36,6 +36,7 @@
                 :headers="tableProperties"
                 :items="items"
                 :items-per-page="10"
+                v-if="items.length>0"
               >
                 <template v-slot:item.address="{item}">
                   <v-row class="d-flex" cols="12" md="6">
@@ -122,7 +123,7 @@
                   <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
                   <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Location"></v-checkbox>
                 </template>
-                <template slot=footer v-if="viewLocation === true">
+                <template v-slot:footer v-if="viewLocation === true">
                   <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else>
@@ -177,6 +178,7 @@
             :headers="tableProperties"
             :items="items"
             :items-per-page="10"
+            v-if="items.length>0"
           >
             <template v-slot:item.address="{item}">
               <v-row class="d-flex" cols="12" md="6">
@@ -263,7 +265,7 @@
               <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
               <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Location"></v-checkbox>
             </template>
-            <template slot=footer v-if="viewLocation === true">
+            <template v-slot:footer v-if="viewLocation === true">
               <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
@@ -333,6 +335,7 @@
             :items="items"
             :items-per-page="10"
             :hide-default-header="true"
+            v-if="items.length>0"
           >
             <template v-slot:item.address="{item}">
               <v-row class="d-flex" cols="12" md="6">
@@ -420,7 +423,7 @@
               <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
               <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Location"></v-checkbox>
             </template>
-            <template slot=footer v-if="viewLocation === true">
+            <template v-slot:footer v-if="viewLocation === true">
               <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
@@ -467,7 +470,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'massAssignUserToLocation', 'locationApproved', 'submitMassAssignUserToLocation'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'massAssignUserToLocation', 'locationApproved', 'submitMassAssignUserToLocation', 'viewLocation'],
   components: {
     FilterCard
   },

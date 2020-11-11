@@ -32,7 +32,7 @@
           :search="search"
           :items-per-page="10"
           style="width:100%;height:auto;"
-
+          v-if="items"
         >
           <template v-slot:item.first_name="{item}">
             <p>{{item.first_name}} {{item.last_name}}</p>
@@ -61,7 +61,7 @@
             <div class="d-flex flex-column align-center">
               <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
-              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
             </div>
           </template>
 
@@ -74,6 +74,7 @@
           :search="search"
           :items-per-page="10"
           class="mobileTable"
+          v-if="items"
         >
           <template v-slot:item.first_name="{item}">
             <p>{{item.first_name}} {{item.last_name}}</p>
@@ -102,7 +103,7 @@
             <div class="d-flex flex-column align-center" style="margin-top:50%;">
               <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
-              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true">Delete</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
             </div>
           </template>
 
@@ -193,7 +194,7 @@
   import FacilitiesCard from '~/components/dashboard/FacilitiesCard'
 export default {
   name: 'UserCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'currentUser', 'locations', 'getLocations', 'getUsers'],
+  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'currentUser', 'locations', 'getLocations', 'getUsers', 'viewLocation'],
   components: {
     HomeCard,
     FacilitiesCard

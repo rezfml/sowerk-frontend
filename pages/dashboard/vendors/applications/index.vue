@@ -1314,7 +1314,7 @@ const naics = require("naics");
         console.log(template, 'template for delete company')
         for(let i=0; i<template.companytemplatesformfields.length; i++) {
           await this.$http.delete('https://www.sowerkbackend.com/api/companytemplatesformfields/' + template.companytemplatesformfields[i].id)
-            .then(response => {
+            .then(async (response) => {
               console.log('success in deleting formfield company template')
             })
             .catch(err => {
@@ -1322,9 +1322,22 @@ const naics = require("naics");
             })
         }
         await this.$http.delete('https://www.sowerkbackend.com/api/companytemplates/'+ template.id)
-          .then(response => {
+          .then(async (response) => {
             console.log(response, 'success in deleting company template')
-            this.$router.go();
+            await this.getCompanyTemplates();
+            this.loadApplicationLocations = false;
+            this.loadApplicationTemplates = false;
+            this.loadYourCompanyTemplates = true;
+            this.loadYourCompanyDocuments = false;
+            this.addNewVendorFormLoad = false;
+            this.addNewCompanyTemplateLoad = false;
+            this.step4 = false;
+            this.step1 = false;
+            this.step2 = false;
+            this.step3 = false;
+            this.step3finishedFormFields = false;
+            this.expanded = [];
+            this.singleExpand = true;
           })
           .catch(err => {
             console.log(err, 'err in deleting this company template')
