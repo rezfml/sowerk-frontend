@@ -680,6 +680,14 @@
               @change="getLevel2Children"
             ></v-select>
           </template>
+          <template>
+            <v-text-field
+              label="Can't find what you're looking for? Enter here for other!"
+              hint="We will keep track of all additions in other and work diligently to either add them to our database, or notify you on why we cannot use this category."
+              v-model="serviceAdd.name"
+              style="width: 90%;"
+            ></v-text-field>
+          </template>
           <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>
         </v-form>
         <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
@@ -857,13 +865,30 @@ const naics = require("naics");
         }
     },
     async mounted() {
-      await this.getLocations(this.currentUser.companies_id);
       // await this.getCompany(this.currentUser.companies_id);
       let codes = naics.Industry.sectors();
+      console.log(this.sectors, 'before push of other sectors')
+      // Add missing Manufacturing sector group
+      let manufacturingSector = naics.Industry.from('31-33');
+      this.sectors.push(manufacturingSector);
+      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+      // Add missing Retail Trade sector group
+      let retailSector = naics.Industry.from('44-45');
+      this.sectors.push(retailSector);
+      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+      // Add missing Transportation and Warehousing sector group
+      let transportationSector = naics.Industry.from('48-49');
+      this.sectors.push(transportationSector);
+      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
       for(const code of codes) {
         this.sectors.push(code);
       }
-      console.log(this.sectors, 'sectors');
+
+      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+      await this.getLocations(this.currentUser.companies_id);
     },
     computed: {
       currentUser() {
@@ -1174,6 +1199,21 @@ const naics = require("naics");
         this.industryLevel4 = [];
         this.sectors = [];
         let codes = naics.Industry.sectors();
+        console.log(this.sectors, 'before push of other sectors')
+        // Add missing Manufacturing sector group
+        let manufacturingSector = naics.Industry.from('31-33');
+        this.sectors.push(manufacturingSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+        // Add missing Retail Trade sector group
+        let retailSector = naics.Industry.from('44-45');
+        this.sectors.push(retailSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+        // Add missing Transportation and Warehousing sector group
+        let transportationSector = naics.Industry.from('48-49');
+        this.sectors.push(transportationSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
         for(const code of codes) {
           this.sectors.push(code);
         }
@@ -1464,6 +1504,21 @@ const naics = require("naics");
         this.industryLevel3 = [];
         this.industryLevel4 = [];
         this.sectors = [];
+        console.log(this.sectors, 'before push of other sectors')
+        // Add missing Manufacturing sector group
+        let manufacturingSector = naics.Industry.from('31-33');
+        this.sectors.push(manufacturingSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+        // Add missing Retail Trade sector group
+        let retailSector = naics.Industry.from('44-45');
+        this.sectors.push(retailSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+        // Add missing Transportation and Warehousing sector group
+        let transportationSector = naics.Industry.from('48-49');
+        this.sectors.push(transportationSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
         let codes = naics.Industry.sectors();
         for(const code of codes) {
           this.sectors.push(code);
@@ -1493,6 +1548,21 @@ const naics = require("naics");
         this.industryLevel3 = [];
         this.industryLevel4 = [];
         this.sectors = [];
+        console.log(this.sectors, 'before push of other sectors')
+        // Add missing Manufacturing sector group
+        let manufacturingSector = naics.Industry.from('31-33');
+        this.sectors.push(manufacturingSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+        // Add missing Retail Trade sector group
+        let retailSector = naics.Industry.from('44-45');
+        this.sectors.push(retailSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+
+        // Add missing Transportation and Warehousing sector group
+        let transportationSector = naics.Industry.from('48-49');
+        this.sectors.push(transportationSector);
+        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
         let codes = naics.Industry.sectors();
         for(const code of codes) {
           this.sectors.push(code);
