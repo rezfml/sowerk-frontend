@@ -1003,7 +1003,18 @@
       for(const code of codes) {
         this.sectors.push(code);
       }
-      console.log(this.sectors);
+
+      // Add missing Manufacturing sector group
+      let manufacturingSector = naics.Industry.from('31-33');
+      this.sectors.splice(5, 0, manufacturingSector);
+
+      // Add missing Retail Trade sector group
+      let retailSector = naics.Industry.from('44-45');
+      this.sectors.splice(7, 0, retailSector);
+
+      // Add missing Transportation and Warehousing sector group
+      let transportationSector = naics.Industry.from('48-49');
+      this.sectors.splice(8, 0, transportationSector);
     },
     computed: {
       confirmPasswordRules() {
@@ -1180,7 +1191,7 @@
           longitude: null,
           radius: 0,
           year_founded: '',
-          companies_id: null,
+          companies_id: null,n
         }
         this.locations.push(newLocation)
         this.location = this.locations[this.locations.length - 1]
