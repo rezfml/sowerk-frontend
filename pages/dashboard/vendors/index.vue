@@ -48,22 +48,7 @@
 <!--          </v-slide-item>-->
 <!--        </v-slide-group>-->
 <!--      </v-row>-->
-
-      <v-row v-show="!$vuetify.breakpoint.md && !$vuetify.breakpoint.lg">
-        <v-col cols="12" class="d-flex flex-column">
-          <FacilitiesCard
-            v-if="vendors.length > 0 && loading === true"
-            :title="'Find A SOWerk Vendor'"
-            :items="vendors"
-            :tableProperties="headers"
-            :viewAll="false"
-            action="View"
-            slug="/dashboard/businesses/"
-          ></FacilitiesCard>
-        </v-col>
-      </v-row>
-
-      <v-row v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+      <v-row>
         <v-col cols="3">
           <img style="width: 100%;" class="mb-n16 mt-n16" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />
           <FilterCard
@@ -72,8 +57,7 @@
             :filters="filters"
           ></FilterCard>
         </v-col>
-
-        <v-col cols="9" class="d-flex flex-column justify-space-between" >
+        <v-col cols="9" class="d-flex flex-column justify-space-between">
           <FacilitiesCard
             v-if="vendors.length > 0 && loading === true"
             :title="'Find A SOWerk Vendor'"
@@ -85,7 +69,6 @@
           ></FacilitiesCard>
         </v-col>
       </v-row>
-
     </v-container>
     </transition>
   </v-app>
