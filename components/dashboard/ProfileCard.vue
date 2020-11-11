@@ -11,66 +11,67 @@
 <!--        </transition>-->
 
         <transition name="slide-fade">
-        <div style="" class="d-flex justify-center" v-if="location">
+          <div style="" class="d-flex justify-center" v-if="location">
           <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
-            <v-img v-if="!locationImageUrl" :src="location.imageUrl" ></v-img>
+            <v-img v-if="!locationImageUrl" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
             <v-img v-else :src="locationImageUrl" ></v-img>
           </v-avatar>
         </div>
         </transition>
 
         <transition name="slide-fade">
-        <div v-if="loadCompany" style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center" v-else>
+          <div v-if="loadCompany" style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center" v-else>
           <v-avatar style=" border: 3px solid #212121;" size="150" rounded class="text-center mx-auto elevation-10 mb-12 mt-n12">
-            <v-img  :src="company.imgUrl" ></v-img>
+            <v-img v-if="company.imgUrl === ''" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
+            <v-img v-else :src="company.imgUrl" ></v-img>
           </v-avatar>
         </div>
         </transition>
 
         <transition name="slide-fade">
-        <v-card-title v-if="loadCompany || location" class="text-center mt-0 pt-12">
+          <v-card-title v-if="loadCompany || location" class="text-center mt-0 pt-12">
 
-          <v-row v-if="location" style="text-align: center;" class="">
-            <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px; word-break: normal">{{ location.name }}</v-card-text>
-            <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-            <v-card-text v-else class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-            <v-row class="d-flex justify-center" style="width: 100%;">
-              <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Founded: {{location.year_founded}}</v-card-text>
-              <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Joined SOWerk: {{location.created}}</v-card-text>
+            <v-row v-if="location" style="text-align: center;" class="">
+              <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px; word-break: normal">{{ location.name }}</v-card-text>
+              <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+              <v-card-text v-else class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+              <v-row class="d-flex justify-center" style="width: 100%;">
+                <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Founded: {{location.year_founded}}</v-card-text>
+                <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Joined SOWerk: {{location.created}}</v-card-text>
+              </v-row>
+
+              <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
+
+              <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Providers At This Facility</v-card-text>
+
+              <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
+
+              <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Super Admin</span>
+                <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Staff Account</span></v-card-text>
+
+              <v-card-text class="mx-auto mb-n6" style="font-size: 14px !important; word-break: break-word!important;">{{location.email}}</v-card-text>
+
+              <v-card-text class="mx-auto mb-6" style="font-size: 14px !important; ;word-break: break-word!important;">{{location.phone}}</v-card-text>
+              <!--          <v-btn outlined rounded block color="primary" class="px-5" style="font-size: 18px;">View Facility Dashboard</v-btn>-->
+              <!--          <v-btn outlined rounded block color="primary" class="px-10 my-4" style="font-size: 18px;">Share This Property</v-btn>-->
             </v-row>
 
-            <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
+            <v-row v-else-if="user">
+              <v-col cols="12" class="py-1 mt-12">
+                <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px;">{{ company.account_name }}</p>
+                <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
+              </v-col>
+              <v-col cols="12" class="py-1">
+                <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
+                <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Facilities Nationwide</p>
+              </v-col>
+            </v-row>
 
-            <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Providers At This Facility</v-card-text>
-
-            <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
-
-            <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Super Admin</span>
-              <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Staff Account</span></v-card-text>
-
-            <v-card-text class="mx-auto mb-n6" style="font-size: 14px !important; word-break: break-word!important;">{{location.email}}</v-card-text>
-
-            <v-card-text class="mx-auto mb-6" style="font-size: 14px !important; ;word-break: break-word!important;">{{location.phone}}</v-card-text>
-            <!--          <v-btn outlined rounded block color="primary" class="px-5" style="font-size: 18px;">View Facility Dashboard</v-btn>-->
-            <!--          <v-btn outlined rounded block color="primary" class="px-10 my-4" style="font-size: 18px;">Share This Property</v-btn>-->
-          </v-row>
-
-          <v-row v-else-if="user">
-            <v-col cols="12" class="py-1 mt-12">
-              <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px;">{{ company.account_name }}</p>
-              <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
-            </v-col>
-            <v-col cols="12" class="py-1">
-              <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
-              <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Facilities Nationwide</p>
-            </v-col>
-          </v-row>
-
-        </v-card-title>
+          </v-card-title>
         </transition>
 
         <transition name="slide-fade">
-        <v-divider v-if="user" class="mx-auto" style="width: 90%;"></v-divider>
+          <v-divider v-if="user" class="mx-auto" style="width: 90%;"></v-divider>
         </transition>
 
         <transition name="slide-fade">
@@ -82,7 +83,6 @@
             <p class="body-2">Founded: {{company.year_founded}}</p>
             <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
           </template>
-
         </v-card-text>
         </transition>
 

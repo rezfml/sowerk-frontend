@@ -26,6 +26,7 @@
               :viewAll="false"
               slug="/dashboard/facilities/"
               v-if="locationApproved===true && loading"
+              :viewLocation="viewLocation"
             ></FacilitiesCard>
           </transition>
           <transition name="slide-fade">
@@ -59,6 +60,7 @@
               :viewAll="false"
               slug="/dashboard/facilities/"
               v-if="loading"
+              :viewLocation="viewLocation"
             ></FacilitiesCard>
           </transition>
           <transition name="slide-fade">
@@ -156,6 +158,7 @@
               :items="locations"
               :tableProperties="headers"
               :viewAll="false"
+              :viewLocation="viewLocation"
               slug="/dashboard/facilities/"
               v-if="locationApproved===true && loading"
             ></FacilitiesCard>
@@ -318,6 +321,7 @@
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         locationApproved: false,
+        viewLocation: false,
       }
     },
     watch: {

@@ -5,7 +5,7 @@
       <nuxt :steps="steps" :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh;" />
     </v-content>
 
-    <v-tour name="myTour" :steps="steps" :options="myOptions">
+    <v-tour v-if="windowLocation === 'http://localhost:3000/dashboard' || windowLocation === 'https://www.sowerk.com/dashboard'" name="myTour" :steps="steps" :options="myOptions">
     </v-tour>
   </v-app>
 </template>
@@ -82,7 +82,7 @@
             header: {
               title: '',
             },
-            content: `<h1>Step #3<br/>Connect With Vendors</h1><p>Your locations built and your Vendor requirements are set. It’s time to mix and mingle!<br/><br/>Use the Vendor invite tool to send invitations to those Vendors you wish to apply on SOWerk for your Vendor requirements or invite pre-approved Vendors to connect on SOWerk without application. You can also search the SOWerk Vendor directory to find vendors to invite. </p>`,
+            content: `<h1>Step #3<br/>Connect With Vendors</h1><p>Your location's built and your Vendor requirements are set. It’s time to mix and mingle!<br/><br/>Use the Vendor invite tool to send invitations to those Vendors you wish to apply on SOWerk for your Vendor requirements or invite pre-approved Vendors to connect on SOWerk without application. You can also search the SOWerk Vendor directory to find vendors to invite. </p>`,
             params: {
               placement: "top",
             }
@@ -97,7 +97,8 @@
               placement: "top",
             }
           }
-        ]
+        ],
+        windowLocation: '',
       }
     },
     async mounted() {
@@ -105,6 +106,8 @@
       this.company = data;
       this.companyType = data.company_type;
       console.log(this.companyType);
+      this.windowLocation = window.location.href;
+      console.log(this.windowLocation, 'windowLocation')
       setTimeout(() => {
         this.$tours['myTour'].start();
       }, 5000)

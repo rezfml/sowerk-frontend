@@ -153,6 +153,7 @@
                   id="brand-name"
                   label="Brand Name*"
                   type="text"
+                  hint="The name your brand is associated with."
                   placeholder=" "
                   v-model="company.brand_name"
                   :rules="rules.requiredRules"

@@ -12,7 +12,7 @@
       <v-list-item >
         <v-list-item-content class="py-0">
           <v-list-item-title class="title text-center">
-            <v-img src="/SoWerk-Logo.png" style="height: 50px; width: 100%; object-fit: cover; object-position: center;"></v-img>
+            <v-btn style="height: 50px; width: 100%;" text color="transparent" :to="'../'" target="_blank"><v-img src="/SoWerk-Logo.png" style="height: 50px; width: 100%; object-fit: cover; object-position: center;"></v-img></v-btn>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
