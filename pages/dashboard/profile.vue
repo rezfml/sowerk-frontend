@@ -2,10 +2,10 @@
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;">
-        <v-col cols="4" class="py-12" v-if="this.currentUser.is_superuser">
+        <v-col cols="12" md="4" class="py-12" v-if="this.currentUser.is_superuser">
           <ProfileCard  :user="currentUser"></ProfileCard>
         </v-col>
-        <v-col cols="8" class="pb-12 d-flex flex-column" v-if="this.currentUser.is_superuser">
+        <v-col cols="12" md="8" class="pb-12 d-flex flex-column" v-if="this.currentUser.is_superuser">
           <ProfileEditCard  :user="currentUser"></ProfileEditCard>
         </v-col>
 

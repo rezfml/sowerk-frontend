@@ -47,7 +47,7 @@
                 max-width="350"
                 style="border-radius: 16px"
                 to="/landingpage/join-service-landing"
-                >Service Providers</v-btn
+                >Vendors</v-btn
               >
               <v-btn
                 class=" primary ma-3"
@@ -56,7 +56,7 @@
                 max-width="350"
                 style="border-radius: 16px"
                 to="/landingpage/join-product-landing"
-                >Property & Facility Managers</v-btn
+                >Property & Facility</v-btn
               >
             </div>
           </v-card-text>

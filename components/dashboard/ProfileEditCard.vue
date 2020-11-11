@@ -6,7 +6,7 @@
         type="card-avatar, article, actions"
       ></v-skeleton-loader>
       <transition name="slide-fade">
-        <v-card-title v-if="loadCompany" style="position: absolute; top: -25px; left: 25px;border-radius: 3px;" class="primary body-2" ><v-icon>mdi-account</v-icon></v-card-title>
+        <v-card-title v-if="loadCompany" style="position: absolute; top: -25px; left: 25px;border-radius: 3px; background-color: " class="primary body-2" ><v-icon class="white--text">mdi-account-outline</v-icon></v-card-title>
       </transition>
 
       <transition name="slide-fade">
@@ -320,7 +320,7 @@
                 <v-col cols="12" md="4" class="pt-0" v-if="company.isFranchise">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company Account Name"
                     v-model="company.account_name"
                   >
                     <template v-slot:label>
@@ -377,10 +377,10 @@
                 <!--                </v-text-field>-->
                 <!--              </v-col>-->
 
-                <v-col cols="12" md="4" class="py-0">
+                <v-col cols="12" md="5" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company Address"
                     v-model="company.address"
                     clearable
                   >
@@ -393,7 +393,7 @@
                 <v-col cols="12" md="3" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company City"
                     v-model="company.city"
                   >
                     <template v-slot:label>
@@ -402,10 +402,10 @@
                   </v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="3" class="py-0">
+                <v-col cols="12" md="2" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company State"
                     v-model="company.state"
                   >
                     <template v-slot:label>
@@ -417,11 +417,11 @@
                 <v-col cols="12" md="2" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company Zip"
                     v-model="company.zipcode"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Company Zipcode</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Company Zip</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -429,7 +429,7 @@
                 <v-col cols="12" md="12" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company Website"
                     v-model="company.website"
                   >
                     <template v-slot:label>
@@ -451,7 +451,7 @@
                 <v-col cols="12" md="3" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company Founded"
                     v-model="company.year_founded"
                   >
                     <template v-slot:label>
@@ -463,7 +463,7 @@
                 <v-col cols="12" md="9" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Company Description"
                     v-model="company.description"
                   >
                     <template v-slot:label>
@@ -483,7 +483,7 @@
                   <v-text-field
                     label="First Name"
                     light
-                    placeholder=""
+                    placeholder="First Name"
                     v-model="currentUserVal.first_name"
                   >
                     <template v-slot:label>
@@ -496,7 +496,7 @@
                   <v-text-field
                     label="Last Name"
                     light
-                    placeholder=""
+                    placeholder="Last Name"
                     v-model="currentUserVal.last_name"
                   >
                     <template v-slot:label>
@@ -508,7 +508,7 @@
                 <v-col cols="12" md="6" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Email"
                     v-model="currentUserVal.email"
                   >
                     <template v-slot:label>
@@ -520,15 +520,15 @@
                 <v-col cols="12" md="6" class="py-0">
                   <v-text-field
                     light
-                    placeholder=""
+                    placeholder="Phone"
                     v-model="currentUserVal.phone"
                   ><template v-slot:label>
                     <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
                   </template></v-text-field>
                 </v-col>
               </v-row>
-              <v-btn v-if="location" color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
-              <v-btn v-if="company" color="primary" class="px-8" @click="updateCompany()">Update Profile</v-btn>
+              <v-btn v-if="location" color="primary" class="px-8 my-2" @click="updateLocation()">Update Profile</v-btn>
+              <v-btn v-if="company" color="primary" class="px-8 my-2" @click="updateCompany()">Update Profile</v-btn>
             </v-form>
 
           </v-card-text>
@@ -827,6 +827,10 @@
     font-size: 0.75em;
     color: #333!important;
     font-weight: bold;
+  }
+
+  .v-text-field  {
+    font-size: .9rem;
   }
 
   /* Enter and leave animations can use different */
