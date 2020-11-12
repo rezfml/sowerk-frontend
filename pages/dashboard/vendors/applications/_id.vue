@@ -51,6 +51,7 @@
                     <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                   </v-card-title>
                 </transition>
+                <v-card-text v-if="form.type === 'select'" v-for="(option,index) in form.options">{{option}}</v-card-text>
               </v-card>
             </draggable>
           </v-card>
