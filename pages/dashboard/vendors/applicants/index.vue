@@ -31,13 +31,14 @@
       <template v-if="loading">
       <v-container class="px-0" style="max-width: 95%; position: absolute; top: 20px; left: 20px;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
         <v-row>
-          <v-col cols="12" class="d-flex flex-column" style="position: absolute; top: -10px">
+          <v-col cols="12" class="d-flex flex-column justify-start">
             <ActiveApplicationsCard
               v-if="applications"
               :title="'My Active Applications'"
               :tableProperties="headers"
               :viewAll="false"
               :items="applications"
+              :loadingRequests="loading"
               slug="/dashboard/vendors/applicants"
             ></ActiveApplicationsCard>
           </v-col>

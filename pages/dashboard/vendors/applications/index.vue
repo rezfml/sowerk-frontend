@@ -16,197 +16,133 @@
 
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
-
-          <!--  EXTRA SMALL BREAKPOINT FOR TOP BANNER AND BUTTONS-->
-          <v-col v-if="$vuetify.breakpoint.xs" class="d-flex flex-column justify-space-between my-12" >
-            <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-              <v-col cols="12" class="d-flex flex-column justify-center">
-                <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 100%; height: 100px;"></v-img>
-                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
-                <v-col class="d-flex flex-column align-center">
-                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
-                </v-col>
+          <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
+            <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
+            <v-col cols="7" class="d-flex flex-column justify-center">
+              <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
+              <v-col class="d-flex flex-column align-center">
+                <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
+                <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
               </v-col>
-            </v-row>
-          </v-col>
-
-          <!--  SMALL BREAKPOINT FOR TOP BANNER AND BUTTONS-->
-          <v-col v-if="$vuetify.breakpoint.sm" class="d-flex flex-column justify-space-between my-12" >
-            <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-              <v-col cols="12" class="d-flex flex-column justify-center">
-                <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 100%; height: 300px;"></v-img>
-                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
-                <v-col class="d-flex flex-column align-center">
-                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
-                </v-col>
-              </v-col>
-            </v-row>
-          </v-col>
-
-          <!--  MEDIUM BREAKPOINT FOR TOP BANNER AND BUTTONS-->
-          <v-col v-if="$vuetify.breakpoint.md" class="d-flex justify-space-between my-12" >
-            <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-              <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
-              <v-col cols="7" class="d-flex flex-column justify-center">
-                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
-                <v-col class="d-flex flex-column align-center">
-                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
-                </v-col>
-              </v-col>
-            </v-row>
-          </v-col>
-
-          <!--  LARGE BREAKPOINT FOR TOP BANNER AND BUTTONS-->
-          <v-col v-if="$vuetify.breakpoint.lg" class="d-flex justify-space-between my-12">
-            <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-              <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
-              <v-col cols="7" class="d-flex flex-column justify-center">
-                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
-                <v-col class="d-flex flex-column align-center">
-                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
-                </v-col>
-              </v-col>
-            </v-row>
-          </v-col>
-      </v-card>
+            </v-col>
+          </v-row>
+        </v-card>
     </transition>
 <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
 <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
 <!--    </v-row>-->
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationLocations && loading">
+      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
+      <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
+      <template v-if="loading">
+<!--        <v-simple-table class="pt-16">-->
+<!--          <thead >-->
+<!--          <tr class="d-flex justify-start">-->
+<!--            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>-->
+<!--            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
+<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
+<!--            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>-->
+<!--            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>-->
+<!--            <th style="color: #a61c00; width: 10%;">Actions</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
+<!--            <div v-for="(service, indexService) in location.services">-->
+<!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
 
-        <!--  SMALL & EXTRA-SMALL BREAKPOINT FOR BUTTON-->
-        <v-col v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs" class="flex align-items-center">
-              <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 80%; margin-left:10%; border-radius: 10px;">Your Vendor Applications</v-card-title>
-              <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="width: 80%; margin-left:10%; margin-right:10%; margin-top: 1% border-radius: 10px;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
-        </v-col>
+<!--                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>-->
+<!--                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
+<!--                <td style="width: 15%; text-align: center" class="py-1">-->
+<!--                  <div class="d-flex flex-column align-center">-->
+<!--                    <p>{{location.address}}</p>-->
+<!--                    <p>{{location.city}}, {{location.state}}</p>-->
+<!--                  </div>-->
+<!--                </td>-->
+<!--                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
+<!--                <td style="width: 22%;" class="py-1 center mr-10 d-flex">-->
+<!--                  <v-select-->
+<!--                    v-model="userform.applicationStatus"-->
+<!--                    :placeholder="userform.applicationStatus"-->
+<!--                    :items="applicationOptions"-->
+<!--                    @change="userformEditActive(userform)"-->
+<!--                  >-->
+<!--                  </v-select>-->
+<!--&lt;!&ndash;                  <v-checkbox&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-if="userform.applicationStatus === 'Published - Private'"&ndash;&gt;-->
+<!--&lt;!&ndash;                    :label="'Publish Link Publicly?'"&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-model="userform.applicationStatusLinkPublish"&ndash;&gt;-->
+<!--&lt;!&ndash;                    class="ml-3"&ndash;&gt;-->
+<!--&lt;!&ndash;                    @change="userformEditApplicationPublish(userform)"&ndash;&gt;-->
+<!--&lt;!&ndash;                  ></v-checkbox>&ndash;&gt;-->
+<!--                </td>-->
+<!--                <td style="width: 10%;" class="d-flex flex-column align-center">-->
+<!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>-->
+<!--                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
+<!--                </td>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </v-simple-table>-->
 
+        <v-data-table
+          :headers="headersApplicationTemplateVal"
+          :items="applicationTemplateVal"
+          :items-per-page="10"
+          class="pt-16"
+          :expanded.sync="expanded"
+          show-expand
+          single-expand
+        >
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              <v-simple-table>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th>Question</th>
+                    <th>Name</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="app in item.formfields" :key="app.id">
+                    <td>Question# {{(app.order + 1)}}</td>
+                    <td>{{ app.name }}</td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </td>
+          </template>
 
-        <!--  MEDIUM & LARGE BREAKPOINT FOR BUTTON-->
-        <v-col v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.lg">
-          <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
-          <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
-        </v-col>
+          <template v-slot:item.formfields="{ item }">
+            <p v-if="item.formfields.length">{{item.formfields.length}}</p>
+            <p v-else>0</p>
+          </template>
 
-        <template v-if="loading">
-  <!--        <v-simple-table class="pt-16">-->
-  <!--          <thead >-->
-  <!--          <tr class="d-flex justify-start">-->
-  <!--            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>-->
-  <!--            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>-->
-  <!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
-  <!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
-  <!--            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>-->
-  <!--            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>-->
-  <!--            <th style="color: #a61c00; width: 10%;">Actions</th>-->
-  <!--          </tr>-->
-  <!--          </thead>-->
-  <!--          <tbody>-->
-  <!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
-  <!--            <div v-for="(service, indexService) in location.services">-->
-  <!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
+          <template v-slot:item.applicationStatus="{ item }">
+            <v-select
+              v-model="item.applicationStatus"
+              :placeholder="item.applicationStatus"
+              :items="applicationOptions"
+              @change="userformEditActive(item)"
+            >
+            </v-select>
+          </template>
 
-  <!--                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>-->
-  <!--                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>-->
-  <!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
-  <!--                <td style="width: 15%; text-align: center" class="py-1">-->
-  <!--                  <div class="d-flex flex-column align-center">-->
-  <!--                    <p>{{location.address}}</p>-->
-  <!--                    <p>{{location.city}}, {{location.state}}</p>-->
-  <!--                  </div>-->
-  <!--                </td>-->
-  <!--                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
-  <!--                <td style="width: 22%;" class="py-1 center mr-10 d-flex">-->
-  <!--                  <v-select-->
-  <!--                    v-model="userform.applicationStatus"-->
-  <!--                    :placeholder="userform.applicationStatus"-->
-  <!--                    :items="applicationOptions"-->
-  <!--                    @change="userformEditActive(userform)"-->
-  <!--                  >-->
-  <!--                  </v-select>-->
-  <!--&lt;!&ndash;                  <v-checkbox&ndash;&gt;-->
-  <!--&lt;!&ndash;                    v-if="userform.applicationStatus === 'Published - Private'"&ndash;&gt;-->
-  <!--&lt;!&ndash;                    :label="'Publish Link Publicly?'"&ndash;&gt;-->
-  <!--&lt;!&ndash;                    v-model="userform.applicationStatusLinkPublish"&ndash;&gt;-->
-  <!--&lt;!&ndash;                    class="ml-3"&ndash;&gt;-->
-  <!--&lt;!&ndash;                    @change="userformEditApplicationPublish(userform)"&ndash;&gt;-->
-  <!--&lt;!&ndash;                  ></v-checkbox>&ndash;&gt;-->
-  <!--                </td>-->
-  <!--                <td style="width: 10%;" class="d-flex flex-column align-center">-->
-  <!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>-->
-  <!--                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
-  <!--                </td>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </tr>-->
-  <!--          </tbody>-->
-  <!--        </v-simple-table>-->
-
-          <v-data-table
-            :headers="headersApplicationTemplateVal"
-            :items="applicationTemplateVal"
-            :items-per-page="10"
-            class="pt-16"
-            :expanded.sync="expanded"
-            show-expand
-            single-expand
-          >
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                <v-simple-table>
-                  <template v-slot:default>
-                    <thead>
-                    <tr>
-                      <th>Question</th>
-                      <th>Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="app in item.formfields" :key="app.id">
-                      <td>Question# {{(app.order + 1)}}</td>
-                      <td>{{ app.name }}</td>
-                    </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </td>
-            </template>
-
-            <template v-slot:item.formfields="{ item }">
-              <p v-if="item.formfields.length">{{item.formfields.length}}</p>
-              <p v-else>0</p>
-            </template>
-
-            <template v-slot:item.applicationStatus="{ item }">
-              <v-select
-                v-model="item.applicationStatus"
-                :placeholder="item.applicationStatus"
-                :items="applicationOptions"
-                @change="userformEditActive(item)"
-              >
-              </v-select>
-            </template>
-
-            <template v-slot:item.actions="{item}">
-              <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + item.id" style="color: white; width: 100%;">Edit</v-btn>
-              <v-btn @click="deleteUserForm(item)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
-            </template>
-          </v-data-table>
-        </template>
-      </v-card>
+          <template v-slot:item.actions="{item}">
+            <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + item.id" style="color: white; width: 100%;">Edit</v-btn>
+            <v-btn @click="deleteUserForm(item)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
+          </template>
+        </v-data-table>
+      </template>
+    </v-card>
     </transition>
 <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadApplicationTemplates">-->
 <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->

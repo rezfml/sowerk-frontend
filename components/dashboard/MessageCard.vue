@@ -1,186 +1,66 @@
 <template>
   <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
-    <transition name="slide-fade" v-if="!sent">
-<!--      SMALL AND EXTRA SMALL BREAKPOINT-->
-      <v-container v-if="items && !replyLoad && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)" class="pt-0" fluid>
-        <v-card-title
-          style="position: absolute; top: -100px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
-          class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}</v-card-title>
-        <v-card-actions class="d-flex justify-end px-4 py-0">
-          <v-row class="py-0">
-            <v-spacer></v-spacer>
-            <v-col cols="12" class="py-0">
-              <v-text-field label="Search" light></v-text-field>
-            </v-col>
-          </v-row>
-        </v-card-actions>
-        <v-card-text class="pt-0 pb-2">
-          <v-data-table
-            :headers="tableProperties"
-            :items="items"
-            :items-per-page="5"
-          >
-            <template v-slot:item.pmMessageRead="{ item }">
-              <p v-if="company.company_type === 'true'">{{ item.pmMessageRead}}</p>
-              <p v-else>{{item.spMessageRead}}</p>
-            </template>
-            <template v-slot:item.full_name="{ item }">
-              <v-icon color="primary">mdi-account</v-icon>
-              {{ item.primary_contact_first_name }}
-              {{ item.primary_contact_last_name }}
-            </template>
-            <template v-slot:item.message="{ item }">
-              <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
-              <p v-else>{{item.message}}</p>
-            </template>
-            <template v-slot:item.actions="{ item }">
-              <nuxt-link :to="slug + item.id" style="width: 90%; text-decoration: none!important;background-color:#707070;" append>
-                <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070;" color="white" outlined>View</v-btn>
-              </nuxt-link>
-              <v-btn @click="replyLoading(item)" class="my-1" color="primary" outlined style="width: 90%;">Reply</v-btn>
-              <v-btn class="my-1" style="width: 90%;background-color:rgba(166,29,0,1);" color="white" outlined @click="deleteMessage(item)">Delete</v-btn>
-            </template>
-            <template v-slot:footer>
-              <v-row class="d-flex justify-center my-4" style="width: 100%;">
-                <v-btn to='/dashboard/messages-and-alerts/add' color="primary" class="px-16" style="width: 100%;" rounded outlined large>Send New Message</v-btn>
-              </v-row>
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
-          <v-btn
-            color="primary"
-            class="px-8"
-            rounded
-            outlined
-            small
-            style="font-size: 12px"
-          >View All</v-btn
-          >
-        </v-card-actions>
-      </v-container>
-<!--      MEDIUM AND LARGE BREAKPOINT-->
-      <v-container v-if="items && !replyLoad && ($vuetify.breakpoint.lg || $vuetify.breakpoint.md)" class="pt-0" fluid>
-        <v-card-title
-          style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
-          class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}</v-card-title>
-        <v-card-actions class="d-flex justify-end px-4 py-0">
-          <v-row class="py-0">
-            <v-spacer></v-spacer>
-            <v-col cols="4" class="py-0">
-              <v-text-field label="Search" light></v-text-field>
-            </v-col>
-          </v-row>
-        </v-card-actions>
-        <v-card-text class="pt-0 pb-2">
-          <v-data-table
-            :headers="tableProperties"
-            :items="items"
-            :items-per-page="5"
-          >
-            <template v-slot:item.pmMessageRead="{ item }">
-              <p v-if="company.company_type === 'true'">{{ item.pmMessageRead}}</p>
-              <p v-else>{{item.spMessageRead}}</p>
-            </template>
-            <template v-slot:item.full_name="{ item }">
-              <v-icon color="primary">mdi-account</v-icon>
-              {{ item.primary_contact_first_name }}
-              {{ item.primary_contact_last_name }}
-            </template>
-            <template v-slot:item.message="{ item }">
-              <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
-              <p v-else>{{item.message}}</p>
-            </template>
-            <template v-slot:item.actions="{ item }">
-              <nuxt-link :to="slug + item.id" style="width: 90%; text-decoration: none!important;background-color:#707070;" append>
-                <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070;" color="white" outlined>View</v-btn>
-              </nuxt-link>
-              <v-btn @click="replyLoading(item)" class="my-1" color="primary" outlined style="width: 90%;">Reply</v-btn>
-              <v-btn class="my-1" style="width: 90%;background-color:rgba(166,29,0,1);" color="white" outlined @click="deleteMessage(item)">Delete</v-btn>
-            </template>
-            <template v-slot:footer>
-              <v-row class="d-flex justify-center my-4" style="width: 100%;">
-                <v-btn to='/dashboard/messages-and-alerts/add' color="primary" class="px-16" rounded outlined large>Send New Message</v-btn>
-              </v-row>
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
-          <v-btn
-            color="primary"
-            class="px-8"
-            rounded
-            outlined
-            small
-            style="font-size: 12px"
-          >View All</v-btn
-          >
-        </v-card-actions>
-      </v-container>
-    </transition>
-
     <transition name="slide-fade">
-      <!--      SMALL AND EXTRA SMALL BREAKPOINT-->
-      <v-container v-if="sent && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)" class="pt-0" fluid>
-        <v-card-title
-          style="position: absolute; top: -100px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
-          class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}</v-card-title>
-        <v-card-actions class="d-flex justify-end px-4 py-0">
-          <v-row class="py-0">
-            <v-spacer></v-spacer>
-            <v-col cols="12" class="py-0">
-              <v-text-field label="Search" light></v-text-field>
-            </v-col>
-          </v-row>
-        </v-card-actions>
-        <v-card-text class="pt-0 pb-2">
-          <v-data-table
-            :headers="tableProperties"
-            :items="sent"
-            :items-per-page="5"
-          >
-            <template v-slot:item.full_name="{ item }">
-              <v-icon color="primary">mdi-account</v-icon>
-              {{ item.primary_contact_first_name }}
-              {{ item.primary_contact_last_name }}
-            </template>
-            <template v-slot:item.pmMessageRead="{ item }">
-              <p v-if="company.company_type === 'true'">{{item.spMessageRead}}</p>
-              <p v-else>{{ item.pmMessageRead}}</p>
-            </template>
-            <template v-slot:item.message="{ item }">
-              <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
-              <p v-else>{{item.message}}</p>
-            </template>
-            <template v-slot:item.actions="{ item }">
-              <nuxt-link :to="'../../../dashboard/messages-and-alerts/sent/' + item.id" append>
-                <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070" color="white" outlined>View</v-btn>
-              </nuxt-link>
-              <v-btn class="my-1" style="width: 90%;" color="primary"  @click="deleteMessage(item)">Delete</v-btn>
-            </template>
-            <template v-slot:footer>
-              <v-row class="d-flex justify-center my-4" style="width: 100%;">
-                <v-btn to='/dashboard/messages-and-alerts/add' color="primary" class="px-16" style="width:100%;" rounded outlined large>Send New Message</v-btn>
-              </v-row>
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
-          <v-btn
-            color="primary"
-            class="px-8"
-            rounded
-            outlined
-            small
-            style="font-size: 12px"
-          >View All</v-btn
-          >
-        </v-card-actions>
-      </v-container>
-      <!--      MEDIUM AND LARGE BREAKPOINT-->
+      <v-container v-if="items && !replyLoad" class="pt-0" fluid>
+      <v-card-title
+        style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+        class="primary white--text font-weight-regular red-gradient"
+      >{{ title }}</v-card-title>
+      <v-card-actions class="d-flex justify-end px-4 py-0">
+        <v-row class="py-0">
+          <v-spacer></v-spacer>
+          <v-col cols="4" class="py-0">
+            <v-text-field label="Search" light></v-text-field>
+          </v-col>
+        </v-row>
+      </v-card-actions>
+      <v-card-text class="pt-0 pb-2">
+        <v-data-table
+          :headers="tableProperties"
+          :items="items"
+          :items-per-page="5"
+        >
+          <template v-slot:item.pmMessageRead="{ item }">
+            <p v-if="company.company_type === 'true'">{{ item.pmMessageRead}}</p>
+            <p v-else>{{item.spMessageRead}}</p>
+          </template>
+          <template v-slot:item.full_name="{ item }">
+            <v-icon color="primary">mdi-account</v-icon>
+            {{ item.primary_contact_first_name }}
+            {{ item.primary_contact_last_name }}
+          </template>
+          <template v-slot:item.message="{ item }">
+            <p v-if="item.message.length > 8">{{ item.message.slice(0,8)}}...</p>
+            <p v-else>{{item.message}}</p>
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <nuxt-link :to="slug + item.id" style="width: 90%; text-decoration: none!important;background-color:#707070;" append>
+              <v-btn class="my-1" style="width: 90%; text-decoration: none!important;background-color:#707070;" color="white" outlined>View</v-btn>
+            </nuxt-link>
+            <v-btn @click="replyLoading(item)" class="my-1" color="primary" outlined style="width: 90%;">Reply</v-btn>
+            <v-btn class="my-1" style="width: 90%;background-color:rgba(166,29,0,1);" color="white" outlined @click="deleteMessage(item)">Delete</v-btn>
+          </template>
+          <template v-slot:footer>
+            <v-row class="d-flex justify-center my-4" style="width: 100%;">
+              <v-btn to='/dashboard/messages-and-alerts/add' color="primary" class="px-16" rounded outlined large>Send New Message</v-btn>
+            </v-row>
+          </template>
+        </v-data-table>
+      </v-card-text>
+      <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+        <v-btn
+          color="primary"
+          class="px-8"
+          rounded
+          outlined
+          small
+          style="font-size: 12px"
+        >View All</v-btn
+        >
+      </v-card-actions>
+    </v-container>
+    </transition>
+    <transition name="slide-fade">
       <v-container v-if="sent" class="pt-0" fluid>
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
@@ -367,7 +247,7 @@ export default {
   transition: all .7s ease;
 }
 .slide-fade-leave-active {
-  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
