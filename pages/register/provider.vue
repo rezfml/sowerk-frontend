@@ -122,7 +122,6 @@
                               cols="12"
                               class="d-flex flex-column justify-center"
                             >
-                            <!-- Two file inputs as a work around for the file cancel issue -->
                               <v-file-input
                                 class="company-image-upload ma-0 pa-0"
                                 :class="{
@@ -134,7 +133,7 @@
                                 id="companyImage"
                                 style="visibility: hidden; height: 0; max-height: 0;"
                               ></v-file-input>
-                              <!-- <v-file-input
+                              <v-file-input
                                 class="company-image-upload ma-0 pa-0"
                                 :class="{
                                   'company-image-upload--selected': companyImageFile
@@ -144,7 +143,7 @@
                                 @change="setupCropper"
                                 id="companyImage2"
                                 style="visibility: hidden; height: 0; max-height: 0;"
-                              ></v-file-input> -->
+                              ></v-file-input>
 
                               <v-row v-if="companyImageUrl" v-show="savedImage" style="justify-content: center">
                                 <v-col class="text-center" cols="12" sm="6">
@@ -218,7 +217,7 @@
                                     small="small"
                                     class="mx-4"
                                     :disabled="!companyImageUrl"
-                                    @click="clickCompanyImageUpload()"
+                                    @click="clickCompanyImageUploadTwo()"
                                   >
                                     UPLOAD</v-btn
                                   >
@@ -964,13 +963,6 @@ export default {
       debouncedUpdatePreview: debounce(this.updatePreview, 257),
       savedImage: false,
       cloned: {},
-      mime_type: '',
-      croppedImage: '',
-      autoCrop: false,
-      selectedFile: '',
-      image: '',
-      dialog: false,
-      files: '',
       items: ['Company', 'Locations', 'Documents', 'Review'],
       company: {
         // email: '',
@@ -1231,7 +1223,6 @@ export default {
     console.log(this.sectors)
   },
   computed: {
-    ...mapState(['user']),
     confirmPasswordRules() {
       return [
         () =>
@@ -1344,37 +1335,6 @@ export default {
         console.log('Cancel Clicked')
       }
     },
-    //  saveImage() {
-    //   const userId = this.$route.params.user_id
-    //   this.cropedImage = this.$refs.cropper.getCroppedCanvas().toDataURL()
-    //   this.$refs.cropper.getCroppedCanvas().toBlob((blob) => {
-    //     const formData = new FormData()
-    //     formData.append('profile_photo', blob, 'name.jpeg')
-    //     // axios
-    //     //   .post('/api/user/' + userId + '/profile-photo', formData)
-    //     //   .then((response) => {
-    //     //   })
-    //     //   .catch(function (error) {
-    //     //     console.log(error)
-    //     //   })
-    //   }, this.mime_type)
-    // },
-    // onFileSelect(e) {
-    //    const file = e.target.files[0]
-    //   this.mime_type = file.type
-    //   console.log(this.mime_type)
-    //   if (typeof FileReader === 'function') {
-    //     this.dialog = true
-    //     const reader = new FileReader()
-    //     reader.onload = (e) => {
-    //       this.selectedFile = e.target.result
-    //       this.$refs.cropper.replace(this.selectedFile)
-    //     }
-    //     reader.readAsDataURL(file)
-    //   } else {
-    //     alert ('Sorry, FileReader Not Supported.')
-    //   }
-    // },
     focusAddressField() {
       console.log('focus')
     },
@@ -1383,10 +1343,10 @@ export default {
       document.getElementById('companyImage').click()
     },
     // Solved the issue when user cancels a second time
-    // clickCompanyImageUploadTwo() {
-    //   console.log(this)
-    //   document.getElementById('companyImage2').click()
-    // },
+    clickCompanyImageUploadTwo() {
+      console.log(this)
+      document.getElementById('companyImage2').click()
+    },
     nextPageIfNotLast() {
       console.log(this.tab)
       if (this.tab === 3) return
@@ -1773,8 +1733,6 @@ export default {
   max-height: 229px;
   max-width: 100%;
 }
-
-
 
 .user {
   width: 140px;
