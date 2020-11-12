@@ -2,7 +2,7 @@
   <v-card class="white pt-0 mb-4" style="width: 100%">
     <v-container class="pt-0" fluid>
       <v-card-title
-              style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+              style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
               class="primary white--text font-weight-regular red-gradient"
       >{{ title }}</v-card-title>
 <!--      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadingRequests">-->

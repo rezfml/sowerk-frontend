@@ -22,7 +22,7 @@
     >
       <v-layout row style="max-width:110%; flex-wrap: wrap; margin-top:-80px;margin-bottom:-80px;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
         <v-img  style="width:100%" src="https://sowerk-images.s3.us-east-2.amazonaws.com/landingserviceprovider.png"></v-img>
-        
+
         <!-- CARD 1 -->
         <!--<v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
@@ -146,7 +146,7 @@
                 <v-col cols=3 >
                   <v-img height="80" width="250" class="d-flex justify-center ml-8"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"></v-img>
                 </v-col>
-                
+
                 <v-col cols="9">
                   <v-row><v-img   max-height="50" max-width="250" class="d-flex justify-start" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"></v-img></v-row>
                   <v-card-text class="my-n4" style="color:#a61c00;font-size:1.1em;font-weight:600">Vendor ToolBoxes</v-card-text>
@@ -166,10 +166,10 @@
               </v-col>
             </v-row>
             <v-row>
-            <v-card-text  class="d-flex justify-start text-left" >How do you get in front of businesses who could and should buy from you? 
+            <v-card-text  class="d-flex justify-start text-left" >How do you get in front of businesses who could and should buy from you?
             </v-card-text>
             <v-card-text  class="d-flex justify-start text-left" >
-            What if there was a business-to-business dating website where your business credentials, track record, and overall resume weren’t just used to apply for approved vendor status with a business but it also made up your business (dating) profile? 
+            What if there was a business-to-business dating website where your business credentials, track record, and overall resume weren’t just used to apply for approved vendor status with a business but it also made up your business (dating) profile?
             </v-card-text>
             <v-card-text  class="d-flex justify-start text-left" >
             On SOWerk, a company profile is visible to searching businesses. We know you probably don’t have time to keep up with your website yet alone social media which is why your SOWerk profile starts off strong using many of the same credentials you need to apply for an approved vendor program. As you obtain approved vendor status or receive reviews your profile automatically updates, making your life easier.
@@ -186,10 +186,10 @@
             </v-row>
             <v-row>
             <v-card-text  class="d-flex justify-start text-left" >
-            Businesses are looking for vendors just like you to provide services and/or supply products. When you are connected as their approved vendor, it’s like having a direct line for their staff to do business with you. 
+            Businesses are looking for vendors just like you to provide services and/or supply products. When you are connected as their approved vendor, it’s like having a direct line for their staff to do business with you.
             </v-card-text>
             <v-card-text  class="d-flex justify-start text-left" >
-           SOWerk makes it easy for you to search for accepting approved vendor programs as well as apply. To save you time and energy we try to use your profile data and any private provided data to pre-fill your applications.  
+           SOWerk makes it easy for you to search for accepting approved vendor programs as well as apply. To save you time and energy we try to use your profile data and any private provided data to pre-fill your applications.
             </v-card-text>
             </v-row>
           </v-card>
@@ -199,7 +199,7 @@
                 <v-col cols=3 >
                   <v-img height="80" width="250" class="d-flex justify-center ml-8"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"></v-img>
                 </v-col>
-                
+
                 <v-col cols="9">
                   <v-row><v-img   max-height="50" max-width="250" class="d-flex justify-start" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"></v-img></v-row>
                   <v-card-text class="my-n4" style="color:#a61c00;font-size:1.1em;font-weight:600">Vendor ToolBoxes</v-card-text>
@@ -219,12 +219,12 @@
             </v-row>
             <v-row>
             <v-card-text  class="d-flex justify-start text-left" >
-            Every day we are working to create tools to grow your business and improve customer relationships. Solutions like SOWerk Requests, a tool for businesses to obtain bids or service requests, can also be used by you to submit bids/quotes and change orders to customers beyond SOWerk. 
+            Every day we are working to create tools to grow your business and improve customer relationships. Solutions like SOWerk Requests, a tool for businesses to obtain bids or service requests, can also be used by you to submit bids/quotes and change orders to customers beyond SOWerk.
             </v-card-text>
 
             </v-row>
           </v-card>
-          
+
         </v-container>
     </v-container>
 
@@ -258,14 +258,14 @@
       <v-card outlined  class="upgrade1" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
         <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">SOWERK STARTER</v-card-title>
         <!--<v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw"></v-card-title>-->
-        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$8.33<span class="ml-n8" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$8.33<span class="ml-n8" style="font-size:.7vw">  /monthly</span></v-card-subtitle>
         <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $100.00 Per Year</p>
         <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
           <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
-            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">1</span> User License</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">5</span> Business Connections</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$1.50</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-left sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">1</span> User License</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">5</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$1.50</span> Per Additional Conntection(s)</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
          </v-list>
@@ -274,14 +274,14 @@
       <v-card outlined  class="upgrade2" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
         <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">SOWERK ADVANCED</v-card-title>
        <!-- <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK ADVANCED</v-card-title>-->
-        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$20.83<span class="ml-n2" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$20.83<span class="ml-n2" style="font-size:.7vw">  /monthly</span></v-card-subtitle>
         <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $250.00 Per Year</p>
         <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
           <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
-            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">2</span> User License</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">20</span> Business Connections</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$1.00</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-left sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">2</span> User Licenses</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">20</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$1.00</span> Per Additional Conntection(s)</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
          </v-list>
@@ -290,14 +290,14 @@
       <v-card outlined  class="upgrade3" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
         <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">SOWERK PRO</v-card-title>
        <!-- <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK PRO</v-card-title>-->
-        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$41.67<span class="ml-n6" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$41.67<span class="ml-n6" style="font-size:.7vw">  /monthly</span></v-card-subtitle>
         <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $500.00 Per Year</p>
         <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
           <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
-            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">5</span> User License</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">50</span> Business Connections</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$0.75</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-left sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">5</span> User Licenses</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">50</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$0.75</span> Per Additional Conntection(s)</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
          </v-list>
@@ -306,14 +306,14 @@
       <v-card outlined  class="upgrade4" style="border-radius:20px; width:18%;border-color:#A61C00;border-width:5px;">
         <v-card-title class="d-flex flex-column justify-center " style="font-size:.9vw;background-color:#A61c00;border-top-radius:20px;margin-top:-6px;color:white;height:10%;margin-bottom:-5%;font-weight:bold">SOWERK NATIONAL</v-card-title>
        <!-- <v-card-title class="d-flex flex-column justify-center " style="font-size:.8vw">SOWERK NATIONAL</v-card-title>-->
-        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$125.00<span class="ml-n0" style="font-size:.7vw">/monthly</span></v-card-subtitle>
+        <v-card-subtitle class="mt-10 d-flex justify-space-around align-baseline" style="color:#A61C00; font-size:2.8vw">$125.00<span class="ml-n0" style="font-size:.7vw">  /monthly</span></v-card-subtitle>
         <p class="mt-n4 d-flex justify-space-around align-baseline" style="color:#707070;" >Or $1,500.00 Per Year</p>
         <v-divider class="d-flex justify-center mt-4 mb-n2" style="width:90%;margin-left:5%;margin-bottom:20px"></v-divider>
           <v-card-text class="d-flex justify-center mt-0" style="font-size:1.5;font-weight:bold;">PACKAGE INCLUDES</v-card-text>
           <v-list class="d-flex flex-column justify-center mx-0"  style="margin-top:-4%;margin-bottom:2%;font-size:.7vw;color:#707070; ">
-            <v-list-item class="d-flex justify-center sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">15</span> User License</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">250</span> Business Connections</v-list-item>
-            <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$0.50</span> Per Additional Conntection(s)</v-list-item>
+            <v-list-item class="d-flex justify-left sjust" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">15</span> User Licenses</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%; "><span class="mr-2" style="color:#a61c00">250</span> Business Connections</v-list-item>
+            <v-list-item class="d-flex justify-left" style="margin-top:-4%;margin-bottom:-2%;"><span class="mr-2" style="color:#a61c00">$0.50</span> Per Additional Conntection(s)</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Profile</v-list-item>
             <v-list-item class="d-flex justify-center" style="margin-top:-4%;margin-bottom:-2%;">SOWerk Leads</v-list-item>
          </v-list>
@@ -348,7 +348,7 @@
       <div class="joinservicestepscontainer">
         <div class="joinservicestepcontainerstep">
           <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
-          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
+          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;max-width:300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
           <div>
             <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 1 <span>- Build a Profile</span></h1>
             <h1 v-else >Step 1 <span ><br/>- Build a Profile</span></h1>
@@ -376,11 +376,11 @@
             </p>
           </div>
           <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" id="profileDash"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Buyer dashboard mockup"/>
-          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Profile Buyer dashboard mockup"/>
+          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;max-width:300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Profile Buyer dashboard mockup"/>
         </div>
         <div class="joinservicestepcontainerstep">
           <img class="containerImg" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
-          <img class="containerImg" v-else style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
+          <img class="containerImg" v-else style="margin:auto;margin-bottom:20px;max-width:300px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
           <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png" id="notificationMock" alt="iphoneMockup" />
           <div>
             <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 3 <span>- Generate Leads</span></h1>
