@@ -28,11 +28,11 @@
       <transition name="slide-fade">
         <MessageCard
           :sent="messages"
-          :company="company"
           title="Messages & Alerts"
           :tableProperties="headers"
           slug="/dashboard/messages-and-alerts/"
           :currentUser="currentUser"
+          :company="company"
           v-if="loading"
         ></MessageCard>
       </transition>
