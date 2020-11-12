@@ -2,11 +2,11 @@
   <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
     <transition name="slide-fade" v-if="!sent">
 <!--      SMALL AND EXTRA SMALL BREAKPOINT-->
-      <v-container v-if="items && !replyLoad && $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" class="pt-0" fluid>
+      <v-container v-if="items && !replyLoad && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)" class="pt-0" fluid>
         <v-card-title
           style="position: absolute; top: -100px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}111</v-card-title>
+        >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
           <v-row class="py-0">
             <v-spacer></v-spacer>
@@ -61,11 +61,11 @@
         </v-card-actions>
       </v-container>
 <!--      MEDIUM AND LARGE BREAKPOINT-->
-      <v-container v-if="items && !replyLoad && $vuetify.breakpoint.lg || $vuetify.breakpoint.md" class="pt-0" fluid>
+      <v-container v-if="items && !replyLoad && ($vuetify.breakpoint.lg || $vuetify.breakpoint.md)" class="pt-0" fluid>
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}222</v-card-title>
+        >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
           <v-row class="py-0">
             <v-spacer></v-spacer>
@@ -123,11 +123,11 @@
 
     <transition name="slide-fade">
       <!--      SMALL AND EXTRA SMALL BREAKPOINT-->
-      <v-container v-if="sent && $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" class="pt-0" fluid>
+      <v-container v-if="sent && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)" class="pt-0" fluid>
         <v-card-title
           style="position: absolute; top: -100px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}333</v-card-title>
+        >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
           <v-row class="py-0">
             <v-spacer></v-spacer>
@@ -185,7 +185,7 @@
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient"
-        >{{ title }}444</v-card-title>
+        >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
           <v-row class="py-0">
             <v-spacer></v-spacer>
@@ -367,7 +367,7 @@ export default {
   transition: all .7s ease;
 }
 .slide-fade-leave-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
