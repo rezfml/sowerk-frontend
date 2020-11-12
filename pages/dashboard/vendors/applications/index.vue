@@ -850,6 +850,7 @@ const naics = require("naics");
         industryLevel2: [],
         industryLevel3: [],
         industryLevel4: [],
+        sortedSowerkTemplates: [],
         }
     },
     async mounted() {
@@ -1259,11 +1260,14 @@ const naics = require("naics");
           })
       },
       async getApplicationTemplatesFormFields(id, indexPostion) {
-
         await this.$http.get('https://www.sowerkbackend.com/api/applicationtemplatesformfields/byApplicationTemplatesId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for application template userform', id);
-            this.applicationTemplates[indexPostion].applicationtemplatesformfields = response.data;
+            console.log(response.data[0])
+            console.log(response.data[0].order)
+            this.sortedSowerkTemplates = response.data.sort((a,b)=>(a.order>b.order)?1:(a.order===b.order)?((a.order>b.order)?1:-1) : -1)
+            console.log(this.sortedSowerkTemplates)
+            this.applicationTemplates[indexPostion].applicationtemplatesformfields = this.sortedSowerkTemplates;
           })
           .catch(err => {
             console.log(err, 'err in application templates form fields')
