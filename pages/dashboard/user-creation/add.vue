@@ -50,7 +50,11 @@
           first_name: '',
           last_name: '',
           phone: '',
-          isVerified: false
+          isVerified: false,
+          companyName: "",
+          companyImg: "",
+          senderFirstName: "",
+          senderLastName: "",
         },
         successAddUserForm: false,
         selectOptions: [
@@ -87,7 +91,11 @@
         } else {
           this.addUserForm.is_superuser = false;
         }
-        await this.$http.post('https://www.sowerkbackend.com/api/auth/register', this.addUserForm)
+        this.addUserForm.companyName = this.company.account_name;
+        this.addUserForm.companyImg = this.company.imgUrl;
+        this.addUserForm.senderFirstName = this.currentUser.first_name;
+        this.addUserForm.senderLastName = this.currentUser.last_name;
+        await this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd', this.addUserForm)
           .then(response => {
             console.log(response, 'SUCCESS IN REGISTERING')
           })
