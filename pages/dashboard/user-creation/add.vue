@@ -72,18 +72,18 @@
           'Super Admin',
           'Staff Account'
         ],
-rules: {
-          requiredRules: [(v) => !!v  v === 0  'Field is required'],
+        rules: {
+          requiredRules: [(v) => !!v && v === 0 || 'Field is required'],
           // usernameRules: [
           //   (v) => !!v  'Name is required',
           //   (v) =>
           //     (v && v.length <= 100)  'Name must be less than 100 characters',
           // ],
           emailRules: [
-            v => !!v  'E-mail is required',
-            (v) => /.+@.+/.test(v)  'E-mail must be valid',
+            v => !!v || 'E-mail is required',
+            (v) => /.+@.+/.test(v) || 'E-mail must be valid',
             // v => /.+@.[A-Z]+/.test(v)  'E-mail must be valid',
-            v => (v && v.length <= 100)  'Email must be less than 100 characters'
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           // emailNotRequiredRules: [
           //   (v) => /.+@.+/.test(v)  'E-mail must be valid',
@@ -93,14 +93,14 @@ rules: {
           phoneRules: [
             (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
           ],
-passwordRules: [
-            v => !!v  'Password is required',
-            v => /[*@!?#%&()^~{}]+/.test(v)  'Password must contain 1 special character',
-            v => /[A-Z]+/.test(v)  'Password must contain at least 1 Uppercase character',
-            v => /[a-z]+/.test(v)  'Password must contain at least 1 Lowercase character',
-            v => /[0-9]+/.test(v)  'Password must contain at least 1 Number ',
-            v => (v && v.length >= 6)  'Password must be at least 6 characters',
-            v => (v && v.length <= 255)  'Password must be less than 255 characters'
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
           ,
           // urlRules: [
@@ -113,7 +113,7 @@ passwordRules: [
         confirmPassword: null,
       }
     },
-async mounted() {
+    async mounted() {
       await this.getCompany();
     },
     computed: {
@@ -123,12 +123,12 @@ async mounted() {
       confirmPasswordRules() {
         return [
           () =>
-            this.addUserForm.password === this.confirmPassword  'Password must match',
-          (v) => !!v  'Confirmation Password is required',
+            this.addUserForm.password === this.confirmPassword || 'Password must match',
+          (v) => !!v || 'Confirmation Password is required',
         ]
       },
     },
-methods: {
+    methods: {
       async getCompany() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
@@ -141,8 +141,8 @@ methods: {
 
         this.companyLoad = true;
       },
-async submitAddUser() {
-        if (this.addUserForm.email === ''  this.addUserForm.password === ''  this.addUserForm.first_name === ''  this.addUserForm.last_name === ''  this.addUserForm.phone === '') {
+      async submitAddUser() {
+        if (this.addUserForm.email === '' || this.addUserForm.password === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '') {
           return this.requiredFieldsFilled = false
         } else {
           this.requiredFieldsFilled = true
@@ -159,7 +159,7 @@ async submitAddUser() {
             .catch(err => {
               console.log(err, 'ERROR IN REGISTERING')
             })
-console.log(this.addUserForm);
+          console.log(this.addUserForm);
           this.successAddUserForm = true;
           setTimeout(() => {
             // this.$router.push('../../dashboard/user-creation');
