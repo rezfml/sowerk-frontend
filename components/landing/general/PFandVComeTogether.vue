@@ -287,4 +287,15 @@ export default {
     column-count: 1 !important;
   } 
 }
+
+@media(max-width: 375px) {
+    .mobile-title {
+      font-size: 28px !important;
+    }
+
+    p.text-center {
+      width: 90% !important;
+      max-width: 90% !important;
+    }
+  }
 </style>
