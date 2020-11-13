@@ -178,7 +178,7 @@ enforcePhoneFormat() {
       },
       editExit() {
         this.requiredFieldsFilled = true
-         }
+      }
     }
   }
 </script>
