@@ -12,7 +12,7 @@
         <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
       </v-card>
     </transition>
-  <template>
+<template>
     <transition name="slide-fade">
       <v-card-title style="width: 40%; border-radius: 3px; font-size:2rem;line-height:1.5;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 ">Invite A New User </v-card-title>
     </transition>
@@ -25,7 +25,7 @@
         <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
         <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
         <div>
-          <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+<v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
           <p>Please Note The Difference Between Account Level Permissions.</p>
           <p><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</p>
           <p><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
@@ -43,7 +43,6 @@
   </template>
   </v-card>
 </template>
-
 <script>
   export default {
     name: 'add-user',
@@ -73,48 +72,48 @@
           'Super Admin',
           'Staff Account'
         ],
-        rules: {
-          requiredRules: [(v) => !!v || v === 0 || 'Field is required'],
+rules: {
+          requiredRules: [(v) => !!v  v === 0  'Field is required'],
           // usernameRules: [
-          //   (v) => !!v || 'Name is required',
+          //   (v) => !!v  'Name is required',
           //   (v) =>
-          //     (v && v.length <= 100) || 'Name must be less than 100 characters',
+          //     (v && v.length <= 100)  'Name must be less than 100 characters',
           // ],
           emailRules: [
-            v => !!v || 'E-mail is required',
-            (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-            // v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
-            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+            v => !!v  'E-mail is required',
+            (v) => /.+@.+/.test(v)  'E-mail must be valid',
+            // v => /.+@.[A-Z]+/.test(v)  'E-mail must be valid',
+            v => (v && v.length <= 100)  'Email must be less than 100 characters'
           ],
           // emailNotRequiredRules: [
-          //   (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+          //   (v) => /.+@.+/.test(v)  'E-mail must be valid',
           //   (v) =>
-          //     (v && v.length <= 100) || 'Email must be less than 100 characters',
+          //     (v && v.length <= 100)  'Email must be less than 100 characters',
           // ],
           phoneRules: [
             (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
           ],
-          passwordRules: [
-            v => !!v || 'Password is required',
-            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
-            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
-            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
-            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
-            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
-            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+passwordRules: [
+            v => !!v  'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v)  'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v)  'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v)  'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v)  'Password must contain at least 1 Number ',
+            v => (v && v.length >= 6)  'Password must be at least 6 characters',
+            v => (v && v.length <= 255)  'Password must be less than 255 characters'
           ]
           ,
           // urlRules: [
-          //   v => !!v || 'A website is required',
-          //   v => /.+([A-Z0-9a-z]+)\.([a-z]+)+/.test(v) || 'A valid URL is required',/*[a-z]:\/\/www.*/
-          //   v => (v && v.length >= 4) || 'URL must be at least 4 characters',
+          //   v => !!v  'A website is required',
+          //   v => /.+([A-Z0-9a-z]+).([a-z]+)+/.test(v)  'A valid URL is required',/[a-z]://www./
+          //   v => (v && v.length >= 4)  'URL must be at least 4 characters',
           //   v => (v && v.length <= 250) || 'URL must be less than 250 characters'
           // ]
         },
         confirmPassword: null,
       }
     },
-    async mounted() {
+async mounted() {
       await this.getCompany();
     },
     computed: {
@@ -124,12 +123,12 @@
       confirmPasswordRules() {
         return [
           () =>
-            this.addUserForm.password === this.confirmPassword || 'Password must match',
-          (v) => !!v || 'Confirmation Password is required',
+            this.addUserForm.password === this.confirmPassword  'Password must match',
+          (v) => !!v  'Confirmation Password is required',
         ]
       },
     },
-    methods: {
+methods: {
       async getCompany() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
@@ -142,8 +141,8 @@
 
         this.companyLoad = true;
       },
-      async submitAddUser() {
-        if (this.addUserForm.email === '' || this.addUserForm.password === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === '' || this.addUserForm.phone === '') {
+async submitAddUser() {
+        if (this.addUserForm.email === ''  this.addUserForm.password === ''  this.addUserForm.first_name === ''  this.addUserForm.last_name === ''  this.addUserForm.phone === '') {
           return this.requiredFieldsFilled = false
         } else {
           this.requiredFieldsFilled = true
@@ -160,16 +159,15 @@
             .catch(err => {
               console.log(err, 'ERROR IN REGISTERING')
             })
-          console.log(this.addUserForm);
+console.log(this.addUserForm);
           this.successAddUserForm = true;
           setTimeout(() => {
             // this.$router.push('../../dashboard/user-creation');
             this.$router.go()
           }, 1500)
         }
-<<<<<<< HEAD
       },
-      enforcePhoneFormat() {
+enforcePhoneFormat() {
         let x = this.addUserForm.phone
           .replace(/\D/g, "")
           .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -180,16 +178,15 @@
       },
       editExit() {
         this.requiredFieldsFilled = true
-      }
+         }
     }
   }
-
 </script>
 
 <style scoped>
 
-  /* Enter and leave animations can use different */
-  /* durations and timing functions.              */
+  /* Enter and leave animations can use different /
+  / durations and timing functions.              /
   .slide-fade-enter-active {
     transition: all .3s ease;
   }
@@ -197,7 +194,7 @@
     transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
+    / .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
   }
