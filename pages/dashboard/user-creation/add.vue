@@ -62,7 +62,11 @@
           first_name: '',
           last_name: '',
           phone: '',
-          isVerified: false
+          isVerified: false,
+          companyName: "",
+          companyImg: "",
+          senderFirstName: "",
+          senderLastName: "",
         },
         successAddUserForm: false,
         selectOptions: [
@@ -175,6 +179,22 @@
       },
       editExit() {
         this.requiredFieldsFilled = true
+        this.addUserForm.companyName = this.company.account_name;
+        this.addUserForm.companyImg = this.company.imgUrl;
+        this.addUserForm.senderFirstName = this.currentUser.first_name;
+        this.addUserForm.senderLastName = this.currentUser.last_name;
+        await this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd', this.addUserForm)
+          .then(response => {
+            console.log(response, 'SUCCESS IN REGISTERING')
+          })
+          .catch(err => {
+            console.log(err, 'ERROR IN REGISTERING')
+          })
+        console.log(this.addUserForm);
+        this.successAddUserForm = true;
+        setTimeout(() => {
+          this.$router.push('../../../dashboard/user-creation');
+        }, 1500)
       }
     }
   }
