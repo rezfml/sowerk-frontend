@@ -11,6 +11,17 @@
       </svg> -->
     </section>
 
+    <v-container fluid style="background: linear-gradient(#a61c00 0%, #530e00 100%);">
+      <v-row>
+        <v-col cols="12">
+          <p class="mobile-title text-center text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10">SOWerk Was Founded To Help Any Size Service Provider or Supplier Find New Customers & Elevate Existing Business Relationships</p>
+        </v-col>
+      </v-row>
+    </v-container>
+
+  <VendorToolBoxes/>
+
+
    <!-- NEW SECTION - Join Traits Section -->
     <v-container
       fluid
@@ -21,8 +32,8 @@
       style=" display: flex; justify-content: center; align-items:center; flex-direction: column"
     >
       <v-layout row style="max-width:110%; flex-wrap: wrap; margin-top:-80px;margin-bottom:-80px;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-        <v-img  style="width:100%" src="https://sowerk-images.s3.us-east-2.amazonaws.com/landingserviceprovider.png"></v-img>
-        
+        <!-- <v-img  style="width:100%" src="https://sowerk-images.s3.us-east-2.amazonaws.com/landingserviceprovider.png"></v-img>
+         -->
         <!-- CARD 1 -->
         <!--<v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
@@ -408,11 +419,13 @@
 
 <script>
 import OftenAskSP from '~/components/landing/service-provider/OftenAskSP'
+import VendorToolBoxes from '~/components/landing/service-provider/VendorToolBoxes'
 
   export default {
     layout: 'fullwidth',
     components:  {
       OftenAskSP,
+      VendorToolBoxes
     }
   }
 </script>
