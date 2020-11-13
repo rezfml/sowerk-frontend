@@ -6,10 +6,18 @@
       min-height="50vh"
       min-width="70vw"
     ></v-skeleton-loader>
+<!--    SMALL AND X-SMALL VIEWPORT-->
     <transition name="slide-fade">
-      <v-card v-if="this.requiredFieldsFilled === false" class="mt-n8" style="position: absolute; height:20%; width: 50%; margin:3%; background-color: #a61c00">
-        <v-card-title style="color: white; padding-top: 12%; font-size: 2rem; justify-content: space-around;">All fields are required!</v-card-title>
-        <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
+      <v-card v-if="this.requiredFieldsFilled === false && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)" class="mt-n8" style="position:absolute;top:55vh;justify-content:center;background-color:#a61c00;z-index:1;overlay:true">
+        <v-card-title style="color:white;padding-top:12%;font-size:1.8rem;justify-content:space-around;">All Fields Are Required!</v-card-title>
+        <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px; color: white">X</v-btn>
+      </v-card>
+    </transition>
+<!--    MEDIUM AND LARGE VIEWPORT-->
+    <transition name="slide-fade">
+      <v-card v-if="this.requiredFieldsFilled === false && ($vuetify.breakpoint.md || $vuetify.breakpoint.lg)" class="mt-n8" style="position:absolute;top:45vh;justify-content:center;background-color:#a61c00;z-index:1;overlay:true">
+        <v-card-title style="color:white;padding-top:12%;font-size:2.5rem;justify-content:space-around;">All Fields Are Required!</v-card-title>
+        <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px; color: white">X</v-btn>
       </v-card>
     </transition>
 <template>
@@ -167,7 +175,7 @@
           }, 1500)
         }
       },
-enforcePhoneFormat() {
+      enforcePhoneFormat() {
         let x = this.addUserForm.phone
           .replace(/\D/g, "")
           .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -185,8 +193,8 @@ enforcePhoneFormat() {
 
 <style scoped>
 
-  /* Enter and leave animations can use different /
-  / durations and timing functions.              /
+  /*  Enter and leave animations can use different */
+  /*  durations and timing functions.              */
   .slide-fade-enter-active {
     transition: all .3s ease;
   }
@@ -194,7 +202,7 @@ enforcePhoneFormat() {
     transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
-    / .slide-fade-leave-active below version 2.1.8 */ {
+    .slide-fade-leave-active below version 2.1.8 {
     transform: translateX(10px);
     opacity: 0;
   }
