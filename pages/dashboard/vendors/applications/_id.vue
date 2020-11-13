@@ -19,13 +19,13 @@
       </v-col>
     </v-row>
     <transition name="slide-fade">
-      <v-row v-if="loading" class="d-flex justify-start wrap-row" style="width: 100%;">
-      <v-btn @click="saveUserForm" style="width: 30%;" color="primary" rounded class="my-2 mx-2">Save</v-btn>
-      <v-btn :href="'../../vendors/applications'" style="width: 30%;" color="#707070" rounded outlined class="my-2 mx-2">Exit</v-btn>
-    </v-row>
+      <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
+        <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+        <v-btn :href="'../../vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Exit</v-btn>
+      </v-row>
     </transition>
     <transition name="slide-fade">
-      <v-divider v-if="loading" style="width: 100%;"></v-divider>
+      <v-divider v-if="loading" style="width: 100%; border: 1px solid #707070"></v-divider>
     </transition>
     <transition name="slide-fade">
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
@@ -33,7 +33,7 @@
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
             <v-card-title style="width: 100%;">Account Location: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
             <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{service.name}}</span></v-card-title>
-            <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name"></v-text-field></v-card-title>
+            <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
             <draggable
               class="dragArea list-group"
               group="formName"
@@ -43,15 +43,18 @@
               style="width: 95%;"
             >
 
-              <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...userForms.formfields}">
+              <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in userForms.formfields">
                 <transition name="slide-fade">
                   <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
                     <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                    <p style="width: 70%; text-align: center">#{{ (Number(index) + 1)}} - {{form.name}}</p>
+                    <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
                     <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                   </v-card-title>
                 </transition>
-                <v-card-text v-if="form.type === 'select'" v-for="(option,index) in form.options">{{option}}</v-card-text>
+                <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
+                  <v-btn style="background: #707070; color: white;" @click.prevent="addOption(form, index)">Add Another Option</v-btn>
+                  <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                </template>
               </v-card>
             </draggable>
           </v-card>
@@ -59,21 +62,26 @@
         </v-col>
         <v-col style="width: 35%;" class="d-flex flex-column align-center">
           <v-card-title>Add New Requirement</v-card-title>
-          <draggable
-            style="width: 100%;"
-            class="dragArea list-group"
-            :list="formTypes"
-            :group="{ name: 'formName', pull: 'clone', put: false }"
-          >
-            <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
-              <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
-                <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                <p style="width: 70%; text-align: center">{{form.name}}</p>
-                <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-              </v-card-title>
-            </v-card>
-          </draggable>
-          <rawDisplayer title="List 2" :value="formTypes" />
+          <!--          <draggable-->
+          <!--            style="width: 100%;"-->
+          <!--            class="dragArea list-group"-->
+          <!--            :list="formTypes"-->
+          <!--            :group="{ name: 'formName', pull: 'clone', put: false }"-->
+          <!--            :clone="cloneField"-->
+          <!--          >-->
+          <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center list-group-item" v-for="(form, index) in formTypes" >
+            <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
+              <v-btn color="primary" @click="addForm(form)" style="color: white; width: 10%;">Add</v-btn>
+              <p style="width: 70%; text-align: center">{{form.name}}</p>
+              <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+            </v-card-title>
+            <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
+              <v-btn style="background: #707070; color: white;" @click.prevent="addOptionInput(form, index)">Add Another Option</v-btn>
+              <v-card-text v-for="(option,iVal) in formTypes[1].options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" label="Selection Name" v-model="formTypes[1].options[iVal]" clearable>{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOptionSelect(option, iVal, form, index)" text>X</v-btn></v-card-text>
+            </template>
+          </v-card>
+          <!--          </draggable>-->
+          <!--          <rawDisplayer title="List 2" :value="formTypes" />-->
           <v-progress-circular
             v-if="saveLoad === false"
             indeterminate
@@ -170,7 +178,7 @@
                                 :group="{ name: 'formName', pull: 'clone', put: false }"
                               >
                                 <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
-                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start ">
                                     <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
                                     <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
                                   </v-card>
@@ -197,18 +205,18 @@
 
     <transition name="slide-fade">
       <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
-      <v-card-text style="text-align: center; width: 100%; font-size: 24px; color: #A61c00;">Edit Question #{{openEditFormFieldVal.order + 1}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
-      <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
-        <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
-        <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-        <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
-      </v-form>
-      <div style="width: 100%;" class="d-flex justify-space-between">
-        <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
-        <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="white" style="background: #707070;" outlined>Update Form Field</v-btn>
-      </div>
-      <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
-    </v-card>
+        <v-card-text style="text-align: center; width: 100%; font-size: 24px; color: #A61c00;">Edit Question #{{openEditFormFieldVal.order + 1}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
+        <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
+          <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
+          <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
+          <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+        </v-form>
+        <div style="width: 100%;" class="d-flex justify-space-between">
+          <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
+          <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="white" style="background: #707070;" outlined>Update Form Field</v-btn>
+        </div>
+        <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
+      </v-card>
     </transition>
 
   </v-container>
@@ -246,7 +254,7 @@
             id: 0,
             name: 'Select Field',
             userform_id: Number,
-            options: "[]",
+            options: ['Option 1', 'Option 2', 'Option 3'],
             order: Number,
             required: true,
             type: 'select',
@@ -291,6 +299,15 @@
         expanded: [],
         singleExpand: true,
         newAssignUserForm: {},
+        globalId: 0,
+        itemname: '',
+        itemuserform_id: Number,
+        itemoptions: '',
+        itemorder: Number,
+        itemrequired: Number,
+        itemtype: '',
+        itemvalue: '',
+        newOptionNum: 0,
       }
     },
     async created() {
@@ -305,6 +322,29 @@
       },
     },
     methods: {
+      cloneField(item) {
+        console.log(item, 'clone clone clone');
+        this.itemname =  item.name;
+        this.itemuserform_id = this.userForms.id;
+        this.itemoptions =  item.options;
+        this.itemorder =  item.order;
+        this.itemrequired =  item.required;
+        this.itemtype =  item.type;
+        this.itemvalue =  item.value;
+
+        let newItem = {
+          id: this.globalId,
+          name: this.itemname,
+          userform_id: this.itemuserform_id,
+          options: this.itemoptions,
+          order: this.itemorder,
+          required: this.itemrequired,
+          type: this.itemtype,
+          value: this.itemvalue
+        }
+        this.formTypes[1].id++
+        return newItem
+      },
       async getUserforms(id) {
         console.log(id, 'id')
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
@@ -315,6 +355,10 @@
             this.userForms.formfields = this.userForms.formfields.sort((a,b) => {
               return a.order - b.order
             })
+            for(let i=0; i<this.userForms.formfields.length; i++) {
+              this.userForms.formfields[i].options = this.userForms.formfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
+              console.log(this.userForms.formfields[i].options, 'option #', i)
+            }
             console.log(this.userForms, 'this.userForms sort')
             this.getService(response.data.service_id)
             this.getFormFields(response.data.id)
@@ -343,18 +387,18 @@
           })
       },
       async getFormFields(id) {
-         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
-           .then(response => {
-             console.log(response.data, 'formfields for userform', id);
-             this.originalUserForms = response.data;
-             console.log('ORIGINAL USER FORMS RESPONSE DATA', this.originalUserForms);
-             this.totalLength += response.data.length;
-             this.loading=true;
-           })
-           .catch(err => {
-             console.log('err get services', err);
-           })
-       },
+        await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
+          .then(response => {
+            console.log(response.data, 'formfields for userform', id);
+            this.originalUserForms = response.data;
+            console.log('ORIGINAL USER FORMS RESPONSE DATA', this.originalUserForms);
+            this.totalLength += response.data.length;
+            this.loading=true;
+          })
+          .catch(err => {
+            console.log('err get services', err);
+          })
+      },
       async saveUserForm() {
         this.saveLoad = false;
         console.log('this.userForms', this.userForms);
@@ -422,6 +466,15 @@
         for(let i=0; i<this.userForms.formfields.length; i++) {
           console.log(this.userForms.formfields[i])
           this.userForms.formfields[i].order = i;
+          console.log(this.userForms.formfields[i].options, 'OPTIONS!!!!!')
+        }
+        console.log(this.userForms.formfields, 'updating userForms.formfields');
+      },
+      async reorderFormFieldAdd() {
+        for(let i=0; i<this.userForms.formfields.length; i++) {
+          console.log(this.userForms.formfields[i])
+          this.userForms.formfields[i].order = i;
+          console.log(this.userForms.formfields[i].options, 'OPTIONS!!!!!')
         }
         console.log(this.userForms.formfields, 'updating userForms.formfields');
       },
@@ -531,6 +584,55 @@
             console.log(err, 'err in application templates form fields')
           })
       },
+      async addForm(form) {
+        console.log(form, 'HEY ADD ME')
+        form.id= this.globalId;
+        form.order = 0;
+        form.userform_id = this.userForms.id
+        console.log(form, 'after changes add me', this.userForms, 'userForms')
+        this.itemname = form.name;
+        this.itemoptions = form.options;
+        this.itemrequired = form.required;
+        this.itemtype = form.type;
+        this.itemvalue = form.value;
+        let newForm = {
+          id: this.globalId,
+          order: 0,
+          userform_id: this.userForms.id,
+          name: this.itemname,
+          options: this.itemoptions,
+          required: this.itemrequired,
+          type: this.itemtype,
+          value: this.itemvalue
+        }
+        this.userForms.formfields.unshift(newForm)
+        this.itemname = "";
+        this.itemoptions = [];
+        this.itemrequired = Boolean;
+        this.itemtype = "";
+        this.itemvalue = "";
+        this.formTypes[1].id++
+        await this.reorderFormFieldAdd()
+      },
+      async addOption(form, index) {
+        console.log(form, 'add option to this form');
+        let newOption = "I'm a new option";
+        this.userForms.formfields[index].options.push(newOption);
+      },
+      async addOptionInput(form, index) {
+        let newOption = "I'm a new option # " + this.newOptionNum;
+        this.formTypes[1].options.push(newOption);
+        this.newOptionNum++;
+      },
+      async removeOption(option, iVal, form, index) {
+        console.log(option, 'option to remove', iVal, 'index of option', form, 'remove option to this form', index, 'index of form')
+        console.log(this.userForms.formfields[index], 'formfields specific one')
+        console.log(this.userForms.formfields, 'formfields all')
+        this.userForms.formfields[index].options = this.userForms.formfields[index].options.filter(optionVal => optionVal !== option)
+      },
+      async removeOptionSelect(option, iVal, form, index) {
+        this.formTypes[1].options = this.formTypes[1].options.filter(optionVal => optionVal !== option)
+      }
     }
   }
 
@@ -549,5 +651,12 @@
     /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
+  }
+
+  .flip-list-move {
+    transition: transform 0.5s;
+  }
+  .no-move {
+    transition: transform 0s;
   }
 </style>
