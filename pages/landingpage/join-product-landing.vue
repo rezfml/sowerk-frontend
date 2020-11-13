@@ -652,90 +652,20 @@
       </v-layout>
     </v-container>
 
-<!-- NEW SECTION -PROPERTY FACILITY OFTEN ASK -->
-    <v-flex class="pt-16 pb-16" style="background: #EDEDED">
-      <v-container>
-        <v-row>
-          <v-col cols="12 pa-0 pa-sm-2" class="d-flex flex-column">
-            <p
-              style="font-size: 30px"
-              class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
-            >
-              Property and Facility Managers Often Ask
-            </p>
-            <v-list
-              max-width="950px"
-              :width="$vuetify.breakpoint.mdAndUp ? '80%' : '90%'"
-              class="mx-auto"
-              style="background: #EDEDED"
-            >
-            <!-- QUESTION ONE -->
-            <v-row class="pt-8 " style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align:center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
-                </v-col>
-
-                <v-col cols="11" class="pa-0">
-                  <p style="line-height: 1.25em; font-size: 19px;"
-                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Is this going to create more work for
-                    me?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Actually, we designed SOWerk to be less work for you. Think
-                    of SOWerk like connecting with vendors on social
-                    media, except they have to meet your approved provider
-                    requirements. From here, you can easily manage and
-                    communicate with your approved product providers.</p>
-                </v-col>
-            </v-row>
-
-            <!-- QUESTION TWO -->
-              <v-row class="pt-6" style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align:center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
-                </v-col>
-
-                <v-col cols="11" class="pa-0">
-                  <p  style="line-height: 1.25em; font-size: 19px;"
-                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Save Us Money? Will It Protect Our Investments?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">If time is money and quality is everything, then yes, SOWerk can help. SOWerk makes it efficient for any staff member to vet & manage local/national product providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make product providers re-qualify annually on things like insurance coverage and licenses so you don’t have to.</p>
-                </v-col>
-            </v-row>
-
-              <!-- QUESTION THREE -->
-               <v-row class="pt-6 pb-8" style="max-width: 950px;" justify="center">
-                <v-col cols="1" class="pa-0 d-none d-sm-inline" style="text-align: center">
-                  <img width="29px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"></img>
-                </v-col>
-
-                <v-col cols="11" class="pa-0">
-                  <p  style="line-height: 1.25em; font-size: 19px;"
-                    class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Help Shield Me From Cold Calls?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Sales is part of any business but sometimes, you just need a place to send the salesman where they can apply for your approved product program. SOWerk is your solution. </p>
-                </v-col>
-            </v-row>
-            </v-list>
-            <!-- BUTTON -->
-            <v-btn
-              class="text-uppercase primary mx-auto text-sm-body-1"
-              x-large
-              :width="$vuetify.breakpoint.mdAndUp ? '47%' : '90%'"
-              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
-              @click='$router.push("/register/property-manager")'
-              >Register Now</v-btn
-            >
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-flex>
+<!-- PROPERTY FACILITY QUESTIONS SECTION -->
+    <OftenAskPF/>
   </div>
 </template>
 
 <script>
 import PFPowerfulTools from '~/components/landing/property-manager/PFPowerfulTools'
+import OftenAskPF from '~/components/landing/property-manager/OftenAskPF'
 
 export default {
   layout: 'fullwidth',
   components: {
     PFPowerfulTools,
+    OftenAskPF,
   },
 }
 </script>

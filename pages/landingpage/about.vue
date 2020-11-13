@@ -121,22 +121,19 @@ padding-top: 5%;">
     </v-row>
 
     </v-flex>
+    <!-- BUSINESS & VENDOR QUESTIONS SECTION -->
+    <PFandVQuestionsAsked/>
 </v-container>
-<!--
-    <OftenAskPF></OftenAskPF>
-    <OftenAskSP></OftenAskSP/>
--->
   </div>
 </template>
 
 <script>
-//import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
-//import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
+import PFandVQuestionsAsked from '../../components/landing/general/PFandVQuestionsAsked'
+
 export default {
   layout: 'fullwidth',
   components: {
-    //OftenAskPF,
-    //OftenAskSP,
+    PFandVQuestionsAsked,
   },
 }
 </script>
@@ -213,7 +210,6 @@ export default {
   height: auto;
   color: white;
   padding-bottom: 100px;
-  
 }
 .aboutdescription:before {
   position: absolute;
@@ -289,12 +285,12 @@ export default {
   margin: 0px 2.5% 0px 2.5%;
 }
 @media (max-width: 1350px) {
-  .abouthero{
+  .abouthero {
     margin-bottom: -12.5%;
   }
-  }
+}
 @media (max-width: 800px) {
-  .abouthero{
+  .abouthero {
     margin-bottom: -20%;
   }
   .abouthero h1 {
@@ -348,7 +344,7 @@ export default {
   }
 }
 @media (max-width: 680px) {
-    .abouthero{
+  .abouthero {
     margin-bottom: -30%;
   }
   .abouthero h1 {
@@ -370,7 +366,7 @@ export default {
   }
 }
 @media (max-width: 580px) {
-  .abouthero{
+  .abouthero {
     margin-bottom: -30%;
   }
   .abouthero h1 {
