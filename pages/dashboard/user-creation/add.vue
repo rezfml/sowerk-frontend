@@ -62,7 +62,11 @@
           first_name: '',
           last_name: '',
           phone: '',
-          isVerified: false
+          isVerified: false,
+          companyName: "",
+          companyImg: "",
+          senderFirstName: "",
+          senderLastName: "",
         },
         successAddUserForm: false,
         selectOptions: [
@@ -163,6 +167,7 @@
             this.$router.go()
           }, 1500)
         }
+<<<<<<< HEAD
       },
       enforcePhoneFormat() {
         let x = this.addUserForm.phone
