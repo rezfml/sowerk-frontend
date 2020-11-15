@@ -76,14 +76,14 @@
               "
             >
               <v-row style="margin-top: -43px; align-items: center">
-                <v-col cols="5" sm="6" class="py-0 pl-0 pr-8 text-right">
+                <v-col cols="5" sm="5" class="py-0 pl-0 pr-3 text-right">
                   <img
                     width="30px"
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/witness.png"
                     alt=""
                   />
                 </v-col>
-                <v-col cols="7" sm="6" class="pa-0 text-left">
+                <v-col cols="7" sm="7" class="pa-0 pl-2 text-left">
                   <p class="white--text ma-0 font-weight-bold text-body-1">
                     Business Visibility
                   </p>
@@ -119,15 +119,15 @@
               "
             >
              <v-row style="margin-top: -43px; align-items: center">
-                <v-col cols="5" sm="6" class="py-0 pl-0 pr-8 text-right">
+                <v-col cols="5" sm="5" class="py-0 pl-0 pr-3 text-right">
                   <img
                     width="30px"
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/trophy.png"
                     alt=""
                   />
                 </v-col>
-                <v-col cols="7" sm="6" class="pa-0 text-left">
-                  <p class="white--text ma-0 font-weight-bold text-body-1">
+                <v-col cols="7" sm="7" class="pa-0 text-left">
+                  <p class="white--text ma-0 pl-2 font-weight-bold text-body-1">
                     Approved Vendor
                   </p>
                 </v-col>
@@ -167,14 +167,14 @@
               "
             >
             <v-row style="margin-top: -43px; align-items: center">
-                <v-col cols="5" sm="6" class="py-0 pl-0 pr-8 text-right">
+                <v-col cols="5" sm="5" class="py-0 pl-0 pr-4 text-right">
                   <img
                     width="30px"
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/technics.png"
                     alt=""
                   />
                 </v-col>
-                <v-col cols="7" sm="6" class="pa-0 text-left">
+                <v-col cols="7" sm="7" class="pa-0 pl-2 text-left">
                   <p class="white--text ma-0 font-weight-bold text-body-1">
                     Business Tools
                   </p>
