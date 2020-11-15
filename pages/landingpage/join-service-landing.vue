@@ -1,52 +1,95 @@
 <template>
-  <div class="joinservicecontainer" style=overflow-x:hidden>
+  <div class="joinservicecontainer" style="overflow-x: hidden">
     <section class="joinservicehero">
       <div>
         <h1>Service & Product Vendors</h1>
         <p>Your Tools For Business Relationships</p>
-        <button @click='$router.push("/register/provider")'>Get Started Now</button>
+        <button @click="$router.push('/register/provider')">
+          Get Started Now
+        </button>
       </div>
     </section>
 
-    <v-container fluid style="background: linear-gradient(#a61c00 0%, #530e00 100%);">
+    <v-container
+      fluid
+      style="background: linear-gradient(#a61c00 0%, #530e00 100%)"
+    >
       <v-row>
         <v-col cols="12">
-          <p class="mobile-title text-center text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10">SOWerk Was Founded To Help Any Size Service Provider or Supplier Find New Customers & Elevate Existing Business Relationships</p>
+          <p
+            class="mobile-title text-center text-lg-h3 text-sm-h4 font-weight-bold white--text pt-10 pb-2 pb-sm-10"
+          >
+            SOWerk Was Founded To Help Any Size Service Provider or Supplier
+            Find New Customers & Elevate Existing Business Relationships
+          </p>
         </v-col>
       </v-row>
     </v-container>
 
-<!-- VENDOR TOOLBOXES SECTION -->
-  <VendorToolBoxes/>
-<!-- PRICING LEVELS -->
-  <PricingLevels class="pricing-levels"/>
-  <!-- GETTING STARTED IS FREE AND EASY -->
-<v-container fluid class="py-10" style="background: #151515; height: 40vh">
-  <v-row class="py-5 px-0">
-    <v-col cols="12" class="text-center px-0">
-      <p class="white--text text-h4 text-md-h3 font-weight-bold px-1">Getting Started Is FREE And&nbsp;Easy!</p>
-       <v-btn
-              class="text-uppercase primary text-sm-body-2 mt-5"
-              x-large
-              width="40%"
-              style="border-radius: 20px; font-weight: bold; font-size: 12px; min-width: 280px"
-              @click='$router.push("/landingpage/PricingPage")'
-              >LEARN MORE ABOUT SOWERK PRICING</v-btn>
-    </v-col>
-  </v-row>
-</v-container>
+    <!-- VENDOR TOOLBOXES SECTION -->
+    <VendorToolBoxes />
+    <!-- PRICING LEVELS -->
+    <v-container fluid style="background: #EDEDED">
+      <v-row class="pa-0">
+        <v-col cols="12" class="pa-0">
+          <p
+            class="text-center text-md-h3 font-weight-bold"
+            style="color: #A61C00; font-size: 35px; line-height: 1.25em"
+          >
+            Service Provider Pricing&nbsp;Levels
+          </p>
+        </v-col>
+      </v-row>
+    </v-container>
+    <PricingLevels class="pricing-levels" />
+    <!-- GETTING STARTED IS FREE AND EASY -->
+    <v-container fluid class="py-10" style="background: #151515; height: 40vh">
+      <v-row class="py-5 px-0">
+        <v-col cols="12" class="text-center px-0">
+          <p class="white--text text-h4 text-md-h3 font-weight-bold px-1">
+            Getting Started Is FREE And&nbsp;Easy!
+          </p>
+          <v-btn
+            class="text-uppercase primary text-sm-body-2 mt-5"
+            x-large
+            width="40%"
+            style="
+              border-radius: 20px;
+              font-weight: bold;
+              font-size: 12px;
+              min-width: 280px;
+            "
+            @click="$router.push('/landingpage/PricingPage')"
+            >LEARN MORE ABOUT SOWERK PRICING</v-btn
+          >
+        </v-col>
+      </v-row>
+    </v-container>
 
-
-
-<!-- NEW SECTION - JOIN STEPS -->
+    <!-- NEW SECTION - JOIN STEPS -->
     <section class="joinservicesteps">
       <div class="joinservicestepscontainer">
         <div class="joinservicestepcontainerstep">
-          <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
-          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png" alt="Profile dashboard Mockup"/>
+          <img
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+            class="containerImg"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png"
+            alt="Profile dashboard Mockup"
+          />
+          <img
+            v-else
+            class="containerImg"
+            style="margin: auto; margin-bottom: 20px"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png"
+            alt="Profile dashboard Mockup"
+          />
           <div>
-            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 1 <span>- Build a Profile</span></h1>
-            <h1 v-else >Step 1 <span ><br/>- Build a Profile</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+              Step 1 <span>- Build a Profile</span>
+            </h1>
+            <h1 v-else>
+              Step 1 <span><br />- Build a Profile</span>
+            </h1>
             <p>
               Your SOWerk Profile is Your New Calling Card. Designed To Make You
               Look Good!
@@ -60,8 +103,12 @@
         </div>
         <div class="joinservicestepcontainerstep">
           <div class="stepTwo">
-            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 2 <span>- Apply With Buyers</span></h1>
-            <h1 v-else>Step 2 <span><br/>- Apply With Buyers</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+              Step 2 <span>- Apply With Buyers</span>
+            </h1>
+            <h1 v-else>
+              Step 2 <span><br />- Apply With Buyers</span>
+            </h1>
             <p>Apply For Businesses Looking For You With One Click.</p>
             <p>
               With the click of one button, your company can apply to work for
@@ -70,16 +117,48 @@
               hassle free.
             </p>
           </div>
-          <img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="containerImg" id="profileDash"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Buyer dashboard mockup"/>
-          <img v-else class="containerImg" style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png" alt="Profile Buyer dashboard mockup"/>
+          <img
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+            class="containerImg"
+            id="profileDash"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png"
+            alt="Buyer dashboard mockup"
+          />
+          <img
+            v-else
+            class="containerImg"
+            style="margin: auto; margin-bottom: 20px"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png"
+            alt="Profile Buyer dashboard mockup"
+          />
         </div>
         <div class="joinservicestepcontainerstep">
-          <img class="containerImg" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"  src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
-          <img class="containerImg" v-else style="margin:auto;margin-bottom:20px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png" alt="leadMockup" />
-          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png" id="notificationMock" alt="iphoneMockup" />
+          <img
+            class="containerImg"
+            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png"
+            alt="leadMockup"
+          />
+          <img
+            class="containerImg"
+            v-else
+            style="margin: auto; margin-bottom: 20px"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png"
+            alt="leadMockup"
+          />
+          <img
+            class="containerImg"
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png"
+            id="notificationMock"
+            alt="iphoneMockup"
+          />
           <div>
-            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Step 3 <span>- Generate Leads</span></h1>
-             <h1 v-else>Step 3 <span><br/>- Generate Leads</span></h1>
+            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+              Step 3 <span>- Generate Leads</span>
+            </h1>
+            <h1 v-else>
+              Step 3 <span><br />- Generate Leads</span>
+            </h1>
             <p>
               SOWerk makes it easy for you to get inbound service leads & we
               make it simple for you to show off your trackrecord (profile) to a
@@ -92,12 +171,15 @@
           </div>
         </div>
       </div>
-      <button @click='$router.push("/register/provider")' style="font-weight:600">REGISTER NOW</button>
-
+      <button
+        @click="$router.push('/register/provider')"
+        style="font-weight: 600"
+      >
+        REGISTER NOW
+      </button>
     </section>
-<!-- SERVICE PROVIDER QUESTIONS -->
-<OftenAskSP/>
-    
+    <!-- SERVICE PROVIDER QUESTIONS -->
+    <OftenAskSP />
   </div>
 </template>
 
@@ -136,27 +218,28 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
 } */
 
 ::v-deep .change-bcg {
- background-color: white!important;
+  padding-top: 25px !important;
+  margin-top: 0px !important;
 }
 
-#notificationMock{
-  margin-left:-10%;
-  margin-bottom:-5%;
+#notificationMock {
+  margin-left: -10%;
+  margin-bottom: -5%;
   margin-top: 5%;
-  bottom:15%;
-  width:15% !important;
+  bottom: 15%;
+  width: 15% !important;
   height: 5%;
 }
-.stepTwo{
+.stepTwo {
   margin-left: 5%;
 }
-.containerImg{
-  margin-left:-10%;
-  margin-right:5%;
+.containerImg {
+  margin-left: -10%;
+  margin-right: 5%;
 }
-#profileDash{
-  margin-left:10%;
-  margin-right:-5% !important;
+#profileDash {
+  margin-left: 10%;
+  margin-right: -5% !important;
 }
 .joinservicecontainer {
   display: flex;
@@ -215,13 +298,13 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
   width: 100%;
   height: 100%;
   content: '';
-  background:inherit;
+  background: inherit;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform:skewY(-2deg);
+  transform: skewY(-2deg);
 }
 
 .joinservicedescription {
@@ -256,12 +339,13 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
 }
 
 .joinservicesteps {
-  background:linear-gradient(
+  background: linear-gradient(
       180deg,
       rgba(68, 68, 68, 1) 35%,
       rgba(43, 43, 43, 0.9) 100%
-    ),url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
-    background-size: contain;
+    ),
+    url(https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png);
+  background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;
   width: 100%;
@@ -330,7 +414,6 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
   font-size: 18px;
 }
 
-
 @media (max-width: 1080px) {
   .joinservicehero div h1 {
     font-size: 52px;
@@ -373,23 +456,26 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
     font-size: 32px;
     padding: 0px 25px 0px 25px;
   }
-  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep div p {
+  .joinservicesteps
+    .joinservicestepscontainer
+    .joinservicestepcontainerstep
+    div
+    p {
     font-size: 17px;
     padding: 0px 25px 0px 25px;
   }
 
   .joinservicesteps button {
- padding: 10px 0px 10px 0px;
- width: 80%;
+    padding: 10px 0px 10px 0px;
+    width: 80%;
   }
 }
 
-
 @media (max-width: 750px) {
-  #notificationMock{
-    display:none;
+  #notificationMock {
+    display: none;
   }
-    .joinservicehero div h1 {
+  .joinservicehero div h1 {
     font-size: 45px;
   }
 
@@ -397,14 +483,14 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
     font-size: 20px;
   }
 
-   .joinservicesteps
+  .joinservicesteps
     .joinservicestepscontainer
     .joinservicestepcontainerstep
     div {
     width: 90%;
   }
 
-   .joinservicesteps
+  .joinservicesteps
     .joinservicestepscontainer
     .joinservicestepcontainerstep
     div
@@ -412,21 +498,25 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
     font-size: 25px;
   }
 
-  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep img {
+  .joinservicesteps
+    .joinservicestepscontainer
+    .joinservicestepcontainerstep
+    img {
     border: 1px solid #333;
     height: 250px;
     width: 80%;
-
   }
 
   .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 20px 0
+    margin: 20px 0;
   }
 
-  .joinservicesteps .joinservicestepscontainer .joinservicestepcontainerstep:nth-child(2) {
+  .joinservicesteps
+    .joinservicestepscontainer
+    .joinservicestepcontainerstep:nth-child(2) {
     flex-direction: column-reverse;
   }
 
@@ -447,14 +537,13 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
     p {
     font-size: 18px;
     /* padding: 0 0 0 40px; */
-   text-align: justify;
+    text-align: justify;
     margin-top: 10px;
   }
 }
 
-
 @media (max-width: 680px) {
-   .joinservicehero div h1 {
+  .joinservicehero div h1 {
     font-size: 40px;
   }
 
@@ -462,7 +551,7 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
     font-size: 19px;
   }
 
-   .joinservicehero div button {
+  .joinservicehero div button {
     font-size: 17px;
   }
 
@@ -470,50 +559,49 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
     font-size: 17px;
   }
 }
-  @media (max-width: 450px) {
-    .joinservicedescription h2 {
-      text-align: center;
-    }
-    .joinservicestepcontainerstep p {
-      text-align: center !important;
-      font-size: 1rem !important;
-      padding: 0px !important;
-    }
-    .joinservicestepcontainerstep h1 {
-      padding: 0px !important;
-      margin-left: 10px !important;
-      font-size: 30px !important;
-    }
-
-    .joinservicestepcontainerstep .stepTwo h1 {
-      padding: 0px !important;
-      margin-left: 0px !important;
-      font-size: 30px !important;
-    }
-    .joinservicestepcontainerstep:nth-child(2) {
-      margin-top: 0px !important;
-    }
-    .joinservicestepcontainerstep:nth-child(3) {
-      margin-top: 0px !important;
-    }
-    .joinservicestepcontainerstep .stepTwo p {
-      margin-left: -6px !important;
-      margin-right: 6px !important;
-    }
+@media (max-width: 450px) {
+  .joinservicedescription h2 {
+    text-align: center;
+  }
+  .joinservicestepcontainerstep p {
+    text-align: center !important;
+    font-size: 1rem !important;
+    padding: 0px !important;
+  }
+  .joinservicestepcontainerstep h1 {
+    padding: 0px !important;
+    margin-left: 10px !important;
+    font-size: 30px !important;
   }
 
-  @media(max-width: 375px) {
-    .joinservicestepscontainer {
-      width: 90% !important;
-    }
-    .joinservicestepcontainerstep h1 {
-      text-align: center !important;
-      margin-left: 0px !important;
-      line-height: 1.1em;
-    }
-    .joinservicehero h1 {
-      line-height: 1.1em;
-    }
+  .joinservicestepcontainerstep .stepTwo h1 {
+    padding: 0px !important;
+    margin-left: 0px !important;
+    font-size: 30px !important;
   }
+  .joinservicestepcontainerstep:nth-child(2) {
+    margin-top: 0px !important;
+  }
+  .joinservicestepcontainerstep:nth-child(3) {
+    margin-top: 0px !important;
+  }
+  .joinservicestepcontainerstep .stepTwo p {
+    margin-left: -6px !important;
+    margin-right: 6px !important;
+  }
+}
 
+@media (max-width: 375px) {
+  .joinservicestepscontainer {
+    width: 90% !important;
+  }
+  .joinservicestepcontainerstep h1 {
+    text-align: center !important;
+    margin-left: 0px !important;
+    line-height: 1.1em;
+  }
+  .joinservicehero h1 {
+    line-height: 1.1em;
+  }
+}
 </style>

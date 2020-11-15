@@ -1,50 +1,57 @@
 <template>
-  <v-container fluid color="#EDEDED" class="py-16">
-    <!-- FIRST ROW -->
+  <v-container fluid style="background: #EDEDED" class="py-16">
+    <!-- FIRST ROW-->
     <v-row style="max-width: 100%" class="d-flex justify-center ma-0">
-      <v-col cols="8">
-        <v-card class="d-flex" style="border-radius: 20px">
-          <v-col cols="3">
+      <v-col cols="12" md="10">
+        <v-card
+          class="d-flex flex-md-row flex-column"
+          style="border-radius: 24px"
+        >
+          <v-col cols="12" md="3">
             <v-img
               width="150px"
-              class="mx-auto"
+              class="mx-auto ml-md-auto"
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"
             ></v-img>
           </v-col>
-          <v-col cols="5">
-            <v-row style="flex-direction: column">
+          <v-col cols="12" md="4">
+            <v-row class="flex-row flex-md-column">
               <v-col cols="12">
                 <v-img
                   width="250px"
-                  class="mx-auto"
+                  class="mr-md-auto toolbox-logo"
                   src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork%2BLogo-143-CROPPED.png"
                 ></v-img>
               </v-col>
-              <v-col cols="12" style="text-align: center">
-                <p class="font-weight-bold text-h4" style="color: #9D1A00">
+              <v-col cols="12" class="text-center text-md-left">
+                <p
+                  class="font-weight-bold text-md-h4"
+                  style="color: #9D1A00; font-size: 30px; line-height: 1.25em"
+                >
                   Vendor Toolboxes
                 </p>
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="4" class="pa-0 d-flex flex-column">
+          <v-col cols="12" md="5" class="pa-0 d-flex flex-column">
             <v-card
-              class="elevation-0 pa-0"
+              class="elevation-0 pa-3 pa-md-0 rounded-0 rounded-tr-xl toolbox-border1"
               height="50%"
-              style="background-color: #A61C00; border-radius: 0 20px 0 0"
+              style="background-color: #A61C00"
             >
               <v-card-text
-                class="text-center white--text font-weight-bold text-h6 pt-8"
+                class="text-center white--text font-weight-bold text-h6 pt-5 pt-md-8"
                 >Sales & Marketing</v-card-text
               >
             </v-card>
             <v-card
-              class="elevation-0 pa-0"
+              class="elevation-0 pa-3 pa-md-0 rounded-0 rounded-br-xl toolbox-border2"
               height="50%"
-              style="background-color: #545454; border-radius: 0 0 20px 0"
+              style="background-color: #545454"
             >
               <v-card-text
-                class="text-center white--text font-weight-bold text-h6 pt-8"
+                class="text-center white--text font-weight-bold text-h6 pt-5 pt-md-8"
+                style="line-height: 1.25em"
                 >Relationship Management</v-card-text
               >
             </v-card>
@@ -55,9 +62,9 @@
 
     <!-- SECOND ROW -->
     <v-row style="max-width: 100%" class="d-flex justify-center ma-0">
-      <v-col cols="8">
+      <v-col cols="12" md="10">
         <v-row>
-          <v-col cols="7">
+          <v-col cols="12" md="7">
             <v-card
               class="text-center px-5"
               style="
@@ -68,16 +75,21 @@
                 border-bottom: 3px solid #A61C00;
               "
             >
-              <v-card-text
-                class="pa-0 white--text font-weight-bold text-body-1"
-                style="margin-top: -50px"
-              >
-                <img
-                  width=" 30px"
-                  src="https://sowerk-images.s3.us-east-2.amazonaws.com/witness.png"
-                  alt="eye"
-                />Business Visibility</v-card-text
-              >
+              <v-row style="margin-top: -43px; align-items: center">
+                <v-col cols="5" sm="6" class="py-0 pl-0 pr-8 text-right">
+                  <img
+                    width="30px"
+                    src="https://sowerk-images.s3.us-east-2.amazonaws.com/witness.png"
+                    alt=""
+                  />
+                </v-col>
+                <v-col cols="7" sm="6" class="pa-0 text-left">
+                  <p class="white--text ma-0 font-weight-bold text-body-1">
+                    Business Visibility
+                  </p>
+                </v-col>
+              </v-row>
+
               <p class="text-left py-8" style="color: #666666">
                 How do you get in front of businesses who could and should buy
                 from you?<br /><br />
@@ -95,7 +107,7 @@
               </p>
             </v-card>
           </v-col>
-          <v-col cols="5" class="d-flex">
+          <v-col cols="12" md="5" class="d-flex">
             <v-card
               class="text-center px-5 flex-grow-1"
               style="
@@ -106,17 +118,20 @@
                 border-bottom: 3px solid #A61C00;
               "
             >
-              <v-card-text
-                class="pa-0 white--text font-weight-bold text-body-1"
-                style="margin-top: -50px"
-              >
-                <img
-                  width="30px"
-                  src="https://sowerk-images.s3.us-east-2.amazonaws.com/trophy.png"
-                  alt="trophy"
-                />
-                Approved Vendor</v-card-text
-              >
+             <v-row style="margin-top: -43px; align-items: center">
+                <v-col cols="5" sm="6" class="py-0 pl-0 pr-8 text-right">
+                  <img
+                    width="30px"
+                    src="https://sowerk-images.s3.us-east-2.amazonaws.com/trophy.png"
+                    alt=""
+                  />
+                </v-col>
+                <v-col cols="7" sm="6" class="pa-0 text-left">
+                  <p class="white--text ma-0 font-weight-bold text-body-1">
+                    Approved Vendor
+                  </p>
+                </v-col>
+              </v-row>
               <p
                 class="text-left py-8"
                 style="color: #666666; line-height: 1.4em"
@@ -138,7 +153,7 @@
 
     <!-- THIRD ROW -->
     <v-row style="max-width: 100%" class="d-flex justify-center ma-0">
-      <v-col cols="8">
+      <v-col cols="12" md="10">
         <v-row>
           <v-col cols="12">
             <v-card
@@ -151,17 +166,20 @@
                 border-bottom: 3px solid #545454;
               "
             >
-              <v-card-text
-                class="pa-0 white--text font-weight-bold text-body-1"
-                style="margin-top: -50px"
-              >
-                <img
-                  width="30px"
-                  src="https://sowerk-images.s3.us-east-2.amazonaws.com/trophy.png"
-                  alt="trophy"
-                />
-                Business Tools</v-card-text
-              >
+            <v-row style="margin-top: -43px; align-items: center">
+                <v-col cols="5" sm="6" class="py-0 pl-0 pr-8 text-right">
+                  <img
+                    width="30px"
+                    src="https://sowerk-images.s3.us-east-2.amazonaws.com/technics.png"
+                    alt=""
+                  />
+                </v-col>
+                <v-col cols="7" sm="6" class="pa-0 text-left">
+                  <p class="white--text ma-0 font-weight-bold text-body-1">
+                    Business Tools
+                  </p>
+                </v-col>
+              </v-row>
               <p
                 class="text-left py-8"
                 style="color: #666666; line-height: 1.4em"
@@ -187,6 +205,19 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 960px) {
+  .toolbox-border1 {
+    border-radius: 0 !important;
+  }
+  .toolbox-border2 {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 24px !important;
+  }
+  .toolbox-logo {
+    margin: 0 auto;
+  }
+}
 /* .skew-top {
   position: relative;
 }
