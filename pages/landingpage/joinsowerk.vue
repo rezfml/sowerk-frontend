@@ -1,6 +1,6 @@
 <template>
   <div id="joincontainer">
-    <!-- HERO SECTION-->
+    <!-- HERO SECTION -->
     <v-row
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -363,94 +363,22 @@
     <section class="joinvideo">
       <video></video>
     </section>
-
-    <section class="joinconnection">
-      <div class="joinconnectioncolumn">
-        <h1>Property & Facility</h1>
-        <div class="joinconnectioncontainer border1">
-          <div class="joinconnectioncontainerbox">
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_2_copy.png"
-            />
-            <h3>1. Create Account and Vet Vendors</h3>
-            <p>
-              In less than 15 minutes, you can have multiple locations set up
-              with dedicated staff accounts and live questionnaires to vet
-              local & national service providers.
-            </p>
-          </div>
-          <div class="joinconnectioncontainerbox">
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
-            />
-            <h3>2. Vendor Management & RFP</h3>
-            <p>
-              When you need a service at one of your properties, SOWerk makes it
-              easy to communicate in one click to your approved vendors the
-              request for a bid.
-            </p>
-          </div>
-          <button @click="$router.push('/landingpage/property-manager')">
-            See All Features
-          </button>
-        </div>
-      </div>
-      <img />
-      <div class="joinconnectioncolumn">
-        <h1>Service Providers</h1>
-        <div class="joinconnectioncontainer border2">
-          <div class="joinconnectioncontainerbox">
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_1_copy.png"
-            />
-            <h3>1. Build A Profile</h3>
-            <p>
-              SOWerk makes it easy & quick for you to show off your brand,
-              company background, and we help promote all companies where you
-              are an approved vendor. Your SOWerk profile is both easy and
-              powerful.
-            </p>
-          </div>
-          <div class="joinconnectioncontainerbox">
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/profilecopy.png"
-            />
-            <h3>2. Approved Vendor Status</h3>
-            <p>
-              Use your profile to qualify for approve vendor status in as little
-              as one click.
-            </p>
-          </div>
-          <div class="joinconnectioncontainerbox">
-            <img
-              src="https://sowerk-images.s3.us-east-2.amazonaws.com/appcopy.png"
-            />
-            <h3>3. Get The Job</h3>
-            <p>
-              We make it easy and powerful for businesses to communicate their
-              needs to approved vendors. We also make it easy for you to react
-              quickly with a bid.
-            </p>
-          </div>
-          <button @click="$router.push('/landingpage/service-provider')">
-            See All Features
-          </button>
-        </div>
-      </div>
-    </section>
-
+    <!-- BUSINESS & VENDORS JOIN CONNECTION SECTION -->
+    <PFandVJoinConnection/>
+    <!-- REVIEWS SECTION -->
     <Reviews v-bind:reviews="reviews"></Reviews>
-
-    <OftenAskPF></OftenAskPF>
-    <OftenAskSP></OftenAskSP>
+    <!-- BUSINESS & VENDORS QUESTIONS -->
+    <PFandVQuestionsAsked/>
+   
   </div>
 </template>
 
 <script>
 import Reviews from '../../components/landing/general/Reviews'
 import AllReviews from '../../components/landing/general/AllReviews'
-import OftenAskPF from '../../components/landing/property-manager/OftenAskPF'
-import OftenAskSP from '../../components/landing/service-provider/OftenAskSP'
+import PFandVJoinConnection from '../../components/landing/general/PFandVJoinConnection'
+import PFandVQuestionsAsked from '../../components/landing/general/PFandVQuestionsAsked'
+
 
 export default {
   layout: 'fullwidth',
@@ -461,8 +389,8 @@ export default {
   components: {
     Reviews,
     AllReviews,
-    OftenAskPF,
-    OftenAskSP,
+    PFandVQuestionsAsked,
+    PFandVJoinConnection
   },
   mounted() {
     this.getReviews()
@@ -534,77 +462,6 @@ export default {
   height: 30vh;
 }
 
-.joinconnection {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/BackgroundTexture-155.png'),
-    linear-gradient(#444444, #2b2b2b);
-  background-size: cover;
-}
-.joinconnection h1 {
-  color: white;
-  font-size: 50px;
-  text-align: center;
-  margin: 0px 0px 20px 0px;
-}
-
-.joinconnection .joinconnectioncolumn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 30%;
-  margin: 20px 10px 20px 10px;
-}
-.border1 {
-  border-top: 1px solid #a61c00;
-  border-left: 1px solid #a61c00;
-  border-right: none !important;
-  border-bottom: 1px solid #a61c00;
-  padding: 20px 10px 20px 10px;
-}
-.border2 {
-  border-top: 1px solid #a61c00;
-  border-right: 1px solid #a61c00;
-  border-bottom: 1px solid #a61c00;
-  padding: 20px 10px 20px 10px;
-}
-.joinconnectioncolumn .joinconnectioncontainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox {
-  background: white;
-  border-radius: 20px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  margin: 10px 0px 10px 0px;
-}
-.joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox h3 {
-  font-size: 23px;
-  margin: 10px 0px 20px 0px;
-}
-.joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
-  font-size: 20px;
-}
-.joinconnectioncontainerbox img {
-  width: 50%;
-}
-.joinconnectioncolumn .joinconnectioncontainer button {
-  background: #a61c00;
-  color: white;
-  border-radius: 20px;
-  padding: 10px 0px 10px 0px;
-  width: 60%;
-  font-size: 18px;
-}
-
 .landinghomereview {
   background: #a61c00;
   color: white;
@@ -621,66 +478,8 @@ export default {
   font-size: 18px;
 }
 
-@media (max-width: 1060px) {
-  .joinconnectioncolumn
-    .joinconnectioncontainer
-    .joinconnectioncontainerbox
-    h3 {
-    font-size: 20px;
-  }
-
-  .joinconnectioncolumn .joinconnectioncontainer .joinconnectioncontainerbox p {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 950px) {
-  .joinconnection h1 {
-    font-size: 48px;
-  }
-
-  .joinconnection .joinconnectioncolumn {
-    width: 40%;
-  }
-  .joinconnectioncontainerbox img {
-    width: 40%;
-  }
-}
-
-@media (max-width: 680px) {
-  .joinconnection h1 {
-    font-size: 42px;
-  }
-  .joinconnection {
-    flex-direction: column;
-  }
-
-  .joinconnection .joinconnectioncolumn {
-    width: 80%;
-  }
-
-  .joinconnection h1 {
-    font-size: 40px;
-    width: 100%;
-  }
-
-}
 .jointraits div {
   flex: 0 50%;
 }
-.joinconnection h1 {
-  font-size: 42px;
-}
-.joinconnection {
-  flex-direction: column;
-}
 
-.joinconnection .joinconnectioncolumn {
-  width: 80%;
-}
-
-.joinconnection h1 {
-  font-size: 40px;
-  width: 100%;
-}
 </style>
