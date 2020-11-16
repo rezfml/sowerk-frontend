@@ -241,11 +241,11 @@
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex" v-if="$vuetify.breakpoint.xl">
-              <v-btn @click="viewCompanyTemplate(item)" class="mx-2" style="width: 30%;">Edit</v-btn>
+              <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2" style="width: 30%;">Edit</v-btn>
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Add to Location</v-btn>
               <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 30%;">Delete</v-btn>
             </div>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="viewCompanyTemplate(item)" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Add to Location</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Delete</v-btn>
           </template>
@@ -490,7 +490,6 @@
                 </v-card>
                 <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
               </v-col>
-
               <v-col cols="5" class="d-flex flex-column align-center">
                 <v-row class="mb-n8">
                   <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -591,7 +590,6 @@
                   </v-data-table>
                 </transition>
               </v-col>
-
               <v-col cols="3" class="d-flex flex-column align-center">
                 <draggable
                   style="width: 100%;"

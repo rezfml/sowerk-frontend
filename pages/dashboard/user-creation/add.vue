@@ -22,7 +22,7 @@
     </transition>
 <template>
     <transition name="slide-fade">
-      <v-card-title style="width: 40%; border-radius: 3px; font-size:2rem;line-height:1.5;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 ">Invite A New User </v-card-title>
+      <v-card-title style="width: 40%; border-radius: 3px; font-size:2rem;line-height:1.5;" class="primary white--text justify-center font-weight-regular red-gradient mb-10" v-if="companyLoad">Invite A New User </v-card-title>
     </transition>
       <v-card-title v-if="companyLoad" style="color: #a61c00; font-size:1rem">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
     <transition name="slide-fade">
@@ -155,12 +155,16 @@
         } else {
           this.requiredFieldsFilled = true
           this.addUserForm.companies_id = this.company.id;
+          this.addUserForm.companyName = this.company.account_name;
+          this.addUserForm.companyImg = this.company.imgUrl;
+          this.addUserForm.senderFirstName = this.currentUser.first_name;
+          this.addUserForm.senderLastName = this.currentUser.last_name;
           if(this.addUserForm.is_superuser === 'Super Admin') {
             this.addUserForm.is_superuser = true;
           } else {
             this.addUserForm.is_superuser = false;
           }
-          await this.$http.post('https://www.sowerkbackend.com/api/auth/register', this.addUserForm)
+          await this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd', this.addUserForm)
             .then(response => {
               console.log(response, 'SUCCESS IN REGISTERING')
             })
