@@ -167,7 +167,11 @@
               "
             >
             <v-row style="margin-top: -43px; align-items: center">
+<<<<<<< HEAD
                 <v-col cols="5" sm="5" class="py-0 pl-0 pr-4git p text-right">
+=======
+                <v-col cols="5" sm="5" class="py-0 pl-0 pr-4 text-right">
+>>>>>>> 816780ae5855adab73f486ad0518c46ec4b3ea06
                   <img
                     width="30px"
                     src="https://sowerk-images.s3.us-east-2.amazonaws.com/technics.png"

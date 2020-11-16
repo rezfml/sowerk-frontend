@@ -308,7 +308,7 @@ export default {
         ],
         emailRules: [
           v => !!v || 'E-mail is required',
-          // v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
+          v => /.+@.[A-Z]+/.test(v) || 'E-mail must be valid',
           v => (v && v.length <= 100) || 'Email must be less than 100 characters'
         ],
         emailNotRequiredRules: [
