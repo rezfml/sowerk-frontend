@@ -741,7 +741,8 @@
 
     <transition name="slide-fade">
       <v-card class="d-flex flex-column align-center justify-center" style="z-index:2; position:fixed; top: 20vh; left: 20vw; width: 75vw; height: 70vh; box-shadow: 8px 8px 8px 8px gray" overflow-y-auto v-if="addServiceLoad && step2">
-        <v-card-title class="mb-4" style="color: #a61c00; font-size: 40px;">Add A Service Here</v-card-title>
+        <v-card-title class="mb-4" style="color: #a61c00; font-size: 40px;">Vendor Category</v-card-title>
+        <v-card-subtitle>Use the following tools to select the most accurate category of product or service. If you can’t find what you are looking for you may proceed by “Requesting Other”. Please note by inputting “Other” you are submitting a request to SOWerk which we may accept as a new category or we may update your input to match an existing SOWerk category.</v-card-subtitle>
         <v-form style="width: 90%;" class="d-flex flex-column align-center">
 <!--          <v-text-field-->
 <!--            style="width: 80%;"-->
@@ -866,18 +867,18 @@ const naics = require("naics");
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         headers: [
-          { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-regular' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         applicationDragNDropHeaders: [
-          { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-regular' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
         ],
         tableHeaders: [
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
