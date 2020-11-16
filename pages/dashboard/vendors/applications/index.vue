@@ -324,7 +324,7 @@
         <transition name="slide-fade">
           <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewCompanyTemplateLoad">
             <v-row class="d-flex justify-center" style="width: 100%;">
-              <v-col style="width: 55%;">
+              <v-col cols="4">
                 <v-card class="d-flex flex-column align-center">
                   <v-card-title style="width: 95%;"><v-text-field label="Enter Service Category Here" v-model="newAssignUserForm.service_name">{{newAssignUserForm.service_name}}</v-text-field></v-card-title>
                   <v-card-title style="width: 95%;"><v-text-field label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
@@ -336,18 +336,121 @@
                     @change="reorderFormField"
                     style="width: 95%;"
                   >
-                    <v-card style="border:2px outset lightgrey; width: 100%;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
-                      <v-card-title class="d-flex justify-space-between" style="width: 90%; font-size: 16px;">
+                    <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
+                      <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
                         <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                        <p style="width: 70%; text-align: center">#{{ (Number(index) + 1)}} - {{form.name}}</p>
-                        <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
+                        <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        <div class="d-flex justify-end" style="width: 100%;">
+                          <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
+                        </div>
                       </v-card-title>
                     </v-card>
                   </draggable>
                 </v-card>
                 <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
               </v-col>
-              <v-col style="width: 35%;" class="d-flex flex-column align-center">
+              <v-col cols="5" class="d-flex flex-column align-center">
+                <v-row class="mb-n8">
+                  <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                  <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                </v-row>
+                <transition name="slide-fade">
+                  <v-data-table
+                    :headers="applicationDragNDropHeaders"
+                    :items="applicationTemplates"
+                    :items-per-page="10"
+                    class="pt-16"
+                    :expanded.sync="expanded"
+                    show-expand
+                    single-expand
+                    style="width: 100%;"
+                    v-if="sowerkDragNDrop"
+                  >
+                    <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                      <td :colspan="headers.length" style="width: 100%;">
+                        <v-simple-table style="width: 100%;">
+                          <template v-slot:default>
+                            <!--                            <thead>-->
+                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                            <!--                              <th style="width: 30%;">Question</th>-->
+                            <!--                              <th style="width: 60%;">Name</th>-->
+                            <!--                            </tr>-->
+                            <!--                            </thead>-->
+                            <tbody style="width: 95%;">
+                            <draggable
+                              style="width: 100% !important;"
+                              class="dragArea list-group"
+                              :list="item.applicationtemplatesformfields"
+                              :group="{ name: 'formName', pull: 'clone', put: false }"
+                            >
+                              <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                </v-card>
+                              </tr>
+                            </draggable>
+                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </td>
+                    </template>
+                    <template v-slot:item.questions="{item}">
+                      <p v-if="item.applicationtemplatesformfields">{{item.applicationtemplatesformfields.length}}</p>
+                    </template>
+                  </v-data-table>
+                </transition>
+                <transition name="slide-fade">
+                  <v-data-table
+                    :headers="applicationDragNDropHeaders"
+                    :items="companyTemplates"
+                    :items-per-page="10"
+                    class="pt-16"
+                    :expanded.sync="expanded"
+                    show-expand
+                    single-expand
+                    style="width: 100%;"
+                    v-if="companyDragNDrop"
+                  >
+                    <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                      <td :colspan="headers.length" style="width: 100%;">
+                        <v-simple-table style="width: 100%;">
+                          <template v-slot:default>
+                            <!--                            <thead>-->
+                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                            <!--                              <th style="width: 30%;">Question</th>-->
+                            <!--                              <th style="width: 60%;">Name</th>-->
+                            <!--                            </tr>-->
+                            <!--                            </thead>-->
+                            <tbody style="width: 95%;">
+                            <draggable
+                              style="width: 100% !important;"
+                              class="dragArea list-group"
+                              :list="item.companytemplatesformfields"
+                              :group="{ name: 'formName', pull: 'clone', put: false }"
+                            >
+                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                </v-card>
+                              </tr>
+                            </draggable>
+                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </td>
+                    </template>
+                    <template v-slot:item.questions="{item}">
+                      <p v-if="item.companytemplatesformfields">{{item.companytemplatesformfields.length}}</p>
+                    </template>
+                  </v-data-table>
+                </transition>
+              </v-col>
+              <v-col cols="3" class="d-flex flex-column align-center">
                 <draggable
                   style="width: 100%;"
                   class="dragArea list-group"
@@ -364,7 +467,7 @@
                 </draggable>
                 <rawDisplayer title="List 2" :value="formTypes" />
                 <v-btn @click="saveCompanyTemplate" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-                <v-btn :href="'../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
+                <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
                 <v-progress-circular
                   v-if="saveLoad === false"
                   indeterminate
@@ -1134,6 +1237,7 @@ const naics = require("naics");
       },
       async loadYourCompanyTemplatesFunction() {
         if(this.loadYourCompanyTemplates != true) {
+          await this.getApplicationTemplates();
           await this.getCompanyTemplates();
         }
         this.loadApplicationLocations = false;
