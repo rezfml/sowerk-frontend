@@ -115,6 +115,9 @@
                   v-model="user.password"
                   placeholder=" "
                   :rules="rules.passwordRules"
+                  :type="show1 ? 'text' : 'password'"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
                 ></v-text-field>
               </v-col>
 
@@ -126,6 +129,9 @@
                   placeholder=" "
                   v-model="confirmPassword"
                   :rules="confirmPasswordRules"
+                  :type="show1 ? 'text' : 'password'"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
                 ></v-text-field>
               </v-col>
 
@@ -297,6 +303,7 @@ export default {
   },
   data() {
     return {
+      show1: false,
       companyImageUrl: null,
       companyImageFile: null,
       rules: {

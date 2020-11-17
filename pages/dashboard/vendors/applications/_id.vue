@@ -493,17 +493,13 @@
         console.log(id, 'id')
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
-            console.log(response.data.formfields, 'userforms');
 
             // IF GENERAL QUESTIONS ARE NOT PRESENT WITHIN RESPONSE THEN FLIP userHasDefaults TO FALSE
             if(response.data.formfields.some(question => question.name === "Vendor Name")){
-              console.log("TRUE")
               this.userHasDefaults = true
             } else{
-              console.log("FALSE")
               this.userHasDefaults = false
             }
-            console.log(this.userHasDefaults)
 
             this.userForms = response.data;
 
@@ -512,48 +508,6 @@
                 return formfield
               }
             })
-
-            console.log(this.userForms.formfields)
-
-            // this.one = response.data.formfields.forEach((form) => {
-            //   this.defaultFormFields.forEach((defaultForm) => {
-            //     if (defaultForm === form){
-            //       console.log("DUPE")
-            //     } else {
-            //       console.log("not dupe")
-            //       this.one.push(form)
-            //     }
-            //   })
-            // })
-            // console.log(this.one, "THE ONE")
-
-            // this.one = response.data.formfields.filter(function(o1){
-            //   return this.defaultFormFields.some(function(o2){
-            //     return o1.name === o2.name;          // id is unnique both array object
-            //   });
-            // });
-            // console.log(this.one);
-
-            // this.userForms.formfields = []
-            // for (let i = 0; i < response.data.formfields.length; i++){
-            //   console.log("does this loop?")
-            //   this.defaultFormFields.forEach(form => {
-            //     if(response.data.formfields[i].name === form.name){
-            //       console.log("duplicate")
-            //     } else {
-            //       this.userForms.formfields = this.userForms.formfields.push(response.data.formfields[i])
-            //     }
-            //   })
-            // }
-
-            // this.one = response.data.formfields.filter(({ value: id1 }) => !this.defaultFormFields.some(({ value: id2 }) => id2 === id1));
-
-            // console.log(this.one, "hggggggggggggggggggggg")
-
-
-
-            console.log(this.userForms.formfields)
-
 
             this.finishedFormFields = true;
             this.userForms.formfields = this.userForms.formfields.sort((a,b) => {
