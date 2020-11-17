@@ -34,7 +34,7 @@
       </v-row>
       <transition name="slide-fade">
         <HomeCard
-          v-if="locations && locationApproved===true"
+          v-if="locations && locationApproved && company"
           :items="locations"
           :company="company"
           :title="'Locations You Manage - ' + locations.length"
@@ -304,11 +304,11 @@
         if(!this.currentUser) this.$router.go();
         this.loading = true;
         await this.getUser();
+        await this.getCompany();
         await this.getLocations();
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
-        await this.getMessages(this.currentUser.companies_id)
-
+        await this.getMessages(this.currentUser.companies_id);
       }, 1000)
     },
     computed: {
@@ -338,7 +338,6 @@
           .catch(err => {
             console.log('err in getting applications', err);
           })
-        this.locationApproved = true;
       },
       async getUser() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
@@ -347,14 +346,16 @@
           this.user = data;
           console.log(data);
         })
-        await this.getCompany();
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
+        console.log(this.company, 'COMPANY!');
       },
       async getLocations() {
+        this.locationApproved = true;
+        this.statApproved = true;
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
@@ -370,7 +371,7 @@
           console.log(this.locations, 'locations', data, 'data')
         })
         this.loading = false;
-        this.statApproved = true;
+        console.log(this.locationApproved, this.statApproved, 'Approved!!!')
       },
       exit() {
         this.hidden = true;

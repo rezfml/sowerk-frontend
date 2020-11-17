@@ -7,6 +7,13 @@
         min-height="50vh"
         min-width="50vw"
       ></v-skeleton-loader>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="100"
+        v-if="!loadSubmit"
+        style="z-index: 10; position: fixed; top: 25vh; left: 50vw;"
+      ></v-progress-circular>
       <transition name="slide-fade">
         <v-card v-if="loading">
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Location</v-card-title>
@@ -86,45 +93,59 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                     <h2 class="mx-auto text-center">Location Manager</h2>
                     <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this location.</p>
                   </v-col>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      placeholder=" "
-                      v-model="form.contact_first_name"
+<!--                  <v-col cols="12" md="6">-->
+<!--                    <v-text-field-->
+<!--                      placeholder=" "-->
+<!--                      v-model="form.contact_first_name"-->
+<!--                    >-->
+<!--                      <template v-slot:label>-->
+<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="12" md="6">-->
+<!--                    <v-text-field-->
+<!--                      placeholder=" "-->
+<!--                      v-model="form.contact_last_name"-->
+<!--                    >-->
+<!--                      <template v-slot:label>-->
+<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="12" md="6">-->
+<!--                    <v-text-field-->
+<!--                      placeholder=" "-->
+<!--                      v-model="form.phone"-->
+<!--                    >-->
+<!--                      <template v-slot:label>-->
+<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="12" md="6">-->
+<!--                    <v-text-field-->
+<!--                      placeholder=" "-->
+<!--                      v-model="form.email"-->
+<!--                    >-->
+<!--                      <template v-slot:label>-->
+<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
+                  <v-col cols="12">
+                    <v-select
+                      label="Select From List of Users Your Manager For This Location"
+                      :items="users"
+                      class="text-caption"
                     >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
+                      <template slot="selection" slot-scope="data">
+                        <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
                       </template>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      placeholder=" "
-                      v-model="form.contact_last_name"
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
+                      <template slot="item" slot-scope="data">
+                        <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
                       </template>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      placeholder=" "
-                      v-model="form.phone"
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                      </template>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      placeholder=" "
-                      v-model="form.email"
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Email</p>
-                      </template>
-                    </v-text-field>
+                    </v-select>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-checkbox
@@ -134,17 +155,17 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                     >
                     </v-checkbox>
                   </v-col>
-                  <v-col cols="12" md="6">
-                    <v-select
-                      :items="adminOptions"
-                      v-model="form.adminLevel"
-                      placeholder=" "
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Admin Level*</p>
-                      </template>
-                    </v-select>
-                  </v-col>
+<!--                  <v-col cols="12" md="6">-->
+<!--                    <v-select-->
+<!--                      :items="adminOptions"-->
+<!--                      v-model="form.adminLevel"-->
+<!--                      placeholder=" "-->
+<!--                    >-->
+<!--                      <template v-slot:label>-->
+<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>-->
+<!--                      </template>-->
+<!--                    </v-select>-->
+<!--                  </v-col>-->
                 </v-row>
               </v-form>
             </v-col>
@@ -339,6 +360,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           }
         ],
         loading: false,
+        users: [],
+        loadSubmit: true,
       }
     },
     async mounted() {
@@ -346,6 +369,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       console.log(this.currentUser);
       setTimeout(() => {
         this.loading = true;
+        this.getUsers(this.currentUser.companies_id);
       }, 500)
     },
     computed: {
@@ -354,6 +378,29 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       },
     },
     methods: {
+      async getUsers(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + id)
+          .then(response => {
+            console.log(response.data, 'USERS!')
+            this.users = response.data.user
+          })
+          .catch(err => {
+            console.log(err, 'err in getting users from company')
+          })
+      },
+      async getUserValue(user) {
+        console.log(user, 'USER VALUE!')
+        this.form.contact_first_name = user.first_name;
+        this.form.contact_last_name = user.last_name;
+        this.form.phone = user.phone;
+        this.form.email = user.email;
+        if(user.is_superuser) {
+          this.form.adminLevel = this.adminOptions[0].value
+        } else {
+          this.form.adminLevel = this.adminOptions[1].value
+        }
+        console.log(this.form, 'FORM VALUE!');
+      },
       setManagerToUser() {
         console.log(this.managerIsUser)
         if(this.managerIsUser) {
@@ -383,11 +430,13 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         this.fullAddress = this.form.address + ', ' + this.form.city + ', ' + this.form.state + ' ' + this.form.zipcode;
       },
       async submit() {
+        this.loadSubmit = false;
         console.log(this.currentUser);
         console.log(this.form, 'this.form');
         await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form)
           .then(response => {
             console.log(response, 'success in submitting new location')
+            this.loadSubmit = true;
             this.$router.push('../../../dashboard/facilities')
           })
           .catch(e => e);
