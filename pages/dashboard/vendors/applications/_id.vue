@@ -36,7 +36,7 @@
             <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
 
             <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
-            <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px; text-align: left" v-for="(form, index) in defaultFormFields">
+            <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px; text-align: left"  v-for="(form, index) in defaultFormFields">
               <p style="width: 100%;margin:0%;text-align:left"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
             </v-card-title>
 
@@ -243,7 +243,7 @@
         userHasDefaults: false,
         defaultFormFields: [
           {
-            name: "Vender Name",
+            name: "Vendor Name",
             order: 1,
             options: "",
             required: true,
@@ -252,7 +252,7 @@
             value: ''
           },
           {
-            name: "Vender Type",
+            name: "Vendor Type",
             order: 2,
             options: "",
             required: true,
@@ -261,7 +261,7 @@
             value: ''
           },
           {
-            name: "Vender Category",
+            name: "Vendor Category",
             order: 3,
             options: "",
             required: true,
@@ -270,7 +270,7 @@
             value: ''
           },
           {
-            name: "Vender's Address of Application Address",
+            name: "Vender's Address of Application",
             order: 4,
             options: "",
             required: true,
@@ -496,7 +496,7 @@
             console.log(response.data.formfields, 'userforms');
 
             // IF GENERAL QUESTIONS ARE NOT PRESENT WITHIN RESPONSE THEN FLIP userHasDefaults TO FALSE
-            if(response.data.formfields.some(question => question.name === "Vender Name")){
+            if(response.data.formfields.some(question => question.name === "Vendor Name")){
               console.log("TRUE")
               this.userHasDefaults = true
             } else{
@@ -505,8 +505,15 @@
             }
             console.log(this.userHasDefaults)
 
-            this.userForms = {...response.data };
+            this.userForms = response.data;
 
+            this.userForms.formfields = this.userForms.formfields.filter(formfield => {
+              if(formfield.name !== "Vendor Name" && formfield.name !== "Vendor Type" && formfield.name !== "Vendor Category" && formfield.name !== "Vender's Address of Application" && formfield.name !== "Company Founded" && formfield.name !== "Number of Employees" && formfield.name !== "SOWerk Connections" && formfield.name !== "Contact Person Name" && formfield.name !== "Contact Person Phone" && formfield.name !== "Contact Person Email" && formfield.name !== "Contact Website" && formfield.name !== "Applicants Service Radius" && formfield.name !== "Company's General Liability Insurance Provider" && formfield.name !== "List of Certifications" && formfield.name !== "Published Certificates") {
+                return formfield
+              }
+            })
+
+            console.log(this.userForms.formfields)
 
             // this.one = response.data.formfields.forEach((form) => {
             //   this.defaultFormFields.forEach((defaultForm) => {
