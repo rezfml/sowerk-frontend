@@ -7,6 +7,8 @@
 <!--        :size="50"-->
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
+
+<!--    SKELETON LOADER    -->
     <v-skeleton-loader
       v-if="!loading"
       type="card-avatar, article, article, actions"
@@ -14,6 +16,7 @@
       min-width="50vw"
     ></v-skeleton-loader>
 
+<!--    BUTTONS AND TEXT TO THE RIGHT OF VENDER APPLICATIONS BACKGROUND IMAGE    -->
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
@@ -33,6 +36,8 @@
 <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
 <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
 <!--    </v-row>-->
+
+<!--    LOWER SECTION, 'YOUR VENDOR APPLICATIONS' & 'ADD NEW VENDOR FORM' button & TABLE below    -->
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationLocations && loading">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
@@ -148,6 +153,8 @@
 <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
 <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
 <!--    </v-row>-->
+
+
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">SOWerk Application Templates</v-card-title>
