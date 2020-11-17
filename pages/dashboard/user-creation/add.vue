@@ -66,6 +66,7 @@
           companyImg: "",
           senderFirstName: "",
           senderLastName: "",
+          temporaryPasswordBoolean: true,
         },
         successAddUserForm: false,
         selectOptions: [
