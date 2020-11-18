@@ -34,6 +34,12 @@
             <v-card-title style="width: 100%;">Account Location: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
             <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{service.name}}</span></v-card-title>
             <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
+
+            <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
+            <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px; text-align: left"  v-for="(form, index) in defaultFormFields">
+              <p style="width: 100%;margin:0%;text-align:left"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
+            </v-card-title>
+
             <draggable
               class="dragArea list-group"
               group="formName"
@@ -42,12 +48,11 @@
               @change="reorderFormField"
               style="width: 95%;"
             >
-
               <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in userForms.formfields">
                 <transition name="slide-fade">
                   <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
                     <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                    <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
+                    <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 16)}}</span> - {{form.name}}</p>
                     <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                   </v-card-title>
                 </transition>
@@ -235,6 +240,144 @@
     },
     data () {
       return {
+        userHasDefaults: false,
+        defaultFormFields: [
+          {
+            name: "Vendor Name",
+            order: 1,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Vendor Type",
+            order: 2,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Vendor Category",
+            order: 3,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Vender's Address of Application",
+            order: 4,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Company Founded",
+            order: 5,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Number of Employees",
+            order: 6,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "SOWerk Connections",
+            order: 7,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Contact Person Name",
+            order: 8,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Contact Person Phone",
+            order: 9,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Contact Person Email",
+            order: 10,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Contact Website",
+            order: 11,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Applicants Service Radius",
+            order: 12,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Company's General Liability Insurance Provider",
+            order: 13,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "List of Certifications",
+            order: 14,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+          {
+            name: "Published Certificates",
+            order: 15,
+            options: "",
+            required: true,
+            type: 'text',
+            userform_id: this.$route.params.id,
+            value: ''
+          },
+        ],
         loading: false,
         userForms: {},
         service: {},
@@ -308,6 +451,7 @@
         itemtype: '',
         itemvalue: '',
         newOptionNum: 0,
+        one: []
       }
     },
     async created() {
@@ -349,8 +493,22 @@
         console.log(id, 'id')
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
-            console.log(response, 'userforms');
-            this.userForms = {...response.data };
+
+            // IF GENERAL QUESTIONS ARE NOT PRESENT WITHIN RESPONSE THEN FLIP userHasDefaults TO FALSE
+            if(response.data.formfields.some(question => question.name === "Vendor Name")){
+              this.userHasDefaults = true
+            } else{
+              this.userHasDefaults = false
+            }
+
+            this.userForms = response.data;
+
+            this.userForms.formfields = this.userForms.formfields.filter(formfield => {
+              if(formfield.name !== "Vendor Name" && formfield.name !== "Vendor Type" && formfield.name !== "Vendor Category" && formfield.name !== "Vender's Address of Application" && formfield.name !== "Company Founded" && formfield.name !== "Number of Employees" && formfield.name !== "SOWerk Connections" && formfield.name !== "Contact Person Name" && formfield.name !== "Contact Person Phone" && formfield.name !== "Contact Person Email" && formfield.name !== "Contact Website" && formfield.name !== "Applicants Service Radius" && formfield.name !== "Company's General Liability Insurance Provider" && formfield.name !== "List of Certifications" && formfield.name !== "Published Certificates") {
+                return formfield
+              }
+            })
+
             this.finishedFormFields = true;
             this.userForms.formfields = this.userForms.formfields.sort((a,b) => {
               return a.order - b.order
@@ -406,60 +564,131 @@
         const userformEdit = {
           name: this.userForms.name
         }
-        this.userForms.formfields.forEach(async (formfield, index) => {
-          formfield["userform_id"] = this.userForms.id
-          formfield.order = index;
-          if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
-            let newFormField = {
-              userform_id: formfield.userform_id,
-              name: formfield.name,
-              options: formfield.options,
-              order: formfield.order,
-              required: formfield.required,
-              type: formfield.type,
-              value: formfield.value
-            }
-            this.filteredUniqueUserForms.push(formfield)
-            await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
+        // await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, {
+        //   name: "Vender Name",
+        //   order: 1,
+        //   options: "",
+        //   required: true,
+        //   type: 'text',
+        //   userform_id: this.$route.params.id,
+        //   value: ''
+        // })
+        //   .then(response => {
+        //     console.log(response, 'posting new formfield for userform');
+        //   })
+        //   .catch(err => {
+        //     console.log(err, 'err');
+        //   })
+        if(this.userHasDefaults === false) {
+          // ADD THE GENERAL QUESTIONS and THEN ADD CUSTOM QUESTIONS
+          this.defaultFormFields.forEach(async (formfield) => {
+            await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, formfield)
               .then(response => {
                 console.log(response, 'posting new formfield for userform');
               })
               .catch(err => {
                 console.log(err, 'err');
               })
-          } else {
-            this.filteredSameUserForms.push(formfield)
-            const changes = {
-              name: formfield.name,
-              options: formfield.options,
-              order: formfield.order,
-              required: formfield.required,
-              type: formfield.type,
-              value: formfield.value
+          })
+          // ALSO ADD CUSTOM QUESTIONS
+          this.userForms.formfields.forEach(async (formfield, index) => {
+            formfield["userform_id"] = this.userForms.id
+            formfield.order = index;
+            if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
+              let newFormField = {
+                userform_id: formfield.userform_id,
+                name: formfield.name,
+                options: formfield.options,
+                order: formfield.order,
+                required: formfield.required,
+                type: formfield.type,
+                value: formfield.value
+              }
+              this.filteredUniqueUserForms.push(formfield)
+              await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
+                .then(response => {
+                  console.log(response, 'posting new formfield for userform');
+                })
+                .catch(err => {
+                  console.log(err, 'err');
+                })
+            } else {
+              this.filteredSameUserForms.push(formfield)
+              const changes = {
+                name: formfield.name,
+                options: formfield.options,
+                order: formfield.order,
+                required: formfield.required,
+                type: formfield.type,
+                value: formfield.value
+              }
+              await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+                .then(response => {
+                  console.log(response, 'updating formfield ', formfield.id)
+                })
+                .catch(err => {
+                  console.log('error in updating formfield', err)
+                })
             }
-            await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
-              .then(response => {
-                console.log(response, 'updating formfield ', formfield.id)
-              })
-              .catch(err => {
-                console.log('error in updating formfield', err)
-              })
-          }
-        })
-        console.log('this.userForms after loop', this.userForms);
-        console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
-        console.log(this.filteredSameUserForms, 'filtered same formfields')
-        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
-          .then(response => {
-            console.log(response, 'updating formfield ', formfield.id)
           })
-          .catch(err => {
-            console.log('error in updating formfield', err)
+        } else {
+          // ONLY ADD CUSTOM QUESTIONS
+          this.userForms.formfields.forEach(async (formfield, index) => {
+            formfield["userform_id"] = this.userForms.id
+            formfield.order = index;
+            if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
+              let newFormField = {
+                userform_id: formfield.userform_id,
+                name: formfield.name,
+                options: formfield.options,
+                order: formfield.order,
+                required: formfield.required,
+                type: formfield.type,
+                value: formfield.value
+              }
+              this.filteredUniqueUserForms.push(formfield)
+              await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
+                .then(response => {
+                  console.log(response, 'posting new formfield for userform');
+                })
+                .catch(err => {
+                  console.log(err, 'err');
+                })
+            } else {
+              this.filteredSameUserForms.push(formfield)
+              const changes = {
+                name: formfield.name,
+                options: formfield.options,
+                order: formfield.order,
+                required: formfield.required,
+                type: formfield.type,
+                value: formfield.value
+              }
+              await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+                .then(response => {
+                  console.log(response, 'updating formfield ', formfield.id)
+                })
+                .catch(err => {
+                  console.log('error in updating formfield', err)
+                })
+            }
           })
-        setTimeout(() => {
-          this.saveLoad = true;
-          this.$router.go();
-        }, 1000)
+        }
+
+        // console.log('this.userForms after loop', this.userForms);
+        // console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
+        // console.log(this.filteredSameUserForms, 'filtered same formfields')
+        // await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
+        //   .then(response => {
+        //     console.log(response, 'updating formfield ', formfield.id)
+        //   })
+        //   .catch(err => {
+        //     console.log('error in updating formfield', err)
+        //   })
+        // setTimeout(() => {
+        //   this.saveLoad = true;
+        //   this.$router.go();
+        // }, 1000)
       },
       async reorderFormField({moved}) {
         console.log(moved, 'moved information for formfield')

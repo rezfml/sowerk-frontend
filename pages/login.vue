@@ -57,9 +57,12 @@
                 id="password"
                 label="Password"
                 name="password"
-                type="password"
-                v-model="loginData.password"
                 style="width: 100%;"
+                v-model="loginData.password"
+                :type="show1 ? 'text' : 'password'"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show1 = !show1"
+
               >
                 <template slot="prepend">
                   <v-icon color="grey" class="text--darken-2">lock</v-icon>
@@ -98,6 +101,7 @@
         },
         errorLoad: false,
         unverified: false,
+        show1: false,
       }
     },
     methods: {
