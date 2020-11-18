@@ -740,7 +740,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="d-flex flex-column align-center justify-center" style="z-index:10; position:fixed; top: 0vh; left: 0vw; width: 100vw; height: 100vh;" overflow-y-auto v-if="addServiceLoad && step2">
+      <v-card class="d-flex flex-column align-center justify-center" style="z-index:10; position:fixed; top: 15vh; left: 22vw; width: 75vw; height: 60vh; box-shadow: 8px 8px 8px #707070; border: 1px solid #707070;" overflow-y-auto v-if="addServiceLoad && step2">
         <v-card-title class="mb-6 mt-2" style="color: #a61c00; font-size: 40px;">Select A Category</v-card-title>
         <v-row style="width: 100%;">
           <v-col cols="4">
@@ -750,6 +750,7 @@
           </v-col>
           <v-col cols="8" class="d-flex">
             <v-autocomplete
+              solo
               :items="naicsList"
               :filter="customFilter"
               item-text="name"
