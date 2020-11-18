@@ -280,7 +280,7 @@
             <template v-slot:footer v-if="viewLocation === true">
               <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
             </template>
-            <template v-slot:item.actions="{ item }" v-else>
+            <template v-slot:item.actions="{ item }" v-else-if="action !== 'View' && action !== 'ViewApproved' && viewLocation !== true">
               <nuxt-link :to="slug + item.id" append>
                 <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined>
                   View
