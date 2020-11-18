@@ -33,6 +33,14 @@
         </v-col>
       </v-row>
       <transition name="slide-fade">
+        <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
+          <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}!</v-card-title>
+          <v-card-text>It seems you've been assigned a password that's been designated temporary. You are encouraged to change this for security reasons. You may do this under Settings -> Manage Users -> Edit. To not recieve this message again, please click the button below!</v-card-text>
+          <v-btn @click="passwordKeep" color="primary">I will keep my password as-is for now</v-btn>
+          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>
+        </v-card>
+      </transition>
+      <transition name="slide-fade">
         <HomeCard
           v-if="locations && locationApproved && company"
           :items="locations"
@@ -287,6 +295,7 @@
         company: null,
         locationApproved: false,
         statApproved: false,
+        changePasswordPopup: false,
       }
     },
     watch: {
@@ -344,8 +353,26 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
+          if(this.user.temporaryPasswordBoolean) {
+            this.changePasswordPopup = true;
+          }
           console.log(data);
         })
+      },
+      async exitPasswordPopup() {
+        this.changePasswordPopup = false;
+      },
+      async passwordKeep() {
+        await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id, {
+          temporaryPasswordBoolean: false,
+        })
+          .then(response => {
+            console.log(response, 'success in temp password popup edit')
+            this.changePasswordPopup = false;
+          })
+          .catch(err => {
+            console.log(err, 'err in temp password popup edit')
+          })
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
