@@ -269,6 +269,7 @@
             <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
               <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
               <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="inviteProvider()">Invite Service Provider to Apply</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
               <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
@@ -305,6 +306,7 @@
         </v-card-actions>
       </v-container>
     </v-card>
+    <!--    THIS IS THE MESSAGE BUTTON, MODAL AND FORM FOR MEDIUM AND LARGE!-->
     <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
     >
       <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
@@ -317,10 +319,24 @@
       <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
       <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
     </v-card>
+    <!--    THIS IS THE VENDOR INVITE MESSAGE BUTTON, MODAL AND FORM FOR MEDIUM AND LARGE!-->
+    <v-card class="d-flex flex-column align-center" v-if="loadInviteModal === true" style="width: 70vw; height: 90vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+    >
+      <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+      <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+
+      <p style="margin-left: 5%; margin-right: 5%; font-size: 1.5rem;" v-model="inviteMessageForm.message">{{ companyName }} {{ inviteMessage }}</p>
+      <v-form class="d-flex flex-row" style="margin-left: 2%; margin-right: 2%">
+        <v-card-title>Select A Location</v-card-title>
+        <v-select :items="inviteLocations" item-text="address" item-value="address" label="Your Company Locations" v-model="inviteMessageForm.location"></v-select>
+        <v-card-title>Select An Application To Share</v-card-title>
+        <v-select :items="myCompanyTemplates" item-text="form_name" item-value="form_name" label="Your Saved Templates"></v-select>
+      </v-form>
+      <v-btn style="margin-top: 5%" @click="inviteMessageSend(idForMessage, locationForMessage)">Send Message</v-btn>
+    </v-card>
   </div>
 
   <div style="width: 100%" v-else >
-
     <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
         v-if="loading != true"
@@ -463,7 +479,21 @@
         </v-card-actions>
       </v-container>
     </v-card>
+    <!--    THIS IS THE MESSAGE BUTTON, MODAL AND FORM FOR SMALL AND EXTRA-SMALL!-->
     <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+    >
+      <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+      <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
+      <v-form style="width: 80%;">
+        <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+        <v-btn @click="closeModal">Exit Message</v-btn>
+        <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+      </v-form>
+      <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+      <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
+    </v-card>
+    <!--    THIS IS THE VENDOR INVITE MESSAGE BUTTON, MODAL AND FORM FOR SMALL AND EXTRA-SMALL!-->
+    <v-card class="d-flex flex-column align-center" v-if="loadInviteModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
     >
       <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
@@ -488,6 +518,10 @@ export default {
   },
   data() {
     return {
+      companyName: null,
+      inviteMessage: " would like for you to consider applying for approved vendor status. Here is a link to the applications they have shared.",
+      inviteLocations: null,
+      myCompanyTemplates: null,
       locations: null,
       users: [
 
@@ -598,6 +632,15 @@ export default {
         }
       ],
       loading: false,
+      inviteMessageForm: {
+        service: '',
+        company: '',
+        primary_contact_first_name: this.$store.state.user.user.user.first_name,
+        primary_contact_last_name: this.$store.state.user.user.user.last_name,
+        message: '',
+        location: '',
+        userprofiles_id: this.$store.state.user.user.user.id,
+      },
       messageForm: {
         service: '',
         company: '',
@@ -609,6 +652,7 @@ export default {
       },
       sendToId: Number,
       loadModal: false,
+      loadInviteModal: false,
       idForMessage: Number,
       locationForMessage: {},
       successAssign: false,
@@ -620,8 +664,24 @@ export default {
   },
   async created() {
     console.log(this.items, 'yayyy FACILITIES CARD');
+    console.log(this.$store.state.user.user.user)
     //console.log(this.locationAssignUser, 'user for location assign')
     this.loadingFunc(this.items);
+    await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.$store.state.user.user.user.companies_id)
+      .then(async (response) => {
+        this.inviteLocations = response.data.location
+        this.companyName = response.data.location[0].name
+      })
+      .catch(err => {
+        console.log("error log", err)
+      })
+    await this.$http.get('https://www.sowerkbackend.com/api/companytemplates/byCompanyId/' + this.$store.state.user.user.user.companies_id)
+      .then(async (response) => {
+        this.myCompanyTemplates = response.data
+      })
+      .catch(err => {
+        console.log("error log", err)
+      })
   },
   methods: {
     async loadingFunc(val) {
@@ -633,6 +693,12 @@ export default {
       this.loadModal = true;
       this.idForMessage = businessId;
       this.locationForMessage = location;
+    },
+    async inviteProvider() {
+      this.loadInviteModal = true;
+      console.log(this.inviteLocations)
+      console.log(this.myCompanyTemplates)
+      console.log(this.companyName)
     },
     async message(businessId, location) {
       this.sendToId = businessId;
@@ -659,8 +725,32 @@ export default {
         this.loadModal = false;
       }, 3500)
     },
+    async inviteMessageSend(companyName, inviteMessage) {
+      console.log(this.inviteMessageForm, "gggggggggggggggggg")
+      await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, {
+        service: '',
+        company: '',
+        primary_contact_first_name: this.$store.state.user.user.user.first_name,
+        primary_contact_last_name: this.$store.state.user.user.user.last_name,
+        message: this.inviteMessageForm.location + this.inviteMessage,
+        location: this.inviteMessageForm.location,
+        userprofiles_id: this.$store.state.user.user.user.id,
+      })
+        .then(res => {
+          console.log('SUCCESS', res)
+          this.successText = 'Successfully sent message to ' + res.data.messageVal.location
+          this.successMessage = true;
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      await setTimeout(() => {
+        this.loadModal = false;
+      }, 3500)
+    },
     async closeModal() {
       this.loadModal = false;
+      this.loadInviteModal = false;
     }
   }
 }
