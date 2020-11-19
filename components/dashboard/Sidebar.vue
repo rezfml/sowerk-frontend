@@ -27,7 +27,7 @@
               <template v-if="company">
                 <v-list-item-title style="font-size: 1rem; align-self: flex-start;">{{company.account_name}}</v-list-item-title>
               </template>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Channels - {{ company.locations.length }}</v-list-item-subtitle>
             </v-col>
             <v-col cols="12" class="px-0 py-2" style="width: 100%;"><v-divider style="border-color: rgba(255,255,255,0.3);"></v-divider></v-col>
             <v-col cols="12" class="pa-0 ma-0">
@@ -38,7 +38,7 @@
                 >
               </template>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="currentUser">{{ currentUser.is_superuser == true ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access -
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Channels Access -
                 {{ company.locations.length }}
               </v-list-item-subtitle>
             </v-col>
@@ -153,7 +153,7 @@
               <template v-if="company">
                 <v-list-item-title style="font-size: 1rem;color:white;">{{company.account_name}}</v-list-item-title>
               </template>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Locations - {{ company.locations.length }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Channels - {{ company.locations.length }}</v-list-item-subtitle>
             </v-col>
             <v-col cols="12" class="px-0 py-2" style="width: 100%;"><v-divider style="border-color: rgba(255,255,255,0.3);"></v-divider></v-col>
             <v-col cols="12" class="pa-0 ma-0">
@@ -164,7 +164,7 @@
                 >
               </template>
               <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="currentUser">{{ currentUser.is_superuser == true ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Facilities Access -
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px;color:white;" v-if="company.locations"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Channels Access -
                 {{ company.locations.length }}
               </v-list-item-subtitle>
             </v-col>
@@ -265,21 +265,21 @@
             id: 'dashboard'
           },
           {
-            to: '/dashboard/facilities/',
-            slug: 'facilities',
+            to: '/dashboard/channels/',
+            slug: 'channels',
             icon: 'store',
-            text: 'My Locations',
+            text: 'My Channels',
             id: 'mylocations',
             children: [
               {
-                to: '/dashboard/facilities/',
-                slug: 'facilities',
-                text: 'My Locations'
+                to: '/dashboard/channels/',
+                slug: 'channels',
+                text: 'My Channels'
               },
               {
-                to: '/dashboard/facilities/add',
-                slug: 'add_facilities',
-                text: 'Add New Property'
+                to: '/dashboard/channels/add',
+                slug: 'add_channels',
+                text: 'Add New Channel'
               }
             ]
           },
@@ -388,16 +388,16 @@
             id: 'dashboard'
           },
           {
-            to: '/dashboard/facilities/',
-            slug: 'facilities',
+            to: '/dashboard/channels/',
+            slug: 'channels',
             icon: 'store',
-            text: 'My Locations',
+            text: 'My Channels',
             id: 'mylocations',
             children: [
               {
-                to: '/dashboard/facilities/',
-                slug: 'facilities',
-                text: 'My Locations'
+                to: '/dashboard/channels/',
+                slug: 'channels',
+                text: 'My Channels'
               },
             ]
           },
@@ -500,21 +500,21 @@
             id: 'dashboard'
           },
           {
-            to: '/dashboard/facilities/',
-            slug: 'facilities',
+            to: '/dashboard/channels/',
+            slug: 'channels',
             icon: 'store',
-            text: 'My Locations',
+            text: 'My Channels',
             id: 'mylocations',
             children: [
               {
-                to: '/dashboard/facilities/',
-                slug: 'facilities',
-                text: 'My Locations'
+                to: '/dashboard/channels/',
+                slug: 'channels',
+                text: 'My Channels'
               },
               {
-                to: '/dashboard/facilities/add',
-                slug: 'add_facilities',
-                text: 'Add New Property'
+                to: '/dashboard/channels/add',
+                slug: 'add_channels',
+                text: 'Add New Channel'
               }
             ]
           },

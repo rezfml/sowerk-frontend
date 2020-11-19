@@ -45,9 +45,9 @@
           v-if="locations && locationApproved && company"
           :items="locations"
           :company="company"
-          :title="'Locations You Manage - ' + locations.length"
+          :title="'Channels You Manage - ' + locations.length"
           :tableProperties="headers"
-          slug="/dashboard/facilities/"
+          slug="/dashboard/channels/"
         ></HomeCard>
       </transition>
 
@@ -202,7 +202,7 @@
         ],
         stats: [
           {
-            title: 'Approved Service Providers',
+            title: 'Approved Vendors',
             value: 0,
             link: '/dashboard/vendors/approved'
           },
@@ -283,7 +283,7 @@
         ],
         headers: [
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
-          { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Main Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },

@@ -18,7 +18,7 @@
         <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="Last Name" v-model="messageForm.primary_contact_last_name"></v-text-field>
       </v-col>
       <v-col cols="12" class="d-flex">
-        <v-select cols="8"  label="Which Location" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+        <v-select cols="8"  label="Which Channel" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
             <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
@@ -26,7 +26,7 @@
             <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
         </v-select>
-        <v-select cols="4"  label="Your Service For Location Goes Here" v-model="messageForm.service" :items="services" name="service" item-text="name" item-value="name" class="text-caption mx-1">
+        <v-select cols="4"  label="Your Category For Channel Goes Here" v-model="messageForm.service" :items="services" name="service" item-text="name" item-value="name" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
             <v-card-text class="text-h6">{{ data.item.name }}</v-card-text>
           </template>
@@ -90,7 +90,7 @@
         services: [],
         headers: [
           { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
-          { text: 'Services Offered', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Categories Offered', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'full_address', class: 'primary--text font-weight-regular' },
         ]

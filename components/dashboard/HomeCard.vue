@@ -101,7 +101,7 @@
           <template v-slot:footer v-if="action != 'View'">
             <v-row class="d-flex justify-end mt-4" style="width: 100%;">
 
-              <v-btn to='/dashboard/facilities/add' color="primary"  class="px-16 mt-2" rounded outlined >Add New Location</v-btn>
+              <v-btn to='/dashboard/channels/add' color="primary"  class="px-16 mt-2" rounded outlined >Add New Channel</v-btn>
               <v-btn :to='slug' color="primary"  class="px-16 ml-8 mt-2" rounded outlined>View All</v-btn>
             </v-row>
           </template>
@@ -242,7 +242,7 @@
             <template v-slot:footer v-if="action != 'View'" >
               <v-row class="d-flex justify-end mx-auto pl-3 pr-3 "  style="width: 100%;">
 
-                <v-btn to='/dashboard/facilities/add' color="primary" style="width:100%;" class="px-10 mt-2" rounded outlined large>Add New Location</v-btn>
+                <v-btn to='/dashboard/channels/add' color="primary" style="width:100%;" class="px-10 mt-2" rounded outlined large>Add New Channel</v-btn>
                 <v-btn :to='slug' color="primary" style="width:100%;"  class="px-16 ml-8 mt-2 " rounded outlined large>View All</v-btn>
               </v-row>
             </template>

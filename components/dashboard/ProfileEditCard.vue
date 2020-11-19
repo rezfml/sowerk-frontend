@@ -15,7 +15,7 @@
             <v-form>
               <v-row>
                 <v-col cols="12" class="pb-0 mt-3">
-                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Property Details</v-subheader>
+                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Channel Details</v-subheader>
                 </v-col>
 
                 <v-col
@@ -61,11 +61,11 @@
                 <v-col cols="12" class="pt-0">
                   <v-text-field
                     light
-                    placeholder="Bass Pro Shops"
+                    placeholder=" "
                     v-model="locationEdit.name"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Property Name</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel Name</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -113,7 +113,7 @@
                     clearable
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Company Address</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel Address</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -125,7 +125,7 @@
                     v-model="location.city"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Company City</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel City</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -137,7 +137,7 @@
                     v-model="location.state"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Company State</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel State</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -149,7 +149,7 @@
                     v-model="location.zipcode"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Company Zipcode</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel Zipcode</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -162,7 +162,7 @@
                     type="number"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Property Opened</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel Opened</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -174,7 +174,7 @@
                     v-model="locationEdit.description"
                   >
                     <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Property Description</p>
+                      <p class="grey--text text--darken-4 font-weight-bold">Channel Description</p>
                     </template>
                   </v-text-field>
                 </v-col>
@@ -183,7 +183,7 @@
               <v-row>
 
                 <v-col cols="12" class="py-0 mt-0">
-                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Current Property Manager</v-subheader>
+                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Current Channel Manager</v-subheader>
                 </v-col>
 
                 <v-col cols="12" md="6" class="pt-0">
@@ -242,9 +242,9 @@
                   <v-select id="location-Admin"
                             label="Admin Level"
                             :items="adminOptions"
-                            v-model="location.adminLevel">
-
-                  </v-select>
+                            readonly
+                            v-model="location.adminLevel"
+                  ></v-select>
                 </v-col>
 
                 <!--              <v-col cols="12" md="4" class="py-0">-->
@@ -263,7 +263,7 @@
             <v-card-actions class="px-0">
               <v-btn color="primary" outlined class="px-8" v-on:click="cancelEditLocation">Cancel</v-btn>
               <v-spacer></v-spacer>
-              <v-btn color="primary" class="px-8" @click="updateLocation()">Update Profile</v-btn>
+              <v-btn color="primary" class="px-8" @click="updateLocation()">Update Channel</v-btn>
             </v-card-actions>
           </v-card-text>
         </template>
@@ -527,7 +527,6 @@
                   </template></v-text-field>
                 </v-col>
               </v-row>
-              <v-btn v-if="location" color="primary" class="px-8 my-2" @click="updateLocation()">Update Profile</v-btn>
               <v-btn v-if="company" color="primary" class="px-8 my-2" @click="updateCompany()">Update Profile</v-btn>
             </v-form>
 

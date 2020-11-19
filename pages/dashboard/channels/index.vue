@@ -20,18 +20,18 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <FacilitiesCard
-              :title="'Your Facilities - ' + locations.length"
+              :title="'Your Channels - ' + locations.length"
               :items="locations"
               :tableProperties="headers"
               :viewAll="false"
-              slug="/dashboard/facilities/"
-              v-if="locationApproved===true && loading"
+              slug="/dashboard/channels/"
+              v-if="locationApproved && loading"
               :viewLocation="viewLocation"
             ></FacilitiesCard>
           </transition>
           <transition name="slide-fade">
             <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
-              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>
               <v-btn
                 style=""
                 class="px-16 mr-16"
@@ -39,7 +39,7 @@
                 outlined
                 rounded
                 color="white"
-                to="/dashboard/facilities/add"
+                to="/dashboard/channels/add"
               >Add Now</v-btn>
             </v-row>
           </transition>
@@ -54,19 +54,19 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <FacilitiesCard
-              :title="'Your Facilities - ' + locations.length"
+              :title="'Your Channels - ' + locations.length"
               :items="locations"
               :company="company"
               :tableProperties="headers"
               :viewAll="false"
-              slug="/dashboard/facilities/"
+              slug="/dashboard/channels/"
               v-if="loading"
               :viewLocation="viewLocation"
             ></FacilitiesCard>
           </transition>
           <transition name="slide-fade">
             <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
-              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>
               <v-btn
                 style=""
                 class="px-16 mr-16"
@@ -106,7 +106,7 @@
             :items="locations"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/facilities/"
+            slug="/dashboard/channels/"
           ></FacilitiesCard>
           <v-row class="d-flex justify-space-between align-center"style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
             <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
@@ -155,19 +155,19 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <FacilitiesCard
-              :title="'Your Facilities - ' + locations.length"
+              :title="'Your Channels - ' + locations.length"
               :items="locations"
               :company="company"
               :tableProperties="headers"
               :viewAll="false"
               :viewLocation="viewLocation"
-              slug="/dashboard/facilities/"
-              v-if="locationApproved===true && loading"
+              slug="/dashboard/channels/"
+              v-if="locationApproved && loading"
             ></FacilitiesCard>
           </transition>
           <transition name="slide-fade">
             <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser && loading">
-              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
+              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>
               <v-btn
                 style=""
                 class="px-16 mr-16"
@@ -310,7 +310,7 @@
         ],
         headers: [
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },

@@ -190,12 +190,12 @@
           }
         ],
         headers: [
-          { text: 'Service', value: 'serviceName', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'serviceName', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-regular' },
           // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-regular' },
           // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-regular' },
           // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-regular' },

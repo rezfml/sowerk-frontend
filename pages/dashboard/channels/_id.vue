@@ -30,7 +30,7 @@
           <transition name="slide-fade">
           <FacilitiesCard
             v-if="vendors && !editLocationDetails && locationApproved"
-            :title="'Location Approved Vendors'"
+            :title="'Channel Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
@@ -90,12 +90,12 @@
           0
         ],
         headers: [
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Facility', value: 'addressCityState', class: 'primary--text font-weight-regular'},
+          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         locations: [
@@ -495,7 +495,7 @@
           this.$http.delete('https://www.sowerkbackend.com/api/locations/' + locationParam.id)
             .then(response => {
               alert('Location successfully deleted');
-              this.$router.push({path:"/dashboard/facilities"})
+              this.$router.push({path:"/dashboard/channels"})
             })
             .catch(err => {
               console.log(err, 'err');

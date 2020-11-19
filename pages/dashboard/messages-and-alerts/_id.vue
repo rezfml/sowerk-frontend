@@ -16,7 +16,7 @@
             <v-card-text v-if="load">From: {{individualMessage.spLocationName}}</v-card-text>
           </transition>
           <transition name="slide-fade">
-            <v-card-text v-if="load">Service: {{individualMessage.service}}</v-card-text>
+            <v-card-text v-if="load">Category: {{individualMessage.service}}</v-card-text>
           </transition>
           <transition name="slide-fade">
             <v-card-text v-if="load">Message: {{individualMessage.message}}</v-card-text>

@@ -16,7 +16,7 @@
       ></v-progress-circular>
       <transition name="slide-fade">
         <v-card v-if="loading">
-        <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Location</v-card-title>
+        <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Channel</v-card-title>
         <v-card-text class="px-6 pt-12 pb-0 mx-auto">
           <v-row class="px-3 pt-3">
             <v-col cols="12" class="pa-0 elevation-2" style="width: 100%; top: 0; border-radius: 10px; overflow: hidden; height: 50vh; max-height: 500px; z-index: 4;">
@@ -47,7 +47,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       v-model="form.name"
                     >
                       <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Location Name</p>
+                        <p class="grey--text text--darken-4 font-weight-bold">Channel Name</p>
                       </template>
                     </v-text-field>
                   </v-col>
@@ -55,7 +55,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                     <div class="v-input theme--light v-text-field v-text-field--is-booted">
                       <div class="v-input__control">
                         <div class="v-input__slot" style="width: 100%;">
-                          <label class="v-label v-label--active theme--light black--text font-weight-bold" style="left: 0px; right: auto; position: absolute;"><p class="grey--text text--darken-4 font-weight-bold">Location Address</p></label>
+                          <label class="v-label v-label--active theme--light black--text font-weight-bold" style="left: 0px; right: auto; position: absolute;"><p class="grey--text text--darken-4 font-weight-bold">Channel Address</p></label>
 <!--                          <client-only>-->
                             <vue-google-autocomplete
                               id="company-address"
@@ -74,24 +74,24 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </div>
                     </div>
                     <v-row>
-                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenLocation">Drop Pin At Above Written Location</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getLocation">Use Current Location</v-btn>
+                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenChannel">Drop Pin At Above Written Channel</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getChannel">Use Current Channel</v-btn>
                     </v-row>
                   </v-col>
                   <v-col cols="12">
                     <v-textarea
                       placeholder=" "
-                      hint="(Does this property have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
+                      hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
                       persistent-hint
                       v-model="form.description"
                     >
                       <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Location Description</p>
+                        <p class="grey--text text--darken-4 font-weight-bold">Channel Description</p>
                       </template>
                     </v-textarea>
                   </v-col>
                   <v-col cols="12" class="mt-12 mb-4">
-                    <h2 class="mx-auto text-center">Location Manager</h2>
-                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this location.</p>
+                    <h2 class="mx-auto text-center">Channel Manager</h2>
+                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this channel.</p>
                   </v-col>
 <!--                  <v-col cols="12" md="6">-->
 <!--                    <v-text-field-->
@@ -135,7 +135,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
 <!--                  </v-col>-->
                   <v-col cols="12">
                     <v-select
-                      label="Select From List of Users Your Manager For This Location"
+                      label="Select From List of Users Your Manager For This Channel"
                       :items="users"
                       class="text-caption"
                     >
@@ -173,7 +173,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         </v-card-text>
         <v-card-actions class="pb-6 px-8">
           <v-spacer></v-spacer>
-          <v-btn right @click="submit" color="primary" large class="px-4">Register Location</v-btn>
+          <v-btn right @click="submit" color="primary" large class="px-4">Register Channel</v-btn>
         </v-card-actions>
       </v-card>
       </transition>
@@ -437,15 +437,15 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           .then(response => {
             console.log(response, 'success in submitting new location')
             this.loadSubmit = true;
-            this.$router.push('../../../dashboard/facilities')
+            this.$router.push('../../../dashboard/channels')
           })
           .catch(e => e);
       },
-      getLocation() {
-        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(this.setLocation, this.locationError)
+      getChannel() {
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(this.setChannel, this.locationError)
         else alert('Geolocation is not supported by this browser.')
       },
-      setLocation(pos) {
+      setChannel(pos) {
         this.mapOptions = { ...this.mapOptions, center: { lat: pos.coords.latitude, lng: pos.coords.longitude } }
         this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude }
         this.mapOptions.zoom = 11
@@ -454,11 +454,11 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       },
       locationError(error) {
         if (error.PERMISSION_DENIED) alert('User denied the request for Geolocation.')
-        else if (error.POSITION_UNAVAILABLE) alert('Location information is unavailable.')
+        else if (error.POSITION_UNAVAILABLE) alert('Channel information is unavailable.')
         else if (error.TIMEOUT) alert('The request to get user location timed out.')
         else alert('An unknown error occurred.')
       },
-      useWrittenLocation() {
+      useWrittenChannel() {
         this.item.lat = this.form.latitude
         this.item.lng = this.form.longitude
         this.mapOptions = { ...this.mapOptions, center: { lat: this.form.latitude, lng: this.form.longitude } }

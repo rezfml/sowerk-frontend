@@ -31,7 +31,7 @@
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
         <v-col style="width: 55%;">
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
-            <v-card-title style="width: 100%;">Account Location: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
+            <v-card-title style="width: 100%;">Account Channel: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
             <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{service.name}}</span></v-card-title>
             <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
 
@@ -435,7 +435,7 @@
         applicationTemplates: [],
         companyTemplates: [],
         applicationDragNDropHeaders: [
-          { text: 'Service', value: 'service_name', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-regular' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
         ],

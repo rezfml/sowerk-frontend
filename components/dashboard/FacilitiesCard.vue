@@ -126,11 +126,11 @@
                   <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/approved/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
-                  <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
-                  <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Location"></v-checkbox>
+                  <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                  <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Channel"></v-checkbox>
                 </template>
                 <template v-slot:footer v-if="viewLocation === true">
-                  <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
+                  <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else>
                   <nuxt-link :to="slug + item.id" append>
@@ -274,11 +274,11 @@
               <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
-              <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
-              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Location"></v-checkbox>
+              <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
             </template>
             <template v-slot:footer v-if="viewLocation === true">
-              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
+              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
               <nuxt-link :to="slug + item.id" append>
@@ -432,11 +432,11 @@
               <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
-              <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Location</v-btn>
-              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Location"></v-checkbox>
+              <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
             </template>
             <template v-slot:footer v-if="viewLocation === true">
-              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Location</v-btn>
+              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
               <nuxt-link :to="slug + item.id" append>
