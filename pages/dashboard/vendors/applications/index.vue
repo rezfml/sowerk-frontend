@@ -747,59 +747,78 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="d-flex flex-column align-center justify-center" style="z-index:2; position:fixed; top: 20vh; left: 20vw; width: 75vw; height: 70vh; box-shadow: 8px 8px 8px 8px gray" overflow-y-auto v-if="addServiceLoad && step2">
-        <v-card-title class="mb-4" style="color: #a61c00; font-size: 40px;">Vendor Category</v-card-title>
-        <v-card-subtitle>Use the following tools to select the most accurate category of product or service. If you can’t find what you are looking for you may proceed by “Requesting Other”. Please note by inputting “Other” you are submitting a request to SOWerk which we may accept as a new category or we may update your input to match an existing SOWerk category.</v-card-subtitle>
-        <v-form style="width: 90%;" class="d-flex flex-column align-center">
-<!--          <v-text-field-->
-<!--            style="width: 80%;"-->
-<!--          label="Service Name Goes Here"-->
-<!--          v-model="serviceAdd.name"-->
-<!--          ></v-text-field>-->
-          <v-select
-            :items="sectors"
-            label="First, select your sector."
-            placeholder=" "
-            item-text="title"
-            item-value="code"
-            style="width: 90%;"
-            @change="getSectorChildren"
-          ></v-select>
-          <template v-if="companySector">
-            <v-select
-              :items="industryLevel1"
-              placeholder=" "
-              label="Next, select a sub-sector."
-              item-text="title"
-              item-value="code"
-              v-model="companyLevel1"
-              style="width: 90%;"
-              @change="getLevel1Children"
-            ></v-select>
-          </template>
-          <template v-if="companyLevel1">
-            <v-select
-              :items="industryLevel2"
-              label="Finally, select your final sub-category."
-              placeholder=" "
-              item-text="title"
-              item-value="code"
-              v-model="companyLevel2"
-              style="width: 90%;"
-              @change="getLevel2Children"
-            ></v-select>
-          </template>
-          <template>
-            <v-text-field
-              label="Can't find what you're looking for? Enter here for other!"
-              hint="We will keep track of all additions in other and work diligently to either add them to our database, or notify you on why we cannot use this category."
+      <v-card class="d-flex flex-column align-center justify-center" style="z-index:10; position:fixed; top: 15vh; left: 22vw; width: 75vw; height: 60vh; box-shadow: 8px 8px 8px #707070; border: 1px solid #707070;" overflow-y-auto v-if="addServiceLoad && step2">
+        <v-card-title class="mb-6 mt-2" style="color: #a61c00; font-size: 40px;">Select A Category</v-card-title>
+        <v-row style="width: 100%;">
+          <v-col cols="4">
+            <v-card-title style="text-decoration: underline">Type Your Category or Choose</v-card-title>
+            <v-card-text>You may type in the service or supply category, or choose from the list that appears as you type.</v-card-text>
+            <v-card-text><strong>You Do Not Have To Choose From Our SOWerk List If It Isn't The Best Option.</strong></v-card-text>
+          </v-col>
+          <v-col cols="8" class="d-flex">
+            <v-autocomplete
+              solo
+              :items="naicsList"
+              :filter="customFilter"
+              item-text="name"
+              label="Search Here"
+              style="width: 80%;"
               v-model="serviceAdd.name"
-              style="width: 90%;"
-            ></v-text-field>
-          </template>
-          <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>
-        </v-form>
-        <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
+            ></v-autocomplete>
+            <v-btn @click="addNewService" color="primary" large style="font-size: 20px; width: 20%;" class="px-16 mt-1">Proceed</v-btn>
+          </v-col>
+        </v-row>
+<!--        OLD DESIGN WITH NAICS SELECT LIST-->
+<!--        <v-form style="width: 90%;" class="d-flex flex-column align-center">-->
+<!--&lt;!&ndash;          <v-text-field&ndash;&gt;-->
+<!--&lt;!&ndash;            style="width: 80%;"&ndash;&gt;-->
+<!--&lt;!&ndash;          label="Service Name Goes Here"&ndash;&gt;-->
+<!--&lt;!&ndash;          v-model="serviceAdd.name"&ndash;&gt;-->
+<!--&lt;!&ndash;          ></v-text-field>&ndash;&gt;-->
+<!--          <v-select-->
+<!--            :items="sectors"-->
+<!--            label="First, select your sector."-->
+<!--            placeholder=" "-->
+<!--            item-text="title"-->
+<!--            item-value="code"-->
+<!--            style="width: 90%;"-->
+<!--            @change="getSectorChildren"-->
+<!--          ></v-select>-->
+<!--          <template v-if="companySector">-->
+<!--            <v-select-->
+<!--              :items="industryLevel1"-->
+<!--              placeholder=" "-->
+<!--              label="Next, select a sub-sector."-->
+<!--              item-text="title"-->
+<!--              item-value="code"-->
+<!--              v-model="companyLevel1"-->
+<!--              style="width: 90%;"-->
+<!--              @change="getLevel1Children"-->
+<!--            ></v-select>-->
+<!--          </template>-->
+<!--          <template v-if="companyLevel1">-->
+<!--            <v-select-->
+<!--              :items="industryLevel2"-->
+<!--              label="Finally, select your final sub-category."-->
+<!--              placeholder=" "-->
+<!--              item-text="title"-->
+<!--              item-value="code"-->
+<!--              v-model="companyLevel2"-->
+<!--              style="width: 90%;"-->
+<!--              @change="getLevel2Children"-->
+<!--            ></v-select>-->
+<!--          </template>-->
+<!--          <template>-->
+<!--            <v-text-field-->
+<!--              label="Can't find what you're looking for? Enter here for other!"-->
+<!--              hint="We will keep track of all additions in other and work diligently to either add them to our database, or notify you on why we cannot use this category."-->
+<!--              v-model="serviceAdd.name"-->
+<!--              style="width: 90%;"-->
+<!--            ></v-text-field>-->
+<!--          </template>-->
+<!--          <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>-->
+<!--        </v-form>-->
+        <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px; font-size: 25px;">X</v-btn>
       </v-card>
     </transition>
 
@@ -960,32 +979,35 @@ const naics = require("naics");
         industryLevel3: [],
         industryLevel4: [],
         sortedSowerkTemplates: [],
+        naicsList: [],
         }
     },
     async mounted() {
       // await this.getCompany(this.currentUser.companies_id);
-      let codes = naics.Industry.sectors();
-      console.log(this.sectors, 'before push of other sectors')
-      // Add missing Manufacturing sector group
-      let manufacturingSector = naics.Industry.from('31-33');
-      this.sectors.push(manufacturingSector);
-      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-      // Add missing Retail Trade sector group
-      let retailSector = naics.Industry.from('44-45');
-      this.sectors.push(retailSector);
-      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-      // Add missing Transportation and Warehousing sector group
-      let transportationSector = naics.Industry.from('48-49');
-      this.sectors.push(transportationSector);
-      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-      for(const code of codes) {
-        this.sectors.push(code);
-      }
-
-      console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+      await this.getNaicsList();
+      // ORIGINAL CODE FOR NAICS NPM PACKAGE
+      // let codes = naics.Industry.sectors();
+      // console.log(this.sectors, 'before push of other sectors')
+      // // Add missing Manufacturing sector group
+      // let manufacturingSector = naics.Industry.from('31-33');
+      // this.sectors.push(manufacturingSector);
+      // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+      //
+      // // Add missing Retail Trade sector group
+      // let retailSector = naics.Industry.from('44-45');
+      // this.sectors.push(retailSector);
+      // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+      //
+      // // Add missing Transportation and Warehousing sector group
+      // let transportationSector = naics.Industry.from('48-49');
+      // this.sectors.push(transportationSector);
+      // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+      //
+      // for(const code of codes) {
+      //   this.sectors.push(code);
+      // }
+      //
+      // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
       await this.getLocations(this.currentUser.companies_id);
     },
     computed: {
@@ -994,6 +1016,16 @@ const naics = require("naics");
       },
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
+          .then(response => {
+            console.log(response.data, 'RESPONSE DATA FOR NAICS LIST')
+            this.naicsList = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'ERR IN GETTING NAICS LIST')
+          })
+      },
       getSectorChildren(e) {
         console.log(e);
         if(this.companySector) {
@@ -1519,7 +1551,8 @@ const naics = require("naics");
       async assignToService(id, name) {
         const userform = {
           service_id: id,
-          active: true,
+          applicationStatus: 1,
+          applicationStatusLinkPublish: false,
           name: this.addLocation.form_name
         }
           await this.$http.post('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id, userform)
