@@ -343,7 +343,6 @@ export default {
           }
         })
       }
-
       console.log(this.massLocation, 'massLocation')
     },
     async submitMassAssignUserToLocation() {

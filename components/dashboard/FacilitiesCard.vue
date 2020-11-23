@@ -887,23 +887,23 @@ export default {
       spLocation: {},
       formSelection: {},
       locationSelection: {},
-
     }
   },
   async created() {
-    console.log(this.items, 'yayyy FACILITIES CARD');
-    console.log(this.$store.state.user.user.user)
+    // console.log(this.items, 'yayyy FACILITIES CARD');
+    // console.log(this.$store.state.user.user.user)
     //console.log(this.locationAssignUser, 'user for location assign')
     this.loadingFunc(this.items);
+    // Getting a list of locations and the company name by ID
     await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.$store.state.user.user.user.companies_id)
       .then(async (response) => {
         this.inviteLocations = response.data.location
-        console.log(this.inviteLocations, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
         this.companyName = response.data.location[0].name
       })
       .catch(err => {
         console.log("error log", err)
       })
+    // Getting a list of templates for a company by ID
     await this.$http.get('https://www.sowerkbackend.com/api/companytemplates/byCompanyId/' + this.$store.state.user.user.user.companies_id)
       .then(async (response) => {
         this.myCompanyTemplates = response.data
@@ -930,8 +930,8 @@ export default {
     },
     async message(businessId, location) {
       this.sendToId = businessId;
-      console.log(this.messageForm)
-      console.log(businessId, location, 'messageVals', location.services.join(', '));
+      // console.log(this.messageForm)
+      // console.log(businessId, location, 'messageVals', location.services.join(', '));
       // get company for message
       await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id)
         .then(async (response) => {
@@ -975,12 +975,12 @@ export default {
         spLocationName: this.spLocation.name,
       })
         .then(res => {
-          console.log('SUCCESS', res)
+          // console.log('SUCCESS', res)
           this.successText = 'Successfully sent message to ' + res.data.messageVal.location
           this.successMessage = true;
         })
         .catch(err => {
-          console.log(err);
+          console.log(err, ".catch error within the InviteMessageSend, send request");
         })
       await setTimeout(() => {
         this.loadModal = false;
