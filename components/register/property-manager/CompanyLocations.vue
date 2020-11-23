@@ -5,7 +5,7 @@
         <template v-if="editingLocation">
           <span
             class="title font-weight-regular text-center my-12 grey--text text--darken-2"
-            >Locations are places where you will be doing business with Vendors now or in the future.<br/>Complete the below details for each location. You will be able to view  your list of locations after every add. You can also add more locations after registration is complete.<br/> Need help uploading multiple locations? Contact <a target="_blank" href="mailto:Support@SOWerk.com">SOWERK Here </a ></span
+            >Channels are locations, properties, departments or even divisions in your company where you will want to find, vet, and manage Vendors now or in the future.<br/>Complete the below details for each location. You will be able to view  your list of locations after every add. You can also add more locations after registration is complete.<br/> Need help uploading multiple locations? Contact <a target="_blank" href="mailto:Support@SOWerk.com">SOWERK Here </a ></span
           >
           <v-form class="mx-auto">
             <v-container>
