@@ -174,7 +174,7 @@ export default {
       tab: 0,
       companyImageFile: {},
       companyImageUrl: null,
-      items: ['Company', 'Locations', 'Review'],
+      items: ['Company', 'Channels', 'Review'],
       bestSelection: [
         {
           text: '- I/We Own The Brand',

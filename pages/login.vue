@@ -73,6 +73,7 @@
 
               <v-btn to="../register" class="mb-4" text>Not On SOWerk? Set Up Your Business Here</v-btn>
               <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="sendReset" >Forgot Password?</v-btn>-->
+              <p style="font-weight: 700">Already registered? Check your email for verification!</p>
             </v-form>
           </v-card-text>
         </v-card>

@@ -23,7 +23,7 @@
       </v-col>
 
       <v-col cols="12">
-        <span class="headline">Location {{ index + 1 }}</span>
+        <span class="headline">Channel #{{ index + 1 }}</span>
         <v-divider></v-divider>
       </v-col>
 
@@ -64,7 +64,7 @@
               :rules="rules.requiredRules"
             >
               <template v-slot:label>
-                <p class="grey--text text--darken-4 font-weight-bold">Location Name*</p>
+                <p class="grey--text text--darken-4 font-weight-bold">Channel Name*</p>
               </template>
             </v-text-field>
 
