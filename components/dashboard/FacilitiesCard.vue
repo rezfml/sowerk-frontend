@@ -110,6 +110,7 @@
                   >Review</v-btn
                   >
                 </template>
+                </template>
                 <template
                   v-slot:item.actions="{ item }"
                   v-else-if="action === 'Apply'"
@@ -279,7 +280,7 @@
             <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
               <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
               <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
-              <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="inviteProvider()">Invite Service Provider to Apply</v-btn>
+              <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="inviteProvider(item)">Invite Service Provider to Apply</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
               <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
@@ -339,9 +340,27 @@
       <p style="margin-left: 5%; margin-right: 5%; font-size: 1.5rem;" v-model="inviteMessageForm.message">{{ companyName }} {{ inviteMessage }}</p>
       <v-form class="d-flex flex-row" style="margin-left: 2%; margin-right: 2%">
         <v-card-title>Select A Location</v-card-title>
-        <v-select :items="inviteLocations" item-text="address" item-value="address" label="Your Company Locations" v-model="inviteMessageForm.location"></v-select>
+        <v-form>
+          <v-select :items="inviteLocations" item-text="name address city state zipcode" item-value="name address city state zipcode" label="Your Company Locations">
+            <template slot="selection" slot-scope="data">
+              <p @click="getLocationSelection(data.item)">{{ data.item.name }} {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p @click="getLocationSelection(data.item)">{{ data.item.name }} {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            </template>
+          </v-select>
+        </v-form>
         <v-card-title>Select An Application To Share</v-card-title>
-        <v-select :items="myCompanyTemplates" item-text="form_name" item-value="form_name" label="Your Saved Templates"></v-select>
+        <v-form>
+          <v-select :items="myCompanyTemplates" item-text="name id" item-value="name id" label="Your Saved Templates">
+            <template slot="selection" slot-scope="data">
+              <p @click="getFormSelection(data.item)">{{ data.item.name }} {{ data.id }}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p @click="getFormSelection(data.item)">{{ data.item.name }} {{ data.id }}</p>
+            </template>
+          </v-select>
+        </v-form>
       </v-form>
       <v-btn style="margin-top: 5%" @click="inviteMessageSend(idForMessage, locationForMessage)">Send Invite</v-btn>
     </v-card>
@@ -685,9 +704,27 @@
       <p style="margin-left: 5%; margin-right: 5%; font-size: 1.5rem;" v-model="inviteMessageForm.message">{{ companyName }} {{ inviteMessage }}</p>
       <v-form class="d-flex flex-row" style="margin-left: 2%; margin-right: 2%">
         <v-card-title>Select A Location</v-card-title>
-        <v-select :items="inviteLocations" item-text="address" item-value="address" label="Your Company Locations" v-model="inviteMessageForm.location"></v-select>
+        <v-form>
+          <v-select :items="inviteLocations" item-text="name address city state zipcode" item-value="name address city state zipcode" label="Your Company Locations">
+            <template slot="selection" slot-scope="data">
+              <p @click="getLocationSelection(data.item)">{{ data.item.name }} {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p @click="getLocationSelection(data.item)">{{ data.item.name }} {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            </template>
+          </v-select>
+        </v-form>
         <v-card-title>Select An Application To Share</v-card-title>
-        <v-select :items="myCompanyTemplates" item-text="form_name" item-value="form_name" label="Your Saved Templates"></v-select>
+        <v-form>
+          <v-select :items="myCompanyTemplates" item-text="name id" item-value="name id" label="Your Saved Templates">
+            <template slot="selection" slot-scope="data">
+              <p @click="getFormSelection(data.item)">{{ data.item.name }} {{ data.id }}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p @click="getFormSelection(data.item)">{{ data.item.name }} {{ data.id }}</p>
+            </template>
+          </v-select>
+        </v-form>
       </v-form>
       <v-btn style="margin-top: 5%" @click="inviteMessageSend(idForMessage, locationForMessage)">Send Invite</v-btn>
     </v-card>
@@ -695,6 +732,7 @@
   </v-container>
 </template>
 <script>
+
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
@@ -705,9 +743,9 @@ export default {
   data() {
     return {
       companyName: null,
-      inviteMessage: " would like for you to consider applying for approved vendor status. Here is a link to the applications they have shared.",
+      inviteMessage: "would like for you to consider applying for approved vendor status. Here is a link to the applications they have shared.",
       inviteLocations: null,
-      myCompanyTemplates: null,
+      myCompanyTemplates: [],
       locations: null,
       users: [
 
@@ -846,6 +884,10 @@ export default {
       blurClass: 'blur',
       successMessage: false,
       successText: '',
+      spLocation: {},
+      formSelection: {},
+      locationSelection: {},
+
     }
   },
   async created() {
@@ -856,6 +898,7 @@ export default {
     await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.$store.state.user.user.user.companies_id)
       .then(async (response) => {
         this.inviteLocations = response.data.location
+        console.log(this.inviteLocations, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
         this.companyName = response.data.location[0].name
       })
       .catch(err => {
@@ -880,11 +923,10 @@ export default {
       this.idForMessage = businessId;
       this.locationForMessage = location;
     },
-    async inviteProvider() {
+    async inviteProvider(location) {
       this.loadInviteModal = true;
-      console.log(this.inviteLocations)
-      console.log(this.myCompanyTemplates)
-      console.log(this.companyName)
+      this.spLocation = location;
+      console.log(this.spLocation, "heyyyyyyyyyyyyyyyyyy")
     },
     async message(businessId, location) {
       this.sendToId = businessId;
@@ -912,15 +954,25 @@ export default {
       }, 3500)
     },
     async inviteMessageSend(companyName, inviteMessage) {
-      console.log(this.inviteMessageForm, "gggggggggggggggggg")
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id)
+        .then(async (response) => {
+          this.inviteMessageForm.company = response.data.account_name;
+        })
+      console.log(this.sendToId)
+      this.sendToId = this.spLocation.companies_id
       await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, {
-        service: '',
-        company: '',
+        service: this.inviteMessageForm.service,
+        company: this.inviteMessageForm.company,
         primary_contact_first_name: this.$store.state.user.user.user.first_name,
         primary_contact_last_name: this.$store.state.user.user.user.last_name,
-        message: this.inviteMessageForm.location + this.inviteMessage,
+        message: this.inviteMessageForm.company + ', ' + this.inviteMessage + " https://www.sowerk.com/dashboard/vendors/applications/" + this.formSelection.id,
         location: this.inviteMessageForm.location,
         userprofiles_id: this.$store.state.user.user.user.id,
+        pmMessageRead: false,
+        spMessageRead: false,
+        recieversId: this.spLocation.companies_id,
+        spLocationId: this.spLocation.id,
+        spLocationName: this.spLocation.name,
       })
         .then(res => {
           console.log('SUCCESS', res)
@@ -937,6 +989,29 @@ export default {
     async closeModal() {
       this.loadModal = false;
       this.loadInviteModal = false;
+    },
+    async getFormSelection(item) {
+      this.formSelection = item
+      console.log(this.formSelection, "form selection heyyyy")
+    },
+    getLocationSelection(item) {
+      this.myCompanyTemplates = []
+      this.inviteMessageForm.location = item.name
+      item.services.forEach(service => {
+        this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + service.id)
+          .then((response) => {
+            if(response.data.length > 0) {
+              response.data.forEach(userForm => {
+                this.myCompanyTemplates.push(userForm)
+              })
+            }
+
+          })
+          .catch(err => {
+            console.log("error log", err)
+          })
+      })
+
     }
   }
 }
