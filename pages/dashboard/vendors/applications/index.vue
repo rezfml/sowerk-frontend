@@ -193,10 +193,10 @@
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex" v-if="$vuetify.breakpoint.xl">
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Location</v-btn>
+              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Channel</v-btn>
               <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 37.5%;">Add to Company Templates</v-btn>
             </div>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Location</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Add to Company Templates</v-btn>
           </template>
         </v-data-table>
@@ -266,8 +266,10 @@
         <v-col cols="6">
           <v-card>
             <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
-            <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-            <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            <v-card-text class="pt-16 ml-4" style="padding: 5%; font-weight: 900; font-size: 1rem;">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-row style="justify-content: space-around">
+              <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            </v-row>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-card>
         </v-col>
@@ -505,7 +507,7 @@
 
     <transition name="slide-fade">
       <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
-      <v-card-title class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
+      <v-card-title class="mb-10" style="color: black; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px; margin-top: 1.5%; font-weight: bold">Add New Vendor Form</v-card-title>
         <transition name="slide-fade">
           <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
         </transition>
@@ -525,9 +527,9 @@
           <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
           <thead >
           <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
-            <th style="color: #a61c00; width: 40%; text-align: center">Location Name</th>
-            <th style="color: #a61c00; width: 40%; text-align: center">Location Address</th>
-            <th style="color: #a61c00; width: 20%;">Actions</th>
+            <th style="color: #a61c00; width: 40%; text-align: center; margin-top: 1%; font-size: 1rem;">Location Name</th>
+            <th style="color: #a61c00; width: 40%; text-align: center; margin-top: 1%; font-size: 1rem;">Location Address</th>
+            <th style="color: #a61c00; width: 20%; margin-top: 1%; font-size: 1rem;">Actions</th>
           </tr>
           </thead>
           <tbody>
@@ -535,7 +537,7 @@
               <td style="width: 40%; text-align: center" class="py-1">{{location.name}}</td>
               <td style="width: 40%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
               <td style="width: 20%; margin: 0 auto;" class="d-flex flex-column align-center">
-                <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Location</v-btn>
+                <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
               </td>
             </div>
           </tr>
@@ -2067,5 +2069,8 @@ const naics = require("naics");
     /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
+  }
+  .v-table thead tr th {
+    font-size: 24px;
   }
 </style>

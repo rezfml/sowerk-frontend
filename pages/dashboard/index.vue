@@ -32,6 +32,15 @@
           ></v-skeleton-loader>
         </v-col>
       </v-row>
+<!--      Maint modal on render-->
+      <transition>
+        <v-card v-if="loadModal === true">
+          <template style="margin: 3%; justify-content: center">
+            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>
+            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>
+          </template>
+        </v-card>
+      </transition>
       <transition name="slide-fade">
         <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}!</v-card-title>
@@ -172,6 +181,7 @@
     },
     data() {
       return {
+        loadModal: false,
         loading: false,
         hidden: false,
         items: [
@@ -318,7 +328,8 @@
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
         await this.getMessages(this.currentUser.companies_id);
-      }, 1000)
+      }, 1000),
+        this.loadModal = true
     },
     computed: {
       currentUser() {
@@ -326,6 +337,9 @@
       },
     },
     methods: {
+      closeModal() {
+        this.loadModal = false
+      },
       async getApplications(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
