@@ -1,5 +1,5 @@
 <template>
-<v-container>
+  <v-container>
   <!--  ENTIRE "FIND A SOWERK VENDER CARD" INCLUDING BUTTONS AND POPUP MODALS - at breakpoints medium and large!-->
   <!--  THIS MAKES NO SENSE, THE V-IF BELOW SHOULD NOT SHOW IF XS OR SM AND YET IT DOES!!!!!! WHY!!?!?!?!-->
   <div style="width: 100%" v-if="!$vuetify.breakpoint.xs || !$vuetify.breakpoint.sm">
@@ -110,7 +110,7 @@
                   >Review</v-btn
                   >
                 </template>
-                </template>
+
                 <template
                   v-slot:item.actions="{ item }"
                   v-else-if="action === 'Apply'"
