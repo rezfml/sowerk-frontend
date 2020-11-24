@@ -123,7 +123,7 @@
                   <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-                  <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/approved/' + item.id">View</v-btn>
+                  <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
                 </template>
                 <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
                   <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>

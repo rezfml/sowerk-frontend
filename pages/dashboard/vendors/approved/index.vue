@@ -119,7 +119,7 @@
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/approved/"
+            slug="/dashboard/vendors/approved/"
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>
