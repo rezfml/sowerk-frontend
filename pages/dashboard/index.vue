@@ -54,7 +54,7 @@
           v-if="locations && locationApproved && company"
           :items="locations"
           :company="company"
-          :title="'Locations You Manage - ' + locations.length"
+          :title="'Channels You Manage - ' + locations.length"
           :tableProperties="headers"
           slug="/dashboard/facilities/"
         ></HomeCard>

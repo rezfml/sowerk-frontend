@@ -15,19 +15,24 @@
     ></v-skeleton-loader>
 
     <v-container class="px-0" style="max-width: 95%;">
+
+      <!-- ACCOUNT CHANNELS BANNER AND PARAGRAPH TEXT, PLUS ADD NOW BUTTON -->
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 10%; height: 30vh;"></v-img>
+            <v-img class="" src="/APPROVED-VENDORS-Logo-163.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
-              </p>
+              <!-- <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
+              </p> -->
               <v-spacer></v-spacer>
-              <p>Here is an example: A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
-              </p>
+              <p>This is where it all comes together, your list of approved Vendors!</p>
+              <v-spacer></v-spacer>
+              <p>Here you will find a full and complete list of Vendors that your company account has approved through one channel or multiple channels. However, based on your user access level as well as which channel(s) the Vendor was approved by your company this interface may have different features and functionality. For example, if a Vendor was originally approved through one channel in your company account but that channel is not one you manage then some details and features may be limited.</p>
+              <v-spacer></v-spacer>
+              <!-- <p>Here is an example: A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
+              </p> -->
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">
-                <p style="font-size: 1.2rem; font-weight: 700;">Need To Add Another Company Channel?</p>
                 <v-btn
                   style="background: linear-gradient(to right, #A61C00, #741502);"
                   class="px-16 mr-16"
@@ -35,8 +40,17 @@
                   outlined
                   rounded
                   color="white"
-                  to="add"
-                >Add Now</v-btn>
+                  href="/dashboard/vendors/invite"
+                >Invite New Vendors</v-btn>
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502);"
+                  class="px-16 mr-16"
+                  large
+                  outlined
+                  rounded
+                  color="white"
+                  href="/dashboard/vendors/"
+                >View Vendor Directory</v-btn>
               </v-row>
             </v-col>
           </v-row>
@@ -46,7 +60,8 @@
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
 
         <v-col cols="12">
-          <transition name="slide-fade">
+
+          <!-- <transition name="slide-fade">
           <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
             <p style="color: white; font-size: 24px;" class="pt-4">Looking For A New Vendor? Search The SOWerk Directory.</p>
             <v-btn
@@ -60,6 +75,7 @@
             >Search Directory</v-btn>
           </v-row>
           </transition>
+
           <transition name="slide-fade">
             <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
             <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Already Know Vendors To Invite? Use The SOWerk Invite Tool.</p>
@@ -73,7 +89,8 @@
               href="/dashboard/vendors/invite"
             >Invite Them Now</v-btn>
           </v-row>
-          </transition>
+          </transition> -->
+
           <transition name="slide-fade">
             <FacilitiesCard
               v-if="loading != false"
@@ -113,34 +130,7 @@
             min-height="50vh"
             min-width="40vw"
           ></v-skeleton-loader>
-          <transition name="slide-fade">
-            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6" style="background: linear-gradient(to right, #A61C00, #741502);">
-            <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
-            <v-btn
-              style=""
-              class="px-16 mb-4"
-              large
-              outlined
-              rounded
-              color="white"
-              href="/dashboard/vendors/"
-            >View All</v-btn>
-          </v-row>
-          </transition>
-          <transition name="slide-fade">
-            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
-            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
-            <v-btn
-              style=""
-              class="px-16 mb-4"
-              large
-              outlined
-              rounded
-              color="primary"
-              href="/dashboard/vendors/invite"
-            >Invite Them Now</v-btn>
-          </v-row>
-          </transition>
+
           <transition name="slide-fade">
           <FacilitiesCard
             v-if="loading != false"

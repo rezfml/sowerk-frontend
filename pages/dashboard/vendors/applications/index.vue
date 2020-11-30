@@ -509,7 +509,7 @@
       <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
       <v-card-title class="mb-10" style="color: black; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px; margin-top: 1.5%; font-weight: bold">Add New Vendor Form</v-card-title>
         <transition name="slide-fade">
-          <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
+          <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Channel</v-card-title>
         </transition>
         <transition name="slide-fade">
           <v-card-title v-if="step2" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Choose a Service</v-card-title>

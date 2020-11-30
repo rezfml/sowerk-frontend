@@ -268,18 +268,18 @@
             to: '/dashboard/facilities/',
             slug: 'facilities',
             icon: 'store',
-            text: 'My Locations',
+            text: 'My Channels',
             id: 'mylocations',
             children: [
               {
                 to: '/dashboard/facilities/',
                 slug: 'facilities',
-                text: 'My Locations'
+                text: 'My Channels'
               },
               {
                 to: '/dashboard/facilities/add',
                 slug: 'add_facilities',
-                text: 'Add New Property'
+                text: 'Add New Channel'
               }
             ]
           },
