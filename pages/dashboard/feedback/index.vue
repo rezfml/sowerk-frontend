@@ -5,7 +5,6 @@
       type="card-avatar, article, article, actions"
       min-height="50vh"
       max-width="80vw"
-      style="margin: 10vh auto;"
     ></v-skeleton-loader>
     <transition name="slide-fade">
     <v-card class="d-flex flex-column align-center justify-center" style="width: 100%; height: auto;" v-if="feedbackSuccess === false && loading">

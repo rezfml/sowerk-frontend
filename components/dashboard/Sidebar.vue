@@ -551,7 +551,19 @@
             to: '/dashboard/messages-and-alerts/',
             slug: 'messages-and-alerts',
             icon: 'mdi-bell-alert',
-            text: 'Messages & Alerts'
+            text: 'Messages & Alerts',
+            children: [
+              {
+                to: '/dashboard/messages-and-alerts/',
+                slug: 'messages-and-alerts',
+                text: 'Inbox',
+              },
+              {
+                to: '/dashboard/messages-and-alerts/sent',
+                slug: 'messages-and-alerts-sent',
+                text: 'Sent',
+              },
+            ]
           },
           {
             to: '/dashboard/feedback/',
@@ -566,7 +578,28 @@
             icon: 'settings',
             text: 'Settings',
             id: 'settings',
-            class: 'fixed-bottom'
+            class: 'fixed-bottom',
+            children: [
+              {
+                to: '/dashboard/profile/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'Manage Company Profile',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/user-creation',
+                slug: 'user-creation',
+                icon: 'mdi-account',
+                text: 'Manage Users',
+              },
+              {
+                to: '/dashboard/user-creation/add',
+                slug: 'add_user',
+                icon: 'mdi-account',
+                text: 'Add Users'
+              },
+            ]
           },
         ],
       }

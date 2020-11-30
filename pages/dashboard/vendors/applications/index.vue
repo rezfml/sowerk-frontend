@@ -293,27 +293,21 @@
       <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
       <template v-if="loading">
-        <v-simple-table class="pt-16 mb-4" style="width: 95%; margin: 0 auto;">
-          <thead >
-          <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 10%; text-align: center">Id</th>
-            <th style="color: #a61c00; width: 20%; text-align: center">Channel Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Channel Address</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Category</th>
-            <th style="color: #a61c00; width: 40%;">Actions</th>
-          </tr>
+        <v-simple-table class="pt-16 mb-4" style="width: 100%;">
+          <thead style="min-width: 100%;">
+            <tr style="min-width: 100%;">
+              <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
+              <th style="color: #a61c00; width: 30%; text-align: center">Channel Address</th>
+              <th style="color: #a61c00; width: 40%;">Actions</th>
+            </tr>
           </thead>
-          <tbody>
-          <tr  v-for="(location, index) in addLocations" style="background: none !important;">
-            <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(service, indexService) in location.services">
-                <td style="width: 10%; text-align: center" class="py-1">{{service.id}}</td>
-                <td style="width: 20%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center">
-                  <v-btn @click="assignToService(service.id, service.name)" class="my-1" color="#707070" style="color: white; width: 70%;">Assign Template</v-btn>
+          <tbody style="min-width: 100%;">
+          <tr  v-for="(location, index) in addLocations" style="background: none !important; min-width: 100%;">
+                <td style="width: 30%; text-align: center" class="py-1">{{location.name}}</td>
+                <td style="width: 30%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+                <td style="width: 40%;">
+                  <v-btn @click="assignToService(location.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Template</v-btn>
                 </td>
-            </div>
           </tr>
           </tbody>
         </v-simple-table>
@@ -625,10 +619,11 @@
               </tr>
               </thead>
               <tbody>
-              <tr  v-for="(service, indexService) in locationVal.services" style="background: none !important;" class="d-flex justify-center">
-                <td style="width: 70%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 30%; margin: 0 auto;" class="d-flex flex-column align-center">
+              <tr  v-for="(service, indexService) in locationVal.services" style="background: none !important;" class="d-flex">
+                <td style="width: 70%; text-align: center; height: auto;" class="py-1">{{service.name}}</td>
+                <td style="width: 30%; margin: 0 auto; height: auto;" class="d-flex flex-column align-center">
                   <v-btn @click="assignToServiceVendor(service)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Category</v-btn>
+                  <v-btn @click="deleteService(service, indexService)" class="my-1" color="#707070" style="color: white; width: 100%;">Delete Category</v-btn>
                 </td>
               </tr>
               </tbody>
@@ -832,6 +827,7 @@
               item-text="name"
               item-value="name"
               label="Search Here"
+              :search-input.sync="serviceAdd.name"
               style="width: 80%;"
               v-model="serviceAdd.name"
             ></v-combobox>
@@ -956,6 +952,7 @@ const naics = require("naics");
           service: '',
           vendorType: '',
           locations_id: Number,
+          applicationStatus: 1,
         },
         newAssignUserForm: {},
         addLocation: {},
@@ -963,7 +960,7 @@ const naics = require("naics");
         companyTemplates: [],
         headersApplicationTemplateVal: [
           { text: 'Application Name', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Category', value: 'serviceName', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-regular' },
           { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'formfields', class: 'primary--text font-weight-regular' },
@@ -1098,7 +1095,9 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
           .then(response => {
             console.log(response.data, 'RESPONSE DATA FOR NAICS LIST')
-            this.naicsList = response.data;
+            for(let i=0; i<response.data.length; i++) {
+              this.naicsList.push(response.data[i].name)
+            }
           })
           .catch(err => {
             console.log(err, 'ERR IN GETTING NAICS LIST')
@@ -1192,23 +1191,27 @@ const naics = require("naics");
             //   // await this.getServices(response.data.location[i].id)
             //   this.valueServices++;
             // }
+            this.locations = response.data.location
+            console.log(this.locations, 'locations THIS DOT LOCATIONS');
+            this.addLocations = response.data.location;
             response.data.location.forEach(async (location, index) => {
-              await this.locations.push(location)
-              console.log(this.locations, 'locations THIS DOT LOCATIONS');
-              await this.addLocations.push(location)
-              console.log(this.valueServices, 'valueServices');
-              setTimeout(() => {
-                if (this.locations[index].services[0] !== 'There are no services') {
-                  for (let i = 0; i < location.services.length; i++) {
-                    this.locations[index].services[i].userforms = []
-                    this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
-                    console.log(this.valueUserForms, 'valueUserForms')
-                    this.valueUserForms++
-                  }
-                }
-              this.valueServices++;
-              this.valueUserForms = 0;
-              }, 1000)
+              console.log(this.valueServices, ' bef valueServices');
+              await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
+              this.valueServices++
+              console.log(this.valueServices, 'after valueServices');
+              this.valueUserForms++
+              // setTimeout(() => {
+              //   if (this.locations[index].services[0] !== 'There are no services') {
+              //     for (let i = 0; i < location.services.length; i++) {
+              //       this.locations[index].services[i].userforms = []
+              //       this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
+              //       console.log(this.valueUserForms, 'valueUserForms')
+              //       this.valueUserForms++
+              //     }
+              //   }
+              // this.valueServices++;
+              // this.valueUserForms = 0;
+              // }, 1000)
             })
           })
           .catch(err => {
@@ -1248,8 +1251,7 @@ const naics = require("naics");
           })
       },
       async getUserforms(id, valueUserForms, valueServices) {
-        if(this.locations[valueServices].services[valueUserForms] !== 'There are no services') {
-          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
             .then(async (response) => {
               // this.totalLength += response.data.length;
               // console.log(this.totalLength, 'totalLength!!!!!!!!!!!!');
@@ -1257,27 +1259,30 @@ const naics = require("naics");
               // console.log(valueServices, 'valueServices', valueUserForms, 'valueUserForms');
               // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
               // this.locations[valueServices].services[valueUserForms].userforms = response.data;
-              setTimeout(() => {
+              console.log(response.data, 'USERFORMS FOR LOCATION')
                 for(let i=0; i<response.data.length; i++) {
                   let userForm = {
                     applicationStatus: response.data[i].applicationStatus,
-                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                     id: response.data[i].id,
                     name: response.data[i].name,
-                    service_id: response.data[i].service_id,
+                    service: response.data[i].service,
+                    vendorType: response.data[i].vendorType,
+                    locations_id: response.data[i].locations_id,
                     formfields: []
                   };
+                  console.log(this.locations[valueServices], 'this.locations individual')
                   let userForm2 = {
                     applicationStatus: response.data[i].applicationStatus,
-                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                     id: response.data[i].id,
                     name: response.data[i].name,
-                    service_id: response.data[i].service_id,
+                    service: response.data[i].service,
+                    vendorType: response.data[i].vendorType,
+                    locations_id: response.data[i].locations_id,
                     formfields: [],
                     locationName: this.locations[valueServices].name,
                     locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
-                    serviceName: this.locations[valueServices].services[valueUserForms].name
                   };
+
                   if(userForm.applicationStatus === 0) {
                     userForm.applicationStatus = 'Unpublished'
                     userForm2.applicationStatus = 'Unpublished'
@@ -1290,20 +1295,19 @@ const naics = require("naics");
                   }
                   this.userForms.push(userForm);
                   this.applicationTemplateVal.push(userForm2);
-                  console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
-                  // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-                  // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
-                  console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
-                  this.getFormFields(response.data[i].id);
+                  // console.log(this.applicationTemplateVal, 'applicationTemplateVale!!')
+                  // console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
+                  // // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+                  // // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
+                  // console.log(this.locations[valueServices].userforms[i], 'userform');
+                  await this.getFormFields(response.data[i].id);
                 }
                 this.finishedFormFields = true;
-              }, 250);
               // console.log(this.userForms, 'userForms with formfields');
             })
             .catch(err => {
               console.log('err get userforms', err);
             })
-        }
       },
       async getFormFields(id,) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
@@ -1637,12 +1641,13 @@ const naics = require("naics");
       },
       async assignToService(id, name) {
         const userform = {
-          service_id: id,
+          locations_id: id,
           applicationStatus: 1,
-          applicationStatusLinkPublish: false,
-          name: this.addLocation.form_name
+          name: this.addLocation.form_name,
+          service: this.addLocation.service_name,
+          vendorType: "Servicer",
         }
-          await this.$http.post('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id, userform)
+          await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id, userform)
             .then(async(response) => {
               console.log(response, 'success in adding userform from template')
               if(this.addLocation.applicationtemplatesformfields) {
@@ -1749,6 +1754,10 @@ const naics = require("naics");
         // }
       },
       async addNewService() {
+
+        if(this.serviceAdd.name === Object) {
+          this.serviceAdd.name = this.serviceAdd.name.name
+        }
         console.log(this.serviceAdd, 'wow')
         await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
           .then(response => {
@@ -1758,6 +1767,8 @@ const naics = require("naics");
             }
             console.log(response, 'success in adding new service')
             this.locationVal.services.push(response.data.service)
+            this.serviceAdd.name = "";
+            console.log(this.locationVal.services, 'adding new service list');
             this.addServiceLoad = false;
           })
           .catch(err => {
@@ -1871,7 +1882,7 @@ const naics = require("naics");
       },
       async assignToServiceVendorSubmit() {
         console.log(this.assignUserform, 'userform for assigning')
-        await this.$http.post('https://www.sowerkbackend.com/api/userforms/byServiceId/' + this.assignServiceId, this.assignUserform)
+        await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + this.locationVal.id, this.assignUserform)
           .then(response => {
             console.log(response.data, 'userform posting on assign success')
             this.newAssignUserForm = response.data.userform;
@@ -2174,6 +2185,17 @@ const naics = require("naics");
         // imageInput.$el.click();
         document.getElementById('companyDocumentImage').click();
       },
+      async deleteService(service, position) {
+        console.log(this.locationVal.services, 'SERVICES FOR DELETING PURPOSE', position)
+        this.locationVal.services.splice(this.locationVal.services[position], 1)
+        await this.$http.delete('https://www.sowerkbackend.com/api/services/' + service.id)
+          .then(response => {
+            console.log(response, 'success in removing category', service)
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting category');
+          })
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container style="width: 100vw; height: 100%;" overflow-y-auto>
+  <v-container style="height: 100%;" overflow-y-auto>
 
 <!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
 <!--      <v-progress-circular-->

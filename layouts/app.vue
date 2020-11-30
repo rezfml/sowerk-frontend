@@ -2,7 +2,7 @@
   <v-app dark>
     <v-content>
       <Sidebar :steps="steps" :company="company"></Sidebar>
-      <nuxt :steps="steps" :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh;" />
+      <nuxt :steps="steps" :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh; min-width: 100%;" />
     </v-content>
 
     <v-tour v-if="windowLocation === 'http://localhost:3000/dashboard' || windowLocation === 'https://www.sowerk.com/dashboard'" name="myTour" :steps="steps" :options="myOptions">

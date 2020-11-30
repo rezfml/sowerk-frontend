@@ -147,14 +147,19 @@
             <transition name="slide-fade">
               <v-card color="white" v-if="loadLeaveReviewModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
                 <v-card-title style="color: #A61C00">Leave a review for this vendor!</v-card-title>
-                <v-rating
-                  half-increments
-                  hover
-                  length="5"
-                  size="40"
-                  value="5"
-                  v-model="leaveReview.stars"
-                ></v-rating>
+                <v-row style="width: 100%;" class="d-flex nowrap justify-center align-center">
+                  <v-rating
+                    color="primary"
+                    half-increments
+                    hover
+                    length="5"
+                    size="40"
+                    value="5"
+                    v-model="leaveReview.stars"
+                    style="width: 30%;"
+                  ></v-rating>
+                  <v-card-text style="color: #A61C00; width: 10%;">{{leaveReview.stars}}/5</v-card-text>
+                </v-row>
                 <v-text-field
                   class="mt-2"
                   label="Title Your Review*"
@@ -198,7 +203,7 @@
               <v-card-text style="cursor: pointer; width: 60%;" @click="listNotesModal">Your Notes On This Vendor: <span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               <v-btn @click="addNotesModal" style="width: 38%; margin-right: 2%;" color="primary">+ Internal Note</v-btn>
             </v-row>
-            <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
+            <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
             <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
             <v-card-title style="color: #A61c00">Other Details</v-card-title>

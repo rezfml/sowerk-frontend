@@ -32,7 +32,7 @@
         <v-col style="width: 55%;">
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
             <v-card-title style="width: 100%;">Account Channel: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
-            <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{service.name}}</span></v-card-title>
+            <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{userForms.service}}</span></v-card-title>
             <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
 
             <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
@@ -518,7 +518,7 @@
               console.log(this.userForms.formfields[i].options, 'option #', i)
             }
             console.log(this.userForms, 'this.userForms sort')
-            this.getService(response.data.service_id)
+            this.getLocation(response.data.locations_id)
             this.getFormFields(response.data.id)
           })
           .catch(err => {
