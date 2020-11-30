@@ -42,7 +42,7 @@
 
               <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
-              <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Providers At This Facility</v-card-text>
+              <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
 
               <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
@@ -62,8 +62,8 @@
                 <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
               </v-col>
               <v-col cols="12" class="py-1 text-body-1">
-                <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Providers</p>
-                <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Facilities Nationwide</p>
+                <p class="mb-2"><span class="primary--text">{{company.currentConnections}}</span> Approved SOWerk Vendors</p>
+                <p><span class="primary--text" v-if="company.locations">{{company.locations.length}}</span> Channels Nationwide</p>
               </v-col>
             </v-row>
 
@@ -101,17 +101,17 @@
         </v-card-text>
         </transition>
 
-        <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Location Approved Vendors</v-btn>
+        <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Channel Approved Vendors</v-btn>
         <v-btn @click="pendingApplication" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Pending Applicants</v-btn>
 
         <v-btn @click="editVendorRequirement" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Vendor Requirements</v-btn>
-        <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Location Details</v-btn>
+        <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Channel Details</v-btn>
 
 
         <v-spacer></v-spacer>
         <v-card-actions class="d-flex justify-center py-6">
           <v-btn v-if="this.user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
-          <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE LOCATION</v-btn>
+          <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
         </v-card-actions>
       </template>
   </v-card>

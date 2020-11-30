@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;">
+      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad">
         <v-col cols="3">
           <v-skeleton-loader
             v-if="!loading"
@@ -20,7 +20,7 @@
               </v-col>
             </v-row>
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
-            <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
+            <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Channels</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
             <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
@@ -59,7 +59,7 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
-              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
+              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>
               <v-card-subtitle>Past 30 days</v-card-subtitle>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
               <template style="text-align: center width: 100%;">
@@ -67,7 +67,7 @@
                   <v-form class="mx-4" style="width: 60%;">
                     <v-select
                       dense
-                      label="Step 1 - Choose Your Location"
+                      label="Step 1 - Choose Your Channel"
                       :items="company.locations"
                       item-text="name address city state zipcode"
                       item-value="name address city state zipcode"
@@ -111,10 +111,13 @@
             <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">
               <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>
               <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>
-              <v-btn outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>
-              <template v-for="(review, index) in reviews">
-                <v-divider></v-divider>
-                <template>
+              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>
+              <v-slide-group
+                multiple
+                show-arrows
+              >
+                <v-slide-item v-for="(review, index) in reviews">
+                  <v-divider></v-divider>
                   <v-rating
                     empty-icon="$mdiStarOutline"
                     full-icon="$mdiStar"
@@ -127,8 +130,8 @@
                   ></v-rating>
                   <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>
                   <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>
-                </template>
-              </template>
+                </v-slide-item>
+              </v-slide-group>
             </v-card>
           </transition>
           <!--          <v-card class="d-flex flex-column align-center mt-10">-->
@@ -136,6 +139,49 @@
           <!--            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>-->
           <!--            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>-->
           <!--          </v-card>-->
+          <v-overlay
+            :absolute="absolute"
+            :opacity="opacity"
+            :value="overlay"
+          >
+            <transition name="slide-fade">
+              <v-card color="white" v-if="loadLeaveReviewModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+                <v-card-title style="color: #A61C00">Leave a review for this vendor!</v-card-title>
+                <v-row style="width: 100%;" class="d-flex nowrap justify-center align-center">
+                  <v-rating
+                    color="primary"
+                    half-increments
+                    hover
+                    length="5"
+                    size="40"
+                    value="5"
+                    v-model="leaveReview.stars"
+                    style="width: 30%;"
+                  ></v-rating>
+                  <v-card-text style="color: #A61C00; width: 10%;">{{leaveReview.stars}}/5</v-card-text>
+                </v-row>
+                <v-text-field
+                  class="mt-2"
+                  label="Title Your Review*"
+                  v-model="leaveReview.reviewTitle"
+                  style="color: white; opacity: 0.65; width: 80%;"
+                  outlined
+                  single-line
+                  background-color="#4a4a4a"
+                ></v-text-field>
+                <v-textarea
+                  label="Review Details Here*"
+                  v-model="leaveReview.reviewerDescription"
+                  style="color: white; opacity: 0.65; width: 80%;"
+                  outlined
+                  single-line
+                  background-color="#4a4a4a"
+                ></v-textarea>
+                <v-btn @click="submitReview" color="primary" class="mb-4" style="width: 40%;">Submit Review</v-btn>
+                <v-btn style="position: absolute; top: 10px; right: 10px; font-size: 25px; color: #151515;" text @click="exitLoadLeaveReview">X</v-btn>
+              </v-card>
+            </transition>
+          </v-overlay>
         </v-col>
         <v-col cols="4">
           <v-skeleton-loader
@@ -153,8 +199,11 @@
 <!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
             <v-card-title style="color: #A61c00; font-size: 24px;">Related To You</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-            <v-card-text>Your Notes On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
-            <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00">Hi</span></v-card-text>
+            <v-row style="width: 100%;" class="d-flex nowrap mt-2">
+              <v-card-text style="cursor: pointer; width: 60%;" @click="listNotesModal">Your Notes On This Vendor: <span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+              <v-btn @click="addNotesModal" style="width: 38%; margin-right: 2%;" color="primary">+ Internal Note</v-btn>
+            </v-row>
+            <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
             <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
             <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
             <v-card-title style="color: #A61c00">Other Details</v-card-title>
@@ -163,6 +212,48 @@
           </v-card>
         </v-col>
       </v-row>
+
+      <transition name="slide-fade">
+        <v-card v-if="addNotesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Please Fill Out All Fields Below</v-card-title>
+          <v-select
+            label="Select a channel to go with your note"
+            style="width: 80%;"
+          ></v-select>
+          <v-text-field
+            label="Your note goes here"
+            style="width: 80%;"
+          ></v-text-field>
+          <v-file-input></v-file-input>
+          <v-btn style="width: 40%; color: white;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="notesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor</v-card-title>
+          <v-data-table
+            :headers="notesHeaders"
+            :items="notes"
+            style="width: 90%;"
+          >
+            <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
+              <p v-if="item.note.length > 10">{{item.note.splice(0, 10)}}...</p>
+              <p v-else>{{item.note}}</p>
+            </template>
+            <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
+              <a href="item.file" target="_blank" download v-if="item.file !== ''">View File</a>
+              <p v-else>No File Present</p>
+            </template>
+            <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
+              <v-btn>View</v-btn>
+              <v-btn @click="deleteNote(item)" v-if="this.$store.state.user.user.user.is_superuser || (this.$store.state.user.user.user.email === item.email && this.$store.state.user.user.user.phone === item.phone && this.$store.state.user.user.user.first_name === item.contact_first_name)">Delete</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitNotesModalLoad">< Back</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -178,6 +269,9 @@
     },
     data() {
       return {
+        absolute: true,
+        opacity: 0.85,
+        overlay: false,
         location: {
 
         },
@@ -193,9 +287,30 @@
         messageUserForm: {},
         messageSendLoad: false,
         reviews: [],
+        leaveReview: {
+          locations_id: this.$route.params.id,
+          stars: 5,
+          reviewTitle: '',
+          reviewDescription: '',
+          reviewerName: this.$store.state.user.user.user.first_name + ' ' + this.$store.state.user.user.user.last_name,
+          reviewerAccountType: this.$store.state.user.user.user.is_superuser,
+          userprofiles_id: this.$store.state.user.user.user.id,
+        },
         singleCompanyConnections: [],
         vendorMessages: [],
         userformsIdForRequest: [],
+        notes: [],
+        addNotesModalLoad: false,
+        notesModalLoad: false,
+        loadLeaveReviewModal: false,
+        notesHeaders: [
+          { text: 'User', value: 'fullname', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-regular'},
+          { text: 'Note', value: 'note', class: 'primary--text font-weight-regular'},
+          { text: 'File', value: 'file', class: 'primary--text font-weight-regular' },
+          { text: 'Created', value: 'created', class: 'primary--text font-weight-regular' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        ],
       }
     },
     async mounted() {
@@ -207,6 +322,7 @@
       await this.getUserCompany(this.$store.state.user.user.user.companies_id);
       await this.getReviews();
       await this.getMessages();
+      await this.getNotes();
     },
     methods: {
       async getConnections(location) {
@@ -374,6 +490,63 @@
           .catch(err => {
             console.log(err, 'err in getting messages by response.data')
           })
+      },
+      async getNotes() {
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.$store.state.user.user.user.companies_id + '/bySPLocationId/' + this.$route.params.id)
+          .then(response => {
+            console.log(response.data, 'notes');
+            this.notes = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting notes for this location by this company')
+          })
+      },
+      async deleteNote(note) {
+        await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
+          .then(response => {
+            console.log('success in deleting this note', response)
+          })
+          .catch(err => {
+            console.log('err in deleting this note', err);
+          })
+      },
+      async addNotesModal() {
+        this.addNotesModalLoad = true;
+        console.log(this.addNotesModalLoad)
+      },
+      async exitAddNotesModalLoad() {
+        this.addNotesModalLoad = false;
+      },
+      async listNotesModal() {
+        this.notesModalLoad = true;
+      },
+      async exitNotesModalLoad() {
+        this.notesModalLoad = false;
+      },
+      async loadLeaveReview() {
+        this.loadLeaveReviewModal = true;
+        this.overlay = !this.overlay
+      },
+      async exitLoadLeaveReview() {
+        this.loadLeaveReviewModal = false;
+        this.overlay = !this.overlay;
+      },
+      async submitReview() {
+        if(this.leaveReview.reviewerAccountType === true) {
+          this.leaveReview.reviewerAccountType = 'Super Admin';
+        } else {
+          this.leaveReview.reviewerAccountType = 'Staff Account';
+        }
+
+        await this.$http.post('https://www.sowerkbackend.com/api/locationreviews', this.leaveReview)
+          .then(response => {
+            console.log(response, 'success in adding location review')
+            this.reviews.push(response)
+            this.exitLoadLeaveReview();
+          })
+          .catch(err => {
+            console.log(err, 'err in adding location review')
+          })
       }
     }
   }
@@ -386,7 +559,7 @@
     transition: all .7s ease;
   }
   .slide-fade-leave-active {
-    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all 0.05s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {

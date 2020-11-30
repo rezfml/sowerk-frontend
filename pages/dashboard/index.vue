@@ -1,6 +1,6 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-container class="px-8" fluid id="v-step-0">
+    <v-container class="px-8" fluid id="v-step-0" style="width: 100%;">
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <v-skeleton-loader
@@ -31,6 +31,13 @@
             min-height="30vh"
           ></v-skeleton-loader>
         </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved && company && company.company_type === 'false'"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
       </v-row>
 <!--      Maint modal on render-->
       <transition>
@@ -54,9 +61,9 @@
           v-if="locations && locationApproved && company"
           :items="locations"
           :company="company"
-          :title="'Locations You Manage - ' + locations.length"
+          :title="'Channels You Manage - ' + locations.length"
           :tableProperties="headers"
-          slug="/dashboard/facilities/"
+          slug="/dashboard/channels/"
         ></HomeCard>
       </transition>
 
@@ -64,6 +71,14 @@
         <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
           <transition name="slide-fade">
           <StatCard v-if="statApproved" :stat="stat"></StatCard>
+          </transition>
+        </v-col>
+      </v-row>
+
+      <v-row v-if="company && company.company_type === 'false'">
+        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index" class="d-flex nowrap">
+          <transition name="slide-fade">
+            <StatCard :stat="stat"></StatCard>
           </transition>
         </v-col>
       </v-row>
@@ -75,9 +90,6 @@
 <!--            :size="50"-->
 <!--          ></v-progress-circular>-->
 <!--        </v-col>-->
-        <v-col v-if="company && company.company_type === 'false'" col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index">
-          <StatCard :stat="stat"></StatCard>
-        </v-col>
 <!--      <v-card class="white pt-0 mt-12" v-if="company && company.company_type !== 'false'">-->
 <!--        <v-container fluid >-->
 <!--          <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white&#45;&#45;text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>-->
@@ -212,7 +224,7 @@
         ],
         stats: [
           {
-            title: 'Approved Service Providers',
+            title: 'Approved Vendors',
             value: 0,
             link: '/dashboard/vendors/approved'
           },
@@ -246,7 +258,7 @@
           {
             title: 'Vendor Plan',
             value: 'Basic',
-            link: '/dashboard/vendors/applicants'
+            link: '/dashboard/pricing'
           },
           {
             title: 'Service Provider Connections',
@@ -293,7 +305,7 @@
         ],
         headers: [
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
-          { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Main Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
@@ -341,26 +353,55 @@
         this.loadModal = false
       },
       async getApplications(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
-          .then(async (response) => {
-            console.log(response.data, 'response for applications by Pm id');
-            if(this.currentUser.is_superuser === false) {
-              for(let i = 0; i<response.data.length; i++) {
-                if(response.data[i].approval_status === 0 && response.data[i].pmuserprofiles_id === this.currentUser.id) {
-                  this.stats[1].value++
+        if(this.company.company_type !== 'false') {
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
+            .then(async (response) => {
+              console.log(response.data, 'response for applications by Pm id');
+              if(this.currentUser.is_superuser === false) {
+                for(let i = 0; i<response.data.length; i++) {
+                  if(response.data[i].approval_status === 0 && response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                    this.stats[1].value++
+                  }
+                }
+              } else {
+                for(let i = 0; i<response.data.length; i++) {
+                  if(response.data[i].approval_status === 0) {
+                    this.stats[1].value++
+                  }
                 }
               }
-            } else {
-              for(let i = 0; i<response.data.length; i++) {
-                if(response.data[i].approval_status === 0) {
-                  this.stats[1].value++
+            })
+            .catch(err => {
+              console.log('err in getting applications', err);
+            })
+        } else {
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + id)
+            .then(async (response) => {
+              console.log(response.data, 'response for applications by Pm id');
+              if(this.currentUser.is_superuser === false) {
+                for(let i = 0; i<response.data.length; i++) {
+                  if(response.data[i].approval_status === 1 && response.data[i].spuserprofiles_id === this.currentUser.id) {
+                    this.providerStats[0].value++
+                  }
+                  if(response.data[i].approval_status === 0 && response.data[i].spuserprofiles_id === this.currentUser.id) {
+                    this.providerStats[1].value++
+                  }
+                }
+              } else {
+                for(let i = 0; i<response.data.length; i++) {
+                  if(response.data[i].approval_status === 1) {
+                    this.providerStats[0].value++
+                  }
+                  if(response.data[i].approval_status === 0) {
+                    this.providerStats[1].value++
+                  }
                 }
               }
-            }
-          })
-          .catch(err => {
-            console.log('err in getting applications', err);
-          })
+            })
+            .catch(err => {
+              console.log('err in getting applications', err);
+            })
+        }
       },
       async getUser() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
@@ -418,23 +459,44 @@
         this.hidden = true;
       },
       async getApprovedProviderConnections() {
-        await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
-          .then(response => {
-            console.log('response approvedproviderconnections', response.data);
-            if(this.currentUser.is_superuser === false) {
-              for(let i=0; i<response.data.length; i++) {
-                  if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
+        if(this.company.company_type !== 'false') {
+          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+            .then(response => {
+              console.log('response approvedproviderconnections', response.data);
+              if (this.currentUser.is_superuser === false) {
+                for (let i = 0; i < response.data.length; i++) {
+                  if (response.data[i].pmuserprofiles_id === this.currentUser.id) {
                     console.log(response.data[i], 'applications for staff account')
-                    this.stats[0].value ++
+                    this.stats[0].value++
                   }
                 }
               } else {
                 this.stats[0].value = response.data.length
               }
-          })
-          .catch(err => {
-            console.log('err in getting approved provider connections', err);
-          })
+            })
+            .catch(err => {
+              console.log('err in getting approved provider connections', err);
+            })
+        }
+        // } else {
+        //   await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + this.currentUser.companies_id)
+        //     .then(response => {
+        //       console.log('response approvedproviderconnections', response.data);
+        //       if(this.currentUser.is_superuser === false) {
+        //         for(let i=0; i<response.data.length; i++) {
+        //           if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
+        //             console.log(response.data[i], 'applications for staff account')
+        //             this.providerStats[0].value ++
+        //           }
+        //         }
+        //       } else {
+        //         this.providerStats[0].value = response.data.length
+        //       }
+        //     })
+        //     .catch(err => {
+        //       console.log('err in getting approved provider connections', err);
+        //     })
+        // }
       },
       async getMessages(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/messages/byRecieverId/' + id)

@@ -16,7 +16,7 @@
           <v-card-text>From: {{individualMessage.primary_contact_first_name}} {{individualMessage.primary_contact_last_name}} - {{individualMessage.company}} - {{individualMessage.location}}</v-card-text>
         </transition>
         <transition name="slide-fade">
-          <v-card-text>Service: {{individualMessage.service}}</v-card-text>
+          <v-card-text>Channel: {{individualMessage.service}}</v-card-text>
         </transition>
         <transition name="slide-fade">
           <v-card-text>Message: {{individualMessage.message}}</v-card-text>

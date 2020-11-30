@@ -22,7 +22,7 @@
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every service provider or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your locations. Create and use a company template that can be implemented across all locations, or in the event of special requirements for only one of your locations (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
+              <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every vendor or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your channels. Create and use a company template that can be implemented across all channels, or in the event of special requirements for only one of your channels (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
               <v-col class="d-flex flex-column align-center">
                 <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
                 <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -249,11 +249,11 @@
           <template v-slot:item.actions="{item}">
             <div class="d-flex" v-if="$vuetify.breakpoint.xl">
               <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2" style="width: 30%;">Edit</v-btn>
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Add to Location</v-btn>
+              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Assign Channel</v-btn>
               <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 30%;">Delete</v-btn>
             </div>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Add to Location</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Delete</v-btn>
           </template>
         </v-data-table>
@@ -266,10 +266,8 @@
         <v-col cols="6">
           <v-card>
             <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
-            <v-card-text class="pt-16 ml-4" style="padding: 5%; font-weight: 900; font-size: 1rem;">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-            <v-row style="justify-content: space-around">
-              <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
-            </v-row>
+            <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-card>
         </v-col>
@@ -293,29 +291,23 @@
 
     <transition name="slide-fade">
       <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Location</v-card-title>
+      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
       <template v-if="loading">
-        <v-simple-table class="pt-16 mb-4" style="width: 95%; margin: 0 auto;">
-          <thead >
-          <tr class="d-flex justify-start">
-            <th style="color: #a61c00; width: 10%; text-align: center">Id</th>
-            <th style="color: #a61c00; width: 20%; text-align: center">Location Name</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>
-            <th style="color: #a61c00; width: 15%; text-align: center">Category</th>
-            <th style="color: #a61c00; width: 40%;">Actions</th>
-          </tr>
+        <v-simple-table class="pt-16 mb-4" style="width: 100%;">
+          <thead style="min-width: 100%;">
+            <tr style="min-width: 100%;">
+              <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
+              <th style="color: #a61c00; width: 30%; text-align: center">Channel Address</th>
+              <th style="color: #a61c00; width: 40%;">Actions</th>
+            </tr>
           </thead>
-          <tbody>
-          <tr  v-for="(location, index) in addLocations" style="background: none !important;">
-            <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(service, indexService) in location.services">
-                <td style="width: 10%; text-align: center" class="py-1">{{service.id}}</td>
-                <td style="width: 20%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 15%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center">
-                  <v-btn @click="assignToService(service.id, service.name)" class="my-1" color="#707070" style="color: white; width: 70%;">Assign Template</v-btn>
+          <tbody style="min-width: 100%;">
+          <tr  v-for="(location, index) in addLocations" style="background: none !important; min-width: 100%;">
+                <td style="width: 30%; text-align: center" class="py-1">{{location.name}}</td>
+                <td style="width: 30%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+                <td style="width: 40%;">
+                  <v-btn @click="assignToService(location.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Template</v-btn>
                 </td>
-            </div>
           </tr>
           </tbody>
         </v-simple-table>
@@ -335,7 +327,17 @@
             <v-row class="d-flex justify-center" style="width: 100%;">
               <v-col cols="4">
                 <v-card class="d-flex flex-column align-center">
-                  <v-card-title style="width: 95%;"><v-text-field label="Enter Service Category Here" v-model="newAssignUserForm.service_name">{{newAssignUserForm.service_name}}</v-text-field></v-card-title>
+                  <v-combobox
+                    solo
+                    :items="naicsList"
+                    :filter="customFilter"
+                    item-text="name"
+                    item-value="name"
+                    label="Search Here"
+                    :search-input.sync="newAssignUserForm.service_name"
+                    style="width: 95%;"
+                    v-model="newAssignUserForm.service_name"
+                  ></v-combobox>
                   <v-card-title style="width: 95%;"><v-text-field label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
                   <draggable
                     class="dragArea list-group"
@@ -505,131 +507,202 @@
       </v-card>
     </transition>
 
-    <transition name="slide-fade">
-      <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad">
-      <v-card-title class="mb-10" style="color: black; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px; margin-top: 1.5%; font-weight: bold">Add New Vendor Form</v-card-title>
-        <transition name="slide-fade">
-          <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Location</v-card-title>
-        </transition>
-        <transition name="slide-fade">
-          <v-card-title v-if="step2" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Choose a Service</v-card-title>
-        </transition>
-        <transition name="slide-fade">
-          <v-btn @click="addService" v-if="step2" outlined color="primary" class="px-10" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Service</v-btn>
-        </transition>
-        <transition name="slide-fade">
-          <v-card-title v-if="step3" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 3 - Application Name & Category</v-card-title>
-        </transition>
-        <transition name="slide-fade">
-          <v-card-title v-if="step4" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 4 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
-        </transition>
-        <transition name="slide-fade">
-          <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
-          <thead >
-          <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
-            <th style="color: #a61c00; width: 40%; text-align: center; margin-top: 1%; font-size: 1rem;">Location Name</th>
-            <th style="color: #a61c00; width: 40%; text-align: center; margin-top: 1%; font-size: 1rem;">Location Address</th>
-            <th style="color: #a61c00; width: 20%; margin-top: 1%; font-size: 1rem;">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(location, index) in addLocations" style="background: none !important;" class="d-flex justify-center">
-              <td style="width: 40%; text-align: center" class="py-1">{{location.name}}</td>
-              <td style="width: 40%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-              <td style="width: 20%; margin: 0 auto;" class="d-flex flex-column align-center">
-                <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
-              </td>
-            </div>
-          </tr>
-          </tbody>
-        </v-simple-table>
-        </transition>
-        <transition name="slide-fade">
-          <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
-            <thead >
-            <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
-              <th style="color: #a61c00; width: 70%; text-align: center">Category</th>
-              <th style="color: #a61c00; width: 30%;">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr  v-for="(service, indexService) in locationVal.services" style="background: none !important;" class="d-flex justify-center">
-                <td style="width: 70%; text-align: center" class="py-1">{{service.name}}</td>
-                <td style="width: 30%; margin: 0 auto;" class="d-flex flex-column align-center">
-                  <v-btn @click="assignToServiceVendor(service.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Service</v-btn>
+    <v-card style="width: 100%; border: none !important; box-shadow: none !important;" class="d-flex justify-space-between">
+      <transition name="slide-fade">
+        <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && !step5" style="width: 38%;">
+          <v-card-title class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
+          <!--        // STEP BUTTONS-->
+          <!--        <transition name="slide-fade">-->
+          <!--          <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Channel</v-card-title>-->
+          <!--        </transition>-->
+          <!--        <transition name="slide-fade">-->
+          <!--          <v-card-title v-if="step2" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 2 - Choose a Category</v-card-title>-->
+          <!--        </transition>-->
+          <!--        <transition name="slide-fade">-->
+          <!--          <v-btn @click="addService" v-if="step2" outlined color="primary" class="px-10" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Category</v-btn>-->
+          <!--        </transition>-->
+          <!--        <transition name="slide-fade">-->
+          <!--          <v-card-title v-if="step3" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 3 - Application Name</v-card-title>-->
+          <!--        </transition>-->
+          <!--        <transition name="slide-fade">-->
+          <!--          <v-card-title v-if="step4" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 4 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>-->
+          <!--        </transition>-->
+          <!--        <transition name="slide-fade">-->
+          <!--          <v-card-title v-if="step5" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 5 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>-->
+          <!--        </transition>-->
+          <transition name="slide-fade">
+            <v-card-title v-if="step1" class="mt-10" style="text-align: center; width: 80%;">Step 1 - Application Name</v-card-title>
+          </transition>
+          <transition name="slide-fade">
+            <p v-if="step1" class="ml-4" style="width: 80%; font-size: 18px;">Review and Name your new vendor form. Select finish when completed.</p>
+          </transition>
+          <transition name="slide-fade">
+            <v-card-title v-if="step2" class="mt-10" style="text-align: center; width: 80%;">Step 2 - Select Channel</v-card-title>
+          </transition>
+          <transition name="slide-fade">
+            <p v-if="step2" class="ml-4" style="width: 80%; font-size: 18px;">Choose the company channel you would like to add a new vendor form.</p>
+          </transition>
+          <transition name="slide-fade">
+            <v-card-title v-if="step3" class="mt-10" style="text-align: center; width: 80%;">Step 3 - Choose A Vendor Type</v-card-title>
+          </transition>
+          <transition name="slide-fade">
+            <p v-if="step3" class="ml-4" style="width: 80%; font-size: 18px;">Choose either supplier or servicer.</p>
+          </transition>
+          <transition name="slide-fade">
+            <v-card-title v-if="step4" class="mt-10" style="text-align: center; width: 80%;">Step 4 - Choose A Category</v-card-title>
+          </transition>
+          <transition name="slide-fade">
+            <p v-if="step4" class="ml-4" style="width: 80%; font-size: 18px;">Choose a previously selected service or add a new one.</p>
+          </transition>
+          <transition name="slide-fade">
+            <v-btn @click="addService" v-if="step4" outlined color="primary" class="px-10" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Category</v-btn>
+          </transition>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && !step5" style="width: 58%;">
+          <!--        // ACTUAL STEPS-->
+          <transition name="slide-fade">
+            <v-form class="py-16 mt-16 d-flex flex-column align-end" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
+              <v-text-field
+                label="Application Name*"
+                placeholder="Plumbing Vendor App - Brookfield Store"
+                v-model="assignUserform.name"
+                style="width: 100%; align-self: center;"
+                required
+              >
+              </v-text-field>
+              <div class="d-flex justify-space-between" v-if="addNewVendorFormLoad && step1" style="width: 100%">
+                <v-btn @click="backVendorFormStep" color="primary" style="width: 30%;" class="my-2 py-7" >< Back</v-btn>
+                <v-btn @click="nextVendorFormStep" color="primary" style="width: 30%;" class="my-2 py-7" >Next ></v-btn>
+              </div>
+            </v-form>
+          </transition>
+          <transition name="slide-fade">
+            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
+              <thead >
+              <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
+                <th style="color: #a61c00; width: 40%; text-align: center">Channel Name</th>
+                <th style="color: #a61c00; width: 40%; text-align: center">Channel Address</th>
+                <th style="color: #a61c00; width: 20%;">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(location, index) in addLocations" style="background: none !important;" class="d-flex justify-center">
+                <td style="width: 40%; text-align: center" class="py-1">{{location.name}}</td>
+                <td style="width: 40%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+                <td style="width: 20%; margin: 0 auto;" class="d-flex flex-column align-center">
+                  <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
                 </td>
-            </tr>
-            </tbody>
-          </v-simple-table>
-        </transition>
-        <transition name="slide-fade">
-          <v-form class="py-16 mt-16 d-flex flex-column align-center" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step3">
-        <v-text-field
-          label="Name Your Application"
-          placeholder="Plumbing Vendor App - Brookfield Store"
-          v-model="assignUserform.name"
-          style="width: 100%; align-self: center;"
-        >
-        </v-text-field>
-        <v-btn @click="assignToServiceVendorSubmit" color="primary" style="width: 50%;" class="my-2 px-10 py-7" rounded>Submit</v-btn>
-      </v-form>
-        </transition>
-        <transition name="slide-fade">
-          <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewVendorFormLoad && step4">
-            <v-row class="d-flex justify-center" style="width: 100%;">
-              <v-col cols="4">
-                <v-card class="d-flex flex-column align-center">
-                  <v-card-title style="width: 95%;"><v-text-field v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
-                  <draggable
-                    class="dragArea list-group"
-                    group="formName"
-                    :list="newAssignUserForm.formfields"
-                    v-model="newAssignUserForm.formfields"
-                    @change="reorderFormField"
-                    style="width: 95%;"
-                  >
-                    <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
-                      <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
-                        <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                        <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
-                        <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-                        <div class="d-flex justify-end" style="width: 100%;">
-                          <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
-                        </div>
-                      </v-card-title>
-                    </v-card>
-                  </draggable>
-                </v-card>
-                <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
-              </v-col>
-              <v-col cols="5" class="d-flex flex-column align-center">
-                <v-row class="mb-n8">
-                  <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
-                  <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
-                </v-row>
-                <transition name="slide-fade">
-                  <v-data-table
-                    :headers="applicationDragNDropHeaders"
-                    :items="applicationTemplates"
-                    :items-per-page="10"
-                    class="pt-16"
-                    :expanded.sync="expanded"
-                    show-expand
-                    single-expand
-                    style="width: 100%;"
-                    v-if="sowerkDragNDrop"
-                  >
-                    <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
-                      <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;">
-                          <template v-slot:default>
-<!--                            <thead>-->
-<!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
-<!--                              <th style="width: 30%;">Question</th>-->
-<!--                              <th style="width: 60%;">Name</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-                            <tbody style="width: 95%;">
+                </div>
+              </tr>
+              </tbody>
+            </v-simple-table>
+          </transition>
+          <transition name="slide-fade">
+            <div class="d-flex justify-space-between" v-if="addNewVendorFormLoad && step2">
+              <v-btn @click="backVendorFormStep2" color="primary" style="width: 30%;" class="my-2 py-7" >< Back</v-btn>
+            </div>
+          </transition>
+          <transition name="slide-fade">
+            <v-select
+              :items="vendorType"
+              v-if="addNewVendorFormLoad && step3"
+              v-model="assignUserform.vendorType"
+              label="Please Choose Your Vendor Type Here"
+              style="width: 80%; margin: 0 auto;"
+            ></v-select>
+          </transition>
+          <transition name="slide-fade">
+            <div class="d-flex justify-space-between" v-if="addNewVendorFormLoad && step3">
+              <v-btn @click="backVendorFormStep3" color="primary" style="width: 30%;" class="my-2 py-7" >< Back</v-btn>
+              <v-btn @click="nextVendorFormStep3" color="primary" style="width: 30%;" class="my-2 py-7" >Next ></v-btn>
+            </div>
+          </transition>
+          <transition name="slide-fade">
+            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4">
+              <thead >
+              <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
+                <th style="color: #a61c00; width: 70%; text-align: center">Category</th>
+                <th style="color: #a61c00; width: 30%;">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr  v-for="(service, indexService) in locationVal.services" style="background: none !important;" class="d-flex">
+                <td style="width: 70%; text-align: center; height: auto;" class="py-1">{{service.name}}</td>
+                <td style="width: 30%; margin: 0 auto; height: auto;" class="d-flex flex-column align-center">
+                  <v-btn @click="assignToServiceVendor(service)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Category</v-btn>
+                  <v-btn @click="deleteService(service, indexService)" class="my-1" color="#707070" style="color: white; width: 100%;">Delete Category</v-btn>
+                </td>
+              </tr>
+              </tbody>
+            </v-simple-table>
+          </transition>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && step5" style="width: 95%">
+          <transition name="slide-fade">
+            <v-card-title v-if="step5" class="mt-10" style="text-align: center; width: 80%;">Step 5 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
+          </transition>
+          <transition name="slide-fade">
+            <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewVendorFormLoad && step5">
+              <v-row class="d-flex justify-center" style="width: 100%;">
+                <v-col cols="4">
+                  <v-card class="d-flex flex-column align-center">
+                    <v-card-title style="width: 95%;"><v-text-field v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
+                    <draggable
+                      class="dragArea list-group"
+                      group="formName"
+                      :list="newAssignUserForm.formfields"
+                      v-model="newAssignUserForm.formfields"
+                      @change="reorderFormField"
+                      style="width: 95%;"
+                    >
+                      <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
+                        <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
+                          <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                          <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
+                          <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                          <div class="d-flex justify-end" style="width: 100%;">
+                            <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
+                          </div>
+                        </v-card-title>
+                      </v-card>
+                    </draggable>
+                  </v-card>
+                  <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                </v-col>
+                <v-col cols="5" class="d-flex flex-column align-center">
+                  <v-row class="mb-n8">
+                    <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                    <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                  </v-row>
+                  <transition name="slide-fade">
+                    <v-data-table
+                      :headers="applicationDragNDropHeaders"
+                      :items="applicationTemplates"
+                      :items-per-page="10"
+                      class="pt-16"
+                      :expanded.sync="expanded"
+                      show-expand
+                      single-expand
+                      style="width: 100%;"
+                      v-if="sowerkDragNDrop"
+                    >
+                      <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                        <td :colspan="headers.length" style="width: 100%;">
+                          <v-simple-table style="width: 100%;">
+                            <template v-slot:default>
+                              <!--                            <thead>-->
+                              <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                              <!--                              <th style="width: 30%;">Question</th>-->
+                              <!--                              <th style="width: 60%;">Name</th>-->
+                              <!--                            </tr>-->
+                              <!--                            </thead>-->
+                              <tbody style="width: 95%;">
                               <draggable
                                 style="width: 100% !important;"
                                 class="dragArea list-group"
@@ -644,112 +717,111 @@
                                 </tr>
                               </draggable>
                               <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
-                            </tbody>
-                          </template>
-                        </v-simple-table>
-                      </td>
-                    </template>
-                    <template v-slot:item.questions="{item}">
-                      <p v-if="item.applicationtemplatesformfields">{{item.applicationtemplatesformfields.length}}</p>
-                    </template>
-                  </v-data-table>
-                </transition>
-                <transition name="slide-fade">
-                  <v-data-table
-                    :headers="applicationDragNDropHeaders"
-                    :items="companyTemplates"
-                    :items-per-page="10"
-                    class="pt-16"
-                    :expanded.sync="expanded"
-                    show-expand
-                    single-expand
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+                        </td>
+                      </template>
+                      <template v-slot:item.questions="{item}">
+                        <p v-if="item.applicationtemplatesformfields">{{item.applicationtemplatesformfields.length}}</p>
+                      </template>
+                    </v-data-table>
+                  </transition>
+                  <transition name="slide-fade">
+                    <v-data-table
+                      :headers="applicationDragNDropHeaders"
+                      :items="companyTemplates"
+                      :items-per-page="10"
+                      class="pt-16"
+                      :expanded.sync="expanded"
+                      show-expand
+                      single-expand
+                      style="width: 100%;"
+                      v-if="companyDragNDrop"
+                    >
+                      <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                        <td :colspan="headers.length" style="width: 100%;">
+                          <v-simple-table style="width: 100%;">
+                            <template v-slot:default>
+                              <!--                            <thead>-->
+                              <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                              <!--                              <th style="width: 30%;">Question</th>-->
+                              <!--                              <th style="width: 60%;">Name</th>-->
+                              <!--                            </tr>-->
+                              <!--                            </thead>-->
+                              <tbody style="width: 95%;">
+                              <draggable
+                                style="width: 100% !important;"
+                                class="dragArea list-group"
+                                :list="item.companytemplatesformfields"
+                                :group="{ name: 'formName', pull: 'clone', put: false }"
+                              >
+                                <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                    <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                    <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                  </v-card>
+                                </tr>
+                              </draggable>
+                              <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+                        </td>
+                      </template>
+                      <template v-slot:item.questions="{item}">
+                        <p v-if="item.companytemplatesformfields">{{item.companytemplatesformfields.length}}</p>
+                      </template>
+                    </v-data-table>
+                  </transition>
+                </v-col>
+                <v-col cols="3" class="d-flex flex-column align-center">
+                  <draggable
                     style="width: 100%;"
-                    v-if="companyDragNDrop"
+                    class="dragArea list-group"
+                    :list="formTypes"
+                    :group="{ name: 'formName', pull: 'clone', put: false }"
                   >
-                    <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
-                      <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;">
-                          <template v-slot:default>
-                            <!--                            <thead>-->
-                            <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
-                            <!--                              <th style="width: 30%;">Question</th>-->
-                            <!--                              <th style="width: 60%;">Name</th>-->
-                            <!--                            </tr>-->
-                            <!--                            </thead>-->
-                            <tbody style="width: 95%;">
-                            <draggable
-                              style="width: 100% !important;"
-                              class="dragArea list-group"
-                              :list="item.companytemplatesformfields"
-                              :group="{ name: 'formName', pull: 'clone', put: false }"
-                            >
-                              <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
-                                <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
-                                  <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
-                                </v-card>
-                              </tr>
-                            </draggable>
-                            <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
-                            </tbody>
-                          </template>
-                        </v-simple-table>
-                      </td>
-                    </template>
-                    <template v-slot:item.questions="{item}">
-                      <p v-if="item.companytemplatesformfields">{{item.companytemplatesformfields.length}}</p>
-                    </template>
-                  </v-data-table>
-                </transition>
-              </v-col>
-              <v-col cols="3" class="d-flex flex-column align-center">
-                <draggable
-                  style="width: 100%;"
-                  class="dragArea list-group"
-                  :list="formTypes"
-                  :group="{ name: 'formName', pull: 'clone', put: false }"
-                >
-                  <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
-                    <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
-                      <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                      <p style="width: 70%; text-align: center">{{form.name}}</p>
-                      <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-                    </v-card-title>
-                  </v-card>
-                </draggable>
-                <rawDisplayer title="List 2" :value="formTypes" />
-                <v-btn @click="saveUserForm" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-                <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
-                <v-progress-circular
-                  v-if="saveLoad === false"
-                  indeterminate
-                  color="primary"
-                  :size="20"
-                ></v-progress-circular>
-              </v-col>
-            </v-row>
-
-            <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
-              <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
-              <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
-                <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
-                <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-                <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
-              </v-form>
-              <div style="width: 100%;" class="d-flex justify-space-between">
-                <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
-                <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="green" outlined>Update Form Field</v-btn>
-              </div>
-              <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
-            </v-card>
-
-          </v-container>
-        </transition>
+                    <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
+                      <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
+                        <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                        <p style="width: 70%; text-align: center">{{form.name}}</p>
+                        <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                      </v-card-title>
+                    </v-card>
+                  </draggable>
+                  <rawDisplayer title="List 2" :value="formTypes" />
+                  <v-btn @click="saveUserForm" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
+                  <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
+                  <v-progress-circular
+                    v-if="saveLoad === false"
+                    indeterminate
+                    color="primary"
+                    :size="20"
+                  ></v-progress-circular>
+                </v-col>
+              </v-row>
+              <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
+                <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
+                <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
+                  <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
+                  <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
+                  <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+                </v-form>
+                <div style="width: 100%;" class="d-flex justify-space-between">
+                  <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
+                  <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="green" outlined>Update Form Field</v-btn>
+                </div>
+                <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
+              </v-card>
+            </v-container>
+          </transition>
+        </v-card>
+      </transition>
     </v-card>
-    </transition>
 
     <transition name="slide-fade">
-      <v-card class="d-flex flex-column align-center justify-center" style="z-index:10; position:fixed; top: 15vh; left: 22vw; width: 75vw; height: 60vh; box-shadow: 8px 8px 8px #707070; border: 1px solid #707070;" overflow-y-auto v-if="addServiceLoad && step2">
+      <v-card class="d-flex flex-column align-center justify-center" style="z-index:10; position:fixed; top: 15vh; left: 22vw; width: 75vw; height: 60vh; box-shadow: 8px 8px 8px #707070; border: 1px solid #707070;" overflow-y-auto v-if="addServiceLoad && step4">
         <v-card-title class="mb-6 mt-2" style="color: #a61c00; font-size: 40px;">Select A Category</v-card-title>
         <v-row style="width: 100%;">
           <v-col cols="4">
@@ -758,15 +830,16 @@
             <v-card-text><strong>You Do Not Have To Choose From Our SOWerk List If It Isn't The Best Option.</strong></v-card-text>
           </v-col>
           <v-col cols="8" class="d-flex">
-            <v-autocomplete
+            <v-combobox
               solo
               :items="naicsList"
               :filter="customFilter"
               item-text="name"
+              item-value="name"
               label="Search Here"
               style="width: 80%;"
               v-model="serviceAdd.name"
-            ></v-autocomplete>
+            ></v-combobox>
             <v-btn @click="addNewService" color="primary" large style="font-size: 20px; width: 20%;" class="px-16 mt-1">Proceed</v-btn>
           </v-col>
         </v-row>
@@ -871,6 +944,11 @@ const naics = require("naics");
         step2: false,
         step3: false,
         step4: false,
+        step5: false,
+        vendorType: [
+          'Supplier',
+          'Servicer',
+        ],
         sowerkDragNDrop: true,
         companyDragNDrop: false,
         addServiceLoad: false,
@@ -880,6 +958,10 @@ const naics = require("naics");
         assignServiceId: Number,
         assignUserform: {
           name: '',
+          service: '',
+          vendorType: '',
+          locations_id: Number,
+          applicationStatus: 1,
         },
         newAssignUserForm: {},
         addLocation: {},
@@ -887,9 +969,9 @@ const naics = require("naics");
         companyTemplates: [],
         headersApplicationTemplateVal: [
           { text: 'Application Name', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Category', value: 'serviceName', class: 'primary--text font-weight-regular' },
-          { text: 'Location Name', value: 'locationName', class: 'primary--text font-weight-regular' },
-          { text: 'Location Address', value: 'locationAddress', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-regular' },
+          { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-regular' },
           { text: '#Questions', value: 'formfields', class: 'primary--text font-weight-regular' },
           { text: 'Application Status', value: 'applicationStatus', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
@@ -907,7 +989,7 @@ const naics = require("naics");
         ],
         tableHeaders: [
           { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Location', value: 'location', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'location', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         companyDocumentsHeaders: [
@@ -1022,7 +1104,9 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
           .then(response => {
             console.log(response.data, 'RESPONSE DATA FOR NAICS LIST')
-            this.naicsList = response.data;
+            for(let i=0; i<response.data.length; i++) {
+              this.naicsList.push(response.data[i].name)
+            }
           })
           .catch(err => {
             console.log(err, 'ERR IN GETTING NAICS LIST')
@@ -1116,23 +1200,27 @@ const naics = require("naics");
             //   // await this.getServices(response.data.location[i].id)
             //   this.valueServices++;
             // }
+            this.locations = response.data.location
+            console.log(this.locations, 'locations THIS DOT LOCATIONS');
+            this.addLocations = response.data.location;
             response.data.location.forEach(async (location, index) => {
-              await this.locations.push(location)
-              console.log(this.locations, 'locations THIS DOT LOCATIONS');
-              await this.addLocations.push(location)
-              console.log(this.valueServices, 'valueServices');
-              setTimeout(() => {
-                if (this.locations[index].services[0] !== 'There are no services') {
-                  for (let i = 0; i < location.services.length; i++) {
-                    this.locations[index].services[i].userforms = []
-                    this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
-                    console.log(this.valueUserForms, 'valueUserForms')
-                    this.valueUserForms++
-                  }
-                }
-              this.valueServices++;
-              this.valueUserForms = 0;
-              }, 1000)
+              console.log(this.valueServices, ' bef valueServices');
+              await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
+              this.valueServices++
+              console.log(this.valueServices, 'after valueServices');
+              this.valueUserForms++
+              // setTimeout(() => {
+              //   if (this.locations[index].services[0] !== 'There are no services') {
+              //     for (let i = 0; i < location.services.length; i++) {
+              //       this.locations[index].services[i].userforms = []
+              //       this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
+              //       console.log(this.valueUserForms, 'valueUserForms')
+              //       this.valueUserForms++
+              //     }
+              //   }
+              // this.valueServices++;
+              // this.valueUserForms = 0;
+              // }, 1000)
             })
           })
           .catch(err => {
@@ -1172,8 +1260,7 @@ const naics = require("naics");
           })
       },
       async getUserforms(id, valueUserForms, valueServices) {
-        if(this.locations[valueServices].services[valueUserForms] !== 'There are no services') {
-          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
             .then(async (response) => {
               // this.totalLength += response.data.length;
               // console.log(this.totalLength, 'totalLength!!!!!!!!!!!!');
@@ -1181,27 +1268,30 @@ const naics = require("naics");
               // console.log(valueServices, 'valueServices', valueUserForms, 'valueUserForms');
               // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
               // this.locations[valueServices].services[valueUserForms].userforms = response.data;
-              setTimeout(() => {
+              console.log(response.data, 'USERFORMS FOR LOCATION')
                 for(let i=0; i<response.data.length; i++) {
                   let userForm = {
                     applicationStatus: response.data[i].applicationStatus,
-                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                     id: response.data[i].id,
                     name: response.data[i].name,
-                    service_id: response.data[i].service_id,
+                    service: response.data[i].service,
+                    vendorType: response.data[i].vendorType,
+                    locations_id: response.data[i].locations_id,
                     formfields: []
                   };
+                  console.log(this.locations[valueServices], 'this.locations individual')
                   let userForm2 = {
                     applicationStatus: response.data[i].applicationStatus,
-                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                     id: response.data[i].id,
                     name: response.data[i].name,
-                    service_id: response.data[i].service_id,
+                    service: response.data[i].service,
+                    vendorType: response.data[i].vendorType,
+                    locations_id: response.data[i].locations_id,
                     formfields: [],
                     locationName: this.locations[valueServices].name,
                     locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
-                    serviceName: this.locations[valueServices].services[valueUserForms].name
                   };
+
                   if(userForm.applicationStatus === 0) {
                     userForm.applicationStatus = 'Unpublished'
                     userForm2.applicationStatus = 'Unpublished'
@@ -1214,20 +1304,19 @@ const naics = require("naics");
                   }
                   this.userForms.push(userForm);
                   this.applicationTemplateVal.push(userForm2);
-                  console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
-                  // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-                  // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
-                  console.log(this.locations[valueServices].services[valueUserForms].userforms[i], 'userform');
-                  this.getFormFields(response.data[i].id);
+                  // console.log(this.applicationTemplateVal, 'applicationTemplateVale!!')
+                  // console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
+                  // // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
+                  // // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
+                  // console.log(this.locations[valueServices].userforms[i], 'userform');
+                  await this.getFormFields(response.data[i].id);
                 }
                 this.finishedFormFields = true;
-              }, 250);
               // console.log(this.userForms, 'userForms with formfields');
             })
             .catch(err => {
               console.log('err get userforms', err);
             })
-        }
       },
       async getFormFields(id,) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
@@ -1258,6 +1347,7 @@ const naics = require("naics");
         this.step1 = false;
         this.step2 = false;
         this.step3 = false;
+        this.step5 = false;
         this.step3finishedFormFields = false;
         this.expanded = [];
         this.singleExpand = true;
@@ -1273,6 +1363,7 @@ const naics = require("naics");
         this.step2 = false;
         this.step3 = false;
         this.step4 = false;
+        this.step5 = false;
         this.step3finishedFormFields = false;
         this.expanded = [];
         this.singleExpand = true;
@@ -1292,6 +1383,7 @@ const naics = require("naics");
         this.step1 = false;
         this.step2 = false;
         this.step3 = false;
+        this.step5 = false;
         this.step3finishedFormFields = false;
         this.expanded = [];
         this.singleExpand = true;
@@ -1310,6 +1402,7 @@ const naics = require("naics");
         this.step1 = false;
         this.step2 = false;
         this.step3 = false;
+        this.step5 = false;
         this.step3finishedFormFields = false;
         this.expanded = [];
         this.singleExpand = true;
@@ -1317,6 +1410,10 @@ const naics = require("naics");
       async addNewVendorFormLoading() {
         this.addNewVendorFormLoad = true;
         this.step1 = true;
+        this.step2 = false;
+        this.step3 = false;
+        this.step4 = false;
+        this.step5 = false;
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
@@ -1331,25 +1428,25 @@ const naics = require("naics");
         this.industryLevel3 = [];
         this.industryLevel4 = [];
         this.sectors = [];
-        let codes = naics.Industry.sectors();
-        console.log(this.sectors, 'before push of other sectors')
-        // Add missing Manufacturing sector group
-        let manufacturingSector = naics.Industry.from('31-33');
-        this.sectors.push(manufacturingSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-        // Add missing Retail Trade sector group
-        let retailSector = naics.Industry.from('44-45');
-        this.sectors.push(retailSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-        // Add missing Transportation and Warehousing sector group
-        let transportationSector = naics.Industry.from('48-49');
-        this.sectors.push(transportationSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-        for(const code of codes) {
-          this.sectors.push(code);
-        }
+        // let codes = naics.Industry.sectors();
+        // console.log(this.sectors, 'before push of other sectors')
+        // // Add missing Manufacturing sector group
+        // let manufacturingSector = naics.Industry.from('31-33');
+        // this.sectors.push(manufacturingSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        //
+        // // Add missing Retail Trade sector group
+        // let retailSector = naics.Industry.from('44-45');
+        // this.sectors.push(retailSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        //
+        // // Add missing Transportation and Warehousing sector group
+        // let transportationSector = naics.Industry.from('48-49');
+        // this.sectors.push(transportationSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        // for(const code of codes) {
+        //   this.sectors.push(code);
+        // }
       },
       async addNewCompanyTemplateLoading() {
         this.addNewVendorFormLoad = false;
@@ -1511,6 +1608,7 @@ const naics = require("naics");
             this.step1 = false;
             this.step2 = false;
             this.step3 = false;
+            this.step5 = false;
             this.step3finishedFormFields = false;
             this.expanded = [];
             this.singleExpand = true;
@@ -1552,12 +1650,13 @@ const naics = require("naics");
       },
       async assignToService(id, name) {
         const userform = {
-          service_id: id,
+          locations_id: id,
           applicationStatus: 1,
-          applicationStatusLinkPublish: false,
-          name: this.addLocation.form_name
+          name: this.addLocation.form_name,
+          service: this.addLocation.service_name,
+          vendorType: "Servicer",
         }
-          await this.$http.post('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id, userform)
+          await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id, userform)
             .then(async(response) => {
               console.log(response, 'success in adding userform from template')
               if(this.addLocation.applicationtemplatesformfields) {
@@ -1611,21 +1710,23 @@ const naics = require("naics");
       },
       async getServiceForVendor(location) {
         this.locationVal = {};
-        this.step1 = false;
-        this.step2 = true;
-        this.locationVal = location
-        console.log('locationVal', this.locationVal)
-      },
-      async assignToServiceVendor(id) {
         this.step2 = false;
         this.step3 = true;
+        this.locationVal = location
+        this.assignUserform.locations_id = location.id
+        console.log('locationVal', this.locationVal)
+      },
+      async assignToServiceVendor(service) {
         if(this.loadApplicationTemplates != true) {
           await this.getApplicationTemplates();
         }
         if(this.loadYourCompanyTemplates != true) {
           await this.getCompanyTemplates();
         }
-        this.assignServiceId = id
+        this.assignServiceId = service.id
+        this.assignUserform.service = service.name;
+        console.log(this.assignUserform, 'assignUserform')
+        await this.assignToServiceVendorSubmit();
       },
       async addService() {
         this.addServiceLoad = true;
@@ -1641,27 +1742,32 @@ const naics = require("naics");
         this.industryLevel3 = [];
         this.industryLevel4 = [];
         this.sectors = [];
-        console.log(this.sectors, 'before push of other sectors')
-        // Add missing Manufacturing sector group
-        let manufacturingSector = naics.Industry.from('31-33');
-        this.sectors.push(manufacturingSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-        // Add missing Retail Trade sector group
-        let retailSector = naics.Industry.from('44-45');
-        this.sectors.push(retailSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-        // Add missing Transportation and Warehousing sector group
-        let transportationSector = naics.Industry.from('48-49');
-        this.sectors.push(transportationSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-        let codes = naics.Industry.sectors();
-        for(const code of codes) {
-          this.sectors.push(code);
-        }
+        // console.log(this.sectors, 'before push of other sectors')
+        // // Add missing Manufacturing sector group
+        // let manufacturingSector = naics.Industry.from('31-33');
+        // this.sectors.push(manufacturingSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        //
+        // // Add missing Retail Trade sector group
+        // let retailSector = naics.Industry.from('44-45');
+        // this.sectors.push(retailSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        //
+        // // Add missing Transportation and Warehousing sector group
+        // let transportationSector = naics.Industry.from('48-49');
+        // this.sectors.push(transportationSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        // let codes = naics.Industry.sectors();
+        // for(const code of codes) {
+        //   this.sectors.push(code);
+        // }
       },
       async addNewService() {
+
+        if(this.serviceAdd.name === Object) {
+          this.serviceAdd.name = this.serviceAdd.name.name
+        }
+        console.log(this.serviceAdd, 'wow')
         await this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.locationVal.id, this.serviceAdd)
           .then(response => {
             console.log(this.locationVal, 'locationVal')
@@ -1670,6 +1776,8 @@ const naics = require("naics");
             }
             console.log(response, 'success in adding new service')
             this.locationVal.services.push(response.data.service)
+            this.serviceAdd.name = "";
+            console.log(this.locationVal.services, 'adding new service list');
             this.addServiceLoad = false;
           })
           .catch(err => {
@@ -1685,25 +1793,25 @@ const naics = require("naics");
         this.industryLevel3 = [];
         this.industryLevel4 = [];
         this.sectors = [];
-        console.log(this.sectors, 'before push of other sectors')
-        // Add missing Manufacturing sector group
-        let manufacturingSector = naics.Industry.from('31-33');
-        this.sectors.push(manufacturingSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-        // Add missing Retail Trade sector group
-        let retailSector = naics.Industry.from('44-45');
-        this.sectors.push(retailSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-
-        // Add missing Transportation and Warehousing sector group
-        let transportationSector = naics.Industry.from('48-49');
-        this.sectors.push(transportationSector);
-        console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-        let codes = naics.Industry.sectors();
-        for(const code of codes) {
-          this.sectors.push(code);
-        }
+        // console.log(this.sectors, 'before push of other sectors')
+        // // Add missing Manufacturing sector group
+        // let manufacturingSector = naics.Industry.from('31-33');
+        // this.sectors.push(manufacturingSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        //
+        // // Add missing Retail Trade sector group
+        // let retailSector = naics.Industry.from('44-45');
+        // this.sectors.push(retailSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        //
+        // // Add missing Transportation and Warehousing sector group
+        // let transportationSector = naics.Industry.from('48-49');
+        // this.sectors.push(transportationSector);
+        // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
+        // let codes = naics.Industry.sectors();
+        // for(const code of codes) {
+        //   this.sectors.push(code);
+        // }
       },
       async userformEditActive(userform) {
         console.log(userform.active, 'active userform');
@@ -1742,14 +1850,53 @@ const naics = require("naics");
             console.log(err, 'err in changing form')
           })
       },
+      async backVendorFormStep() {
+        this.loadApplicationLocations = true;
+        this.addNewVendorFormLoad = false;
+        this.step1 = false;
+        this.step2 = false;
+        this.step3 = false;
+        this.step4 = false;
+        this.step5 = false;
+        this.loadApplicationTemplates = false;
+        this.loadYourCompanyTemplates = false;
+        this.loadYourCompanyDocuments = false;
+        this.addNewCompanyTemplateLoad = false;
+        this.companySector = null;
+        this.companyLevel1 = null;
+        this.companyLevel2 = null;
+        this.companyLevel3 = null;
+        this.industryLevel = [];
+        this.industryLevel2 = [];
+        this.industryLevel3 = [];
+        this.industryLevel4 = [];
+        this.sectors = [];
+      },
+      async nextVendorFormStep() {
+        this.step1 = false;
+        this.step2 = true;
+        console.log(this.assignUserform, 'userform for assigning')
+      },
+      async backVendorFormStep2() {
+        this.step2 = false;
+        this.step1 = true;
+      },
+      async backVendorFormStep3() {
+        this.step3 = false;
+        this.step2 = true;
+      },
+      async nextVendorFormStep3() {
+        this.step3 = false;
+        this.step4 = true;
+      },
       async assignToServiceVendorSubmit() {
         console.log(this.assignUserform, 'userform for assigning')
-        await this.$http.post('https://www.sowerkbackend.com/api/userforms/byServiceId/' + this.assignServiceId, this.assignUserform)
+        await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + this.locationVal.id, this.assignUserform)
           .then(response => {
             console.log(response.data, 'userform posting on assign success')
             this.newAssignUserForm = response.data.userform;
-            this.step3=false;
-            this.step4=true;
+            this.step4=false;
+            this.step5=true;
             this.getUserformsVal(response.data.userform.id)
           })
           .catch(err => {
@@ -2047,6 +2194,17 @@ const naics = require("naics");
         // imageInput.$el.click();
         document.getElementById('companyDocumentImage').click();
       },
+      async deleteService(service, position) {
+        console.log(this.locationVal.services, 'SERVICES FOR DELETING PURPOSE', position)
+        this.locationVal.services.splice(this.locationVal.services[position], 1)
+        await this.$http.delete('https://www.sowerkbackend.com/api/services/' + service.id)
+          .then(response => {
+            console.log(response, 'success in removing category', service)
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting category');
+          })
+      }
     }
   }
 
@@ -2069,8 +2227,5 @@ const naics = require("naics");
     /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
-  }
-  .v-table thead tr th {
-    font-size: 24px;
   }
 </style>

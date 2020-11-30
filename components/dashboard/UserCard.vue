@@ -59,7 +59,7 @@
           </template>
           <template v-slot:item.useractions="{item}">
             <div class="d-flex flex-column align-center">
-              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
+              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Channel</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
               <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
             </div>
@@ -101,7 +101,7 @@
           </template>
           <template v-slot:item.useractions="{item}" >
             <div class="d-flex flex-column align-center" style="margin-top:50%;">
-              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Location</v-btn>
+              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Channel</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
               <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
             </div>
@@ -125,7 +125,7 @@
           </v-form>
           <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submitsdfsdf</v-btn>
           <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
-          <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successUserEditForm === true">SUCCESS! You have edited a user # {{userEdit.id}}</v-card-title>
+          <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successUserEditForm === true">SUCCESS! You have edited user # {{userEdit.id}}</v-card-title>
         </v-card>
       </transition>
 
@@ -134,7 +134,7 @@
           <FacilitiesCard
             v-if="locations && locationAssignLoad === true"
             :items="locations"
-            :title="'Facilities'"
+            :title="'Channels'"
             :tableProperties="headers"
             slug="/dashboard/facilities/"
             :viewLocation="true"
@@ -219,7 +219,7 @@ export default {
       locationAssignLoad: false,
       headers: [
         { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
-        { text: 'Location', value: 'name', class: 'primary--text font-weight-regular' },
+        { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
         { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
         { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
         { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },

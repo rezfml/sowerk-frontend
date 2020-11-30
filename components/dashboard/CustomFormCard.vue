@@ -127,17 +127,13 @@
       this.locationId = this.$route.params.id;
       console.log(this.locationId, 'locationId')
       await this.getServices(this.locationId);
+      await this.getUserforms(this.locationId);
     },
     methods: {
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(response => {
             console.log(response.data, 'services');
-            if(response.data.length !== 0) {
-             for(let i = 0; i<response.data.length; i++) {
-               this.getUserforms(response.data[i].id)
-             }
-            }
           })
           .catch(err => {
             console.log('err get services', err);
@@ -145,7 +141,7 @@
         console.log(this.userForms, 'this.userForms');
       },
       async getUserforms(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
           .then(async (response) => {
               console.log(response.data, 'userforms');
               if(response.data.length !== 0) {
@@ -153,10 +149,11 @@
                   console.log('response.data', response.data[i])
                   let userForm = {
                     applicationStatus: response.data[i].applicationStatus,
-                    applicationStatusLinkPublish: response.data[i].applicationStatusLinkPublish,
                     id: response.data[i].id,
                     name: response.data[i].name,
-                    service_id: response.data[i].service_id,
+                    locations_id: response.data[i].locations_id,
+                    service: response.data[i].service,
+                    vendorType: response.data[i].vendorType,
                     formfields: []
                   }
                   if(userForm.applicationStatus === 0) {

@@ -13,9 +13,9 @@
             <v-row>
               <v-col cols="12">
                 <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png" aspect-ratio="1" style="height: 25vh; max-height: 25vh;"></v-img>
-                <p class="primary--text text-center font-weight-bold text-h5">Invite a Service Provider to join SOWerk And Connect For Free</p>
-                <p class="text-center text-h6">Enter the Service Provider's information below, add another line, and invite multiple providers at once.</p>
-                <p class="text-body-1 text-center">(Note: By selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk with a free connection, but will still have to submit an application to your business.)</p>
+                <p class="primary--text text-center font-weight-bold text-h5">Invite a Vendor to join SOWerk And Connect For Free</p>
+                <p class="text-center text-h6">Enter the Vendor's information below, add another line, and invite multiple vendors at once.</p>
+                <p class="text-body-1 text-center">(Note: By selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk, but will still have to submit an application to your business and not recieve a free connection.)</p>
               </v-col>
               <v-col cols="12">
                 <v-data-table
@@ -76,7 +76,7 @@
               </v-col>
               <v-col class="d-flex justify-space-between my-12">
                 <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
-                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Service Providers</v-btn>
+                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Vendors</v-btn>
               </v-col>
             </v-row>
           </v-container>
@@ -136,14 +136,14 @@
         },
         services: [],
         headers: [
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Vendor', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'First Name', value: 'firstName', class: 'primary--text font-weight-regular' },
           { text: 'Last Name', value: 'lastName', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Pre-Approved', value: 'preapproved', class: 'primary--text font-weight-regular' },
-          { text: 'Property', value: 'property', class: 'primary--text font-weight-regular' },
+          { text: 'Channel', value: 'property', class: 'primary--text font-weight-regular' },
         ],
         businesses: null,
         success: false

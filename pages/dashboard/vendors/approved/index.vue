@@ -115,7 +115,7 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6" style="background: linear-gradient(to right, #A61C00, #741502);">
-            <p style="color: white; font-size: 24px;" class="pt-4">Looking for somebody new? Request Vendors to Apply!</p>
+            <p style="color: white; font-size: 24px;" class="pt-4">Looking For A New Vendor? Search The SOWerk Directory.</p>
             <v-btn
               style=""
               class="px-16 mb-4"
@@ -129,7 +129,7 @@
           </transition>
           <transition name="slide-fade">
             <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
-            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Does your company already have an approved Service Provider that hasn’t joined SOWerk yet?</p>
+            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Already Know Vendors To Invite? Use The SOWerk Invite Tool.</p>
             <v-btn
               style=""
               class="px-16 mb-4"
@@ -148,7 +148,7 @@
             :items="vendors"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/approved/"
+            slug="/dashboard/vendors/approved/"
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>
@@ -313,12 +313,12 @@
           'Location'
         ],
         headers: [
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Facility', value: 'addressCityState', class: 'primary--text font-weight-regular'},
+          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-regular'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         applications: null,

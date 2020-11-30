@@ -20,7 +20,7 @@
                 </v-col>
               </v-row>
               <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
-              <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
+              <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Channels</v-card-text>
               <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
               <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
               <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
@@ -59,7 +59,7 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
-              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Properties</v-card-title>
+              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>
               <v-card-subtitle>Past 30 days</v-card-subtitle>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
               <template style="text-align: center width: 100%;">
@@ -67,7 +67,7 @@
                   <v-form class="mx-4" style="width: 60%;">
                     <v-select
                       dense
-                      label="Step 1 - Choose Your Location"
+                      label="Step 1 - Choose Your Channel"
                       :items="company.locations"
                       item-text="name address city state zipcode"
                       item-value="name address city state zipcode"

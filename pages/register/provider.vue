@@ -160,13 +160,12 @@
 
                           <v-text-field
                             label="Phone*"
-                            type="text"
-                            placeholder=""
-                            class="card__input black--text mb-6"
+                            type="tel"
+                            class="card__input black--text"
                             v-model="user.phone"
-                            :rules="rules.phoneRules"
-                            v-mask="'(###)###-####'"
-                            validate-on-blur
+                            placeholder=" "
+                            :rules="rules.requiredRules"
+                            v-mask="'(###) ###-####'"
                           ></v-text-field>
                         </v-col>
 
@@ -202,16 +201,7 @@
                           </p>
                         </v-col>
 
-                        <v-col cols="12" md="3">
-                          <v-text-field
-                            label="Year Founded*"
-                            type="text"
-                            placeholder=" "
-                            :rules="rules.requiredRules"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" md="9">
+                        <v-col cols="12">
                           <v-select
                             id="company-best"
                             label="What Best Describes You*"
@@ -342,6 +332,7 @@
                             type="text"
                             placeholder=" "
                             :rules="rules.requiredRules"
+                            v-model="company.year_founded"
                           ></v-text-field>
                         </v-col>
 
@@ -978,7 +969,7 @@
             v => (v && v.length <= 100) || 'Email must be less than 100 characters'
           ],
           phoneRules: [
-            v => (v && v.length === 10) || 'Phone Number must be 11 digits',
+            (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
           ],
           passwordRules: [
             v => !!v || 'Password is required',
@@ -1156,12 +1147,12 @@
         this.company.address = addressData.street_number + ' ' + addressData.route;
         this.company.city = addressData.locality;
         this.company.state = addressData.administrative_area_level_1;
-        this.company.zipcode = addressData.postal_code;
+        this.company.zipcode = Number(addressData.postal_code);
         this.formatFullAddress();
       },
       formatFullAddress() {
         if (!this.company.address) return;
-        this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
+        this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode.toString();
         console.log(this.fullAddress);
       },
       animateAddressFieldOnFocus(e) {
@@ -1245,7 +1236,7 @@
       },
       async register() {
         this.loading = true
-
+        this.company.servicesOffered = this.company.servicesOffered.join();
         await this.uploadCompanyImage()
         if (this.insuranceFiles.length > 0) {
           this.loopInsuranceFilesForUpload()
