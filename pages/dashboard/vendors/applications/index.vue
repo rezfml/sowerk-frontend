@@ -327,7 +327,17 @@
             <v-row class="d-flex justify-center" style="width: 100%;">
               <v-col cols="4">
                 <v-card class="d-flex flex-column align-center">
-                  <v-card-title style="width: 95%;"><v-text-field label="Enter Service Category Here" v-model="newAssignUserForm.service_name">{{newAssignUserForm.service_name}}</v-text-field></v-card-title>
+                  <v-combobox
+                    solo
+                    :items="naicsList"
+                    :filter="customFilter"
+                    item-text="name"
+                    item-value="name"
+                    label="Search Here"
+                    :search-input.sync="newAssignUserForm.service_name"
+                    style="width: 95%;"
+                    v-model="newAssignUserForm.service_name"
+                  ></v-combobox>
                   <v-card-title style="width: 95%;"><v-text-field label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
                   <draggable
                     class="dragArea list-group"
@@ -827,7 +837,6 @@
               item-text="name"
               item-value="name"
               label="Search Here"
-              :search-input.sync="serviceAdd.name"
               style="width: 80%;"
               v-model="serviceAdd.name"
             ></v-combobox>

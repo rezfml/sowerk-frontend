@@ -82,7 +82,7 @@
           <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-          <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+          <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <div>
             <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
             <p style="color: white;">Please Note The Difference Between Account Level Permissions.</p>
@@ -151,7 +151,7 @@
           //     (v && v.length <= 100)  'Email must be less than 100 characters',
           // ],
           phoneRules: [
-            (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
+            (v) => (v && v.length === 14) || 'Phone Number must be 10 digits',
           ],
           passwordRules: [
             v => !!v || 'Password is required',

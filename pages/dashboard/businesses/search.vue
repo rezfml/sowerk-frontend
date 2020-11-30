@@ -105,24 +105,21 @@ export default {
           for(let i = 0; i < response.data.length; i++) {
             this.getWholeCompanyObject(response.data[i].id);
           }
-          this.createRequestingCompaniesArray(this.businesses);
         })
         .catch(err => {
           console.log('err', err)
         });
     },
     async createRequestingCompaniesArray(business) {
+      console.log(business, 'BUSINESS')
       for(const location of business.locations) {
-        if (location && Array.isArray(location.services) && location.services.length > 0) {
-          for (const service of location.services) {
-            if (service && Array.isArray(service.userforms) && service.userforms.length > 0) {
-              for (const userform of service.userforms) {
-                for (const activeUserform of this.activeUserforms) {
-                  if (activeUserform.id === userform.id) {
-                    this.requestingBusinesses.push(business);
-                  }
+        if (location && Array.isArray(location.userforms) && location.userforms.length > 0) {
+          for (const userform of location.userforms) {
+              for (const activeUserform of this.activeUserforms) {
+                if (activeUserform.id === userform.id) {
+                  this.requestingBusinesses.push(business);
                 }
-              }
+
             }
           }
         }
@@ -148,7 +145,18 @@ export default {
         .then(response => {
           let business = {
             id: response.data.id,
-            locations: response.data.locations,
+            locations: [],
+          }
+
+          for(let i=0; i<business.locations.length; i++) {
+            this.$http.get('http://www.sowerkbackend.com/api/locations/' + business.locations[i].id)
+              .then(response => {
+                business.locations[i] = response.data
+              })
+              .catch(err => {
+                console.log(err, 'err in getting location')
+              })
+            console.log(business, 'business')
           }
           this.createRequestingCompaniesArray(business);
         })
