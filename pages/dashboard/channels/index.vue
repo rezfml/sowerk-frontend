@@ -1,6 +1,8 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
+      
+      <!-- TOP INFO BANNER -->
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
@@ -28,6 +30,7 @@
           </v-row>
         </v-card>
       </transition>
+
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
 <!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
 <!--          <v-progress-circular-->

@@ -14,7 +14,9 @@
         type="card-avatar, article, article, actions"
         min-height="60vh"
       ></v-skeleton-loader>
+      
       <transition name="slide-fade">
+        <!-- MEDIUM AND LARGE -->
         <UserCard
           v-if="users.length > 0 && loading === true && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"
           :title="'List of Users - ' + company.account_name"
@@ -31,6 +33,8 @@
           :viewLocation='viewLocation'
         >
         </UserCard>
+
+        <!-- SMALL AND EXTRA-SMALL -->
         <UserCard
           v-if="users.length > 0 && loading === true"
           :title="'List of Users - ' + company.account_name"
@@ -46,7 +50,6 @@
           :getLocations="getLocations"
           :viewLocation='viewLocation'
         >
-
         </UserCard>
       </transition>
     </v-card>
