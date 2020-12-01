@@ -1,6 +1,30 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
     <v-container class="px-8" fluid id="v-step-0" style="width: 100%;">
+      <!--      Maint modal on render-->
+      <transition>
+        <v-card v-if="loadModal === true">
+          <template style="margin: 3%; justify-content: center">
+            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>
+            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>
+          </template>
+        </v-card>
+      </transition>
+      
+      <!-- TOP INFO BANNER -->
+      <transition name="slide-fade">
+        <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+          <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
+            <v-img class="" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 10%; height: 30vh;"></v-img>
+            <v-col cols="7" class="d-flex flex-column justify-center">
+              <h2>Dashboard</h2>
+              <p class="mt-4">Your dashboard is where you can see a list of all Channels which are managed by this user’s account. Additionally you can see an overview of your “Approved Vendors” “All Pending Applications” and “Unread Messages”.
+              </p>
+            </v-col>
+          </v-row>
+        </v-card>
+      </transition>
+
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <v-skeleton-loader
@@ -39,15 +63,7 @@
           ></v-skeleton-loader>
         </v-col>
       </v-row>
-<!--      Maint modal on render-->
-      <transition>
-        <v-card v-if="loadModal === true">
-          <template style="margin: 3%; justify-content: center">
-            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>
-            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>
-          </template>
-        </v-card>
-      </transition>
+
       <transition name="slide-fade">
         <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}!</v-card-title>
@@ -56,6 +72,7 @@
           <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>
         </v-card>
       </transition>
+
       <transition name="slide-fade">
         <HomeCard
           v-if="locations && locationApproved && company"
