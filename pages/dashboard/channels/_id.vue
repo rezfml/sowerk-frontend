@@ -90,13 +90,13 @@
           0
         ],
         headers: [
-          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular'},
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-regular'},
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Company', value: 'companyName', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Primary Contact', value: 'fullname', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Email', value: 'email', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Phone', value: 'phone', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Channel', value: 'addressCityState', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         locations: [
           {

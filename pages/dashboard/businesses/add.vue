@@ -280,14 +280,14 @@ on your account dashboard. Example: SOWerk Cafe #013)"
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text text-h6 font-weight-bold text-left'
           },
-          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'companyName', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Address', value: 'address', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Primary Contact', value: 'name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Email', value: 'email', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Phone', value: 'phone', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         adminOptions: [
           {

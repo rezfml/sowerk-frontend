@@ -435,9 +435,9 @@
         applicationTemplates: [],
         companyTemplates: [],
         applicationDragNDropHeaders: [
-          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-regular' },
-          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-regular' },
-          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service_name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Application Name', value: 'form_name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: '#Questions', value: 'questions', class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         expanded: [],
         singleExpand: true,
