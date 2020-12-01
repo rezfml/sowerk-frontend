@@ -1,5 +1,6 @@
 <template>
 <v-container>
+  <!-- THIS IS THE MEDIUM AND LARGE BREAKPOINT -->
   <div style="width: 100%" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
     <div v-if="locationApproved" style="width: 100%" class="d-flex">
 <!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
@@ -18,6 +19,7 @@
             color="primary"
             :size="20"
           ></v-progress-circular>
+          
           <v-container class="pt-0" fluid v-if="loading === true">
             <v-card-title
               style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;"
@@ -166,6 +168,7 @@
         color="primary"
         :size="20"
       ></v-progress-circular>
+
       <v-container class="pt-0" fluid v-if="loading === true">
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
@@ -320,7 +323,7 @@
   </div>
 
   <div style="width: 100%" v-else >
-
+    <!-- THIS IS THE SMALL AND X-SMALL BREAKPOINT -->
     <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
         v-if="loading != true"
@@ -328,6 +331,7 @@
         color="primary"
         :size="20"
       ></v-progress-circular>
+
       <v-container class="pt-0" fluid v-if="loading === true">
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 95%; border-radius: 3px; font-size: 18px;"
@@ -478,6 +482,8 @@
   </div>
   </v-container>
 </template>
+
+
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {

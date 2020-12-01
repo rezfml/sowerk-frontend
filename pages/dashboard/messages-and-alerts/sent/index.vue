@@ -58,13 +58,13 @@
 
         },
         headers: [
-          { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-regular'},
-          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
-          { text: 'Message', value: 'message', class: 'primary--text font-weight-regular' },
-          { text: 'Channel', value: 'location', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Read', value: 'pmMessageRead', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Category', value: 'service', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Company', value: 'company', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Primary Contact', value: 'full_name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Message', value: 'message', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Channel', value: 'location', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
         ]
       }
     },
