@@ -152,4 +152,11 @@
     transform: translateX(10px);
     opacity: 0;
   }
+
+  table.v-table thead tr th {
+    font-size: 50px;
+  }
+  table.v-table tbody tr td {
+    font-size: 50px;
+  }
 </style>
