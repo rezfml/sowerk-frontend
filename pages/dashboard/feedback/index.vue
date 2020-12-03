@@ -19,11 +19,11 @@
       <v-img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs " style="max-height: 450px;" class="my-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-img v-else style="max-height: 250px;" class="mt-3" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-card-title v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs " style="width: 70%; border-radius: 3px; font-size:1.8vw;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 mt-8">Do You Have Feedback, Need Support, Or Have An Idea? </v-card-title>
-      <v-card-title v-else-if="!$vuetify.breakpoint.xs" style="width: 90%; border-radius: 3px; font-size:2.8vw;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 mt-n8">Do You Have Feedback, Need Support, Or Have An Idea? </v-card-title>
-      <v-card-title v-else style="width: 90%; border-radius: 3px; font-size:4.3vw;line-height:1.5;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 ">Do You Have Feedback, <br/>Need Support, Or Have An Idea? </v-card-title>
+      <v-card-title v-else-if="!$vuetify.breakpoint.xs" style="width: 90%; border-radius: 3px; font-size:2.8vw; text-align: center;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 mt-n8">Do You Have Feedback, Need Support, Or Have An Idea?</v-card-title>
+      <v-card-title v-else style="width: 90%; border-radius: 3px; font-size:4.3vw; line-height:1.5; text-align: center;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 ">Do You Have Feedback, Need <br/> Support, Or Have An Idea? </v-card-title>
       <v-card-subtitle style="width: 70%; font-size: 14px;">At SOWerk, our entire team is dedicated to your success and happiness. Please, if you have any ideas, questions, or have found an issue we need to fix, don't hesitate to send us a message here. Our team monitors for feedback 24/7. </v-card-subtitle>
       <v-form style="width: 80%;" class="justify-center d-flex flex-column align-center">
-        <v-text-field style="width: 80%;" label="Message" class="pt-6" placeholder="Message" v-model="feedbackForm.message" :rules="rules.requiredRules"></v-text-field>
+        <v-textarea style="width: 80%;" label="Message" class="pt-6" placeholder="Message" v-model="feedbackForm.message" :rules="rules.requiredRules"></v-textarea>
         <v-btn large outlined color="primary" rounded @click="submitFeedback" class="mb-4">Send Feedback</v-btn>
       </v-form>
     </v-card>

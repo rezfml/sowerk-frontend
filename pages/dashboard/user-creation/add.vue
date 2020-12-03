@@ -83,11 +83,11 @@
         <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
           <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-          <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-          <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+          <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
+          <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
           <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <div>
-            <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+            <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" :rules="rules.selectRules"></v-select>
             <p style="color: white;">Please Note The Difference Between Account Level Permissions.</p>
             <p style="color: white;"><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</p>
             <p style="color: white;"><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
@@ -138,6 +138,8 @@
         ],
         rules: {
           requiredRules: [(v) => !!v && v === 0 || 'Field is required'],
+          requiredFirstNameRules: [(v) => !!v && v === 0 || 'First Name is required'],
+          requiredLastNameRules: [(v) => !!v && v === 0 || 'Last Name is required'],
           // usernameRules: [
           //   (v) => !!v  'Name is required',
           //   (v) =>
@@ -167,6 +169,9 @@
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
           ,
+          selectRules: [
+            v => !!v || 'You must select either Super Admin or Staff Account'
+          ]
           // urlRules: [
           //   v => !!v  'A website is required',
           //   v => /.+([A-Z0-9a-z]+).([a-z]+)+/.test(v)  'A valid URL is required',/[a-z]://www./
@@ -213,7 +218,7 @@
         this.companyLoad = true;
       },
       async submitAddUser() {
-        if (this.addUserForm.email === '' || this.addUserForm.password === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '') {
+        if (this.addUserForm.email === '' || this.addUserForm.password === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '' || this.addUserForm.is_superuser === '') {
           return this.requiredFieldsFilled = false
         } else {
           this.requiredFieldsFilled = true
