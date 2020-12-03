@@ -181,6 +181,34 @@
               </v-row>
 
               <v-row>
+                <v-col cols="12" class="mt-8">
+                  <v-combobox
+                    v-model="locationTagsNew"
+                    :items="sowerkTags"
+                    item-text="name"
+                    item-value="name"
+                    chips
+                    multiple
+                    label="Choose your tags here"
+                  >
+                    <template v-slot:selection="data">
+                      <v-chip
+                        class="v-chip--select-multi"
+                        style="width: auto;"
+                      >
+                        <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                        <v-card-text v-else>{{data.item}}</v-card-text>
+                        <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                      </v-chip>
+                    </template>
+                    <template v-slot:item="data">
+                      <p>{{data.item.name}}</p>
+                    </template>
+                  </v-combobox>
+                </v-col>
+              </v-row>
+
+              <v-row>
 
                 <v-col cols="12" class="py-0 mt-0">
                   <v-subheader class="px-0 headline font-weight-bold primary--text" light>Current Channel Manager</v-subheader>
@@ -534,6 +562,13 @@
         </template>
       </transition>
     </v-container>
+
+    <transition name="slide-fade">
+      <v-card v-if="modalSuccessEditLoad" style="position: fixed; top: 25vh; left: 20vw; width: 50%;">
+        <v-card-title>Successfully Edited Location!</v-card-title>
+        <v-btn @click="modalSuccessEditLoad = !modalSuccessEditLoad" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
+      </v-card>
+    </transition>
   </v-card>
 </template>
 
@@ -549,7 +584,11 @@
       'location',
       'user',
       'adminLevels',
-      'editLocation'
+      'editLocation',
+      'locationTags',
+      'sowerkTags',
+      'originalLocationTags',
+      'getLocationTags'
     ],
     data() {
       return {
@@ -601,6 +640,8 @@
         locationImageUrl: null,
         companyImageFile: null,
         companyImageUrl: null,
+        locationTagsNew: [],
+        modalSuccessEditLoad: false,
       }
     },
     async mounted() {
@@ -621,6 +662,8 @@
         this.locationEdit.year_founded = this.location.year_founded;
         this.locationEdit.adminLevel = this.location.adminLevel;
         this.formatFullAddress(this.locationEdit);
+        console.log(this.locationTags, this.sowerkTags, 'props this.locationTag')
+        this.locationTagsNew = this.locationTags;
       } else if(this.company) {
         await this.getCompany(this.user.companies_id);
         // this.formatFullAddress(this.company);
@@ -666,13 +709,55 @@
         await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit)
           .then(response => {
             console.log(response, 'success')
-            alert('succesfully edited!')
-            this.$router.go();
+            if(this.locationTagsNew.length > 0) {
+              console.log(this.locationTagsNew, 'this.locationTags');
+              for(let i=0; i<this.locationTagsNew.length; i++) {
+                if(typeof this.locationTagsNew[i] === 'object' && !(this.originalLocationTags.includes(this.locationTagsNew[i]))) {
+                  this.$http.post('https://www.sowerkbackend.com/api/locationtags/byLocationId/' + this.location.id, {
+                    name: this.locationTagsNew[i].name
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                } else {
+                  if(!(this.originalLocationTags.includes(this.locationTagsNew[i]))) {
+                    this.$http.post('https://www.sowerkbackend.com/api/locationtags/byLocationId/' + this.location.id, {
+                      name: this.locationTagsNew[i]
+                    })
+                      .then(responseVal => {
+                        console.log(responseVal, 'success in posting location tags')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in posting locationtags')
+                      })
+                  }
+                }
+              }
+              for(let i=0; i<this.originalLocationTags.length; i++) {
+                if(!(this.locationTagsNew.includes(this.originalLocationTags[i]))) {
+                  console.log(this.originalLocationTags[i], 'this.location tags DELETE')
+                  this.$http.delete('https://www.sowerkbackend.com/api/locationtags/' + this.originalLocationTags[i].id)
+                    .then(response => {
+                      console.log(response, 'success in deleting location tag')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in deleting location tag')
+                    })
+                }
+              }
+            }
           })
           .catch(e => {
             console.log(e, 'err in updating')
           });
 
+        this.modalSuccessEditLoad = true;
+        setTimeout(() => {
+          this.getLocationTags(this.location.id);
+        }, 500)
         // this.$nextTick(function() {
         //   this.locationEdit = data;
         // })
@@ -814,7 +899,18 @@
           .catch(err => {
             console.log(err, 'ERROR IN EDITING COMPANY')
           })
-      }
+      },
+      async removeTag(item) {
+        console.log(this.locationTagsNew, 'before removal', item)
+        this.locationTagsNew = this.locationTagsNew.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.locationTagsNew, 'after removal')
+      },
     }
   };
 </script>

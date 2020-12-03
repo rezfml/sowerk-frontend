@@ -3,12 +3,12 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="width: 100%; height: 100%;">
         <v-col cols="12" md="4" xl="3">
-          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" ></ProfileCard>
+          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" :getLocationTags="getLocationTags"></ProfileCard>
         </v-col>
 
         <v-col cols="12" md="8" xl="9" class="pb-12 d-flex flex-column align-center">
           <transition name="slide-fade">
-          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing"></ProfileEditCard>
+          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags"  :originalLocationTags="originalLocationTags"></ProfileEditCard>
           </transition>
 <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
 <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
@@ -49,7 +49,7 @@
           </transition>
 
           <transition name="slide-fade">
-          <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing"></ProfileEditCard>
+          <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags" :originalLocationTags="originalLocationTags" :getLocationTags="getLocationTags"></ProfileEditCard>
           </transition>
         </v-col>
       </v-row>
@@ -289,12 +289,17 @@
         editVendorRequirements: false,
         editLocationDetails: false,
         locationImageUrl: null,
+        locationTags: [],
+        sowerkTags: [],
+        originalLocationTags: [],
       }
     },
     mounted() {
       this.locationId = this.$route.params.id;
 
       this.getCompany(this.currentUser.companies_id);
+      this.getSowerkTags();
+      this.getLocationTags(this.locationId)
     },
     computed: {
       currentUser() {
@@ -534,6 +539,25 @@
         this.editLocationDetails = true;
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
+      async getSowerkTags() {
+        await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
+          .then(response => {
+            console.log(response.data, 'response.data for sowerktags');
+            this.sowerkTags = response.data;
+            console.log(this.sowerkTags, 'sowerktags')
+          })
+      },
+      async getLocationTags(id) {
+        this.locationTags = [];
+        this.originalLocationTags = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/locationtags/byLocationId/' + id)
+          .then(response => {
+            console.log(response.data, 'response.data for sowerktags');
+            this.locationTags = response.data;
+            this.originalLocationTags = response.data;
+            console.log(this.locationTags, 'locationtags')
+          })
+      }
     }
   }
 </script>

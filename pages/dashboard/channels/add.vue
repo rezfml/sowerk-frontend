@@ -89,6 +89,31 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </template>
                     </v-textarea>
                   </v-col>
+                  <v-col cols="12" class="mt-8">
+                    <v-combobox
+                      v-model="locationTags"
+                      :items="sowerkTags"
+                      item-text="name"
+                      item-value="name"
+                      chips
+                      multiple
+                      label="Choose your tags here"
+                    >
+                      <template v-slot:selection="data">
+                        <v-chip
+                          class="v-chip--select-multi"
+                          style="width: auto;"
+                        >
+                          <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                          <v-card-text v-else>{{data.item}}</v-card-text>
+                          <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                        </v-chip>
+                      </template>
+                      <template v-slot:item="data">
+                        <p>{{data.item.name}}</p>
+                      </template>
+                    </v-combobox>
+                  </v-col>
                   <v-col cols="12" class="mt-12 mb-4">
                     <h2 class="mx-auto text-center">Channel Manager</h2>
                     <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this channel.</p>
@@ -213,7 +238,6 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           adminLevel: false,
           imageUrl: ''
         },
-
         item: {
           lat: null,
           lng: null
@@ -362,6 +386,9 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         loading: false,
         users: [],
         loadSubmit: true,
+        locationTags: [],
+        sowerkTags: [],
+        search: null
       }
     },
     async mounted() {
@@ -370,6 +397,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       setTimeout(() => {
         this.loading = true;
         this.getUsers(this.currentUser.companies_id);
+        this.getSowerkTags();
       }, 500)
     },
     computed: {
@@ -436,6 +464,31 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form)
           .then(response => {
             console.log(response, 'success in submitting new location')
+            if(this.locationTags.length > 0) {
+              for(let i=0; i<this.locationTags.length; i++) {
+                if(typeof this.locationTags[i] === 'object') {
+                  this.$http.post('https://www.sowerkbackend.com/api/locationtags/byLocationId/' + response.data.location.id, {
+                    name: this.locationTags[i].name
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                } else {
+                  this.$http.post('https://www.sowerkbackend.com/api/locationtags/byLocationId/' + response.data.location.id, {
+                    name: this.locationTags[i]
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                }
+              }
+            }
             this.loadSubmit = true;
             this.$router.push('../../../dashboard/channels')
           })
@@ -464,6 +517,25 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         this.mapOptions = { ...this.mapOptions, center: { lat: this.form.latitude, lng: this.form.longitude } }
         this.center = { lat: this.form.latitude, lng: this.form.longitude }
         this.mapOptions.zoom = 13
+      },
+      async getSowerkTags() {
+        await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
+          .then(response => {
+            console.log(response.data, 'response.data for sowerktags');
+            this.sowerkTags = response.data;
+            console.log(this.sowerkTags, 'sowerktags')
+          })
+      },
+      async removeTag(item) {
+        console.log(this.locationTags, 'before removal', item)
+        this.locationTags = this.locationTags.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.locationTags, 'after removal')
       }
     }
   }
