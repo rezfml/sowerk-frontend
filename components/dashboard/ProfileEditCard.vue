@@ -489,15 +489,17 @@
                 </v-col>
 
                 <v-col cols="12" md="9" class="py-0">
-                  <v-text-field
+                  <v-textarea
                     light
                     placeholder="Company Description"
                     v-model="company.description"
+                    auto-grow
+                    rows="1"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Company Description</p>
                     </template>
-                  </v-text-field>
+                  </v-textarea>
                 </v-col>
               </v-row>
 
