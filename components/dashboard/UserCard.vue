@@ -123,7 +123,7 @@
             <v-text-field :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-select v-model="userEditForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
           </v-form>
-          <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submitsdfsdf</v-btn>
+          <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
           <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px;">X</v-btn>
           <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successUserEditForm === true">SUCCESS! You have edited user # {{userEdit.id}}</v-card-title>
         </v-card>

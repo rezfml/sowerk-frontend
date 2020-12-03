@@ -23,7 +23,7 @@
       <v-card-title v-else style="width: 90%; border-radius: 3px; font-size:4.3vw; line-height:1.5; text-align: center;" class="primary white--text justify-center font-weight-regular red-gradient mb-10 ">Do You Have Feedback, Need <br/> Support, Or Have An Idea? </v-card-title>
       <v-card-subtitle style="width: 70%; font-size: 14px;">At SOWerk, our entire team is dedicated to your success and happiness. Please, if you have any ideas, questions, or have found an issue we need to fix, don't hesitate to send us a message here. Our team monitors for feedback 24/7. </v-card-subtitle>
       <v-form style="width: 80%;" class="justify-center d-flex flex-column align-center">
-        <v-textarea style="width: 80%;" label="Message" class="pt-6" placeholder="Message" v-model="feedbackForm.message" :rules="rules.requiredRules"></v-textarea>
+        <v-textarea auto-grow rows="1" style="width: 80%;" label="Message" class="pt-6" placeholder="Message" v-model="feedbackForm.message" :rules="rules.requiredRules"></v-textarea>
         <v-btn large outlined color="primary" rounded @click="submitFeedback" class="mb-4">Send Feedback</v-btn>
       </v-form>
     </v-card>
@@ -55,7 +55,7 @@
         },
         loading: false,
         rules: {
-          requiredRules: [(v) => !!v && v === 0 || 'Field is required'],
+          requiredRules: [(v) => !!v && v !== 0 || 'Field is required'],
         }
       }
     },
