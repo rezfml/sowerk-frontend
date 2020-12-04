@@ -9,6 +9,7 @@
         <v-card-title v-if="loadCompany" style="position: absolute; top: -25px; left: 25px;border-radius: 3px; background-color: " class="primary body-2" ><v-icon class="white--text">mdi-account-outline</v-icon></v-card-title>
       </transition>
 
+      <!-- "Edit Channel Details" CARD ON dashboard/channels/:id -->
       <transition name="slide-fade">
         <template v-if="location">
           <v-card-text class="py-0">
@@ -109,7 +110,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.address"
+                    v-model="locationEdit.address"
                     clearable
                   >
                     <template v-slot:label>
@@ -122,7 +123,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.city"
+                    v-model="locationEdit.city"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel City</p>
@@ -134,7 +135,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.state"
+                    v-model="locationEdit.state"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel State</p>
@@ -146,7 +147,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.zipcode"
+                    v-model="locationEdit.zipcode"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel Zipcode</p>
@@ -179,87 +180,9 @@
                   </v-text-field>
                 </v-col>
               </v-row>
-
-              <v-row>
-
-                <v-col cols="12" class="py-0 mt-0">
-                  <v-subheader class="px-0 headline font-weight-bold primary--text" light>Current Channel Manager</v-subheader>
-                </v-col>
-
-                <v-col cols="12" md="6" class="pt-0">
-                  <v-text-field
-                    label="First Name"
-                    light
-                    placeholder="John"
-                    readonly
-                    v-model="locationEdit.contact_first_name"
-                  >
-                    <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
-                    </template>
-                  </v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="6" class="pt-0">
-                  <v-text-field
-                    label="Last Name"
-                    light
-                    placeholder="Smith"
-                    readonly
-                    v-model="locationEdit.contact_last_name"
-                  >
-                    <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
-                    </template>
-                  </v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="6" class="py-0">
-                  <v-text-field
-                    light
-                    placeholder="johnsmith@example.com"
-                    v-model="locationEdit.email"
-                    readonly
-                  >
-                    <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Email</p>
-                    </template>
-                  </v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="6" class="py-0">
-                  <v-text-field
-                    light
-                    placeholder="(123) 456-7890"
-                    v-model="locationEdit.phone"
-                    readonly
-                  ><template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                  </template></v-text-field>
-                </v-col>
-
-                <v-col cols="12" md="6" class="py-0">
-                  <v-select id="location-Admin"
-                            label="Admin Level"
-                            :items="adminOptions"
-                            readonly
-                            v-model="location.adminLevel"
-                  ></v-select>
-                </v-col>
-
-                <!--              <v-col cols="12" md="4" class="py-0">-->
-                <!--                <v-select-->
-                <!--                  light-->
-                <!--                  placeholder="Staff Account"-->
-                <!--                  v-model="location.admin_level"-->
-                <!--                ><template v-slot:label>-->
-                <!--                  <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>-->
-                <!--                </template></v-select>-->
-                <!--              </v-col>-->
-
-              </v-row>
-
             </v-form>
+
+            <!-- CANCEL AND UPDATE CHANNEL BUTTONS -->
             <v-card-actions class="px-0">
               <v-btn color="primary" outlined class="px-8" v-on:click="cancelEditLocation">Cancel</v-btn>
               <v-spacer></v-spacer>
@@ -269,6 +192,7 @@
         </template>
       </transition>
 
+      <!-- RENDERED IN DIFFERENT PAGE -->
       <transition name="slide-fade">
         <template v-if="loadCompany">
           <v-card-text class="py-0">
@@ -522,9 +446,10 @@
                     light
                     placeholder="Phone"
                     v-model="currentUserVal.phone"
-                  ><template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                  </template></v-text-field>
+                    ><template v-slot:label>
+                      <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
+                    </template>
+                  </v-text-field>
                 </v-col>
               </v-row>
               <v-btn v-if="company" color="primary" class="px-8 my-2" @click="updateCompany()">Update Profile</v-btn>
