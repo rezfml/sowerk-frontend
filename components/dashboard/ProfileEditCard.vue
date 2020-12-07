@@ -1,5 +1,5 @@
 <template>
-  <v-card class="white pt-0 mt-0">
+  <v-card class="white pt-0 pb-0 mt-0">
     <v-container>
       <v-skeleton-loader
         v-if="!loadCompany && !location"
