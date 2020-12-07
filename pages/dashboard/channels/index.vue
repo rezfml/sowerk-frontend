@@ -57,6 +57,7 @@
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
               :removeTag="removeTag"
+              :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
 <!--          <transition name="slide-fade">-->
@@ -95,6 +96,7 @@
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
               :removeTag="removeTag"
+              :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
 <!--          <transition name="slide-fade">-->
@@ -199,6 +201,7 @@
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
               :removeTag="removeTag"
+              :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
 <!--          <transition name="slide-fade">-->
@@ -348,7 +351,7 @@
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
@@ -425,6 +428,18 @@
           }
         })
         console.log(this.locationFilterTags, 'after removal')
+      },
+      async filterItems() {
+        console.log(this.locationFilterTags, 'dataItems', this.locations)
+        this.locations = this.locations.filter(location => {
+          for(let i=0; i<this.locationFilterTags.length; i++) {
+            if(location.locationtags.length > 0 && location.locationtags.includes(this.locationFilterTags[i].name)) {
+              console.log(location, 'location match')
+              return location
+            }
+          }
+        })
+        console.log(this.locations, 'after filter')
       }
     },
   }
