@@ -65,7 +65,7 @@
             :tableProperties="headers"
             :viewAll="false"
             action="View"
-            slug="/dashboard/businesses/"
+            slug="/dashboard/vendors/"
           ></FacilitiesCard>
         </v-col>
       </v-row>
