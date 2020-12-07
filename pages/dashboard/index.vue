@@ -25,6 +25,7 @@
         </v-card>
       </transition>
 
+      <!-- ALL SKELETON LOADERS FOR DIFFERENT DASHBOARD CARDS -->
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <v-skeleton-loader
@@ -64,6 +65,7 @@
         </v-col>
       </v-row>
 
+      <!-- IF PASSWORD CHANGES THIS CARD WILL RENDER -->
       <transition name="slide-fade">
         <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}!</v-card-title>
@@ -73,6 +75,7 @@
         </v-card>
       </transition>
 
+      <!-- HOME CARD component IF LOCATIONS, LOCATION APPROVED, and COMPANY -->
       <transition name="slide-fade">
         <HomeCard
           v-if="locations && locationApproved && company"
@@ -84,16 +87,18 @@
         ></HomeCard>
       </transition>
 
+      <!-- STATUS CARD component IF COMPANY, COMPANY_TYPE IS NOT FALSE(true) -->
       <v-row v-if="company && company.company_type !== 'false'">
-        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
+        <v-col col-lg-12 col-md-12 col-sm-12 col-xs-12 v-for="(stat, index) in stats" :key="index">
           <transition name="slide-fade">
           <StatCard v-if="statApproved" :stat="stat"></StatCard>
           </transition>
         </v-col>
       </v-row>
 
+      <!-- STATUS CARD component IF COMPANY, COMPANY_TYPE IS FALSE -->
       <v-row v-if="company && company.company_type === 'false'">
-        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index" class="d-flex nowrap">
+        <v-col col-lg-12 col-md-12 col-sm-12 col-xs-12 v-for="(stat, index) in providerStats" :key="index" class="d-flex nowrap">
           <transition name="slide-fade">
             <StatCard :stat="stat"></StatCard>
           </transition>
