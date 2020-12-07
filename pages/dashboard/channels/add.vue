@@ -89,6 +89,18 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </template>
                     </v-textarea>
                   </v-col>
+                  <v-col cols="12" class="mt-8">
+                    <v-autocomplete
+                      :items="vendorTypeOptions"
+                      item-text="vendorType"
+                      item-value="vendorType"
+                      v-model="vendorType"
+                      label="Choose your type here"
+                      :placeholder="vendorType"
+                      multiple
+                    >
+                    </v-autocomplete>
+                  </v-col>
                     <v-col cols="12" class="mt-8">
                       <v-combobox
                         v-model="services"
@@ -418,7 +430,12 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         services: [],
         originalServices: [],
         naicsList: [],
-
+        vendorType: [],
+        originalVendorType: [],
+        vendorTypeOptions: [
+          'Supplier',
+          'Servicer'
+        ]
       }
     },
     async mounted() {
@@ -540,6 +557,32 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       console.log(err, 'err in posting locationtags')
                     })
                 }
+              }
+            }
+            if(this.vendorType.length > 0) {
+              console.log(this.vendorType, 'this.vendorType');
+              for(let i=0; i<this.vendorType.length; i++) {
+                if(typeof this.vendorType[i] === 'object') {
+                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
+                    vendorType: this.vendorType[i].name
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                } else {
+                    this.$http.post('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + response.data.location.id, {
+                      vendorType: this.vendorType[i]
+                    })
+                      .then(responseVal => {
+                        console.log(responseVal, 'success in posting location tags')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in posting locationtags')
+                      })
+                  }
               }
             }
             if(this.services.length > 0) {

@@ -182,6 +182,21 @@
 
               <v-row>
                 <v-col cols="12" class="mt-8">
+                  <v-autocomplete
+                    :items="vendorTypeOptions"
+                    item-text="vendorType"
+                    item-value="vendorType"
+                    v-model="vendorType"
+                    label="Choose your type here"
+                    :placeholder="vendorType"
+                    multiple
+                  >
+                  </v-autocomplete>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="12" class="mt-8">
                   <v-combobox
                     v-model="services"
                     :items="naicsList"
@@ -190,7 +205,6 @@
                     chips
                     multiple
                     label="Choose your categories here"
-
                   >
                     <template v-slot:selection="data">
                       <v-chip
@@ -676,6 +690,12 @@
         services: [],
         originalServices: [],
         naicsList: [],
+        vendorType: [],
+        originalVendorType: [],
+        vendorTypeOptions: [
+            'Supplier',
+            'Servicer'
+        ]
       }
     },
     async mounted() {
@@ -699,6 +719,7 @@
         console.log(this.locationTags, this.sowerkTags, 'props this.locationTag', this.location)
         this.locationTagsNew = this.locationTags;
         this.getServices(this.location.id);
+        this.getVendorType(this.location.id);
         this.getNaicsList();
       } else if(this.company) {
         await this.getCompany(this.user.companies_id);
@@ -711,6 +732,17 @@
       },
     },
     methods: {
+      async getVendorType(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + id)
+          .then(response => {
+            console.log(response.data, 'vendor type for location')
+            this.vendorType = response.data;
+            this.originalVendorType = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting vendor type for location')
+          })
+      },
       async getNaicsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
           .then(response => {
@@ -797,6 +829,46 @@
                 if(!(this.locationTagsNew.includes(this.originalLocationTags[i]))) {
                   console.log(this.originalLocationTags[i], 'this.location tags DELETE')
                   this.$http.delete('https://www.sowerkbackend.com/api/locationtags/' + this.originalLocationTags[i].id)
+                    .then(response => {
+                      console.log(response, 'success in deleting location tag')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in deleting location tag')
+                    })
+                }
+              }
+            }
+            if(this.vendorType.length > 0) {
+              console.log(this.vendorType, 'this.vendorType');
+              for(let i=0; i<this.vendorType.length; i++) {
+                if(typeof this.vendorType[i] === 'object' && !(this.originalVendorType.includes(this.vendorType[i]))) {
+                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {
+                    vendorType: this.vendorType[i].name
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                } else {
+                  if(!(this.originalVendorType.includes(this.vendorType[i]))) {
+                    this.$http.post('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + this.location.id, {
+                      vendorType: this.vendorType[i]
+                    })
+                      .then(responseVal => {
+                        console.log(responseVal, 'success in posting location tags')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in posting locationtags')
+                      })
+                  }
+                }
+              }
+              for(let i=0; i<this.originalVendorType.length; i++) {
+                if(!(this.vendorType.includes(this.originalVendorType[i]))) {
+                  console.log(this.originalVendorType[i], 'this.location tags DELETE')
+                  this.$http.delete('https://www.sowerkbackend.com/api/vendortypes/' + this.originalVendorType[i].id)
                     .then(response => {
                       console.log(response, 'success in deleting location tag')
                     })
