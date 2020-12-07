@@ -89,10 +89,10 @@
         locations: [],
         services: [],
         headers: [
-          { text: 'ID', value: 'id', class: 'primary--text font-weight-regular'},
-          { text: 'Categories Offered', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'full_address', class: 'primary--text font-weight-regular' },
+          { text: 'ID', value: 'id', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Categories Offered', value: 'service', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Company', value: 'company', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Address', value: 'full_address', class: 'primary--text text-h6 font-weight-bold text-left' },
         ]
       }
     },

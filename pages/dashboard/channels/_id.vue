@@ -8,44 +8,48 @@
 
         <v-col cols="12" md="8" xl="9" class="pb-12 d-flex flex-column align-center">
           <transition name="slide-fade">
+
           <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags"  :originalLocationTags="originalLocationTags"></ProfileEditCard>
+
           </transition>
-<!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
-<!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
-<!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
-<!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
-<!--            </v-card>-->
-<!--          </v-row>-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
+          <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
+          <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
+          <!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
+          <!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
+          <!--            </v-card>-->
+          <!--          </v-row>-->
+          <!--          <v-progress-circular-->
+          <!--            indeterminate-->
+          <!--            color="primary"-->
+          <!--            :size="50"-->
+          <!--          ></v-progress-circular>-->
           <v-skeleton-loader
             v-if="!locationApproved && !pendingApplicants && !editVendorRequirements && !editLocationDetails"
             type="card-avatar, article, article, actions"
             min-height="50vh"
             min-width="50vw"
           ></v-skeleton-loader>
+
           <transition name="slide-fade">
-          <FacilitiesCard
-            v-if="vendors && !editLocationDetails && locationApproved"
-            :title="'Channel Approved Vendors'"
-            :items="vendors"
-            :tableProperties="headers"
-            :viewAll="false"
-            action="ViewApproved"
-            :company="company"
-            :locationApproved="locationApproved"
-          ></FacilitiesCard>
+            <FacilitiesCard
+              v-if="vendors && !editLocationDetails && locationApproved"
+              :title="'Channel Approved Vendors'"
+              :items="vendors"
+              :tableProperties="headers"
+              :viewAll="false"
+              action="ViewApproved"
+              :company="company"
+              :locationApproved="locationApproved"
+            ></FacilitiesCard>
           </transition>
 
           <transition name="slide-fade">
-          <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
+            <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
           </transition>
-<!--          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
+
+          <!-- <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
           <transition name="slide-fade">
-          <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
+            <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
           </transition>
 
           <transition name="slide-fade">
@@ -90,13 +94,13 @@
           0
         ],
         headers: [
-          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular'},
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-regular'},
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Company', value: 'companyName', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Primary Contact', value: 'fullname', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Email', value: 'email', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Phone', value: 'phone', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Channel', value: 'addressCityState', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         locations: [
           {

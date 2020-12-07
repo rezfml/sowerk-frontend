@@ -66,126 +66,675 @@
                 v-if="items.length>0"
                 :search="search"
               >
-                <template v-slot:item.address="{item}">
-                  <v-row class="d-flex" cols="12" md="6">
-                    <v-col>
-                      <p>{{item.address}}</p>
-                      <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
-                    </v-col>
-                  </v-row>
-                </template>
-                <template v-slot:item.addressCityState="{item}">
-                  <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.city}}, {{item.state}}</p>
-                  </v-row>
-                </template>
-                <template v-slot:item.service="{item}">
-                  <v-row class="d-flex" cols="12" md="6">
-                    <p v-if="company.company_type != 'false'">{{item.services}}</p>
-                    <p v-else>{{item.servicesOffered[0]}}</p>
-                  </v-row>
-                </template>
-                <template v-slot:item.services="{item}">
-                  <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.services[0]}}</p>
-                  </v-row>
-                </template>
-                <template v-slot:item.companyName="{item}">
-                  <v-row class="d-flex" cols="12" md="6">
-                    <p v-if="item.name">{{item.name}}</p>
-                    <p v-else>
-                      <v-progress-circular
-                        indeterminate
-                        color="primary"
-                        :size="20"
-                      ></v-progress-circular>
-                    </p>
-                  </v-row>
-                </template>
-                <template v-slot:item.imageUrl="{ item }">
-                  <v-row class="d-flex" cols="12" lg="6" justify="center" >
-                    <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
-                    <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
-                    <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
-                  </v-row>
-                </template>
-                <template v-slot:item.name="{ item }">
-                  <v-row class="d-flex" cols="12" md="6">
+                <v-btn
+                  block
+                  color="primary"
+                  :to="slug + item.location_id + '/application-form/' + item.id"
+                >Apply</v-btn
+                >
+              </template>
+              <!-- CONDITIONALLY RENDERED BUTTONS BASED ON WHICH PROPS HAVE BEEN PASSED INTO THIS COMPONENT FROM WHAT PAGE -->
+              <!-- THIS COMPONENT SHOULD BE BROKEN INTO DIFFERENT COMPONENTS I THINK -->
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
+              </template>
+              <template v-slot:footer v-if="viewLocation === true">
+                <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+              </template>
+
+
+              <!-- RENDERS ON - "Your Channels" card ~CHANNEL NAME~ -->
+              <template v-slot:item.name="{ item }">
+                <v-row  class="d-flex" cols="12" style="font-size:1rem">
+                  <v-row>
                     <v-col>
                       <p>{{item.name}}</p>
                     </v-col>
                   </v-row>
-                </template>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~ADDRESS~ -->
+              <template v-slot:item.address="{item}">
+                <v-row class="d-flex" cols="12" style="font-size:1rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{item.address}} <br> {{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~PRIMARY CONTACT~ -->
+              <template v-slot:item.full_name="{ item }">
+                <v-row class="d-flex" cols="12" style="font-size:1rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~EMAIL~ -->
+              <template v-slot:item.email="{ item }">
+                <v-row class="d-flex" cols="12" style="font-size:1rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{ item.email }}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~PHONE~ -->
+              <template v-slot:item.phone="{ item }">
+                <v-row class="d-flex" cols="12" style="font-size:1rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{ item.phone }}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~VIEW BUTTON~ -->
+              <template v-slot:item.actions="{ item }" v-if="(action !== 'Review') && (action !== 'View') && (action !== 'ViewApproved') && (viewLocation !== true)">
+                <v-row class="d-flex" style="">
+                  <v-col>
+                    <nuxt-link :to="slug + item.id" append>
+                      <v-btn class="my-1" style="background-color:primary;" color="primary">
+                        View
+                      </v-btn>
+                    </nuxt-link>
+                  </v-col>
+                </v-row>
+              </template>
+            </v-data-table>
+          </v-card-text>
+
+          <!-- VIEW ALL BUTTON -->
+          <v-card-actions class="d-flex justify-start px-4" v-if="viewAll">
+            <v-btn
+              color="primary"
+              class="px-8"
+              rounded
+              outlined
+              small
+              style="font-size: 12px"
+            >View All</v-btn
+            >
+          </v-card-actions>
+        </v-container>
+      </v-card>
+
+      <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+      >
+        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+        <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
+        <v-form style="width: 80%;">
+          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+          <v-btn @click="closeModal">Exit Message</v-btn>
+          <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+        </v-form>
+        <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+        <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
+      </v-card>
+    </div>
+
+    <!-- THIS IS THE SMALL BREAKPOINT -->
+    <div style="width: 100%" v-else-if="$vuetify.breakpoint.sm" >
+      <v-card class="white pt-0 mt-12 mb-4" style="width: 100%">
+        <v-progress-circular
+          v-if="loading != true"
+          indeterminate
+          color="primary"
+          :size="20"
+        ></v-progress-circular>
+
+        <v-container class="pt-0" fluid v-if="loading === true">
+          <!-- TITLE OF CARD -->
+          <v-card-title
+            style="position: absolute; top: -30px; left: 25px; width: 95%; border-radius: 3px; font-size: 18px;"
+            class="primary white--text font-weight-regular red-gradient"
+          >{{ title }}
+          </v-card-title>
+
+          <!-- SEARCH BAR -->
+          <v-card-actions class="d-flex justify-end px-4 py-8">
+            <v-row class="py-0">
+              <v-spacer></v-spacer>
+              <v-col cols="12" class="py-0">
+                <v-text-field label="Search" light></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+
+          <!-- TEXT CARD CONTAINING DATA-TABLE -->
+          <v-card-text>
+            <v-data-table
+              :headers="tableProperties"
+              :items="items"
+              :items-per-page="10"
+              :hide-default-header="false"
+              v-if="items.length>0"
+              mobile-breakpoint="960"
+            >
+
+              <template v-slot:item.service="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                  <p v-else>{{item.servicesOffered[0]}}</p>
+                </v-row>
+              </template>
+
+              <template v-slot:item.services="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.services[0]}}</p>
+                </v-row>
+              </template>
+
+              <!-- IMG RENDER OR SPIN CIRCLE LOADING -->
+              <template v-slot:item.companyName="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+                  <p v-else>
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                      :size="20"
+                    ></v-progress-circular>
+                  </p>
+                </v-row>
+              </template>
+
+              <!-- SOME OTHER CONTACT NAME RENDERING ON A DIFFERENT COMPONENT -->
+              <template class="d-flex" v-slot:item.fullname="{ item }">
+                <div>
+                  <h3>Contact Name</h3>
+                  <v-row>
+                    <v-col>
+                      <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                      <p v-else>{{ item.name }}</p>
+                    </v-col>
+                  </v-row>
+                </div>
+              </template>
+
+              <!-- REVIEW BUTTON -->
+              <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                <v-btn block color="primary" :to="slug + item.application_id">
+                  Review
+                </v-btn>
+              </template>
+
+              <!-- APPLY BUTTON -->
+              <template
+                v-slot:item.actions="{ item }"
+                v-else-if="action === 'Apply'"
+              >
+                <v-btn
+                  block
+                  color="primary"
+                  :to="slug + item.location_id + '/application-form/' + item.id"
+                >Apply</v-btn
+                >
+              </template>
+
+              <!-- CONDITIONALLY RENDERED BUTTONS BASED ON WHICH PROPS HAVE BEEN PASSED INTO THIS COMPONENT FROM WHAT PAGE -->
+              <!-- THIS COMPONENT SHOULD BE BROKEN INTO DIFFERENT COMPONENTS I THINK -->
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
+              </template>
+              <template v-slot:footer v-if="viewLocation === true">
+                <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+              </template>
+
+
+              <!-- RENDERS ON - "Your Channels" card ~CHANNEL NAME~ -->
+              <template v-slot:item.name="{ item }">
+                <v-row  class="d-flex" cols="12" style="font-size:1.2rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{item.name}}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~ADDRESS~ -->
+              <template v-slot:item.address="{item}">
+                <v-row class="d-flex" cols="12" style="font-size:1.2rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{item.address}} <br> {{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~PRIMARY CONTACT~ -->
+              <template v-slot:item.full_name="{ item }">
+                <v-row class="d-flex" cols="12" style="font-size:1.2rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~EMAIL~ -->
+              <template v-slot:item.email="{ item }">
+                <v-row class="d-flex" cols="12" style="font-size:1.2rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{ item.email }}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~PHONE~ -->
+              <template v-slot:item.phone="{ item }">
+                <v-row class="d-flex" cols="12" style="font-size:1.2rem">
+                  <v-row>
+                    <v-col>
+                      <p>{{ item.phone }}</p>
+                    </v-col>
+                  </v-row>
+                </v-row>
+              </template>
+              <!-- RENDERS ON - "Your Channels" card ~VIEW BUTTON~ -->
+              <template v-slot:item.actions="{ item }" v-if="(action !== 'Review') && (action !== 'View') && (action !== 'ViewApproved') && (viewLocation !== true)">
+                <v-row class="d-flex" style="">
+                  <v-col>
+                    <nuxt-link :to="slug + item.id" append>
+                      <v-btn class="my-1" style="background-color:primary;" color="primary">
+                        View
+                      </v-btn>
+                    </nuxt-link>
+                  </v-col>
+                </v-row>
+              </template>
+            </v-data-table>
+          </v-card-text>
 
                 <template class="d-flex" v-slot:item.contact_first_name="{ item }">
                   <v-icon color="primary">mdi-account</v-icon>
                   <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
                 </template>
+          <!-- VIEW ALL BUTTON -->
+          <v-card-actions class="d-flex justify-start px-4" v-if="viewAll">
+            <v-btn
+              color="primary"
+              class="px-8"
+              rounded
+              outlined
+              small
+              style="font-size: 12px"
+            >View All</v-btn
+            >
+          </v-card-actions>
+        </v-container>
+      </v-card>
 
-                <template class="d-flex" v-slot:item.fullname="{ item }">
-                  <div>
-                    <v-icon color="primary">mdi-account</v-icon>
-                    <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
-                    <p v-else>{{ item.name }}</p>
-                  </div>
-                </template>
+      <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+      >
+        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+        
+        <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">
+          message field</span> below and click send message to send message
+        </v-card-title>
+        
+        <v-form style="width: 80%;">
+          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+          <v-btn @click="closeModal">Exit Message</v-btn>
+          <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+        </v-form>
 
-                <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
-                  <v-btn block color="primary" :to="slug + item.application_id"
-                  >Review</v-btn
-                  >
-                </template>
-                <template
-                  v-slot:item.actions="{ item }"
-                  v-else-if="action === 'Apply'"
+        <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+        
+        <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">
+          {{successText}}
+        </v-card-title>
+      </v-card>
+    </div>
+
+    <!-- THIS IS THE MEDIUM BREAKPOINT -->
+    <div style="width: 100%" v-else-if="$vuetify.breakpoint.md">
+
+      <!-- IF LOCATIONAPPROVED HAS BEEN PROVIDED TO COMPONENT -->
+      <div v-if="locationApproved" style="width: 100%" class="d-flex">
+      <!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
+      <!--        <FilterCard-->
+      <!--          title="Filter"-->
+      <!--          :filters="filters"-->
+      <!--          :locationApproved="locationApproved"-->
+      <!--          :loadModal="loadModal"-->
+      <!--        ></FilterCard>-->
+      <!--      </v-col>-->
+        <v-col cols="12" xl="12">
+          <v-card class="white pt-0 mt-12 mb-4">
+            <v-progress-circular
+              v-if="loading != true"
+              indeterminate
+              color="primary"
+              :size="20"
+            ></v-progress-circular>
+            
+            <v-container class="pt-0" fluid v-if="loading === true">
+              <v-card-title
+                style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;"
+                class="primary white--text font-weight-regular red-gradient"
+              >{{ title }}</v-card-title>
+              <v-card-actions class="d-flex justify-end px-4 py-0">
+                <v-row class="py-0">
+                  <v-spacer></v-spacer>
+                  <v-col cols="4" class="py-0">
+                    <v-text-field label="Search" light></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+              <v-card-text class="pt-0 pb-2">
+                <v-data-table
+                  :headers="tableProperties"
+                  :items="items"
+                  :items-per-page="10"
+                  v-if="items.length>0"
                 >
-                  <v-btn
-                    block
-                    color="primary"
-                    :to="slug + item.location_id + '/application-form/' + item.id"
-                  >Apply</v-btn
+                  <template v-slot:item.address="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <v-col>
+                        <p>{{item.address}}</p>
+                        <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                      </v-col>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.addressCityState="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p>{{item.city}}, {{item.state}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.service="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                      <p v-else>{{item.servicesOffered[0]}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.services="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p>{{item.services[0]}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.companyName="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p v-if="item.name">{{item.name}}</p>
+                      <p v-else>
+                        <v-progress-circular
+                          indeterminate
+                          color="primary"
+                          :size="20"
+                        ></v-progress-circular>
+                      </p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.imageUrl="{ item }">
+                    <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                      <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                      <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                      <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.name="{ item }">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <v-col>
+                        <p>{{item.name}}</p>
+                      </v-col>
+                    </v-row>
+                  </template>
+
+                  <template class="d-flex" v-slot:item.full_name="{ item }">
+                    <v-icon color="primary">mdi-account</v-icon>
+                    <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+                  </template>
+
+                  <template class="d-flex" v-slot:item.fullname="{ item }">
+                    <div>
+                      <v-icon color="primary">mdi-account</v-icon>
+                      <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                      <p v-else>{{ item.name }}</p>
+                    </div>
+                  </template>
+
+                  <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                    <v-btn block color="primary" :to="slug + item.application_id"
+                    >Review</v-btn
+                    >
+                  </template>
+                  <template
+                    v-slot:item.actions="{ item }"
+                    v-else-if="action === 'Apply'"
                   >
-                </template>
-                <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
-                  <v-btn class="my-1" style="width: 90%;" color="green" outlined @click="submit(item.companies_id, item)">Message</v-btn>
-                  <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
-                </template>
-                <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-                  <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
-                </template>
-                <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
-                  <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
-                  <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Channel"></v-checkbox>
-                </template>
-                <template v-slot:footer v-if="viewLocation === true">
-                  <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
-                </template>
-                <template v-slot:item.actions="{ item }" v-else>
-                  <nuxt-link :to="slug + item.id" append>
-                    <v-btn class="my-1" style="width: 90%;" color="green" outlined>
-                      View
-                    </v-btn>
-                  </nuxt-link>
-                  <!--            <v-icon small @click="deleteItem(item)">-->
-                  <!--              mdi-delete-->
-                  <!--            </v-icon>-->
-                </template>
-              </v-data-table>
-            </v-card-text>
-            <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
-              <v-btn
-                color="primary"
-                class="px-8"
-                rounded
-                outlined
-                small
-                style="font-size: 12px"
-              >View All</v-btn
+                    <v-btn
+                      block
+                      color="primary"
+                      :to="slug + item.location_id + '/application-form/' + item.id"
+                    >Apply</v-btn
+                    >
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                    <v-btn class="my-1" style="width: 90%;" color="green" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                    <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                    <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                    <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                    <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Channel"></v-checkbox>
+                  </template>
+                  <template v-slot:footer v-if="viewLocation === true">
+                    <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else>
+                    <nuxt-link :to="slug + item.id" append>
+                      <v-btn class="my-1" style="width: 90%; backgroundcolor:primary" color="primary" outlined>
+                        View
+                      </v-btn>
+                    </nuxt-link>
+                    <!--            <v-icon small @click="deleteItem(item)">-->
+                    <!--              mdi-delete-->
+                    <!--            </v-icon>-->
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+                <v-btn
+                  color="primary"
+                  class="px-8"
+                  rounded
+                  outlined
+                  small
+                  style="font-size: 12px"
+                >View All</v-btn
+                >
+              </v-card-actions>
+            </v-container>
+          </v-card>
+        </v-col>
+      </div>
+
+      <!-- ELSE IF LOCATIONAPPROVED HAS BEEN PROVIDED TO COMPONENT -->
+      <v-card v-else class="white pt-0 mt-12 mb-4" style="width: 100%">
+        <v-progress-circular
+          v-if="loading != true"
+          indeterminate
+          color="primary"
+          :size="20"
+        ></v-progress-circular>
+
+        <v-container class="pt-0" fluid v-if="loading === true">
+          <v-card-title
+            style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+            class="primary white--text font-weight-regular red-gradient"
+          >{{ title }}</v-card-title>
+          <v-card-actions class="d-flex justify-end px-4 py-0">
+            <v-row class="py-0">
+              <v-spacer></v-spacer>
+              <v-col cols="4" class="py-0">
+                <v-text-field label="Search" light></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+          <v-card-text class="pt-0 pb-2">
+            <v-data-table
+              :headers="tableProperties"
+              :items="items"
+              :items-per-page="10"
+              v-if="items.length>0"
+            >
+              <template v-slot:item.address="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <v-col>
+                    <p>{{item.address}}</p>
+                    <p>{{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                  </v-col>
+                </v-row>
+              </template>
+              <template v-slot:item.addressCityState="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.city}}, {{item.state}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.service="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                  <p v-else>{{item.servicesOffered[0]}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.services="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.services[0]}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.companyName="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+                  <p v-else>
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                      :size="20"
+                    ></v-progress-circular>
+                  </p>
+                </v-row>
+              </template>
+              <template v-slot:item.imageUrl="{ item }">
+                <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                  <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                </v-row>
+              </template>
+              <template v-slot:item.name="{ item }">
+                <v-row class="d-flex" cols="12" md="6">
+                  <v-col>
+                    <p>{{item.name}}</p>
+                  </v-col>
+                </v-row>
+              </template>
+
+              <template class="d-flex" v-slot:item.full_name="{ item }">
+                <v-icon color="primary">mdi-account</v-icon>
+                <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+              </template>
+
+              <template class="d-flex" v-slot:item.fullname="{ item }">
+                <div>
+                  <v-icon color="primary">mdi-account</v-icon>
+                  <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                  <p v-else>{{ item.name }}</p>
+                </div>
+              </template>
+              
+
+              <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                <v-btn block color="primary" :to="slug + item.application_id"
+                >Review</v-btn
+                >
+              </template>
+              <template
+                v-slot:item.actions="{ item }"
+                v-else-if="action === 'Apply'"
               >
-            </v-card-actions>
-          </v-container>
-        </v-card>
-      </v-col>
+                <v-btn
+                  block
+                  color="primary"
+                  :to="slug + item.location_id + '/application-form/' + item.id"
+                >Apply</v-btn
+                >
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
+              </template>
+              <template v-slot:footer v-if="viewLocation === true">
+                <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else>
+                <nuxt-link :to="slug + item.id" append>
+                  <v-btn class="my-1" style="width: 90%;background-color:#707070; background-color:primary" color="primary">
+                    View
+                  </v-btn>
+                </nuxt-link>
+                <!--       <v-icon small @click="deleteItem(item)">-->
+                <!--         mdi-delete-->
+                <!--       </v-icon>-->
+              </template>
+            </v-data-table>
+          </v-card-text>
+          <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+            <v-btn
+              color="primary"
+              class="px-8"
+              rounded
+              outlined
+              small
+              style="font-size: 12px"
+            >View All</v-btn
+            >
+          </v-card-actions>
+        </v-container>
+      </v-card>
+
+      <!-- MESSAGE FIELD AND SEND MESSAGE CARD -->
+      <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+      >
+        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+        <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
+        <v-form style="width: 80%;">
+          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+          <v-btn @click="closeModal">Exit Message</v-btn>
+          <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+        </v-form>
+        <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+        <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
+      </v-card>
     </div>
     <v-card v-else class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
@@ -299,20 +848,316 @@
 
             <template class="d-flex" v-slot:item.fullname="{ item }">
               <div>
-                <v-icon color="primary">mdi-account</v-icon>
-                <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
-                <p v-else>{{ item.name }}</p>
-              </div>
-            </template>
 
-            <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
-              <v-btn block color="primary" :to="slug + item.application_id"
-              >Review</v-btn
+    <!-- THIS IS THE LARGE BREAKPOINT -->
+    <div style="width: 100%" v-else-if="$vuetify.breakpoint.lg">
+
+      <!-- IF LOCATIONAPPROVED HAS BEEN PROVIDED TO COMPONENT -->
+      <div v-if="locationApproved" style="width: 100%" class="d-flex">
+  <!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
+  <!--        <FilterCard-->
+  <!--          title="Filter"-->
+  <!--          :filters="filters"-->
+  <!--          :locationApproved="locationApproved"-->
+  <!--          :loadModal="loadModal"-->
+  <!--        ></FilterCard>-->
+  <!--      </v-col>-->
+        <v-col cols="12" xl="12">
+          <v-card class="white pt-0 mt-12 mb-4">
+            <v-progress-circular
+              v-if="loading != true"
+              indeterminate
+              color="primary"
+              :size="20"
+            ></v-progress-circular>
+            
+            <v-container class="pt-0" fluid v-if="loading === true">
+              <v-card-title
+                style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;"
+                class="primary white--text font-weight-regular red-gradient"
+              >{{ title }}</v-card-title>
+              <v-card-actions class="d-flex justify-end px-4 py-0">
+                <v-row class="py-0">
+                  <v-spacer></v-spacer>
+                  <v-col cols="4" class="py-0">
+                    <v-text-field label="Search" light></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+              <v-card-text class="pt-0 pb-2">
+                <v-data-table
+                  :headers="tableProperties"
+                  :items="items"
+                  :items-per-page="10"
+                  v-if="items.length>0"
+                >
+                  <template v-slot:item.address="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <v-col>
+                        <p>{{item.address}}</p>
+                        <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                      </v-col>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.addressCityState="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p>{{item.city}}, {{item.state}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.service="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                      <p v-else>{{item.servicesOffered[0]}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.services="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p>{{item.services[0]}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.companyName="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p v-if="item.name">{{item.name}}</p>
+                      <p v-else>
+                        <v-progress-circular
+                          indeterminate
+                          color="primary"
+                          :size="20"
+                        ></v-progress-circular>
+                      </p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.imageUrl="{ item }">
+                    <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                      <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                      <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                      <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.name="{ item }">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <v-col>
+                        <p>{{item.name}}</p>
+                      </v-col>
+                    </v-row>
+                  </template>
+
+                  <template class="d-flex" v-slot:item.full_name="{ item }">
+                    <v-icon color="primary">mdi-account</v-icon>
+                    <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+                  </template>
+
+                  <template class="d-flex" v-slot:item.fullname="{ item }">
+                    <div>
+                      <v-icon color="primary">mdi-account</v-icon>
+                      <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                      <p v-else>{{ item.name }}</p>
+                    </div>
+                  </template>
+
+                  <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                    <v-btn block color="primary" :to="slug + item.application_id"
+                    >Review</v-btn
+                    >
+                  </template>
+                  <template
+                    v-slot:item.actions="{ item }"
+                    v-else-if="action === 'Apply'"
+                  >
+                    <v-btn
+                      block
+                      color="primary"
+                      :to="slug + item.location_id + '/application-form/' + item.id"
+                    >Apply</v-btn
+                    >
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                    <v-btn class="my-1" style="width: 90%;" color="green" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                    <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                    <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                    <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                    <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Channel"></v-checkbox>
+                  </template>
+                  <template v-slot:footer v-if="viewLocation === true">
+                    <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else>
+                    <nuxt-link :to="slug + item.id" append>
+                      <v-btn class="my-1" style="width: 90%; backgroundcolor:primary" color="primary" outlined>
+                        View
+                      </v-btn>
+                    </nuxt-link>
+                    <!--            <v-icon small @click="deleteItem(item)">-->
+                    <!--              mdi-delete-->
+                    <!--            </v-icon>-->
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+                <v-btn
+                  color="primary"
+                  class="px-8"
+                  rounded
+                  outlined
+                  small
+                  style="font-size: 12px"
+                >View All</v-btn
+                >
+              </v-card-actions>
+            </v-container>
+          </v-card>
+        </v-col>
+      </div>
+
+      <!-- ELSE IF LOCATIONAPPROVED HAS BEEN PROVIDED TO COMPONENT -->
+      <v-card v-else class="white pt-0 mt-12 mb-4" style="width: 100%">
+        <v-progress-circular
+          v-if="loading != true"
+          indeterminate
+          color="primary"
+          :size="20"
+        ></v-progress-circular>
+
+        <v-container class="pt-0" fluid v-if="loading === true">
+          <v-card-title
+            style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+            class="primary white--text font-weight-regular red-gradient"
+          >{{ title }}</v-card-title>
+          <v-card-actions class="d-flex justify-end px-4 py-0">
+            <v-row class="py-0">
+              <v-spacer></v-spacer>
+              <v-col cols="4" class="py-0">
+                <v-text-field label="Search" light></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+          <v-card-text class="pt-0 pb-2">
+            <v-data-table
+              :headers="tableProperties"
+              :items="items"
+              :items-per-page="10"
+              v-if="items.length>0"
+            >
+              <template v-slot:item.address="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <v-col>
+                    <p>{{item.address}}</p>
+                    <p>{{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                  </v-col>
+                </v-row>
+              </template>
+              <template v-slot:item.addressCityState="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.city}}, {{item.state}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.service="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                  <p v-else>{{item.servicesOffered[0]}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.services="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.services[0]}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.companyName="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+                  <p v-else>
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                      :size="20"
+                    ></v-progress-circular>
+                  </p>
+                </v-row>
+              </template>
+              <template v-slot:item.imageUrl="{ item }">
+                <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                  <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                </v-row>
+              </template>
+              <template v-slot:item.name="{ item }">
+                <v-row class="d-flex" cols="12" md="6">
+                  <v-col>
+                    <p>{{item.name}}</p>
+                  </v-col>
+                </v-row>
+              </template>
+
+              <template class="d-flex" v-slot:item.full_name="{ item }">
+                <v-icon color="primary">mdi-account</v-icon>
+                <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+              </template>
+
+              <template class="d-flex" v-slot:item.fullname="{ item }">
+                <div>
+                  <v-icon color="primary">mdi-account</v-icon>
+                  <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                  <p v-else>{{ item.name }}</p>
+                </div>
+              </template>
+              
+
+              <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                <v-btn block color="primary" :to="slug + item.application_id"
+                >Review</v-btn
+                >
+              </template>
+              <template
+                v-slot:item.actions="{ item }"
+                v-else-if="action === 'Apply'"
               >
-            </template>
-            <template
-              v-slot:item.actions="{ item }"
-              v-else-if="action === 'Apply'"
+                <v-btn
+                  block
+                  color="primary"
+                  :to="slug + item.location_id + '/application-form/' + item.id"
+                >Apply</v-btn
+                >
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
+              </template>
+              <template v-slot:footer v-if="viewLocation === true">
+                <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else>
+                <nuxt-link :to="slug + item.id" append>
+                  <v-btn class="my-1" style="width: 90%;background-color:#707070; background-color:primary" color="primary">
+                    View
+                  </v-btn>
+                </nuxt-link>
+                <!--       <v-icon small @click="deleteItem(item)">-->
+                <!--         mdi-delete-->
+                <!--       </v-icon>-->
+              </template>
+            </v-data-table>
+          </v-card-text>
+          <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+            <v-btn
+              color="primary"
+              class="px-8"
+              rounded
+              outlined
+              small
+              style="font-size: 12px"
+            >View All</v-btn
             >
               <v-btn
                 block
@@ -498,68 +1343,357 @@
             <template
               v-slot:item.actions="{ item }"
               v-else-if="action === 'Apply'"
+          </v-card-actions>
+        </v-container>
+      </v-card>
+
+      <!-- MESSAGE FIELD AND SEND MESSAGE CARD -->
+      <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+      >
+        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+        <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
+        <v-form style="width: 80%;">
+          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+          <v-btn @click="closeModal">Exit Message</v-btn>
+          <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+        </v-form>
+        <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+        <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
+      </v-card>
+    </div>
+
+    <!-- THIS IS THE OTHER BREAKPOINT -->
+    <div style="width: 100%" v-else>
+
+      <!-- IF LOCATIONAPPROVED HAS BEEN PROVIDED TO COMPONENT -->
+      <div v-if="locationApproved" style="width: 100%" class="d-flex">
+        <!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
+        <!--        <FilterCard-->
+        <!--          title="Filter"-->
+        <!--          :filters="filters"-->
+        <!--          :locationApproved="locationApproved"-->
+        <!--          :loadModal="loadModal"-->
+        <!--        ></FilterCard>-->
+        <!--      </v-col>-->
+        <v-col cols="12" xl="12">
+          <v-card class="white pt-0 mt-12 mb-4">
+            <v-progress-circular
+              v-if="loading != true"
+              indeterminate
+              color="primary"
+              :size="20"
+            ></v-progress-circular>
+            
+            <v-container class="pt-0" fluid v-if="loading === true">
+              <v-card-title
+                style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;"
+                class="primary white--text font-weight-regular red-gradient"
+              >{{ title }}</v-card-title>
+              <v-card-actions class="d-flex justify-end px-4 py-0">
+                <v-row class="py-0">
+                  <v-spacer></v-spacer>
+                  <v-col cols="4" class="py-0">
+                    <v-text-field label="Search" light></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+              <v-card-text class="pt-0 pb-2">
+                <v-data-table
+                  :headers="tableProperties"
+                  :items="items"
+                  :items-per-page="10"
+                  v-if="items.length>0"
+                >
+                  <template v-slot:item.address="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <v-col>
+                        <p>{{item.address}}</p>
+                        <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+                      </v-col>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.addressCityState="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p>{{item.city}}, {{item.state}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.service="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                      <p v-else>{{item.servicesOffered[0]}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.services="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p>{{item.services[0]}}</p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.companyName="{item}">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <p v-if="item.name">{{item.name}}</p>
+                      <p v-else>
+                        <v-progress-circular
+                          indeterminate
+                          color="primary"
+                          :size="20"
+                        ></v-progress-circular>
+                      </p>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.imageUrl="{ item }">
+                    <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                      <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                      <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                      <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                    </v-row>
+                  </template>
+                  <template v-slot:item.name="{ item }">
+                    <v-row class="d-flex" cols="12" md="6">
+                      <v-col>
+                        <p>{{item.name}}</p>
+                      </v-col>
+                    </v-row>
+                  </template>
+
+                  <template class="d-flex" v-slot:item.full_name="{ item }">
+                    <v-icon color="primary">mdi-account</v-icon>
+                    <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+                  </template>
+
+                  <template class="d-flex" v-slot:item.fullname="{ item }">
+                    <div>
+                      <v-icon color="primary">mdi-account</v-icon>
+                      <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                      <p v-else>{{ item.name }}</p>
+                    </div>
+                  </template>
+
+                  <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                    <v-btn block color="primary" :to="slug + item.application_id"
+                    >Review</v-btn
+                    >
+                  </template>
+                  <template
+                    v-slot:item.actions="{ item }"
+                    v-else-if="action === 'Apply'"
+                  >
+                    <v-btn
+                      block
+                      color="primary"
+                      :to="slug + item.location_id + '/application-form/' + item.id"
+                    >Apply</v-btn
+                    >
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                    <v-btn class="my-1" style="width: 90%;" color="green" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                    <v-btn style="width: 90%;" outlined color="primary" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                    <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                    <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                    <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Channel"></v-checkbox>
+                  </template>
+                  <template v-slot:footer v-if="viewLocation === true">
+                    <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+                  </template>
+                  <template v-slot:item.actions="{ item }" v-else>
+                    <nuxt-link :to="slug + item.id" append>
+                      <v-btn class="my-1" style="width: 90%; backgroundcolor:primary" color="primary" outlined>
+                        View
+                      </v-btn>
+                    </nuxt-link>
+                    <!--            <v-icon small @click="deleteItem(item)">-->
+                    <!--              mdi-delete-->
+                    <!--            </v-icon>-->
+                  </template>
+                </v-data-table>
+              </v-card-text>
+              <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+                <v-btn
+                  color="primary"
+                  class="px-8"
+                  rounded
+                  outlined
+                  small
+                  style="font-size: 12px"
+                >View All</v-btn
+                >
+              </v-card-actions>
+            </v-container>
+          </v-card>
+        </v-col>
+      </div>
+
+      <!-- ELSE IF LOCATIONAPPROVED HAS BEEN PROVIDED TO COMPONENT -->
+      <v-card v-else class="white pt-0 mt-12 mb-4" style="width: 100%">
+        <v-progress-circular
+          v-if="loading != true"
+          indeterminate
+          color="primary"
+          :size="20"
+        ></v-progress-circular>
+
+        <v-container class="pt-0" fluid v-if="loading === true">
+          <v-card-title
+            style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+            class="primary white--text font-weight-regular red-gradient"
+          >{{ title }}</v-card-title>
+          <v-card-actions class="d-flex justify-end px-4 py-0">
+            <v-row class="py-0">
+              <v-spacer></v-spacer>
+              <v-col cols="4" class="py-0">
+                <v-text-field label="Search" light></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+          <v-card-text class="pt-0 pb-2">
+            <v-data-table
+              :headers="tableProperties"
+              :items="items"
+              :items-per-page="10"
+              v-if="items.length>0"
             >
-              <v-btn
-                block
-                color="primary"
-                :to="slug + item.location_id + '/application-form/' + item.id"
-              >Apply</v-btn
+              <template v-slot:item.address="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <v-col>
+                    <p>{{item.address}}</p>
+                    <p>{{item.city}}, {{item.state}}  {{item.zipcode}}</p>
+                  </v-col>
+                </v-row>
+              </template>
+              <template v-slot:item.addressCityState="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.city}}, {{item.state}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.service="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="company.company_type != 'false'">{{item.services}}</p>
+                  <p v-else>{{item.servicesOffered[0]}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.services="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p>{{item.services[0]}}</p>
+                </v-row>
+              </template>
+              <template v-slot:item.companyName="{item}">
+                <v-row class="d-flex" cols="12" md="6">
+                  <p v-if="item.name && item.imageUrl"><v-img style="width: 40px; height: 40px;" :src="item.imageUrl" /> {{item.name}}</p>
+                  <p v-else>
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                      :size="20"
+                    ></v-progress-circular>
+                  </p>
+                </v-row>
+              </template>
+              <template v-slot:item.imageUrl="{ item }">
+                <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                  <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                  <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                </v-row>
+              </template>
+              <template v-slot:item.name="{ item }">
+                <v-row class="d-flex" cols="12" md="6">
+                  <v-col>
+                    <p>{{item.name}}</p>
+                  </v-col>
+                </v-row>
+              </template>
+
+              <template class="d-flex" v-slot:item.full_name="{ item }">
+                <v-icon color="primary">mdi-account</v-icon>
+                <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+              </template>
+
+              <template class="d-flex" v-slot:item.fullname="{ item }">
+                <div>
+                  <v-icon color="primary">mdi-account</v-icon>
+                  <p v-if="company.company_type != 'false'">{{item.fullname}}</p>
+                  <p v-else>{{ item.name }}</p>
+                </div>
+              </template>
+              
+
+              <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
+                <v-btn block color="primary" :to="slug + item.application_id"
+                >Review</v-btn
+                >
+              </template>
+              <template
+                v-slot:item.actions="{ item }"
+                v-else-if="action === 'Apply'"
               >
-            </template>
-            <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
-              <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
-              <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
-            </template>
-            <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-              <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
-            </template>
-            <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
-              <v-btn  @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
-              <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
-            </template>
-            <template v-slot:footer v-if="viewLocation === true">
-              <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
-            </template>
-            <template v-slot:item.actions="{ item }" v-else>
-              <nuxt-link :to="slug + item.id" append>
-                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined>
-                  View
-                </v-btn>
-              </nuxt-link>
-              <!--            <v-icon small @click="deleteItem(item)">-->
-              <!--              mdi-delete-->
-              <!--            </v-icon>-->
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
-          <v-btn
-            color="primary"
-            class="px-8"
-            rounded
-            outlined
-            small
-            style="font-size: 12px"
-          >View All</v-btn
-          >
-        </v-card-actions>
-      </v-container>
-    </v-card>
-    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
-    >
-      <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-      <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
-      <v-form style="width: 80%;">
-        <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
-        <v-btn @click="closeModal">Exit Message</v-btn>
-        <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
-      </v-form>
-      <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
-      <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
-    </v-card>
-  </div>
+                <v-btn
+                  block
+                  color="primary"
+                  :to="slug + item.location_id + '/application-form/' + item.id"
+                >Apply</v-btn
+                >
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'View'">
+                <v-btn class="my-1" style="width: 90%;" color="#D15959" outlined @click="submit(item.companies_id, item)">Message</v-btn>
+                <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
+                <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
+                <v-checkbox @click="massAssignUserToLocation(item, value)" :id="item.id" name="massAssign" value="" label="Mass Assign User To Channel"></v-checkbox>
+              </template>
+              <template v-slot:footer v-if="viewLocation === true">
+                <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
+              </template>
+              <template v-slot:item.actions="{ item }" v-else>
+                <nuxt-link :to="slug + item.id" append>
+                  <v-btn class="my-1" style="width: 90%;background-color:#707070; background-color:primary" color="primary">
+                    View
+                  </v-btn>
+                </nuxt-link>
+                <!--       <v-icon small @click="deleteItem(item)">-->
+                <!--         mdi-delete-->
+                <!--       </v-icon>-->
+              </template>
+            </v-data-table>
+          </v-card-text>
+          <v-card-actions class="d-flex justify-end px-4" v-if="viewAll">
+            <v-btn
+              color="primary"
+              class="px-8"
+              rounded
+              outlined
+              small
+              style="font-size: 12px"
+            >View All</v-btn
+            >
+          </v-card-actions>
+        </v-container>
+      </v-card>
+
+      <!-- MESSAGE FIELD AND SEND MESSAGE CARD -->
+      <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
+      >
+        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+        <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
+        <v-form style="width: 80%;">
+          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
+          <v-btn @click="closeModal">Exit Message</v-btn>
+          <v-btn @click="message(idForMessage, locationForMessage)">Send Message</v-btn>
+        </v-form>
+        <v-btn @click="closeModal" style="position: absolute; top: 10px; right: 10px; font-size: 30px;" text>X</v-btn>
+        <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
+      </v-card>
+    </div>
   </v-container>
 </template>
+
+
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
