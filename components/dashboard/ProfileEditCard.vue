@@ -183,6 +183,35 @@
               <v-row>
                 <v-col cols="12" class="mt-8">
                   <v-combobox
+                    v-model="services"
+                    :items="naicsList"
+                    item-text="name"
+                    item-value="name"
+                    chips
+                    multiple
+                    label="Choose your categories here"
+
+                  >
+                    <template v-slot:selection="data">
+                      <v-chip
+                        class="v-chip--select-multi"
+                        style="width: auto;"
+                      >
+                        <v-card-text v-if="data.item.name" style="">{{ data.item.name }}</v-card-text>
+                        <v-card-text v-else>{{data.item}}</v-card-text>
+                        <v-btn @click="removeService(data.item)" text class="ml-n6">X</v-btn>
+                      </v-chip>
+                    </template>
+                    <template v-slot:item="data">
+                      <p>{{data.item.name}}</p>
+                    </template>
+                  </v-combobox>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="12" class="mt-8">
+                  <v-combobox
                     v-model="locationTagsNew"
                     :items="sowerkTags"
                     item-text="name"
@@ -644,6 +673,9 @@
         companyImageUrl: null,
         locationTagsNew: [],
         modalSuccessEditLoad: false,
+        services: [],
+        originalServices: [],
+        naicsList: [],
       }
     },
     async mounted() {
@@ -664,8 +696,10 @@
         this.locationEdit.year_founded = this.location.year_founded;
         this.locationEdit.adminLevel = this.location.adminLevel;
         this.formatFullAddress(this.locationEdit);
-        console.log(this.locationTags, this.sowerkTags, 'props this.locationTag')
+        console.log(this.locationTags, this.sowerkTags, 'props this.locationTag', this.location)
         this.locationTagsNew = this.locationTags;
+        this.getServices(this.location.id);
+        this.getNaicsList();
       } else if(this.company) {
         await this.getCompany(this.user.companies_id);
         // this.formatFullAddress(this.company);
@@ -677,6 +711,27 @@
       },
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
+          .then(response => {
+            console.log('naicslist', response)
+            this.naicsList = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err on getting naicslist')
+          })
+      },
+      async getServices(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
+          .then(response => {
+            console.log('services', response)
+            this.services = response.data;
+            this.originalServices = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err on getting services for locations')
+          })
+      },
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
@@ -742,6 +797,46 @@
                 if(!(this.locationTagsNew.includes(this.originalLocationTags[i]))) {
                   console.log(this.originalLocationTags[i], 'this.location tags DELETE')
                   this.$http.delete('https://www.sowerkbackend.com/api/locationtags/' + this.originalLocationTags[i].id)
+                    .then(response => {
+                      console.log(response, 'success in deleting location tag')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in deleting location tag')
+                    })
+                }
+              }
+            }
+            if(this.services.length > 0) {
+              console.log(this.services, 'this.services');
+              for(let i=0; i<this.services.length; i++) {
+                if(typeof this.services[i] === 'object' && !(this.originalServices.includes(this.services[i]))) {
+                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {
+                    name: this.services[i].name
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                } else {
+                  if(!(this.originalServices.includes(this.services[i]))) {
+                    this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {
+                      name: this.services[i]
+                    })
+                      .then(responseVal => {
+                        console.log(responseVal, 'success in posting location tags')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in posting locationtags')
+                      })
+                  }
+                }
+              }
+              for(let i=0; i<this.originalServices.length; i++) {
+                if(!(this.services.includes(this.originalServices[i]))) {
+                  console.log(this.originalServices[i], 'this.location tags DELETE')
+                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
                     .then(response => {
                       console.log(response, 'success in deleting location tag')
                     })
@@ -912,6 +1007,17 @@
           }
         })
         console.log(this.locationTagsNew, 'after removal')
+      },
+      async removeService(item) {
+        console.log(this.services, 'before removal', item)
+        this.services = this.services.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.services, 'after removal')
       },
     }
   };

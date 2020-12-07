@@ -89,6 +89,32 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </template>
                     </v-textarea>
                   </v-col>
+                    <v-col cols="12" class="mt-8">
+                      <v-combobox
+                        v-model="services"
+                        :items="naicsList"
+                        item-text="name"
+                        item-value="name"
+                        chips
+                        multiple
+                        label="Choose your categories here"
+
+                      >
+                        <template v-slot:selection="data">
+                          <v-chip
+                            class="v-chip--select-multi"
+                            style="width: auto;"
+                          >
+                            <v-card-text v-if="data.item.name" style="">{{ data.item.name }}</v-card-text>
+                            <v-card-text v-else>{{data.item}}</v-card-text>
+                            <v-btn @click="removeService(data.item)" text class="ml-n6">X</v-btn>
+                          </v-chip>
+                        </template>
+                        <template v-slot:item="data">
+                          <p>{{data.item.name}}</p>
+                        </template>
+                      </v-combobox>
+                    </v-col>
                   <v-col cols="12" class="mt-8">
                     <v-combobox
                       v-model="locationTags"
@@ -388,7 +414,11 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         loadSubmit: true,
         locationTags: [],
         sowerkTags: [],
-        search: null
+        search: null,
+        services: [],
+        originalServices: [],
+        naicsList: [],
+
       }
     },
     async mounted() {
@@ -398,6 +428,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         this.loading = true;
         this.getUsers(this.currentUser.companies_id);
         this.getSowerkTags();
+        //this.getServices(this.location.id);
+        this.getNaicsList();
       }, 500)
     },
     computed: {
@@ -406,6 +438,27 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       },
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
+          .then(response => {
+            console.log('naicslist', response)
+            this.naicsList = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err on getting naicslist')
+          })
+      },
+      async getServices(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
+          .then(response => {
+            console.log('services', response)
+            this.services = response.data;
+            this.originalServices = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err on getting services for locations')
+          })
+      },
       async getUsers(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + id)
           .then(response => {
@@ -489,6 +542,33 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                 }
               }
             }
+            if(this.services.length > 0) {
+              console.log(this.services, 'this.services');
+              for(let i=0; i<this.services.length; i++) {
+                if(typeof this.services[i] === 'object') {
+                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
+                    name: this.services[i].name
+                  })
+                    .then(responseVal => {
+                      console.log(responseVal, 'success in posting location tags')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in posting locationtags')
+                    })
+                } else {
+                    this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
+                      name: this.services[i]
+                    })
+                      .then(responseVal => {
+                        console.log(responseVal, 'success in posting location tags')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in posting locationtags')
+                      })
+
+                }
+              }
+            }
             this.loadSubmit = true;
             this.$router.push('../../../dashboard/channels')
           })
@@ -536,7 +616,18 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           }
         })
         console.log(this.locationTags, 'after removal')
-      }
+      },
+      async removeService(item) {
+        console.log(this.services, 'before removal', item)
+        this.services = this.services.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.services, 'after removal')
+      },
     }
   }
 </script>

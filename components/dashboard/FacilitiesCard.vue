@@ -29,6 +29,31 @@
                 <v-col cols="4" class="py-0">
                   <v-text-field label="Search" light></v-text-field>
                 </v-col>
+                <v-col cols="4" class="py-0">
+                  <v-combobox
+                    v-model="locationFilterTags"
+                    :items="sowerkTags"
+                    item-text="name"
+                    item-value="name"
+                    chips
+                    multiple
+                    label="Choose your tags here"
+                  >
+                    <template v-slot:selection="data">
+                      <v-chip
+                        class="v-chip--select-multi"
+                        style="width: auto;"
+                      >
+                        <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                        <v-card-text v-else>{{data.item}}</v-card-text>
+                        <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                      </v-chip>
+                    </template>
+                    <template v-slot:item="data">
+                      <p>{{data.item.name}}</p>
+                    </template>
+                  </v-combobox>
+                </v-col>
               </v-row>
             </v-card-actions>
             <v-card-text class="pt-0 pb-2">
@@ -176,6 +201,31 @@
             <v-spacer></v-spacer>
             <v-col cols="4" class="py-0">
               <v-text-field label="Search" light></v-text-field>
+            </v-col>
+            <v-col cols="4" class="py-0">
+              <v-combobox
+                v-model="locationFilterTags"
+                :items="sowerkTags"
+                item-text="name"
+                item-value="name"
+                chips
+                multiple
+                label="Choose your tags here"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    class="v-chip--select-multi"
+                    style="width: auto;"
+                  >
+                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text v-else>{{data.item}}</v-card-text>
+                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <p>{{data.item.name}}</p>
+                </template>
+              </v-combobox>
             </v-col>
           </v-row>
         </v-card-actions>
@@ -339,6 +389,31 @@
             <v-col cols="12" class="py-0">
               <v-text-field label="Search" light></v-text-field>
             </v-col>
+            <v-col cols="4" class="py-0">
+              <v-combobox
+                v-model="locationFilterTags"
+                :items="sowerkTags"
+                item-text="name"
+                item-value="name"
+                chips
+                multiple
+                label="Choose your tags here"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    class="v-chip--select-multi"
+                    style="width: auto;"
+                  >
+                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text v-else>{{data.item}}</v-card-text>
+                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <p>{{data.item.name}}</p>
+                </template>
+              </v-combobox>
+            </v-col>
           </v-row>
         </v-card-actions>
         <v-card-text class="pt-n6 pb-2 mt-n12">
@@ -482,7 +557,7 @@
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
-  props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'massAssignUserToLocation', 'locationApproved', 'submitMassAssignUserToLocation', 'viewLocation'],
+  props: ['removeTag', 'locationFilterTags', 'sowerkTags', 'items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'massAssignUserToLocation', 'locationApproved', 'submitMassAssignUserToLocation', 'viewLocation'],
   components: {
     FilterCard
   },

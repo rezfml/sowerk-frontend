@@ -54,6 +54,9 @@
               slug="/dashboard/channels/"
               v-if="locationApproved && loading"
               :viewLocation="viewLocation"
+              :sowerkTags="sowerkTags"
+              :locationFilterTags="locationFilterTags"
+              :removeTag="removeTag"
             ></FacilitiesCard>
           </transition>
 <!--          <transition name="slide-fade">-->
@@ -89,6 +92,9 @@
               slug="/dashboard/channels/"
               v-if="loading"
               :viewLocation="viewLocation"
+              :sowerkTags="sowerkTags"
+              :locationFilterTags="locationFilterTags"
+              :removeTag="removeTag"
             ></FacilitiesCard>
           </transition>
 <!--          <transition name="slide-fade">-->
@@ -190,6 +196,9 @@
               :viewLocation="viewLocation"
               slug="/dashboard/channels/"
               v-if="locationApproved && loading"
+              :sowerkTags="sowerkTags"
+              :locationFilterTags="locationFilterTags"
+              :removeTag="removeTag"
             ></FacilitiesCard>
           </transition>
 <!--          <transition name="slide-fade">-->
@@ -346,6 +355,9 @@
         ],
         locationApproved: false,
         viewLocation: false,
+        originalLocations: [],
+        sowerkTags: [],
+        locationFilterTags: [],
       }
     },
     watch: {
@@ -360,6 +372,7 @@
     mounted() {
       this.getCompany();
       this.getLocations();
+      this.getSowerkTags();
       console.log(this.currentUser);
     },
     computed: {
@@ -381,15 +394,38 @@
             for(let i=0; i<data.location.length; i++){
               if(data.location[i].email === this.currentUser.email && data.location[i].phone === this.currentUser.phone) {
                 this.locations.push(data.location[i]);
+                this.originalLocations.push(data.location[i]);
               }
             }
           } else {
             this.locations = data.location;
+            this.originalLocations = data.location;
             this.locationApproved = true;
           }
         })
         this.loading = true;
       },
+      async getSowerkTags() {
+        await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
+          .then(response => {
+            console.log(response, 'sowerktags')
+            this.sowerkTags = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err for sowerk tags')
+          })
+      },
+      async removeTag(item) {
+        console.log(this.locationFilterTags, 'before removal', item)
+        this.locationFilterTags = this.locationFilterTags.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.locationFilterTags, 'after removal')
+      }
     },
   }
 </script>
