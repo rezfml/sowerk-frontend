@@ -188,14 +188,14 @@
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text text-h6 font-weight-bold text-left'
           },
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'primary_contact', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Service', value: 'service', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Address', value: 'address', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Primary Contact', value: 'primary_contact', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Phone', value: 'phone', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         providerHeaders: [
           {
@@ -203,13 +203,13 @@
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text text-h6 font-weight-bold text-left'
           },
-          { text: 'Customer', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Customer', value: 'name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Address', value: 'address', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Phone', value: 'phone', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         // connectionsHeaders: [
         //   {

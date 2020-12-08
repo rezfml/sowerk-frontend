@@ -13,17 +13,29 @@
 <!--        :size="50"-->
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
+    <v-col cols="12">
+      <!-- TOP INFO BANNER -->
+      <transition name="slide-fade">
+        <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+          <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
+            <v-img class="" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 10%; height: 30vh;"></v-img>
+            <v-col cols="7" class="d-flex flex-column justify-center">
+              <h2>Messages & Alerts</h2>
+              <p class="mt-4">Your dashboard is where you can see a list of all Channels which are managed by this user’s account. Additionally you can see an overview of your “Approved Vendors” “All Pending Applications” and “Unread Messages”.
+              </p>
+            </v-col>
+          </v-row>
+        </v-card>
+      </transition>
+    </v-col>
+
     <v-skeleton-loader
       v-if="!loading"
       type="card-avatar, article, article, actions"
       min-height="50vh"
       min-width="50vw"
     ></v-skeleton-loader>
-    <v-col cols="12">
-      <transition name="slide-fade">
-      <h1 v-if="loading" class="font-weight-regular">Messages & Alerts</h1>
-      </transition>
-    </v-col>
+    
     <v-col cols="12">
       <transition name="slide-fade">
       <MessageCard
@@ -57,13 +69,13 @@ export default {
 
       },
       headers: [
-        { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-regular'},
-        { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
-        { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
-        { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
-        { text: 'Message', value: 'message', class: 'primary--text font-weight-regular' },
-        { text: 'Channel', value: 'location', class: 'primary--text font-weight-regular' },
-        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        { text: 'Read', value: 'pmMessageRead', class: 'primary--text text-h6 font-weight-bold text-left'},
+        { text: 'Category', value: 'service', class: 'primary--text text-h6 font-weight-bold text-left' },
+        { text: 'Company', value: 'company', class: 'primary--text text-h6 font-weight-bold text-left' },
+        { text: 'Primary Contact', value: 'full_name', class: 'primary--text text-h6 font-weight-bold text-left' },
+        { text: 'Message', value: 'message', class: 'primary--text text-h6 font-weight-bold text-left' },
+        { text: 'Channel', value: 'location', class: 'primary--text text-h6 font-weight-bold text-left' },
+        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text text-h6 font-weight-bold text-left' },
       ]
     }
   },

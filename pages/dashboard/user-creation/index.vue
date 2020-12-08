@@ -14,7 +14,9 @@
         type="card-avatar, article, article, actions"
         min-height="60vh"
       ></v-skeleton-loader>
+      
       <transition name="slide-fade">
+        <!-- MEDIUM AND LARGE -->
         <UserCard
           v-if="users.length > 0 && loading === true && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"
           :title="'List of Users - ' + company.account_name"
@@ -31,6 +33,8 @@
           :viewLocation='viewLocation'
         >
         </UserCard>
+
+        <!-- SMALL AND EXTRA-SMALL -->
         <UserCard
           v-if="users.length > 0 && loading === true"
           :title="'List of Users - ' + company.account_name"
@@ -46,7 +50,6 @@
           :getLocations="getLocations"
           :viewLocation='viewLocation'
         >
-
         </UserCard>
       </transition>
     </v-card>
@@ -68,18 +71,18 @@
         users: [],
         locations: [],
         headers: [
-          { text: 'Name', value: 'first_name', filterable: true, class: 'primary--text font-weight-regular' },
-          { text: 'Admin Level', value: 'useradmin', class: 'primary--text font-weight-regular' },
-          { text: 'Location Access', value: 'locationAccess', class: 'primary--text font-weight-regular'},
-          { text: 'Email', value: 'email', filterable: true, class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', filterable: true, class: 'primary--text font-weight-regular' },
-          { text: 'Created', value: 'usercreated', class: 'primary--text font-weight-regular' },
-          { text: 'Accepted Invite', value: 'userverify', class: 'primary--text font-weight-regular'},
-          { text: 'Actions', value: 'useractions', class: 'primary--text font-weight-regular' },
+          { text: 'Name', value: 'first_name', filterable: true, class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Admin Level', value: 'useradmin', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Location Access', value: 'locationAccess', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Email', value: 'email', filterable: true, class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Phone', value: 'phone', filterable: true, class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Created', value: 'usercreated', class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Accepted Invite', value: 'userverify', class: 'primary--text text-h6 font-weight-bold text-left'},
+          { text: 'Actions', value: 'useractions', class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         headersMobile: [
-          { text: 'Name', value: 'first_name', filterable: true, class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'useractions', class: 'primary--text font-weight-regular' },
+          { text: 'Name', value: 'first_name', filterable: true, class: 'primary--text text-h6 font-weight-bold text-left' },
+          { text: 'Actions', value: 'useractions', class: 'primary--text text-h6 font-weight-bold text-left' },
         ],
         company: {},
         viewLocation: false,

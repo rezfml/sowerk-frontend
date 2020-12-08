@@ -9,6 +9,7 @@
         <v-card-title v-if="loadCompany" style="position: absolute; top: -25px; left: 25px;border-radius: 3px; background-color: " class="primary body-2" ><v-icon class="white--text">mdi-account-outline</v-icon></v-card-title>
       </transition>
 
+      <!-- "Edit Channel Details" CARD ON dashboard/channels/:id -->
       <transition name="slide-fade">
         <template v-if="location">
           <v-card-text class="py-0">
@@ -109,7 +110,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.address"
+                    v-model="locationEdit.address"
                     clearable
                   >
                     <template v-slot:label>
@@ -122,7 +123,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.city"
+                    v-model="locationEdit.city"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel City</p>
@@ -134,7 +135,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.state"
+                    v-model="locationEdit.state"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel State</p>
@@ -146,7 +147,7 @@
                   <v-text-field
                     light
                     placeholder=""
-                    v-model="location.zipcode"
+                    v-model="locationEdit.zipcode"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel Zipcode</p>
@@ -329,8 +330,9 @@
                 <!--              </v-col>-->
 
               </v-row>
-
             </v-form>
+
+            <!-- CANCEL AND UPDATE CHANNEL BUTTONS -->
             <v-card-actions class="px-0">
               <v-btn color="primary" outlined class="px-8" v-on:click="cancelEditLocation">Cancel</v-btn>
               <v-spacer></v-spacer>
@@ -340,6 +342,7 @@
         </template>
       </transition>
 
+      <!-- RENDERED IN DIFFERENT PAGE -->
       <transition name="slide-fade">
         <template v-if="loadCompany">
           <v-card-text class="py-0">
@@ -595,9 +598,10 @@
                     light
                     placeholder="Phone"
                     v-model="currentUserVal.phone"
-                  ><template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                  </template></v-text-field>
+                    ><template v-slot:label>
+                      <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
+                    </template>
+                  </v-text-field>
                 </v-col>
               </v-row>
               <v-btn v-if="company" color="primary" class="px-8 my-2" @click="updateCompany()">Update Profile</v-btn>
