@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
-      
+
       <!-- TOP INFO BANNER -->
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
@@ -34,7 +34,7 @@
       <!-- SMALL AND X-SMALL BREAKPOINT -->
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
 
-        
+
         <!-- FACILITIESCARD NOT INCLUDING COMPANY=COMPANY -->
         <v-col cols="12" class="d-flex flex-column justify-start flex-wrap" v-if="$vuetify.breakpoint.sm">
           <v-skeleton-loader
@@ -44,7 +44,7 @@
             min-width="80vw"
             cols
           ></v-skeleton-loader>
-          
+
           <transition name="slide-fade">
             <FacilitiesCard
               :title="'Your Channels - ' + locations.length"
@@ -57,7 +57,6 @@
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
               :removeTag="removeTag"
-              :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
           <!--          <transition name="slide-fade">-->
@@ -99,7 +98,6 @@
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
               :removeTag="removeTag"
-              :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
         <!--          <transition name="slide-fade">-->
@@ -186,7 +184,6 @@
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
               :removeTag="removeTag"
-              :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
         </v-col>
@@ -400,18 +397,6 @@
           }
         })
         console.log(this.locationFilterTags, 'after removal')
-      },
-      async filterItems() {
-        console.log(this.locationFilterTags, 'dataItems', this.locations)
-        this.locations = this.locations.filter(location => {
-          for(let i=0; i<this.locationFilterTags.length; i++) {
-            if(location.locationtags.length > 0 && location.locationtags.includes(this.locationFilterTags[i].name)) {
-              console.log(location, 'location match')
-              return location
-            }
-          }
-        })
-        console.log(this.locations, 'after filter')
       }
     },
   }
