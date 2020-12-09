@@ -4,34 +4,28 @@
       <v-card class="d-flex flex-column align-center" style="background-color: white !important; width: 100% !important;">
         <v-img v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs " style="max-height: 450px;" class="my-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
         <v-img v-else style="max-height: 150px;" class="mt-3" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-        <v-card style="width: 95%;" class="d-flex flex-column align-center">
-          <v-row style="width: 100%; background-color: #7C7C7C; height: 10vh;" class="d-flex justify-center">
+        <v-card style="width: 95%; border: 5px solid #7C7C7C; border-radius: 20px;" class="d-flex flex-column align-center">
+          <v-row style="width: 100%; background-color: #7C7C7C; border-radius: 5px; height: 10vh;" class="d-flex justify-center">
             <v-card-title style="color: white;">YOUR CURRENT SOWERK LEVEL</v-card-title>
           </v-row>
           <v-row style="width: 100%;" class="d-flex justify-center mt-4">
-            <v-col cols="3">
-              <v-card class="d-flex flex-column align-center">
-                <v-card-text>Hi</v-card-text>
-                <v-card-text>Hi</v-card-text>
-              </v-card>
+            <v-col cols="3" class="d-flex flex-column align-center">
+              <v-card-text style="text-align: center; font-size: 20px;">SOWERK {{companyPlan.planType}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 60px; color: #7C7C7C;">{{ companyPlan.planCost }}</v-card-text>
             </v-col>
-            <v-col cols="3">
-              <v-card class="d-flex flex-column align-center">
-                <v-card-text>Hi</v-card-text>
-                <v-card-text>Hi</v-card-text>
-              </v-card>
+            <v-col cols="3" class="d-flex flex-column align-center">
+              <v-card-text style="text-align: center; font-size: 20px;">CURRENT CONNECTIONS</v-card-text>
+              <v-card-text style="text-align: center; font-size: 60px; color: #7C7C7C;">{{ companyPlan.currentConnections }}</v-card-text>
             </v-col>
-            <v-col cols="3">
-              <v-card class="d-flex flex-column align-center">
-                <v-card-text>Hi</v-card-text>
-                <v-card-text>Hi</v-card-text>
-              </v-card>
+            <v-col cols="3" class="d-flex flex-column align-center">
+              <v-card-text style="text-align: center; font-size: 20px;">CURRENT FEATURES</v-card-text>
+              <template v-for="(feature, index) in companyPlan.currentFeatures">
+                <v-card-text style="text-align: center; font-size: 20px; color: #7C7C7C;">{{ feature }}</v-card-text>
+              </template>
             </v-col>
-            <v-col cols="3">
-              <v-card class="d-flex flex-column align-center">
-                <v-card-text>Hi</v-card-text>
-                <v-card-text>Hi</v-card-text>
-              </v-card>
+            <v-col cols="3" class="d-flex flex-column align-center">
+              <v-card-text style="text-align: center; font-size: 20px;">ADDITIONAL CONNECTION FEE</v-card-text>
+              <v-card-text style="text-align: center; font-size: 60px; color: #7C7C7C;">{{companyPlan.additionalConnectionFee}}</v-card-text>
             </v-col>
           </v-row>
         </v-card>
@@ -143,7 +137,40 @@
     name: "home",
     layout: "app",
     data() {
-
+      return {
+        companyPlan: {
+          additionalConnectionFee: null,
+          companies_id: Number,
+          id: Number,
+          customerId: null,
+          currentConnections: Number,
+          currentFeatures: [],
+          planCost: Number,
+          planType: null,
+        },
+      }
+    },
+    async mounted() {
+      await this.getCompanyLevel(this.currentUser.companies_id);
+    },
+    computed: {
+      currentUser() {
+        return this.$store.getters['user/user'].user.user;
+      },
+    },
+    methods: {
+      async getCompanyLevel(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companysowerklevels/byCompanyId/' + id)
+          .then(response => {
+            console.log(response, 'company sowerk level plan')
+            this.companyPlan = response.data[0]
+            this.companyPlan.currentFeatures = response.data[0].currentFeatures.split(', ')
+            console.log(this.companyPlan, 'companyPlan')
+          })
+          .catch(err => {
+            console.log(err, 'err in getting company sowerk level plan')
+          })
+      }
     }
   }
 
