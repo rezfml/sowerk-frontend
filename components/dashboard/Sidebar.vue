@@ -268,13 +268,13 @@
             to: '/dashboard/channels/',
             slug: 'channels',
             icon: 'store',
-            text: 'My Channels',
+            text: 'Channels',
             id: 'mylocations',
             children: [
               {
                 to: '/dashboard/channels/',
                 slug: 'channels',
-                text: 'My Channels'
+                text: 'Channels'
               },
               {
                 to: '/dashboard/channels/add',
@@ -391,13 +391,13 @@
             to: '/dashboard/channels/',
             slug: 'channels',
             icon: 'store',
-            text: 'My Channels',
+            text: 'Channels',
             id: 'mylocations',
             children: [
               {
                 to: '/dashboard/channels/',
                 slug: 'channels',
-                text: 'My Channels'
+                text: 'Channels'
               },
             ]
           },
@@ -503,13 +503,13 @@
             to: '/dashboard/channels/',
             slug: 'channels',
             icon: 'store',
-            text: 'My Channels',
+            text: 'Channels',
             id: 'mylocations',
             children: [
               {
                 to: '/dashboard/channels/',
                 slug: 'channels',
-                text: 'My Channels'
+                text: 'Channels'
               },
               {
                 to: '/dashboard/channels/add',

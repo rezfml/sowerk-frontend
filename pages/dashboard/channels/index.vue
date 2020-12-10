@@ -9,20 +9,19 @@
               <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p>
               <v-spacer></v-spacer>
-              <p>Here is an example: A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
+              <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
               </p>
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">
-                <p style="font-size: 1.2rem; font-weight: 700;">Need To Add Another Company Channel?</p>
                 <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502);"
-                  class="px-16 mr-16"
+                  style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
+                  class="px-12 mr-16 py-6"
                   large
                   outlined
                   rounded
                   color="white"
                   to="add"
-                >Add Now</v-btn>
+                >Add Another Channel - Click Here</v-btn>
               </v-row>
             </v-col>
           </v-row>
@@ -400,13 +399,14 @@
                 this.originalLocations.push(data.location[i]);
               }
             }
+            this.loading = true;
           } else {
             this.locations = data.location;
             this.originalLocations = data.location;
             this.locationApproved = true;
+            this.loading = true;
           }
         })
-        this.loading = true;
       },
       async getSowerkTags() {
         await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')

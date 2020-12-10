@@ -34,7 +34,7 @@
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">
                 <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502);"
+                  style="background: linear-gradient(to right, #A61C00, #741502); width: 80%;"
                   class="px-16 mr-16"
                   large
                   outlined
@@ -43,7 +43,7 @@
                   href="/dashboard/vendors/invite"
                 >Invite New Vendors</v-btn>
                 <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502);"
+                  style="background: linear-gradient(to right, #A61C00, #741502); width: 80%;"
                   class="px-16 mr-16"
                   large
                   outlined

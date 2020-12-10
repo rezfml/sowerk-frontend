@@ -65,6 +65,7 @@
               :locations="locations"
               :editingIndex="editingIndex"
               :headers="headers"
+              :companyImageUrl="companyImageUrl"
               ref="companyLocations"
             ></CompanyLocations>
 
@@ -104,21 +105,21 @@
               style="flex-grow: 1; border-width: 2px;"
               @click="addLocation"
               v-if="!editingLocation && tab === 1"
-            >+ Save and Add Another Location
+            >+ Add Another Channel
             </v-btn>
             <v-btn
               color="primary"
               class="px-8"
               @click="nextPageIfNotLast"
               v-if="!editingLocation && tab === 1"
-            >Next >
+            >Finish & Review >
             </v-btn>
             <v-btn
               color="primary"
               class="px-8"
               @click="finishEditing"
               v-else-if="editingLocation && tab === 1"
-            >Finish Location
+            >Finish Channel
             </v-btn>
             <v-btn
               color="#707070"
@@ -126,7 +127,7 @@
               class="px-8"
               @click="goBackLocations"
               v-if="editingLocation && tab === 1 && locations.length >0"
-            >Cancel And Go Back To Locations</v-btn>
+            >Cancel And Go Back To Channels</v-btn>
             <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2"
             >Submit</v-btn
             >
@@ -134,6 +135,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-card v-if="successPopup" style="position: fixed; width: 100%; height: 100%;" class="d-flex flex-column align-center justify-center">
+      <v-card-title style="color: #A61C00; width: 80%;">Thank you for your registration. Please check your email for a verification email from SOWerk! You will be redirected to the login portal momentarily.</v-card-title>
+    </v-card>
   </v-container>
 </template>
 
@@ -170,6 +174,7 @@ export default {
   },
   data() {
     return {
+      successPopup: false,
       loading: false,
       tab: 0,
       companyImageFile: {},
@@ -260,7 +265,7 @@ export default {
           class: 'primary--text font-weight-regular',
         },
         {
-          text: 'Facility',
+          text: 'Channel',
           value: 'name',
           class: 'primary--text font-weight-regular',
         },
@@ -368,6 +373,10 @@ export default {
       this.editingLocation = false
       console.log(this.location, 'location')
       this.locations[this.editingIndex] = this.location
+      this.locations[this.editingIndex].contact_first_name = this.user.first_name;
+      this.locations[this.editingIndex].contact_last_name = this.user.last_name;
+      this.locations[this.editingIndex].phone = this.user.phone;
+      this.locations[this.editingIndex].email = this.user.email;
       this.editingIndex = null;
     },
     editLocation(index) {
@@ -494,7 +503,10 @@ export default {
       });
       console.log(this.locations);
       this.loading = false;
-      this.$router.push('/login');
+      this.successPopup = true;
+      setTimeout(() => {
+        this.$router.push('/login');
+      }, 2000)
     },
     async uploadLocationImage(formData, index) {
       // let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/upload', formData).catch(err => {

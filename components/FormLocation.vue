@@ -48,6 +48,7 @@
         <v-row class="d-flex align-center">
           <v-col cols="12" md="6" class="d-flex flex-column justify-space-between align-center">
             <v-img :src="locationImageUrl" :aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-if="locationImageUrl"></v-img>
+            <v-img :src="companyImageUrl":aspect-ratio="1" class="my-8 rounded-circle flex-grow-1" style="width: 100%; max-width: 300px;" v-else-if="companyImageUrl"></v-img>
             <v-img v-else style="width: 10vw;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png"></v-img>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : location.imageUrl}" v-model="location.imageUrl" v-on:change.native="selectLocationImage" id="locationImage" style="visibility: hidden; height: 0; max-height: 0;"></v-file-input>
             <v-btn @click="clickLocationImageUpload" color="primary" outlined rounded block class="flex-grow-0">Upload Logo</v-btn>
@@ -56,7 +57,7 @@
           <v-col cols="12" md="6" class="d-flex flex-column justify-center
 ">
             <v-text-field
-              placeholder="Each location is listed on SOWerk so names are important to you for for your management but they are also important to vendors (approved or potential)"
+              hint="Each channel is listed on SOWerk so names are important to you for your management but they are also important to vendors (approved or potential)"
               id="location"
               type="text"
               v-model="location.name"
@@ -168,87 +169,88 @@
       <!--      </template>-->
       <!--    </v-col>-->
 
-      <v-col cols="12" class="mt-8 d-flex justify-center">
-        <span class="headline mb-0">Location Manager</span>
-      </v-col>
-      <v-row class="title font-weight-regular text-center mb-12 grey--text text--darken-2">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>
-      <v-col cols="12" class="mb-6">
-        <v-checkbox v-model="managerIsUser" @click="setManagerToUser" >
-          <template v-slot:label>
-            <p class="grey--text text--darken-4 mb-0">This location will be managed by: {{ user.first_name }} {{ user.last_name }}</p>
-          </template>
-        </v-checkbox>
-        <!--      <p class="primary&#45;&#45;text font-weight-bold text-h6 mt-2 ml-8">{{ user.first_name }} {{ user.last_name }}</p>-->
-      </v-col>
+<!--      LOCATION NOW IS JUST ASSUMED TO HAVE USER SIGNING UP AS DEFAULT MANAGER. CHECK MOUNTED FOR UPDATED DETAILS-->
+<!--      <v-col cols="12" class="mt-8 d-flex justify-center">-->
+<!--        <span class="headline mb-0">Location Manager</span>-->
+<!--      </v-col>-->
+<!--      <v-row class="title font-weight-regular text-center mb-12 grey&#45;&#45;text text&#45;&#45;darken-2">This should be the main contact person who will be responsible for managing approved vendors at this location. The information provided here will help create a staff account within your company and the contact information will only be available to approved vendors at that location. </v-row>-->
+<!--      <v-col cols="12" class="mb-6">-->
+<!--        <v-checkbox v-model="managerIsUser" @click="setManagerToUser" >-->
+<!--          <template v-slot:label>-->
+<!--            <p class="grey&#45;&#45;text text&#45;&#45;darken-4 mb-0">This location will be managed by: {{ user.first_name }} {{ user.last_name }}</p>-->
+<!--          </template>-->
+<!--        </v-checkbox>-->
+<!--        &lt;!&ndash;      <p class="primary&#45;&#45;text font-weight-bold text-h6 mt-2 ml-8">{{ user.first_name }} {{ user.last_name }}</p>&ndash;&gt;-->
+<!--      </v-col>-->
 
-      <!--    <v-col cols="12" md="6">-->
-      <!--      <v-select-->
-      <!--        id="admin-level"-->
-      <!--        label="Admin Level*"-->
-      <!--        :items="adminLevel"-->
-      <!--        v-model="location.adminLevel"></v-select>-->
-      <!--    </v-col>-->
+<!--      &lt;!&ndash;    <v-col cols="12" md="6">&ndash;&gt;-->
+<!--      &lt;!&ndash;      <v-select&ndash;&gt;-->
+<!--      &lt;!&ndash;        id="admin-level"&ndash;&gt;-->
+<!--      &lt;!&ndash;        label="Admin Level*"&ndash;&gt;-->
+<!--      &lt;!&ndash;        :items="adminLevel"&ndash;&gt;-->
+<!--      &lt;!&ndash;        v-model="location.adminLevel"></v-select>&ndash;&gt;-->
+<!--      &lt;!&ndash;    </v-col>&ndash;&gt;-->
 
-      <v-col cols="12" md="6">
-        <v-text-field
-          placeholder=" "
-          id="first_name"
-          type="text"
-          v-model="location.contact_first_name"
-          :readonly="managerIsUser"
-          :rules="rules.requiredRules"
-        >
-          <template v-slot:label>
-            <p class="grey--text text--darken-4 font-weight-bold">First Name*</p>
-          </template>
-        </v-text-field>
-      </v-col>
+<!--      <v-col cols="12" md="6">-->
+<!--        <v-text-field-->
+<!--          placeholder=" "-->
+<!--          id="first_name"-->
+<!--          type="text"-->
+<!--          v-model="location.contact_first_name"-->
+<!--          :readonly="managerIsUser"-->
+<!--          :rules="rules.requiredRules"-->
+<!--        >-->
+<!--          <template v-slot:label>-->
+<!--            <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name*</p>-->
+<!--          </template>-->
+<!--        </v-text-field>-->
+<!--      </v-col>-->
 
-      <v-col cols="12" md="6">
-        <v-text-field
-          placeholder=" "
-          id="last_name"
-          type="text"
-          v-model="location.contact_last_name"
-          :readonly="managerIsUser"
-          :rules="rules.requiredRules"
-        >
-          <template v-slot:label>
-            <p class="grey--text text--darken-4 font-weight-bold">Last Name*</p>
-          </template>
-        </v-text-field>
-      </v-col>
+<!--      <v-col cols="12" md="6">-->
+<!--        <v-text-field-->
+<!--          placeholder=" "-->
+<!--          id="last_name"-->
+<!--          type="text"-->
+<!--          v-model="location.contact_last_name"-->
+<!--          :readonly="managerIsUser"-->
+<!--          :rules="rules.requiredRules"-->
+<!--        >-->
+<!--          <template v-slot:label>-->
+<!--            <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name*</p>-->
+<!--          </template>-->
+<!--        </v-text-field>-->
+<!--      </v-col>-->
 
-      <v-col cols="12" md="6">
-        <v-text-field
-          placeholder=" "
-          id="phone"
-          type="tel"
-          v-model="location.phone"
-          :readonly="managerIsUser"
-          :rules="rules.requiredRules"
-          v-mask="'(###) ###-####'"
-        >
-          <template v-slot:label>
-            <p class="grey--text text--darken-4 font-weight-bold">Phone*</p>
-          </template>
-        </v-text-field>
-      </v-col>
+<!--      <v-col cols="12" md="6">-->
+<!--        <v-text-field-->
+<!--          placeholder=" "-->
+<!--          id="phone"-->
+<!--          type="tel"-->
+<!--          v-model="location.phone"-->
+<!--          :readonly="managerIsUser"-->
+<!--          :rules="rules.requiredRules"-->
+<!--          v-mask="'(###) ###-####'"-->
+<!--        >-->
+<!--          <template v-slot:label>-->
+<!--            <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone*</p>-->
+<!--          </template>-->
+<!--        </v-text-field>-->
+<!--      </v-col>-->
 
-      <v-col cols="12" md="6">
-        <v-text-field
-          placeholder=" "
-          id="email"
-          type="email"
-          v-model="location.email"
-          :readonly="managerIsUser"
-          :rules="rules.emailRules"
-        >
-          <template v-slot:label>
-            <p class="grey--text text--darken-4 font-weight-bold">Email*</p>
-          </template>
-        </v-text-field>
-      </v-col>
+<!--      <v-col cols="12" md="6">-->
+<!--        <v-text-field-->
+<!--          placeholder=" "-->
+<!--          id="email"-->
+<!--          type="email"-->
+<!--          v-model="location.email"-->
+<!--          :readonly="managerIsUser"-->
+<!--          :rules="rules.emailRules"-->
+<!--        >-->
+<!--          <template v-slot:label>-->
+<!--            <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email*</p>-->
+<!--          </template>-->
+<!--        </v-text-field>-->
+<!--      </v-col>-->
 
     </v-row>
   </v-form>
@@ -291,6 +293,10 @@
       user: {
         type: Object,
         required: true
+      },
+      companyImageUrl: {
+        type: String,
+        return: true
       },
     },
     components: {
@@ -352,6 +358,10 @@
     mounted() {
       vueGoogleMapsInit();
       this.formatFullAddress();
+      this.location.contact_first_name = this.user.first_name;
+      this.location.contact_last_name  = this.user.last_name;
+      this.location.phone              = this.user.phone;
+      this.location.email              = this.user.email;
     },
     methods: {
       // selectCompanyImage(e) {
