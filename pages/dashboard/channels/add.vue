@@ -89,6 +89,18 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </template>
                     </v-textarea>
                   </v-col>
+                  <v-col cols="12" class="mt-4" v-if="company.company_type === 'false'">
+                    <v-slider
+                      label="Choose your Channel service radius"
+                      thumb-label="always"
+                      max="1005"
+                      min="5"
+                      step="10"
+                      ticks="always"
+                      v-model="form.radius"
+                    ></v-slider>
+                    <v-subheader class="mt-n8">Choose the number of miles that your channel will operate. IE, I service a 50 mile radius of my channel.</v-subheader>
+                  </v-col>
                   <v-col cols="12" class="mt-8">
                     <v-autocomplete
                       :items="vendorTypeOptions"
@@ -423,6 +435,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         ],
         loading: false,
         users: [],
+        company: {},
         loadSubmit: true,
         locationTags: [],
         sowerkTags: [],
@@ -441,13 +454,12 @@ on your account dashboard. Example: SOWerk Cafe #013)"
     async mounted() {
       vueGoogleMapsInit();
       console.log(this.currentUser);
-      setTimeout(() => {
-        this.loading = true;
-        this.getUsers(this.currentUser.companies_id);
-        this.getSowerkTags();
+      await this.getCompany(this.currentUser.companies_id);
+      await this.getUsers(this.currentUser.companies_id);
+      await this.getSowerkTags();
         //this.getServices(this.location.id);
-        this.getNaicsList();
-      }, 500)
+      await this.getNaicsList();
+      this.loading = true;
     },
     computed: {
       currentUser() {
@@ -474,6 +486,16 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           })
           .catch(err => {
             console.log(err, 'err on getting services for locations')
+          })
+      },
+      async getCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response, 'company response')
+            this.company = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting company')
           })
       },
       async getUsers(id) {
@@ -637,8 +659,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       useWrittenChannel() {
         this.item.lat = this.form.latitude
         this.item.lng = this.form.longitude
-        this.mapOptions = { ...this.mapOptions, center: { lat: this.form.latitude, lng: this.form.longitude } }
-        this.center = { lat: this.form.latitude, lng: this.form.longitude }
+        this.mapOptions = { ...this.mapOptions, center: { lat: this.form.latitude, lng: this.form.longitude }, radius: this.form.radius }
+        this.center = { lat: this.form.latitude, lng: this.form.longitude}
         this.mapOptions.zoom = 13
       },
       async getSowerkTags() {
