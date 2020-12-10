@@ -12,10 +12,24 @@
           <v-container class="px-12">
             <v-row>
               <v-col cols="12">
-                <v-img src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png" aspect-ratio="1" style="height: 25vh; max-height: 25vh;"></v-img>
-                <p class="primary--text text-center font-weight-bold text-h5">Invite a Vendor to join SOWerk And Connect For Free</p>
-                <p class="text-center text-h6">Enter the Vendor's information below, add another line, and invite multiple vendors at once.</p>
-                <p class="text-body-1 text-center">(Note: By selecting NO under Pre-Approved, the vendor will still be invited to join SOWerk, but will still have to submit an application to your business and not recieve a free connection.)</p>
+                <v-img
+                  src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"
+                  aspect-ratio="1"
+                  style="height: 25vh; max-height: 25vh;"
+                ></v-img>
+                <p class="primary--text text-center font-weight-bold text-h5">
+                  Invite a Vendor to join SOWerk And Connect For Free
+                </p>
+                <p class="text-center text-h6">
+                  Enter the Vendor's information below, add another line, and
+                  invite multiple vendors at once.
+                </p>
+                <p class="text-body-1 text-center">
+                  (Note: By selecting NO under Pre-Approved, the vendor will
+                  still be invited to join SOWerk, but will still have to submit
+                  an application to your business and not recieve a free
+                  connection.)
+                </p>
               </v-col>
               <v-col cols="12">
                 <v-data-table
@@ -26,22 +40,46 @@
                   hide-default-footer
                 >
                   <template v-slot:item.service="{ item }">
-                    <v-text-field class="text-caption" placeholder="HVAC" v-model="item.service"></v-text-field>
+                    <v-text-field
+                      class="text-caption"
+                      placeholder="HVAC"
+                      v-model="item.service"
+                    ></v-text-field>
                   </template>
                   <template v-slot:item.companyName="{ item }">
-                    <v-text-field class="text-caption" placeholder="Outdoor Solutions" v-model="item.companyName"></v-text-field>
+                    <v-text-field
+                      class="text-caption"
+                      placeholder="Outdoor Solutions"
+                      v-model="item.companyName"
+                    ></v-text-field>
                   </template>
                   <template v-slot:item.firstName="{ item }">
-                    <v-text-field class="text-caption" placeholder="John" v-model="item.firstName"></v-text-field>
+                    <v-text-field
+                      class="text-caption"
+                      placeholder="John"
+                      v-model="item.firstName"
+                    ></v-text-field>
                   </template>
                   <template v-slot:item.lastName="{ item }">
-                    <v-text-field class="text-caption" placeholder="Smith" v-model="item.lastName"></v-text-field>
+                    <v-text-field
+                      class="text-caption"
+                      placeholder="Smith"
+                      v-model="item.lastName"
+                    ></v-text-field>
                   </template>
                   <template v-slot:item.email="{ item }">
-                    <v-text-field class="text-caption" placeholder="johnsmith@email.com" v-model="item.email"></v-text-field>
+                    <v-text-field
+                      class="text-caption"
+                      placeholder="johnsmith@email.com"
+                      v-model="item.email"
+                    ></v-text-field>
                   </template>
                   <template v-slot:item.phone="{ item }">
-                    <v-text-field class="text-caption" placeholder="123-456-7890" v-model="item.phone"></v-text-field>
+                    <v-text-field
+                      class="text-caption"
+                      placeholder="123-456-7890"
+                      v-model="item.phone"
+                    ></v-text-field>
                   </template>
                   <template v-slot:item.preapproved="{ item }">
                     <v-select
@@ -62,243 +100,332 @@
                       class="text-caption"
                     >
                       <template slot="selection" slot-scope="data">
-                        {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+                        {{ data.item.name }} - {{ data.item.address }}
+                        {{ data.item.city }}, {{ data.item.state }}
+                        {{ data.item.zipcode }}
                       </template>
                       <template slot="item" slot-scope="data">
-                        {{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}
+                        {{ data.item.name }} - {{ data.item.address }}
+                        {{ data.item.city }}, {{ data.item.state }}
+                        {{ data.item.zipcode }}
                       </template>
                     </v-select>
                   </template>
                 </v-data-table>
               </v-col>
               <v-col cols="12" class="d-flex justify-end">
-                <v-btn color="primary" text @click="addInvitee">+ Add Another Line</v-btn>
+                <v-btn color="primary" text @click="addInvitee"
+                  >+ Add Another Line</v-btn
+                >
               </v-col>
               <v-col class="d-flex justify-space-between my-12">
-                <v-btn outlined color="primary" rounded class="px-6" to="/dashboard/vendors" exact>Cancel and Go Back To Dashboard</v-btn>
-                <v-btn color="primary" rounded class="px-12" @click="inviteProviders">Invite Vendors</v-btn>
+                <v-btn
+                  outlined
+                  color="primary"
+                  rounded
+                  class="px-6"
+                  to="/dashboard/vendors"
+                  exact
+                  >Cancel and Go Back To Dashboard</v-btn
+                >
+                <v-btn
+                  color="primary"
+                  rounded
+                  class="px-12"
+                  @click="inviteProviders"
+                  >Invite Vendors</v-btn
+                >
               </v-col>
             </v-row>
           </v-container>
         </v-card>
       </transition>
       <transition name="slide-fade">
-        <v-card v-if="success" style="height: auto;" class="d-flex flex-column align-center">
-        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-        <v-card-title class="mt-n16" color="primary">Your SOWerk Invite Has Been Sent!</v-card-title>
-        <v-btn color="primary" :href="'../../dashboard/vendors/invite'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
-      </v-card>
+        <v-card
+          v-if="success"
+          style="height: auto;"
+          class="d-flex flex-column align-center"
+        >
+          <v-img
+            style="max-height: 250px;"
+            class="mt-10"
+            :src="
+              'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'
+            "
+          ></v-img>
+          <v-card-title class="mt-n16" color="primary"
+            >Your SOWerk Invite Has Been Sent!</v-card-title
+          >
+          <v-btn
+            color="primary"
+            :href="'../../dashboard/vendors/invite'"
+            class="mb-4"
+            rounded
+            >Return To SOWerk Request Dashboard</v-btn
+          >
+        </v-card>
       </transition>
     </v-container>
   </v-app>
 </template>
 
 <script>
-  import HomeCard from '~/components/dashboard/HomeCard'
-  import FilterCard from '~/components/dashboard/FilterCard'
+import HomeCard from '~/components/dashboard/HomeCard'
+import FilterCard from '~/components/dashboard/FilterCard'
 
-  export default {
-    name: 'invite',
-    layout: 'app',
-    components: {
-      HomeCard,
-      FilterCard
-    },
-    data() {
-      return {
-        loading: false,
-        preapprovedOptions: [
-          {
-            text: 'Yes',
-            value: true,
-          },
-          {
-            text: 'No',
-            value: false,
-          }
-        ],
-        vendors: [
-          {
-            service: "",
-            companyName: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            preapproved: true,
-            property: ""
-          },
-        ],
-        properties: [
-
-        ],
-        company: {
-
+export default {
+  name: 'invite',
+  layout: 'app',
+  components: {
+    HomeCard,
+    FilterCard
+  },
+  data() {
+    return {
+      loading: false,
+      preapprovedOptions: [
+        {
+          text: 'Yes',
+          value: true
         },
-        services: [],
-        headers: [
-          { text: 'Vendor', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'First Name', value: 'firstName', class: 'primary--text font-weight-regular' },
-          { text: 'Last Name', value: 'lastName', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Pre-Approved', value: 'preapproved', class: 'primary--text font-weight-regular' },
-          { text: 'Channel', value: 'property', class: 'primary--text font-weight-regular' },
-        ],
-        businesses: null,
-        success: false
-      }
-    },
-    watch: {
-      loading: function() {
-        if(this.loading){
-          console.log(document);
-          return
+        {
+          text: 'No',
+          value: false
         }
-        document.documentElement.style.overflow = 'auto'
+      ],
+      vendors: [
+        {
+          service: '',
+          companyName: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          preapproved: true,
+          property: ''
+        }
+      ],
+      properties: [],
+      company: {},
+      services: [],
+      headers: [
+        {
+          text: 'Vendor',
+          value: 'service',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'Company',
+          value: 'companyName',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'First Name',
+          value: 'firstName',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'Last Name',
+          value: 'lastName',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'Email',
+          value: 'email',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'Phone',
+          value: 'phone',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'Pre-Approved',
+          value: 'preapproved',
+          class: 'primary--text font-weight-regular'
+        },
+        {
+          text: 'Channel',
+          value: 'property',
+          class: 'primary--text font-weight-regular'
+        }
+      ],
+      businesses: null,
+      success: false
+    }
+  },
+  watch: {
+    loading: function() {
+      if (this.loading) {
+        console.log(document)
+        return
       }
+      document.documentElement.style.overflow = 'auto'
+    }
+  },
+  async mounted() {
+    await this.getCompany()
+    await this.getBusinesses()
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.user.user.user
+    }
+  },
+  methods: {
+    async getCompany() {
+      this.loading = true
+      let { data, status } = await this.$http
+        .get(
+          'https://www.sowerkbackend.com/api/companies/' +
+            this.$store.state.user.user.user.companies_id
+        )
+        .catch((e) => e)
+      this.company = data
+      this.properties = data.locations
+      console.log(this.company, 'company')
     },
-    async mounted() {
-      await this.getCompany();
-      await this.getBusinesses();
+    async getBusinesses() {
+      this.loading = true
+      this.locations = []
+      let { data, status } = await this.$http
+        .get('https://www.sowerkbackend.com/api/companies/type/1')
+        .catch((e) => e)
+      // this.businesses = data.users.filter(function(user) {
+      //   return user.user_type == 1;
+      // })
+      // console.log(this.businesses);
+      await this.getLocations(data)
     },
-    computed: {
-      currentUser() {
-        return this.$store.state.user.user.user;
-      },
+    async getLocations(companies) {
+      for (const company of companies) {
+        let { data, status } = await this.$http
+          .get('https://www.sowerkbackend.com/api/companies/' + company.id)
+          .catch((e) => e)
+        if (this.$error(status, data.message, data.errors)) return
+        if (data.locations[0] !== 'There are no locations') {
+          for (const location of data.locations) {
+            this.$nextTick(function() {
+              this.locations.push(location)
+            })
+          }
+        } else {
+        }
+      }
+      await this.getServices()
     },
-    methods: {
-      async getCompany() {
-        this.loading = true;
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id).catch(e => e);
-        this.company = data;
-        this.properties = data.locations;
-        console.log(this.company, 'company');
-      },
-      async getBusinesses() {
-        this.loading = true;
-        this.locations = [];
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/type/1').catch(e => e);
-        // this.businesses = data.users.filter(function(user) {
-        //   return user.user_type == 1;
-        // })
-        // console.log(this.businesses);
-        await this.getLocations(data);
-      },
-      async getLocations(companies) {
-        for (const company of companies) {
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + company.id).catch(e => e);
-          if (this.$error(status, data.message, data.errors)) return;
-          if(data.locations[0] !== 'There are no locations') {
-            for (const location of data.locations) {
-              this.$nextTick(function() {
-                this.locations.push(location);
-              })
+    async inviteProviders() {
+      let providersObject = {
+        companies_id: this.$store.state.user.user.user.companies_id,
+        service: [],
+        companyName: [],
+        first_name: [],
+        last_name: [],
+        phone: [],
+        toEmail: [],
+        pre_approved: [],
+        property: [],
+        usersCompanyName: this.company.account_name,
+        usersFirstName: this.$store.state.user.user.user.first_name,
+        usersLastName: this.$store.state.user.user.user.last_name,
+        companyImg: this.company.imgUrl
+      }
+      for (let i = 0; i < this.vendors.length; i++) {
+        providersObject.service.push(this.vendors[i].service)
+        providersObject.companyName.push(this.vendors[i].companyName)
+        providersObject.first_name.push(this.vendors[i].firstName)
+        providersObject.last_name.push(this.vendors[i].lastName)
+        providersObject.phone.push(this.vendors[i].phone)
+        providersObject.toEmail.push(this.vendors[i].email)
+        providersObject.pre_approved.push(this.vendors[i].preapproved)
+        providersObject.property.push(this.vendors[i].property)
+      }
+      console.log(providersObject, 'yay')
+      await this.$http
+        .post('https://www.sowerkbackend.com/api/invite', providersObject)
+        .then((response) => {
+          console.log(response, 'success')
+          this.success = true
+        })
+        .catch((err) => {
+          console.log('err', err)
+          alert('error in inviting service providers to our platform')
+        })
+    },
+    async getServices() {
+      for (const location of this.locations) {
+        let { data, status } = await this.$http
+          .get(
+            'https://www.sowerkbackend.com/api/services/bylocationid/' +
+              location.id
+          )
+          .catch((e) => e)
+        if (data) {
+          if (data.message) continue
+          for (const service of data) {
+            let serviceObj = {
+              id: service.id,
+              location_id: location.id,
+              service: service.name,
+              name: location.name,
+              address:
+                location.address +
+                ' ' +
+                location.city +
+                ', ' +
+                location.state +
+                ' ' +
+                location.zipcode,
+              primary_contact:
+                location.contact_first_name + ' ' + location.contact_last_name,
+              phone: location.phone
             }
-          } else {
+
+            this.services.push(serviceObj)
           }
         }
-        await this.getServices();
-      },
-      async inviteProviders() {
-        let providersObject = {
-          companies_id: this.$store.state.user.user.user.companies_id,
-          service: [],
-          companyName: [],
-          first_name: [],
-          last_name: [],
-          phone: [],
-          toEmail: [],
-          pre_approved: [],
-          property: [],
-          usersCompanyName:this.company.account_name,
-          usersFirstName:this.$store.state.user.user.user.first_name,
-          usersLastName:this.$store.state.user.user.user.last_name,
-          companyImg:this.company.imgUrl
-        }
-        for (let i = 0; i < this.vendors.length; i++) {
-          providersObject.service.push(this.vendors[i].service)
-          providersObject.companyName.push(this.vendors[i].companyName)
-          providersObject.first_name.push(this.vendors[i].firstName)
-          providersObject.last_name.push(this.vendors[i].lastName)
-          providersObject.phone.push(this.vendors[i].phone)
-          providersObject.toEmail.push(this.vendors[i].email)
-          providersObject.pre_approved.push(this.vendors[i].preapproved)
-          providersObject.property.push(this.vendors[i].property)
-        }
-        console.log(providersObject, 'yay')
-        await this.$http.post('https://www.sowerkbackend.com/api/invite', providersObject)
-          .then(response => {
-            console.log(response, 'success')
-            this.success=true;
-          })
-          .catch(err => {
-            console.log('err', err)
-            alert('error in inviting service providers to our platform')
-          })
-      },
-      async getServices() {
-        for (const location of this.locations) {
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/services/bylocationid/' + location.id).catch(e => e);
-          if(data) {
-            if(data.message) continue;
-            for (const service of data) {
-              let serviceObj = {
-                id: service.id,
-                location_id: location.id,
-                service: service.name,
-                name: location.name,
-                address: location.address + ' ' + location.city + ', ' + location.state + ' ' + location.zipcode,
-                primary_contact: location.contact_first_name + ' ' + location.contact_last_name,
-                phone: location.phone
-              };
-
-              this.services.push(serviceObj);
-            }
-          }
-        }
-        this.loading = true;
-      },
-      addInvitee() {
-        let newVendor = {
-            companies_id: this.$store.state.user.user.user.companies_id,
-            service: '',
-            companyName: "",
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            preapproved: true,
-            property: '',
-        };
-
-        this.vendors.push(newVendor);
-
       }
+      this.loading = true
     },
+    addInvitee() {
+      let newVendor = {
+        companies_id: this.$store.state.user.user.user.companies_id,
+        service: '',
+        companyName: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        preapproved: true,
+        property: ''
+      }
+
+      this.vendors.push(newVendor)
+    }
   }
+}
 </script>
 
 <style scoped>
-  .table--bordered, .table--bordered >>> tr {
-    border: 1px solid lightgrey!important;
-    border-collapse: collapse;
-  }
+.table--bordered,
+.table--bordered >>> tr {
+  border: 1px solid lightgrey !important;
+  border-collapse: collapse;
+}
 
-  .table--bordered >>> th:not(:first-child) {
-    min-width: 150px;
-  }
-  /* Enter and leave animations can use different */
-  /* durations and timing functions.              */
-  .slide-fade-enter-active {
-    transition: all .7s ease;
-  }
-  .slide-fade-leave-active {
-    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
+.table--bordered >>> th:not(:first-child) {
+  min-width: 150px;
+}
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all 0.7s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateX(10px);
-    opacity: 0;
-  }
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>
