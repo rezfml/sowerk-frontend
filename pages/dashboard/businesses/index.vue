@@ -40,7 +40,13 @@
                   :items="businesses"
                   :headers="providerHeaders"
                 >
-
+                  <template v-slot:item.imageUrl="{item}"  >
+                    <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                    <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                  </template>
+                  <template v-slot:item.actions="{ item }" class="d-flex">
+                    <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                  </template>
                 </v-data-table>
               </v-card>
             </v-col>
@@ -183,28 +189,16 @@
           }
         ],
         headers: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
-          { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'primary_contact', class: 'primary--text font-weight-regular' },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         ],
         providerHeaders: [
-          {
-            text: 'ID',
-            align: 'start',
-            sortable: false,
-            value: 'id',
-            class: 'primary--text font-weight-regular'
-          },
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
           { text: 'Customer', value: 'name', class: 'primary--text font-weight-regular' },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
           { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },

@@ -2,7 +2,7 @@
   <v-container class="px-0" style="max-width: 100%">
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
-        <p class="white--text text-h5 font-weight-bold">All Customers</p>
+        <p class="white--text text-h5 font-weight-bold">Search Accepting Businesses</p>
         <v-card class="white">
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
@@ -16,6 +16,10 @@
             :headers="providerHeaders"
             v-else
           >
+            <template v-slot:item.imageUrl="{item}"  >
+              <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+              <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+            </template>
             <template v-slot:item.actions="{ item }" class="d-flex">
               <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
             </template>
@@ -72,13 +76,7 @@ export default {
       requestingLocations: [],
       activeUserforms: [],
       providerHeaders: [
-        {
-          text: 'ID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-          class: 'primary--text font-weight-regular'
-        },
+        { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
         { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
         { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
         { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
