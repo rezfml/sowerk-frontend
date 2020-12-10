@@ -197,29 +197,40 @@
 
               <v-row>
                 <v-col cols="12" class="mt-8">
-                  <v-combobox
+                  <v-autocomplete
                     v-model="services"
                     :items="naicsList"
                     item-text="name"
                     item-value="name"
-                    chips
-                    multiple
                     label="Choose your categories here"
+                    solo
+                    hint="This is generated from the NAICS directory."
                   >
-                    <template v-slot:selection="data">
-                      <v-chip
-                        class="v-chip--select-multi"
-                        style="width: auto;"
-                      >
-                        <v-card-text v-if="data.item.name" style="">{{ data.item.name }}</v-card-text>
-                        <v-card-text v-else>{{data.item}}</v-card-text>
-                        <v-btn @click="removeService(data.item)" text class="ml-n6">X</v-btn>
-                      </v-chip>
+<!--                    <template v-slot:selection="data">-->
+<!--                      <v-chip-->
+<!--                        style="width: auto;"-->
+<!--                        v-for="(item, index) in services"-->
+<!--                      >-->
+<!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
+<!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
+<!--                      </v-chip>-->
+<!--                    </template>-->
+<!--                    <template v-slot:item="data">-->
+<!--                      <v-chip-->
+<!--                        style="width: auto;"-->
+<!--                        v-for="(item, index) in services"-->
+<!--                      >-->
+<!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
+<!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
+<!--                      </v-chip>-->
+<!--                    </template>-->
+                    <template slot="selection" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
                     </template>
-                    <template v-slot:item="data">
-                      <p>{{data.item.name}}</p>
+                    <template slot="item" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
                     </template>
-                  </v-combobox>
+                  </v-autocomplete>
                 </v-col>
               </v-row>
 
@@ -718,7 +729,11 @@
         this.formatFullAddress(this.locationEdit);
         console.log(this.locationTags, this.sowerkTags, 'props this.locationTag', this.location)
         this.locationTagsNew = this.locationTags;
-        this.getServices(this.location.id);
+        if(this.location.services[0] !== 'There are no services') {
+          this.services = this.location.services[0];
+          this.originalServices = this.location.services[0];
+        }
+        //this.getServices(this.location.id);
         this.getVendorType(this.location.id);
         this.getNaicsList();
       } else if(this.company) {
@@ -878,46 +893,29 @@
                 }
               }
             }
-            if(this.services.length > 0) {
-              console.log(this.services, 'this.services');
-              for(let i=0; i<this.services.length; i++) {
-                if(typeof this.services[i] === 'object' && !(this.originalServices.includes(this.services[i]))) {
-                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {
-                    name: this.services[i].name
-                  })
+            this.services = {
+              name: this.services
+            }
+            console.log(this.services, 'this.services!!!!!!');
+            if(this.originalServices.name !== this.services.name) {
+                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, this.services)
                     .then(responseVal => {
                       console.log(responseVal, 'success in posting location tags')
                     })
                     .catch(err => {
                       console.log(err, 'err in posting locationtags')
                     })
-                } else {
-                  if(!(this.originalServices.includes(this.services[i]))) {
-                    this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {
-                      name: this.services[i]
-                    })
-                      .then(responseVal => {
-                        console.log(responseVal, 'success in posting location tags')
-                      })
-                      .catch(err => {
-                        console.log(err, 'err in posting locationtags')
-                      })
-                  }
                 }
-              }
-              for(let i=0; i<this.originalServices.length; i++) {
-                if(!(this.services.includes(this.originalServices[i]))) {
-                  console.log(this.originalServices[i], 'this.location tags DELETE')
-                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
+            if(this.services.name !== this.originalServices.name) {
+                  console.log(this.originalServices, 'this.category DELETE')
+                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices.id)
                     .then(response => {
-                      console.log(response, 'success in deleting location tag')
+                      console.log(response, 'success in deleting category')
                     })
                     .catch(err => {
                       console.log(err, 'err in deleting location tag')
                     })
                 }
-              }
-            }
           })
           .catch(e => {
             console.log(e, 'err in updating')
@@ -1083,9 +1081,8 @@
       async removeService(item) {
         console.log(this.services, 'before removal', item)
         this.services = this.services.filter(locationTag => {
+          console.log(locationTag)
           if(typeof locationTag === 'object' && locationTag.name !== item.name) {
-            return locationTag
-          } else if (typeof locationTag === 'string' && locationTag !== item) {
             return locationTag
           }
         })

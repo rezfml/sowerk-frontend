@@ -1,6 +1,6 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-container class="px-8" fluid id="v-step-0" style="width: 100%;">
+    <v-container class="" fluid id="v-step-0" style="width: 100%;">
       <v-row class="d-flex justify-center">
         <v-col cols="12">
           <v-skeleton-loader
@@ -57,14 +57,14 @@
         </v-card>
       </transition>
       <transition name="slide-fade">
-        <HomeCard
-          v-if="locations && locationApproved && company"
-          :items="locations"
-          :company="company"
-          :title="'Channels You Manage - ' + locations.length"
-          :tableProperties="headers"
-          slug="/dashboard/channels/"
-        ></HomeCard>
+          <HomeCard
+            v-if="locations && locationApproved && company"
+            :items="locations"
+            :company="company"
+            :title="'Channels You Manage - ' + locations.length"
+            :tableProperties="headers"
+            slug="/dashboard/channels/"
+          ></HomeCard>
       </transition>
 
       <v-row v-if="company && company.company_type !== 'false'">

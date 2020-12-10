@@ -80,8 +80,9 @@
 
         <v-card class="d-flex flex-column align-center justify-center px-12" v-if="errorLoad" style="width: 50vw; height: 50vh; position:fixed; top: 25vh; left: 25vw">
           <v-card-title class="primary--text text-h3 font-weight-regular">Failed to login</v-card-title>
-          <v-card-subtitle class="mt-6" v-if="!unverified">Please check your username or password to ensure it is correct!</v-card-subtitle>
-          <v-card-subtitle class="my-4 text-center" v-else>User is not verified. Please check your email that you provided upon signup for a verification link.</v-card-subtitle>
+          <v-card-subtitle class="mt-6" v-if="!unverified && !badPassword">Please check your username to ensure it is correct!</v-card-subtitle>
+          <v-card-subtitle class="my-4 text-center" v-if="unverified && !badPassword">User is not verified. Please check your email that you provided upon signup for a verification link.</v-card-subtitle>
+          <v-card-subtitle class="my-4 text-center" v-if="unverified && !badPassword">User entered the wrong password. Please try again!</v-card-subtitle>
           <v-btn @click="errorLoad = false" color="primary" rounded class="px-10 py-4">Try Again</v-btn>
           <v-btn @click="errorLoad = false" text style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
         </v-card>
@@ -102,6 +103,7 @@
         },
         errorLoad: false,
         unverified: false,
+        badPassword: false,
         show1: false,
       }
     },
@@ -117,6 +119,10 @@
           console.log(e.response);
           if(e.response.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
             this.unverified = true;
+            this.badPassword = false;
+          } else if(e.response.data.message = "Invalid Credentials") {
+            this.badPassword = true;
+            this.unverified = false;
           }
           this.errorLoad = true;
         }
