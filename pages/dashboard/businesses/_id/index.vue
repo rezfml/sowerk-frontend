@@ -108,7 +108,7 @@
                   <p class="text-center mx-auto mb-0 primary--text">Accepting Applications</p>
                 </v-card-title>
                 <v-card-subtitle>
-                  <p class="mb-0 text-center" v-if="myActiveUserforms.length > 0">This business location is accepting applications for <span class="primary--text font-weight-bold">0</span> categories:</p>
+                  <p class="mb-0 text-center" v-if="myActiveUserforms.length === 0">This business location is accepting applications for <span class="primary--text font-weight-bold">0</span> categories:</p>
                   <p class="mb-0 text-center" v-else>This business location is accepting applications for <span class="primary--text font-weight-bold">{{ myActiveUserforms.length }}</span> categories:</p>
                 </v-card-subtitle>
                 <v-card-text>
@@ -396,9 +396,7 @@
           this.location = data;
           console.log(this.location, 'location value')
           this.year_joined = this.getYearFromCreated(this.location.created);
-          if(this.location.userforms[0] !== "There are no userforms") {
             this.getActiveUserforms(this.location);
-          }
         })
         this.loading = false;
       },
