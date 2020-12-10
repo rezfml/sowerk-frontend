@@ -101,7 +101,7 @@
           })
       },
       async getUserform() {
-        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byServiceId/' + this.form_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + this.form_id)
           .then(response => {
             console.log('response.data userform', response.data)
             this.userforms = response.data;

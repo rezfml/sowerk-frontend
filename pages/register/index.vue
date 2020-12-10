@@ -16,7 +16,7 @@
                       </v-col>
 
                       <v-col cols="12">
-                        <p class="text-center mx-auto mt-4" style="max-width: 350px; font-size:2vh">If you have one property or thousands of assets and would like to manage approved vendors for services, supplies, equipment, or merchandise register here for a business account.</p>
+                        <p class="text-center mx-auto mt-4" style="max-width: 350px; font-size:2vh; line-height: 1.75rem;">If you have one property or thousands of assets and would like to manage approved vendors for services, supplies, equipment, or merchandise register here for a business account.</p>
                       </v-col>
 
                       <v-col cols="12">
@@ -54,7 +54,7 @@
                       </v-col>
 
                       <v-col cols="12">
-                        <p class="text-center mx-auto mt-4" style="max-width: 350px; font-size:2vh">If you provide a service, supply businesses with supplies/equipment, or even wholesale merchandise register for SOWerk here.</p>
+                        <p class="text-center mx-auto mt-4" style="max-width: 350px; font-size:2vh; line-height: 1.75rem;">If you provide a service, supply businesses with supplies/equipment, or even wholesale merchandise register for SOWerk here.</p>
                         <br/>
                       </v-col>
 
@@ -102,7 +102,7 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <p class="text-center mx-auto mt-4" style="max-width: 350px; font-size:2vh">If you have one property or thousands of assets and would like to manage approved vendors for services, supplies, equipment, or merchandise register here for a business account..</p>
+                          <p class="text-center mx-auto mt-4" style="font-size:2vh; line-height: 1.75rem;">If you have one property or thousands of assets and would like to manage approved vendors for services, supplies, equipment, or merchandise register here for a business account..</p>
                         </v-col>
 
                         <v-col cols="12">
@@ -142,7 +142,7 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <p class="text-center mx-auto mt-4" style="max-width: 350px">If you provide a service, supply businesses with supplies/equipment, or even wholesale merchandise register for SOWerk here.</p>
+                          <p class="text-center mx-auto mt-4" style="font-size:2vh; line-height: 1.75rem;">If you provide a service, supply businesses with supplies/equipment, or even wholesale merchandise register for SOWerk here.</p>
                         </v-col>
 
                         <v-col cols="12">
