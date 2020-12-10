@@ -73,9 +73,9 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                         <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
                       </div>
                     </div>
-                    <v-row>
-                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenChannel">Drop Pin At Above Written Channel</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getChannel">Use Current Channel</v-btn>
-                    </v-row>
+<!--                    <v-row>-->
+<!--                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenChannel">Drop Pin At Above Written Channel</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getChannel">Use Current Channel</v-btn>-->
+<!--                    </v-row>-->
                   </v-col>
                   <v-col cols="12">
                     <v-textarea
@@ -113,32 +113,43 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                     >
                     </v-autocomplete>
                   </v-col>
-                    <v-col cols="12" class="mt-8">
-                      <v-combobox
-                        v-model="services"
-                        :items="naicsList"
-                        item-text="name"
-                        item-value="name"
-                        chips
-                        multiple
-                        label="Choose your categories here"
-
-                      >
-                        <template v-slot:selection="data">
-                          <v-chip
-                            class="v-chip--select-multi"
-                            style="width: auto;"
-                          >
-                            <v-card-text v-if="data.item.name" style="">{{ data.item.name }}</v-card-text>
-                            <v-card-text v-else>{{data.item}}</v-card-text>
-                            <v-btn @click="removeService(data.item)" text class="ml-n6">X</v-btn>
-                          </v-chip>
-                        </template>
-                        <template v-slot:item="data">
-                          <p>{{data.item.name}}</p>
-                        </template>
-                      </v-combobox>
-                    </v-col>
+                  <v-col cols="12" class="mt-8">
+                    <v-autocomplete
+                      v-model="services"
+                      :items="naicsList"
+                      item-text="name"
+                      item-value="name"
+                      label="Choose your categories here"
+                      solo
+                      clearable
+                      hint="This is generated from the NAICS directory."
+                    >
+                      <!--                    <template v-slot:selection="data">-->
+                      <!--                      <v-chip-->
+                      <!--                        style="width: auto;"-->
+                      <!--                        v-for="(item, index) in services"-->
+                      <!--                      >-->
+                      <!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
+                      <!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
+                      <!--                      </v-chip>-->
+                      <!--                    </template>-->
+                      <!--                    <template v-slot:item="data">-->
+                      <!--                      <v-chip-->
+                      <!--                        style="width: auto;"-->
+                      <!--                        v-for="(item, index) in services"-->
+                      <!--                      >-->
+                      <!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
+                      <!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
+                      <!--                      </v-chip>-->
+                      <!--                    </template>-->
+                      <template slot="selection" slot-scope="data">
+                        <p>{{ data.item.name }}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p>{{ data.item.name }}</p>
+                      </template>
+                    </v-autocomplete>
+                  </v-col>
                   <v-col cols="12" class="mt-8">
                     <v-combobox
                       v-model="locationTags"
@@ -440,8 +451,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         locationTags: [],
         sowerkTags: [],
         search: null,
-        services: [],
-        originalServices: [],
+        services: '',
         naicsList: [],
         vendorType: [],
         originalVendorType: [],
@@ -556,6 +566,21 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form)
           .then(response => {
             console.log(response, 'success in submitting new location')
+            console.log(this.services, 'this.services')
+            // this.services = {
+            //   name: this.services
+            // }
+            if(this.services !== '') {
+              this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
+                name: this.services
+              })
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting service')
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting service')
+                })
+            }
             if(this.locationTags.length > 0) {
               for(let i=0; i<this.locationTags.length; i++) {
                 if(typeof this.locationTags[i] === 'object') {
@@ -599,39 +624,12 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       vendorType: this.vendorType[i]
                     })
                       .then(responseVal => {
-                        console.log(responseVal, 'success in posting location tags')
+                        console.log(responseVal, 'success in posting vendor tag')
                       })
                       .catch(err => {
-                        console.log(err, 'err in posting locationtags')
+                        console.log(err, 'err in posting vendor tag')
                       })
                   }
-              }
-            }
-            if(this.services.length > 0) {
-              console.log(this.services, 'this.services');
-              for(let i=0; i<this.services.length; i++) {
-                if(typeof this.services[i] === 'object') {
-                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
-                    name: this.services[i].name
-                  })
-                    .then(responseVal => {
-                      console.log(responseVal, 'success in posting location tags')
-                    })
-                    .catch(err => {
-                      console.log(err, 'err in posting locationtags')
-                    })
-                } else {
-                    this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
-                      name: this.services[i]
-                    })
-                      .then(responseVal => {
-                        console.log(responseVal, 'success in posting location tags')
-                      })
-                      .catch(err => {
-                        console.log(err, 'err in posting locationtags')
-                      })
-
-                }
               }
             }
             this.loadSubmit = true;

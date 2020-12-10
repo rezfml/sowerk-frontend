@@ -534,13 +534,13 @@
             <v-card-title v-if="step1" class="mt-10" style="text-align: center; width: 80%;">Step 1 - Application Name</v-card-title>
           </transition>
           <transition name="slide-fade">
-            <p v-if="step1" class="ml-4" style="width: 80%; font-size: 18px;">Review and Name your new vendor form. Select finish when completed.</p>
+            <p v-if="step1" class="ml-4" style="width: 80%; font-size: 18px;">How you name each Vendor application is important. You should understand that the Vendor community will also see this name when applying. Additionally, a good application name can help you and your company stay organized.</p>
           </transition>
           <transition name="slide-fade">
             <v-card-title v-if="step2" class="mt-10" style="text-align: center; width: 80%;">Step 2 - Select Channel</v-card-title>
           </transition>
           <transition name="slide-fade">
-            <p v-if="step2" class="ml-4" style="width: 80%; font-size: 18px;">Choose the company channel you would like to add a new vendor form.</p>
+            <p v-if="step2" class="ml-4" style="width: 80%; font-size: 18px;">Every Vendor application is specifically tied to a Channel in your account. Besides keeping your account organized this also provides you the flexibility to create custom Vendor requirements for each channel (i.e. Facility Location, Department, etc.). You can use Company Templates in SOWerk to help in replicating similar Vendor applications across multiple channels.</p>
           </transition>
           <transition name="slide-fade">
             <v-card-title v-if="step3" class="mt-10" style="text-align: center; width: 80%;">Step 3 - Choose A Vendor Type</v-card-title>
@@ -596,6 +596,12 @@
                   <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
                 </td>
                 </div>
+              </tr>
+              <tr v-if="addLocations.length === 0">
+                <td style="width: 70%; text-align: center" class="py-1">No Channels Currently Exist, Please First Create A Channel</td>
+                <td style="width: 30%; text-align: center" class="py-1">
+                  <v-btn class="my-1" color="#707070" style="color: white; width: 100%;" to="https://www.sowerk.com/dashboard/channels/add">+ Add Channel</v-btn>
+                </td>
               </tr>
               </tbody>
             </v-simple-table>
