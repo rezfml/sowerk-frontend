@@ -1,6 +1,6 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container>
+    <v-container style="width: 100%; margin: 0px; max-width: 100vw;">
       <v-skeleton-loader
         v-if="!loading"
         type="card-avatar, article, article, actions"

@@ -1,6 +1,6 @@
 <template>
-  <v-container style="width: 80vw;">
-    <v-card class="white pt-0 mt-12 mb-4" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="width: 100%; max-width: 1500px;">
+  <v-container style="width: 100%; margin: 0px; max-width: 100vw;">
+    <v-card class="white pt-0 mt-12 mb-4" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="width: 100vw;">
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient TitleCard"
@@ -113,8 +113,8 @@
             >
           </v-card-actions>
     </v-card>
-    <v-card class="white pt-0 mt-12 mb-4" style="min-width: 120% !important;margin-left:-10%;" v-else>
-      <v-container class="pt-0" fluid  >
+    <v-card class="white pt-0 mt-12 mb-4" style="width: 100vw !important;" v-else>
+      <v-container class="pt-0" fluid >
         <v-card-title
           style="position: absolute; top: -0px; left: 35px; width: 92%; border-radius: 3px; font-size: 14px;"
           class="primary white--text font-weight-regular red-gradient TitleCard"
@@ -129,7 +129,6 @@
         </v-card-actions>
 
         <v-container class="" >
-
 
           <v-data-table
             :headers="tableProperties"
@@ -290,5 +289,10 @@ export default {
 .mobileTable p{
   font-size: .5vw;
 
+}
+
+.v-application .px-8 {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
 }
 </style>

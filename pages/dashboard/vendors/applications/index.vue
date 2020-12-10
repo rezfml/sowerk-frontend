@@ -569,7 +569,7 @@
                 label="Application Name*"
                 placeholder="Plumbing Vendor App - Brookfield Store"
                 v-model="assignUserform.name"
-                style="width: 100%; align-self: center;"
+                style="width: 100%; align-self: center; font-size: 30px;"
                 required
               >
               </v-text-field>

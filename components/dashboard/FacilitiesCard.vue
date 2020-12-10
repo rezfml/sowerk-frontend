@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container style="width: 100%; margin: 0px; max-width: 100vw;">
   <div style="width: 100%" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
     <div v-if="locationApproved" style="width: 100%" class="d-flex">
 <!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
