@@ -131,7 +131,7 @@ export default {
 
           await this.$http
             .post(
-              'https://www.sowerkbackend.com/passwordforgot/' + this.user.email
+              'https://www.sowerkbackend.com/passwordforgot/' + response.data.users[0].uuid
             )
             .then((response) => {
               console.log(response, 'email')
