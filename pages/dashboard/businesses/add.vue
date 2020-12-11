@@ -280,14 +280,14 @@ on your account dashboard. Example: SOWerk Cafe #013)"
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
           },
-          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         adminOptions: [
           {

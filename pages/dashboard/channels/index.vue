@@ -347,13 +347,13 @@
           }
         ],
         headers: [
-          { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
-          { text: 'Channel', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         locationApproved: false,
         viewLocation: false,
@@ -405,6 +405,7 @@
             this.originalLocations = data.location;
             this.locationApproved = true;
             this.loading = true;
+            console.log(this.locations, 'this.locations!!!!!!!')
           }
         })
       },
