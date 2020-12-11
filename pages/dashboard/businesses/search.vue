@@ -76,12 +76,12 @@ export default {
       requestingLocations: [],
       activeUserforms: [],
       providerHeaders: [
-        { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
-        { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
-        { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-        { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
-        { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+        { text: 'Facility', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ],
       loading: false,
     }

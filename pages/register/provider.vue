@@ -944,12 +944,12 @@
         industryLevel4: [],
         validateDetails: false,
         headers: [
-          { text: 'Location Name', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Contact Name', value: 'full_name', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Location Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Contact Name', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         rules: {
           requiredRules: [
@@ -987,11 +987,11 @@
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
           },
-          { text: "Insurance Company", value: 'name', class: 'primary--text font-weight-regular'},
-          { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-regular'},
-          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-regular'},
+          { text: "Insurance Company", value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
         ]
       }
     },
@@ -1409,8 +1409,6 @@
       },
     }
 }
-
-
 </script>
 
 <style scoped>

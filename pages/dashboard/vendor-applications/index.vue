@@ -146,12 +146,12 @@
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
           },
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-regular' },
-          { text: 'Company', value: 'company_name', class: 'primary--text font-weight-regular' },
-          { text: 'Location', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Service', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Company', value: 'company_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Location', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ]
       }
     },
