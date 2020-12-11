@@ -108,8 +108,8 @@
                   <p class="text-center mx-auto mb-0 primary--text">Accepting Applications</p>
                 </v-card-title>
                 <v-card-subtitle>
-                  <p class="mb-0 text-center" v-if="!myActiveUserforms">This business location is accepting applications for <span class="primary--text font-weight-bold">0</span> services:</p>
-                  <p class="mb-0 text-center" v-else>This business location is accepting applications for <span class="primary--text font-weight-bold">{{ myActiveUserforms.length }}</span> services:</p>
+                  <p class="mb-0 text-center" v-if="myActiveUserforms.length === 0">This business location is accepting applications for <span class="primary--text font-weight-bold">0</span> categories:</p>
+                  <p class="mb-0 text-center" v-else>This business location is accepting applications for <span class="primary--text font-weight-bold">{{ myActiveUserforms.length }}</span> categories:</p>
                 </v-card-subtitle>
                 <v-card-text>
                   <v-data-table
@@ -332,7 +332,7 @@
         company: null,
         company_type: null,
         year_joined: '...',
-        myActiveUserforms: null,
+        myActiveUserforms: [],
         applicationHeaders: [
           { text: '', value: 'name' },
           { text: '', value: 'actions', align: 'end' },
@@ -394,10 +394,10 @@
         console.log(data);
         this.$nextTick(function() {
           this.location = data;
-
+          console.log(this.location, 'location value')
           this.year_joined = this.getYearFromCreated(this.location.created);
+            this.getActiveUserforms(this.location);
         })
-        await this.getActiveUserforms(this.location);
         this.loading = false;
       },
       getYearFromCreated(dateJoined) {
@@ -405,16 +405,13 @@
         return date.getFullYear();
       },
       async getActiveUserforms(location) {
-        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byStatusId/1')
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + location.id)
           .then(response => {
             let activeUserforms = response.data;
             this.myActiveUserforms = [];
-            location.services.forEach(service => {
-              response.data.forEach(activeUserform => {
-                if(activeUserform.service_id === service.id) {
-                  this.getWholeForm(activeUserform.id);
-                }
-              })
+            console.log(response.data)
+            activeUserforms.forEach(userform => {
+              this.getWholeForm(userform.id);
             })
           })
           .catch(err => {
@@ -489,7 +486,7 @@
       async getWholeForm(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
-            console.log(response.data);
+            console.log(response.data, 'userforms response');
             if(!response.data.formfields) return;
             this.myActiveUserforms.push(response.data);
           })

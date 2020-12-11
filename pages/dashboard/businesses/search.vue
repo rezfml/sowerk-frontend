@@ -2,7 +2,7 @@
   <v-container class="px-0" style="max-width: 100%">
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
-        <p class="white--text text-h5 font-weight-bold">All Customers</p>
+        <p class="white--text text-h5 font-weight-bold">Search Accepting Businesses</p>
         <v-card class="white">
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
@@ -16,6 +16,10 @@
             :headers="providerHeaders"
             v-else
           >
+            <template v-slot:item.imageUrl="{item}"  >
+              <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+              <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+            </template>
             <template v-slot:item.actions="{ item }" class="d-flex">
               <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
             </template>
@@ -72,13 +76,7 @@ export default {
       requestingLocations: [],
       activeUserforms: [],
       providerHeaders: [
-        {
-          text: 'ID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-          class: 'primary--text font-weight-regular'
-        },
+        { text: '', value: 'imageUrl', class: 'primary--text font-weight-regular'},
         { text: 'Facility', value: 'name', class: 'primary--text font-weight-regular' },
         { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
         { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-regular' },
@@ -97,11 +95,12 @@ export default {
         this.loading = true;
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/userforms/byStatusId/1').catch(e => e);
         this.activeUserforms = data;
+        console.log(this.activeUserforms, 'active userforms!!')
     },
     async getAllCompanies() {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/type/true')
         .then(response => {
-          console.log(response.data);
+          console.log(response.data, 'get ALL COMPANIES');
           for(let i = 0; i < response.data.length; i++) {
             this.getWholeCompanyObject(response.data[i].id);
           }
@@ -112,18 +111,23 @@ export default {
     },
     async createRequestingCompaniesArray(business) {
       console.log(business, 'BUSINESS')
-      for(const location of business.locations) {
-        if (location && Array.isArray(location.userforms) && location.userforms.length > 0) {
-          for (const userform of location.userforms) {
+      if(business.locations[0] !== 'There are no locations') {
+        for(const location of business.locations) {
+          console.log(location, 'LOCATION OF BUSINESS LOCATIONS')
+          if (location && Array.isArray(location.userforms) && location.userforms.length > 0 && location.userforms[0] !== 'There are no userforms') {
+            console.log(location, 'LOCATION OF BUSINESS LOCATIONS THAT MEETS CONDITION')
+            for (const userform of location.userforms) {
+              console.log(location.userforms, 'LOCATION THAT HAS USERFORM')
               for (const activeUserform of this.activeUserforms) {
                 if (activeUserform.id === userform.id) {
                   this.requestingBusinesses.push(business);
                 }
-
+              }
             }
           }
         }
       }
+      console.log(this.requestingBusinesses, 'REQUESTING BUSINESSES')
       let uniqueChars = [...new Set(this.requestingBusinesses)];
       console.log(uniqueChars);
       this.requestingBusinesses = uniqueChars;
@@ -143,27 +147,27 @@ export default {
     async getWholeCompanyObject(business_id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/' +  business_id)
         .then(response => {
-          let business = {
-            id: response.data.id,
-            locations: [],
-          }
+          console.log(response, 'COMPANY RESPONSE')
 
-          for(let i=0; i<business.locations.length; i++) {
-            this.$http.get('http://www.sowerkbackend.com/api/locations/' + business.locations[i].id)
-              .then(response => {
-                business.locations[i] = response.data
-              })
-              .catch(err => {
-                console.log(err, 'err in getting location')
-              })
-            console.log(business, 'business')
+          if(response.data.locations[0] !== 'There are no locations') {
+            this.getLocations(response.data);
           }
-          this.createRequestingCompaniesArray(business);
         })
         .catch(err => {
           console.log('err', err)
         });
     },
+    async getLocations(business) {
+      await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + business.id)
+        .then(response => {
+          console.log(response.data.location, 'locations for company')
+          let business = {
+            id: response.data.location.id,
+            locations: response.data.location,
+          }
+          this.createRequestingCompaniesArray(business);
+        })
+    }
     // getAllUserforms(businesses) {
     //   console.log('hello');
     //   console.log(businesses);

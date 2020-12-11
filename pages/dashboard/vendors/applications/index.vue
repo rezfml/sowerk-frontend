@@ -1294,8 +1294,8 @@ const naics = require("naics");
                     vendorType: response.data[i].vendorType,
                     locations_id: response.data[i].locations_id,
                     formfields: [],
-                    locationName: this.locations[valueServices].name,
-                    locationAddress: this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode,
+                    locationName: this.locations[this.valueServices].name,
+                    locationAddress: this.locations[this.valueServices].address + " " + this.locations[this.valueServices].city + ", " + this.locations[this.valueServices].state + " " + this.locations[this.valueServices].zipcode,
                   };
 
                   if(userForm.applicationStatus === 0) {
@@ -1310,7 +1310,7 @@ const naics = require("naics");
                   }
                   this.userForms.push(userForm);
                   this.applicationTemplateVal.push(userForm2);
-                  // console.log(this.applicationTemplateVal, 'applicationTemplateVale!!')
+                  console.log(this.applicationTemplateVal, 'applicationTemplateVal!!', this.valueServices)
                   // console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
                   // // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
                   // // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
