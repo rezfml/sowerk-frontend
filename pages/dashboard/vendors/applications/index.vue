@@ -836,7 +836,7 @@
             <v-card-text><strong>You Do Not Have To Choose From Our SOWerk List If It Isn't The Best Option.</strong></v-card-text>
           </v-col>
           <v-col cols="8" class="d-flex">
-            <v-combobox
+            <v-autocomplete
               solo
               :items="naicsList"
               :filter="customFilter"
@@ -845,7 +845,7 @@
               label="Search Here"
               style="width: 80%;"
               v-model="serviceAdd.name"
-            ></v-combobox>
+            ></v-autocomplete>
             <v-btn @click="addNewService" color="primary" large style="font-size: 20px; width: 20%;" class="px-16 mt-1">Proceed</v-btn>
           </v-col>
         </v-row>
@@ -1210,6 +1210,45 @@ const naics = require("naics");
             console.log(this.locations, 'locations THIS DOT LOCATIONS');
             this.addLocations = response.data.location;
             response.data.location.forEach(async (location, index) => {
+              // if(location.userforms[0] !== 'There are no userforms') {
+              //   for(let i=0; i<location.userforms.length; i++) {
+              //     let userForm = {
+              //       applicationStatus: location.userforms[i].applicationStatus,
+              //       id: location.userforms[i].id,
+              //       name: location.userforms[i].name,
+              //       service: location.userforms[i].service,
+              //       vendorType: location.userforms[i].vendorType,
+              //       locations_id: location.userforms[i].locations_id,
+              //       formfields: []
+              //     };
+              //     console.log(location, 'this.locations individual')
+              //     let userForm2 = {
+              //       applicationStatus: location.userforms[i].applicationStatus,
+              //       id: location.userforms[i].id,
+              //       name: location.userforms[i].name,
+              //       service: location.userforms[i].service,
+              //       vendorType: location.userforms[i].vendorType,
+              //       locations_id: location.userforms[i].locations_id,
+              //       formfields: [],
+              //       locationName: location.name,
+              //       locationAddress: location.address + " " + location.city + ", " + location.state + " " + location.zipcode,
+              //     };
+              //
+              //     if(userForm.applicationStatus === 0) {
+              //       userForm.applicationStatus = 'Unpublished'
+              //       userForm2.applicationStatus = 'Unpublished'
+              //     } else if (userForm.applicationStatus === 1) {
+              //       userForm.applicationStatus = 'Published - Public'
+              //       userForm2.applicationStatus = 'Published - Public'
+              //     } else {
+              //       userForm.applicationStatus = 'Published - Private'
+              //       userForm2.applicationStatus = 'Published - Private'
+              //     }
+              //     this.userForms.push(userForm);
+              //     this.applicationTemplateVal.push(userForm2);
+              //     this.getFormFields(location.userforms[i].id);
+              //   }
+              // }
               console.log(this.valueServices, ' bef valueServices');
               await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
               this.valueServices++
@@ -1324,7 +1363,7 @@ const naics = require("naics");
               console.log('err get userforms', err);
             })
       },
-      async getFormFields(id,) {
+      async getFormFields(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(async (response) => {
             console.log(response.data, 'formfields for userform', id, this.valueFormFields, 'valueFormFields');
@@ -1376,7 +1415,6 @@ const naics = require("naics");
       },
       async loadYourCompanyTemplatesFunction() {
         if(this.loadYourCompanyTemplates != true) {
-          await this.getApplicationTemplates();
           await this.getCompanyTemplates();
         }
         this.loadApplicationLocations = false;
