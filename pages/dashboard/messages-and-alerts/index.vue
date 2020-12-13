@@ -57,13 +57,13 @@ export default {
 
       },
       headers: [
-        { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-regular'},
-        { text: 'Category', value: 'service', class: 'primary--text font-weight-regular' },
-        { text: 'Company', value: 'company', class: 'primary--text font-weight-regular' },
-        { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-regular' },
-        { text: 'Message', value: 'message', class: 'primary--text font-weight-regular' },
-        { text: 'Channel', value: 'location', class: 'primary--text font-weight-regular' },
-        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+        { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+        { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Company', value: 'company', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Message', value: 'message', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Channel', value: 'location', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ]
     }
   },

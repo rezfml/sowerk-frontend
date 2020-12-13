@@ -211,42 +211,42 @@ export default {
         {
           text: 'Vendor',
           value: 'service',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'Company',
           value: 'companyName',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'First Name',
           value: 'firstName',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'Last Name',
           value: 'lastName',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'Email',
           value: 'email',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'Phone',
           value: 'phone',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'Pre-Approved',
           value: 'preapproved',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         },
         {
           text: 'Channel',
           value: 'property',
-          class: 'primary--text font-weight-regular'
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
         }
       ],
       businesses: null,

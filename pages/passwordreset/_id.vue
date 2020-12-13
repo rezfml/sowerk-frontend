@@ -64,18 +64,18 @@ export default {
       userFormConfirm: {
         confirmPassword: ''
       },
-      userEmail: ''
+      uuid: ''
     }
   },
   async mounted() {
-    this.userEmail = this.$route.params.id
-    console.log(this.userEmail)
-    await this.getUser(this.userEmail)
+    this.uuid = this.$route.params.id
+    console.log(this.uuid)
+    await this.getUser(this.uuid)
   },
   methods: {
     async getUser(id) {
       await this.$http
-        .get('https://www.sowerkbackend.com/api/auth/users/email/' + id)
+        .get('https://www.sowerkbackend.com/api/auth/users/' + id)
         .then((response) => {
           this.user = response.data.users[0]
         })
