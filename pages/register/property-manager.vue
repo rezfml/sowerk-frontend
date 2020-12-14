@@ -55,19 +55,19 @@
               ref="companyDetails"
             ></CompanyDetails>
 
-            <CompanyLocations
-              :company="company"
-              :user="user"
-              :editLocation="editLocation"
-              :deleteLocation="deleteLocation"
-              :editingLocation="editingLocation"
-              :location="location"
-              :locations="locations"
-              :editingIndex="editingIndex"
-              :headers="headers"
-              :companyImageUrl="companyImageUrl"
-              ref="companyLocations"
-            ></CompanyLocations>
+<!--            <CompanyLocations-->
+<!--              :company="company"-->
+<!--              :user="user"-->
+<!--              :editLocation="editLocation"-->
+<!--              :deleteLocation="deleteLocation"-->
+<!--              :editingLocation="editingLocation"-->
+<!--              :location="location"-->
+<!--              :locations="locations"-->
+<!--              :editingIndex="editingIndex"-->
+<!--              :headers="headers"-->
+<!--              :companyImageUrl="companyImageUrl"-->
+<!--              ref="companyLocations"-->
+<!--            ></CompanyLocations>-->
 
             <CompanyReview
               :company="company"
@@ -86,49 +86,49 @@
               class="px-8"
               text
               @click="prevPageIfNotFirst"
-              v-show="tab !== 0 && !editingLocation"
+              v-show="tab !== 0"
             >
               < Back</v-btn
             >
             <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+<!--            <v-btn-->
+<!--              color="primary"-->
+<!--              class="px-8"-->
+<!--              @click="nextPageIfNotLast"-->
+<!--              v-if="tab === 0"-->
+<!--            >Next >-->
+<!--            </v-btn>-->
+<!--            <v-btn-->
+<!--              color="primary"-->
+<!--              outlined-->
+<!--              class="px-8 mx-8"-->
+<!--              style="flex-grow: 1; border-width: 2px;"-->
+<!--              @click="addLocation"-->
+<!--              v-if="!editingLocation && tab === 1"-->
+<!--            >+ Add Another Channel-->
+<!--            </v-btn>-->
             <v-btn
               color="primary"
               class="px-8"
               @click="nextPageIfNotLast"
               v-if="tab === 0"
-            >Next >
-            </v-btn>
-            <v-btn
-              color="primary"
-              outlined
-              class="px-8 mx-8"
-              style="flex-grow: 1; border-width: 2px;"
-              @click="addLocation"
-              v-if="!editingLocation && tab === 1"
-            >+ Add Another Channel
-            </v-btn>
-            <v-btn
-              color="primary"
-              class="px-8"
-              @click="nextPageIfNotLast"
-              v-if="!editingLocation && tab === 1"
             >Finish & Review >
             </v-btn>
-            <v-btn
-              color="primary"
-              class="px-8"
-              @click="finishEditing"
-              v-else-if="editingLocation && tab === 1"
-            >Finish Channel
-            </v-btn>
-            <v-btn
-              color="#707070"
-              style="color: white;"
-              class="px-8"
-              @click="goBackLocations"
-              v-if="editingLocation && tab === 1 && locations.length >0"
-            >Cancel And Go Back To Channels</v-btn>
-            <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2"
+<!--            <v-btn-->
+<!--              color="primary"-->
+<!--              class="px-8"-->
+<!--              @click="finishEditing"-->
+<!--              v-else-if="editingLocation && tab === 1"-->
+<!--            >Finish Channel-->
+<!--            </v-btn>-->
+<!--            <v-btn-->
+<!--              color="#707070"-->
+<!--              style="color: white;"-->
+<!--              class="px-8"-->
+<!--              @click="goBackLocations"-->
+<!--              v-if="editingLocation && tab === 1 && locations.length >0"-->
+<!--            >Cancel And Go Back To Channels</v-btn>-->
+            <v-btn color="primary" class="px-8" @click="register" v-if="tab === 1"
             >Submit</v-btn
             >
           </v-card-actions>
@@ -179,7 +179,7 @@ export default {
       tab: 0,
       companyImageFile: {},
       companyImageUrl: null,
-      items: ['Company', 'Channels', 'Review'],
+      items: ['Company', 'Review'],
       bestSelection: [
         {
           text: '- I/We Own The Brand',
@@ -470,7 +470,7 @@ export default {
     async register() {
       this.loading = true
       console.log(this.company);
-      console.log(this.locations);
+      // console.log(this.locations);
       await this.uploadCompanyImage();
       let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company).catch((e) => e);
       console.log('post company: ', data)
@@ -491,8 +491,12 @@ export default {
         )
         .catch((e) => e)
       console.log('user', data);
-
-      await this.loopLocationImages();
+      this.loading = false;
+      this.successPopup = true;
+      setTimeout(() => {
+        this.$router.push('/login');
+      }, 2000)
+      // await this.loopLocationImages();
     },
     async loopLocationImages() {
       this.locations.forEach((location, index) => {

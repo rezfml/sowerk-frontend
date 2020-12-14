@@ -90,7 +90,7 @@
               :tableProperties="headers"
               :viewAll="false"
               slug="/dashboard/channels/"
-              v-if="loading"
+              v-if="locationApproved && loading"
               :viewLocation="viewLocation"
               :sowerkTags="sowerkTags"
               :locationFilterTags="locationFilterTags"
@@ -373,7 +373,7 @@
     },
     mounted() {
       this.getCompany();
-      this.getLocations();
+      // this.getLocations();
       this.getSowerkTags();
       console.log(this.currentUser);
     },
@@ -387,10 +387,33 @@
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
+        if(this.currentUser.is_superuser === false && this.company.locations[0] !== 'There are no locations') {
+          for(let i=0; i<this.company.locations.length; i++){
+            if(this.company.locations[i].email === this.currentUser.email && this.company.locations[i].phone === this.currentUser.phone) {
+              this.locations.push(this.company.locations[i].location[i]);
+              this.originalLocations.push(this.company.locations[i].location[i]);
+            }
+          }
+        } else if (this.company.locations[0] !== 'There are no locations') {
+          this.locations = this.company.locations;
+          this.originalLocations = this.company.locations;
+          this.locationApproved = true;
+          this.loading = true;
+          console.log(this.locations, 'this.locations!!!!!!!')
+        } else {
+          this.locationApproved = true;
+          this.loading = true;
+        }
       },
       async getLocations() {
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);
-        if (this.$error(status, data.message, data.errors)) return;
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id)
+          .catch(e => e);
+        if (this.$error(status, data.message, data.errors)) {
+          console.log(this.$error(status, data.message, data.errors), 'ERROR')
+          this.locationApproved = true;
+          this.loading = true;
+          return;
+        }
         this.$nextTick(function() {
           if(this.currentUser.is_superuser === false) {
             for(let i=0; i<data.location.length; i++){
@@ -399,7 +422,6 @@
                 this.originalLocations.push(data.location[i]);
               }
             }
-            this.loading = true;
           } else {
             this.locations = data.location;
             this.originalLocations = data.location;

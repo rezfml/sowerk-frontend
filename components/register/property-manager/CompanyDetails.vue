@@ -241,7 +241,7 @@
                           class="grey--text text--darken-4 font-weight-bold mb-0"
                           style="font-size: 15px"
                         >
-                          Company Address*
+                          Company Address* Please choose from the list as you type in your address
                         </p></label
                       >
                       <client-only>

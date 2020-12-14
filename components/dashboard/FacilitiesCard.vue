@@ -63,7 +63,6 @@
                 :headers="tableProperties"
                 :items="items"
                 :items-per-page="10"
-                v-if="items.length>0"
                 :search="search"
               >
                 <template v-slot:item.address="{item}">
@@ -238,7 +237,6 @@
             :headers="tableProperties"
             :items="items"
             :items-per-page="10"
-            v-if="items.length>0"
             :search="search"
           >
             <template v-slot:item.address="{item}">
@@ -428,7 +426,6 @@
             :items="items"
             :items-per-page="10"
             :hide-default-header="true"
-            v-if="items.length>0"
             :search="search"
           >
             <template v-slot:item.address="{item}">
