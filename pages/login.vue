@@ -115,24 +115,16 @@
           })
             .then(response => {
               console.log(this.$store.state.user, 'store state user!!!!', 'responseVal', response);
-              if(this.$store.state.user.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
-                this.unverified = true;
-                this.badPassword = false;
-                this.errorLoad = true;
-              } else if(this.$store.state.user.data.message === "Invalid Credentials") {
-                this.badPassword = true;
-                this.unverified = false;
-                this.errorLoad = true;
-              }
+
             })
-            .catch (e => {
-              console.log(e, 'RESPONSE ERROR!!!!!');
-              console.log(e.data, 'e.data', e.response, 'e.response')
+            .catch (err => {
+              console.log(err, 'RESPONSE ERROR!!!!!');
+              console.log(err.data, 'e.data', err.response, 'e.response')
               this.errorLoad = true;
-              if(e.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
+              if(err.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
                 this.unverified = true;
                 this.badPassword = false;
-              } else if(e.data.message === "Invalid Credentials") {
+              } else if(err.data.message === "Invalid Credentials") {
                 this.badPassword = true;
                 this.unverified = false;
               }
