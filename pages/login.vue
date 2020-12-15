@@ -82,7 +82,7 @@
           <v-card-title class="primary--text text-h3 font-weight-regular">Failed to login</v-card-title>
           <v-card-subtitle class="mt-6" v-if="!unverified && !badPassword">Please check your username to ensure it is correct!</v-card-subtitle>
           <v-card-subtitle class="my-4 text-center" v-if="unverified && !badPassword">User is not verified. Please check your email that you provided upon signup for a verification link.</v-card-subtitle>
-          <v-card-subtitle class="my-4 text-center" v-if="unverified && !badPassword">User entered the wrong password. Please try again!</v-card-subtitle>
+          <v-card-subtitle class="my-4 text-center" v-if="!unverified && badPassword">User entered the wrong password. Please try again!</v-card-subtitle>
           <v-btn @click="errorLoad = false" color="primary" rounded class="px-10 py-4">Try Again</v-btn>
           <v-btn @click="errorLoad = false" text style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
         </v-card>
@@ -109,32 +109,33 @@
     },
     methods: {
       async login() {
-        try {
           await this.$store.dispatch('user/login', {
             email: this.loginData.email.toLowerCase(),
             password: this.loginData.password
           })
-          console.log(this.$store.state.user, 'store state user!!!!');
-          if(this.$store.state.user.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
-            this.unverified = true;
-            this.badPassword = false;
-            this.errorLoad = true;
-          } else if(this.$store.state.user.data.message === "Invalid Credentials") {
-            this.badPassword = true;
-            this.unverified = false;
-            this.errorLoad = true;
-          }
-        } catch (e) {
-          console.log(e, 'RESPONSE ERROR!!!!!');
-          this.errorLoad = true;
-          if(e.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
-            this.unverified = true;
-            this.badPassword = false;
-          } else if(e.data.message === "Invalid Credentials") {
-            this.badPassword = true;
-            this.unverified = false;
-          }
-        }
+            .then(response => {
+              console.log(this.$store.state.user, 'store state user!!!!', 'responseVal', response);
+              if(this.$store.state.user.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
+                this.unverified = true;
+                this.badPassword = false;
+                this.errorLoad = true;
+              } else if(this.$store.state.user.data.message === "Invalid Credentials") {
+                this.badPassword = true;
+                this.unverified = false;
+                this.errorLoad = true;
+              }
+            })
+            .catch (e) {
+              console.log(e, 'RESPONSE ERROR!!!!!');
+              this.errorLoad = true;
+              if(e.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
+                this.unverified = true;
+                this.badPassword = false;
+              } else if(e.data.message === "Invalid Credentials") {
+                this.badPassword = true;
+                this.unverified = false;
+              }
+            }
 
         //requests id for user based off email
 
