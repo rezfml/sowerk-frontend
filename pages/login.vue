@@ -127,6 +127,7 @@
             })
             .catch (e => {
               console.log(e, 'RESPONSE ERROR!!!!!');
+              console.log(e.data, 'e.data', e.response, 'e.response')
               this.errorLoad = true;
               if(e.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
                 this.unverified = true;
