@@ -201,6 +201,10 @@
 export default {
   name: "CompanyReview",
   props: {
+    userTerms: {
+      type: Boolean,
+      return: true,
+    },
     company: {
       type: Object,
       return: true,

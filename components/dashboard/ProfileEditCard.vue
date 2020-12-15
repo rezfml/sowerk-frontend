@@ -841,6 +841,8 @@
                   }
                 }
               }
+            }
+            if(this.originalLocationTags.length > 0) {
               for(let i=0; i<this.originalLocationTags.length; i++) {
                 if(!(this.locationTagsNew.includes(this.originalLocationTags[i]))) {
                   console.log(this.originalLocationTags[i], 'this.location tags DELETE')

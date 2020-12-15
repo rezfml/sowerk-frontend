@@ -77,6 +77,7 @@
               :setPage="setPage"
               :fullAddress="fullAddress"
               :imageUrl="companyImageUrl"
+              :userTerms="userTerms"
             ></CompanyReview>
           </v-tabs-items>
           <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
@@ -128,7 +129,15 @@
 <!--              @click="goBackLocations"-->
 <!--              v-if="editingLocation && tab === 1 && locations.length >0"-->
 <!--            >Cancel And Go Back To Channels</v-btn>-->
-            <v-btn color="primary" class="px-8" @click="register" v-if="tab === 1"
+            <v-checkbox
+              v-model="userTerms"
+              v-if="tab === 1"
+            >
+              <template v-slot:label>
+                Check here if you have read our <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> and <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a>
+              </template>
+            </v-checkbox>
+            <v-btn color="primary" class="px-8" @click="register" v-if="tab === 1 && userTerms === true"
             >Submit</v-btn
             >
           </v-card-actions>
@@ -174,6 +183,7 @@ export default {
   },
   data() {
     return {
+      userTerms: false,
       successPopup: false,
       loading: false,
       tab: 0,

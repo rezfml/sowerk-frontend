@@ -120,7 +120,8 @@
             <v-text-field v-model="userEditForm.last_name" :placeholder="userEdit.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field v-model="userEditForm.phone" :placeholder="userEdit.phone" :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field v-model="userEditForm.email" :placeholder="userEdit.email" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+            <v-checkbox style="width: 100%;" v-model="passwordCheckbox" label="Do you want to change your password? Check me!"></v-checkbox>
+            <v-text-field v-if="passwordCheckbox" :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-select v-model="userEditForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
           </v-form>
           <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
@@ -157,7 +158,8 @@
             <v-text-field v-model="userEditForm.last_name" :placeholder="userEdit.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field v-model="userEditForm.phone" :placeholder="userEdit.phone" :label="'Phone'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field v-model="userEditForm.email" :placeholder="userEdit.email" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+            <v-checkbox style="width: 100%;" v-model="passwordCheckbox" label="Do you want to change your password? Check me!"></v-checkbox>
+            <v-text-field v-if="passwordCheckbox" :type="'password'" v-model="userEditForm.password" :label="'Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-select v-model="userEditForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
           </v-form>
           <v-btn @click="submitEditUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
@@ -199,6 +201,7 @@ export default {
   },
   data() {
     return {
+      passwordCheckbox: false,
       search: '',
       editStartLoad: false,
       userEdit: {},

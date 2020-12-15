@@ -1154,13 +1154,14 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
           .then(response => {
             console.log(response.data, 'RESPONSE DATA FOR NAICS LIST')
-            for(let i=0; i<response.data.length; i++) {
-              this.naicsList.push(response.data[i].name)
-            }
+            this.naicsList = response.data.sort((a,b) => {
+              return b.timesUsed-a.timesUsed;
+            })
           })
           .catch(err => {
             console.log(err, 'ERR IN GETTING NAICS LIST')
           })
+        console.log(this.naicsList, 'naicsList')
       },
       getSectorChildren(e) {
         console.log(e);
