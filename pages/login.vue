@@ -78,7 +78,7 @@
           </v-card-text>
         </v-card>
 
-        <v-card class="d-flex flex-column align-center justify-center px-12" v-if="errorLoad" style="width: 50vw; height: 50vh; position:fixed; top: 25vh; left: 25vw">
+        <v-card class="d-flex flex-column align-center justify-center px-12" v-if="errorLoad" style="width: 50vw; height: 50vh; position:fixed; top: 25vh; left: 25vw; z-index: 100;">
           <v-card-title class="primary--text text-h3 font-weight-regular">Failed to login</v-card-title>
           <v-card-subtitle class="mt-6" v-if="!unverified && !badPassword">Please check your username to ensure it is correct!</v-card-subtitle>
           <v-card-subtitle class="my-4 text-center" v-if="unverified && !badPassword">User is not verified. Please check your email that you provided upon signup for a verification link.</v-card-subtitle>
@@ -116,7 +116,8 @@
           })
           console.log(this.$store.state.user);
         } catch (e) {
-          console.log(e.response);
+          console.log(e.response, 'RESPONSE ERROR!!!!!');
+          this.errorLoad = true;
           if(e.response.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
             this.unverified = true;
             this.badPassword = false;
@@ -124,7 +125,6 @@
             this.badPassword = true;
             this.unverified = false;
           }
-          this.errorLoad = true;
         }
 
         //requests id for user based off email
