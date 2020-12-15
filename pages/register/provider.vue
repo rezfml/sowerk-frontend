@@ -735,11 +735,19 @@
                 v-else-if="tab === 2"
                 >Review</v-btn
               > -->
+              <v-checkbox
+                v-model="userTerms"
+                v-if="tab === 2"
+              >
+                <template v-slot:label>
+                  Check here if you have read our <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> and <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a>
+                </template>
+              </v-checkbox>
               <v-btn
                 color="primary"
                 class="px-8"
                 @click="register"
-                v-if="tab === 2"
+                v-if="tab === 2 && userTerms === true"
                 >Submit</v-btn
               >
             </v-col>
@@ -786,6 +794,7 @@
     },
     data() {
       return {
+        userTerms: false,
         show1: false,
         loading: false,
         tab: 0,
