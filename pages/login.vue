@@ -114,7 +114,16 @@
             email: this.loginData.email.toLowerCase(),
             password: this.loginData.password
           })
-          console.log(this.$store.state.user);
+          console.log(this.$store.state.user, 'store state user!!!!');
+          if(this.$store.state.user.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
+            this.unverified = true;
+            this.badPassword = false;
+            this.errorLoad = true;
+          } else if(this.$store.state.user.data.message === "Invalid Credentials") {
+            this.badPassword = true;
+            this.unverified = false;
+            this.errorLoad = true;
+          }
         } catch (e) {
           console.log(e, 'RESPONSE ERROR!!!!!');
           this.errorLoad = true;
