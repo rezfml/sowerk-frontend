@@ -22,6 +22,12 @@
       <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
         <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
         <v-btn :href="'../../vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Exit</v-btn>
+        <v-progress-circular
+          v-if="saveLoad === false"
+          indeterminate
+          color="primary"
+          :size="30"
+        ></v-progress-circular>
       </v-row>
     </transition>
     <transition name="slide-fade">
@@ -32,13 +38,63 @@
         <v-col style="width: 55%;">
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
             <v-card-title style="width: 100%;">Account Channel: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
-            <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{userForms.service}}</span></v-card-title>
+            <v-card-title style="width: 100%;">SOWerk Type:
+              <v-select
+                v-model="userForms.vendorType"
+                :items="vendorType"
+                label="Select A Type That Describes What This Application Provides"
+              ></v-select>
+            </v-card-title>
+            <v-card-title style="width: 100%;">SOWerk Category:
+              <v-autocomplete
+                v-model="userForms.service"
+                :items="naicsList"
+                item-text="name"
+                item-value="name"
+                label="Select A Category That Describes What This Application Provides"
+                solo
+                clearable
+                hint="This is generated from the NAICS directory."
+              >
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+              </v-autocomplete>
+            </v-card-title>
+            <v-card-title style="width: 100%;">SOWerk Tags:
+              <v-combobox
+                v-model="locationTagsNew"
+                :items="sowerkTags"
+                item-text="name"
+                item-value="name"
+                chips
+                multiple
+                label="Choose your tags here"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    class="v-chip--select-multi"
+                    style="width: auto;"
+                  >
+                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text v-else>{{data.item}}</v-card-text>
+                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <p>{{data.item.name}}</p>
+                </template>
+              </v-combobox>
+            </v-card-title>
             <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
 
             <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
-            <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px; text-align: left"  v-for="(form, index) in defaultFormFields">
-              <p style="width: 100%;margin:0%;text-align:left"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
-            </v-card-title>
+            <div class="d-flex flex-wrap justify-center" style="width: 100% !important; font-size: 16px;">
+              <p v-for="(form, index) in defaultFormFields" style="width: 33%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
+            </div>
 
             <draggable
               class="dragArea list-group"
@@ -87,13 +143,6 @@
           </v-card>
           <!--          </draggable>-->
           <!--          <rawDisplayer title="List 2" :value="formTypes" />-->
-          <v-progress-circular
-            v-if="saveLoad === false"
-            indeterminate
-            color="primary"
-            :size="20"
-          ></v-progress-circular>
-
           <transition name="slide-fade">
             <v-container class="" overflow-y-auto>
               <v-row class="d-flex justify-center" style="width: 100%;">
@@ -240,6 +289,10 @@
     },
     data () {
       return {
+        vendorType: [
+          'Supplier',
+          'Servicer'
+        ],
         userHasDefaults: false,
         defaultFormFields: [
           {
@@ -451,7 +504,11 @@
         itemtype: '',
         itemvalue: '',
         newOptionNum: 0,
-        one: []
+        one: [],
+        locationTagsNew: [],
+        originalLocationTags: [],
+        sowerkTags: [],
+        naicsList: [],
       }
     },
     async created() {
@@ -459,6 +516,8 @@
       console.log(this.$route.params.id)
       await this.getApplicationTemplates();
       await this.getCompanyTemplates();
+      await this.getSowerkTags();
+      await this.getNaicsList();
     },
     computed: {
       currentUser() {
@@ -466,6 +525,35 @@
       },
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
+          .then(response => {
+            console.log('naicslist', response)
+            this.naicsList = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err on getting naicslist')
+          })
+      },
+      async getSowerkTags() {
+        await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
+          .then(response => {
+            console.log(response.data, 'response.data for sowerktags');
+            this.sowerkTags = response.data;
+            console.log(this.sowerkTags, 'sowerktags')
+          })
+      },
+      async removeTag(item) {
+        console.log(this.locationTagsNew, 'before removal', item)
+        this.locationTagsNew = this.locationTagsNew.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.locationTagsNew, 'after removal')
+      },
       cloneField(item) {
         console.log(item, 'clone clone clone');
         this.itemname =  item.name;
@@ -520,11 +608,20 @@
             console.log(this.userForms, 'this.userForms sort')
             this.getLocation(response.data.locations_id)
             this.getFormFields(response.data.id)
+            this.getUserformTags(response.data.id)
           })
           .catch(err => {
             console.log('err get services', err);
           })
         console.log('this.userForms', this.userForms)
+      },
+      async getUserformTags(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + id)
+          .then(response => {
+            console.log(response.data, 'userform tags!!')
+            this.locationTagsNew = response.data;
+            this.originalLocationTags = response.data;
+          })
       },
       async getService(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/' + id)
@@ -561,8 +658,53 @@
         this.saveLoad = false;
         console.log('this.userForms', this.userForms);
         console.log('this.originaluserForms', this.originalUserForms);
+        console.log('this.userforms.service', this.userForms.service);
+        if(this.originalLocationTags.length > 0) {
+          for(let i=0; i<this.originalLocationTags.length; i++) {
+            if(!(this.locationTagsNew.includes(this.originalLocationTags[i]))) {
+              console.log(this.originalLocationTags[i], 'this.location tags DELETE')
+              this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + this.originalLocationTags[i].id)
+                .then(response => {
+                  console.log(response, 'success in original tag')
+                })
+                .catch(err => {
+                  console.log(err, 'err in deleting original tag')
+                })
+            }
+          }
+        }
         const userformEdit = {
-          name: this.userForms.name
+          name: this.userForms.name,
+          service: this.userForms.service,
+          vendorType: this.userForms.vendorType,
+        }
+        if(this.locationTagsNew.length > 0) {
+          console.log(this.locationTagsNew, 'this.locationTags');
+          for(let i=0; i<this.locationTagsNew.length; i++) {
+            if(typeof this.locationTagsNew[i] === 'object' && !(this.originalLocationTags.includes(this.locationTagsNew[i]))) {
+              this.$http.post('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + this.userForms.id, {
+                name: this.locationTagsNew[i].name
+              })
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting location tags')
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting locationtags')
+                })
+            } else {
+              if(!(this.originalLocationTags.includes(this.locationTagsNew[i]))) {
+                this.$http.post('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + this.userForms.id, {
+                  name: this.locationTagsNew[i]
+                })
+                  .then(responseVal => {
+                    console.log(responseVal, 'success in posting location tags')
+                  })
+                  .catch(err => {
+                    console.log(err, 'err in posting locationtags')
+                  })
+              }
+            }
+          }
         }
         // await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, {
         //   name: "Vender Name",
@@ -674,21 +816,20 @@
             }
           })
         }
-
-        // console.log('this.userForms after loop', this.userForms);
-        // console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
-        // console.log(this.filteredSameUserForms, 'filtered same formfields')
-        // await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
-        //   .then(response => {
-        //     console.log(response, 'updating formfield ', formfield.id)
-        //   })
-        //   .catch(err => {
-        //     console.log('error in updating formfield', err)
-        //   })
-        // setTimeout(() => {
-        //   this.saveLoad = true;
-        //   this.$router.go();
-        // }, 1000)
+        console.log('this.userForms after loop', this.userForms);
+        console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
+        console.log(this.filteredSameUserForms, 'filtered same formfields')
+        await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
+          .then(response => {
+            console.log(response, 'updating formfield ', formfield.id)
+          })
+          .catch(err => {
+            console.log('error in updating formfield', err)
+          })
+        setTimeout(() => {
+          this.saveLoad = true;
+          this.$router.go();
+        }, 1000)
       },
       async reorderFormField({moved}) {
         console.log(moved, 'moved information for formfield')
