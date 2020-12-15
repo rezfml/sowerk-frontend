@@ -125,7 +125,7 @@
                 this.errorLoad = true;
               }
             })
-            .catch (e) {
+            .catch (e => {
               console.log(e, 'RESPONSE ERROR!!!!!');
               this.errorLoad = true;
               if(e.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
@@ -135,7 +135,7 @@
                 this.badPassword = true;
                 this.unverified = false;
               }
-            }
+            })
 
         //requests id for user based off email
 
