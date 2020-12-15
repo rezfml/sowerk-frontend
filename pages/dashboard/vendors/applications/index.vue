@@ -1556,7 +1556,7 @@ const naics = require("naics");
             value: ''
           }]
         };
-          this.originalUserForms = [{
+        this.originalUserForms = [{
             id: 0,
             name: "Hey I'm blank",
             options: "",
@@ -1566,6 +1566,9 @@ const naics = require("naics");
             companytemplates_id: this.newAssignUserForm.id,
             value: ''
           }]
+        await this.getApplicationTemplates();
+        await this.getCompanyTemplates(this.currentUser.companies_id);
+
       },
       async getApplicationTemplates() {
         this.applicationTemplates = [];
