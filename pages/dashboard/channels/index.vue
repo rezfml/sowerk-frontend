@@ -20,7 +20,7 @@
                   outlined
                   rounded
                   color="white"
-                  to="add"
+                  to="../../dashboard/channels/add"
                 >Add Another Channel - Click Here</v-btn>
               </v-row>
             </v-col>
@@ -399,7 +399,7 @@
           this.originalLocations = this.company.locations;
           this.locationApproved = true;
           this.loading = true;
-          console.log(this.locations, 'this.locations!!!!!!!')
+          console.log(this.locations, 'this.locations!!!!!!!', data)
         } else {
           this.locationApproved = true;
           this.loading = true;

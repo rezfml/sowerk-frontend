@@ -38,7 +38,7 @@
             <v-col cols="12" class="mt-4">
               <v-form>
                 <v-row>
-                  <v-col cols="12">
+                  <v-col cols="9">
                     <v-text-field
                       placeholder=" "
                       hint="(Consider that this name will be viewed by Service Providers and listed
@@ -48,6 +48,17 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                     >
                       <template v-slot:label>
                         <p class="grey--text text--darken-4 font-weight-bold">Channel Name</p>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="3">
+                    <v-text-field
+                      placeholder=" "
+                      v-model="form.year_founded"
+                      type="number"
+                    >
+                      <template v-slot:label>
+                        <p class="grey--text text--darken-4 font-weight-bold">Channel Year Founding</p>
                       </template>
                     </v-text-field>
                   </v-col>
@@ -107,7 +118,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       item-text="vendorType"
                       item-value="vendorType"
                       v-model="vendorType"
-                      label="Choose your type here"
+                      label="Select A Type That Describes What This Channel Provides"
+                      hint="Choose All That Apply"
                       :placeholder="vendorType"
                       multiple
                     >
@@ -119,7 +131,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       :items="naicsList"
                       item-text="name"
                       item-value="name"
-                      label="Choose your categories here"
+                      label="Select A Category That Describes What This Channel Provides"
                       solo
                       clearable
                       hint="This is generated from the NAICS directory."
@@ -158,7 +170,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       item-value="name"
                       chips
                       multiple
-                      label="Choose your tags here"
+                      label="Add Additional Tags"
+                      hint="Tags help you and others keyword search for this Channel"
                     >
                       <template v-slot:selection="data">
                         <v-chip
@@ -175,6 +188,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </template>
                     </v-combobox>
                   </v-col>
+                  <v-row style="height: 2px; width: 100%; background: #A61c00;"></v-row>
                   <v-col cols="12" class="mt-12 mb-4">
                     <h2 class="mx-auto text-center">Channel Manager</h2>
                     <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this channel.</p>

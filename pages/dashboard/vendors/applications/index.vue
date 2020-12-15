@@ -154,6 +154,22 @@
 <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
 <!--    </v-row>-->
 
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="addCompanyLoader">
+      <v-progress-circular
+        indeterminate
+        color="#7C7C7C"
+        :size="80"
+        v-if="addCompanyLoader"
+      ></v-progress-circular>
+    </div>
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="assignChannel">
+      <v-progress-circular
+        indeterminate
+        color="#7C7C7C"
+        :size="80"
+        v-if="assignChannel"
+      ></v-progress-circular>
+    </div>
 
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
@@ -324,9 +340,15 @@
         </transition>
         <transition name="slide-fade">
           <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewCompanyTemplateLoad">
+            <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
+              <v-btn @click="saveCompanyTemplate" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+              <v-btn :href="'../../dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+            </v-row>
             <v-row class="d-flex justify-center" style="width: 100%;">
-              <v-col cols="4">
-                <v-card class="d-flex flex-column align-center">
+              <v-col cols="4" class="d-flex flex-column align-center">
+                <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
+                <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
+                <v-card class="d-flex flex-column align-center" style="width: 100%;">
                   <v-combobox
                     solo
                     :items="naicsList"
@@ -361,7 +383,9 @@
                 </v-card>
                 <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
               </v-col>
-              <v-col cols="5" class="d-flex flex-column align-center">
+              <v-col cols="5" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00; border-right: 1px dashed #A61C00;">
+                <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
+                <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
                 <v-row class="mb-n8">
                   <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
                   <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -462,6 +486,8 @@
                 </transition>
               </v-col>
               <v-col cols="3" class="d-flex flex-column align-center">
+                <v-card-title style="color: #A61C00; text-align: center">New Questions</v-card-title>
+                <v-card-subtitle style="text-align: center">Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
                 <draggable
                   style="width: 100%;"
                   class="dragArea list-group"
@@ -477,8 +503,6 @@
                   </v-card>
                 </draggable>
                 <rawDisplayer title="List 2" :value="formTypes" />
-                <v-btn @click="saveCompanyTemplate" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-                <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
                 <v-progress-circular
                   v-if="saveLoad === false"
                   indeterminate
@@ -501,7 +525,6 @@
               </div>
               <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
             </v-card>
-
           </v-container>
         </transition>
       </v-card>
@@ -546,16 +569,13 @@
             <v-card-title v-if="step3" class="mt-10" style="text-align: center; width: 80%;">Step 3 - Choose A Vendor Type</v-card-title>
           </transition>
           <transition name="slide-fade">
-            <p v-if="step3" class="ml-4" style="width: 80%; font-size: 18px;">Choose either supplier or servicer.</p>
+            <p v-if="step3" class="ml-4" style="width: 80%; font-size: 18px;">Which type of Vendor are you looking for? SOWerk requires you to specifically choose a type so to aid in organizing your Vendor Applications and to improve how Vendors can find and apply for approval.</p>
           </transition>
           <transition name="slide-fade">
-            <v-card-title v-if="step4" class="mt-10" style="text-align: center; width: 80%;">Step 4 - Choose A Category</v-card-title>
+            <v-card-title v-if="step4" class="mt-10" style="text-align: center; width: 80%;">Step 4 - Select A SOWerk Category</v-card-title>
           </transition>
           <transition name="slide-fade">
-            <p v-if="step4" class="ml-4" style="width: 80%; font-size: 18px;">Choose a previously selected service or add a new one.</p>
-          </transition>
-          <transition name="slide-fade">
-            <v-btn @click="addService" v-if="step4" outlined color="primary" class="px-10" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Category</v-btn>
+            <p v-if="step4" class="ml-4" style="width: 80%; font-size: 18px;">Every SOWerk approved Vendor Application must be assigned to only ONE category. SOWerk categories are based off the same NAICS options as the United States government uses to classify business activities. Choose the category that best suits your needs. You can use Tags in the following steps to add additional details. </p>
           </transition>
         </v-card>
       </transition>
@@ -627,6 +647,14 @@
             </div>
           </transition>
           <transition name="slide-fade">
+            <div class="d-flex justify-space-between" v-if="addNewVendorFormLoad && step4">
+              <v-btn @click="backVendorFormStep4" color="primary" style="width: 30%;" class="my-2 py-7" >< Back</v-btn>
+            </div>
+          </transition>
+          <transition name="slide-fade">
+            <v-btn @click="addService" v-if="step4" outlined color="primary" class="px-16 py-8" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Category</v-btn>
+          </transition>
+          <transition name="slide-fade">
             <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
@@ -649,15 +677,21 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && step5" style="width: 95%">
+        <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && step5" style="width: 100%">
           <transition name="slide-fade">
             <v-card-title v-if="step5" class="mt-10" style="text-align: center; width: 80%;">Step 5 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>
           </transition>
           <transition name="slide-fade">
-            <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewVendorFormLoad && step5">
+            <v-container class="py-16" overflow-y-auto v-if="addNewVendorFormLoad && step5">
               <v-row class="d-flex justify-center" style="width: 100%;">
-                <v-col cols="4">
-                  <v-card class="d-flex flex-column align-center">
+                <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
+                  <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+                  <v-btn :href="'../../dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+                </v-row>
+                <v-col cols="4" class="d-flex flex-column align-center">
+                  <v-card-title style="color: #A61C00">Your Application</v-card-title>
+                  <v-card-subtitle>This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
+                  <v-card class="d-flex flex-column align-center" style="width: 100%;">
                     <v-card-title style="width: 95%;"><v-text-field v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
                     <draggable
                       class="dragArea list-group"
@@ -681,7 +715,9 @@
                   </v-card>
                   <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
                 </v-col>
-                <v-col cols="5" class="d-flex flex-column align-center">
+                <v-col cols="5" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00; border-right: 1px dashed #A61C00;">
+                  <v-card-title style="color: #A61C00">Question Library</v-card-title>
+                  <v-card-subtitle>In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
                   <v-row class="mb-n8">
                     <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
                     <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -782,6 +818,8 @@
                   </transition>
                 </v-col>
                 <v-col cols="3" class="d-flex flex-column align-center">
+                  <v-card-title style="color: #A61C00">New Questions</v-card-title>
+                  <v-card-subtitle>Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
                   <draggable
                     style="width: 100%;"
                     class="dragArea list-group"
@@ -797,8 +835,6 @@
                     </v-card>
                   </draggable>
                   <rawDisplayer title="List 2" :value="formTypes" />
-                  <v-btn @click="saveUserForm" style="width: 100%;" color="primary" rounded class="my-2">Save</v-btn>
-                  <v-btn :href="'../../vendors/applications'" style="width: 100%;" color="primary" rounded outlined class="my-2">Go Back To All Applications</v-btn>
                   <v-progress-circular
                     v-if="saveLoad === false"
                     indeterminate
@@ -831,22 +867,25 @@
         <v-card-title class="mb-6 mt-2" style="color: #a61c00; font-size: 40px;">Select A Category</v-card-title>
         <v-row style="width: 100%;">
           <v-col cols="4">
-            <v-card-title style="text-decoration: underline">Type Your Category or Choose</v-card-title>
-            <v-card-text>You may type in the service or supply category, or choose from the list that appears as you type.</v-card-text>
-            <v-card-text><strong>You Do Not Have To Choose From Our SOWerk List If It Isn't The Best Option.</strong></v-card-text>
+            <v-card-title style="text-decoration: underline">Select A SOWerk Category</v-card-title>
+            <v-card-text>SOWerk categories are based off the same NAICS options as the United States government uses to classify business activities. Choose the category that best suits your needs. You can use Tags in the following steps to add additional details.</v-card-text>
           </v-col>
           <v-col cols="8" class="d-flex">
-            <v-autocomplete
-              solo
-              :items="naicsList"
-              :filter="customFilter"
-              item-text="name"
-              item-value="name"
-              label="Search Here"
-              style="width: 80%;"
-              v-model="serviceAdd.name"
-            ></v-autocomplete>
-            <v-btn @click="addNewService" color="primary" large style="font-size: 20px; width: 20%;" class="px-16 mt-1">Proceed</v-btn>
+            <v-form ref="form" style="width: 100%;" class="d-flex">
+              <v-autocomplete
+                solo
+                :items="naicsList"
+                :filter="customFilter"
+                item-text="name"
+                item-value="name"
+                label="Search Here"
+                style="width: 80%;"
+                v-model="serviceAdd.name"
+                required
+                :rules="categoryRules"
+              ></v-autocomplete>
+              <v-btn v-if="serviceAdd.name !== ''" @click="addNewService" color="primary" large style="font-size: 20px; width: 20%;" class="px-16 mt-1">Proceed</v-btn>
+            </v-form>
           </v-col>
         </v-row>
 <!--        OLD DESIGN WITH NAICS SELECT LIST-->
@@ -921,6 +960,11 @@ const naics = require("naics");
     },
     data () {
       return {
+        categoryRules: [
+          v => !!v || 'Category is required',
+        ],
+        assignChannel: false,
+        addCompanyLoader: false,
         companyDocumentImageUrl: null,
         companyDocumentImageFile: null,
         expanded: [],
@@ -1592,6 +1636,7 @@ const naics = require("naics");
           })
       },
       async addToCompanyTemplates(template) {
+        this.addCompanyLoader = true;
         const companyTemplate = {
           service_name: template.service_name,
           form_name: template.form_name,
@@ -1621,7 +1666,7 @@ const naics = require("naics");
                   })
               }
             }
-            alert('Successfully added to company templates')
+            this.addCompanyLoader = false;
           })
           .catch(err => {
             console.log(err, 'err for adding to company templates')
@@ -1693,6 +1738,7 @@ const naics = require("naics");
         this.addToLocationLoad = false;
       },
       async assignToService(id, name) {
+        this.assignChannel = true;
         const userform = {
           locations_id: id,
           applicationStatus: 1,
@@ -1722,6 +1768,7 @@ const naics = require("naics");
                       console.log(err, 'err in posting formfields to userform')
                     })
                 }
+                this.assignChannel = false;
                 await this.$router.go();
               }
               if(this.addLocation.companytemplatesformfields) {
@@ -1751,6 +1798,7 @@ const naics = require("naics");
             .catch(err => {
               console.log(err, 'err in adding userform from template')
             })
+        this.assignChannel = false;
       },
       async getServiceForVendor(location) {
         this.locationVal = {};
@@ -1807,7 +1855,7 @@ const naics = require("naics");
         // }
       },
       async addNewService() {
-
+        this.$refs.form.validate();
         if(this.serviceAdd.name === Object) {
           this.serviceAdd.name = this.serviceAdd.name.name
         }
@@ -1928,6 +1976,10 @@ const naics = require("naics");
       async backVendorFormStep3() {
         this.step3 = false;
         this.step2 = true;
+      },
+      async backVendorFormStep4() {
+        this.step4 = false;
+        this.step3 = true;
       },
       async nextVendorFormStep3() {
         this.step3 = false;

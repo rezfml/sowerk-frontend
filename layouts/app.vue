@@ -3,6 +3,85 @@
     <v-content>
       <Sidebar :steps="steps" :company="company"></Sidebar>
       <nuxt :steps="steps" :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh; min-width: 100%;" />
+      <!-- -----------FOOTER----------- -->
+      <v-footer style="background:#a61c00; color: white; height: auto; width: 100%; display: flex;flex-direction: column">
+        <v-row style="text-align: center; width: 100%;" class="pb-15 pb-sm-0" align="center">
+
+          <!-- TERMS CONDITIONS PRIVACY -->
+          <v-col cols="4" class="text-left d-flex flex-end " style="display: flex; flex-direction: column; font-size:11px;" >
+            <!--        // JUST FOR NOW THIS WILL BE ADDED LATER I PROMISE-->
+            <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+              <v-col cols="6" style="text-align:left;" >
+                <ul>
+                  <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
+                  <li style="list-style: none"><a href="/customerTerms" style="text-decoration: none;color: white">Customer Terms</a></li>
+                  <li style="list-style: none"><a href="/acceptableUsePolicy" style="text-decoration: none;color: white">Acceptable Use Policy</a></li>
+                  <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
+                </ul>
+              </v-col>
+              <v-col cols="6" style="text-align:left;" >
+                <ul>
+                  <li style="list-style: none"><a href="/serviceLevelAgreement" style="text-decoration: none;color: white">Service Level Agreement</a></li>
+                  <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
+                  <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
+                </ul>
+              </v-col>
+            </v-row>
+          </v-col>
+
+
+          <!-- SOWERK LOGO -->
+          <v-col cols="4">
+            <img width="120px" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png" alt="SOWerk" />
+          </v-col>
+
+          <!-- TERMS CONDITIONS PRIVACY  for mobile-->
+          <v-col cols="12" class="text-left d-flex flex-end px-0 mb-n12" style="display: flex; flex-direction: column; font-size:11px;" v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm" >
+
+            <v-row >
+              <v-col cols="6" style="text-align:left;" >
+                <ul class="px-0">
+                  <li style="list-style: none"><a href="/DCMAPolicy" style="text-decoration: none;color: white">DCMA Policy</a></li>
+                  <li style="list-style: none"><a href="/customerTerms" style="text-decoration: none;color: white">Customer Terms</a></li>
+                  <li style="list-style: none"><a href="/acceptableUsePolicy" style="text-decoration: none;color: white">Acceptable Use Policy</a></li>
+                </ul>
+              </v-col>
+              <v-col cols="6" style="text-align:left;" >
+                <ul class="px-0">
+                  <li style="list-style: none"><a href="/serviceLevelAgreement" style="text-decoration: none;color: white">Service Level Agreement</a></li>
+                  <li style="list-style: none"><a href="/UserTerms" style="text-decoration: none;color: white">User Terms</a></li>
+                  <li style="list-style: none"><a href="/privacypolicy" style="text-decoration: none; color: white">Privacy Policy</a></li>
+                </ul>
+              </v-col>
+              <v-col cols=12>
+                <ul class="px-0 my-n6">
+                  <li style="list-style: none"><a href="/CustomerSpecificSupplement" style="text-decoration: none;color: white">Customer Specific Supplement</a></li>
+                </ul>
+              </v-col>
+            </v-row>
+          </v-col>
+
+
+          <!-- FOOTER LINKS -->
+          <v-col cols="4" style="display: flex; flex-direction: column; align-items: flex-end" class="d-none d-sm-flex">
+            <ul>
+              <li :href=item.path
+                  v-for="item in items"
+                  :key="item.title"
+                  path
+                  color="white"
+                  style="text-transform: capitalize; letter-spacing: 1px; font-size: 12px; text-align: left; list-style: none; cursor: pointer"
+              >
+                {{ item.title }}
+              </li>
+            </ul>
+          </v-col>
+        </v-row>
+        <!-- COPYRIGHT -->
+        <v-row style="font-size: 10.5px; justify-content: center;">
+          <p style="text-align: center;">SOWerk &copy; {{ new Date().getFullYear() }}<br>All Rights Reserved.</p>
+        </v-row>
+      </v-footer>
     </v-content>
 
     <v-tour v-if="windowLocation === 'http://localhost:3000/dashboard' || windowLocation === 'https://www.sowerk.com/dashboard'" name="myTour" :steps="steps" :options="myOptions">
@@ -99,6 +178,33 @@
           }
         ],
         windowLocation: '',
+        items: [
+          {
+            icon: 'about',
+            title: 'Vendors',
+            path: '../../landingpage/join-service-landing',
+          },
+          {
+            icon: 'Businesses',
+            title: 'Businesses',
+            path: '../../landingpage/join-product-landing',
+          },
+          /* {
+             icon: 'About SOW',
+             title: 'About SOW',
+             path: '../../landingpage/about',
+           },*/
+          {
+            icon: 'Register',
+            title: 'Register',
+            path: '../../register',
+          },
+          {
+            icon: 'Login',
+            title: 'Login',
+            path: '../../login',
+          },
+        ],
       }
     },
     async mounted() {

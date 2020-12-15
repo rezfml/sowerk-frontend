@@ -32,15 +32,32 @@
           <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
           <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
           <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-
-          <div>
-            <v-select :items="locations" item-text="address" item-value="address" label="Locations" v-model="locations"></v-select>
-            <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
-            <p>Please Note The Difference Between Account Level Permissions.</p>
-            <p><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</p>
-            <p><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
-          </div>
-
+          <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+          <v-col cols="12">
+            <v-select
+              :items="locations"
+              item-text="name"
+              item-value="name"
+              v-model="locationsChosen"
+              multiple
+              label="Select All of the Locations that you want to assign this user to"
+              clearable
+            >
+              <template slot="selection" slot-scope="data">
+                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+              </template>
+              <template slot="item" slot-scope="data">
+                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+              </template>
+            </v-select>
+            <v-checkbox
+              label="Select this to assign ALL channels to this user"
+              v-model="locationsChosenCheck"
+            ></v-checkbox>
+          </v-col>
+          <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
+          <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
+          <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
           <transition name="slide-fade">
             <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
             <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
@@ -86,12 +103,31 @@
           <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
           <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
           <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-          <div>
-            <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" :rules="rules.selectRules"></v-select>
-            <p style="color: white;">Please Note The Difference Between Account Level Permissions.</p>
-            <p style="color: white;"><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</p>
-            <p style="color: white;"><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</p>
-          </div>
+          <v-col cols="12">
+            <v-select
+              :items="locations"
+              item-text="name"
+              item-value="name"
+              v-model="locationsChosen"
+              multiple
+              label="Select All of the Channels that you want to assign this user to"
+              clearable
+            >
+              <template slot="selection" slot-scope="data">
+                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+              </template>
+              <template slot="item" slot-scope="data">
+                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+              </template>
+            </v-select>
+            <v-checkbox
+              label="Select this to assign ALL channels to this user"
+              v-model="locationsChosenCheck"
+            ></v-checkbox>
+          </v-col>
+          <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
+          <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
+          <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
           <transition name="slide-fade">
             <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
             <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
@@ -112,6 +148,8 @@
     data() {
       return {
         locations: null,
+        locationsChosen: [],
+        locationsChosenCheck: false,
         requiredFieldsFilled: null,
         company: {},
         companyLoad: false,
@@ -187,6 +225,7 @@
       await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.$store.state.user.user.user.companies_id)
         .then(async (response) => {
           this.locations = response.data.location
+          console.log(this.locations)
         })
         .catch(err => {
           console.log("error log", err)
@@ -219,8 +258,16 @@
       },
       async submitAddUser() {
         if (this.addUserForm.email === '' || this.addUserForm.password === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '' || this.addUserForm.is_superuser === '') {
+          if(this.locationsChosenCheck === true) {
+            this.locationsChosen = this.locations;
+          }
+          console.log(this.locationsChosen, 'locationsChosen', this.locationsChosenCheck);
+
           return this.requiredFieldsFilled = false
         } else {
+          if(this.locationsChosenCheck === true) {
+            this.locationsChosen = this.locations;
+          }
           this.requiredFieldsFilled = true
           this.addUserForm.companies_id = this.company.id;
           this.addUserForm.companyName = this.company.account_name;
@@ -232,17 +279,33 @@
           } else {
             this.addUserForm.is_superuser = false;
           }
-          await this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd', this.addUserForm)
-            .then(response => {
-              console.log(response, 'SUCCESS IN REGISTERING')
+          console.log(this.locationsChosen, 'locationsChosen');
+          if(this.locationsChosen.length > 0) {
+            this.locationsChosen.forEach(location => {
+              this.$http.put('https://www.sowerkbackend.com/api/locations/' + location.id, {
+                email: this.addUserForm.email,
+                contact_first_name: this.addUserForm.first_name,
+                contact_last_name: this.addUserForm.last_name,
+                phone: this.addUserForm.phone
+              })
+                .then(response => {
+                  console.log(response, 'respones for put edit location on submit')
+                })
+                .catch(err => {
+                  console.log(err, 'err in put edit location on submit')
+                })
             })
-            .catch(err => {
-              console.log(err, 'ERROR IN REGISTERING')
-            })
-          console.log(this.addUserForm);
-          this.successAddUserForm = true;
+          }
           setTimeout(() => {
-            // this.$router.push('../../dashboard/user-creation');
+            this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd', this.addUserForm)
+              .then(response => {
+                console.log(response, 'SUCCESS IN REGISTERING')
+              })
+              .catch(err => {
+                console.log(err, 'ERROR IN REGISTERING')
+              })
+            console.log(this.addUserForm);
+            this.successAddUserForm = true;
             this.$router.go()
           }, 1500)
         }
@@ -276,6 +339,9 @@
         }
 
         console.log(this.massLocation, 'massLocation')
+      },
+      async removeLocation(locationVal) {
+        this.locationsChosen = this.locationsChosen.filter(location => location.name !== locationVal.name)
       }
     }
   }

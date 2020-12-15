@@ -319,7 +319,7 @@
               {
                 to: '/dashboard/vendors/applications',
                 slug: 'applications',
-                text: 'Edit Vendor Requirements',
+                text: 'Vendor Requirements',
               },
             ]
           },
@@ -437,7 +437,7 @@
               {
                 to: '/dashboard/vendors/applications',
                 slug: 'applications',
-                text: 'Edit Vendor Requirements',
+                text: 'Vendor Requirements',
               },
             ]
           },
