@@ -116,12 +116,12 @@
           })
           console.log(this.$store.state.user);
         } catch (e) {
-          console.log(e.response, 'RESPONSE ERROR!!!!!');
+          console.log(e, 'RESPONSE ERROR!!!!!');
           this.errorLoad = true;
-          if(e.response.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
+          if(e.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
             this.unverified = true;
             this.badPassword = false;
-          } else if(e.response.data.message === "Invalid Credentials") {
+          } else if(e.data.message === "Invalid Credentials") {
             this.badPassword = true;
             this.unverified = false;
           }
