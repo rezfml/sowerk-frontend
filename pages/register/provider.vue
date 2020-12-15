@@ -398,7 +398,7 @@
                 </v-card-text>
               </v-container>
             </v-tab-item>
-            <v-tab-item eager>
+            <!-- <v-tab-item eager>
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0 pt-12">
                   <template v-if="editingLocation">
@@ -445,7 +445,7 @@
                   </template>
                 </v-card-text>
               </v-container>
-            </v-tab-item>
+            </v-tab-item> -->
 
             <v-tab-item eager>
               <v-container style="max-width: 100%;" class="mx-auto mb-12">
@@ -692,11 +692,11 @@
                 class="px-8"
                 text
                 @click="prevPageIfNotFirst"
-                v-show="tab !== 0 && !editingLocation"
+                v-show="tab !== 0"
               >
                 < Back</v-btn
               >
-              <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+              <v-spacer v-if="tab !== 1"></v-spacer>
               <v-btn
                 color="primary"
                 class="px-8 d-flex "
@@ -704,7 +704,7 @@
                 v-if="tab === 0"
                 >Next >
               </v-btn>
-              <v-btn
+              <!-- <v-btn
                 color="primary"
                 outlined
                 class="px-8 mx-8 saveBtn"
@@ -713,33 +713,33 @@
                 v-if="!editingLocation && tab === 1"
                 >+ Save and Add <br v-if="$vuetify.breakpoint.mobile" />
                 Another Location
-              </v-btn>
+              </v-btn> -->
               <v-btn
                 color="primary"
                 class="px-8 d-flex justify-end"
                 @click="nextPageIfNotLast"
-                v-if="!editingLocation && tab === 1"
+                v-if="tab === 1"
                 >Next >
               </v-btn>
-              <v-btn
+              <!-- <v-btn
                 color="primary"
                 class="px-8"
                 @click="finishEditing"
                 v-else-if="editingLocation && tab === 1"
                 >Finish Location
-              </v-btn>
-              <v-btn
+              </v-btn> -->
+              <!-- <v-btn
                 color="primary"
                 class="px-8"
                 @click="nextPageIfNotLast"
                 v-else-if="tab === 2"
                 >Review</v-btn
-              >
+              > -->
               <v-btn
                 color="primary"
                 class="px-8"
                 @click="register"
-                v-if="tab === 3"
+                v-if="tab === 2"
                 >Submit</v-btn
               >
             </v-col>
@@ -791,7 +791,6 @@
         tab: 0,
         items: [
           'Company',
-          'Locations',
           'Documents',
           'Review'
         ],
@@ -934,7 +933,7 @@
         imageUrlLocation: '',
         autocomplete: null,
         markers: [],
-        editingLocation: true,
+        // editingLocation: true,
         editingInsurance: true,
         editingLicense: true,
         sectors: [],
@@ -1115,7 +1114,7 @@
         console.log(tabIndex)
       },
       finishEditing() {
-        this.editingLocation = false;
+        // this.editingLocation = false;
         console.log(this.location);
         this.locations[this.editingIndex] = this.location;
         this.editingIndex = null;
@@ -1133,7 +1132,7 @@
         this.editingIndex = index;
         this.location = this.locations[index];
         console.log(this.location);
-        this.editingLocation = true;
+        // this.editingLocation = true;
       },
       editInsurance(index) {
         console.log(index);
@@ -1194,7 +1193,7 @@
         this.locations.push(newLocation)
         this.location = this.locations[this.locations.length - 1]
         this.editingIndex = this.locations.length - 1
-        this.editingLocation = true
+        // this.editingLocation = true
       },
       addInsurance() {
         this.editingInsurance = true
@@ -1245,7 +1244,7 @@
           this.loopLicenseFilesForUpload()
         }
 
-        await this.loopLocationImages();
+        // await this.loopLocationImages();
 
         console.log(this.company, 'this.company');
         console.log(this.locations, 'this.locations');
@@ -1257,7 +1256,7 @@
             this.registerUser(response.data.companies.id);
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
-            this.postLocations(response.data.companies.id);
+            // this.postLocations(response.data.companies.id);
             this.$router.push('/verify');
           })
           .catch(err => {
@@ -1329,42 +1328,42 @@
         let { data, status } = await this.$http
           .post('https://www.sowerkbackend.com/api/auth/register', this.user)
           .catch((e) => e)
-        await this.postLocations(data.user.companies_id)
+        // await this.postLocations(data.user.companies_id)
       },
-      async loopLocationImages() {
-        this.locations.forEach((location, index) => {
-          const formData = new FormData()
-          console.log(location)
-          formData.append('file', location.imageUrl)
-          this.uploadLocationImage(formData, index)
-        })
-        console.log(this.locations)
-      },
-      async uploadLocationImage(formData, index) {
-        let { data, status } = await this.$http
-          .post('https://www.sowerkbackend.com/api/upload', formData)
-          .catch((err) => {
-            console.log('error in uploading location image', err)
-          })
+      // async loopLocationImages() {
+      //   this.locations.forEach((location, index) => {
+      //     const formData = new FormData()
+      //     console.log(location)
+      //     formData.append('file', location.imageUrl)
+      //     this.uploadLocationImage(formData, index)
+      //   })
+      //   console.log(this.locations)
+      // },
+      // async uploadLocationImage(formData, index) {
+      //   let { data, status } = await this.$http
+      //     .post('https://www.sowerkbackend.com/api/upload', formData)
+      //     .catch((err) => {
+      //       console.log('error in uploading location image', err)
+      //     })
 
-        this.locations[index].imageUrl = data.data.Location;
-      },
-      async postLocations(userId) {
-        for (let i = 0; i < this.locations.length; i++) {
-          this.locations[i].companies_id = userId;
-          this.locations[i].zipcode = Number(this.locations[i].zipcode)
-        }
-        await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
-          .then(response => {
-            console.log('success in posting group locations', response)
-          })
-          .catch(err => {
-            console.log('error in posting group locations', err, this.locations)
-          })
-        // this.loading = false;
-        // if (this.$error(status, message, errors)) return;
-        await this.getUserLocations(userId);
-      },
+      //   this.locations[index].imageUrl = data.data.Location;
+      // },
+      // async postLocations(userId) {
+      //   for (let i = 0; i < this.locations.length; i++) {
+      //     this.locations[i].companies_id = userId;
+      //     this.locations[i].zipcode = Number(this.locations[i].zipcode)
+      //   }
+      //   await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
+      //     .then(response => {
+      //       console.log('success in posting group locations', response)
+      //     })
+      //     .catch(err => {
+      //       console.log('error in posting group locations', err, this.locations)
+      //     })
+      //   // this.loading = false;
+      //   // if (this.$error(status, message, errors)) return;
+      //   await this.getUserLocations(userId);
+      // },
       async getUserLocations(userId) {
         let { data, status } = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
