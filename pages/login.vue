@@ -120,7 +120,7 @@
           if(e.response.data.message === "User is not verified. Please check your email that you provided upon signup for a verification link so you can be verified and login") {
             this.unverified = true;
             this.badPassword = false;
-          } else if(e.response.data.message = "Invalid Credentials") {
+          } else if(e.response.data.message === "Invalid Credentials") {
             this.badPassword = true;
             this.unverified = false;
           }

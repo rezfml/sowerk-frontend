@@ -240,6 +240,8 @@ export default {
           },
         ],
       },
+      long: 0,
+      lat: 0,
       fullAddress: null,
       locations: [],
       location: {
@@ -407,6 +409,8 @@ export default {
       this.company.city = addressData.locality
       this.company.state = addressData.administrative_area_level_1
       this.company.zipcode = addressData.postal_code
+      this.long = addressData.longitude;
+      this.lat = addressData.latitude;
       this.formatFullAddress()
     },
     formatFullAddress() {
@@ -485,7 +489,7 @@ export default {
       let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company).catch((e) => e);
       console.log('post company: ', data)
       this.user.companies_id = data.companies.id
-      await this.registerUser(data.companies.id)
+      await this.registerUser(data)
       // await this.postLocations(data.user.id);
       // await this.$router.push('/login');
       // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
@@ -493,7 +497,7 @@ export default {
       //     console.log(response);
       //   })
     },
-    async registerUser(companyId) {
+    async registerUser(company) {
       let { data, status } = await this.$http
         .post(
           'https://www.sowerkbackend.com/api/auth/register',
@@ -501,11 +505,44 @@ export default {
         )
         .catch((e) => e)
       console.log('user', data);
-      this.loading = false;
-      this.successPopup = true;
-      setTimeout(() => {
-        this.$router.push('/login');
-      }, 2000)
+      let admin = 0;
+      if(this.user.is_superuser === true) {
+        admin = 1
+      } else if (this.user.is_superuser === false) {
+        admin = 0
+      }
+      let locationPost = {
+        name: company.companies.account_name,
+        email: this.user.email,
+        address: company.companies.address,
+        city: company.companies.city,
+        state: company.companies.state,
+        zipcode: company.companies.zipcode,
+        year_founded: company.companies.year_founded,
+        longitude: this.long,
+        latitude: this.lat,
+        contact_first_name: this.user.first_name,
+        contact_last_name: this.user.last_name,
+        phone: this.user.phone,
+        adminLevel: admin,
+        pfLogoCheckbox: false,
+        description: company.companies.description,
+        imageUrl: company.companies.imgUrl,
+        radius: 0,
+      }
+      console.log(locationPost, 'locationPost')
+      await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + company.companies.id, locationPost)
+        .then(response => {
+          console.log(response, 'location posted')
+          this.loading = false;
+          this.successPopup = true;
+          setTimeout(() => {
+            this.$router.push('/login');
+          }, 2000)
+        })
+        .catch(err => {
+          console.log(err, 'err in posting location')
+        })
       // await this.loopLocationImages();
     },
     async loopLocationImages() {
