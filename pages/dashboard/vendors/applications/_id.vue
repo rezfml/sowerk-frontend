@@ -37,60 +37,76 @@
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
         <v-col style="width: 55%;">
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
-            <v-card-title style="width: 100%;">Account Channel: <span class="ml-2" style="color:#a61c00;">{{location.name}}</span></v-card-title>
-            <v-card-title style="width: 100%;">SOWerk Type:
-              <v-select
-                v-model="userForms.vendorType"
-                :items="vendorType"
-                label="Select A Type That Describes What This Application Provides"
-              ></v-select>
-            </v-card-title>
-            <v-card-title style="width: 100%;">SOWerk Category:
-              <v-autocomplete
-                v-model="userForms.service"
-                :items="naicsList"
-                item-text="name"
-                item-value="name"
-                label="Select A Category That Describes What This Application Provides"
-                solo
-                clearable
-                hint="This is generated from the NAICS directory."
-              >
-                <template slot="selection" slot-scope="data">
-                  <p>{{ data.item.name }}</p>
-                </template>
-                <template slot="item" slot-scope="data">
-                  <p>{{ data.item.name }}</p>
-                </template>
-              </v-autocomplete>
-            </v-card-title>
-            <v-card-title style="width: 100%;">SOWerk Tags:
-              <v-combobox
-                v-model="locationTagsNew"
-                :items="sowerkTags"
-                item-text="name"
-                item-value="name"
-                chips
-                multiple
-                label="Choose your tags here"
-              >
-                <template v-slot:selection="data">
-                  <v-chip
-                    class="v-chip--select-multi"
-                    style="width: auto;"
-                  >
-                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                    <v-card-text v-else>{{data.item}}</v-card-text>
-                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
-                  </v-chip>
-                </template>
-                <template v-slot:item="data">
-                  <p>{{data.item.name}}</p>
-                </template>
-              </v-combobox>
-            </v-card-title>
-            <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="userForms.name" clearable></v-text-field></v-card-title>
-
+            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Account Channel:</span></v-card-title>
+            <v-select
+              :items="locationsList"
+              item-text="name"
+              item-value="name"
+              v-model="location"
+              label="Select the Channel that you want to assign this application to"
+              clearable
+              style="width: 95%;"
+            >
+              <template slot="selection" slot-scope="data">
+                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+              </template>
+              <template slot="item" slot-scope="data">
+                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+              </template>
+            </v-select>
+            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
+            <v-select
+              style="width: 95%;"
+              v-model="userForms.vendorType"
+              :items="vendorType"
+              label="Select A Type That Describes What This Application Provides"
+            ></v-select>
+            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
+            <v-autocomplete
+              style="width: 95%;"
+              v-model="userForms.service"
+              :items="naicsList"
+              item-text="name"
+              item-value="name"
+              label="Select A Category That Describes What This Application Provides"
+              solo
+              clearable
+              hint="This is generated from the NAICS directory."
+            >
+              <template slot="selection" slot-scope="data">
+                <p>{{ data.item.name }}</p>
+              </template>
+              <template slot="item" slot-scope="data">
+                <p>{{ data.item.name }}</p>
+              </template>
+            </v-autocomplete>
+            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
+            <v-combobox
+              style="width: 95%;"
+              v-model="locationTagsNew"
+              :items="sowerkTags"
+              item-text="name"
+              item-value="name"
+              chips
+              multiple
+              label="Choose your tags here"
+            >
+              <template v-slot:selection="data">
+                <v-chip
+                  class="v-chip--select-multi"
+                  style="width: auto;"
+                >
+                  <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                  <v-card-text v-else>{{data.item}}</v-card-text>
+                  <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                </v-chip>
+              </template>
+              <template v-slot:item="data">
+                <p>{{data.item.name}}</p>
+              </template>
+            </v-combobox>
+            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
+            <v-text-field style="width: 95%;" v-model="userForms.name" clearable></v-text-field>
             <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
             <div class="d-flex flex-wrap justify-center" style="width: 100% !important; font-size: 16px;">
               <p v-for="(form, index) in defaultFormFields" style="width: 33%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
@@ -509,11 +525,14 @@
         originalLocationTags: [],
         sowerkTags: [],
         naicsList: [],
+        locationsList: [],
+        chosenLocation: [],
       }
     },
     async created() {
       await this.getUserforms(this.$route.params.id)
       console.log(this.$route.params.id)
+      await this.getLocations();
       await this.getApplicationTemplates();
       await this.getCompanyTemplates();
       await this.getSowerkTags();
@@ -656,6 +675,11 @@
       },
       async saveUserForm() {
         this.saveLoad = false;
+        for(let i=0; i<this.locationsList.length; i++) {
+          if(this.location === this.locationsList[i].name) {
+            this.location = this.locationsList[i]
+          }
+        }
         console.log('this.userForms', this.userForms);
         console.log('this.originaluserForms', this.originalUserForms);
         console.log('this.userforms.service', this.userForms.service);
@@ -677,6 +701,7 @@
           name: this.userForms.name,
           service: this.userForms.service,
           vendorType: this.userForms.vendorType,
+          locations_id: this.location.id,
         }
         if(this.locationTagsNew.length > 0) {
           console.log(this.locationTagsNew, 'this.locationTags');
@@ -819,6 +844,7 @@
         console.log('this.userForms after loop', this.userForms);
         console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
         console.log(this.filteredSameUserForms, 'filtered same formfields')
+        console.log(this.location, 'this.location!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
           .then(response => {
             console.log(response, 'updating formfield ', formfield.id)
@@ -919,6 +945,16 @@
           })
           .catch(err => {
             console.log(err, 'err in application templates form fields')
+          })
+      },
+      async getLocations() {
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'locations!!!!!')
+            this.locationsList = response.data.location
+          })
+          .catch(err => {
+            console.log(err, 'err in locations')
           })
       },
       async getCompanyTemplates() {
