@@ -185,7 +185,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="300px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -232,7 +233,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="300px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
