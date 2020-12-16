@@ -459,14 +459,12 @@
                             ><span class="primary--text ml-2 py-6 mr-2"
                               >Optional -
                             </span>
-                            SOWerk highly encourages you to upload Company
+                            SOWerk Highly Encourages You To Upload Company
                             Documents</v-card-title
                           >
                           <v-card-subtitle
                             class="justify-center headline font-weight-bold text-center"
-                            >Valid documents are important to a Property and
-                            Business Manager when vetting service
-                            vendors.</v-card-subtitle
+                            >These optional documents are important to businesses on SOWerk as they evaluate Vendors.</v-card-subtitle
                           >
                           <v-card-subtitle
                             class="justify-center headline text-center text-body-1"
@@ -519,7 +517,7 @@
                             <p
                               class="primary--text text-h6 font-weight-bold text-center mb-0 px-6 white"
                             >
-                              Company Licenses
+                              Licenses & Certifications
                             </p>
                           </div>
                           <v-list>

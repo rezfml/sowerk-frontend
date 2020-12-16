@@ -17,9 +17,9 @@
               <v-checkbox label="Allow Uploaded Document to be Visible to Others" v-model="insurance.documentVisible"></v-checkbox>
             </v-col>
             <v-col cols="12" md="6" class="d-flex flex-column justify-space-around">
-              <v-text-field label="Insurance Name" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.name"></v-text-field>
+              <v-text-field label="Your Insurance Agency Name (Producer)" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.name"></v-text-field>
 <!--              <v-select label="Insurance Company" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-select>-->
-              <v-text-field label="Insurance Company" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-text-field>
+              <v-text-field label="Insurance Company Name" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-text-field>
               <v-text-field label="Policy Number" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.policyNumber"></v-text-field>
               <v-text-field label="Expiration Date" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.expirationDateVal" type="date"></v-text-field>
             </v-col>

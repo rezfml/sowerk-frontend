@@ -107,7 +107,10 @@
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table>
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
@@ -186,7 +189,10 @@
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table>
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
@@ -209,8 +215,8 @@
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex" v-if="$vuetify.breakpoint.xl">
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Channel</v-btn>
-              <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 37.5%;">Add to Company Templates</v-btn>
+              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 45%;">Assign Channel</v-btn>
+              <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 53%;">Add to Company Templates</v-btn>
             </div>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Add to Company Templates</v-btn>
@@ -239,7 +245,10 @@
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table>
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
@@ -309,7 +318,7 @@
       <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
       <template v-if="loading">
-        <v-simple-table class="pt-16 mb-4" style="width: 100%;">
+        <v-simple-table class="pt-16 mb-4" style="width: 100%; max-height: 500px;" fixed-header height="400px">
           <thead style="min-width: 100%;">
             <tr style="min-width: 100%;">
               <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
@@ -404,7 +413,10 @@
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                       <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;">
+                        <v-simple-table style="width: 100%;"
+                                        fixed-header
+                                        height="300px"
+                        >
                           <template v-slot:default>
                             <!--                            <thead>-->
                             <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -451,7 +463,9 @@
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                       <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;">
+                        <v-simple-table style="width: 100%;"
+                                        fixed-header
+                                        height="300px">
                           <template v-slot:default>
                             <!--                            <thead>-->
                             <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -600,7 +614,8 @@
             </v-form>
           </transition>
           <transition name="slide-fade">
-            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
+            <v-simple-table class="py-8" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2" fixed-header
+                            height="400px">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
                 <th style="color: #a61c00; width: 40%; text-align: center">Channel Name</th>
@@ -655,7 +670,8 @@
             <v-btn @click="addService" v-if="step4" outlined color="primary" class="px-16 py-8" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Category</v-btn>
           </transition>
           <transition name="slide-fade">
-            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4">
+            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4" fixed-header
+                            height="400px">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
                 <th style="color: #a61c00; width: 70%; text-align: center">Category</th>
@@ -736,7 +752,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="300px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -783,7 +800,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="300px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
