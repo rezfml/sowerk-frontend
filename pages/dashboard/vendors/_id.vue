@@ -1,6 +1,10 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
+      <v-row style="width: 100%;" class="d-flex justify-space-between" v-if="loading">
+        <v-btn color="primary" class="py-6" style="width: 48%;" @click="requestModalLoad = true">REQUEST TO APPLY</v-btn>
+        <v-btn color="#7C7C7C" class="py-6" style="color: white; width: 48%;" @click="messageModalLoad = true">SEND MESSAGE</v-btn>
+      </v-row>
       <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad">
         <v-col cols="3">
           <v-skeleton-loader
@@ -19,29 +23,29 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;">{{location.name}}</v-card-title>
               <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Channels</v-card-text>
               <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
               <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
               <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00;">About</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;">About</v-card-title>
               <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
               <v-card-text>Founded: {{location.year_founded}}</v-card-text>
               <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Main Contact</v-card-title>
               <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
               <v-card-text>{{location.email}}</v-card-text>
               <v-card-text>{{location.phone}}</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00;">Insurances</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>
               <template v-for="(insurance, index) in insurances">
                 <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
                 <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
               </template>
-              <v-btn color="primary" outlined rounded style="width: 50%">View Insurances</v-btn>
+              <v-btn color="primary" outlined rounded style="width: 50%;">View Insurances</v-btn>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00;">Licenses</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Licenses</v-card-title>
               <template v-for="(license, index) in licenses">
                 <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
                 <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
@@ -62,78 +66,35 @@
               <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>
               <v-card-subtitle>Past 30 days</v-card-subtitle>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
-              <template style="text-align: center width: 100%;">
-                <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
-                  <v-form class="mx-4" style="width: 60%;">
-                    <v-select
-                      dense
-                      label="Step 1 - Choose Your Channel"
-                      :items="company.locations"
-                      item-text="name address city state zipcode"
-                      item-value="name address city state zipcode"
-                      style="width: 100%;"
-                    >
-                      <template slot="selection" slot-scope="data">
-                        <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                      </template>
-                      <template slot="item" slot-scope="data">
-                        <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                      </template>
-                    </v-select>
-                  </v-form>
-                  to fill out your
-                  <v-form class="mx-3" style="width: 50%;">
-                    <v-select
-                      dense
-                      label="Step 2 - Choose Your Application"
-                      :items="userforms"
-                      item-text="name id"
-                      item-value="name id"
-                      style="width: 100%;"
-                    >
-                      <template slot="selection" slot-scope="data">
-                        <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
-                      </template>
-                      <template slot="item" slot-scope="data">
-                        <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
-                      </template>
-                    </v-select>
-                  </v-form>
-                  specialized application.</v-card-text>
-              </template>
-              <v-btn @click="sendMessage" outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
-              <transition name="slide-fade">
-                <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
-              </transition>
             </v-card>
           </transition>
-          <transition name="slide-fade">
-            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">
-              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>
-              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>
-              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>
-              <v-slide-group
-                multiple
-                show-arrows
-              >
-                <v-slide-item v-for="(review, index) in reviews">
-                  <v-divider></v-divider>
-                  <v-rating
-                    empty-icon="$mdiStarOutline"
-                    full-icon="$mdiStar"
-                    half-icon="$mdiStarHalfFull"
-                    half-increments
-                    hover
-                    length="5"
-                    size="64"
-                    :value="review.stars"
-                  ></v-rating>
-                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>
-                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>
-                </v-slide-item>
-              </v-slide-group>
-            </v-card>
-          </transition>
+<!--          <transition name="slide-fade">-->
+<!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">-->
+<!--              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>-->
+<!--              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>-->
+<!--              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>-->
+<!--              <v-slide-group-->
+<!--                multiple-->
+<!--                show-arrows-->
+<!--              >-->
+<!--                <v-slide-item v-for="(review, index) in reviews">-->
+<!--                  <v-divider></v-divider>-->
+<!--                  <v-rating-->
+<!--                    empty-icon="$mdiStarOutline"-->
+<!--                    full-icon="$mdiStar"-->
+<!--                    half-icon="$mdiStarHalfFull"-->
+<!--                    half-increments-->
+<!--                    hover-->
+<!--                    length="5"-->
+<!--                    size="64"-->
+<!--                    :value="review.stars"-->
+<!--                  ></v-rating>-->
+<!--                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>-->
+<!--                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>-->
+<!--                </v-slide-item>-->
+<!--              </v-slide-group>-->
+<!--            </v-card>-->
+<!--          </transition>-->
           <!--          <v-card class="d-flex flex-column align-center mt-10">-->
           <!--            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>-->
           <!--            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>-->
@@ -190,26 +151,28 @@
             min-height="50vh"
             min-width="20vw"
           ></v-skeleton-loader>
-          <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
-            <v-card-title style="color: #A61c00; font-size: 24px;">Your Connection Details</v-card-title>
-            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-            <v-card-text>Status: <span style="color: #A61c00">Approved Vendor</span></v-card-text>
-            <v-card-text>Approved Connections: <span style="color: #A61c00">{{singleCompanyConnections.length}}</span></v-card-text>
-            <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
-            <!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
-            <v-card-title style="color: #A61c00; font-size: 24px;">Related To You</v-card-title>
-            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-            <v-row style="width: 100%;" class="d-flex nowrap mt-2">
-              <v-card-text style="cursor: pointer; width: 60%;" @click="listNotesModal">Your Notes On This Vendor: <span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
-              <v-btn @click="addNotesModal" style="width: 38%; margin-right: 2%;" color="primary">+ Internal Note</v-btn>
-            </v-row>
-            <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
-            <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
-            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-            <v-card-title style="color: #A61c00">Other Details</v-card-title>
-            <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-            <v-card-text>Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
-          </v-card>
+          <transition name="slide-fade">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
+              <v-card-title style="color: #A61c00; font-size: 24px;">Your Connection Details</v-card-title>
+              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+              <v-card-text>Status: <span style="color: #A61c00" v-if="singleCompanyConnections.length > 0">Approved Vendor</span><span style="color: #A61c00" v-else>Non-Approved Vendor</span></v-card-text>
+              <v-card-text>Approved Connections: <span style="color: #A61c00">{{singleCompanyConnections.length}}</span></v-card-text>
+              <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
+              <!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
+              <v-card-title style="color: #A61c00; font-size: 24px;">Related To You</v-card-title>
+              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+              <v-row style="width: 100%;" class="d-flex nowrap mt-2">
+                <v-card-text style="cursor: pointer; width: 60%;" @click="listNotesModal">Your Notes On This Vendor: <span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+                <v-btn @click="addNotesModal" style="width: 38%; margin-right: 2%;" color="primary">+ Internal Note</v-btn>
+              </v-row>
+              <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+              <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
+              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+              <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
+              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
+              <v-card-text>Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
+            </v-card>
+          </transition>
         </v-col>
       </v-row>
 
@@ -254,6 +217,100 @@
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <template style="text-align: center; width: 100%;">
+            <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
+              <v-form class="mx-4" style="width: 60%;">
+                <v-select
+                  dense
+                  label="Step 1 - Choose Your Channel"
+                  :items="company.locations"
+                  item-text="name address city state zipcode"
+                  item-value="name address city state zipcode"
+                  style="width: 100%;"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                  </template>
+                </v-select>
+              </v-form>
+              to fill out your
+              <v-form class="mx-3" style="width: 50%;">
+                <v-select
+                  dense
+                  label="Step 2 - Choose Your Application"
+                  :items="userforms"
+                  item-text="name id"
+                  item-value="name id"
+                  style="width: 100%;"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                  </template>
+                </v-select>
+              </v-form>
+              specialized application.</v-card-text>
+          </template>
+          <v-btn @click="sendMessage" outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
+          <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="requestModalLoad = false">X</v-btn>
+          <transition name="slide-fade">
+            <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+          </transition>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-form class="mx-4" style="width: 60%;">
+            <v-select
+              dense
+              label="Step 1 - Choose Your Channel"
+              :items="company.locations"
+              item-text="name address city state zipcode"
+              item-value="name address city state zipcode"
+              style="width: 100%;"
+            >
+              <template slot="selection" slot-scope="data">
+                <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+              </template>
+              <template slot="item" slot-scope="data">
+                <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+              </template>
+            </v-select>
+            <v-autocomplete
+              v-model="sendMessageNonApp.name"
+              :items="naicsList"
+              item-text="name"
+              item-value="name"
+              label="Step 2 - Select A Category"
+              solo
+              clearable
+              hint="This is generated from the NAICS directory."
+            >
+              <template slot="selection" slot-scope="data">
+                <p>{{ data.item.name }}</p>
+              </template>
+              <template slot="item" slot-scope="data">
+                <p>{{ data.item.name }}</p>
+              </template>
+            </v-autocomplete>
+            <v-text-field
+              v-model="sendMessageNonApp.message"
+              label="Step 3 - Type in Message"
+            ></v-text-field>
+          </v-form>
+          <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="90%" class="mb-4">Send Message</v-btn>
+          <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="messageModalLoad = false">X</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -269,6 +326,12 @@
     },
     data() {
       return {
+        sendMessageNonApp: {
+
+        },
+        naicsList: [],
+        messageModalLoad: false,
+        requestModalLoad: false,
         absolute: true,
         opacity: 0.85,
         overlay: false,
@@ -315,6 +378,7 @@
     },
     async mounted() {
       console.log(this.$route.params.id, 'hey')
+      await this.getNaicsList();
       await this.getLocation();
       await this.getInsurances();
       await this.getLicenses();
@@ -325,10 +389,20 @@
       await this.getNotes();
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
+          .then(response => {
+            console.log('naicslist', response)
+            this.naicsList = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err on getting naicslist')
+          })
+      },
       async getConnections(location) {
         await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + location.companies_id)
           .then(response => {
-            console.log(response.data, 'connections');
+            console.log(response.data, 'connections!!!!!!!!!!!');
             if(response.data.length !== 0) {
               for(let i=0; i<response.data.length; i++) {
                 if(location.id === response.data[i].splocations_id && response.data[i].approval_status === 1) {
@@ -445,6 +519,30 @@
           primary_contact_first_name: this.$store.state.user.user.user.first_name,
           primary_contact_last_name: this.$store.state.user.user.user.last_name,
           message: `Hello, ${this.location.contact_first_name}. You are being invited by ${this.company.account_name} to apply for their approved vendor program titled - ${this.messageUserForm.name} at one of their locations located at ${this.messageLocation.address} ${this.messageLocation.city}, ${this.messageLocation.state} ${this.messageLocation.zipcode}. You can search for and apply to the application through SOWerk with the details we have provided you, but you have also been emailed at the following account - ${this.location.email} with a link to the application! Thank you! `,
+          location: this.messageLocation.name + " - " + this.messageLocation.address + " " + this.messageLocation.city + ", " + this.messageLocation.state + " " + this.messageLocation.zipcode,
+          pmMessageRead: false,
+          spMessageRead: false,
+          spLocationId: this.$route.params.id,
+          spLocationName: this.location.name
+        }
+        console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
+        await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.location.companies_id, messageVal)
+          .then(response => {
+            console.log(response, 'success in sending message')
+            this.messageSendLoad = true;
+          })
+          .catch(err => {
+            console.log(err, 'err in sending message')
+          })
+      },
+      async sendMessageNonApplication() {
+        const messageVal = {
+          userprofiles_id: this.$store.state.user.user.user.id,
+          service: this.sendMessageNonApp.name,
+          company: this.company.account_name,
+          primary_contact_first_name: this.$store.state.user.user.user.first_name,
+          primary_contact_last_name: this.$store.state.user.user.user.last_name,
+          message: this.sendMessageNonApp.message,
           location: this.messageLocation.name + " - " + this.messageLocation.address + " " + this.messageLocation.city + ", " + this.messageLocation.state + " " + this.messageLocation.zipcode,
           pmMessageRead: false,
           spMessageRead: false,
