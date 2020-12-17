@@ -740,9 +740,10 @@
                 v-if="tab === 2"
               >
                 <template v-slot:label>
-                  Check here if you have read our <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> and <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a>
+                    <span style="font-weight:bold">Check here if you have read our <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> and <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a></span>
                 </template>
               </v-checkbox>
+
               <v-btn
                 color="primary"
                 class="px-8"

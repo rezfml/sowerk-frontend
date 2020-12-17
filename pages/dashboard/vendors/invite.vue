@@ -69,16 +69,22 @@
                   </template>
                   <template v-slot:item.email="{ item }">
                     <v-text-field
-                      class="text-caption"
+                      class="card__input black--text"
+                      type="email"
                       placeholder="johnsmith@email.com"
                       v-model="item.email"
+                      :rules="rules.emailRules"
+                      validate-on-blur
                     ></v-text-field>
                   </template>
                   <template v-slot:item.phone="{ item }">
                     <v-text-field
-                      class="text-caption"
+                      type="tel"
+                      class="card__input black--text"
                       placeholder="123-456-7890"
                       v-model="item.phone"
+                      :rules="rules.requiredRules"
+                      v-mask="'(###) ###-####'"
                     ></v-text-field>
                   </template>
                   <template v-slot:item.preapproved="{ item }">
@@ -170,8 +176,14 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 import HomeCard from '~/components/dashboard/HomeCard'
 import FilterCard from '~/components/dashboard/FilterCard'
+
+import { VueMaskDirective } from 'v-mask'
+Vue.directive('mask', VueMaskDirective);
+
 
 export default {
   name: 'invite',
@@ -182,6 +194,36 @@ export default {
   },
   data() {
     return {
+      rules: {
+        requiredRules: [
+          v => !!v || v === 0 || 'Field is required',
+        ],
+        usernameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 100) || 'Name must be less than 100 characters'
+        ],
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+/.test(v) || 'E-mail must be valid',
+          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+        ],
+        emailNotRequiredRules: [
+          v => /.+@.+/.test(v) || 'E-mail must be valid',
+          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+        ],
+        phoneRules: [
+          (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
+        ],
+        passwordRules: [
+          v => !!v || 'Password is required',
+          v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+          v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+          v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+          v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
+          v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+          v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+        ]
+      },
       loading: false,
       preapprovedOptions: [
         {
