@@ -20,19 +20,6 @@
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-col style="padding-left:2%">
-              <v-btn
-                style="background: linear-gradient(to right, #A61C00, #741502);margin-left:2%;"
-                large
-                outlined
-                rounded
-                onhover
-                color="white"
-                to=""
-              >SOWERK 101</v-btn>
-              <p style="margin-left:4%;padding-left:15%;font-size:.8rem;font-weight:bold;">VIDEO GUIDE</p>
-            </v-col>
-
             <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 20%; height: 35vh;"></v-img>
 
             <v-col cols="7" class="d-flex flex-column justify-center">
@@ -47,24 +34,40 @@
               </p> -->
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">
-                <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width: 80%;"
-                  class="px-16 mr-16"
-                  large
-                  outlined
-                  rounded
-                  color="white"
-                  href="/dashboard/vendors/invite"
-                >Invite New Vendors</v-btn>
-                <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width: 80%;"
-                  class="px-16 mr-16"
-                  large
-                  outlined
-                  rounded
-                  color="white"
-                  href="/dashboard/vendors/"
-                >View Vendor Directory</v-btn>
+                <v-col cols="9">
+                  <v-btn
+                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
+                    class="px-16 mr-16"
+                    large
+                    outlined
+                    rounded
+                    color="white"
+                    href="/dashboard/vendors/invite"
+                  >Invite New Vendors</v-btn>
+                  <v-btn
+                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
+                    class="px-16 mr-16"
+                    large
+                    outlined
+                    rounded
+                    color="white"
+                    href="/dashboard/vendors/"
+                  >View Vendor Directory</v-btn>
+                </v-col>
+
+                <v-col cols="3">
+                  <v-btn
+                    style="background: linear-gradient(to right, #A61C00, #741502); width:100%;height:10vh;"
+                    class="px-12 mr-16 py-6"
+                    large
+                    outlined
+                    rounded
+                    onhover
+                    color="white"
+                    to=""
+                
+                  ><span style="font-size:.9rem;font-weight:900;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></v-btn>
+                </v-col>
               </v-row>
             </v-col>
           </v-row>

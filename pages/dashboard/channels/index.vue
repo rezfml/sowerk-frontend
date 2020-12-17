@@ -5,19 +5,6 @@
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-col style="padding-left:2%">
-              <v-btn
-                style="background: linear-gradient(to right, #A61C00, #741502);margin-left:2%;"
-                large
-                outlined
-                rounded
-                onhover
-                color="white"
-                to=""
-              >SOWERK 101</v-btn>
-              <p style="margin-left:4%;padding-left:15%;font-size:.8rem;font-weight:bold;">VIDEO GUIDE</p>
-            </v-col>
-
             <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 20%; height: 35vh;"></v-img>
 
             <v-col cols="7" class="d-flex flex-column justify-center">
@@ -27,9 +14,10 @@
               <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
               </p>
               <v-spacer></v-spacer>
-              <v-row class="d-flex justify-space-around align-center mx-0">
+              <v-row class="d-flex flex-row justify-space-around align-center mx-0">
+                
                 <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:65%;height:10vh"
                   class="px-12 mr-16 py-6"
                   large
                   outlined
@@ -37,6 +25,18 @@
                   color="white"
                   to="../../dashboard/channels/add"
                 >Add Another Channel - Click Here</v-btn>
+
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:18%;height:10vh;"
+                  class="px-12 mr-16 py-6"
+                  large
+                  outlined
+                  rounded
+                  onhover
+                  color="white"
+                  to=""
+              
+                ><span style="font-size:.9rem;font-weight:900;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></v-btn>
               </v-row>
             </v-col>
 
