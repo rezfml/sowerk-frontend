@@ -63,10 +63,8 @@
                     outlined
                     rounded
                     onhover
-                    color="white"
-                    to=""
-                
-                  ><span style="font-size:.9rem;font-weight:900;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></v-btn>
+                    color="white"                
+                  ><a><span style="font-size:.9rem;font-weight:900;color:white;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></a></v-btn>
                 </v-col>
               </v-row>
             </v-col>

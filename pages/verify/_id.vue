@@ -37,17 +37,21 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     console.log(this.$route.params.id);
     this.verificationId = this.$route.params.id;
-    this.getVerification()
+    await this.getVerification()
   },
   methods: {
     async getVerification() {
-      let {data, status} = await this.$http.put('https://www.sowerkbackend.com/api/auth/verify/' + this.verificationId, this.payload).catch(e => e);
-      if (this.$error(status)) return;
-      console.log(data);
-      this.verification = data;
+      await this.$http.put('https://www.sowerkbackend.com/api/auth/verify/' + this.verificationId, this.payload)
+      .then(res => {
+        console.log(res, "RESPONSE")
+      })
+      .catch(err => {
+        console.log(err, "GGGGGGGGGGGGGGG")
+      })
+      
       setTimeout(function() {
         window.location.href = '/login';
       }, 5000);

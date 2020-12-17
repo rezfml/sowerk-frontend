@@ -33,25 +33,22 @@
                   outlined
                   rounded
                   onhover
-                  color="white"
-                  to=""
-              
-                ><span style="font-size:.9rem;font-weight:900;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></v-btn>
+                  color="white"              
+                ><a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank"><span style="font-size:.9rem;font-weight:900;color:white;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></a></v-btn>
               </v-row>
             </v-col>
-
           </v-row>
         </v-card>
       </transition>
 
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
-<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
-<!--        </v-col>-->
+        <!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
+        <!--          <v-progress-circular-->
+        <!--            indeterminate-->
+        <!--            color="primary"-->
+        <!--            :size="50"-->
+        <!--          ></v-progress-circular>-->
+        <!--        </v-col>-->
 
         <v-col cols="12" class="d-flex flex-column justify-start flex-wrap" v-if="$vuetify.breakpoint.sm">
           <v-skeleton-loader
@@ -61,6 +58,7 @@
             min-width="80vw"
             cols
           ></v-skeleton-loader>
+
           <transition name="slide-fade">
             <FacilitiesCard
               :title="'Your Channels - ' + locations.length"
@@ -76,6 +74,7 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
+          
 <!--          <transition name="slide-fade">-->
 <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
 <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
