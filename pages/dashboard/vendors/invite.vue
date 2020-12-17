@@ -32,92 +32,112 @@
                 </p>
               </v-col>
               <v-col cols="12">
-                <v-data-table
-                  :headers="headers"
-                  :items="vendors"
-                  class="text-caption table--bordered"
-                  disable-pagination
-                  hide-default-footer
-                >
-                  <template v-slot:item.service="{ item }">
-                    <v-text-field
-                      class="text-caption"
-                      placeholder="HVAC"
-                      v-model="item.service"
-                    ></v-text-field>
-                  </template>
-                  <template v-slot:item.companyName="{ item }">
-                    <v-text-field
-                      class="text-caption"
-                      placeholder="Outdoor Solutions"
-                      v-model="item.companyName"
-                    ></v-text-field>
-                  </template>
-                  <template v-slot:item.firstName="{ item }">
-                    <v-text-field
-                      class="text-caption"
-                      placeholder="John"
-                      v-model="item.firstName"
-                    ></v-text-field>
-                  </template>
-                  <template v-slot:item.lastName="{ item }">
-                    <v-text-field
-                      class="text-caption"
-                      placeholder="Smith"
-                      v-model="item.lastName"
-                    ></v-text-field>
-                  </template>
-                  <template v-slot:item.email="{ item }">
-                    <v-text-field
-                      class="card__input black--text"
-                      type="email"
-                      placeholder="johnsmith@email.com"
-                      v-model="item.email"
-                      :rules="rules.emailRules"
-                      validate-on-blur
-                    ></v-text-field>
-                  </template>
-                  <template v-slot:item.phone="{ item }">
-                    <v-text-field
-                      type="tel"
-                      class="card__input black--text"
-                      placeholder="123-456-7890"
-                      v-model="item.phone"
-                      :rules="rules.requiredRules"
-                      v-mask="'(###) ###-####'"
-                    ></v-text-field>
-                  </template>
-                  <template v-slot:item.preapproved="{ item }">
-                    <v-select
-                      :items="preapprovedOptions"
-                      v-model="item.preapproved"
-                      item-text="text"
-                      item-value="value"
-                      class="text-caption"
-                      placeholder="Branson Store - 1234 S New St"
-                    >
-                    </v-select>
-                  </template>
-                  <template v-slot:item.property="{ item }">
-                    <v-select
-                      :items="properties"
-                      item-text="name"
-                      v-model="item.property"
-                      class="text-caption"
-                    >
-                      <template slot="selection" slot-scope="data">
-                        {{ data.item.name }} - {{ data.item.address }}
-                        {{ data.item.city }}, {{ data.item.state }}
-                        {{ data.item.zipcode }}
-                      </template>
-                      <template slot="item" slot-scope="data">
-                        {{ data.item.name }} - {{ data.item.address }}
-                        {{ data.item.city }}, {{ data.item.state }}
-                        {{ data.item.zipcode }}
-                      </template>
-                    </v-select>
-                  </template>
-                </v-data-table>
+                <v-form ref="form">
+                  <v-data-table
+                    :headers="headers"
+                    :items="vendors"
+                    class="text-caption table--bordered"
+                    disable-pagination
+                    hide-default-footer
+                  >
+                    <template v-slot:item.service="{ item }">
+                      <v-autocomplete
+                        v-model="item.service"
+                        :items="naicsList"
+                        item-text="name"
+                        item-value="name"
+                        label="Select A Category That Describes What This Application Provides"
+                        solo
+                        clearable
+                        hint="This is generated from the NAICS directory."
+                        :rules="rules.requiredRules"
+                      >
+                        <template slot="selection" slot-scope="data">
+                          <p>{{ data.item.name }}</p>
+                        </template>
+                        <template slot="item" slot-scope="data">
+                          <p>{{ data.item.name }}</p>
+                        </template>
+                      </v-autocomplete>
+                    </template>
+                    <template v-slot:item.companyName="{ item }">
+                      <v-text-field
+                        class="text-caption"
+                        placeholder="Outdoor Solutions"
+                        v-model="item.companyName"
+                        :rules="rules.requiredRules"
+                      ></v-text-field>
+                    </template>
+                    <template v-slot:item.firstName="{ item }">
+                      <v-text-field
+                        class="text-caption"
+                        placeholder="John"
+                        v-model="item.firstName"
+                        :rules="rules.requiredRules"
+                      ></v-text-field>
+                    </template>
+                    <template v-slot:item.lastName="{ item }">
+                      <v-text-field
+                        class="text-caption"
+                        placeholder="Smith"
+                        v-model="item.lastName"
+                        :rules="rules.requiredRules"
+                      ></v-text-field>
+                    </template>
+                    <template v-slot:item.email="{ item }">
+                      <v-text-field
+                        class="card__input black--text"
+                        type="email"
+                        placeholder="johnsmith@email.com"
+                        v-model="item.email"
+                        :rules="rules.emailRules"
+                        validate-on-blur
+                      ></v-text-field>
+                    </template>                  
+                    <template v-slot:item.phone="{ item }">
+                      <v-text-field
+                        type="tel"
+                        class="card__input black--text"
+                        placeholder=" "
+                        v-model="item.phone"
+                        :rules="rules.requiredRules"
+                        v-mask="'(###) ###-####'"
+                      ></v-text-field>
+                    </template>
+                    <template v-slot:item.preapproved="{ item }">
+                      <v-select
+                        :items="preapprovedOptions"
+                        v-model="item.preapproved"
+                        item-text="text"
+                        item-value="value"
+                        class="text-caption"
+                        placeholder="Branson Store - 1234 S New St"
+                        :rules="rules.requiredRules"
+                      >
+                      </v-select>
+                    </template>
+                    <template v-slot:item.property="{ item }">
+                      <v-select
+                        :items="properties"
+                        item-text="name"
+                        v-model="item.property"
+                        class="text-caption"
+                        :rules="rules.requiredRules"
+                      >
+                        <template slot="selection" slot-scope="data">
+                          {{ data.item.name }} - {{ data.item.address }}
+                          {{ data.item.city }}, {{ data.item.state }}
+                          {{ data.item.zipcode }}
+                        </template>
+                        <template slot="item" slot-scope="data">
+                          {{ data.item.name }} - {{ data.item.address }}
+                          {{ data.item.city }}, {{ data.item.state }}
+                          {{ data.item.zipcode }}
+                        </template>
+                      </v-select>
+                    </template>
+                  </v-data-table>
+                </v-form>
               </v-col>
               <v-col cols="12" class="d-flex justify-end">
                 <v-btn color="primary" text @click="addInvitee"
@@ -292,7 +312,30 @@ export default {
         }
       ],
       businesses: null,
-      success: false
+      success: false,
+      naicsList: [],
+      rules: {
+        requiredRules: [(v) => !!v || v === 0 || 'Field is required'],
+        usernameRules: [
+          (v) => !!v || 'Name is required',
+          (v) =>
+            (v && v.length <= 100) || 'Name must be less than 100 characters',
+        ],
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+          // v => /.+@.[A-Z]+/.test(v)  'E-mail must be valid',
+          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+        ],
+        emailNotRequiredRules: [
+          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+          (v) =>
+            (v && v.length <= 100) || 'Email must be less than 100 characters',
+        ],
+        phoneRules: [
+          (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
+        ],
+      },
     }
   },
   watch: {
@@ -307,6 +350,7 @@ export default {
   async mounted() {
     await this.getCompany()
     await this.getBusinesses()
+    await this.getNaicsList()
   },
   computed: {
     currentUser() {
@@ -314,6 +358,16 @@ export default {
     }
   },
   methods: {
+    async getNaicsList() {
+      await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
+        .then(response => {
+          console.log('naicslist', response)
+          this.naicsList = response.data
+        })
+        .catch(err => {
+          console.log(err, 'err on getting naicslist')
+        })
+    },
     async getCompany() {
       this.loading = true
       let { data, status } = await this.$http
@@ -356,42 +410,45 @@ export default {
       await this.getServices()
     },
     async inviteProviders() {
-      let providersObject = {
-        companies_id: this.$store.state.user.user.user.companies_id,
-        service: [],
-        companyName: [],
-        first_name: [],
-        last_name: [],
-        phone: [],
-        toEmail: [],
-        pre_approved: [],
-        property: [],
-        usersCompanyName: this.company.account_name,
-        usersFirstName: this.$store.state.user.user.user.first_name,
-        usersLastName: this.$store.state.user.user.user.last_name,
-        companyImg: this.company.imgUrl
+      this.$refs.form.validate();
+      if(this.$refs.form.validate()) {
+        let providersObject = {
+          companies_id: this.$store.state.user.user.user.companies_id,
+          service: [],
+          companyName: [],
+          first_name: [],
+          last_name: [],
+          phone: [],
+          toEmail: [],
+          pre_approved: [],
+          property: [],
+          usersCompanyName: this.company.account_name,
+          usersFirstName: this.$store.state.user.user.user.first_name,
+          usersLastName: this.$store.state.user.user.user.last_name,
+          companyImg: this.company.imgUrl
+        }
+        for (let i = 0; i < this.vendors.length; i++) {
+          providersObject.service.push(this.vendors[i].service)
+          providersObject.companyName.push(this.vendors[i].companyName)
+          providersObject.first_name.push(this.vendors[i].firstName)
+          providersObject.last_name.push(this.vendors[i].lastName)
+          providersObject.phone.push(this.vendors[i].phone)
+          providersObject.toEmail.push(this.vendors[i].email)
+          providersObject.pre_approved.push(this.vendors[i].preapproved)
+          providersObject.property.push(this.vendors[i].property)
+        }
+        console.log(providersObject, 'yay')
+        await this.$http
+          .post('https://www.sowerkbackend.com/api/invite', providersObject)
+          .then((response) => {
+            console.log(response, 'success')
+            this.success = true
+          })
+          .catch((err) => {
+            console.log('err', err)
+            alert('error in inviting service providers to our platform')
+          })
       }
-      for (let i = 0; i < this.vendors.length; i++) {
-        providersObject.service.push(this.vendors[i].service)
-        providersObject.companyName.push(this.vendors[i].companyName)
-        providersObject.first_name.push(this.vendors[i].firstName)
-        providersObject.last_name.push(this.vendors[i].lastName)
-        providersObject.phone.push(this.vendors[i].phone)
-        providersObject.toEmail.push(this.vendors[i].email)
-        providersObject.pre_approved.push(this.vendors[i].preapproved)
-        providersObject.property.push(this.vendors[i].property)
-      }
-      console.log(providersObject, 'yay')
-      await this.$http
-        .post('https://www.sowerkbackend.com/api/invite', providersObject)
-        .then((response) => {
-          console.log(response, 'success')
-          this.success = true
-        })
-        .catch((err) => {
-          console.log('err', err)
-          alert('error in inviting service providers to our platform')
-        })
     },
     async getServices() {
       for (const location of this.locations) {
@@ -440,7 +497,6 @@ export default {
         preapproved: true,
         property: ''
       }
-
       this.vendors.push(newVendor)
     }
   }

@@ -107,7 +107,10 @@
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table>
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
@@ -186,7 +189,10 @@
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table>
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
@@ -209,8 +215,8 @@
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex" v-if="$vuetify.breakpoint.xl">
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 37.5%;">Assign Channel</v-btn>
-              <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 37.5%;">Add to Company Templates</v-btn>
+              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 45%;">Assign Channel</v-btn>
+              <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 53%;">Add to Company Templates</v-btn>
             </div>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Add to Company Templates</v-btn>
@@ -239,7 +245,10 @@
         >
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table>
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
@@ -307,29 +316,93 @@
 
     <transition name="slide-fade">
       <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
-      <template v-if="loading">
-        <v-simple-table class="pt-16 mb-4" style="width: 100%;">
-          <thead style="min-width: 100%;">
-            <tr style="min-width: 100%;">
-              <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
-              <th style="color: #a61c00; width: 30%; text-align: center">Channel Address</th>
-              <th style="color: #a61c00; width: 40%;">Actions</th>
+        <transition name="slide-fade">
+          <v-card-title v-if="loadChannelList && !loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
+        </transition>
+        <transition name="slide-fade">
+          <v-card-title v-if="!loadChannelList && loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose your Type, Category, and Tags</v-card-title>
+        </transition>
+        <template v-if="loading">
+          <transition name="slide-fade">
+            <v-simple-table v-if="loadChannelList && !loadAssignTagCategoryType" class="pt-16 mb-4" style="width: 100%; max-height: 500px;" fixed-header height="400px">
+            <thead style="min-width: 100%;">
+              <tr style="min-width: 100%;">
+                <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
+                <th style="color: #a61c00; width: 30%; text-align: center">Channel Address</th>
+                <th style="color: #a61c00; width: 40%;">Actions</th>
+              </tr>
+            </thead>
+            <tbody style="min-width: 100%;">
+            <tr  v-for="(location, index) in addLocations" style="background: none !important; min-width: 100%;">
+                  <td style="width: 30%; text-align: center" class="py-1">{{location.name}}</td>
+                  <td style="width: 30%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
+                  <td style="width: 40%;">
+                    <v-btn @click="assignToService(location.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Template</v-btn>
+                  </td>
             </tr>
-          </thead>
-          <tbody style="min-width: 100%;">
-          <tr  v-for="(location, index) in addLocations" style="background: none !important; min-width: 100%;">
-                <td style="width: 30%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 30%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 40%;">
-                  <v-btn @click="assignToService(location.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Template</v-btn>
-                </td>
-          </tr>
-          </tbody>
-        </v-simple-table>
-      </template>
-      <v-btn text @click="closeAddToLocationLoad" style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
-    </v-card>
+            </tbody>
+          </v-simple-table>
+          </transition>
+          <transition name="slide-fade">
+            <v-row v-if="!loadChannelList && loadAssignTagCategoryType" class="mt-12 d-flex flex-column align-center">
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
+              <v-select
+                style="width: 95%;"
+                v-model="addLocation.vendorType"
+                :items="vendorType"
+                label="Select A Type That Describes What This Application Provides"
+              ></v-select>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
+              <v-autocomplete
+                style="width: 95%;"
+                v-model="addLocation.service_name"
+                :items="naicsList"
+                item-text="name"
+                item-value="name"
+                label="Select A Category That Describes What This Application Provides"
+                solo
+                clearable
+                hint="This is generated from the NAICS directory."
+              >
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+              </v-autocomplete>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
+              <v-combobox
+                style="width: 95%;"
+                v-model="applicationtemplateTagsNew"
+                :items="sowerkTags"
+                item-text="name"
+                item-value="name"
+                chips
+                multiple
+                label="Choose your tags here"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    class="v-chip--select-multi"
+                    style="width: auto;"
+                  >
+                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text v-else>{{data.item}}</v-card-text>
+                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <p>{{data.item.name}}</p>
+                </template>
+              </v-combobox>
+              <v-btn @click="submitTagCategoryType" class="my-4 py-6" color="#7C7C7C" style="color:white; width: 40%;">Submit</v-btn>
+            </v-row>
+          </transition>
+        </template>
+        <v-btn text @click="closeAddToLocationLoad" style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
+        <v-btn style="position: absolute; bottom: 10px; left: 10px;" class="py-6 px-12" color="primary" @click="backAssignTagCategoryType" v-if="loadAssignTagCategoryType">< BACK</v-btn>
+      </v-card>
     </transition>
 
     <transition name="slide-fade">
@@ -404,7 +477,10 @@
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                       <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;">
+                        <v-simple-table style="width: 100%;"
+                                        fixed-header
+                                        height="300px"
+                        >
                           <template v-slot:default>
                             <!--                            <thead>-->
                             <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -451,7 +527,9 @@
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                       <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;">
+                        <v-simple-table style="width: 100%;"
+                                        fixed-header
+                                        height="300px">
                           <template v-slot:default>
                             <!--                            <thead>-->
                             <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -600,7 +678,8 @@
             </v-form>
           </transition>
           <transition name="slide-fade">
-            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2">
+            <v-simple-table class="py-8" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2" fixed-header
+                            height="400px">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
                 <th style="color: #a61c00; width: 40%; text-align: center">Channel Name</th>
@@ -655,7 +734,8 @@
             <v-btn @click="addService" v-if="step4" outlined color="primary" class="px-16 py-8" style="z-index: 1; position:absolute; top: 10px; right: 10px;">+ Add Category</v-btn>
           </transition>
           <transition name="slide-fade">
-            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4">
+            <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4" fixed-header
+                            height="400px">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
                 <th style="color: #a61c00; width: 70%; text-align: center">Category</th>
@@ -736,7 +816,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="300px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -783,7 +864,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="300px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -960,6 +1042,8 @@ const naics = require("naics");
     },
     data () {
       return {
+        applicationtemplateTagsNew: [],
+        sowerkTags: [],
         categoryRules: [
           v => !!v || 'Category is required',
         ],
@@ -1114,10 +1198,13 @@ const naics = require("naics");
         industryLevel4: [],
         sortedSowerkTemplates: [],
         naicsList: [],
+        loadChannelList: false,
+        loadAssignTagCategoryType: false,
         }
     },
     async mounted() {
       // await this.getCompany(this.currentUser.companies_id);
+      await this.getSowerkTags();
       await this.getNaicsList();
       // ORIGINAL CODE FOR NAICS NPM PACKAGE
       // let codes = naics.Industry.sectors();
@@ -1150,6 +1237,25 @@ const naics = require("naics");
       },
     },
     methods: {
+      async getSowerkTags() {
+        await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
+          .then(response => {
+            console.log(response.data, 'response.data for sowerktags');
+            this.sowerkTags = response.data;
+            console.log(this.sowerkTags, 'sowerktags')
+          })
+      },
+      async removeTag(item) {
+        console.log(this.applicationtemplateTagsNew, 'before removal', item)
+        this.applicationtemplateTagsNew = this.applicationtemplateTagsNew.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.applicationtemplateTagsNew, 'after removal')
+      },
       async getNaicsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
           .then(response => {
@@ -1581,6 +1687,7 @@ const naics = require("naics");
                  id: response.data[i].id,
                  service_name: response.data[i].service_name,
                  form_name: response.data[i].form_name,
+                 vendorType: response.data[i].vendorType,
                  applicationtemplatesformfields: []
                }
                this.applicationTemplates.push(userForm);
@@ -1617,6 +1724,7 @@ const naics = require("naics");
                  id: response.data[i].id,
                  service_name: response.data[i].service_name,
                  form_name: response.data[i].form_name,
+                 vendorType: response.data[i].vendorType,
                  companytemplatesformfields: []
                }
                this.companyTemplates.push(userForm);
@@ -1736,6 +1844,8 @@ const naics = require("naics");
         this.addToLocationLoad = true;
         console.log(this.addLocations, 'locations on load add')
         this.addLocation = location
+        this.loadChannelList = true;
+        this.loadAssignTagCategoryType = false;
         console.log('template form', this.addLocation)
       },
       async closeAddToLocationLoad() {
@@ -1743,66 +1853,91 @@ const naics = require("naics");
       },
       async assignToService(id, name) {
         this.assignChannel = true;
+        this.locationIdChoice = id;
+        this.assignTagCategoryType();
+      },
+      async assignTagCategoryType() {
+        this.assignChannel = false;
+        this.loadChannelList = false;
+        this.loadAssignTagCategoryType = true;
+        console.log(this.addLocation, 'addLocationChoice!!!!!')
+      },
+      async backAssignTagCategoryType() {
+        this.loadChannelList = true;
+        this.loadAssignTagCategoryType = false;
+      },
+      async submitTagCategoryType() {
         const userform = {
-          locations_id: id,
+          locations_id: this.locationIdChoice,
           applicationStatus: 1,
           name: this.addLocation.form_name,
           service: this.addLocation.service_name,
-          vendorType: "Servicer",
+          vendorType: this.addLocation.vendorType,
         }
-          await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id, userform)
-            .then(async(response) => {
-              console.log(response, 'success in adding userform from template')
-              if(this.addLocation.applicationtemplatesformfields) {
-                for(let i=0; i<this.addLocation.applicationtemplatesformfields.length; i++) {
-                  let formfield = {
-                    userform_id: response.data.userform.id,
-                    type: this.addLocation.applicationtemplatesformfields[i].type,
-                    name: this.addLocation.applicationtemplatesformfields[i].name,
-                    value: this.addLocation.applicationtemplatesformfields[i].value,
-                    required: this.addLocation.applicationtemplatesformfields[i].required,
-                    options: this.addLocation.applicationtemplatesformfields[i].options,
-                    order: this.addLocation.applicationtemplatesformfields[i].order,
-                  }
-                  await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + response.data.userform.id, formfield)
-                    .then(res => {
-                      console.log(res, 'successful in posting formfields to userform')
-                    })
-                    .catch(err => {
-                      console.log(err, 'err in posting formfields to userform')
-                    })
-                }
-                this.assignChannel = false;
-                await this.$router.go();
+        console.log(userform, 'woah!', this.applicationtemplateTagsNew)
+        await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + this.locationIdChoice, userform)
+          .then(async(response) => {
+            console.log(response, 'success in adding userform from template')
+            if(this.applicationtemplateTagsNew.length > 0) {
+              for(let i=0; i<this.applicationtemplateTagsNew.length; i++) {
+                await this.$http.post('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + response.data.userform.id, this.applicationtemplateTagsNew[i])
+                  .then(response => {
+                    console.log(response, 'response for posting tags')
+                  })
+                  .catch(err => {
+                    console.log(err, 'err in posting tags')
+                  })
               }
-              if(this.addLocation.companytemplatesformfields) {
-                for(let i=0; i<this.addLocation.companytemplatesformfields.length; i++) {
-                  let formfield = {
-                    userform_id: response.data.userform.id,
-                    type: this.addLocation.companytemplatesformfields[i].type,
-                    name: this.addLocation.companytemplatesformfields[i].name,
-                    value: this.addLocation.companytemplatesformfields[i].value,
-                    required: this.addLocation.companytemplatesformfields[i].required,
-                    options: this.addLocation.companytemplatesformfields[i].options,
-                    order: this.addLocation.companytemplatesformfields[i].order,
-                  }
+            }
+            if(this.addLocation.applicationtemplatesformfields) {
+              for(let i=0; i<this.addLocation.applicationtemplatesformfields.length; i++) {
+                let formfield = {
+                  userform_id: response.data.userform.id,
+                  type: this.addLocation.applicationtemplatesformfields[i].type,
+                  name: this.addLocation.applicationtemplatesformfields[i].name,
+                  value: this.addLocation.applicationtemplatesformfields[i].value,
+                  required: this.addLocation.applicationtemplatesformfields[i].required,
+                  options: this.addLocation.applicationtemplatesformfields[i].options,
+                  order: this.addLocation.applicationtemplatesformfields[i].order,
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + response.data.userform.id, formfield)
+                  .then(res => {
+                    console.log(res, 'successful in posting formfields to userform')
+                  })
+                  .catch(err => {
+                    console.log(err, 'err in posting formfields to userform')
+                  })
+              }
+              this.assignChannel = false;
+              await this.$router.go();
+            }
+            if(this.addLocation.companytemplatesformfields) {
+              for(let i=0; i<this.addLocation.companytemplatesformfields.length; i++) {
+                let formfield = {
+                  userform_id: response.data.userform.id,
+                  type: this.addLocation.companytemplatesformfields[i].type,
+                  name: this.addLocation.companytemplatesformfields[i].name,
+                  value: this.addLocation.companytemplatesformfields[i].value,
+                  required: this.addLocation.companytemplatesformfields[i].required,
+                  options: this.addLocation.companytemplatesformfields[i].options,
+                  order: this.addLocation.companytemplatesformfields[i].order,
+                }
 
-                  console.log(formfield, 'formfield')
-                  await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + response.data.userform.id, formfield)
-                    .then(res => {
-                      console.log(res, 'successful in posting formfields to userform')
-                    })
-                    .catch(err => {
-                      console.log(err, 'err in posting formfields to userform')
-                    })
-                }
-                await this.$router.go();
+                console.log(formfield, 'formfield')
+                await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + response.data.userform.id, formfield)
+                  .then(res => {
+                    console.log(res, 'successful in posting formfields to userform')
+                  })
+                  .catch(err => {
+                    console.log(err, 'err in posting formfields to userform')
+                  })
               }
-            })
-            .catch(err => {
-              console.log(err, 'err in adding userform from template')
-            })
-        this.assignChannel = false;
+              await this.$router.go();
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err in adding userform from template')
+          })
       },
       async getServiceForVendor(location) {
         this.locationVal = {};
