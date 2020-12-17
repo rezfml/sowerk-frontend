@@ -1,10 +1,12 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
+
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 10%; height: 30vh;"></v-img>
+            <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 20%; height: 35vh;"></v-img>
+
             <v-col cols="7" class="d-flex flex-column justify-center">
               <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p>
@@ -12,9 +14,10 @@
               <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
               </p>
               <v-spacer></v-spacer>
-              <v-row class="d-flex justify-space-around align-center mx-0">
+              <v-row class="d-flex flex-row justify-space-around align-center mx-0">
+                
                 <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:65%;height:10vh"
                   class="px-12 mr-16 py-6"
                   large
                   outlined
@@ -22,11 +25,25 @@
                   color="white"
                   to="../../dashboard/channels/add"
                 >Add Another Channel - Click Here</v-btn>
+
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:18%;height:10vh;"
+                  class="px-12 mr-16 py-6"
+                  large
+                  outlined
+                  rounded
+                  onhover
+                  color="white"
+                  to=""
+              
+                ><span style="font-size:.9rem;font-weight:900;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></v-btn>
               </v-row>
             </v-col>
+
           </v-row>
         </v-card>
       </transition>
+
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
 <!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
 <!--          <v-progress-circular-->
