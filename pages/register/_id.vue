@@ -153,6 +153,15 @@
 
                             <v-col cols="12" sm="6">
                               <v-text-field
+                                id="website"
+                                label="Company Website*"
+                                placeholder=" "
+                                v-model="company.website"
+                                ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12" sm="6">
+                              <v-text-field
                                 id="brand-name"
                                 label="Brand Name*"
                                 type="text"
@@ -180,7 +189,7 @@
                                 placeholder=" "
                                 v-model="company.llcName"></v-text-field>
                             </v-col>
-
+<!-- 
                             <v-col cols="12" md="6">
                               <v-text-field
                                 label="Email Address*"
@@ -190,9 +199,9 @@
                                 v-model="company.email"
                                 readonly
                               ></v-text-field>
-                            </v-col>
+                            </v-col> -->
 
-                            <v-col cols="12" md="6">
+                            <!-- <v-col cols="12" md="6">
                               <v-text-field
                                 label="Phone*"
                                 type="text"
@@ -201,7 +210,7 @@
                                 v-model="company.phone"
                                 readonly
                               ></v-text-field>
-                            </v-col>
+                            </v-col> -->
 
                             <v-col cols="12">
                               <div class="v-input__control">
@@ -241,7 +250,7 @@
                             <v-col cols="12" md="6">
                               <v-text-field
                                 label="Year Business Was Founded*"
-                                type="text"
+                                type="number"
                                 placeholder=" "
                                 v-model="company.year_founded"
                                 class="pt-5"
@@ -263,7 +272,8 @@
                     </v-card-text>
                   </v-container>
                 </v-tab-item>
-                <v-tab-item eager>
+
+                <!-- <v-tab-item eager>
                   <v-container style="max-width: 80%;" mx-auto>
                     <v-card-text class="pa-0 pt-12">
                       <template v-if="editingLocation">
@@ -306,7 +316,7 @@
                       </template>
                     </v-card-text>
                   </v-container>
-                </v-tab-item>
+                </v-tab-item> -->
 
                 <v-tab-item eager>
                   <v-container style="max-width: 100%;" class="mx-auto mb-12">
@@ -457,16 +467,17 @@
                   </v-container>
                 </v-tab-item>
               </v-tabs-items>
+
               <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
                 <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
+
                 <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
-                <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0">Next > </v-btn>
-                <v-btn color="primary" outlined class="px-8 mx-8" style="flex-grow: 1; border-width: 2px;" @click="addLocation" v-if="!editingLocation && tab === 1">+ Save and Add Another Location </v-btn>
-                <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="(!editingLocation && tab === 1) || (!editingLocation && tab === 2)">Next > </v-btn>
-                <v-btn color="primary" class="px-8" @click="finishEditing" v-else-if="editingLocation && tab === 1">Finish Location </v-btn>
-                <v-btn color="primary" class="px-8" @click="nextPageIfNotLast; editingLocation = false" v-else-if="tab === 2">Review</v-btn>
-                <v-btn color="primary" class="px-8" @click="register" v-if="tab === 3">Submit</v-btn>
+
+                <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0 || tab === 1">Next > </v-btn>
+
+                <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2">Submit</v-btn>
               </v-card-actions>
+
             </v-card>
           </v-col>
         </v-row>
@@ -503,25 +514,24 @@
         tab: 0,
         items: [
           'Company',
-          'Locations',
           'Documents',
           'Review'
         ],
         company: {
-          email: '',
           account_name: '',
           brand_name: '',
+          llcName: '',
           address: '',
           city: '',
           state: '',
           zipcode: '',
           description: '',
-          phone: '',
           year_founded: '',
           company_type: false,
           isFranchise: false,
           servicesOffered: [],
-          imgUrl: null
+          imgUrl: null,
+          website: null
         },
         bestSelection: [
           {
@@ -624,24 +634,24 @@
         ],
         fullAddress: null,
         locations: [],
-        location: {
-          name: null,
-          address: null,
-          city: null,
-          state: null,
-          zipcode: null,
-          contact_first_name: null,
-          contact_last_name: null,
-          phone: null,
-          email: null,
-          latitude: null,
-          longitude: null,
-          radius: 0,
-          year_founded: '',
-          pfLogoCheckbox: false,
-          imageUrl: null,
-          companies_id: null
-        },
+        // location: {
+        //   name: null,
+        //   address: null,
+        //   city: null,
+        //   state: null,
+        //   zipcode: null,
+        //   contact_first_name: null,
+        //   contact_last_name: null,
+        //   phone: null,
+        //   email: null,
+        //   latitude: null,
+        //   longitude: null,
+        //   radius: 0,
+        //   year_founded: '',
+        //   pfLogoCheckbox: false,
+        //   imageUrl: null,
+        //   companies_id: null
+        // },
         formattedServicesProvided: [],
         editingIndex: 0,
         editingIndexInsurance: 0,
@@ -653,12 +663,12 @@
         editingInsurance: true,
         editingLicense: true,
         headers: [
-          { text: 'Location Name', value: 'name', class: 'primary--text font-weight-regular' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-regular' },
-          { text: 'Contact Name', value: 'full_name', class: 'primary--text font-weight-regular' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-regular' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-regular' },
-          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
+          { text: 'Location Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Contact Name', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: '', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         headerInsurance: [
           {
@@ -666,11 +676,11 @@
             align: 'start',
             sortable: false,
             value: 'id',
-            class: 'primary--text font-weight-regular'
+            class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
           },
-          { text: "Insurance Company", value: 'name', class: 'primary--text font-weight-regular'},
-          { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-regular'},
-          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-regular'},
+          { text: "Insurance Company", value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: "Policy Number", value: 'policyNumber', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
         ],
         invitation: {}
       }
@@ -691,8 +701,8 @@
           this.company.account_name = response.data.invitation[0].companyName;
           this.company.brand_name = response.data.invitation[0].companyName;
           this.company.servicesOffered.push(response.data.invitation[0].service);
-          this.company.phone = response.data.invitation[0].phone;
-          this.company.email = response.data.invitation[0].email;
+          // this.company.phone = response.data.invitation[0].phone;
+          // this.company.email = response.data.invitation[0].email;
           this.user.phone = response.data.invitation[0].phone;
           this.user.email = response.data.invitation[0].email;
           this.user.first_name = response.data.invitation[0].first_name;
@@ -712,9 +722,9 @@
       },
       selectCompanyImage(e) {
         this.companyImageFile = e.target.files[0];
-        console.log(this.companyImageFile);
+        console.log(this.companyImageFile, "company image file");
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
-        console.log(this.companyImageUrl);
+        console.log(this.companyImageUrl, "company image URL");
       },
       clickCompanyImageUpload() {
         console.log(this);
@@ -863,11 +873,16 @@
         this.loopInsuranceFilesForUpload();
         this.loopLicenseFilesForUpload();
 
-        await this.loopLocationImages();
+        // await this.loopLocationImages();
 
         console.log(this.company, 'this.company');
-        console.log(this.locations, 'this.locations');
+        // console.log(this.locations, 'this.locations');
+        this.company.servicesOffered = this.company.servicesOffered.join(", ")
+        this.company.zipcode = Number(this.company.zipcode)
+        this.company.year_founded = Number(this.company.year_founded)
+        this.company.company_type = this.company.company_type.toString()
 
+        console.log(this.company, "THIS DOT COMPANY")
         await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company)
           .then(response => {
             console.log('post company:', response)
@@ -875,7 +890,7 @@
             this.registerUser(response.data.companies.id);
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
-            this.postLocations(response.data.user.id);
+            // this.postLocations(response.data.user.id);
             this.$router.push('/login');
           })
           .catch(err => {
@@ -902,16 +917,21 @@
         }
       },
       async uploadCompanyImage() {
-        const formData = new FormData();
-        formData.append('file', this.companyImageFile);
-        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
-          .then(response => {
-            console.log('success in uploading company image', response)
-            this.company.imgUrl = response.data.data.Location;
-          })
-          .catch(err => {
-            console.log('error in uploading company image', err);
-          })
+      let formData = new FormData();
+      let file = this.companyImageFile;
+      console.log('this.companyImageFile: ', file)
+      formData.append('file', file);
+      console.log(formData);
+      await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+        .then(response => {
+          console.log('success in uploading company image', response)
+          this.company.imgUrl = response.data.data.Location;
+          console.log(this.company);
+        })
+        .catch(err => {
+          console.log('error in uploading company image', err);
+          return;
+        })
       },
       loopInsuranceFilesForUpload() {
         this.insuranceFiles.forEach((insuranceFile, index) =>{
@@ -957,8 +977,9 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
-        let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/auth/register', this.user).catch(e => e);
-        await this.postLocations(data.user.companies_id);
+        let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/auth/register', this.user)
+        .catch(e => e);
+        // await this.postLocations(data.user.companies_id);
         if(this.invitation.pre_approved === true) {
           await this.postConnectionTable(this.invitation.companies_id, data.user.companies_id);
           await this.postCompanyUptick(data.user.companies_id);
