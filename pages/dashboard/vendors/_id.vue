@@ -1,11 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="width: 100%;" class="d-flex justify-space-between" v-if="loading">
-        <v-btn color="primary" class="py-6" style="width: 48%;" @click="requestModalLoad = true">REQUEST TO APPLY</v-btn>
-        <v-btn color="#7C7C7C" class="py-6" style="color: white; width: 48%;" @click="messageModalLoad = true">SEND MESSAGE</v-btn>
-      </v-row>
-      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad">
+      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal">
         <v-col cols="3">
           <v-skeleton-loader
             v-if="!loading"
@@ -24,19 +20,52 @@
                 </v-col>
               </v-row>
               <v-card-title style="color:#A61C00; font-size: 24px;">{{location.name}}</v-card-title>
-              <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Channels</v-card-text>
-              <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
+              <v-card-title style="color:#A61C00; font-size: 24px;" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;" v-else>{{companyForVendor.brand_name}}</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;" v-if="companyForVendor.locations[0] != 'There are no locations'"><v-btn text @click="openCompanyLocationsModal = true">{{companyForVendor.locations.length}}</v-btn> Total Channels</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;" v-else>0 Total Channels</v-card-title>
               <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
               <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00; font-size: 24px;">About</v-card-title>
-              <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-              <v-card-text>Founded: {{location.year_founded}}</v-card-text>
-              <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Channel Details</v-card-title>
+              <v-card-text style=" font-size: 18px;">Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+              <v-card-text style="text-align: center;  font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
+              <v-select
+                style="width: 90%;"
+                readonly
+                :items="vendorTypes"
+                v-model="vendorTypes"
+                label="Type"
+                v-if="vendorTypes.length > 0"
+              ></v-select>
+              <v-card-text style=" font-size: 18px;">There are no types for this channel</v-card-text>
+              <v-select
+                style="width: 90%;"
+                readonly
+                :items="location.services"
+                v-model="location.services"
+                label="Category"
+                v-if="location.services[0] != 'There are no services'"
+              ></v-select>
+              <v-card-text style=" font-size: 18px;">There are no categories for this channel</v-card-text>
+              <v-select
+                style="width: 90%;"
+                readonly
+                :items="location.locationtags"
+                v-model="location.locationtags"
+                label="Tags"
+                v-if="location.locationtags[0] != 'There are no location tags'"
+              ></v-select>
+              <v-card-text style=" font-size: 18px;">There are no location tags for this channel</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00; font-size: 24px;">Main Contact</v-card-title>
-              <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-              <v-card-text>{{location.email}}</v-card-text>
-              <v-card-text>{{location.phone}}</v-card-text>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Channel Contact</v-card-title>
+              <v-card-text style=" font-size: 18px;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+              <v-card-text style=" font-size: 18px;" v-if="singleCompanyConnections.length > 0">{{location.email}}</v-card-text>
+              <v-card-text style=" font-size: 18px;" v-if="singleCompanyConnections.length > 0">{{location.phone}}</v-card-text>
+              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+              <v-card-title style="color:#A61C00; font-size: 24px;">About</v-card-title>
+              <v-card-text style=" font-size: 18px;">{{location.description}}</v-card-text>
+              <v-card-text style=" font-size: 18px;">Founded: {{companyForVendor.year_founded}}</v-card-text>
+              <v-card-text v-if="location.created" style=" font-size: 18px;">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>
               <template v-for="(insurance, index) in insurances">
@@ -63,8 +92,14 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
+              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Approved Channels</v-card-title>
+              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connections.length}}</v-card-title>
+            </v-card>
+          </transition>
+          <transition name="slide-fade">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">
               <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>
-              <v-card-subtitle>Past 30 days</v-card-subtitle>
+              <v-card-subtitle style=" font-size: 18px;">Past 30 days</v-card-subtitle>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
             </v-card>
           </transition>
@@ -144,33 +179,35 @@
             </transition>
           </v-overlay>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="4" class="d-flex flex-column align-center">
           <v-skeleton-loader
             v-if="!loading"
             type="card-avatar, article, article, actions"
             min-height="50vh"
             min-width="20vw"
           ></v-skeleton-loader>
+          <v-btn v-if="loading" color="primary" rounded class="mt-16" style="width: 100%;" @click="requestModalLoad = true">REQUEST TO APPLY</v-btn>
+          <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="messageModalLoad = true">SEND MESSAGE</v-btn>
           <transition name="slide-fade">
-            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-4" style="width: 100%;">
               <v-card-title style="color: #A61c00; font-size: 24px;">Your Connection Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-              <v-card-text>Status: <span style="color: #A61c00" v-if="singleCompanyConnections.length > 0">Approved Vendor</span><span style="color: #A61c00" v-else>Non-Approved Vendor</span></v-card-text>
-              <v-card-text>Approved Connections: <span style="color: #A61c00">{{singleCompanyConnections.length}}</span></v-card-text>
+              <v-card-text style=" font-size: 18px;">Status: <span style="color: #A61c00" v-if="singleCompanyConnections.length > 0">Approved Vendor</span><span style="color: #A61c00" v-else>Non-Approved Vendor</span></v-card-text>
+              <v-card-text style=" font-size: 18px;">Connections to your Account: <span style="color: #A61c00">{{singleCompanyConnections.length}}</span></v-card-text>
               <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
               <!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
               <v-card-title style="color: #A61c00; font-size: 24px;">Related To You</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-row style="width: 100%;" class="d-flex nowrap mt-2">
-                <v-card-text style="cursor: pointer; width: 60%;" @click="listNotesModal">Your Notes On This Vendor: <span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+                <v-card-text style="cursor: pointer; width: 60%; font-size: 18px;" @click="listNotesModal">Your Notes On This Vendor: <span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
                 <v-btn @click="addNotesModal" style="width: 38%; margin-right: 2%;" color="primary">+ Internal Note</v-btn>
               </v-row>
-              <v-card-text>Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+              <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-              <v-card-text>Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
+              <v-card-text style=" font-size: 18px;">Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
             </v-card>
           </transition>
         </v-col>
@@ -182,6 +219,11 @@
           <v-select
             label="Select a channel to go with your note"
             style="width: 80%;"
+            :items="company.locations"
+            v-model="chosenLocation"
+            item-text="name"
+            item-value="name"
+            solo
           ></v-select>
           <v-text-field
             label="Your note goes here"
@@ -311,6 +353,36 @@
           <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="messageModalLoad = false">X</v-btn>
         </v-card>
       </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="openCompanyLocationsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-data-table
+            :items="companyForVendor.locations"
+            v-if="companyForVendor.locations[0] != 'There are no locations'"
+            :headers="headersLocations"
+            class="mt-4"
+            style="width: 90%;"
+          >
+            <template v-slot:item.imageUrl="{ item }">
+              <v-row class="d-flex" cols="12" lg="6" justify="center" >
+                <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                <v-img v-else-if="item.imageUrl === '' && company.imgUrl !== ''" :src="company.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+                <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"/>
+              </v-row>
+            </template>
+
+            <template class="d-flex flex-column align-center" v-slot:item.contact_first_name="{ item }">
+              <v-icon color="primary">mdi-account</v-icon>
+              <p>{{ item.contact_first_name }} {{ item.contact_last_name }}</p>
+            </template>
+
+            <template v-slot:item.actions="{ item }">
+              <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="openCompanyLocationsModal = false">X</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -326,6 +398,8 @@
     },
     data() {
       return {
+        openCompanyLocationsModal: false,
+        vendorTypes: [],
         sendMessageNonApp: {
 
         },
@@ -363,6 +437,15 @@
         vendorMessages: [],
         userformsIdForRequest: [],
         notes: [],
+        note: {
+          note: '',
+          fileUrl: '',
+          locations_id: Number,
+          userprofiles_id: Number,
+          spLocationsId: Number,
+          companies_id: Number,
+        },
+        chosenLocation: {},
         addNotesModalLoad: false,
         notesModalLoad: false,
         loadLeaveReviewModal: false,
@@ -374,6 +457,15 @@
           { text: 'Created', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
+        headersLocations: [
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        companyForVendor: [],
+        locationsForVendor: [],
       }
     },
     async mounted() {
@@ -429,9 +521,20 @@
           .then(response => {
             console.log(response.data, 'response.data location');
             this.location = response.data;
+            this.getLocationType(response.data.id)
+            this.getCompanyForVendor(response.data.companies_id)
           })
           .catch(err => {
             console.log('err', err);
+          })
+      },
+      async getLocationType(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + id)
+          .then(response => {
+            console.log(response.data, 'vendor types!!!!!!!')
+          })
+          .catch(err => {
+            console.log(err, 'err in getting location type')
           })
       },
       async getInsurances() {
@@ -468,9 +571,20 @@
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'companies')
+            console.log(response.data, 'companies!!!!!!!!!!!!!!!')
             this.companies.push(response.data);
-            console.log('this.companies val', this.companies)
+            console.log('this.companies val!!!!!!!!', this.companies)
+          })
+          .catch(err => {
+            console.log(err, 'err');
+          })
+      },
+      async getCompanyForVendor(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'companies!!!!!!!!!!!!!!!')
+            this.companyForVendor = response.data
+            console.log('this.companies val!!!!!!!!',  this.companyForVendor)
           })
           .catch(err => {
             console.log(err, 'err');
@@ -479,7 +593,7 @@
       async getUserCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'company')
+            console.log(response.data, 'THIS COMPANY!!!!!!!!!!!!!')
             this.company = response.data;
             this.loading=true;
           })
