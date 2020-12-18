@@ -1178,7 +1178,7 @@ const naics = require("naics");
           'number',
           'date',
           // 'file',
-          'select',
+          // 'select',
         ],
         applicationOptions: [
           'Published - Public',
