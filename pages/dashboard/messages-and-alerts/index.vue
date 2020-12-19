@@ -32,6 +32,11 @@
       min-height="50vh"
       min-width="50vw"
     ></v-skeleton-loader>
+<!--    <v-col cols="12">-->
+<!--      <transition name="slide-fade">-->
+<!--      <h1 v-if="loading" class="font-weight-regular">Messages & Alerts</h1>-->
+<!--      </transition>-->
+<!--    </v-col>-->
 
     <v-col cols="12">
       <transition name="slide-fade">

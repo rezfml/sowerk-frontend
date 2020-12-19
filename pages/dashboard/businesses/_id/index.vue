@@ -397,6 +397,14 @@
           console.log(this.location, 'location value')
           this.year_joined = this.getYearFromCreated(this.location.created);
             this.getActiveUserforms(this.location);
+            this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + this.location.email)
+            .then(response => {
+              console.log(response.data, 'user for location!!!!!!!!')
+              this.applicationFormData.pmuserprofiles_id = response.data.users[0].id
+            })
+            .catch(err => {
+              console.log(err, 'err for user for location')
+            })
         })
         this.loading = false;
       },
@@ -409,7 +417,7 @@
           .then(response => {
             let activeUserforms = response.data;
             this.myActiveUserforms = [];
-            console.log(response.data)
+            console.log(response.data, 'activeuserforms!!!!!!!!!')
             activeUserforms.forEach(userform => {
               this.getWholeForm(userform.id);
             })
@@ -438,11 +446,10 @@
       async submit() {
         if(!this.validate()) return;
         let currentApplication = this.currentApplication;
-        console.log(currentApplication.formfields);
+        console.log(currentApplication.formfields, 'HELLOOOOOO');
         let arrayString = JSON.stringify(currentApplication.formfields);
         console.log(arrayString);
         this.applicationFormData.pmuserforms_id = currentApplication.id;
-        this.applicationFormData.pmservices_id = currentApplication.service_id;
         this.applicationFormData.pmlocations_id = this.location.id;
         this.applicationFormData.pmcompanies_id = this.location.companies_id;
         this.applicationFormData.spuserprofiles_id = this.currentUser.id;
@@ -450,9 +457,10 @@
         this.applicationFormData.spcompanies_id = this.company.id;
         this.applicationFormData.subData = arrayString;
 
-        console.log(this.applicationFormData);
+        console.log(this.applicationFormData, 'applicationFormData!!!!');
 
         console.log(arrayString);
+
         await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + this.currentApplication.id, this.applicationFormData)
           .then(response => {
             console.log(response.data);
@@ -486,7 +494,7 @@
       async getWholeForm(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
-            console.log(response.data, 'userforms response');
+            console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');
             if(!response.data.formfields) return;
             this.myActiveUserforms.push(response.data);
           })

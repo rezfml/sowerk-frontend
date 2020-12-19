@@ -4,25 +4,24 @@
       style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
       class="primary white--text font-weight-regular red-gradient"
     >{{title}}</v-card-title>
-    <v-data-table
-      :headers="tableProperties"
+    <v-autocomplete
+      style="width: 95%;"
       :items="items"
-      :items-per-page="10"
-      style="width: 100%;"
-      class="mt-10"
+      item-text="account_name"
+      item-value="account_name"
+      label="Search Company And Select To Send Message:"
+      solo
+      clearable
+      hint="This is generated from the list of companies SOWerk has."
+      class="mt-12"
     >
-      <template v-slot:item.service="{item}">
-        <td @click="selectCompany(item)">{{item.servicesOffered}}</td>
+      <template slot="selection" slot-scope="data">
+        <p @click="selectCompany(data.item)">{{ data.item.account_name }}</p>
       </template>
-
-      <template v-slot:item.company="{item}">
-        <td @click="selectCompany(item)">{{item.account_name}}</td>
+      <template slot="item" slot-scope="data">
+        <p @click="selectCompany(data.item)">{{ data.item.account_name }}</p>
       </template>
-
-      <template v-slot:item.full_address="{item}">
-        <td @click="selectCompany(item)">{{item.address}} {{item.city}}, {{item.state}} {{item.zipcode}}</td>
-      </template>
-    </v-data-table>
+    </v-autocomplete>
   </v-card>
 </template>
 
