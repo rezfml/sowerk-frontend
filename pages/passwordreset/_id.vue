@@ -69,7 +69,6 @@ export default {
   },
   async mounted() {
     this.uuid = this.$route.params.id
-    console.log(this.uuid)
     await this.getUser(this.uuid)
   },
   methods: {
@@ -95,8 +94,8 @@ export default {
             this.$router.push('../login')
           })
           .catch((err) => {
-            console.log(err, 'err for user password')
-            alert('Error in updating password')
+            console.log(err, 'err for user password within _id.vue .catch within submit put request')
+            alert('Error in updating password, ')
           })
       } else {
         alert('Passwords do not match!!! Please fix this and resubmit')

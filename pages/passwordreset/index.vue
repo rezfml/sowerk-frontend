@@ -135,6 +135,9 @@ export default {
             )
             .then((response) => {
               console.log(response, 'email')
+              alert(
+                'Your password has been reset'
+              )
             })
             .catch((err) => {
               console.log(err, 'err')
