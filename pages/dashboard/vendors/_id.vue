@@ -2,7 +2,7 @@
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal">
-        <v-col cols="3">
+        <v-col cols="4">
           <v-skeleton-loader
             v-if="!loading"
             type="card-avatar, article, article, actions"
@@ -20,62 +20,64 @@
                 </v-col>
               </v-row>
               <v-card-title style="color:#A61C00; font-size: 24px;">{{location.name}}</v-card-title>
-              <v-card-title style="color:#A61C00; font-size: 24px;" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>
-              <v-card-title style="color:#A61C00; font-size: 24px;" v-else>{{companyForVendor.brand_name}}</v-card-title>
-              <v-card-title style="color:#A61C00; font-size: 24px;" v-if="companyForVendor.locations[0] != 'There are no locations'"><v-btn text @click="openCompanyLocationsModal = true">{{companyForVendor.locations.length}}</v-btn> Total Channels</v-card-title>
-              <v-card-title style="color:#A61C00; font-size: 24px;" v-else>0 Total Channels</v-card-title>
+              <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Channel Company Details</v-card-title>
+              <v-card-title style="font-size: 24px;" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>
+              <v-card-title style="font-size: 24px;" v-else>{{companyForVendor.brand_name}}</v-card-title>
+              <v-card-title style="font-size: 24px;" v-if="companyForVendor.locations[0] != 'There are no locations'"><v-btn color="primary" text @click="openCompanyLocationsModal = true" style="font-size: 24px;">{{companyForVendor.locations.length}}</v-btn> Total Channels</v-card-title>
+              <v-card-title style="font-size: 24px;" v-else><span style="color:#A61C00;">0</span> Total Channels</v-card-title>
               <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
-              <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
+              <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Channel Details</v-card-title>
-              <v-card-text style=" font-size: 18px;">Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-              <v-card-text style="text-align: center;  font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
+              <v-card-text style="font-size: 18px; text-align: center;">Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
               <v-select
-                style="width: 90%;"
+                style="width: 90%; text-align: center;"
                 readonly
                 :items="vendorTypes"
                 v-model="vendorTypes"
                 label="Type"
                 v-if="vendorTypes.length > 0"
               ></v-select>
-              <v-card-text style=" font-size: 18px;">There are no types for this channel</v-card-text>
+              <v-card-text style=" font-size: 18px; text-align: center;">There are no types for this channel</v-card-text>
               <v-select
-                style="width: 90%;"
+                style="width: 90%; text-align: center;"
                 readonly
                 :items="location.services"
                 v-model="location.services"
                 label="Category"
                 v-if="location.services[0] != 'There are no services'"
               ></v-select>
-              <v-card-text style=" font-size: 18px;">There are no categories for this channel</v-card-text>
+              <v-card-text style=" font-size: 18px; text-align: center;">There are no categories for this channel</v-card-text>
               <v-select
-                style="width: 90%;"
+                style="width: 90%; text-align: center;"
                 readonly
                 :items="location.locationtags"
                 v-model="location.locationtags"
                 label="Tags"
                 v-if="location.locationtags[0] != 'There are no location tags'"
               ></v-select>
-              <v-card-text style=" font-size: 18px;">There are no location tags for this channel</v-card-text>
-              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+              <v-card-text style="text-align: center; font-size: 18px;">There are no location tags for this channel</v-card-text>
+              <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Channel Contact</v-card-title>
-              <v-card-text style=" font-size: 18px;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-              <v-card-text style=" font-size: 18px;" v-if="singleCompanyConnections.length > 0">{{location.email}}</v-card-text>
-              <v-card-text style=" font-size: 18px;" v-if="singleCompanyConnections.length > 0">{{location.phone}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;" v-if="singleCompanyConnections.length > 0">{{location.email}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;" v-if="singleCompanyConnections.length > 0">{{location.phone}}</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">About</v-card-title>
-              <v-card-text style=" font-size: 18px;">{{location.description}}</v-card-text>
-              <v-card-text style=" font-size: 18px;">Founded: {{companyForVendor.year_founded}}</v-card-text>
-              <v-card-text v-if="location.created" style=" font-size: 18px;">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;">{{location.description}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;">Founded: {{companyForVendor.year_founded}}</v-card-text>
+              <v-card-text v-if="location.created" style="text-align: center; font-size: 18px;">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>
-              <template v-for="(insurance, index) in insurances">
+              <template v-for="(insurance, index) in insurances.slice(0,4)">
                 <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
                 <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
               </template>
               <v-btn color="primary" outlined rounded style="width: 50%;">View Insurances</v-btn>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Licenses</v-card-title>
-              <template v-for="(license, index) in licenses">
+              <template v-for="(license, index) in licenses.slice(0,4)">
                 <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
                 <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
               </template>
@@ -83,7 +85,7 @@
             </v-card>
           </transition>
         </v-col>
-        <v-col cols="5">
+        <v-col cols="3">
           <v-skeleton-loader
             v-if="!loading"
             type="card-avatar, article, article, actions"
@@ -179,7 +181,7 @@
             </transition>
           </v-overlay>
         </v-col>
-        <v-col cols="4" class="d-flex flex-column align-center">
+        <v-col cols="5" class="d-flex flex-column align-center">
           <v-skeleton-loader
             v-if="!loading"
             type="card-avatar, article, article, actions"
