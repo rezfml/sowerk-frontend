@@ -1,10 +1,12 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
+
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 10%; height: 30vh;"></v-img>
+            <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 20%; height: 35vh;"></v-img>
+
             <v-col cols="7" class="d-flex flex-column justify-center">
               <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Each Channel you create acts as a separate profile or resume of your business which you will use to connect with potential customers. It's okay to have just one Channel for your business on SOWerk, but consider setting up unique Channels if you have different locations or offer different services/product lines because it could help you win the next job.
               </p>
@@ -12,9 +14,10 @@
               <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A company with 3 locations sells commercial cleaning products. They know that on SOWerk sometimes proximity to the potential customer can make a difference in winning the job. They set up a Channel on SOWerk for each of their locations. They then assign a specific staff member to manage each location and their business customers.
               </p>
               <v-spacer></v-spacer>
-              <v-row class="d-flex justify-space-around align-center mx-0">
+              <v-row class="d-flex flex-row justify-space-around align-center mx-0">
+                
                 <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:65%;height:10vh"
                   class="px-12 mr-16 py-6"
                   large
                   outlined
@@ -22,19 +25,30 @@
                   color="white"
                   to="../../dashboard/channels/add"
                 >Add Another Channel - Click Here</v-btn>
+
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:18%;height:10vh;"
+                  class="px-12 mr-16 py-6"
+                  large
+                  outlined
+                  rounded
+                  onhover
+                  color="white"              
+                ><a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank"><span style="font-size:.9rem;font-weight:900;color:white;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></a></v-btn>
               </v-row>
             </v-col>
           </v-row>
         </v-card>
       </transition>
+
       <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
-<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
-<!--        </v-col>-->
+        <!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
+        <!--          <v-progress-circular-->
+        <!--            indeterminate-->
+        <!--            color="primary"-->
+        <!--            :size="50"-->
+        <!--          ></v-progress-circular>-->
+        <!--        </v-col>-->
 
         <v-col cols="12" class="d-flex flex-column justify-start flex-wrap" v-if="$vuetify.breakpoint.sm">
           <v-skeleton-loader
@@ -44,6 +58,7 @@
             min-width="80vw"
             cols
           ></v-skeleton-loader>
+
           <transition name="slide-fade">
             <FacilitiesCard
               :title="'Your Channels - ' + locations.length"
@@ -59,6 +74,7 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
+          
 <!--          <transition name="slide-fade">-->
 <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
 <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->

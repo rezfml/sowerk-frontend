@@ -13,6 +13,19 @@
 <!--        :size="50"-->
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
+
+    <v-col cols="12">
+      <transition name="slide-fade">
+        <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+          <v-row style="width: 50%; height: auto;" class="d-flex flex align-center">
+            <v-img class="" src="/SoWorkLogo-MessagesAlerts-167.png" style="height:250px;"></v-img>
+
+
+          </v-row>
+        </v-card>
+      </transition>
+    </v-col>
+
     <v-skeleton-loader
       v-if="!loading"
       type="card-avatar, article, article, actions"
@@ -24,6 +37,7 @@
 <!--      <h1 v-if="loading" class="font-weight-regular">Messages & Alerts</h1>-->
 <!--      </transition>-->
 <!--    </v-col>-->
+
     <v-col cols="12">
       <transition name="slide-fade">
       <MessageCard

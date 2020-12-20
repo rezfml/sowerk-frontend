@@ -77,6 +77,7 @@
                   <li><span style="color: #a61c00">3</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">5</span> Business Connections
+                    <p class="text-caption">($20.00 Per Connection)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$1.50</span> Per Additional
@@ -119,6 +120,7 @@
                   <li><span style="color: #a61c00">5</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">20</span> Business Connections
+                    <p class="text-caption">($12.50 Per Connection)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$1.00</span> Per Additional
@@ -161,6 +163,7 @@
                   <li><span style="color: #a61c00">10</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">50</span> Business Connections
+                    <p class="text-caption">($10.00 Per Connection)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$0.75</span> Per Additional
@@ -209,6 +212,7 @@
                   <li><span style="color: #a61c00">15</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">250</span> Business Connections
+                    <p class="text-caption">($6.00 Per Connection)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$0.50</span> Per Additional
