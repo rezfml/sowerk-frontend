@@ -6,10 +6,10 @@
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
             <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 10%; height: 30vh;"></v-img>
             <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
+              <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Each Channel you create acts as a separate profile or resume of your business which you will use to connect with potential customers. It's okay to have just one Channel for your business on SOWerk, but consider setting up unique Channels if you have different locations or offer different services/product lines because it could help you win the next job.
               </p>
               <v-spacer></v-spacer>
-              <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A retail company selling men's clothing has one warehouse and three store properties. Besides setting up four Channels, one for each property, they also added a Channel for the merchandising department responsible for outerwear wholesale vendors and another Channel for men's shoe wholesale vendors.
+              <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A company with 3 locations sells commercial cleaning products. They know that on SOWerk sometimes proximity to the potential customer can make a difference in winning the job. They set up a Channel on SOWerk for each of their locations. They then assign a specific staff member to manage each location and their business customers.
               </p>
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">

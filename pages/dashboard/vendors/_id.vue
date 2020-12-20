@@ -1,13 +1,13 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal">
+      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal">
         <v-col cols="4">
           <v-skeleton-loader
             v-if="!loading"
             type="card-avatar, article, article, actions"
             min-height="50vh"
-            min-width="15vw"
+            min-width="25vw"
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <v-card class="mt-16 d-flex flex-column align-center" v-if="loading">
@@ -93,13 +93,13 @@
             min-width="20vw"
           ></v-skeleton-loader>
           <transition name="slide-fade">
-            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;" @click="openApprovedChannelsList">
               <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Approved Channels</v-card-title>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connections.length}}</v-card-title>
             </v-card>
           </transition>
           <transition name="slide-fade">
-            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">
+            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;" @click="openRecentlyApprovedChannelsList">
               <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>
               <v-card-subtitle style=" font-size: 18px;">Past 30 days</v-card-subtitle>
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
@@ -186,7 +186,7 @@
             v-if="!loading"
             type="card-avatar, article, article, actions"
             min-height="50vh"
-            min-width="20vw"
+            min-width="30vw"
           ></v-skeleton-loader>
           <v-btn v-if="loading" color="primary" rounded class="mt-16" style="width: 100%;" @click="requestModalLoad = true">REQUEST TO APPLY</v-btn>
           <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="messageModalLoad = true">SEND MESSAGE</v-btn>
@@ -385,6 +385,58 @@
           <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="openCompanyLocationsModal = false">X</v-btn>
         </v-card>
       </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="approvedChannelsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="">
+          <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Approved Connections To Current Vendor</v-card-title>
+          <v-data-table
+            :items="approvedChannelsList"
+            :headers="headersApprovedChannelsList"
+            style="width: 100%;"
+            class="mt-8 mb-4"
+          >
+            <template class="d-flex" v-slot:item.companyName="{item}">
+              <v-row class="d-flex align-center">
+                <v-img :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.companyImg"></v-img>
+                <p class="mx-auto mb-0">{{item.companyName}}</p>
+              </v-row>
+            </template>
+            <template class="d-flex" v-slot:item.locationName="{item}">
+              <v-row class="d-flex align-center">
+                <v-img v-if="item.locationImg !== ''" :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.locationImg"></v-img>
+                <v-img v-else :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.companyImg"></v-img>
+                <p class="mx-auto mb-0">{{item.locationName}}</p>
+              </v-row>
+            </template>
+          </v-data-table>
+          <v-btn text @click="approvedChannelsModal = false" style="position: absolute; top: 10px; right: 10px; font-size: 24px; color: white;">X</v-btn>
+        </v-card>
+      </transition>
+      <transition name="slide-fade">
+        <v-card v-if="recentlyApprovedChannelsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="">
+          <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Recently Approved Connections To Current Vendor</v-card-title>
+          <v-data-table
+            :items="recentlyApprovedChannelsList"
+            :headers="headersrecentlyApprovedChannelsList"
+            style="width: 100%;"
+            class="mt-8 mb-4"
+          >
+            <template class="d-flex" v-slot:item.companyName="{item}">
+              <v-row class="d-flex align-center">
+                <v-img :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.companyImg"></v-img>
+                <p class="mx-auto mb-0">{{item.companyName}}</p>
+              </v-row>
+            </template>
+            <template class="d-flex" v-slot:item.locationName="{item}">
+              <v-row class="d-flex align-center">
+                <v-img :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.locationImg"></v-img>
+                <p class="mx-auto mb-0">{{item.locationName}}</p>
+              </v-row>
+            </template>
+          </v-data-table>
+          <v-btn text @click="recentlyApprovedChannelsModal = false" style="position: absolute; top: 10px; right: 10px; font-size: 24px; color: white;">X</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -400,6 +452,10 @@
     },
     data() {
       return {
+        approvedChannelsModal: false,
+        recentlyApprovedChannelsModal: false,
+        approvedChannelsList: [],
+        recentlyApprovedChannelsList: [],
         openCompanyLocationsModal: false,
         vendorTypes: [],
         sendMessageNonApp: {
@@ -466,6 +522,16 @@
           { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
+        headersApprovedChannelsList: [
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        headersrecentlyApprovedChannelsList: [
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
         companyForVendor: [],
         locationsForVendor: [],
       }
@@ -483,6 +549,88 @@
       await this.getNotes();
     },
     methods: {
+      async openApprovedChannelsList() {
+        this.approvedChannelsList = [];
+        if (this.connections.length > 0) {
+          for (let i = 0; i < this.connections.length; i++) {
+            this.getCompanyLocationForApproved(this.connections[i].spcompanies_id, this.connections[i].splocations_id);
+          }
+        }
+        setTimeout(() => {
+          this.approvedChannelsModal = true;
+        }, 1000)
+      },
+      async openRecentlyApprovedChannelsList() {
+        this.recentlyApprovedChannelsList = [];
+        if (this.connectionsPast30Days.length > 0) {
+          for (let i = 0; i < this.connectionsPast30Days.length; i++) {
+            this.getCompanyLocationForRecentlyApproved(this.connectionsPast30Days[i].spcompanies_id, this.connectionsPast30Days[i].splocations_id);
+          }
+        }
+        setTimeout(() => {
+          this.recentlyApprovedChannelsModal = true;
+        }, 1000)
+      },
+      async getCompanyLocationForApproved(id, locId) {
+        const approvedObj = {
+          companyName: '',
+          companyImg: '',
+          locationName: '',
+          locationImg: '',
+          locationAddress: '',
+        }
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'response for company approval!!!!!!!!!')
+            approvedObj.companyName = response.data.account_name
+            approvedObj.companyImg = response.data.imgUrl
+            this.$http.get('https://www.sowerkbackend.com/api/locations/' + locId)
+              .then(response => {
+                console.log(response.data, 'response for location approval!!!!!!!!!')
+                approvedObj.locationName = response.data.name;
+                approvedObj.locationImg = response.data.imageUrl;
+                approvedObj.locationAddress = response.data.address + ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode
+                this.approvedChannelsList.push(approvedObj)
+              })
+              .catch(err => {
+                console.log(err, 'err in location approval')
+              })
+          })
+          .catch(err => {
+            console.log(err, 'err for company approval')
+          })
+      },
+      async getCompanyLocationForRecentlyApproved(id, locId) {
+        const approvedObj = {
+          companyName: '',
+          companyImg: '',
+          locationName: '',
+          locationImg: '',
+          locationAddress: '',
+        }
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'response for company approval!!!!!!!!!')
+            approvedObj.companyName = response.data.account_name
+            approvedObj.companyImg = response.data.imgUrl
+            this.$http.get('https://www.sowerkbackend.com/api/locations/' + locId)
+              .then(response => {
+                console.log(response.data, 'response for location approval!!!!!!!!!')
+                approvedObj.locationName = response.data.name;
+                approvedObj.locationImg = response.data.imageUrl;
+                approvedObj.locationAddress = response.data.address + ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode
+                this.recentlyApprovedChannelsList.push(approvedObj)
+              })
+              .catch(err => {
+                console.log(err, 'err in location approval')
+              })
+          })
+          .catch(err => {
+            console.log(err, 'err in company approval')
+          })
+      },
       async getNaicsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
           .then(response => {
@@ -497,13 +645,14 @@
         await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections!!!!!!!!!!!');
-            if(response.data.length !== 0) {
-              for(let i=0; i<response.data.length; i++) {
-                if(location.id === response.data[i].splocations_id && response.data[i].approval_status === 1) {
+            if (response.data.length !== 0) {
+              for (let i = 0; i < response.data.length; i++) {
+                console.log(location.id, 'LOCATION ID FOR SP LOCATION');
+                if (location.id === response.data[i].splocations_id && response.data[i].approval_status === 1) {
                   console.log(response.data[i], 'if matched splocation')
                   this.connections.push(response.data[i]);
                   this.userformsIdForRequest.push(response.data[i].pmuserforms_id);
-                  if(moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
+                  if (moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
                     this.connectionsPast30Days.push(response.data[i]);
                   }
                 }
@@ -543,7 +692,7 @@
         await this.$http.get('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data insurances');
-            for(let i = 0; i<response.data.length; i++) {
+            for (let i = 0; i < response.data.length; i++) {
               this.insurances.push(response.data[0]);
             }
             console.log(this.insurances, 'this.insurances')
@@ -556,7 +705,7 @@
         await this.$http.get('https://www.sowerkbackend.com/api/license/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data licenses');
-            for(let i = 0; i<response.data.length; i++) {
+            for (let i = 0; i < response.data.length; i++) {
               this.licenses.push(response.data[0]);
             }
             console.log(this.licenses, 'this.licenses')
@@ -566,7 +715,7 @@
           })
       },
       async getCompanies() {
-        for(let i=0; i<this.connections.length; i++) {
+        for (let i = 0; i < this.connections.length; i++) {
           await this.getCompany(this.connections[i].pmcompanies_id);
         }
       },
@@ -586,7 +735,7 @@
           .then(response => {
             console.log(response.data, 'companies!!!!!!!!!!!!!!!')
             this.companyForVendor = response.data
-            console.log('this.companies val!!!!!!!!',  this.companyForVendor)
+            console.log('this.companies val!!!!!!!!', this.companyForVendor)
           })
           .catch(err => {
             console.log(err, 'err');
@@ -597,7 +746,7 @@
           .then(response => {
             console.log(response.data, 'THIS COMPANY!!!!!!!!!!!!!')
             this.company = response.data;
-            this.loading=true;
+            this.loading = true;
           })
           .catch(err => {
             console.log(err, 'err');
@@ -608,12 +757,12 @@
         console.log(item, 'getmessagelocation')
         this.messageLocation = item
         this.userforms = [];
-        if(item.services[0] !== 'There are no services') {
-          for(let i=0; i<item.services.length; i++) {
-            if(item.services[i].userforms[0] !== 'There are no userforms') {
-              for(let j=0; j<item.services[i].userforms.length; j++) {
+        if (item.services[0] !== 'There are no services') {
+          for (let i = 0; i < item.services.length; i++) {
+            if (item.services[i].userforms[0] !== 'There are no userforms') {
+              for (let j = 0; j < item.services[i].userforms.length; j++) {
                 // Checks if the application is published public or private. Also checks if the userform is already included in the list of approved forms this vendor has applied for.
-                if(item.services[i].userforms[j].applicationStatus !== 0 && !(this.userformsIdForRequest.includes(item.services[i].userforms[j].id))) {
+                if (item.services[i].userforms[j].applicationStatus !== 0 && !(this.userformsIdForRequest.includes(item.services[i].userforms[j].id))) {
                   this.userforms.push(item.services[i].userforms[j])
                 }
               }
@@ -691,12 +840,12 @@
           .then(response => {
             console.log(response.data, 'message by user response.data')
             console.log(response.data.filter(message => {
-              if(message.spLocationId.toString() === this.$route.params.id.toString()) {
+              if (message.spLocationId.toString() === this.$route.params.id.toString()) {
                 return message;
               }
             }))
             this.vendorMessages = response.data.filter(message => {
-              if(message.spLocationId.toString() === this.$route.params.id.toString()) {
+              if (message.spLocationId.toString() === this.$route.params.id.toString()) {
                 return message;
               }
             })
@@ -746,7 +895,7 @@
         this.overlay = !this.overlay;
       },
       async submitReview() {
-        if(this.leaveReview.reviewerAccountType === true) {
+        if (this.leaveReview.reviewerAccountType === true) {
           this.leaveReview.reviewerAccountType = 'Super Admin';
         } else {
           this.leaveReview.reviewerAccountType = 'Staff Account';

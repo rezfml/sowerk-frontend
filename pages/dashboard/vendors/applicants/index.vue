@@ -1,37 +1,28 @@
 <template>
-  <v-app class="grey lighten-3" overflow-y-auto>
-<!--    <template v-if="loading">-->
-<!--      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;">-->
-<!--        <v-progress-circular-->
-<!--          indeterminate-->
-<!--          color="primary"-->
-<!--          :size="50"-->
-<!--        ></v-progress-circular>-->
-<!--      </v-col>-->
-<!--    </template>-->
-    <v-row>
-      <v-col cols="3">
-        <v-skeleton-loader
-          v-if="!loading"
-          type="card-avatar, article, article, actions"
-          min-height="50vh"
-          min-width="15vw"
-        ></v-skeleton-loader>
-      </v-col>
-      <v-col cols="9">
-        <v-skeleton-loader
-          v-if="!loading"
-          type="card-avatar, article, article, actions"
-          min-height="50vh"
-          min-width="30vw"
-        ></v-skeleton-loader>
-      </v-col>
-    </v-row>
-    <transition name="slide-fade">
-      <template v-if="loading">
-      <v-container class="px-0" style="max-width: 95%; position: absolute; top: 20px; left: 20px;" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
-        <v-row>
-          <v-col cols="12" class="d-flex flex-column justify-start">
+  <v-app class="grey lighten-3 d-flex flex-column align-center" overflow-y-auto>
+    <v-container class="px-0 fill-height" style="max-width: 95%; width: 95%;">
+      <v-row style="width: 100vw;" class="d-flex justify-space-between" v-if="!loading">
+        <v-col cols="3">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="15vw"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="9">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="30vw"
+          ></v-skeleton-loader>
+        </v-col>
+      </v-row>
+
+      <transition name="slide-fade">
+        <template v-if="loading" class="d-flex flex-column align-center">
+          <template class="d-flex flex-column align-center mt-16" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
             <ActiveApplicationsCard
               v-if="applications"
               :title="'My Active Applications'"
@@ -41,19 +32,14 @@
               :loadingRequests="loading"
               slug="/dashboard/vendors/applicants"
             ></ActiveApplicationsCard>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <v-container class="px-0" style="max-width: 95%; position: absolute; top: 20px; left: 20px;" v-else>
-        <v-row>
-<!--          <v-col cols="3">-->
-<!--            <FilterCard-->
-<!--              title="Filter"-->
-<!--              :filters="filters"-->
-<!--            ></FilterCard>-->
-<!--          </v-col>-->
-          <v-col cols="12" class="d-flex flex-column justify-start">
+          </template>
+          <template class="d-flex flex-column align-center mt-16" v-else>
+            <!--          <v-col cols="3">-->
+            <!--            <FilterCard-->
+            <!--              title="Filter"-->
+            <!--              :filters="filters"-->
+            <!--            ></FilterCard>-->
+            <!--          </v-col>-->
             <ActiveApplicationsCard
               v-if="applications"
               :title="'My Active Applications'"
@@ -62,11 +48,19 @@
               :items="applications"
               slug="/dashboard/vendors/applicants"
             ></ActiveApplicationsCard>
-          </v-col>
-        </v-row>
-      </v-container>
-    </template>
-    </transition>
+          </template>
+        </template>
+      </transition>
+    </v-container>
+<!--    <template v-if="loading">-->
+<!--      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;">-->
+<!--        <v-progress-circular-->
+<!--          indeterminate-->
+<!--          color="primary"-->
+<!--          :size="50"-->
+<!--        ></v-progress-circular>-->
+<!--      </v-col>-->
+<!--    </template>-->
   </v-app>
 </template>
 
@@ -190,16 +184,14 @@
           }
         ],
         headers: [
-          { text: 'Category', value: 'serviceName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-center' },
+          // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-center' },
+          // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applications: [],
         applicationsCount: 0,
@@ -222,28 +214,26 @@
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id');
             for(let i=0; i<response.data.length; i++){
-              console.log(response.data[i]);
+              console.log(response.data[i], 'HELLOOOOOOOOOOOO');
               if(response.data[i].approval_status === 0) {
                 this.applications.push(response.data[i]);
-                console.log(i, 'i')
-                console.log(response.data[i], this.applications, response.data[i].pmservices_id, 'response.data i', 'this.applications', "pmservices_id");
-                this.serviceId = response.data[i].pmservices_id;
-                this.companyId = response.data[i].pmcompanies_id;
-                this.locationId = response.data[i].pmlocations_id;
-                await this.getPMService(this.serviceId);
+                // this.serviceId = response.data[i].pmservices_id;
+                this.companyId = response.data[i].spcompanies_id;
+                this.locationId = response.data[i].splocations_id;
+                //await this.getPMService(this.serviceId);
                 await this.getSPCompany(this.companyId);
                 await this.getSPLocation(this.locationId);
                 this.applicationsCount++;
-                setTimeout(() => {
-                  this.$forceUpdate();
-                }, 2000);
-                this.applications.forEach(application => {
-                  application.subData = JSON.parse(application.subData);
-                })
+                // setTimeout(() => {
+                //   this.$forceUpdate();
+                // }, 2000);
                 this.loading = false;
                 console.log(this.applications, 'applications parsed');
               }
             }
+            this.applications.forEach(application => {
+              application.subData = JSON.parse(application.subData);
+            })
           })
           .catch(err => {
             console.log('err in getting applications', err);
@@ -277,7 +267,8 @@
           .then(async (response) => {
             console.log('response.data for location', response.data)
             this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
-            this.applications[this.applicationsCount].addressName = `${response.data.city}, ${response.data.state}`;
+            this.applications[this.applicationsCount].channelName = `${response.data.name}`
+            this.applications[this.applicationsCount].addressName = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`;
             this.applications[this.applicationsCount].email = `${response.data.email}`;
             this.applications[this.applicationsCount].phone = `${response.data.phone}`;
             this.applications[this.applicationsCount].yearFounded = `${response.data.year_founded}`;

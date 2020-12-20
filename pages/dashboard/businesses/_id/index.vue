@@ -495,13 +495,13 @@
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
             console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');
-            if(!response.data.formfields) return;
-            this.myActiveUserforms.push(response.data);
+            if(response.data.formfields[0] === 'There are no formfields') return;
+            this.myActiveUserforms.push(response.data.userform);
           })
           .catch(err => {
             console.log('err company', err)
           })
-        console.log(this.myActiveUserforms);
+        console.log(this.myActiveUserforms, 'my active userforms!!!!!!');
       }
       // async getServiceForUserform(userform) {
       //   await this.$http.get('https://www.sowerkbackend.com/api/services/' + userform.service_id)
