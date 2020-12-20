@@ -533,7 +533,7 @@
               {
                 to: '/dashboard/businesses/',
                 slug: 'businesses',
-                text: 'My SOWerk Connections'
+                text: 'SOWerk Connections'
               },
               {
                 to: '/dashboard/businesses/search',
@@ -590,7 +590,7 @@
                 to: '/dashboard/profile/',
                 slug: 'profile',
                 icon: 'settings',
-                text: 'Manage Company Profile',
+                text: 'Account Details',
                 class: 'fixed-bottom',
               },
               {
