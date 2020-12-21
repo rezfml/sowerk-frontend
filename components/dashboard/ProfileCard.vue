@@ -79,7 +79,8 @@
         <v-card-text class="mx-auto" style="width: 80%;" v-if="user && loadCompany">
           <template v-if="user">
             <p class="title text-center primary--text">About</p>
-            <p class="body-2">{{company.description}}</p>
+            <p class="body-2" v-if="company.description.length > 300">{{company.description.slice(0, 299)}}...</p>
+            <p class="body-2" v-else>{{company.description}}</p>
             <p class="body-2">Address: {{company.address}} {{company.city}}, {{company.state}} {{company.zipcode}}</p>
             <p class="body-2">Founded: {{company.year_founded}}</p>
             <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
