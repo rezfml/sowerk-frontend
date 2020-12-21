@@ -36,7 +36,6 @@
               <v-img src="/SoWerk-LogoFacilities.png"></v-img>
             </v-col>
 
-
             <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
               <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
               <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.

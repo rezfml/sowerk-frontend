@@ -1,6 +1,6 @@
 <template>
   <v-container style="width: 100%; margin: 0px; max-width: 100vw;">
-    <v-card class="white pt-0 mt-12 mb-4" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="width: 100vw;">
+    <v-card class="white pt-0 mt-8 mb-4" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="width: 100vw;">
         <v-card-title
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient TitleCard"

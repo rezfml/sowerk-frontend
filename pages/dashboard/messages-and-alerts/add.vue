@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%;" class="d-flex flex-column align-center" overflow-y-auto>
     <v-row class="mt-10 d-flex flex-column" style="width: 80%; height: auto;">
-      <v-text-field style="max-height: 15vh !important;" v-model="search" placeholder="Search companies here..." label="Search Company And Select To Send Message:"/>
+<!--      <v-text-field style="max-height: 15vh !important;" v-model="search" placeholder="Search companies here..." label="Search Company And Select To Send Message:"/>-->
       <MessageCompanyCard
         :items="filteredCompanies"
         title="Companies"
@@ -11,22 +11,22 @@
         class="mt-12"
       ></MessageCompanyCard>
     </v-row>
-    <v-form class="my-10 d-flex flex-column align-center" style="width: 80%;" v-if="companySelection === true">
+    <v-form class="mb-10 d-flex flex-column align-center" style="width: 80%;" v-if="companySelection === true">
       <v-col cols="12" class="d-flex justify-center">
         <v-text-field class="mx-2 text-h6" style="width: 30%;" readonly label="From" v-model="messageForm.company"></v-text-field>
         <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="First Name" v-model="messageForm.primary_contact_first_name"></v-text-field>
         <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="Last Name" v-model="messageForm.primary_contact_last_name"></v-text-field>
       </v-col>
       <v-col cols="12" class="d-flex">
-        <v-select cols="8"  label="Which Channel" v-model="messageForm.location" :items="locations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+        <v-autocomplete cols="8" multiple clearable label="Which Channels Are Associated With Your Message" v-model="messageForm.location" :items="locations" name="location" item-text="name" item-value="name address city state zipcode" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
             <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
           <template slot="item" slot-scope="data">
             <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
-        </v-select>
-        <v-select cols="4"  label="Your Category For Channel Goes Here" v-model="messageForm.service" :items="services" name="service" item-text="name" item-value="name" class="text-caption mx-1">
+        </v-autocomplete>
+        <v-select cols="4" clearable label="Your Category For Channel Goes Here" v-model="messageForm.service" :items="naicsList" name="service" item-text="name" item-value="name" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
             <v-card-text class="text-h6">{{ data.item.name }}</v-card-text>
           </template>
@@ -36,7 +36,7 @@
         </v-select>
       </v-col>
       <v-col cols="12" class="d-flex">
-        <v-select cols="12"  label="To" :items="spcompanylocations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+        <v-select cols="12"  label="Channel of Company you are sending message to" :items="spcompanylocations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
           <template slot="selection" slot-scope="data">
             <v-card-text class="text-h6" @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
           </template>
@@ -45,7 +45,7 @@
           </template>
         </v-select>
       </v-col>
-      <v-text-field style="width: 100%;" class="text-h6" placeholder="Message Goes Here" v-model="messageForm.message"></v-text-field>
+      <v-textarea style="width: 100%;" class="text-h6" placeholder="Message Goes Here" v-model="messageForm.message" auto-grow rows="1"></v-textarea>
       <v-btn color="primary" class="py-5 px-10" large @click="submit">Send Message</v-btn>
     </v-form>
   </div>
@@ -62,6 +62,7 @@
     },
     data() {
       return {
+        naicsList: [],
         messageForm: {
           service: '',
           company: '',
@@ -98,6 +99,7 @@
     },
     async mounted() {
       console.log(this.currentUser);
+      await this.getNaicsList();
       await this.getCompanies();
       await this.getCompany();
     },
@@ -113,6 +115,19 @@
       }
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
+          .then(response => {
+            console.log(response.data, 'RESPONSE DATA FOR NAICS LIST')
+            this.naicsList = response.data.sort((a,b) => {
+              return b.timesUsed-a.timesUsed;
+            })
+          })
+          .catch(err => {
+            console.log(err, 'ERR IN GETTING NAICS LIST')
+          })
+        console.log(this.naicsList, 'naicsList')
+      },
       async getCompanies() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies')
           .then(response => {
@@ -123,10 +138,10 @@
           .catch(err => {
             console.log(err);
           })
-        for(let i=0; i< this.companiesFilter.length; i++) {
-          console.log(this.companiesFilter[i], 'hi');
-          this.companiesFilter[i].servicesOffered = String(this.companiesFilter[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
-        }
+        // for(let i=0; i< this.companiesFilter.length; i++) {
+        //   console.log(this.companiesFilter[i], 'hi');
+        //   this.companiesFilter[i].servicesOffered = String(this.companiesFilter[i].servicesOffered).replace(/"/g,"").replace(",", ', ').replace("{", '').replace("}", '');
+        // }
       },
       async getCompany() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
@@ -154,6 +169,7 @@
         this.$router.push('/dashboard/messages-and-alerts');
       },
       async selectCompany(companyParam) {
+        console.log(companyParam, 'COMPANY PARAM')
         this.companySelection = true;
         this.sendToId = companyParam.id;
         this.messageForm.recieversId = companyParam.id
@@ -170,8 +186,8 @@
           })
       },
       async getServices(item) {
-        this.services = item.services
-        console.log(this.services, 'this.services');
+        // this.services = item.services
+        console.log(this.messageForm.service, 'this.services');
       },
       async getLocationForSP(item) {
         console.log(item, 'location for sp');

@@ -13,8 +13,9 @@
         <transition name="slide-fade">
           <div style="" class="d-flex justify-center" v-if="location">
           <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
-            <v-img v-if="!locationImageUrl" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
-            <v-img v-else :src="locationImageUrl" ></v-img>
+            <v-img v-if="location.imageUrl !== ''" :src="location.imageUrl" ></v-img>
+            <v-img v-else-if="company.imgUrl !== ''" :src="company.imgUrl" ></v-img>
+            <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
           </v-avatar>
         </div>
         </transition>
@@ -78,7 +79,8 @@
         <v-card-text class="mx-auto" style="width: 80%;" v-if="user && loadCompany">
           <template v-if="user">
             <p class="title text-center primary--text">About</p>
-            <p class="body-2">{{company.description}}</p>
+            <p class="body-2" v-if="company.description.length > 300">{{company.description.slice(0, 299)}}...</p>
+            <p class="body-2" v-else>{{company.description}}</p>
             <p class="body-2">Address: {{company.address}} {{company.city}}, {{company.state}} {{company.zipcode}}</p>
             <p class="body-2">Founded: {{company.year_founded}}</p>
             <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
@@ -140,13 +142,15 @@
       return {
         company: {},
         loadCompany: false,
-
       }
     },
     mounted() {
-      console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
+      console.log(this.location, 'location this!!!!!!!!!!!!!', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
+      console.log(this.locationImageUrl, 'locationImgUrl')
       if(this.user) {
         this.getCompany(this.user.companies_id)
+      } else if (this.location) {
+        this.getCompanyLocation(this.location.companies_id)
       }
       console.log(this.locationImageUrl);
     },
@@ -169,6 +173,16 @@
             console.log('err company', err)
           })
         this.loadCompany = true;
+      },
+      async getCompanyLocation(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'company!!!!!!!!');
+            this.company = response.data;
+          })
+          .catch(err => {
+            console.log('err company', err)
+          })
       },
       async websiteLink() {
         this.$router.push('../../../../' + this.company.website)

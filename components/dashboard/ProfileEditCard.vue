@@ -168,15 +168,17 @@
                 </v-col>
 
                 <v-col cols="12" md="9" class="py-0">
-                  <v-text-field
+                  <v-textarea
                     light
                     placeholder="BPS Direct, LLC is an American privately held…"
                     v-model="locationEdit.description"
+                    auto-grow
+                    rows="1"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel Description</p>
                     </template>
-                  </v-text-field>
+                  </v-textarea>
                 </v-col>
               </v-row>
 
@@ -268,67 +270,79 @@
                   <v-subheader class="px-0 headline font-weight-bold primary--text" light>Current Channel Manager</v-subheader>
                 </v-col>
 
-                <v-col cols="12" md="6" class="pt-0">
-                  <v-text-field
-                    label="First Name"
-                    light
-                    placeholder="John"
-                    readonly
-                    v-model="locationEdit.contact_first_name"
-                  >
-                    <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">First Name</p>
-                    </template>
-                  </v-text-field>
-                </v-col>
+<!--                <v-col cols="12" md="6" class="pt-0">-->
+<!--                  <v-text-field-->
+<!--                    label="First Name"-->
+<!--                    light-->
+<!--                    placeholder="John"-->
+<!--                    readonly-->
+<!--                    v-model="locationEdit.contact_first_name"-->
+<!--                  >-->
+<!--                    <template v-slot:label>-->
+<!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>-->
+<!--                    </template>-->
+<!--                  </v-text-field>-->
+<!--                </v-col>-->
 
-                <v-col cols="12" md="6" class="pt-0">
-                  <v-text-field
-                    label="Last Name"
-                    light
-                    placeholder="Smith"
-                    readonly
-                    v-model="locationEdit.contact_last_name"
-                  >
-                    <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Last Name</p>
-                    </template>
-                  </v-text-field>
-                </v-col>
+<!--                <v-col cols="12" md="6" class="pt-0">-->
+<!--                  <v-text-field-->
+<!--                    label="Last Name"-->
+<!--                    light-->
+<!--                    placeholder="Smith"-->
+<!--                    readonly-->
+<!--                    v-model="locationEdit.contact_last_name"-->
+<!--                  >-->
+<!--                    <template v-slot:label>-->
+<!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>-->
+<!--                    </template>-->
+<!--                  </v-text-field>-->
+<!--                </v-col>-->
 
-                <v-col cols="12" md="6" class="py-0">
-                  <v-text-field
-                    light
-                    placeholder="johnsmith@example.com"
-                    v-model="locationEdit.email"
-                    readonly
-                  >
-                    <template v-slot:label>
-                      <p class="grey--text text--darken-4 font-weight-bold">Email</p>
-                    </template>
-                  </v-text-field>
-                </v-col>
+<!--                <v-col cols="12" md="6" class="py-0">-->
+<!--                  <v-text-field-->
+<!--                    light-->
+<!--                    placeholder="johnsmith@example.com"-->
+<!--                    v-model="locationEdit.email"-->
+<!--                    readonly-->
+<!--                  >-->
+<!--                    <template v-slot:label>-->
+<!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>-->
+<!--                    </template>-->
+<!--                  </v-text-field>-->
+<!--                </v-col>-->
 
-                <v-col cols="12" md="6" class="py-0">
-                  <v-text-field
-                    light
-                    placeholder="(123) 456-7890"
-                    v-model="locationEdit.phone"
-                    readonly
-                  ><template v-slot:label>
-                    <p class="grey--text text--darken-4 font-weight-bold">Phone</p>
-                  </template></v-text-field>
-                </v-col>
+<!--                <v-col cols="12" md="6" class="py-0">-->
+<!--                  <v-text-field-->
+<!--                    light-->
+<!--                    placeholder="(123) 456-7890"-->
+<!--                    v-model="locationEdit.phone"-->
+<!--                    readonly-->
+<!--                  ><template v-slot:label>-->
+<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
+<!--                  </template></v-text-field>-->
+<!--                </v-col>-->
 
-                <v-col cols="12" md="6" class="py-0">
-                  <v-select id="location-Admin"
-                            label="Admin Level"
-                            :items="adminOptions"
-                            readonly
-                            v-model="location.adminLevel"
-                  ></v-select>
-                </v-col>
+<!--                <v-col cols="12" md="6" class="py-0">-->
+<!--                  <v-select id="location-Admin"-->
+<!--                            label="Admin Level"-->
+<!--                            :items="adminOptions"-->
+<!--                            readonly-->
+<!--                            v-model="location.adminLevel"-->
+<!--                  ></v-select>-->
+<!--                </v-col>-->
 
+                <v-select
+                  label="Select From List of Users Your Manager For This Channel"
+                  :items="users"
+                  class="text-caption"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                  </template>
+                </v-select>
                 <!--              <v-col cols="12" md="4" class="py-0">-->
                 <!--                <v-select-->
                 <!--                  light-->
@@ -508,7 +522,7 @@
                   </v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="12" class="py-0">
+                <v-col cols="12" md="9" class="py-0">
                   <v-text-field
                     light
                     placeholder="Company Website"
@@ -542,7 +556,7 @@
                   </v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="9" class="py-0">
+                <v-col cols="12" class="py-0">
                   <v-textarea
                     light
                     placeholder="Company Description"
@@ -690,6 +704,7 @@
         },
         company: {},
         user: {},
+        users: [],
         loadCompany: false,
         currentUserVal: {},
         loadUpdateCompany: true,
@@ -734,6 +749,7 @@
           this.services = this.location.services[0];
           this.originalServices = this.location.services[0];
         }
+        this.getUsers(this.location.companies_id)
         //this.getServices(this.location.id);
         this.getVendorType(this.location.id);
         this.getNaicsList();
@@ -1091,6 +1107,29 @@
         })
         console.log(this.services, 'after removal')
       },
+      async getUsers(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + id)
+          .then(response => {
+            console.log(response.data, 'USERS!')
+            this.users = response.data.user
+          })
+          .catch(err => {
+            console.log(err, 'err in getting users from company')
+          })
+      },
+      async getUserValue(user) {
+        console.log(user, 'USER VALUE!')
+        this.locationEdit.contact_first_name = user.first_name;
+        this.locationEdit.contact_last_name = user.last_name;
+        this.locationEdit.phone = user.phone;
+        this.locationEdit.email = user.email;
+        if(user.is_superuser) {
+          this.locationEdit.adminLevel = this.adminOptions[0].value
+        } else {
+          this.locationEdit.adminLevel = this.adminOptions[1].value
+        }
+        console.log(this.form, 'FORM VALUE!');
+      }
     }
   };
 </script>
