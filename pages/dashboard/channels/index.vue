@@ -36,11 +36,6 @@
               <v-img src="/SoWerk-LogoFacilities.png"></v-img>
             </v-col>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> efb9bbe8f562005f239af20b9564aeea703d535c
             <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
               <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
               <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
@@ -48,17 +43,12 @@
               <v-spacer></v-spacer>
               <h2 style="font-weight:bold;font-size:1.2rem;">Locations - Majory Projects - Departments - Revenue Streams</h2>
               
-<<<<<<< HEAD
-=======
             <v-col cols="7" class="d-flex flex-column justify-center">
               <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Each Channel you create acts as a separate profile or resume of your business which you will use to connect with potential customers. It's okay to have just one Channel for your business on SOWerk, but consider setting up unique Channels if you have different locations or offer different services/product lines because it could help you win the next job.
               </p>
               <v-spacer></v-spacer>
               <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A company with 3 locations sells commercial cleaning products. They know that on SOWerk sometimes proximity to the potential customer can make a difference in winning the job. They set up a Channel on SOWerk for each of their locations. They then assign a specific staff member to manage each location and their business customers.
               </p>
->>>>>>> 8e6e6fe7762372dd301553ebb10412afc45d85b7
-=======
->>>>>>> efb9bbe8f562005f239af20b9564aeea703d535c
               <v-spacer></v-spacer>
               <v-row class="d-flex flex-row justify-space-around align-center mx-0">
                 <v-btn
