@@ -212,7 +212,7 @@
       async getApplications(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
-            console.log(response.data, 'response for applications by Pm id');
+            console.log(response.data, 'response for applications by Pm id!!!');
             for(let i=0; i<response.data.length; i++){
               console.log(response.data[i], 'HELLOOOOOOOOOOOO');
               if(response.data[i].approval_status === 0) {
