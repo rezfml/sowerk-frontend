@@ -139,7 +139,7 @@ export default {
   watch: {
 
   },
-  async created() {
+  async mounted() {
     console.log(this.$route.params.id, 'ROUTE PARAMS')
     let routeArr = this.$route.params.id.split('');
     let newRouteArr = [];
@@ -152,7 +152,7 @@ export default {
     }
     let newRouteStr = newRouteArr.join('');
     console.log(newRouteStr)
-    window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
+    // window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
     await this.getPropertyManager(newRouteStr);
   },
   methods: {
