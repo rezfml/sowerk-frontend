@@ -21,7 +21,7 @@
         <v-col cols="7" class="d-flex flex-column align-center justify-center">
           <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
           <p class="companyDescription">{{propertymanagerVal.description}}</p>
-          <p>{{propertymanagerVal.website}}</p>
+          <a @click="routeAwayToWebsite">{{propertymanagerVal.website}}</a>
         </v-col>
       </v-row>
       <h1 class="companyLocationTitle">Channels</h1>
@@ -156,6 +156,9 @@ export default {
     await this.getPropertyManager(newRouteStr);
   },
   methods: {
+    async routeAwayToWebsite() {
+      window.location.href = this.propertymanagerVal.website
+    },
     async getPropertyManager(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + id)
         .then(res => {
