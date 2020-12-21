@@ -8,6 +8,30 @@
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
 
+<!--    TOP INFO BANNER WITH LINK TO YOUTUBE VIDEO    -->
+    <transition name="slide-fade">
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:120px;background-color:#404040">
+
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
+          </v-col>
+
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+          </v-col>
+
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW
+              </span>
+            </a>          
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
 <!--    SKELETON LOADER    -->
     <v-skeleton-loader
       v-if="!loading"
@@ -20,15 +44,69 @@
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-img class="" src="/VendorApplicationsLogo-159.png" style="width: 10%; height: 30vh;"></v-img>
-            <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every vendor or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your channels. Create and use a company template that can be implemented across all channels, or in the event of special requirements for only one of your channels (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
-              <v-col class="d-flex flex-column align-center">
-                <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width: 100%; border-radius: 10px;">Your Vendor Applications<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadApplicationTemplatesFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >SOWerk Application Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 my-3" color="primary" style="width: 100%;; border-radius: 10px;" >Company Approved Templates<v-icon>mdi-arrow-down</v-icon></v-btn>
-                <v-btn @click="loadCompanyDocumentsFunction" class="py-4 my-3" color="#707070" style="color:white; width: 100%;; border-radius: 10px;" >Company Approved Documents<v-icon>mdi-arrow-down</v-icon></v-btn>
-              </v-col>
+            <v-col cols="7" style="height:auto;margin-top:-15%;margin-bottom:-15%;">
+              <v-img class="" src="/VendorApplicationsLogo-159.png"></v-img>
+            </v-col>
+
+            <v-col cols="5" class="d-flex flex-column justify-center">
+              <v-row>
+                <h3 style="color:darkred">What Are Vendor Applications?</h3>
+                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every vendor or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your channels. Create and use a company template that can be implemented across all channels, or in the event of special requirements for only one of your channels (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
+              </v-row>
+
+              <v-row>
+                <v-col cols="6" class="d-flex flex-column">
+                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                    <span>
+                      <span><v-img src="/resume-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                    </span>
+                    <span style="padding-top:5%;padding-left:5%;">
+                      <p style="font-size:1.1rem"> YOUR VENDOR</p>
+                      <v-spacer></v-spacer>
+                      <p style="font-size:1.1rem">APPLICATIONS</p>
+                    </span>
+                  </v-btn>
+                </v-col>
+
+                <v-col cols="6" class="d-flex flex-column">
+                  <v-btn @click="loadCompanyDocumentsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                    <span>
+                      <span><v-img src="/outbox-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                    </span>
+                    <span style="padding-top:5%;padding-left:5%">
+                      <p style="font-size:1.1rem"> YOUR COMPANY</p>
+                      <v-spacer></v-spacer>
+                      <p style="font-size:1.1rem">DOCUMENTS</p>
+                    </span>
+                  </v-btn>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="6" class="d-flex flex-column">
+                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                    <span>
+                      <span><v-img src="/profile-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                    </span>
+                    <span style="padding-top:5%;padding-left:5%">
+                      <p style="font-size:1.1rem"> YOUR COMPANY</p>
+                      <v-spacer></v-spacer>
+                      <p style="font-size:1.1rem">TEMPLATES</p>
+                    </span>
+                  </v-btn>
+                </v-col>
+
+                <v-col cols="6" class="d-flex flex-column">
+                  <v-btn @click="loadApplicationTemplatesFunction" class="py-4 mb-3" color="#707070" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                    <span>
+                      <span><v-img src="/data-management-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                    </span>
+                    <span style="padding-top:5%;padding-left:5%">
+                      <p style="font-size:1.1rem;color:white"> SOWERK TEMPLATES</p>
+                    </span>
+                  </v-btn>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-card>
