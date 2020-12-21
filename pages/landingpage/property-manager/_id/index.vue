@@ -30,6 +30,7 @@
         :headers="headers"
         :items-per-page="5"
         style="width: 95%;"
+        v-if="loadLocations"
       >
         <template v-slot:item.name="{item}">
           <v-row class="d-flex" cols="12" md="6">
