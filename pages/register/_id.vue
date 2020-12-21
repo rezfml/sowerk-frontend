@@ -818,6 +818,8 @@
             v => (v && v.length <= 255) || 'Password must be less than 255 characters'
           ]
         },
+        lat: 0,
+        long: 0,
       }
     },
     created() {
@@ -918,6 +920,10 @@
       },
       getAddressData(addressData) {
         console.log(addressData);
+
+        this.lat = addressData.latitude
+        this.long = addressData.longitude
+
         this.company.address = addressData.street_number + ' ' + addressData.route;
         this.company.city = addressData.locality;
         this.company.state = addressData.administrative_area_level_1;
@@ -927,7 +933,7 @@
       formatFullAddress() {
         if(!this.company.address) return;
         this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
-        console.log(this.fullAddress);
+        console.log(this.fullAddress, "full address log formatFullAddress method");
       },
       onRadiusSlide(value, index) {
 
@@ -1028,16 +1034,19 @@
         console.log(this.company, "THIS DOT COMPANY")
         await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company)
           .then(response => {
-            console.log('register button post company:', response, "HEYYYYYYYYYYYYYYYYYYYYYY")
+            console.log('register button post company:', response)
             console.log(response.data.companies.id)
             this.user.companies_id = response.data.companies.id;
             this.registerUser(response.data.companies.id);
-            this.postLocationInsideRegister(response.data.companies.id)
+            this.postLocationInsideRegister()
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
             // this.postLocations(response.data.user.id);
 
-            this.$router.push('/login');
+            // this.$router.push('/login');
+            setTimeout(() => {
+              this.$router.push('/login');
+            }, 4000)
           })
           .catch(err => {
             console.log('error in posting companies registering', err)
@@ -1050,30 +1059,50 @@
         //     console.log(response);
         //   })
       },
-      async postLocationInsideRegister(companyId) {
-        let newLocation = {
-          companies_id: this.user.companies_id,
+      async postLocationInsideRegister() {
+
+        let admin = 0;
+
+        if(this.user.is_superuser === true) {
+          admin = 1
+        } else if (this.user.is_superuser === false) {
+          admin = 0
+        }
+
+        let locationPost = {
           name: this.company.account_name,
           email: this.user.email,
           address: this.company.address,
           state: this.company.state,
-          city: this.company.zipcode,
+          city: this.company.city,
           zipcode: this.company.zipcode,
           year_founded: this.company.year_founded,
+          radius: 0,
+          longitude: this.long,
+          latitude: this.lat,
           contact_first_name: this.user.first_name,
           contact_last_name: this.user.last_name,
           phone: this.user.phone,
-          adminLevel: this.company.company_type,
-          description: this.company.description
+          adminLevel: admin,
+          pfLogoCheckbox: false,
+          description: this.company.description,
+          imageUrl: this.company.imgUrl,
         }
 
-        await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + companyId, newLocation)
-        .then(res => {
-          console.log('success in posting location', res)
-        })
-        .catch(err => {
-          console.log('error in posting company location after successful registration', err)
-        })
+        console.log(locationPost, 'locationPost')
+
+        await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.user.companies_id, locationPost)
+          .then(response => {
+            console.log(response, 'location posted YAYYYYYYYYYYYYYYYYYYYYYY!')
+            this.loading = false;
+            this.successPopup = true;
+            setTimeout(() => {
+              this.$router.push('/login');
+            }, 2000)
+          })
+          .catch(err => {
+            console.log(err, 'err in posting location')
+          })
       },
       async postLicenses(companyId) {
         for (const license of this.licenses) {

@@ -515,10 +515,11 @@ export default {
         name: company.companies.account_name,
         email: this.user.email,
         address: company.companies.address,
-        city: company.companies.city,
         state: company.companies.state,
+        city: company.companies.city,
         zipcode: company.companies.zipcode,
         year_founded: company.companies.year_founded,
+        radius: 0,
         longitude: this.long,
         latitude: this.lat,
         contact_first_name: this.user.first_name,
@@ -528,7 +529,6 @@ export default {
         pfLogoCheckbox: false,
         description: company.companies.description,
         imageUrl: company.companies.imgUrl,
-        radius: 0,
       }
       console.log(locationPost, 'locationPost')
       await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + company.companies.id, locationPost)
