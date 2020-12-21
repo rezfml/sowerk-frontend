@@ -119,7 +119,7 @@
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationLocations && loading">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
-      <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
+      <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
 <!--        <v-simple-table class="pt-16">-->
 <!--          <thead >-->
@@ -689,7 +689,8 @@
     <v-card style="width: 100%; border: none !important; box-shadow: none !important;" class="d-flex justify-space-between">
       <transition name="slide-fade">
         <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && !step5" style="width: 38%;">
-          <v-card-title class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
+          <v-card-title v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md" class="mb-10" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
+          <v-card-title v-else class="mb-10" style="color: white; background-color: #a61c00; width: 100%; text-align: center; position: absolute; left: 0px; top: -20px; border-radius-top-left: 20px; border-radius-top-right: 20px;">Add New Vendor Form</v-card-title>
           <!--        // STEP BUTTONS-->
           <!--        <transition name="slide-fade">-->
           <!--          <v-card-title v-if="step1" class="my-10 mt-14" style="z-index: 1; position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 1 - Choose a Channel</v-card-title>-->
@@ -710,13 +711,14 @@
           <!--          <v-card-title v-if="step5" class="my-10 mt-14" style="position: absolute; left: 10px; text-align: center; width: 80%; color: white; background-color: #a61c00; border-radius-bottom-left: 20px; border-radius-bottom-right: 20px;">Step 5 - Drag and Drop questions and edit them to your liking, then hit submit!</v-card-title>-->
           <!--        </transition>-->
           <transition name="slide-fade">
-            <v-card-title v-if="step1" class="mt-10" style="text-align: center; width: 80%;">Step 1 - Application Name</v-card-title>
+            <v-card-title v-if="step1" class="mt-10" style="text-align: center; width: 100%;">Step 1 - Application Name</v-card-title>
           </transition>
           <transition name="slide-fade">
             <p v-if="step1" class="ml-4" style="width: 80%; font-size: 18px;">How you name each Vendor application is important. You should understand that the Vendor community will also see this name when applying. Additionally, a good application name can help you and your company stay organized.</p>
           </transition>
           <transition name="slide-fade">
-            <v-card-title v-if="step2" class="mt-10" style="text-align: center; width: 80%;">Step 2 - Select Channel</v-card-title>
+            <v-card-title v-if="step2 && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.md" class="mt-10" style="text-align: center; width: 100%;">Step 2 - Select Channel</v-card-title>
+            <v-card-title v-else-if="step2 && !$vuetify.breakpoint.lg && !$vuetify.breakpoint.xl " class="mt-10" style="text-align: center; width: 100%; font-size: 20px;">Step 2 - Select Channel</v-card-title>
           </transition>
           <transition name="slide-fade">
             <p v-if="step2" class="ml-4" style="width: 80%; font-size: 18px;">Every Vendor application is specifically tied to a Channel in your account. Besides keeping your account organized this also provides you the flexibility to create custom Vendor requirements for each channel (i.e. Facility Location, Department, etc.). You can use Company Templates in SOWerk to help in replicating similar Vendor applications across multiple channels.</p>
@@ -742,12 +744,14 @@
           <transition name="slide-fade">
             <v-form class="py-16 mt-16 d-flex flex-column align-end" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
               <v-text-field
-                label="Application Name*"
                 placeholder="Plumbing Vendor App - Brookfield Store"
                 v-model="assignUserform.name"
-                style="width: 100%; align-self: center; font-size: 30px;"
+                style="width: 100%; align-self: center; font-size: 18px;"
                 required
               >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold mb-16" style="font-size: 18px;">Application Name*</p>
+                </template>
               </v-text-field>
               <div class="d-flex justify-space-between" v-if="addNewVendorFormLoad && step1" style="width: 100%">
                 <v-btn @click="backVendorFormStep" color="primary" style="width: 30%;" class="my-2 py-7" >< Back</v-btn>
@@ -769,7 +773,10 @@
               <tr v-for="(location, index) in addLocations" style="background: none !important;" class="d-flex justify-center">
                 <td style="width: 40%; text-align: center" class="py-1">{{location.name}}</td>
                 <td style="width: 40%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 20%; margin: 0 auto;" class="d-flex flex-column align-center">
+                <td style="width: 33%; margin: 0 auto;" class="d-flex flex-column align-center" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
+                  <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
+                </td>
+                <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center" v-else>
                   <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
                 </td>
                 </div>
@@ -1256,7 +1263,7 @@ const naics = require("naics");
           'number',
           'date',
           // 'file',
-          'select',
+          // 'select',
         ],
         applicationOptions: [
           'Published - Public',

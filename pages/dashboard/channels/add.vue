@@ -38,7 +38,7 @@
             <v-col cols="12" class="mt-4">
               <v-form>
                 <v-row>
-                  <v-col cols="9">
+                  <v-col cols="12">
                     <v-text-field
                       placeholder=" "
                       hint="(Consider that this name will be viewed by Service Providers and listed
@@ -51,17 +51,17 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       </template>
                     </v-text-field>
                   </v-col>
-                  <v-col cols="3">
-                    <v-text-field
-                      placeholder=" "
-                      v-model="form.year_founded"
-                      type="number"
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Channel Year Founding</p>
-                      </template>
-                    </v-text-field>
-                  </v-col>
+<!--                  <v-col cols="3">-->
+<!--                    <v-text-field-->
+<!--                      placeholder=" "-->
+<!--                      v-model="form.year_founded"-->
+<!--                      type="number"-->
+<!--                    >-->
+<!--                      <template v-slot:label>-->
+<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Channel Year Founding</p>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
                   <v-col cols="12">
                     <div class="v-input theme--light v-text-field v-text-field--is-booted">
                       <div class="v-input__control">
@@ -577,6 +577,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         this.loadSubmit = false;
         console.log(this.currentUser);
         console.log(this.form, 'this.form');
+        this.form.year_founded = this.company.year_founded;
         await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.currentUser.companies_id, this.form)
           .then(response => {
             console.log(response, 'success in submitting new location')

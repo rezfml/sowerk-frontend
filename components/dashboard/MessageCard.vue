@@ -20,6 +20,11 @@
           :items="items"
           :items-per-page="5"
         >
+          <template slot="no-data">
+            <v-alert :value="true" color="primary" icon="warning" style="color: white;">
+              Sorry, your inbox is empty!
+            </v-alert>
+          </template>
           <template v-slot:item.pmMessageRead="{ item }">
             <p v-if="company.company_type === 'true'">{{ item.pmMessageRead}}</p>
             <p v-else>{{item.spMessageRead}}</p>

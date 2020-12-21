@@ -271,7 +271,7 @@
           }
         ],
         locationId: null,
-        location: null,
+        location: {},
         company: {},
         companies: [],
         connections: [],
@@ -440,7 +440,8 @@
         if (this.$error(status, data.message, data.errors)) return;
         data.created = moment(data.created).format('l').slice(6,10);
         this.location = data;
-        console.log(this.location, 'getLocation this.location');
+        this.locationImageUrl = data.imageUrl
+        console.log(this.location, 'getLocation this.location!!!!!!!!!');
         await this.getApprovedLocationConnections(this.location.id)
       },
       async getApprovedLocationConnections(id) {
