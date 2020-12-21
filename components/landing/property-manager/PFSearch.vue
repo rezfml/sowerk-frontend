@@ -36,7 +36,7 @@
             <h1>{{ company.account_name }}</h1>
             <p>{{ company.description }}</p>
           </div>
-          <a :href="'property-manager/' + company.account_name"
+          <a :href="'../../../landingpage/property-manager/' + company.account_name"
             ><button>VIEW ACCOUNT</button></a
           >
         </div>
