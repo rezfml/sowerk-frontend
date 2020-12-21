@@ -19,6 +19,7 @@
           :size="50"
         ></v-progress-circular>
       </v-col>
+
       <v-col cols="12" class="pt-12 mt-12">
         <v-card class="elevation-12 card--has-floating" light>
           <v-card-title
@@ -59,13 +60,24 @@
               {{ item }}
             </v-tab>
           </v-tabs>
-          <v-tabs-items v-model="tab" class="white" light eager>
+
+          <!-- ALL 3 TABS OF COMPANY, DOCUMENTS, AND REVIEW -->
+          <v-tabs-items 
+            v-model="tab" 
+            class="white" 
+            light 
+            eager
+          >
+
+            <!-- VENDOR INFORMATION TAB -->
             <v-tab-item eager>
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
                   <v-form class="mx-auto register-form" ref="companyDetails">
                     <v-container>
                       <v-row>
+
+                        <!-- IMAGE SELECT AND UPLOAD -->
                         <v-col cols="12" sm="5" md="6" class="mb-12 px-12">
                           <v-row fill-height class="pl-2 fill-height">
                             <v-col
@@ -181,7 +193,6 @@
                             @click:append="show1 = !show1"
                           ></v-text-field>
                         </v-col>
-
                         <v-col cols="12" md="6">
                           <v-text-field
                             label="Confirm Password*"
@@ -201,6 +212,7 @@
                           </p>
                         </v-col>
 
+                        <!-- OWNER OR FRANCHISEE? -->
                         <v-col cols="12">
                           <v-select
                             id="company-best"
@@ -213,6 +225,7 @@
                           ></v-select>
                         </v-col>
 
+                        <!-- ACCOUNT NAME -->
                         <v-col cols="12">
                           <v-text-field
                             id="account-name"
@@ -224,6 +237,7 @@
                           ></v-text-field>
                         </v-col>
 
+                        <!-- BRAND NAME -->
                         <v-col cols="12" md="6">
                           <v-text-field
                             id="brand-name"
@@ -239,6 +253,7 @@
                           ></v-text-field>
                         </v-col>
 
+                        <!-- REGISTERED COMPANY LLC -->
                         <v-col cols="12" md="6" v-if="company.isFranchise">
                           <v-text-field
                             id="company-llc"
@@ -253,6 +268,7 @@
                           ></v-text-field>
                         </v-col>
 
+                        <!-- ADDRESS - FILL FROM GOOGLE -->
                         <v-col cols="12">
                           <div class="v-input__control">
                             <div class="v-input__slot">
@@ -289,8 +305,8 @@
                                     id="company-address"
                                     classname="form-control"
                                     v-on:placechanged="getAddressData"
-                                    style="width: 100%; font-size: 16px; padding: 2px 0"
                                     placeholder=""
+                                    style="width: 100%; font-size: 16px; padding: 2px 0"
                                     :rules="rules.requiredRules"
                                     v-on:focus="focusAddressField"
                                     v-on:input="focusAddressField"
@@ -305,6 +321,7 @@
                           </div>
                         </v-col>
 
+                        <!-- SERVICE OPTIONS -->
                         <v-col cols="12" md="6">
                           <v-select
                             :items="serviceOptions"
@@ -326,6 +343,7 @@
                           ></v-combobox> -->
                         </v-col>
 
+                        <!-- YEAR FOUNDED -->
                         <v-col cols="12" md="6">
                           <v-text-field
                             label="Year Business Was Founded*"
@@ -336,6 +354,7 @@
                           ></v-text-field>
                         </v-col>
 
+                        <!-- DESCRIPTION -->
                         <v-col cols="12">
                           <v-textarea
                             id="description"
@@ -346,6 +365,7 @@
                           ></v-textarea>
                         </v-col>
 
+                        <!-- SERVICE OPTIONS -->
                         <v-col cols="12">
                           <p class="font-weight-bold text-h5">Services</p>
                           <v-divider class="mb-12"></v-divider>
@@ -683,6 +703,7 @@
               </v-container>
             </v-tab-item>
           </v-tabs-items>
+
           <v-card-actions class="py-10 mx-auto d-flex " style="max-width: 80%;">
             <v-col xs="12" sm="12" class="bottomNav d-flex justify-end">
               <v-btn
@@ -803,7 +824,6 @@
           'Review'
         ],
         company: {
-          // email: '',
           account_name: '',
           brand_name: '',
           address: '',
@@ -811,12 +831,13 @@
           state: '',
           zipcode: '',
           description: '',
-          // phone: '',
           year_founded: '',
           company_type: false,
           isFranchise: false,
           servicesOffered: [],
           imgUrl: null,
+          // phone: '',
+          // email: ''
         },
         companySector: null,
         companyLevel1: null,

@@ -1,41 +1,56 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
+      
+      <transition name="slide-fade">
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0">
+          <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:120px;background-color:#404040">
+
+            <v-col cols="3" style="color:white;width:100%;text-align:center;">
+              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
+            </v-col>
+
+            <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+            </v-col>
+
+            <v-col cols="4" style="width:100%;text-align:center;">
+              <a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%">
+                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                  WATCH NOW
+                </span>
+              </a>          
+            </v-col>
+          </v-row>
+        </v-card>
+      </transition>
 
       <transition name="slide-fade">
-        <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
-          <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-img class="" src="/SoWerk-LogoFacilities.png" style="width: 20%; height: 35vh;"></v-img>
+        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+          <v-row style="width:100%;height:auto" class="d-flex flex align-center">
+            <v-col cols="1" style="margin-left:5%">
+              <v-img src="/channels-icon.svg"></v-img>
+            </v-col>
 
-            <v-col cols="7" class="d-flex flex-column justify-center">
-              <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Each Channel you create acts as a separate profile or resume of your business which you will use to connect with potential customers. It's okay to have just one Channel for your business on SOWerk, but consider setting up unique Channels if you have different locations or offer different services/product lines because it could help you win the next job.
+            <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%">
+              <v-img src="/SoWerk-LogoFacilities.png"></v-img>
+            </v-col>
+
+            <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
+              <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
+              <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p>
               <v-spacer></v-spacer>
-              <p><span style="font-size: 1.2rem; font-weight: 700;">Here is an example:</span> A company with 3 locations sells commercial cleaning products. They know that on SOWerk sometimes proximity to the potential customer can make a difference in winning the job. They set up a Channel on SOWerk for each of their locations. They then assign a specific staff member to manage each location and their business customers.
-              </p>
-              <v-spacer></v-spacer>
-              <v-row class="d-flex flex-row justify-space-around align-center mx-0">
 
-                <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width:65%;height:10vh"
-                  class="px-12 mr-16 py-6"
-                  large
-                  outlined
-                  rounded
-                  color="white"
-                  to="../../dashboard/channels/add"
-                >Add Another Channel - Click Here</v-btn>
-
-                <v-btn
-                  style="background: linear-gradient(to right, #A61C00, #741502); width:18%;height:10vh;"
-                  class="px-12 mr-16 py-6"
-                  large
-                  outlined
-                  rounded
-                  onhover
-                  color="white"
-                ><a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank"><span style="font-size:.9rem;font-weight:900;color:white;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></a></v-btn>
-              </v-row>
+              <h2 style="font-weight:bold;font-size:1.2rem;">Locations - Majory Projects - Departments - Revenue Streams</h2>
+              <v-btn
+                style="background: linear-gradient(to right, #A61C00, #741502); width:100%;"
+                large
+                outlined
+                rounded
+                color="white"
+                to="../../dashboard/channels/add"
+              >Add Another Channel - Click Here</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -74,21 +89,21 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
-
-<!--          <transition name="slide-fade">-->
-<!--            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
-<!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
-<!--              <v-btn-->
-<!--                style=""-->
-<!--                class="px-16 mr-16"-->
-<!--                large-->
-<!--                outlined-->
-<!--                rounded-->
-<!--                color="white"-->
-<!--                to="/dashboard/channels/add"-->
-<!--              >Add Now</v-btn>-->
-<!--            </v-row>-->
-<!--          </transition>-->
+          
+          <!--          <transition name="slide-fade">-->
+          <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
+          <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
+          <!--              <v-btn-->
+          <!--                style=""-->
+          <!--                class="px-16 mr-16"-->
+          <!--                large-->
+          <!--                outlined-->
+          <!--                rounded-->
+          <!--                color="white"-->
+          <!--                to="/dashboard/channels/add"-->
+          <!--              >Add Now</v-btn>-->
+          <!--            </v-row>-->
+          <!--          </transition>-->
         </v-col>
         <v-col cols="12" class="d-flex flex-column justify-start" v-else>
           <v-skeleton-loader
@@ -114,25 +129,25 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
-<!--          <transition name="slide-fade">-->
-<!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
-<!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
-<!--              <v-btn-->
-<!--                style=""-->
-<!--                class="px-16 mr-16"-->
-<!--                large-->
-<!--                outlined-->
-<!--                rounded-->
-<!--                color="white"-->
-<!--                to="/dashboard/facilities/add"-->
-<!--              >Add Now</v-btn>-->
-<!--            </v-row>-->
-<!--          </transition>-->
+          <!--          <transition name="slide-fade">-->
+          <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
+          <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
+          <!--              <v-btn-->
+          <!--                style=""-->
+          <!--                class="px-16 mr-16"-->
+          <!--                large-->
+          <!--                outlined-->
+          <!--                rounded-->
+          <!--                color="white"-->
+          <!--                to="/dashboard/facilities/add"-->
+          <!--              >Add Now</v-btn>-->
+          <!--            </v-row>-->
+          <!--          </transition>-->
         </v-col>
 
       </v-row>
-<!--
-  This will be uncommented when FilterCard has a horizontal layout for md screens
+      <!--
+      This will be uncommented when FilterCard has a horizontal layout for md screens
       <v-row  v-else-if="$vuetify.breakpoint.md ">
         <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
           <v-progress-circular
@@ -173,30 +188,30 @@
         </v-col>
         </v-row>
       </v-row>
-  -->
+      -->
 
       <v-row  v-else>
-<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
-<!--        </v-col>-->
-<!--        <v-col cols="3">-->
-<!--          <v-skeleton-loader-->
-<!--            v-if="!loading"-->
-<!--            type="article, article, article, actions"-->
-<!--            min-height="50vh"-->
-<!--          ></v-skeleton-loader>-->
-<!--          <transition name="slide-fade">-->
-<!--            <FilterCard-->
-<!--              title="Filter"-->
-<!--              :filters="filters"-->
-<!--              v-if="loading"-->
-<!--            ></FilterCard>-->
-<!--          </transition>-->
-<!--        </v-col>-->
+    <!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
+    <!--          <v-progress-circular-->
+    <!--            indeterminate-->
+    <!--            color="primary"-->
+    <!--            :size="50"-->
+    <!--          ></v-progress-circular>-->
+    <!--        </v-col>-->
+    <!--        <v-col cols="3">-->
+    <!--          <v-skeleton-loader-->
+    <!--            v-if="!loading"-->
+    <!--            type="article, article, article, actions"-->
+    <!--            min-height="50vh"-->
+    <!--          ></v-skeleton-loader>-->
+    <!--          <transition name="slide-fade">-->
+    <!--            <FilterCard-->
+    <!--              title="Filter"-->
+    <!--              :filters="filters"-->
+    <!--              v-if="loading"-->
+    <!--            ></FilterCard>-->
+    <!--          </transition>-->
+    <!--        </v-col>-->
         <v-col cols="12" class="d-flex flex-column justify-start">
           <v-skeleton-loader
             v-if="!loading"
@@ -219,20 +234,20 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
-<!--          <transition name="slide-fade">-->
-<!--            <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser && loading">-->
-<!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
-<!--              <v-btn-->
-<!--                style=""-->
-<!--                class="px-16 mr-16"-->
-<!--                large-->
-<!--                outlined-->
-<!--                rounded-->
-<!--                color="white"-->
-<!--                to="add"-->
-<!--              >Add Now</v-btn>-->
-<!--            </v-row>-->
-<!--          </transition>-->
+            <!--          <transition name="slide-fade">-->
+            <!--            <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser && loading">-->
+            <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
+            <!--              <v-btn-->
+            <!--                style=""-->
+            <!--                class="px-16 mr-16"-->
+            <!--                large-->
+            <!--                outlined-->
+            <!--                rounded-->
+            <!--                color="white"-->
+            <!--                to="add"-->
+            <!--              >Add Now</v-btn>-->
+            <!--            </v-row>-->
+            <!--          </transition>-->
         </v-col>
       </v-row>
     </v-container>

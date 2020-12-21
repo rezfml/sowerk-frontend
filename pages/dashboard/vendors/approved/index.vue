@@ -7,6 +7,30 @@
 <!--        :size="50"-->
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
+
+    <transition name="slide-fade">
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:120px;background-color:#404040">
+
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
+          </v-col>
+
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+          </v-col>
+
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW
+              </span>
+            </a>          
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
     <v-skeleton-loader
       v-if="!loading && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)"
       type="card-avatar, article, article, actions"
@@ -19,10 +43,16 @@
       <!-- ACCOUNT CHANNELS BANNER AND PARAGRAPH TEXT, PLUS ADD NOW BUTTON -->
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
-          <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
-            <v-img class="" src="/APPROVED-VENDORS-Logo-163.png" style="width: 20%; height: 35vh;"></v-img>
+          <v-row style="width:100%;height:auto" class="d-flex flex align-center">
+            <v-col cols="1" style="margin-left:5%">
+              <v-img src="/complete-icon.svg"></v-img>
+            </v-col>
 
-            <v-col cols="7" class="d-flex flex-column justify-center">
+            <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%;">
+              <v-img src="/APPROVED-VENDORS-Logo-163.png"></v-img>
+            </v-col>
+
+            <v-col cols="5" class="d-flex flex-column justify-center">
               <!-- <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p> -->
               <v-spacer></v-spacer>
@@ -53,18 +83,6 @@
                     color="white"
                     href="/dashboard/vendors/"
                   >View Vendor Directory</v-btn>
-                </v-col>
-
-                <v-col cols="3">
-                  <v-btn
-                    style="background: linear-gradient(to right, #A61C00, #741502); width:100%;height:10vh;"
-                    class="px-12 mr-16 py-6"
-                    large
-                    outlined
-                    rounded
-                    onhover
-                    color="white"                
-                  ><a><span style="font-size:.9rem;font-weight:900;color:white;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></a></v-btn>
                 </v-col>
               </v-row>
             </v-col>
