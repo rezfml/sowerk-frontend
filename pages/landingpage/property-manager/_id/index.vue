@@ -29,7 +29,6 @@
         :items="propertymanagerVal.locations"
         :headers="headers"
         :items-per-page="5"
-        v-if="loadLocations"
         style="width: 95%;"
       >
         <template v-slot:item.name="{item}">
@@ -48,10 +47,10 @@
             </v-col>
           </v-row>
         </template>
-        <template v-slot:item.creationDate="{item}">
+        <template v-slot:item.created="{item}">
           <v-row class="d-flex" cols="12" md="6">
             <v-col>
-              <v-card-text v-if="item.creationDate">{{item.created.slice(0,4)}}</v-card-text>
+              <v-card-text v-if="item.created">{{item.created.slice(0,4)}}</v-card-text>
               <v-card-text v-else>0</v-card-text>
             </v-col>
           </v-row>
@@ -131,7 +130,7 @@ export default {
         { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
         { text: 'Address', value: 'full_address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Founded', value: 'year_founded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Joined', value: 'creationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Joined', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Approved Providers', value: 'approvedCount', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ]
     }
@@ -139,7 +138,7 @@ export default {
   watch: {
 
   },
-  async created() {
+  async mounted() {
     console.log(this.$route.params.id, 'ROUTE PARAMS')
     let routeArr = this.$route.params.id.split('');
     let newRouteArr = [];
@@ -152,7 +151,7 @@ export default {
     }
     let newRouteStr = newRouteArr.join('');
     console.log(newRouteStr)
-    window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
+    //window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
     await this.getPropertyManager(newRouteStr);
   },
   methods: {
@@ -194,12 +193,14 @@ export default {
           userforms: this.propertymanagerVal.locations[i].userforms,
           year_founded: this.propertymanagerVal.locations[i].year_founded,
           zipcode: this.propertymanagerVal.locations[i].zipcode,
+          created: this.propertymanagerVal.locations[i].created,
         }
         await this.getPmApproved(this.propertymanagerVal.locations[i].id, i);
       }
       setTimeout(() => {
         this.loadLocations = true
         this.loading = true;
+        console.log(this.propertymanagerVal.locations, 'WOW')
       }, 2000)
     },
     async getPmApproved(id, index) {
