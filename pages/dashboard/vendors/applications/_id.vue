@@ -341,7 +341,7 @@
             value: ''
           },
           {
-            name: "Vender's Address of Application",
+            name: "Vendor's Address of Application",
             order: 4,
             options: "",
             required: true,
@@ -421,33 +421,33 @@
             userform_id: this.$route.params.id,
             value: ''
           },
-          {
-            name: "Company's General Liability Insurance Provider",
-            order: 13,
-            options: "",
-            required: true,
-            type: 'text',
-            userform_id: this.$route.params.id,
-            value: ''
-          },
-          {
-            name: "List of Certifications",
-            order: 14,
-            options: "",
-            required: true,
-            type: 'text',
-            userform_id: this.$route.params.id,
-            value: ''
-          },
-          {
-            name: "Published Certificates",
-            order: 15,
-            options: "",
-            required: true,
-            type: 'text',
-            userform_id: this.$route.params.id,
-            value: ''
-          },
+          // {
+          //   name: "Company's General Liability Insurance Provider",
+          //   order: 13,
+          //   options: "",
+          //   required: true,
+          //   type: 'text',
+          //   userform_id: this.$route.params.id,
+          //   value: ''
+          // },
+          // {
+          //   name: "List of Certifications",
+          //   order: 14,
+          //   options: "",
+          //   required: true,
+          //   type: 'text',
+          //   userform_id: this.$route.params.id,
+          //   value: ''
+          // },
+          // {
+          //   name: "Published Certificates",
+          //   order: 15,
+          //   options: "",
+          //   required: true,
+          //   type: 'text',
+          //   userform_id: this.$route.params.id,
+          //   value: ''
+          // },
         ],
         loading: false,
         userForms: {},
@@ -506,9 +506,9 @@
         applicationTemplates: [],
         companyTemplates: [],
         applicationDragNDropHeaders: [
-          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         expanded: [],
         singleExpand: true,
@@ -613,7 +613,7 @@
             this.userForms = response.data;
 
             this.userForms.formfields = this.userForms.formfields.filter(formfield => {
-              if(formfield.name !== "Vendor Name" && formfield.name !== "Vendor Type" && formfield.name !== "Vendor Category" && formfield.name !== "Vender's Address of Application" && formfield.name !== "Company Founded" && formfield.name !== "Number of Employees" && formfield.name !== "SOWerk Connections" && formfield.name !== "Contact Person Name" && formfield.name !== "Contact Person Phone" && formfield.name !== "Contact Person Email" && formfield.name !== "Contact Website" && formfield.name !== "Applicants Service Radius" && formfield.name !== "Company's General Liability Insurance Provider" && formfield.name !== "List of Certifications" && formfield.name !== "Published Certificates") {
+              if(formfield.name !== "Vendor Name" && formfield.name !== "Vendor Type" && formfield.name !== "Vendor Category" && formfield.name !== "Vendor's Address of Application" && formfield.name !== "Company Founded" && formfield.name !== "Number of Employees" && formfield.name !== "SOWerk Connections" && formfield.name !== "Contact Person Name" && formfield.name !== "Contact Person Phone" && formfield.name !== "Contact Person Email" && formfield.name !== "Contact Website" && formfield.name !== "Applicants Service Radius" && formfield.name !== "Company's General Liability Insurance Provider" && formfield.name !== "List of Certifications" && formfield.name !== "Published Certificates") {
                 return formfield
               }
             })
@@ -734,7 +734,7 @@
           }
         }
         // await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, {
-        //   name: "Vender Name",
+        //   name: "Vendor Name",
         //   order: 1,
         //   options: "",
         //   required: true,

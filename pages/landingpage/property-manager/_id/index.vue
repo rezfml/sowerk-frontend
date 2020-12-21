@@ -21,7 +21,7 @@
         <v-col cols="7" class="d-flex flex-column align-center justify-center">
           <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
           <p class="companyDescription">{{propertymanagerVal.description}}</p>
-          <p>{{propertymanagerVal.website}}</p>
+          <a @click="routeAwayToWebsite">{{propertymanagerVal.website}}</a>
         </v-col>
       </v-row>
       <h1 class="companyLocationTitle">Channels</h1>
@@ -29,8 +29,8 @@
         :items="propertymanagerVal.locations"
         :headers="headers"
         :items-per-page="5"
-        v-if="loadLocations"
         style="width: 95%;"
+        v-if="loadLocations"
       >
         <template v-slot:item.name="{item}">
           <v-row class="d-flex" cols="12" md="6">
@@ -48,10 +48,10 @@
             </v-col>
           </v-row>
         </template>
-        <template v-slot:item.creationDate="{item}">
+        <template v-slot:item.created="{item}">
           <v-row class="d-flex" cols="12" md="6">
             <v-col>
-              <v-card-text v-if="item.creationDate">{{item.creationDate.slice(0,4)}}</v-card-text>
+              <v-card-text v-if="item.created">{{item.created.slice(0,4)}}</v-card-text>
               <v-card-text v-else>0</v-card-text>
             </v-col>
           </v-row>
@@ -59,7 +59,7 @@
         <template v-slot:item.approvedCount="{item}">
           <v-row class="d-flex" cols="12" md="6">
             <v-col>
-              <v-card-text v-if="item.approvedCount != 0">{{item.approvedCount}}</v-card-text>
+              <v-card-text v-if="item.approvedCount > 0">{{item.approvedCount}}</v-card-text>
               <v-card-text v-else>0</v-card-text>
             </v-col>
           </v-row>
@@ -131,7 +131,7 @@ export default {
         { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
         { text: 'Address', value: 'full_address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Founded', value: 'year_founded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Joined', value: 'creationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Joined', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Approved Providers', value: 'approvedCount', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ]
     }
@@ -140,16 +140,33 @@ export default {
 
   },
   async mounted() {
-    await this.getPropertyManager();
+    console.log(this.$route.params.id, 'ROUTE PARAMS')
+    let routeArr = this.$route.params.id.split('');
+    let newRouteArr = [];
+    for(let i=0; i<routeArr.length; i++) {
+      if(routeArr[i] !== '/') {
+        newRouteArr.push(routeArr[i])
+      } else {
+        newRouteArr.push('%2F')
+      }
+    }
+    let newRouteStr = newRouteArr.join('');
+    console.log(newRouteStr)
+    //window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
+    await this.getPropertyManager(newRouteStr);
   },
   methods: {
-    async getPropertyManager() {
-      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + this.$route.params.id)
+    async routeAwayToWebsite() {
+      window.location.href = this.propertymanagerVal.website
+    },
+    async getPropertyManager(id) {
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + id)
         .then(res => {
           this.propertymanagerVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);
           this.locationSlice2 = res.data.locations.slice(0,5);
           console.log(this.propertymanagerVal, 'property-manager', this.locationSlice1, 'loc 1', this.locationSlice2, 'loc 2');
+          this.loading = true;
         })
         .catch(e => e);
       /*if (this.$error(status, data.message, data.errors)) return;
@@ -180,12 +197,14 @@ export default {
           userforms: this.propertymanagerVal.locations[i].userforms,
           year_founded: this.propertymanagerVal.locations[i].year_founded,
           zipcode: this.propertymanagerVal.locations[i].zipcode,
+          created: this.propertymanagerVal.locations[i].created,
         }
         await this.getPmApproved(this.propertymanagerVal.locations[i].id, i);
       }
       setTimeout(() => {
         this.loadLocations = true
         this.loading = true;
+        console.log(this.propertymanagerVal.locations, 'WOW')
       }, 2000)
     },
     async getPmApproved(id, index) {

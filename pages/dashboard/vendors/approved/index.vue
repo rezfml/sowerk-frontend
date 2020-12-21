@@ -25,7 +25,7 @@
               <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW
               </span>
-            </a>          
+            </a>
           </v-col>
         </v-row>
       </v-card>
@@ -128,10 +128,10 @@
             <FacilitiesCard
               v-if="loading != false"
               :title="'My Approved Vendors'"
-              :items="vendors"
+              :items="applications"
               :tableProperties="headers"
               :viewAll="false"
-              slug="/dashboard/approved/"
+              slug="/dashboard/vendors/approved/"
               action="ViewApproved"
               :company="company"
             ></FacilitiesCard>
@@ -166,12 +166,12 @@
 
           <transition name="slide-fade">
           <FacilitiesCard
-            v-if="loading != false"
+            v-if="loading"
             :title="'My Approved Vendors'"
-            :items="vendors"
+            :items="applications"
             :tableProperties="headers"
             :viewAll="false"
-            slug="/dashboard/approved/"
+            slug="/dashboard/vendors/approved/"
             action="ViewApproved"
             :company="company"
           ></FacilitiesCard>
@@ -336,15 +336,19 @@
           'Location'
         ],
         headers: [
-          { text: 'Service', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Facility', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-center' },
+          // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-center' },
+          // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
-        applications: null,
+        applications: [],
+        applicationsCount: 0,
         company: {},
         companies: [],
         connections: [],
@@ -357,9 +361,8 @@
     },
     async mounted() {
       console.log();
-      await this.getCompany(this.currentUser.companies_id);
-      let connectLen = this.connectLen;
-
+      //await this.getCompany(this.currentUser.companies_id);
+      await this.getApplications(this.currentUser.companies_id)
     },
     computed: {
       currentUser() {
@@ -508,6 +511,88 @@
       //   this.companies.push(data);
       //   console.log(this.companies, 'approvedVendors');
       // }
+      async getApplications(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
+          .then(async (response) => {
+            console.log(response.data, 'response for applications by Pm id!!!');
+            for(let i=0; i<response.data.length; i++){
+              console.log(response.data[i], 'HELLOOOOOOOOOOOO');
+              if(response.data[i].approval_status === 1) {
+                let newApp = {
+                  approval_status: response.data[i].approval_status,
+                  created: response.data[i].created,
+                  denial_reason: response.data[i].denial_reason,
+                  id: response.data[i].id,
+                  modified: response.data[i].modified,
+                  pmcompanies_id: response.data[i].pmcompanies_id,
+                  pmlocations_id: response.data[i].pmlocations_id,
+                  pmuserforms_id: response.data[i].pmuserforms_id,
+                  pmuserprofiles_id: response.data[i].pmuserprofiles_id,
+                  spcompanies_id: response.data[i].spcompanies_id,
+                  splocations_id: response.data[i].splocations_id,
+                  spuserprofiles_id: response.data[i].spuserprofiles_id,
+                  subData: response.data[i].subData,
+                  img: '',
+                  companyName: '',
+                  channelName: '',
+                  addressName: '',
+                  email: '',
+                  phone: '',
+                  yearFounded: 0,
+                  radius: 0,
+                }
+                this.applications.push(newApp);
+                // this.serviceId = response.data[i].pmservices_id;
+                this.companyId = response.data[i].spcompanies_id;
+                this.locationId = response.data[i].splocations_id;
+                //await this.getPMService(this.serviceId);
+                await this.getSPCompany(this.companyId);
+                await this.getSPLocation(this.locationId);
+                this.applicationsCount++;
+                // setTimeout(() => {
+                //   this.$forceUpdate();
+                // }, 2000);
+                this.loading = false;
+                console.log(this.applications, 'applications parsed');
+              }
+            }
+            // this.applications.forEach(application => {
+            //   application.subData = JSON.parse(application.subData);
+            // })
+          })
+          .catch(err => {
+            console.log('err in getting applications', err);
+          })
+        console.log(this.applications, 'wow so done')
+        this.loading=true;
+      },
+      async getSPCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(async (response) => {
+            console.log('response.data for company', response.data)
+            this.applications[this.applicationsCount].img = response.data.imgUrl;
+            this.applications[this.applicationsCount]['companyName'] = response.data.account_name;
+          })
+          .catch(err => {
+            console.log('err in getting sp company ', err);
+          })
+      },
+      async getSPLocation(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
+          .then(async (response) => {
+            console.log('response.data for location', response.data)
+            this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
+            this.applications[this.applicationsCount].channelName = `${response.data.name}`
+            this.applications[this.applicationsCount].addressName = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`;
+            this.applications[this.applicationsCount].email = `${response.data.email}`;
+            this.applications[this.applicationsCount].phone = `${response.data.phone}`;
+            this.applications[this.applicationsCount].yearFounded = `${response.data.year_founded}`;
+            this.applications[this.applicationsCount].radius = `${response.data.radius}`;
+          })
+          .catch(err => {
+            console.log('err in getting sp location', err);
+          })
+      },
     }
   }
 </script>

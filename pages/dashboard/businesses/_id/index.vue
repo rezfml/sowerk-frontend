@@ -417,14 +417,15 @@
           .then(response => {
             let activeUserforms = response.data;
             this.myActiveUserforms = [];
-            console.log(response.data, 'activeuserforms!!!!!!!!!')
             activeUserforms.forEach(userform => {
               this.getWholeForm(userform.id);
             })
+            console.log(response.data, 'activeuserforms!!!!!!!!!')
           })
           .catch(err => {
             console.log('err company', err)
           })
+        console.log(this.myActiveUserforms, 'my active userforms!!!!!!');
       },
       async apply(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
@@ -464,9 +465,11 @@
         await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + this.currentApplication.id, this.applicationFormData)
           .then(response => {
             console.log(response.data);
+            this.$router.go();
           })
           .catch(err => {
             console.log('err company', err)
+            alert('Error in submitting this application')
           })
       },
       // async submit() {
@@ -494,14 +497,16 @@
       async getWholeForm(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
-            console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');
-            if(response.data.formfields[0] === 'There are no formfields') return;
-            this.myActiveUserforms.push(response.data.userform);
+            if(response.data.formfields[0] === 'There are no formfields') {
+              return;
+            } else {
+              console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');
+              this.myActiveUserforms.push(response.data);
+            }
           })
           .catch(err => {
             console.log('err company', err)
           })
-        console.log(this.myActiveUserforms, 'my active userforms!!!!!!');
       }
       // async getServiceForUserform(userform) {
       //   await this.$http.get('https://www.sowerkbackend.com/api/services/' + userform.service_id)

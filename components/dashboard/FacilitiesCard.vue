@@ -152,6 +152,9 @@
                 <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
                   <v-btn class="my-1" style="width: 90%; color: white;" color = "#707070" :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
                 </template>
+                <template v-slot:item.actions="{ item }" v-else-if="action === 'approvedActions'">
+                  <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+                </template>
                 <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
                   <v-btn @click="assignUserToLocation(item)" style="width: 90%;" outlined color="primary">Assign User To Channel</v-btn>
                   <v-checkbox @click="massAssignUserToLocation(item, value)" name="massAssign" value="" :id="item.id" label="Mass Assign User To Channel"></v-checkbox>
@@ -303,6 +306,19 @@
               </div>
             </template>
 
+            <template class="d-flex flex-column align-center" v-slot:item.full_name="{ item }">
+                <v-icon color="primary">mdi-account</v-icon>
+                <p >{{ item.contact }}</p>
+            </template>
+
+            <template class="d-flex flex-column align-center" v-slot:item.addressCityState="{ item }">
+              <p >{{ item.addressName }}</p>
+            </template>
+
+            <template class="d-flex flex-column align-center" v-slot:item.companyName="{ item }">
+              <p >{{ item.companyName }}</p>
+            </template>
+
             <template v-slot:item.actions="{ item }" v-if="action === 'Review'">
               <v-btn block color="primary" :to="slug + item.application_id"
               >Review</v-btn
@@ -324,6 +340,9 @@
               <v-btn style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+              <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+            </template>
+            <template v-slot:item.actions="{ item }" v-else-if="action === 'approvedActions'">
               <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">
@@ -508,6 +527,9 @@
               <v-btn style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
+              <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+            </template>
+            <template v-slot:item.actions="{ item }" v-else-if="action === 'approvedActions'">
               <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="viewLocation === true">

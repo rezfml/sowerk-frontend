@@ -70,18 +70,28 @@
               <v-card-text v-if="location.created" style="text-align: center; font-size: 18px;">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>
-              <template v-for="(insurance, index) in insurances.slice(0,4)">
-                <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
-                <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
+              <template style="width: 100%;" v-if="insurances.length > 0" class="d-flex justify-center">
+                <template v-for="(insurance, index) in insurances.slice(0,4)">
+                  <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
+                  <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
+                </template>
+                <v-btn color="primary" outlined rounded style="width: 50%;">View Insurances</v-btn>
               </template>
-              <v-btn color="primary" outlined rounded style="width: 50%;">View Insurances</v-btn>
+              <template style="width: 100%;" v-else class="d-flex justify-center">
+                <v-card-text style="text-align: center; font-size: 18px;">There are no insurances to view for this channel</v-card-text>
+              </template>
               <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Licenses</v-card-title>
-              <template v-for="(license, index) in licenses.slice(0,4)">
-                <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
-                <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
+              <template style="width: 100%;" v-if="licenses.length > 0" class="d-flex justify-center">
+                <template v-for="(license, index) in licenses.slice(0,4)">
+                  <v-card-text >{{license.name}} - {{license.licenseLocation}}</v-card-text>
+                  <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
+                </template>
+                <v-btn class="mb-4" color="primary" outlined rounded style="width: 50%">View Licenses</v-btn>
               </template>
-              <v-btn class="mb-4" color="primary" outlined rounded style="width: 50%">View Licenses</v-btn>
+              <template style="width: 100%;" v-else class="d-flex justify-center">
+                <v-card-text style="text-align: center; font-size: 18px;">There are no licenses to view for this channel</v-card-text>
+              </template>
             </v-card>
           </transition>
         </v-col>
