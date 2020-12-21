@@ -1,64 +1,103 @@
 <template>
   <div class="pfaccountlocationcontainer mt-16">
-    <div class="pfaccountlocation" v-if="loading">
-      <img :src="propertymanagerVal.imgUrl" class="profilepic"/>
-      <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
-      <p class="companyDescription">{{propertymanagerVal.description}}</p>
-      <button class="applyAll">Apply To All Locations</button>
-      <h2 class="companyLocationTitle">Locations</h2>
-      <div v-for='(location, index) in locationSlice1' class="pfaccountlocationlist">
-        <div class="pfaccountlocationflex">
-          <div class="pfaccountlocationcolumn">
-            <img class="locationPic" :src="location.imageUrl"/>
-            <button class="locationShare">Share</button>
-          </div>
-          <div class="pfaccountlocationcolumn">
-            <h1 class="locationName">{{location.name}}</h1>
-            <p class="locationAddress">Address: {{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}</p>
-            <p class="locationFounding">Founded: {{ location.year_founded }}</p>
-            <p class="locationJoined">Joined SOWerk: 2020</p>
-          </div>
-          <!-- BELOW NEEDS TO CHANGE WHEN UPDATE NUMBER OF APPROVED PROVIDERS IS LISTED-->
-          <div class="pfaccountlocationflexrow">
-            <p style="color: #A61C00;">142</p>
-            <p>Approved SOWerk Providers At This Location</p>
-          </div>
-        </div>
-        <button @click="$router.push('/register/provider')" class="applyApproval">Apply To Become An Approved Service Provider</button>
-      </div>
-    </div>
+    <v-skeleton-loader
+      v-if="!loading"
+      type="card-avatar, article, article, actions"
+      min-height="50vh"
+      min-width="50vw"
+    ></v-skeleton-loader>
+    <v-card class="pfaccountlocation d-flex flex-column align-center mb-8" v-if="loading">
+      <v-row style="width: 100%;" class="d-flex justify-center">
+        <h1>Not a member?</h1>
+      </v-row>
+      <v-row style="width: 90%; border-bottom: 1px outset #A61c00" class="d-flex justify-space-between pb-4">
+        <v-btn :to="'../../../login'" color="primary" style="width: 45%;">Login</v-btn>
+        <v-btn :to="'../../../register'" style="color: white; background-color: #7C7C7C; width: 45%;">Signup</v-btn>
+      </v-row>
+      <v-row style="width: 100%;" class="d-flex">
+        <v-col cols="5">
+          <v-img :src="propertymanagerVal.imgUrl" class="profilepic"/>
+        </v-col>
+        <v-col cols="7" class="d-flex flex-column align-center justify-center">
+          <h1 class="companyName">{{propertymanagerVal.account_name}}</h1>
+          <p class="companyDescription">{{propertymanagerVal.description}}</p>
+          <p>{{propertymanagerVal.website}}</p>
+        </v-col>
+      </v-row>
+      <h1 class="companyLocationTitle">Channels</h1>
+      <v-data-table
+        :items="propertymanagerVal.locations"
+        :headers="headers"
+        :items-per-page="5"
+        v-if="loadLocations"
+        style="width: 95%;"
+      >
+        <template v-slot:item.name="{item}">
+          <v-row class="d-flex" cols="12" md="6">
+            <v-col>
+              <v-img :src="item.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+              <v-card-text>{{item.name}}</v-card-text>
+            </v-col>
+          </v-row>
+        </template>
+        <template v-slot:item.full_address="{item}">
+          <v-row class="d-flex" cols="12" md="6">
+            <v-col>
+              <v-card-text>{{item.address}}</v-card-text>
+              <v-card-text>{{item.city}}, {{item.state}}  {{item.zipcode}}</v-card-text>
+            </v-col>
+          </v-row>
+        </template>
+        <template v-slot:item.creationDate="{item}">
+          <v-row class="d-flex" cols="12" md="6">
+            <v-col>
+              <v-card-text v-if="item.creationDate">{{item.creationDate.slice(0,4)}}</v-card-text>
+              <v-card-text v-else>0</v-card-text>
+            </v-col>
+          </v-row>
+        </template>
+        <template v-slot:item.approvedCount="{item}">
+          <v-row class="d-flex" cols="12" md="6">
+            <v-col>
+              <v-card-text v-if="item.approvedCount != 0">{{item.approvedCount}}</v-card-text>
+              <v-card-text v-else>0</v-card-text>
+            </v-col>
+          </v-row>
+        </template>
+      </v-data-table>
+    </v-card>
 
-    <div class="pfaccountsecondcolumn">
-      <div class="retailLocations">
-        <p class="locationNum" v-if="this.propertymanagerVal.locations"><span style="color: #A61C00;">{{propertymanagerVal.locations.length}}</span> Retail Locations</p>
-        <div v-for='location in locationSlice2' class="pfaccountlocationflexrow2">
-          <p v-if="location.address==null">Retail locations unavaiable</p>
-          <p v-else>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}<span>
-          <a :href="'/landingpage/property-manager/' + propertymanagerVal.id + '/location/' + location.id">></a>
-          </span>
-          </p>
-        </div>
-      </div>
-      <div class="featuredbusiness">
-        <h2>Featured Businesses Near You</h2>
-        <div>
-          <img alt="Cabela's"/>
-          <h3>Cabela’s</h3>
-          <a>View Account</a>
-        </div>
-        <div>
-          <img alt="Walmart"/>
-          <h3>Walmart</h3>
-          <a>View Account</a>
-        </div>
-        <div>
-          <img alt="Chipotle"/>
-          <h3>Chipotle</h3>
-          <a>View Account</a>
-        </div>
-        <button>View More</button>
-      </div>
-    </div>
+<!--    <div class="pfaccountsecondcolumn">-->
+<!--      <div class="retailLocations">-->
+<!--        <p class="locationNum" v-if="this.propertymanagerVal.locations"><span style="color: #A61C00;">{{propertymanagerVal.locations.length}}</span> Retail Locations</p>-->
+<!--        <div v-for='location in locationSlice2' class="pfaccountlocationflexrow2">-->
+<!--          <p v-if="location.address==null">Retail locations unavaiable</p>-->
+<!--          <p v-else>{{ location.address }}, {{ location.city }}, {{ location.state }}, {{ location.zipcode }}<span>-->
+<!--          <a :href="'/landingpage/property-manager/' + propertymanagerVal.id + '/location/' + location.id">></a>-->
+<!--          </span>-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="featuredbusiness">-->
+<!--        <h2>Featured Businesses Near You</h2>-->
+<!--        <div>-->
+<!--          <img alt="Cabela's"/>-->
+<!--          <h3>Cabela’s</h3>-->
+<!--          <a>View Account</a>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <img alt="Walmart"/>-->
+<!--          <h3>Walmart</h3>-->
+<!--          <a>View Account</a>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <img alt="Chipotle"/>-->
+<!--          <h3>Chipotle</h3>-->
+<!--          <a>View Account</a>-->
+<!--        </div>-->
+<!--        <button>View More</button>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -67,6 +106,7 @@ export default {
   layout: 'fullwidth',
   data() {
     return {
+      loadLocations: false,
       loading: false,
       propertymanagerVal: [
         {
@@ -87,18 +127,24 @@ export default {
       ],
       locationSlice1: [],
       locationSlice2: [],
+      headers: [
+        { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+        { text: 'Address', value: 'full_address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Founded', value: 'year_founded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Joined', value: 'creationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Approved Providers', value: 'approvedCount', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+      ]
     }
   },
   watch: {
 
   },
   async mounted() {
-    this.loading = true;
     await this.getPropertyManager();
   },
   methods: {
     async getPropertyManager() {
-      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$route.params.id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + this.$route.params.id)
         .then(res => {
           this.propertymanagerVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);
@@ -111,6 +157,47 @@ export default {
         this.propertymanagerVal = data;
         console.log(this.propertymanagerVal);
       })*/
+      for(let i=0; i<this.propertymanagerVal.locations.length; i++) {
+        this.propertymanagerVal.locations[i] = {
+          address: this.propertymanagerVal.locations[i].address,
+          adminLevel: this.propertymanagerVal.locations[i].adminLevel,
+          approvedCount: 0,
+          city: this.propertymanagerVal.locations[i].city,
+          contact_first_name: this.propertymanagerVal.locations[i].contact_first_name,
+          contact_last_name: this.propertymanagerVal.locations[i].contact_last_name,
+          description: this.propertymanagerVal.locations[i].description,
+          email: this.propertymanagerVal.locations[i].email,
+          id: this.propertymanagerVal.locations[i].id,
+          imageUrl: this.propertymanagerVal.locations[i].imageUrl,
+          latitude: this.propertymanagerVal.locations[i].latitude,
+          locationtags: this.propertymanagerVal.locations[i].locationtags,
+          longitude: this.propertymanagerVal.locations[i].longitude,
+          name: this.propertymanagerVal.locations[i].name,
+          phone: this.propertymanagerVal.locations[i].phone,
+          radius: this.propertymanagerVal.locations[i].radius,
+          services: this.propertymanagerVal.locations[i].services,
+          state: this.propertymanagerVal.locations[i].state,
+          userforms: this.propertymanagerVal.locations[i].userforms,
+          year_founded: this.propertymanagerVal.locations[i].year_founded,
+          zipcode: this.propertymanagerVal.locations[i].zipcode,
+        }
+        await this.getPmApproved(this.propertymanagerVal.locations[i].id, i);
+      }
+      setTimeout(() => {
+        this.loadLocations = true
+        this.loading = true;
+      }, 2000)
+    },
+    async getPmApproved(id, index) {
+      await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmLocationType/' + id + '/1')
+        .then(response => {
+          console.log('LOCATION SP APPROVED FILTER', response);
+          this.propertymanagerVal.locations[index].approvedCount = response.data.length
+          console.log(this.propertymanagerVal.locations[index], 'LOCATION AFTER ADD APPROVED COUNT')
+        })
+        .catch(err => {
+          console.log('err location sp approved', err)
+        })
     }
   }
 }
@@ -124,13 +211,12 @@ export default {
   height: auto;
   display: flex;
   justify-content: center;
-  padding: 20px 0px 20px 0px;
-  overflow: scroll;
+  padding: 20px 0px 0px 0px;
 }
 
 .pfaccountlocation{
   background: white;
-  width: 50%;
+  width: 60%;
   margin-right: 20px;
   border-radius: 20px;
   display: flex;
