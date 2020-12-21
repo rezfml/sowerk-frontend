@@ -477,7 +477,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
     },
     async mounted() {
       vueGoogleMapsInit();
-      console.log(this.currentUser);
+      console.log(this.currentUser, 'hello!!!!!!!');
       await this.getCompany(this.currentUser.companies_id);
       await this.getUsers(this.currentUser.companies_id);
       await this.getSowerkTags();
