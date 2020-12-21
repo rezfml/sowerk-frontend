@@ -30,6 +30,7 @@
         :headers="headers"
         :items-per-page="5"
         style="width: 95%;"
+        v-if="loadLocations"
       >
         <template v-slot:item.name="{item}">
           <v-row class="d-flex" cols="12" md="6">
@@ -58,7 +59,7 @@
         <template v-slot:item.approvedCount="{item}">
           <v-row class="d-flex" cols="12" md="6">
             <v-col>
-              <v-card-text v-if="item.approvedCount != 0">{{item.approvedCount}}</v-card-text>
+              <v-card-text v-if="item.approvedCount > 0">{{item.approvedCount}}</v-card-text>
               <v-card-text v-else>0</v-card-text>
             </v-col>
           </v-row>
