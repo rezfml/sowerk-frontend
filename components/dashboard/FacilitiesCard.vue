@@ -86,7 +86,8 @@
                 </template>
                 <template v-slot:item.services="{item}">
                   <v-row class="d-flex" cols="12" md="6">
-                    <p>{{item.services[0]}}</p>
+                    <p v-if="item.services[0] === 'There are no services'">{{item.services[0]}}</p>
+                    <p v-else>{{item.services[0].name}}</p>
                   </v-row>
                 </template>
                 <template v-slot:item.companyName="{item}">
@@ -263,7 +264,8 @@
             </template>
             <template v-slot:item.services="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.services[0]}}</p>
+                <p v-if="item.services[0] === 'There are no services'">{{item.services[0]}}</p>
+                <p v-else>{{item.services[0].name}}</p>
               </v-row>
             </template>
             <template v-slot:item.companyName="{item}">
@@ -311,8 +313,17 @@
                 <p >{{ item.contact }}</p>
             </template>
 
+            <template class="d-flex flex-column align-center" v-slot:item.full_name_vendor="{ item }">
+              <v-icon color="primary">mdi-account</v-icon>
+              <p >{{ item.contact_first_name }} {{item.contact_last_name}}</p>
+            </template>
+
             <template class="d-flex flex-column align-center" v-slot:item.addressCityState="{ item }">
               <p >{{ item.addressName }}</p>
+            </template>
+
+            <template class="d-flex flex-column align-center" v-slot:item.addressCityState_vendor="{ item }">
+              <p >{{ item.address }} {{item.city}}, {{item.state}} {{item.zipcode}}</p>
             </template>
 
             <template class="d-flex flex-column align-center" v-slot:item.companyName="{ item }">
@@ -467,7 +478,8 @@
             </template>
             <template v-slot:item.services="{item}">
               <v-row class="d-flex" cols="12" md="6">
-                <p>{{item.services[0]}}</p>
+                <p v-if="item.services[0] === 'There are no services'">{{item.services[0]}}</p>
+                <p v-else>{{item.services[0].name}}</p>
               </v-row>
             </template>
             <template v-slot:item.companyName="{item}">

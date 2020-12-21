@@ -764,19 +764,25 @@
         console.log(this.userforms, 'userforms for company')
       },
       async getUserFormsForLocation(item) {
-        console.log(item, 'getmessagelocation')
+        console.log(item, 'getmessagelocation!!!!!!!!!!!!!')
         this.messageLocation = item
         this.userforms = [];
-        if (item.services[0] !== 'There are no services') {
-          for (let i = 0; i < item.services.length; i++) {
-            if (item.services[i].userforms[0] !== 'There are no userforms') {
-              for (let j = 0; j < item.services[i].userforms.length; j++) {
-                // Checks if the application is published public or private. Also checks if the userform is already included in the list of approved forms this vendor has applied for.
-                if (item.services[i].userforms[j].applicationStatus !== 0 && !(this.userformsIdForRequest.includes(item.services[i].userforms[j].id))) {
-                  this.userforms.push(item.services[i].userforms[j])
-                }
-              }
-            }
+        // if (item.services[0] !== 'There are no services') {
+        //   for (let i = 0; i < item.services.length; i++) {
+        //     if (item.services[i].userforms[0] !== 'There are no userforms') {
+        //       for (let j = 0; j < item.services[i].userforms.length; j++) {
+        //         // Checks if the application is published public or private. Also checks if the userform is already included in the list of approved forms this vendor has applied for.
+        //         if (item.services[i].userforms[j].applicationStatus !== 0 && !(this.userformsIdForRequest.includes(item.services[i].userforms[j].id))) {
+        //           this.userforms.push(item.services[i].userforms[j])
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+
+        if (item.userforms[0] !== 'There are no userforms') {
+          for (let i=0; i<item.userforms.length; i++) {
+            this.userforms.push(item.userforms[i])
           }
         }
         console.log(this.userforms, 'userforms');
