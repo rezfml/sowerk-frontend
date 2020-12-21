@@ -14,7 +14,7 @@
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
 
-    <v-col cols="12">
+    <v-col cols="12" v-if="loading">
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width: 50%; height: auto;" class="d-flex flex align-center">
@@ -43,7 +43,7 @@
       <MessageCard
         :items="messages"
         :company="company"
-        title="Messages & Alerts"
+        title="Inbox - Messages & Alerts"
         :tableProperties="headers"
         slug="/dashboard/messages-and-alerts/"
         v-if="loading"

@@ -18,7 +18,7 @@
                   style="height: 25vh; max-height: 25vh;"
                 ></v-img>
                 <p class="primary--text text-center font-weight-bold text-h5">
-                  Invite a Vendor to join SOWerk And Connect For Free
+                  Invite a Vendor to join SOWerk And Connect
                 </p>
                 <p class="text-center text-h6">
                   Enter the Vendor's information below, add another line, and
@@ -27,8 +27,7 @@
                 <p class="text-body-1 text-center">
                   (Note: By selecting NO under Pre-Approved, the vendor will
                   still be invited to join SOWerk, but will still have to submit
-                  an application to your business and not recieve a free
-                  connection.)
+                  an application to your business.)
                 </p>
               </v-col>
               <v-col cols="12">
@@ -73,7 +72,6 @@
                         class="text-caption"
                         placeholder="John"
                         v-model="item.firstName"
-                        :rules="rules.requiredRules"
                       ></v-text-field>
                     </template>
                     <template v-slot:item.lastName="{ item }">
@@ -81,7 +79,6 @@
                         class="text-caption"
                         placeholder="Smith"
                         v-model="item.lastName"
-                        :rules="rules.requiredRules"
                       ></v-text-field>
                     </template>
                     <template v-slot:item.email="{ item }">
@@ -93,14 +90,13 @@
                         :rules="rules.emailRules"
                         validate-on-blur
                       ></v-text-field>
-                    </template>                  
+                    </template>
                     <template v-slot:item.phone="{ item }">
                       <v-text-field
                         type="tel"
                         class="card__input black--text"
                         placeholder=" "
                         v-model="item.phone"
-                        :rules="rules.requiredRules"
                         v-mask="'(###) ###-####'"
                       ></v-text-field>
                     </template>
@@ -111,8 +107,8 @@
                         item-text="text"
                         item-value="value"
                         class="text-caption"
-                        placeholder="Branson Store - 1234 S New St"
-                        :rules="rules.requiredRules"
+
+                        :rules="rules.requiredSelectRules"
                       >
                       </v-select>
                     </template>
@@ -218,6 +214,9 @@ export default {
         requiredRules: [
           v => !!v || v === 0 || 'Field is required',
         ],
+        requiredSelectRules: [
+          v => v === true || v === false || 'Field is required',
+        ],
         usernameRules: [
           v => !!v || 'Name is required',
           v => (v && v.length <= 100) || 'Name must be less than 100 characters'
@@ -262,7 +261,7 @@ export default {
           firstName: '',
           lastName: '',
           email: '',
-          preapproved: true,
+          preapproved: Boolean,
           property: ''
         }
       ],
@@ -314,28 +313,6 @@ export default {
       businesses: null,
       success: false,
       naicsList: [],
-      rules: {
-        requiredRules: [(v) => !!v || v === 0 || 'Field is required'],
-        usernameRules: [
-          (v) => !!v || 'Name is required',
-          (v) =>
-            (v && v.length <= 100) || 'Name must be less than 100 characters',
-        ],
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-          // v => /.+@.[A-Z]+/.test(v)  'E-mail must be valid',
-          v => (v && v.length <= 100) || 'Email must be less than 100 characters'
-        ],
-        emailNotRequiredRules: [
-          (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-          (v) =>
-            (v && v.length <= 100) || 'Email must be less than 100 characters',
-        ],
-        phoneRules: [
-          (v) => (v && v.length === 10) || 'Phone Number must be 10 digits',
-        ],
-      },
     }
   },
   watch: {
@@ -494,7 +471,7 @@ export default {
         lastName: '',
         email: '',
         phone: '',
-        preapproved: true,
+        preapproved: Boolean,
         property: ''
       }
       this.vendors.push(newVendor)

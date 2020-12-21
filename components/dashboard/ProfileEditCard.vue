@@ -168,15 +168,17 @@
                 </v-col>
 
                 <v-col cols="12" md="9" class="py-0">
-                  <v-text-field
+                  <v-textarea
                     light
                     placeholder="BPS Direct, LLC is an American privately held…"
                     v-model="locationEdit.description"
+                    auto-grow
+                    rows="1"
                   >
                     <template v-slot:label>
                       <p class="grey--text text--darken-4 font-weight-bold">Channel Description</p>
                     </template>
-                  </v-text-field>
+                  </v-textarea>
                 </v-col>
               </v-row>
 
@@ -520,7 +522,7 @@
                   </v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="12" class="py-0">
+                <v-col cols="12" md="9" class="py-0">
                   <v-text-field
                     light
                     placeholder="Company Website"
@@ -554,7 +556,7 @@
                   </v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="9" class="py-0">
+                <v-col cols="12" class="py-0">
                   <v-textarea
                     light
                     placeholder="Company Description"
