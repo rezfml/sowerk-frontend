@@ -51,7 +51,7 @@
         <template v-slot:item.creationDate="{item}">
           <v-row class="d-flex" cols="12" md="6">
             <v-col>
-              <v-card-text v-if="item.creationDate">{{item.creationDate.slice(0,4)}}</v-card-text>
+              <v-card-text v-if="item.creationDate">{{item.created.slice(0,4)}}</v-card-text>
               <v-card-text v-else>0</v-card-text>
             </v-col>
           </v-row>
@@ -139,17 +139,31 @@ export default {
   watch: {
 
   },
-  async mounted() {
-    await this.getPropertyManager();
+  async created() {
+    console.log(this.$route.params.id, 'ROUTE PARAMS')
+    let routeArr = this.$route.params.id.split('');
+    let newRouteArr = [];
+    for(let i=0; i<routeArr.length; i++) {
+      if(routeArr[i] !== '/') {
+        newRouteArr.push(routeArr[i])
+      } else {
+        newRouteArr.push('%2F')
+      }
+    }
+    let newRouteStr = newRouteArr.join('');
+    console.log(newRouteStr)
+    window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
+    await this.getPropertyManager(newRouteStr);
   },
   methods: {
-    async getPropertyManager() {
-      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + this.$route.params.id)
+    async getPropertyManager(id) {
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + id)
         .then(res => {
           this.propertymanagerVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);
           this.locationSlice2 = res.data.locations.slice(0,5);
           console.log(this.propertymanagerVal, 'property-manager', this.locationSlice1, 'loc 1', this.locationSlice2, 'loc 2');
+          this.loading = true;
         })
         .catch(e => e);
       /*if (this.$error(status, data.message, data.errors)) return;

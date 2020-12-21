@@ -15,7 +15,7 @@
               </p>
               <v-spacer></v-spacer>
               <v-row class="d-flex flex-row justify-space-around align-center mx-0">
-                
+
                 <v-btn
                   style="background: linear-gradient(to right, #A61C00, #741502); width:65%;height:10vh"
                   class="px-12 mr-16 py-6"
@@ -33,7 +33,7 @@
                   outlined
                   rounded
                   onhover
-                  color="white"              
+                  color="white"
                 ><a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank"><span style="font-size:.9rem;font-weight:900;color:white;">SOWERK 101 <br></br> <span class="text-caption" style="font-size:.1rem;">(VIDEO GUIDE)</span></span></a></v-btn>
               </v-row>
             </v-col>
@@ -74,7 +74,7 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
-          
+
 <!--          <transition name="slide-fade">-->
 <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
 <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
