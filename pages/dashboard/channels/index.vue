@@ -42,7 +42,8 @@
               </p>
               <v-spacer></v-spacer>
               <h2 style="font-weight:bold;font-size:1.2rem;">Locations - Majory Projects - Departments - Revenue Streams</h2>
-              
+            </v-col>
+            
             <v-col cols="7" class="d-flex flex-column justify-center">
               <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Each Channel you create acts as a separate profile or resume of your business which you will use to connect with potential customers. It's okay to have just one Channel for your business on SOWerk, but consider setting up unique Channels if you have different locations or offer different services/product lines because it could help you win the next job.
               </p>
