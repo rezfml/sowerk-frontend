@@ -39,26 +39,26 @@
                     disable-pagination
                     hide-default-footer
                   >
-                    <template v-slot:item.service="{ item }">
-                      <v-autocomplete
-                        v-model="item.service"
-                        :items="naicsList"
-                        item-text="name"
-                        item-value="name"
-                        label="Select A Category That Describes What This Application Provides"
-                        solo
-                        clearable
-                        hint="This is generated from the NAICS directory."
-                        :rules="rules.requiredRules"
-                      >
-                        <template slot="selection" slot-scope="data">
-                          <p>{{ data.item.name }}</p>
-                        </template>
-                        <template slot="item" slot-scope="data">
-                          <p>{{ data.item.name }}</p>
-                        </template>
-                      </v-autocomplete>
-                    </template>
+<!--                    <template v-slot:item.service="{ item }">-->
+<!--                      <v-autocomplete-->
+<!--                        v-model="item.service"-->
+<!--                        :items="naicsList"-->
+<!--                        item-text="name"-->
+<!--                        item-value="name"-->
+<!--                        label="Select A Category That Describes What This Application Provides"-->
+<!--                        solo-->
+<!--                        clearable-->
+<!--                        hint="This is generated from the NAICS directory."-->
+<!--                        :rules="rules.requiredRules"-->
+<!--                      >-->
+<!--                        <template slot="selection" slot-scope="data">-->
+<!--                          <p>{{ data.item.name }}</p>-->
+<!--                        </template>-->
+<!--                        <template slot="item" slot-scope="data">-->
+<!--                          <p>{{ data.item.name }}</p>-->
+<!--                        </template>-->
+<!--                      </v-autocomplete>-->
+<!--                    </template>-->
                     <template v-slot:item.companyName="{ item }">
                       <v-text-field
                         class="text-caption"
@@ -121,14 +121,32 @@
                         :rules="rules.requiredRules"
                       >
                         <template slot="selection" slot-scope="data">
-                          {{ data.item.name }} - {{ data.item.address }}
+                          <p @click="selectUserforms(data.item.id)">{{ data.item.name }} - {{ data.item.address }}
                           {{ data.item.city }}, {{ data.item.state }}
-                          {{ data.item.zipcode }}
+                            {{ data.item.zipcode }}</p>
                         </template>
                         <template slot="item" slot-scope="data">
-                          {{ data.item.name }} - {{ data.item.address }}
+                          <p @click="selectUserforms(data.item.id)">{{ data.item.name }} - {{ data.item.address }}
                           {{ data.item.city }}, {{ data.item.state }}
-                          {{ data.item.zipcode }}
+                            {{ data.item.zipcode }}</p>
+                        </template>
+                      </v-select>
+                    </template>
+                    <template v-slot:item.application="{ item }">
+                      <v-select
+                        :items="userforms"
+                        item-text="name"
+                        item-value="name"
+                        v-model="item.application"
+                        class="text-caption"
+                        :rules="rules.requiredRules"
+                        v-if="item.preapproved === false"
+                      >
+                        <template slot="selection" slot-scope="data">
+                          {{ data.item.name }}
+                        </template>
+                        <template slot="item" slot-scope="data">
+                          {{ data.item.name }}
                         </template>
                       </v-select>
                     </template>
@@ -262,18 +280,15 @@ export default {
           lastName: '',
           email: '',
           preapproved: Boolean,
-          property: ''
+          property: '',
+          application: '',
         }
       ],
       properties: [],
       company: {},
       services: [],
+      userforms: [],
       headers: [
-        {
-          text: 'Vendor',
-          value: 'service',
-          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
-        },
         {
           text: 'Company',
           value: 'companyName',
@@ -308,7 +323,12 @@ export default {
           text: 'Channel',
           value: 'property',
           class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
-        }
+        },
+        {
+          text: 'Application',
+          value: 'application',
+          class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
+        },
       ],
       businesses: null,
       success: false,
@@ -335,6 +355,13 @@ export default {
     }
   },
   methods: {
+    async selectUserforms(id) {
+      await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
+        .then(response => {
+          console.log('USERFORM SELECTION', response.data)
+          this.userforms = response.data
+        })
+    },
     async getNaicsList() {
       await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
         .then(response => {
@@ -391,7 +418,6 @@ export default {
       if(this.$refs.form.validate()) {
         let providersObject = {
           companies_id: this.$store.state.user.user.user.companies_id,
-          service: [],
           companyName: [],
           first_name: [],
           last_name: [],
@@ -402,10 +428,10 @@ export default {
           usersCompanyName: this.company.account_name,
           usersFirstName: this.$store.state.user.user.user.first_name,
           usersLastName: this.$store.state.user.user.user.last_name,
-          companyImg: this.company.imgUrl
+          companyImg: this.company.imgUrl,
+          application: [],
         }
         for (let i = 0; i < this.vendors.length; i++) {
-          providersObject.service.push(this.vendors[i].service)
           providersObject.companyName.push(this.vendors[i].companyName)
           providersObject.first_name.push(this.vendors[i].firstName)
           providersObject.last_name.push(this.vendors[i].lastName)
@@ -413,6 +439,7 @@ export default {
           providersObject.toEmail.push(this.vendors[i].email)
           providersObject.pre_approved.push(this.vendors[i].preapproved)
           providersObject.property.push(this.vendors[i].property)
+          providersObject.property.push(this.vendors[i].application)
         }
         console.log(providersObject, 'yay')
         await this.$http
@@ -465,14 +492,14 @@ export default {
     addInvitee() {
       let newVendor = {
         companies_id: this.$store.state.user.user.user.companies_id,
-        service: '',
         companyName: '',
         firstName: '',
         lastName: '',
         email: '',
         phone: '',
         preapproved: Boolean,
-        property: ''
+        property: '',
+        application: '',
       }
       this.vendors.push(newVendor)
     }
