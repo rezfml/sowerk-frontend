@@ -47,7 +47,6 @@
                 :items="vendorType"
                 label="Select A Type That Describes What This Application Provides"
               >
-
               </v-select>
               <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
               <v-autocomplete
@@ -823,8 +822,7 @@
                 .catch(err => {
                   console.log('error in updating formfield', err)
                 })
-              this.saveLoad = true;
-              this.$router.go()
+
             }
           })
         }
@@ -842,6 +840,17 @@
         //   this.saveLoad = true;
         //   this.$router.go();
         // }, 1000)
+        await this.$http.put('https://www.sowerkbackend.com/api/companytemplates/' + this.$route.params.id, userformEdit)
+          .then(response => {
+            console.log(response, 'updating template ', response)
+          })
+          .catch(err => {
+            console.log('error in updating template', err)
+          })
+        setTimeout(() => {
+          this.saveLoad = true;
+          this.$router.go();
+        }, 1000)
       },
       async reorderFormField({moved}) {
         console.log(moved, 'moved information for formfield')
