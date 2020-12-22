@@ -16,7 +16,7 @@
         <v-data-table
               :headers="tableProperties"
               :items="items"
-              :items-per-page="10"
+              :items-per-page="5"
               :hide-default-footer="true"
               style="width: 100%;"
         >
