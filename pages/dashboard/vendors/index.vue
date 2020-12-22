@@ -244,10 +244,10 @@
           //   value: 'id',
           //   class: 'primary--text font-weight-regular'
           // },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Address', value: 'addressCityState_vendor', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Category', value: 'services', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Primary Contact', value: 'full_name_vendor', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         businesses: null,
@@ -270,7 +270,7 @@
       async getBusinesses() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
           .then(response => {
-            console.log(response.data.length);
+            console.log(response.data.length, 'length!!!!!');
             for(let i=0; i< response.data.length; i++) {
               this.getLocations(response.data[i].id, response.data[i].account_name);
             }
@@ -287,10 +287,6 @@
               this.$http.get('https://www.sowerkbackend.com/api/locations/' + location.id)
                 .then(res => {
                   console.log(res.data, 'individual location')
-                  res.data.services = [
-                    'HVAC',
-                    'Plumbing'
-                  ]
                   this.vendors.push(res.data);
                 })
                 .catch(err => {

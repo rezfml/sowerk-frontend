@@ -423,14 +423,20 @@
           </transition>
           <transition name="slide-fade">
             <v-row v-if="!loadChannelList && loadAssignTagCategoryType" class="mt-12 d-flex flex-column align-center">
-              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
+              <v-card-title class="d-flex justify-left ml-2" style="width: 100%;"><span class="ml-2" style="color:#a61c00;">SOWerk Application Name:</span></v-card-title>
+              <v-text-field
+                style="width: 95%;"
+                v-model="addLocation.form_name"
+                label="Name your Application Here"
+              ></v-text-field>
+              <v-card-title class="d-flex justify-left ml-2" style="width: 100%;"><span class="ml-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
               <v-select
                 style="width: 95%;"
                 v-model="addLocation.vendorType"
                 :items="vendorType"
                 label="Select A Type That Describes What This Application Provides"
               ></v-select>
-              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
+              <v-card-title class="d-flex justify-left ml-2" style="width: 100%;"><span class="ml-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
               <v-autocomplete
                 style="width: 95%;"
                 v-model="addLocation.service_name"
@@ -449,7 +455,7 @@
                   <p>{{ data.item.name }}</p>
                 </template>
               </v-autocomplete>
-              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
+              <v-card-title class="d-flex justify-left ml-2" style="width: 100%;"><span class="ml-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
               <v-combobox
                 style="width: 95%;"
                 v-model="applicationtemplateTagsNew"
@@ -474,12 +480,12 @@
                   <p>{{data.item.name}}</p>
                 </template>
               </v-combobox>
-              <v-btn @click="submitTagCategoryType" class="my-4 py-6" color="#7C7C7C" style="color:white; width: 40%; align-self: flex-end">Submit</v-btn>
+              <v-btn @click="submitTagCategoryType" class="my-4 py-6 mr-8" color="#7C7C7C" style="color:white; width: 40%; align-self: flex-end">Submit</v-btn>
             </v-row>
           </transition>
         </template>
         <v-btn text @click="closeAddToLocationLoad" style="position: absolute; top: 10px; right: 10px; font-size: 30px;">X</v-btn>
-        <v-btn style="position: absolute; bottom: 10px; left: 10px;" class="py-6 px-16" color="primary" @click="backAssignTagCategoryType" v-if="loadAssignTagCategoryType">< BACK</v-btn>
+        <v-btn style="position: absolute; bottom: 15px; left: 20px; width: 40%;" class="py-6 px-16" color="primary" @click="backAssignTagCategoryType" v-if="loadAssignTagCategoryType">< BACK</v-btn>
       </v-card>
     </transition>
 

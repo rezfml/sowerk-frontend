@@ -1,38 +1,38 @@
 <template>
   <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column pt-12" max-height="auto">
     <v-skeleton-loader
-      v-if="!loadCompany && !location"
+      v-if="!loadCompany && !loadCompanyLocation"
       type="card-avatar, actions, article, article, article, actions"
       min-height="90vh"
     ></v-skeleton-loader>
-      <template>
+      <template v-if="loadCompany || loadCompanyLocation">
 <!--        <transition name="slide-fade">-->
 <!--        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
 <!--        </transition>-->
 
         <transition name="slide-fade">
-          <div style="" class="d-flex justify-center" v-if="location">
-          <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
-            <v-img v-if="location.imageUrl !== ''" :src="location.imageUrl" ></v-img>
-            <v-img v-else-if="company.imgUrl !== ''" :src="company.imgUrl" ></v-img>
-            <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
-          </v-avatar>
-        </div>
+          <div style="" class="d-flex justify-center" v-if="loadCompanyLocation && location">
+            <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
+              <v-img v-if="location.imageUrl !== ''" :src="location.imageUrl" ></v-img>
+              <v-img v-else-if="company.imgUrl !== ''" :src="company.imgUrl" ></v-img>
+              <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
+            </v-avatar>
+          </div>
         </transition>
 
         <transition name="slide-fade">
-          <div v-if="loadCompany" style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center" v-else>
-          <v-avatar style=" border: 3px solid #212121;" size="125" rounded class="text-center mx-auto elevation-10 mb-12 mt-n12">
-            <v-img v-if="company.imgUrl === ''" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
-            <v-img v-else :src="company.imgUrl" ></v-img>
-          </v-avatar>
-        </div>
+          <div v-if="loadCompany" style="width: 100%; position: absolute; z-index: 3; top: 75px;" class="d-flex justify-center">
+            <v-avatar style=" border: 3px solid #212121;" size="125" rounded class="text-center mx-auto elevation-10 mb-12 mt-n12">
+              <v-img v-if="company.imgUrl === ''" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
+              <v-img v-else :src="company.imgUrl" ></v-img>
+            </v-avatar>
+          </div>
         </transition>
 
         <transition name="slide-fade">
-          <v-card-title v-if="loadCompany || location" class="text-center mt-0 pt-12">
+          <v-card-title v-if="loadCompany || loadCompanyLocation" class="text-center mt-0 pt-12">
 
-            <v-row v-if="location" style="text-align: center;" class="">
+            <v-row v-if="loadCompanyLocation" style="text-align: center;" class="">
               <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px; word-break: normal">{{ location.name }}</v-card-text>
               <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
               <v-card-text v-else class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
@@ -76,31 +76,31 @@
         </transition>
 
         <transition name="slide-fade">
-        <v-card-text class="mx-auto" style="width: 80%;" v-if="user && loadCompany">
-          <template v-if="user">
-            <p class="title text-center primary--text">About</p>
-            <p class="body-2" v-if="company.description.length > 300">{{company.description.slice(0, 299)}}...</p>
-            <p class="body-2" v-else>{{company.description}}</p>
-            <p class="body-2">Address: {{company.address}} {{company.city}}, {{company.state}} {{company.zipcode}}</p>
-            <p class="body-2">Founded: {{company.year_founded}}</p>
-            <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
-          </template>
-        </v-card-text>
+          <v-card-text class="mx-auto" style="width: 80%;" v-if="user && loadCompany">
+            <template v-if="user">
+              <p class="title text-center primary--text">About</p>
+              <p class="body-2" v-if="company.description.length > 300">{{company.description.slice(0, 299)}}...</p>
+              <p class="body-2" v-else>{{company.description}}</p>
+              <p class="body-2">Address: {{company.address}} {{company.city}}, {{company.state}} {{company.zipcode}}</p>
+              <p class="body-2">Founded: {{company.year_founded}}</p>
+              <p class="body-2" v-if="company.creationDate">Joined SOWerk: {{company.creationDate.slice(0,4)}}</p>
+            </template>
+          </v-card-text>
         </transition>
 
         <transition name="slide-fade">
-        <v-divider v-if="user" class="mx-auto" style="width: 90%;"></v-divider>
+          <v-divider v-if="user" class="mx-auto" style="width: 90%;"></v-divider>
         </transition>
 
         <transition name="slide-fade">
-        <v-card-text class="mx-auto" style="width: 80%;" v-if="loadCompany">
-          <template v-if="user">
-            <p class="title text-center primary--text">Current Profile Contact</p>
-            <p class="body-2">{{user.first_name}} {{user.last_name}}</p>
-            <p class="body-2">{{user.email}}</p>
-            <p class="body-2">{{user.phone}}</p>
-          </template>
-        </v-card-text>
+          <v-card-text class="mx-auto" style="width: 80%;" v-if="loadCompany">
+            <template v-if="user">
+              <p class="title text-center primary--text">Current Profile Contact</p>
+              <p class="body-2">{{user.first_name}} {{user.last_name}}</p>
+              <p class="body-2">{{user.email}}</p>
+              <p class="body-2">{{user.phone}}</p>
+            </template>
+          </v-card-text>
         </transition>
 
         <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Channel Approved Vendors</v-btn>
@@ -142,6 +142,7 @@
       return {
         company: {},
         loadCompany: false,
+        loadCompanyLocation: false,
       }
     },
     mounted() {
@@ -183,6 +184,9 @@
           .catch(err => {
             console.log('err company', err)
           })
+        setTimeout(() => {
+          this.loadCompanyLocation = true;
+        }, 2500)
       },
       async websiteLink() {
         this.$router.push('../../../../' + this.company.website)

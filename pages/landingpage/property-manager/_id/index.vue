@@ -7,13 +7,7 @@
       min-width="50vw"
     ></v-skeleton-loader>
     <v-card class="pfaccountlocation d-flex flex-column align-center mb-8" v-if="loading">
-      <v-row style="width: 100%;" class="d-flex justify-center">
-        <h1>Not a member?</h1>
-      </v-row>
-      <v-row style="width: 90%; border-bottom: 1px outset #A61c00" class="d-flex justify-space-between pb-4">
-        <v-btn :to="'../../../login'" color="primary" style="width: 45%;">Login</v-btn>
-        <v-btn :to="'../../../register'" style="color: white; background-color: #7C7C7C; width: 45%;">Signup</v-btn>
-      </v-row>
+
       <v-row style="width: 100%;" class="d-flex">
         <v-col cols="5">
           <v-img :src="propertymanagerVal.imgUrl" class="profilepic"/>
@@ -24,7 +18,15 @@
           <a @click="routeAwayToWebsite">{{propertymanagerVal.website}}</a>
         </v-col>
       </v-row>
-      <h1 class="companyLocationTitle">Channels</h1>
+      <v-row style="width: 90%; border-top: 1px solid #707070;" class="d-flex justify-center">
+        <h1>The Approved Vendor Platform</h1>
+        <v-card-subtitle style="font-size: 14px; width: 80%;">The relationship between a company and Vendor is both important and cherished. SOWerk provides a set of business-to-business communication tools designed to foster the link between vendors and businesses. <strong>Interested In Becoming An Approved Vendor?</strong></v-card-subtitle>
+      </v-row>
+      <v-row style="width: 90%; border-bottom: 1px solid #707070;" class="d-flex justify-space-between pb-4">
+        <v-btn :to="'../../../register'" color="primary" style="width: 45%;">Signup/Login & Apply</v-btn>
+        <v-btn :to="'../../../landingpage'" style="color: white; background-color: #7C7C7C; width: 45%;">SOWerk - Learn More</v-btn>
+      </v-row>
+
       <v-data-table
         :items="propertymanagerVal.locations"
         :headers="headers"
@@ -33,18 +35,17 @@
         v-if="loadLocations"
       >
         <template v-slot:item.name="{item}">
-          <v-row class="d-flex" cols="12" md="6">
-            <v-col>
-              <v-img :src="item.imgUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+          <v-row class="d-flex justify-center" cols="12" md="6">
+            <v-col class="d-flex flex-column justify-center">
+              <v-img :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
               <v-card-text>{{item.name}}</v-card-text>
             </v-col>
           </v-row>
         </template>
         <template v-slot:item.full_address="{item}">
-          <v-row class="d-flex" cols="12" md="6">
-            <v-col>
-              <v-card-text>{{item.address}}</v-card-text>
-              <v-card-text>{{item.city}}, {{item.state}}  {{item.zipcode}}</v-card-text>
+          <v-row class="d-flex justify-center" cols="12" md="6">
+            <v-col class="d-flex justify-center">
+              <v-card-text>{{item.address}} {{item.city}}, {{item.state}}  {{item.zipcode}}</v-card-text>
             </v-col>
           </v-row>
         </template>
@@ -128,11 +129,11 @@ export default {
       locationSlice1: [],
       locationSlice2: [],
       headers: [
-        { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-        { text: 'Address', value: 'full_address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Founded', value: 'year_founded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Joined', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Approved Providers', value: 'approvedCount', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-justify-center'},
+        { text: 'Address', value: 'full_address', class: 'primary--text font-weight-bold text-h6 text-justify-center' },
+        // { text: 'Founded', value: 'year_founded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        // { text: 'Joined', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        // { text: 'Approved Providers', value: 'approvedCount', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ]
     }
   },
@@ -141,26 +142,26 @@ export default {
   },
   async mounted() {
     console.log(this.$route.params.id, 'ROUTE PARAMS')
-    let routeArr = this.$route.params.id.split('');
-    let newRouteArr = [];
-    for(let i=0; i<routeArr.length; i++) {
-      if(routeArr[i] !== '/') {
-        newRouteArr.push(routeArr[i])
-      } else {
-        newRouteArr.push('%2F')
-      }
-    }
-    let newRouteStr = newRouteArr.join('');
-    console.log(newRouteStr)
+    // let routeArr = this.$route.params.id.split('');
+    // let newRouteArr = [];
+    // for(let i=0; i<routeArr.length; i++) {
+    //   if(routeArr[i] !== '/') {
+    //     newRouteArr.push(routeArr[i])
+    //   } else {
+    //     newRouteArr.push('%2F')
+    //   }
+    // }
+    // let newRouteStr = newRouteArr.join('');
+    // console.log(newRouteStr)
     //window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
-    await this.getPropertyManager(newRouteStr);
+    await this.getPropertyManager(this.$route.params.id);
   },
   methods: {
     async routeAwayToWebsite() {
       window.location.href = this.propertymanagerVal.website
     },
     async getPropertyManager(id) {
-      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/regexname/' + id)
         .then(res => {
           this.propertymanagerVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);

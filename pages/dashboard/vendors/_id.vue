@@ -21,7 +21,7 @@
               </v-row>
               <v-card-title style="color:#A61C00; font-size: 24px;">{{location.name}}</v-card-title>
               <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
-              <v-card-title style="color:#A61C00; font-size: 24px;">Channel Company Details</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px;">Company Details</v-card-title>
               <v-card-title style="font-size: 24px;" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>
               <v-card-title style="font-size: 24px;" v-else>{{companyForVendor.brand_name}}</v-card-title>
               <v-card-title style="font-size: 24px;" v-if="companyForVendor.locations[0] != 'There are no locations'"><v-btn color="primary" text @click="openCompanyLocationsModal = true" style="font-size: 24px;">{{companyForVendor.locations.length}}</v-btn> Total Channels</v-card-title>
@@ -198,8 +198,8 @@
             min-height="50vh"
             min-width="30vw"
           ></v-skeleton-loader>
-          <v-btn v-if="loading" color="primary" rounded class="mt-16" style="width: 100%;" @click="requestModalLoad = true">REQUEST TO APPLY</v-btn>
-          <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="messageModalLoad = true">SEND MESSAGE</v-btn>
+          <v-btn v-if="loading" color="primary" rounded class="mt-16" style="width: 100%;" @click="openRequestModal">REQUEST TO APPLY</v-btn>
+          <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="openMessageModal">SEND MESSAGE</v-btn>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-4" style="width: 100%;">
               <v-card-title style="color: #A61c00; font-size: 24px;">Your Connection Details</v-card-title>
@@ -272,99 +272,111 @@
         </v-card>
       </transition>
 
-      <transition name="slide-fade">
-        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
-          <template style="text-align: center; width: 100%;">
-            <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
-              <v-form class="mx-4" style="width: 60%;">
-                <v-select
-                  dense
-                  label="Step 1 - Choose Your Channel"
-                  :items="company.locations"
-                  item-text="name address city state zipcode"
-                  item-value="name address city state zipcode"
-                  style="width: 100%;"
-                >
-                  <template slot="selection" slot-scope="data">
-                    <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                  </template>
-                </v-select>
-              </v-form>
-              to fill out your
-              <v-form class="mx-3" style="width: 50%;">
-                <v-select
-                  dense
-                  label="Step 2 - Choose Your Application"
-                  :items="userforms"
-                  item-text="name id"
-                  item-value="name id"
-                  style="width: 100%;"
-                >
-                  <template slot="selection" slot-scope="data">
-                    <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
-                  </template>
-                </v-select>
-              </v-form>
-              specialized application.</v-card-text>
-          </template>
-          <v-btn @click="sendMessage" outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
-          <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="requestModalLoad = false">X</v-btn>
-          <transition name="slide-fade">
-            <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
-          </transition>
-        </v-card>
-      </transition>
+      <v-overlay
+        :absolute="absolute"
+        :opacity="opacity"
+        :value="overlayRequest"
+      >
+        <transition name="slide-fade">
+          <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+            <template style="text-align: center; width: 100%;">
+              <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
+                <v-form class="mx-4" style="width: 60%;">
+                  <v-select
+                    dense
+                    label="Step 1 - Choose Your Channel"
+                    :items="company.locations"
+                    item-text="name address city state zipcode"
+                    item-value="name address city state zipcode"
+                    style="width: 100%;"
+                  >
+                    <template slot="selection" slot-scope="data">
+                      <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                    </template>
+                  </v-select>
+                </v-form>
+                to fill out your
+                <v-form class="mx-3" style="width: 50%;">
+                  <v-select
+                    dense
+                    label="Step 2 - Choose Your Application"
+                    :items="userforms"
+                    item-text="name id"
+                    item-value="name id"
+                    style="width: 100%;"
+                  >
+                    <template slot="selection" slot-scope="data">
+                      <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                    </template>
+                  </v-select>
+                </v-form>
+                specialized application.</v-card-text>
+            </template>
+            <v-btn @click="sendMessage" outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
+            <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="closeRequestModal">X</v-btn>
+            <transition name="slide-fade">
+              <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+            </transition>
+          </v-card>
+        </transition>
+      </v-overlay>
 
-      <transition name="slide-fade">
-        <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
-          <v-form class="mx-4" style="width: 60%;">
-            <v-select
-              dense
-              label="Step 1 - Choose Your Channel"
-              :items="company.locations"
-              item-text="name address city state zipcode"
-              item-value="name address city state zipcode"
-              style="width: 100%;"
-            >
-              <template slot="selection" slot-scope="data">
-                <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-              </template>
-              <template slot="item" slot-scope="data">
-                <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-              </template>
-            </v-select>
-            <v-autocomplete
-              v-model="sendMessageNonApp.name"
-              :items="naicsList"
-              item-text="name"
-              item-value="name"
-              label="Step 2 - Select A Category"
-              solo
-              clearable
-              hint="This is generated from the NAICS directory."
-            >
-              <template slot="selection" slot-scope="data">
-                <p>{{ data.item.name }}</p>
-              </template>
-              <template slot="item" slot-scope="data">
-                <p>{{ data.item.name }}</p>
-              </template>
-            </v-autocomplete>
-            <v-text-field
-              v-model="sendMessageNonApp.message"
-              label="Step 3 - Type in Message"
-            ></v-text-field>
-          </v-form>
-          <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="90%" class="mb-4">Send Message</v-btn>
-          <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="messageModalLoad = false">X</v-btn>
-        </v-card>
-      </transition>
+      <v-overlay
+        :absolute="absolute"
+        :opacity="opacity"
+        :value="overlayMessage"
+      >
+        <transition name="slide-fade">
+          <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+            <v-form class="mx-4" style="width: 60%;">
+              <v-select
+                dense
+                label="Step 1 - Choose Your Channel"
+                :items="company.locations"
+                item-text="name address city state zipcode"
+                item-value="name address city state zipcode"
+                style="width: 100%;"
+              >
+                <template slot="selection" slot-scope="data">
+                  <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                </template>
+              </v-select>
+              <v-autocomplete
+                v-model="sendMessageNonApp.name"
+                :items="naicsList"
+                item-text="name"
+                item-value="name"
+                label="Step 2 - Select A Category"
+                solo
+                clearable
+                hint="This is generated from the NAICS directory."
+              >
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+              </v-autocomplete>
+              <v-text-field
+                v-model="sendMessageNonApp.message"
+                label="Step 3 - Type in Message"
+              ></v-text-field>
+            </v-form>
+            <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="90%" class="mb-4">Send Message</v-btn>
+            <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="closeMessageModal">X</v-btn>
+          </v-card>
+        </transition>
+      </v-overlay>
 
       <transition name="slide-fade">
         <v-card v-if="openCompanyLocationsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
@@ -477,6 +489,8 @@
         absolute: true,
         opacity: 0.85,
         overlay: false,
+        overlayMessage: false,
+        overlayRequest: false,
         location: {
 
         },
@@ -559,6 +573,23 @@
       await this.getNotes();
     },
     methods: {
+
+      async closeRequestModal() {
+        this.requestModalLoad = false;
+        this.overlayRequest = false
+      },
+      async openRequestModal() {
+        this.requestModalLoad = true;
+        this.overlayRequest = true
+      },
+      async closeMessageModal() {
+        this.messageModalLoad = false;
+        this.overlayMessage = false
+      },
+      async openMessageModal() {
+        this.messageModalLoad = true;
+        this.overlayMessage = true
+      },
       async openApprovedChannelsList() {
         this.approvedChannelsList = [];
         if (this.connections.length > 0) {
@@ -764,19 +795,25 @@
         console.log(this.userforms, 'userforms for company')
       },
       async getUserFormsForLocation(item) {
-        console.log(item, 'getmessagelocation')
+        console.log(item, 'getmessagelocation!!!!!!!!!!!!!')
         this.messageLocation = item
         this.userforms = [];
-        if (item.services[0] !== 'There are no services') {
-          for (let i = 0; i < item.services.length; i++) {
-            if (item.services[i].userforms[0] !== 'There are no userforms') {
-              for (let j = 0; j < item.services[i].userforms.length; j++) {
-                // Checks if the application is published public or private. Also checks if the userform is already included in the list of approved forms this vendor has applied for.
-                if (item.services[i].userforms[j].applicationStatus !== 0 && !(this.userformsIdForRequest.includes(item.services[i].userforms[j].id))) {
-                  this.userforms.push(item.services[i].userforms[j])
-                }
-              }
-            }
+        // if (item.services[0] !== 'There are no services') {
+        //   for (let i = 0; i < item.services.length; i++) {
+        //     if (item.services[i].userforms[0] !== 'There are no userforms') {
+        //       for (let j = 0; j < item.services[i].userforms.length; j++) {
+        //         // Checks if the application is published public or private. Also checks if the userform is already included in the list of approved forms this vendor has applied for.
+        //         if (item.services[i].userforms[j].applicationStatus !== 0 && !(this.userformsIdForRequest.includes(item.services[i].userforms[j].id))) {
+        //           this.userforms.push(item.services[i].userforms[j])
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+
+        if (item.userforms[0] !== 'There are no userforms') {
+          for (let i=0; i<item.userforms.length; i++) {
+            this.userforms.push(item.userforms[i])
           }
         }
         console.log(this.userforms, 'userforms');

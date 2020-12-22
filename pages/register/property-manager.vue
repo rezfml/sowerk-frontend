@@ -217,6 +217,7 @@ export default {
         company_type: true,
         currentConnections: Number,
         maxConnections: Number,
+        public_name: '',
       },
       user: {
         first_name: '',
@@ -483,6 +484,7 @@ export default {
     },
     async register() {
       this.loading = true
+      this.company.public_name = this.company.account_name.replace(/[^0-9a-z]/gi, '')
       console.log(this.company);
       // console.log(this.locations);
       await this.uploadCompanyImage();
