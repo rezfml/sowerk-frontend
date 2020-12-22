@@ -141,26 +141,26 @@ export default {
   },
   async mounted() {
     console.log(this.$route.params.id, 'ROUTE PARAMS')
-    let routeArr = this.$route.params.id.split('');
-    let newRouteArr = [];
-    for(let i=0; i<routeArr.length; i++) {
-      if(routeArr[i] !== '/') {
-        newRouteArr.push(routeArr[i])
-      } else {
-        newRouteArr.push('%2F')
-      }
-    }
-    let newRouteStr = newRouteArr.join('');
-    console.log(newRouteStr)
+    // let routeArr = this.$route.params.id.split('');
+    // let newRouteArr = [];
+    // for(let i=0; i<routeArr.length; i++) {
+    //   if(routeArr[i] !== '/') {
+    //     newRouteArr.push(routeArr[i])
+    //   } else {
+    //     newRouteArr.push('%2F')
+    //   }
+    // }
+    // let newRouteStr = newRouteArr.join('');
+    // console.log(newRouteStr)
     //window.location.href = 'https://www.sowerk.com/landingpage/property-manager/' + newRouteStr
-    await this.getPropertyManager(newRouteStr);
+    await this.getPropertyManager(this.$route.params.id);
   },
   methods: {
     async routeAwayToWebsite() {
       window.location.href = this.propertymanagerVal.website
     },
     async getPropertyManager(id) {
-      await this.$http.get('https://www.sowerkbackend.com/api/companies/name/' + id)
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/regexname/' + id)
         .then(res => {
           this.propertymanagerVal = res.data;
           this.locationSlice1 = res.data.locations.slice(0,3);

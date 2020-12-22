@@ -1067,7 +1067,8 @@
           phone: this.company.phone,
           year_founded: this.company.year_founded,
           description: this.company.description,
-          imgUrl: this.company.imgUrl
+          imgUrl: this.company.imgUrl,
+          public_name: this.company.account_name.replace(/[^0-9a-z]/gi, '')
         }
         await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUserVal.id, userChanges)
           .then(response => {
