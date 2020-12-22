@@ -349,11 +349,11 @@
           <template v-slot:item.questions="{item}">
             <p>{{item.companytemplatesformfields.length}}</p>
           </template>
-          <template v-slot:item.actions="{item}">
-            <div class="d-flex" v-if="$vuetify.breakpoint.xl">
-              <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2" style="width: 30%;">Edit</v-btn>
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 30%;">Assign Channel</v-btn>
-              <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 30%;">Delete</v-btn>
+          <template v-slot:item.actions="{item}" class="d-flex flex-column align-center">
+            <div class="d-flex flex-column align-center" v-if="$vuetify.breakpoint.xl">
+              <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2" style="width: 80%;">Edit</v-btn>
+              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
+              <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 80%;">Delete</v-btn>
             </div>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
             <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
@@ -402,7 +402,7 @@
         </transition>
         <template v-if="loading">
           <transition name="slide-fade">
-            <v-simple-table v-if="loadChannelList && !loadAssignTagCategoryType" class="pt-16 mb-4" style="width: 100%; max-height: 500px;" fixed-header height="400px">
+            <v-simple-table v-if="loadChannelList && !loadAssignTagCategoryType" class="pt-16 mb-4" style="width: 100%; max-height: 500px;" fixed-header height="450px">
             <thead style="min-width: 100%;">
               <tr style="min-width: 100%;">
                 <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
@@ -561,10 +561,8 @@
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                       <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;"
-                                        fixed-header
-                                        height="300px"
-                        >
+                        <v-simple-table style="width: 100%;" fixed-header
+                                        height="450px">
                           <template v-slot:default>
                             <!--                            <thead>-->
                             <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -611,9 +609,8 @@
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                       <td :colspan="headers.length" style="width: 100%;">
-                        <v-simple-table style="width: 100%;"
-                                        fixed-header
-                                        height="300px">
+                        <v-simple-table style="width: 100%;" fixed-header
+                                        height="450px">
                           <template v-slot:default>
                             <!--                            <thead>-->
                             <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -766,8 +763,7 @@
             </v-form>
           </transition>
           <transition name="slide-fade">
-            <v-simple-table class="py-8" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step2" fixed-header
-                            height="400px">
+              <v-simple-table class="py-8" v-if="addNewVendorFormLoad && step2" style="width: 100%;" fixed-header height="450px">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
                 <th style="color: #a61c00; width: 40%; text-align: center">Channel Name</th>
@@ -826,7 +822,7 @@
           </transition>
           <transition name="slide-fade">
             <v-simple-table class="py-16 mt-16" style="width: 95%; margin: 0 auto;" v-if="addNewVendorFormLoad && step4" fixed-header
-                            height="400px">
+                            height="450px">
               <thead >
               <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
                 <th style="color: #a61c00; width: 70%; text-align: center">Category</th>
@@ -908,7 +904,7 @@
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
                           <v-simple-table style="width: 100%;" fixed-header
-                                          height="300px">
+                                          height="450px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -956,7 +952,7 @@
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
                           <v-simple-table style="width: 100%;" fixed-header
-                                          height="300px">
+                                          height="450px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->

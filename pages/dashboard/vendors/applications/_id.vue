@@ -18,6 +18,7 @@
         ></v-skeleton-loader>
       </v-col>
     </v-row>
+
     <transition name="slide-fade">
       <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
         <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
@@ -147,8 +148,8 @@
           <rawDisplayer :value="userForms.formfields" title="List 1" />
         </v-col>
         <v-col style="width: 35%; border-left: 1px dashed #A61C00;" class="d-flex flex-column align-center">
-          <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
-          <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
+          <v-card-title style="color: #A61C00; text-align: center">New Questions</v-card-title>
+          <v-card-subtitle style="text-align: center">Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
           <!--          <draggable-->
           <!--            style="width: 100%;"-->
           <!--            class="dragArea list-group"-->
@@ -198,7 +199,7 @@
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
                           <v-simple-table style="width: 100%;" fixed-header
-                                          height="300px">
+                                          height="450px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -246,7 +247,7 @@
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
                           <v-simple-table style="width: 100%;" fixed-header
-                                          height="300px">
+                                          height="450px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
