@@ -20,11 +20,11 @@
       </v-row>
       <v-row style="width: 90%; border-top: 1px solid #707070;" class="d-flex justify-center">
         <h1>The Approved Vendor Platform</h1>
-        <v-card-subtitle style="font-size: 14px; width: 80%;">The relationship between a company and Vendor is both important and cherished. SOWerk provides a set of business-to-business communication tools designed to foster the link between vendors and businesses. <strong>Interested In Becoming An Approved Vendor?</strong></v-card-subtitle>
+        <v-card-subtitle class="companyDescription">The relationship between a company and Vendor is both important and cherished. SOWerk provides a set of business-to-business communication tools designed to foster the link between vendors and businesses. <strong>Interested In Becoming An Approved Vendor?</strong></v-card-subtitle>
       </v-row>
       <v-row style="width: 90%; border-bottom: 1px solid #707070;" class="d-flex justify-space-between pb-4">
-        <v-btn :to="'../../../register'" color="primary" style="width: 45%;">Signup/Login & Apply</v-btn>
-        <v-btn :to="'../../../landingpage'" style="color: white; background-color: #7C7C7C; width: 45%;">SOWerk - Learn More</v-btn>
+        <v-btn :to="'../../../register'" color="primary" class="py-8" style="font-size: 25px; width: 45%;">Signup/Login & Apply</v-btn>
+        <v-btn :to="'../../../landingpage'" class="py-8" style="font-size: 25px; color: white; background-color: #7C7C7C; width: 45%;">SOWerk - Learn More</v-btn>
       </v-row>
 
       <v-data-table

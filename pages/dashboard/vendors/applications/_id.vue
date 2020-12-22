@@ -37,108 +37,118 @@
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
         <v-col style="width: 55%;">
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
-            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Account Channel:</span></v-card-title>
-            <v-select
-              :items="locationsList"
-              item-text="name"
-              item-value="name"
-              v-model="location"
-              label="Select the Channel that you want to assign this application to"
-              clearable
-              style="width: 95%;"
-            >
-              <template slot="selection" slot-scope="data">
-                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-              </template>
-              <template slot="item" slot-scope="data">
-                <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-              </template>
-            </v-select>
-            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
-            <v-select
-              style="width: 95%;"
-              v-model="userForms.vendorType"
-              :items="vendorType"
-              label="Select A Type That Describes What This Application Provides"
-            ></v-select>
-            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
-            <v-autocomplete
-              style="width: 95%;"
-              v-model="userForms.service"
-              :items="naicsList"
-              item-text="name"
-              item-value="name"
-              label="Select A Category That Describes What This Application Provides"
-              solo
-              clearable
-              hint="This is generated from the NAICS directory."
-            >
-              <template slot="selection" slot-scope="data">
-                <p>{{ data.item.name }}</p>
-              </template>
-              <template slot="item" slot-scope="data">
-                <p>{{ data.item.name }}</p>
-              </template>
-            </v-autocomplete>
-            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
-            <v-combobox
-              style="width: 95%;"
-              v-model="locationTagsNew"
-              :items="sowerkTags"
-              item-text="name"
-              item-value="name"
-              chips
-              multiple
-              label="Choose your tags here"
-            >
-              <template v-slot:selection="data">
-                <v-chip
-                  class="v-chip--select-multi"
-                  style="width: auto;"
-                >
-                  <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  <v-card-text v-else>{{data.item}}</v-card-text>
-                  <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
-                </v-chip>
-              </template>
-              <template v-slot:item="data">
-                <p>{{data.item.name}}</p>
-              </template>
-            </v-combobox>
-            <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
-            <v-text-field style="width: 95%;" v-model="userForms.name" clearable></v-text-field>
-            <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
-            <div class="d-flex flex-wrap justify-center" style="width: 100% !important; font-size: 16px;">
-              <p v-for="(form, index) in defaultFormFields" style="width: 33%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
-            </div>
-
-            <draggable
-              class="dragArea list-group"
-              group="formName"
-              :list="userForms.formfields"
-              v-model="userForms.formfields"
-              @change="reorderFormField"
-              style="width: 95%;"
-            >
-              <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in userForms.formfields">
-                <transition name="slide-fade">
-                  <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
-                    <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                    <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 16)}}</span> - {{form.name}}</p>
-                    <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-                  </v-card-title>
-                </transition>
-                <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
-                  <v-btn style="background: #707070; color: white;" @click.prevent="addOption(form, index)">Add Another Option</v-btn>
-                  <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+            <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
+            <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
+            <v-row style="width: 98%; border-bottom: 1px dashed #A61C00">
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
+              <v-text-field style="width: 95%;" v-model="userForms.name" clearable></v-text-field>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Account Channel:</span></v-card-title>
+              <v-select
+                :items="locationsList"
+                item-text="name"
+                item-value="name"
+                v-model="location"
+                label="Select the Channel that you want to assign this application to"
+                clearable
+                style="width: 95%;"
+              >
+                <template slot="selection" slot-scope="data">
+                  <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                 </template>
-              </v-card>
-            </draggable>
+                <template slot="item" slot-scope="data">
+                  <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                </template>
+              </v-select>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
+              <v-select
+                style="width: 95%;"
+                v-model="userForms.vendorType"
+                :items="vendorType"
+                label="Select A Type That Describes What This Application Provides"
+              ></v-select>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
+              <v-autocomplete
+                style="width: 95%;"
+                v-model="userForms.service"
+                :items="naicsList"
+                item-text="name"
+                item-value="name"
+                label="Select A Category That Describes What This Application Provides"
+                solo
+                clearable
+                hint="This is generated from the NAICS directory."
+              >
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+              </v-autocomplete>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
+              <v-combobox
+                style="width: 95%;"
+                v-model="locationTagsNew"
+                :items="sowerkTags"
+                item-text="name"
+                item-value="name"
+                chips
+                multiple
+                label="Choose your tags here"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    class="v-chip--select-multi"
+                    style="width: auto;"
+                  >
+                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text v-else>{{data.item}}</v-card-text>
+                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <p>{{data.item.name}}</p>
+                </template>
+              </v-combobox>
+            </v-row>
+            <v-row style="width: 98%; border-bottom: 1px dashed #A61C00" class="d-flex flex-column align-center">
+              <v-card-title style="color: #A61C00;">Standard Questions, Add Custom Questions Below</v-card-title>
+              <div class="d-flex flex-wrap justify-center" style="width: 100% !important; font-size: 16px;">
+                <p v-for="(form, index) in defaultFormFields" style="width: 33%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
+              </div>
+            </v-row>
+            <v-row style="width: 98%;" class="d-flex flex-column align-center">
+              <v-card-title class="d-flex justify-center" style="color: #A61C00;">Custom Application Questions</v-card-title>
+              <v-card-subtitle class="d-flex justify-center" style="width: 80%;">Use the following area to add, edit, or rearrange your approved vendor questions. Drag and drop questions from the library to the right or add completely new questions. </v-card-subtitle>
+              <draggable
+                class="dragArea list-group"
+                group="formName"
+                :list="userForms.formfields"
+                v-model="userForms.formfields"
+                @change="reorderFormField"
+                style="width: 95%;"
+              >
+                <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in userForms.formfields">
+                  <transition name="slide-fade">
+                    <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
+                      <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                      <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 16)}}</span> - {{form.name}}</p>
+                      <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                    </v-card-title>
+                  </transition>
+                  <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
+                    <v-btn style="background: #707070; color: white;" @click.prevent="addOption(form, index)">Add Another Option</v-btn>
+                    <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                  </template>
+                </v-card>
+              </draggable>
+            </v-row>
           </v-card>
           <rawDisplayer :value="userForms.formfields" title="List 1" />
         </v-col>
-        <v-col style="width: 35%;" class="d-flex flex-column align-center">
-          <v-card-title>Add New Requirement</v-card-title>
+        <v-col style="width: 35%; border-left: 1px dashed #A61C00;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
+          <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
           <!--          <draggable-->
           <!--            style="width: 100%;"-->
           <!--            class="dragArea list-group"-->
@@ -161,7 +171,9 @@
           <!--          <rawDisplayer title="List 2" :value="formTypes" />-->
           <transition name="slide-fade">
             <v-container class="" overflow-y-auto>
-              <v-row class="d-flex justify-center" style="width: 100%;">
+              <v-row class="d-flex justify-center" style="width: 100%; border-top: 1px dashed #A61C00">
+                <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
+                <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
                 <v-col cols="12" class="d-flex flex-column align-center">
                   <v-row class="mb-n8" v-if="$vuetify.breakpoint.xl">
                     <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
