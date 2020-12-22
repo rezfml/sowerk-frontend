@@ -34,41 +34,102 @@
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
         <v-col style="width: 55%;">
           <v-card class="d-flex flex-column align-center" style="width: 100%;">
-            <v-card-title style="width: 100%;">SOWerk Category: <span class="ml-2" style="color:#a61c00;">{{companyTemplate.service_name}}</span></v-card-title>
-            <v-card-title style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span> <v-text-field style="width: 70%;" v-model="companyTemplate.form_name" clearable></v-text-field></v-card-title>
+            <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
+            <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
 
-            <p style="width: 100% !important; font-size:16px;color:black;margin-left:5%;font-weight:bold;text-align: center">Standard Questions, Add Custom Questions Below</p>
-            <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px; text-align: left"  v-for="(form, index) in defaultFormFields">
-              <p style="width: 100%;margin:0%;text-align:left"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
-            </v-card-title>
-
-            <draggable
-              class="dragArea list-group"
-              group="formName"
-              :list="companyTemplate.companytemplatesformfields"
-              v-model="companyTemplate.companytemplatesformfields"
-              @change="reorderFormField"
-              style="width: 95%;"
-            >
-              <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in companyTemplate.companytemplatesformfields">
-                <transition name="slide-fade">
-                  <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
-                    <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                    <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 16)}}</span> - {{form.name}}</p>
-                    <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-                  </v-card-title>
-                </transition>
-                <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
-                  <v-btn style="background: #707070; color: white;" @click.stop="addOption(form, index)">Add Another Option</v-btn>
-                  <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+            <v-row style="width: 98%; border-bottom: 1px dashed #A61C00">
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
+              <v-text-field style="width: 70%;" v-model="companyTemplate.form_name" clearable></v-text-field>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
+              <v-select
+                style="width: 95%;"
+                v-model="companyTemplate.vendorType"
+                :items="vendorType"
+                label="Select A Type That Describes What This Application Provides"
+              ></v-select>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
+              <v-autocomplete
+                style="width: 95%;"
+                v-model="companyTemplate.service_name"
+                :items="naicsList"
+                item-text="name"
+                item-value="name"
+                label="Select A Category That Describes What This Application Provides"
+                solo
+                clearable
+                hint="This is generated from the NAICS directory."
+              >
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
                 </template>
-              </v-card>
-            </draggable>
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item.name }}</p>
+                </template>
+              </v-autocomplete>
+              <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Tags:</span></v-card-title>
+              <v-combobox
+                style="width: 95%;"
+                v-model="locationTagsNew"
+                :items="sowerkTags"
+                item-text="name"
+                item-value="name"
+                chips
+                multiple
+                label="Choose your tags here"
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    class="v-chip--select-multi"
+                    style="width: auto;"
+                  >
+                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text v-else>{{data.item}}</v-card-text>
+                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <p>{{data.item.name}}</p>
+                </template>
+              </v-combobox>
+            </v-row>
+            <v-row style="width: 98%; border-bottom: 1px dashed #A61C00" class="d-flex flex-column align-center">
+              <v-card-title style="color: #A61C00;">Standard Questions, Add Custom Questions Below</v-card-title>
+              <div class="d-flex flex-wrap justify-center" style="width: 100% !important; font-size: 16px;">
+                <p v-for="(form, index) in defaultFormFields" style="width: 33%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
+              </div>
+            </v-row>
+            <v-row style="width: 98%;" class="d-flex flex-column align-center">
+              <v-card-title class="d-flex justify-center" style="color: #A61C00;">Custom Application Questions</v-card-title>
+              <v-card-subtitle class="d-flex justify-center" style="width: 80%;">Use the following area to add, edit, or rearrange your approved vendor questions. Drag and drop questions from the library to the right or add completely new questions. </v-card-subtitle>
+              <draggable
+                class="dragArea list-group"
+                group="formName"
+                :list="companyTemplate.companytemplatesformfields"
+                v-model="companyTemplate.companytemplatesformfields"
+                @change="reorderFormField"
+                style="width: 95%;"
+              >
+                <v-card style="border:2px outset lightgrey; width: 100% !important;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in companyTemplate.companytemplatesformfields">
+                  <transition name="slide-fade">
+                    <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
+                      <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                      <p style="width: 70%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 16)}}</span> - {{form.name}}</p>
+                      <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                    </v-card-title>
+                  </transition>
+                  <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
+                    <v-btn style="background: #707070; color: white;" @click.stop="addOption(form, index)">Add Another Option</v-btn>
+                    <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                  </template>
+                </v-card>
+              </draggable>
+            </v-row>
           </v-card>
-          <rawDisplayer :value="userForms.formfields" title="List 1" />
+          <rawDisplayer :value="companyTemplate.companytemplatesformfields" title="List 1" />
         </v-col>
-        <v-col style="width: 35%;" class="d-flex flex-column align-center">
-          <v-card-title>Add New Requirement</v-card-title>
+        <v-col style="width: 35%; border-left: 1px dashed #A61C00;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61C00; text-align: center">New Questions</v-card-title>
+          <v-card-subtitle style="text-align: center">Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
           <!--          <draggable-->
           <!--            style="width: 100%;"-->
           <!--            class="dragArea list-group"-->
@@ -98,7 +159,9 @@
 
           <transition name="slide-fade">
             <v-container class="" overflow-y-auto>
-              <v-row class="d-flex justify-center" style="width: 100%;">
+              <v-row class="d-flex justify-center" style="width: 100%; border-top: 1px dashed #A61C00">
+                <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
+                <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
                 <v-col cols="12" class="d-flex flex-column align-center">
                   <v-row class="mb-n8" v-if="$vuetify.breakpoint.xl">
                     <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
@@ -122,7 +185,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="450px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -169,7 +233,8 @@
                     >
                       <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
                         <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;">
+                          <v-simple-table style="width: 100%;" fixed-header
+                                          height="450px">
                             <template v-slot:default>
                               <!--                            <thead>-->
                               <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
@@ -241,6 +306,10 @@
     },
     data () {
       return {
+        vendorType: [
+          'Supplier',
+          'Servicer'
+        ],
         userHasDefaults: false,
         defaultFormFields: [
           {
@@ -249,7 +318,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -258,7 +327,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -267,7 +336,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -276,7 +345,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -285,7 +354,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -294,7 +363,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -303,7 +372,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -312,7 +381,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -321,7 +390,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -330,7 +399,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -339,7 +408,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           {
@@ -348,7 +417,7 @@
             options: "",
             required: true,
             type: 'text',
-            userform_id: this.$route.params.id,
+            companytemplates_id: this.$route.params.id,
             value: ''
           },
           // {
@@ -357,7 +426,7 @@
           //   options: "",
           //   required: true,
           //   type: 'text',
-          //   userform_id: this.$route.params.id,
+          //   companytemplates_id: this.$route.params.id,
           //   value: ''
           // },
           // {
@@ -366,7 +435,7 @@
           //   options: "",
           //   required: true,
           //   type: 'text',
-          //   userform_id: this.$route.params.id,
+          //   companytemplates_id: this.$route.params.id,
           //   value: ''
           // },
           // {
@@ -375,7 +444,7 @@
           //   options: "",
           //   required: true,
           //   type: 'text',
-          //   userform_id: this.$route.params.id,
+          //   companytemplates_id: this.$route.params.id,
           //   value: ''
           // },
         ],
@@ -387,7 +456,7 @@
           {
             id: 0,
             name: 'Input Field',
-            userform_id: Number,
+            companytemplates_id: Number,
             options: "",
             order: Number,
             required: true,
@@ -397,7 +466,7 @@
           {
             id: 0,
             name: 'Select Field',
-            userform_id: Number,
+            companytemplates_id: Number,
             options: ['Option 1', 'Option 2', 'Option 3'],
             order: Number,
             required: true,
@@ -407,7 +476,7 @@
           // {
           //   id: 0,
           //   name: 'File Upload',
-          //   userform_id: Number,
+          //   companytemplates_id: Number,
           //   options: "",
           //   order: Number,
           //   required: true,
@@ -446,21 +515,29 @@
         newAssignUserForm: {},
         globalId: 0,
         itemname: '',
-        itemuserform_id: Number,
+        itemcompanytemplates_id: Number,
         itemoptions: '',
         itemorder: Number,
         itemrequired: Number,
         itemtype: '',
         itemvalue: '',
         newOptionNum: 0,
-        one: []
+        one: [],
+        locationTagsNew: [],
+        originalLocationTags: [],
+        sowerkTags: [],
+        naicsList: [],
+        locationsList: [],
+        chosenLocation: [],
       }
     },
     async created() {
     //   await this.getUserforms(this.$route.params.id)
     //   console.log(this.$route.params.id)
-    await this.getApplicationTemplates();
-      this.getCompanyTemplates();
+      await this.getApplicationTemplates();
+      await this.getSowerkTags();
+      await this.getNaicsList();
+      await this.getCompanyTemplates();
     //   await this.getCompanyTemplatesFormFields();
     },
     computed: {
@@ -469,10 +546,39 @@
       },
     },
     methods: {
+      async getNaicsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
+          .then(response => {
+            console.log('naicslist', response)
+            this.naicsList = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err on getting naicslist')
+          })
+      },
+      async getSowerkTags() {
+        await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
+          .then(response => {
+            console.log(response.data, 'response.data for sowerktags');
+            this.sowerkTags = response.data;
+            console.log(this.sowerkTags, 'sowerktags')
+          })
+      },
+      async removeTag(item) {
+        console.log(this.locationTagsNew, 'before removal', item)
+        this.locationTagsNew = this.locationTagsNew.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.locationTagsNew, 'after removal')
+      },
       cloneField(item) {
         console.log(item, 'clone clone clone');
         this.itemname =  item.name;
-        this.itemuserform_id = this.userForms.id;
+        this.itemcompanytemplates_id = this.companyTemplates.id;
         this.itemoptions =  item.options;
         this.itemorder =  item.order;
         this.itemrequired =  item.required;
@@ -481,7 +587,7 @@
         let newItem = {
           id: this.globalId,
           name: this.itemname,
-          userform_id: this.itemuserform_id,
+          companytemplates_id: this.itemcompanytemplates_id,
           options: this.itemoptions,
           order: this.itemorder,
           required: this.itemrequired,
@@ -496,33 +602,33 @@
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)
           .then(response => {
             // IF GENERAL QUESTIONS ARE NOT PRESENT WITHIN RESPONSE THEN FLIP userHasDefaults TO FALSE
-            if(response.data.formfields.some(question => question.name === "Vendor Name")){
+            if(response.data.companytemplatesformfields.some(question => question.name === "Vendor Name")){
               this.userHasDefaults = true
             } else{
               this.userHasDefaults = false
             }
-            this.userForms = response.data;
-            this.userForms.formfields = this.userForms.formfields.filter(formfield => {
+            this.companyTemplates = response.data;
+            this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.filter(formfield => {
               if(formfield.name !== "Vendor Name" && formfield.name !== "Vendor Type" && formfield.name !== "Vendor Category" && formfield.name !== "Vendor's Address of Application" && formfield.name !== "Company Founded" && formfield.name !== "Number of Employees" && formfield.name !== "SOWerk Connections" && formfield.name !== "Contact Person Name" && formfield.name !== "Contact Person Phone" && formfield.name !== "Contact Person Email" && formfield.name !== "Contact Website" && formfield.name !== "Applicants Service Radius" && formfield.name !== "Company's General Liability Insurance Provider" && formfield.name !== "List of Certifications" && formfield.name !== "Published Certificates") {
                 return formfield
               }
             })
             this.finishedFormFields = true;
-            this.userForms.formfields = this.userForms.formfields.sort((a,b) => {
+            this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.sort((a,b) => {
               return a.order - b.order
             })
-            for(let i=0; i<this.userForms.formfields.length; i++) {
-              this.userForms.formfields[i].options = this.userForms.formfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
-              console.log(this.userForms.formfields[i].options, 'option #', i)
+            for(let i=0; i<this.companyTemplate.companytemplatesformfields.length; i++) {
+              this.companyTemplate.companytemplatesformfields[i].options = this.companyTemplate.companytemplatesformfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
+              console.log(this.companyTemplate.companytemplatesformfields[i].options, 'option #', i)
             }
-            console.log(this.userForms, 'this.userForms sort')
+            console.log(this.companyTemplates, 'this.companyTemplates sort')
             this.getLocation(response.data.locations_id)
             this.getFormFields(response.data.id)
           })
           .catch(err => {
             console.log('err get services', err);
           })
-        console.log('this.userForms', this.userForms)
+        console.log('this.companyTemplates', this.companyTemplates)
       },
       async getService(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/' + id)
@@ -557,10 +663,56 @@
       },
       async saveUserForm() {
         this.saveLoad = false;
-        console.log('this.userForms', this.userForms);
+        console.log('this.companyTemplate', this.companyTemplate);
         console.log('this.originaluserForms', this.originalUserForms);
+        if(this.originalLocationTags.length > 0) {
+          for(let i=0; i<this.originalLocationTags.length; i++) {
+            if(!(this.locationTagsNew.includes(this.originalLocationTags[i]))) {
+              console.log(this.originalLocationTags[i], 'this.location tags DELETE')
+              this.$http.delete('https://www.sowerkbackend.com/api/companytemplatetags/' + this.originalLocationTags[i].id)
+                .then(response => {
+                  console.log(response, 'success in original tag')
+                })
+                .catch(err => {
+                  console.log(err, 'err in deleting original tag')
+                })
+            }
+          }
+        }
         const userformEdit = {
-          name: this.userForms.name
+          form_name: this.companyTemplate.form_name,
+          service_name: this.companyTemplate.service_name,
+          vendorType: this.companyTemplate.vendorType,
+        }
+        if(this.locationTagsNew.length > 0) {
+          console.log(this.locationTagsNew, 'this.locationTags', 'this.companyTemplate!!!!!!!!!!!!!! ', this.companyTemplate);
+          for(let i=0; i<this.locationTagsNew.length; i++) {
+            if(typeof this.locationTagsNew[i] === 'object' && !(this.originalLocationTags.includes(this.locationTagsNew[i]))) {
+              console.log(this.locationTagsNew[i].name,' HELLO POSTING FOR TAGS')
+              this.$http.post('https://www.sowerkbackend.com/api/companytemplatetags/byCompanyTemplateId/' + this.$route.params.id, {
+                name: this.locationTagsNew[i].name
+              })
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting location tags')
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting locationtags')
+                })
+            } else {
+              if(!(this.originalLocationTags.includes(this.locationTagsNew[i]))) {
+                console.log(this.locationTagsNew[i],' HELLO POSTING FOR TAGS')
+                this.$http.post('https://www.sowerkbackend.com/api/companytemplatetags/byCompanyTemplateId/' + this.$route.params.id, {
+                  name: this.locationTagsNew[i]
+                })
+                  .then(responseVal => {
+                    console.log(responseVal, 'success in posting location tags')
+                  })
+                  .catch(err => {
+                    console.log(err, 'err in posting locationtags!!!!')
+                  })
+              }
+            }
+          }
         }
         // await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, {
         //   name: "Vendor Name",
@@ -568,7 +720,7 @@
         //   options: "",
         //   required: true,
         //   type: 'text',
-        //   userform_id: this.$route.params.id,
+        //   companytemplates_id: this.$route.params.id,
         //   value: ''
         // })
         //   .then(response => {
@@ -580,7 +732,7 @@
         if(this.userHasDefaults === false) {
           // ADD THE GENERAL QUESTIONS and THEN ADD CUSTOM QUESTIONS
           this.defaultFormFields.forEach(async (formfield) => {
-            await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, formfield)
+            await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.$route.params.id, formfield)
               .then(response => {
                 console.log(response, 'posting new formfield for userform');
               })
@@ -589,12 +741,12 @@
               })
           })
           // ALSO ADD CUSTOM QUESTIONS
-          this.userForms.formfields.forEach(async (formfield, index) => {
-            formfield["userform_id"] = this.userForms.id
+          this.companyTemplate.companytemplatesformfields.forEach(async (formfield, index) => {
+            formfield["companytemplates_id"] = this.companyTemplates.id
             formfield.order = index;
             if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
               let newFormField = {
-                userform_id: formfield.userform_id,
+                companytemplates_id: formfield.companytemplates_id,
                 name: formfield.name,
                 options: formfield.options,
                 order: formfield.order,
@@ -603,7 +755,7 @@
                 value: formfield.value
               }
               this.filteredUniqueUserForms.push(formfield)
-              await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
+              await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.companyTemplates.id, newFormField)
                 .then(response => {
                   console.log(response, 'posting new formfield for userform');
                 })
@@ -620,7 +772,7 @@
                 type: formfield.type,
                 value: formfield.value
               }
-              await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+              await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
                 .then(response => {
                   console.log(response, 'updating formfield ', formfield.id)
                 })
@@ -631,12 +783,12 @@
           })
         } else {
           // ONLY ADD CUSTOM QUESTIONS
-          this.userForms.formfields.forEach(async (formfield, index) => {
-            formfield["userform_id"] = this.userForms.id
+          this.companyTemplate.companytemplatesformfields.forEach(async (formfield, index) => {
+            formfield["companytemplates_id"] = this.companyTemplates.id
             formfield.order = index;
             if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
               let newFormField = {
-                userform_id: formfield.userform_id,
+                companytemplates_id: formfield.companytemplates_id,
                 name: formfield.name,
                 options: formfield.options,
                 order: formfield.order,
@@ -645,7 +797,7 @@
                 value: formfield.value
               }
               this.filteredUniqueUserForms.push(formfield)
-              await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
+              await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.companyTemplates.id, newFormField)
                 .then(response => {
                   console.log(response, 'posting new formfield for userform');
                 })
@@ -662,20 +814,22 @@
                 type: formfield.type,
                 value: formfield.value
               }
-              await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+              await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
                 .then(response => {
                   console.log(response, 'updating formfield ', formfield.id)
                 })
                 .catch(err => {
                   console.log('error in updating formfield', err)
                 })
+              this.saveLoad = true;
+              this.$router.go()
             }
           })
         }
-        // console.log('this.userForms after loop', this.userForms);
+        // console.log('this.companyTemplates after loop', this.companyTemplates);
         // console.log(this.filteredUniqueUserForms, 'filtered unique formfields');
         // console.log(this.filteredSameUserForms, 'filtered same formfields')
-        // await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.userForms.id, userformEdit)
+        // await this.$http.put('https://www.sowerkbackend.com/api/userforms/' + this.companyTemplates.id, userformEdit)
         //   .then(response => {
         //     console.log(response, 'updating formfield ', formfield.id)
         //   })
@@ -721,13 +875,13 @@
         console.log('deleteSingleFormfield', formfieldVal);
         if(formfieldVal.id === 0) {
           this.companyTemplate.companytemplatesformfields.splice(formfieldVal.order, 1);
-          console.log('this.userForms on delete', this.companyTemplate.companytemplatesformfields);
+          console.log('this.companyTemplates on delete', this.companyTemplate.companytemplatesformfields);
         } else {
           let confirmDelete = confirm('We noticed this formfield is saved to your userform. If you confirm this, it will delete the question permanently.');
           if(confirmDelete === true) {
             this.companyTemplate.companytemplatesformfields.splice(formfieldVal.order, 1);
-            console.log('this.userForms on delete', this.companyTemplate.companytemplatesformfields);
-            this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + formfieldVal.id)
+            console.log('this.companyTemplates on delete', this.companyTemplate.companytemplatesformfields);
+            this.$http.delete('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfieldVal.id)
               .then(response => {
                 console.log('response for delete formfield', response)
               })
@@ -813,22 +967,55 @@
       async getCompanyTemplate() {
         await this.$http.get('https://www.sowerkbackend.com/api/companytemplates/' + this.$route.params.id)
           .then(async(response) => {
-            console.log(response, 'companyTemplates wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
+            // IF GENERAL QUESTIONS ARE NOT PRESENT WITHIN RESPONSE THEN FLIP userHasDefaults TO FALSE
             let userForm = {
-                active: response.data.companytemplate.active,
-                companies_id: response.data.companytemplate.companies_id,
-                service_name: response.data.companytemplate.service_name,
-                form_name: response.data.companytemplate.form_name,
-                companytemplatesformfields: response.data.companytemplate.companytemplateformfields
+              active: response.data.companytemplate.active,
+              companies_id: response.data.companytemplate.companies_id,
+              service_name: response.data.companytemplate.service_name,
+              form_name: response.data.companytemplate.form_name,
+              companytemplatesformfields: response.data.companytemplate.companytemplateformfields
             }
             this.companyTemplate = userForm
+            this.originalUserForms = response.data.companytemplate.companytemplateformfields
+            await this.getCompanyTag(this.companyTemplate.id)
             // await this.getCompanyTemplateFormFields(response.data.id);
-            console.log(this.companyTemplate, 'companyTemplate')
+            console.log(this.companyTemplate, 'companyTemplate!!!!!!!!!!!!!!!!!!!')
+            if(this.companyTemplate.companytemplatesformfields.some(question => question.name === "Vendor Name")){
+              this.userHasDefaults = true
+            } else{
+              this.userHasDefaults = false
+            }
+
+            this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.filter(formfield => {
+              if(formfield.name !== "Vendor Name" && formfield.name !== "Vendor Type" && formfield.name !== "Vendor Category" && formfield.name !== "Vendor's Address of Application" && formfield.name !== "Company Founded" && formfield.name !== "Number of Employees" && formfield.name !== "SOWerk Connections" && formfield.name !== "Contact Person Name" && formfield.name !== "Contact Person Phone" && formfield.name !== "Contact Person Email" && formfield.name !== "Contact Website" && formfield.name !== "Applicants Service Radius" && formfield.name !== "Company's General Liability Insurance Provider" && formfield.name !== "List of Certifications" && formfield.name !== "Published Certificates") {
+                return formfield
+              }
+            })
+
+            this.finishedFormFields = true;
+            this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.sort((a,b) => {
+              return a.order - b.order
+            })
+            for(let i=0; i<this.companyTemplate.companytemplatesformfields.length; i++) {
+              this.companyTemplate.companytemplatesformfields[i].options = this.companyTemplate.companytemplatesformfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
+              console.log(this.companyTemplate.companytemplatesformfields[i].options, 'option #', i)
+            }
           })
           .catch(err => {
             console.log(err, 'err in companyTemplate')
           })
           this.loading = true
+      },
+      async getCompanyTag(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companytemplatetags/byCompanyTemplateId/' + this.$route.params.id)
+          .then(response => {
+            console.log(response.data, 'userform tags!!')
+            this.locationTagsNew = response.data;
+            this.originalLocationTags = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting compnay tag')
+          })
       },
       async getCompanyTemplateFormFields(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + id)
