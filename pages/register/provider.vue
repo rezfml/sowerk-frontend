@@ -62,10 +62,10 @@
           </v-tabs>
 
           <!-- ALL 3 TABS OF COMPANY, DOCUMENTS, AND REVIEW -->
-          <v-tabs-items 
-            v-model="tab" 
-            class="white" 
-            light 
+          <v-tabs-items
+            v-model="tab"
+            class="white"
+            light
             eager
           >
 
@@ -824,6 +824,7 @@
           'Review'
         ],
         company: {
+          public_name: '',
           account_name: '',
           brand_name: '',
           address: '',
@@ -1275,6 +1276,7 @@
 
         // await this.loopLocationImages();
 
+        this.company.public_name = this.company.account_name.replace(/[^0-9a-z]/gi, '')
         console.log(this.company, 'this.company');
         console.log(this.locations, 'this.locations');
 
