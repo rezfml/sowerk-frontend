@@ -4,7 +4,7 @@
       
       <transition name="slide-fade">
         <v-card class="my-4 flex-row justify-space-between align-center mx-0">
-          <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:120px;background-color:#404040">
+          <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
             <v-col cols="3" style="color:white;width:100%;text-align:center;">
               <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
@@ -15,7 +15,7 @@
             </v-col>
 
             <v-col cols="4" style="width:100%;text-align:center;">
-              <a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%">
+              <a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%;text-decoration:none;color:inherit;">
                 <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                   WATCH NOW
                 </span>
@@ -44,10 +44,9 @@
 
               <h2 style="font-weight:bold;font-size:1.2rem;">Locations - Majory Projects - Departments - Revenue Streams</h2>
               <v-btn
-                style="background: linear-gradient(to right, #A61C00, #741502); width:100%;"
+                style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
                 large
                 outlined
-                rounded
                 color="white"
                 to="../../dashboard/channels/add"
               >Add Another Channel - Click Here</v-btn>

@@ -1,44 +1,44 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
-<!--      <v-progress-circular-->
-<!--        indeterminate-->
-<!--        color="primary"-->
-<!--        :size="50"-->
-<!--      ></v-progress-circular>-->
-<!--    </div>-->
-
-    <transition name="slide-fade">
-      <v-card class="my-4 flex-row justify-space-between align-center mx-0">
-        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:120px;background-color:#404040">
-
-          <v-col cols="3" style="color:white;width:100%;text-align:center;">
-            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
-          </v-col>
-
-          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-            <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
-          </v-col>
-
-          <v-col cols="4" style="width:100%;text-align:center;">
-            <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW
-              </span>
-            </a>
-          </v-col>
-        </v-row>
-      </v-card>
-    </transition>
-
-    <v-skeleton-loader
-      v-if="!loading && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)"
-      type="card-avatar, article, article, actions"
-      min-height="50vh"
-      min-width="80vw"
-    ></v-skeleton-loader>
-
     <v-container class="px-0" style="max-width: 95%;">
+        <!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+        <!--      <v-progress-circular-->
+        <!--        indeterminate-->
+        <!--        color="primary"-->
+        <!--        :size="50"-->
+        <!--      ></v-progress-circular>-->
+        <!--    </div>-->
+
+      <!-- <transition name="slide-fade">
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0">
+          <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+
+            <v-col cols="3" style="color:white;width:100%;text-align:center;">
+              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
+            </v-col>
+
+            <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <p style="font-size:1.1rem">Watch our short video to learn about your Approved Vendors and why they are important to your SOWerk Account.</p>
+            </v-col>
+
+            <v-col cols="4" style="width:100%;text-align:center;">
+              <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%;text-decoration:none;color:inherit;">
+                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                  WATCH NOW
+                </span>
+              </a>
+            </v-col>
+          </v-row>
+        </v-card>
+      </transition> -->
+
+      <v-skeleton-loader
+        v-if="!loading && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)"
+        type="card-avatar, article, article, actions"
+        min-height="50vh"
+        min-width="80vw"
+      ></v-skeleton-loader>
+
 
       <!-- ACCOUNT CHANNELS BANNER AND PARAGRAPH TEXT, PLUS ADD NOW BUTTON -->
       <transition name="slide-fade">
@@ -56,7 +56,7 @@
               <!-- <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p> -->
               <v-spacer></v-spacer>
-              <p>This is where it all comes together, your list of approved Vendors!</p>
+              <h2 style="color:darkred;padding-bottom:2%">What Are Your Approved Vendors?</h2>
               <v-spacer></v-spacer>
               <p>Here you will find a full and complete list of Vendors that your company account has approved through one channel or multiple channels. However, based on your user access level as well as which channel(s) the Vendor was approved by your company this interface may have different features and functionality. For example, if a Vendor was originally approved through one channel in your company account but that channel is not one you manage then some details and features may be limited.</p>
               <v-spacer></v-spacer>
@@ -64,22 +64,18 @@
               </p> -->
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">
-                <v-col cols="9">
+                <v-col cols="12" style="width:100%;margin:0%;padding:0%;">
                   <v-btn
-                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
-                    class="px-16 mr-16"
+                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;border-radius:8px;margin-bottom:1%"
                     large
                     outlined
-                    rounded
                     color="white"
                     href="/dashboard/vendors/invite"
                   >Invite New Vendors</v-btn>
                   <v-btn
-                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;"
-                    class="px-16 mr-16"
+                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;border-radius:8px"
                     large
                     outlined
-                    rounded
                     color="white"
                     href="/dashboard/vendors/"
                   >View Vendor Directory</v-btn>
