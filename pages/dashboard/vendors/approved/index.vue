@@ -64,21 +64,29 @@
               </p> -->
               <v-spacer></v-spacer>
               <v-row class="d-flex justify-space-around align-center mx-0">
-                <v-col cols="12" style="width:100%;margin:0%;padding:0%;">
+                <v-col cols="6" style="width:100%;margin:0%;padding:0%;">
                   <v-btn
-                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;border-radius:8px;margin-bottom:1%"
+                    style="background:linear-gradient(to right, #A61C00, #741502);width:100%;height:70px;border-radius:8px;margin-bottom:1%"
                     large
                     outlined
                     color="white"
                     href="/dashboard/vendors/invite"
-                  >Invite New Vendors</v-btn>
+                  >
+                    <span style="padding-right:5%"><v-img src="/add-user.svg" style="height:50px;width:50px;"></v-img></span>
+                  Invite New Vendors
+                  </v-btn>
+                </v-col>
+
+                <v-col cols="6">
                   <v-btn
-                    style="background: linear-gradient(to right, #A61C00, #741502); width: 100%;border-radius:8px"
+                    style="background:linear-gradient(to right, #A61C00, #741502);width:100%;height:70px;border-radius:8px"
                     large
                     outlined
                     color="white"
                     href="/dashboard/vendors/"
-                  >View Vendor Directory</v-btn>
+                  >
+                    <span style="padding-right:5%"><v-img src="/agenda.svg" style="height:50px;width:50px;"></v-img></span>
+                  View Vendor Directory</v-btn>
                 </v-col>
               </v-row>
             </v-col>
