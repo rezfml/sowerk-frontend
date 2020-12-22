@@ -58,7 +58,7 @@
                 <v-col cols="6" class="d-flex flex-column">
                   <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
                     <span>
-                      <span><v-img src="/resume-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                      <span><v-img src="/resume-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%;">
                       <p style="font-size:1.1rem"> YOUR VENDOR</p>
@@ -71,7 +71,7 @@
                 <v-col cols="6" class="d-flex flex-column">
                   <v-btn @click="loadCompanyDocumentsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
                     <span>
-                      <span><v-img src="/outbox-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                      <span><v-img src="/outbox-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
                       <p style="font-size:1.1rem"> YOUR COMPANY</p>
@@ -86,7 +86,7 @@
                 <v-col cols="6" class="d-flex flex-column">
                   <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
                     <span>
-                      <span><v-img src="/profile-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                      <span><v-img src="/profile-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
                       <p style="font-size:1.1rem"> YOUR COMPANY</p>
@@ -99,7 +99,7 @@
                 <v-col cols="6" class="d-flex flex-column">
                   <v-btn @click="loadApplicationTemplatesFunction" class="py-4 mb-3" color="#707070" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
                     <span>
-                      <span><v-img src="/data-management-icon.svg" style="height:50px;width:50px;padding:5%;"></v-img></span>
+                      <span><v-img src="/data-management-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
                       <p style="font-size:1.1rem;color:white"> SOWERK TEMPLATES</p>
