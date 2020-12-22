@@ -50,10 +50,32 @@
       </transition>
       <transition name="slide-fade">
         <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
-          <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}!</v-card-title>
-          <v-card-text>It seems you've been assigned a password that's been designated temporary. You are encouraged to change this for security reasons. You may do this under Settings -> Manage Users -> Edit. To not recieve this message again, please click the button below!</v-card-text>
-          <v-btn @click="passwordKeep" color="primary">I will keep my password as-is for now</v-btn>
-          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>
+          <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
+          <v-card-text>It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
+          <v-text-field
+            id="password"
+            label="Password*"
+            type="password"
+            v-model="password"
+            placeholder=" "
+            :rules="rules.passwordRules"
+            :type="show1 ? 'text' : 'password'"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show1 = !show1"
+          ></v-text-field>
+          <v-text-field
+            id="confirm"
+            label="Confirm Password*"
+            type="password"
+            placeholder=" "
+            v-model="confirmPassword"
+            :rules="confirmPasswordRules"
+            :type="show1 ? 'text' : 'password'"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show1 = !show1"
+          ></v-text-field>
+          <v-btn @click="passwordKeep" color="primary" large class="my-2 px-16">Save New Password</v-btn>
+<!--          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>-->
         </v-card>
       </transition>
       <transition name="slide-fade">
@@ -318,6 +340,20 @@
         locationApproved: false,
         statApproved: false,
         changePasswordPopup: false,
+        password: '',
+        confirmPassword: '',
+        show1: false,
+        rules: {
+          passwordRules: [
+            v => !!v || 'Password is required',
+            v => /[*@!?#%&()^~{}]+/.test(v) || 'Password must contain 1 special character',
+            v => /[A-Z]+/.test(v) || 'Password must contain at least 1 Uppercase character',
+            v => /[a-z]+/.test(v) || 'Password must contain at least 1 Lowercase character',
+            v => /[0-9]+/.test(v) || 'Password must contain at least 1 Number ',
+            v => (v && v.length >= 6) || 'Password must be at least 6 characters',
+            v => (v && v.length <= 255) || 'Password must be less than 255 characters'
+          ]
+        },
       }
     },
     watch: {
@@ -328,6 +364,15 @@
         }
         document.documentElement.style.overflow = 'auto'
       }
+    },
+    computed: {
+      confirmPasswordRules() {
+        return [
+          () =>
+            this.password === this.confirmPassword || 'Password must match',
+          (v) => !!v || 'Confirmation Password is required',
+        ]
+      },
     },
     async mounted () {
       setTimeout(async () => {
@@ -418,16 +463,19 @@
         this.changePasswordPopup = false;
       },
       async passwordKeep() {
-        await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id, {
-          temporaryPasswordBoolean: false,
-        })
-          .then(response => {
-            console.log(response, 'success in temp password popup edit')
-            this.changePasswordPopup = false;
+        if(this.$refs.validate()) {
+          await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id, {
+            password: this.password,
+            temporaryPasswordBoolean: false,
           })
-          .catch(err => {
-            console.log(err, 'err in temp password popup edit')
-          })
+            .then(response => {
+              console.log(response, 'success in temp password popup edit')
+              this.changePasswordPopup = false;
+            })
+            .catch(err => {
+              console.log(err, 'err in temp password popup edit')
+            })
+        }
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
