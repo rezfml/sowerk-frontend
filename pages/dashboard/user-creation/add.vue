@@ -103,6 +103,11 @@
           <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
           <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
           <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+          <v-select
+            :items="selectOptions"
+            v-model="addUserForm.is_superuser"
+            label="Select the type of Account you want this User assigned to be"
+          ></v-select>
           <v-col cols="12">
             <v-select
               :items="locations"
