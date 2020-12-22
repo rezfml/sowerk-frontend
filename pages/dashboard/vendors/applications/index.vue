@@ -506,18 +506,26 @@
                 <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
                 <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
                 <v-card class="d-flex flex-column align-center" style="width: 100%;">
-                  <v-combobox
+                  <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
+                  <v-card-title style="width: 95%;"><v-text-field label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
+                  <v-autocomplete
+                    label="Select A Category That Describes What This Application Provides"
                     solo
+                    clearable
+                    hint="This is generated from the NAICS directory."
                     :items="naicsList"
-                    :filter="customFilter"
                     item-text="name"
                     item-value="name"
-                    label="Search Here"
-                    :search-input.sync="newAssignUserForm.service_name"
                     style="width: 95%;"
                     v-model="newAssignUserForm.service_name"
-                  ></v-combobox>
-                  <v-card-title style="width: 95%;"><v-text-field label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
+                  >
+                    <template slot="selection" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
+                    </template>
+                  </v-autocomplete>
                   <draggable
                     class="dragArea list-group"
                     group="formName"
@@ -1873,6 +1881,23 @@ const naics = require("naics");
       },
       async deleteCompanyTemplates(template) {
         console.log(template, 'template for delete company')
+        await this.$http.get('https://www.sowerkbackend.com/api/companytemplatetags/byCompanyTemplateId/' + template.id)
+          .then(response => {
+            if(response.data.length > 0) {
+              for (let i=0; i<response.data.length; i++) {
+                this.$http.delete('https://www.sowerkbackend.com/api/companytemplatetags/' + response.data[i].id)
+                  .then(async (response) => {
+                    console.log('success in deleting formfield company template')
+                  })
+                  .catch(err => {
+                    console.log('err in deleting formfield company template', err)
+                  })
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err in getting template tags for this company')
+          })
         for(let i=0; i<template.companytemplatesformfields.length; i++) {
           await this.$http.delete('https://www.sowerkbackend.com/api/companytemplatesformfields/' + template.companytemplatesformfields[i].id)
             .then(async (response) => {
@@ -1907,6 +1932,23 @@ const naics = require("naics");
       },
       async deleteUserForm(userform) {
         console.log(userform, 'userform');
+        await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + userform.id)
+          .then(response => {
+            if(response.data.length > 0) {
+              for (let i=0; i<response.data.length; i++) {
+                this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + response.data[i].id)
+                  .then(async (response) => {
+                    console.log('success in deleting formfield company template')
+                  })
+                  .catch(err => {
+                    console.log('err in deleting formfield company template', err)
+                  })
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err in getting template tags for this company')
+          })
         if(userform.formfields.length > 0) {
           for(let i=0; i<userform.formfields.length; i++) {
             await this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + userform.formfields[i].id)

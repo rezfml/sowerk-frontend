@@ -46,7 +46,9 @@
                 v-model="companyTemplate.vendorType"
                 :items="vendorType"
                 label="Select A Type That Describes What This Application Provides"
-              ></v-select>
+              >
+
+              </v-select>
               <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Category:</span></v-card-title>
               <v-autocomplete
                 style="width: 95%;"
