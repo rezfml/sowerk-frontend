@@ -40,14 +40,14 @@
         </v-col>
       </v-row>
 <!--      Maint modal on render-->
-      <transition name="slide-fade">
-        <v-card v-if="loadModal === true && locationApproved">
-          <template style="margin: 3%; justify-content: center" >
-            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>
-            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>
-          </template>
-        </v-card>
-      </transition>
+<!--      <transition name="slide-fade">-->
+<!--        <v-card v-if="loadModal === true && locationApproved">-->
+<!--          <template style="margin: 3%; justify-content: center" >-->
+<!--            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>-->
+<!--            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>-->
+<!--          </template>-->
+<!--        </v-card>-->
+<!--      </transition>-->
       <transition name="slide-fade">
         <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
