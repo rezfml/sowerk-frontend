@@ -9,20 +9,20 @@
 <!--    </div>-->
 
 <!--    TOP INFO BANNER WITH LINK TO YOUTUBE VIDEO    -->
-    <transition name="slide-fade">
+    <!-- <transition name="slide-fade">
       <v-card class="my-4 flex-row justify-space-between align-center mx-0">
-        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:120px;background-color:#404040">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
             <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
           </v-col>
 
           <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-            <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+            <p style="font-size:1.1rem">Watch our short video to learn about Vendor Requirements and why they are important to your SOWerk Account.</p>
           </v-col>
 
           <v-col cols="4" style="width:100%;text-align:center;">
-            <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%">
+            <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%;text-decoration:none;color:inherit;">
               <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW
               </span>
@@ -30,7 +30,7 @@
           </v-col>
         </v-row>
       </v-card>
-    </transition>
+    </transition> -->
 
 <!--    SKELETON LOADER    -->
     <v-skeleton-loader
@@ -43,14 +43,14 @@
 <!--    BUTTONS AND TEXT TO THE RIGHT OF VENDER APPLICATIONS BACKGROUND IMAGE    -->
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
-          <v-row style="width: 100%; height: auto;" class="d-flex flex align-center">
+          <v-row style="width: 100%; height: auto;margin-bottom:5%" class="d-flex flex align-center">
             <v-col cols="7" style="height:auto;margin-top:-15%;margin-bottom:-15%;">
               <v-img class="" src="/VendorApplicationsLogo-159.png"></v-img>
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center">
               <v-row>
-                <h3 style="color:darkred">What Are Vendor Applications?</h3>
+                <h2 style="color:darkred">What Are Vendor Applications?</h2>
                 <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every vendor or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your channels. Create and use a company template that can be implemented across all channels, or in the event of special requirements for only one of your channels (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
               </v-row>
 
@@ -111,68 +111,68 @@
           </v-row>
         </v-card>
     </transition>
-<!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
-<!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
-<!--    </v-row>-->
+    <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
+    <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
+    <!--    </v-row>-->
 
-<!--    LOWER SECTION, 'YOUR VENDOR APPLICATIONS' & 'ADD NEW VENDOR FORM' button & TABLE below    -->
+    <!--    LOWER SECTION, 'YOUR VENDOR APPLICATIONS' & 'ADD NEW VENDOR FORM' button & TABLE below    -->
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationLocations && loading">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
-<!--        <v-simple-table class="pt-16">-->
-<!--          <thead >-->
-<!--          <tr class="d-flex justify-start">-->
-<!--            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>-->
-<!--            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>-->
-<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
-<!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
-<!--            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>-->
-<!--            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>-->
-<!--            <th style="color: #a61c00; width: 10%;">Actions</th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
-<!--            <div v-for="(service, indexService) in location.services">-->
-<!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
+      <!--        <v-simple-table class="pt-16">-->
+      <!--          <thead >-->
+      <!--          <tr class="d-flex justify-start">-->
+      <!--            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>-->
+      <!--            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>-->
+      <!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
+      <!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
+      <!--            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>-->
+      <!--            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>-->
+      <!--            <th style="color: #a61c00; width: 10%;">Actions</th>-->
+      <!--          </tr>-->
+      <!--          </thead>-->
+      <!--          <tbody>-->
+      <!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
+      <!--            <div v-for="(service, indexService) in location.services">-->
+      <!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
 
-<!--                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>-->
-<!--                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>-->
-<!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
-<!--                <td style="width: 15%; text-align: center" class="py-1">-->
-<!--                  <div class="d-flex flex-column align-center">-->
-<!--                    <p>{{location.address}}</p>-->
-<!--                    <p>{{location.city}}, {{location.state}}</p>-->
-<!--                  </div>-->
-<!--                </td>-->
-<!--                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
-<!--                <td style="width: 22%;" class="py-1 center mr-10 d-flex">-->
-<!--                  <v-select-->
-<!--                    v-model="userform.applicationStatus"-->
-<!--                    :placeholder="userform.applicationStatus"-->
-<!--                    :items="applicationOptions"-->
-<!--                    @change="userformEditActive(userform)"-->
-<!--                  >-->
-<!--                  </v-select>-->
-<!--&lt;!&ndash;                  <v-checkbox&ndash;&gt;-->
-<!--&lt;!&ndash;                    v-if="userform.applicationStatus === 'Published - Private'"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :label="'Publish Link Publicly?'"&ndash;&gt;-->
-<!--&lt;!&ndash;                    v-model="userform.applicationStatusLinkPublish"&ndash;&gt;-->
-<!--&lt;!&ndash;                    class="ml-3"&ndash;&gt;-->
-<!--&lt;!&ndash;                    @change="userformEditApplicationPublish(userform)"&ndash;&gt;-->
-<!--&lt;!&ndash;                  ></v-checkbox>&ndash;&gt;-->
-<!--                </td>-->
-<!--                <td style="width: 10%;" class="d-flex flex-column align-center">-->
-<!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>-->
-<!--                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
-<!--                </td>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </tr>-->
-<!--          </tbody>-->
-<!--        </v-simple-table>-->
+      <!--                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>-->
+      <!--                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>-->
+      <!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
+      <!--                <td style="width: 15%; text-align: center" class="py-1">-->
+      <!--                  <div class="d-flex flex-column align-center">-->
+      <!--                    <p>{{location.address}}</p>-->
+      <!--                    <p>{{location.city}}, {{location.state}}</p>-->
+      <!--                  </div>-->
+      <!--                </td>-->
+      <!--                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
+      <!--                <td style="width: 22%;" class="py-1 center mr-10 d-flex">-->
+      <!--                  <v-select-->
+      <!--                    v-model="userform.applicationStatus"-->
+      <!--                    :placeholder="userform.applicationStatus"-->
+      <!--                    :items="applicationOptions"-->
+      <!--                    @change="userformEditActive(userform)"-->
+      <!--                  >-->
+      <!--                  </v-select>-->
+      <!--&lt;!&ndash;                  <v-checkbox&ndash;&gt;-->
+      <!--&lt;!&ndash;                    v-if="userform.applicationStatus === 'Published - Private'"&ndash;&gt;-->
+      <!--&lt;!&ndash;                    :label="'Publish Link Publicly?'"&ndash;&gt;-->
+      <!--&lt;!&ndash;                    v-model="userform.applicationStatusLinkPublish"&ndash;&gt;-->
+      <!--&lt;!&ndash;                    class="ml-3"&ndash;&gt;-->
+      <!--&lt;!&ndash;                    @change="userformEditApplicationPublish(userform)"&ndash;&gt;-->
+      <!--&lt;!&ndash;                  ></v-checkbox>&ndash;&gt;-->
+      <!--                </td>-->
+      <!--                <td style="width: 10%;" class="d-flex flex-column align-center">-->
+      <!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>-->
+      <!--                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
+      <!--                </td>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </tr>-->
+      <!--          </tbody>-->
+      <!--        </v-simple-table>-->
 
         <v-data-table
           :headers="headersApplicationTemplateVal"
@@ -230,10 +230,10 @@
       </template>
     </v-card>
     </transition>
-<!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadApplicationTemplates">-->
-<!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
-<!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
-<!--    </v-row>-->
+    <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadApplicationTemplates">-->
+    <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
+    <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
+    <!--    </v-row>-->
 
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="addCompanyLoader">
       <v-progress-circular
@@ -303,10 +303,10 @@
       </template>
     </v-card>
     </transition>
-<!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadYourCompanyTemplates">-->
-<!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
-<!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Your Company Application Templates</v-card-title>-->
-<!--    </v-row>-->
+    <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadYourCompanyTemplates">-->
+    <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
+    <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Your Company Application Templates</v-card-title>-->
+    <!--    </v-row>-->
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadYourCompanyTemplates">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Company Approved Templates</v-card-title>
