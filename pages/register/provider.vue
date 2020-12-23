@@ -1251,13 +1251,12 @@
       addLicense() {
         this.editingLicense = true
         let newLicense = {
-          name: '',
-          insuranceCompany: '',
-          policyNumber: '',
+          licenseNumber: '',
+          licenseLocation: '',
           expirationDate: '',
           documentUrl: '',
           documentVisible: false,
-          companies_id: null,
+          companies_id: null
         }
         this.licenses.push(newLicense)
       },
