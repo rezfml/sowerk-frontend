@@ -75,7 +75,7 @@
                   outlined
                   color="white"
                   to="../../dashboard/channels/add"
-                >Add Another Channel - Click Here</v-btn>
+                >Add Another Channel - Click Here!</v-btn>
               </v-row>
               
 
