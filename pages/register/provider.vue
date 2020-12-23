@@ -96,6 +96,7 @@
                                 src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
                                 alt="SoWerk rounded icon"
                                 style="width: 90px"
+                                v-if="this.companyImageFile === null"
                               />
                             </v-col>
                             <v-col
@@ -120,6 +121,7 @@
                                 class="flex-grow-0"
                                 >Upload Logo</v-btn
                               >
+                              <p style="text-align:center;">Image will be cropped to circle, 400x400 pixels</p>
                               <!--                            <p class="text-center mb-0">Or</p>-->
 
                               <!--                            <v-checkbox class="mt-0">-->
@@ -322,7 +324,7 @@
                         </v-col>
 
                         <!-- SERVICE OPTIONS -->
-                        <v-col cols="12" md="6">
+                        <!-- <v-col cols="12" md="6">
                           <v-select
                             :items="serviceOptions"
                             v-model="company.servicesOffered"
@@ -331,7 +333,7 @@
                             label="What Services Do You Offer?"
                             placeholder=" "
                             :rules="rules.requiredRules"
-                          ></v-select>
+                          ></v-select> -->
                           <!-- <v-combobox
                             :items="serviceOptions"
                             v-model="company.servicesOffered"
@@ -341,7 +343,7 @@
                             placeholder=" "
                             :rules="rules.requiredRules"
                           ></v-combobox> -->
-                        </v-col>
+                        <!-- </v-col> -->
 
                         <!-- YEAR FOUNDED -->
                         <v-col cols="12" md="6">
@@ -366,7 +368,7 @@
                         </v-col>
 
                         <!-- SERVICE OPTIONS -->
-                        <v-col cols="12">
+                        <!-- <v-col cols="12">
                           <p class="font-weight-bold text-h5">Services</p>
                           <v-divider class="mb-12"></v-divider>
                           <v-list>
@@ -399,7 +401,7 @@
                               v-model="companyLevel2"
                               @change="getLevel2Children"
                             ></v-select>
-                          </template>
+                          </template> -->
 <!--                          <template v-if="companyLevel2">-->
 <!--                            <v-select-->
 <!--                              :items="industryLevel3"-->
@@ -410,7 +412,7 @@
 <!--                              @change="getLevel3Children"-->
 <!--                            ></v-select>-->
 <!--                          </template>-->
-                        </v-col>
+                        <!-- </v-col> -->
 
                       </v-row>
                     </v-container>
@@ -868,6 +870,7 @@
           {
             name: '',
             policyNumber: '',
+            insuranceType: '',
             expirationDateVal: '',
             documentUrl: '',
             documentVisible: false,
@@ -877,6 +880,7 @@
         insurance: {
           name: '',
           insuranceCompany: '',
+          insuranceType: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
@@ -886,7 +890,7 @@
         insuranceFiles: [],
         licenses: [
           {
-            type: '',
+            // type: '',
             licenseNumber: '',
             licenseLocation: '',
             expirationDate: '',
@@ -896,7 +900,7 @@
           }
         ],
         license: {
-          type: '',
+          // type: '',
           licenseNumber: '',
           licenseLocation: '',
           expirationDate: '',

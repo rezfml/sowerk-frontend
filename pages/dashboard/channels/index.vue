@@ -37,19 +37,49 @@
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
-              <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
-              <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
-              </p>
-              <v-spacer></v-spacer>
+              <v-row>
+                <v-col cols="12">
+                  <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
+                  <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
+                  </p>
+                </v-col>
+              </v-row>
+              
+              
+              <v-row>
+                <v-col cols="3" style="text-align:center;">
+                  <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                  <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
+                </v-col>
+                
+                <v-col cols="3" style="text-align:center">
+                  <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                  <h2 style="font-weight:900;font-size:1.1rem;">Major Projects</h2>
+                </v-col>
+               
+                <v-col cols="3" style="text-align:center">
+                  <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                  <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
+                </v-col>
+                
+                <v-col cols="3" style="text-align:center">
+                  <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                  <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
+                </v-col>
+              </v-row>
 
-              <h2 style="font-weight:bold;font-size:1.2rem;">Locations - Majory Projects - Departments - Revenue Streams</h2>
-              <v-btn
-                style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
-                large
-                outlined
-                color="white"
-                to="../../dashboard/channels/add"
-              >Add Another Channel - Click Here</v-btn>
+              <v-row>
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
+                  large
+                  outlined
+                  color="white"
+                  to="../../dashboard/channels/add"
+                >Add Another Channel - Click Here</v-btn>
+              </v-row>
+              
+
+
             </v-col>
           </v-row>
         </v-card>

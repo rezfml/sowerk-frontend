@@ -4,6 +4,7 @@
       <v-col cols="10">
         <v-form>
           <v-row>
+
             <v-col cols="12" md="6" class="d-flex flex-column align-center">
               <p class="text-h6">Upload Insurance Document</p>
               <ul>
@@ -14,15 +15,18 @@
                 <v-file-input class="insurance-upload my-8" :class="{'insurance-upload--selected' : file}" v-model="file" v-on:change.native="readFile"></v-file-input>
                 <v-img :src="url" :aspect-ratio="1" style="position: absolute; max-width: 300px; height: 100%; width: 100%; max-height: 288px; bottom: 0;" class="my-8 pt-3" v-if="file"></v-img>
               </div>
-              <v-checkbox label="Allow Uploaded Document to be Visible to Others" v-model="insurance.documentVisible"></v-checkbox>
+              <!-- <v-checkbox label="Allow Uploaded Document to be Visible to Others" v-model="insurance.documentVisible"></v-checkbox> -->
             </v-col>
+
             <v-col cols="12" md="6" class="d-flex flex-column justify-space-around">
               <v-text-field label="Your Insurance Agency Name (Producer)" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.name"></v-text-field>
-<!--              <v-select label="Insurance Company" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-select>-->
+              <!--              <v-select label="Insurance Company" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-select>-->
               <v-text-field label="Insurance Company Name" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-text-field>
               <v-text-field label="Policy Number" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.policyNumber"></v-text-field>
+              <v-text-field label="Type of Insurance" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceType"></v-text-field>
               <v-text-field label="Expiration Date" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.expirationDateVal" type="date"></v-text-field>
             </v-col>
+            
           </v-row>
         </v-form>
       </v-col>

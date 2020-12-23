@@ -4,23 +4,26 @@
       <v-col cols="10">
         <v-form>
           <v-row>
+
             <v-col cols="12" md="6" class="d-flex flex-column align-center">
               <p class="text-h6">Upload Image Of License/Certificate</p>
               <div style="width: 100%; position: relative;" class="d-flex justify-center">
                 <v-file-input class="insurance-upload my-8" :class="{'insurance-upload--selected' : file}" v-model="file" v-on:change.native="readFile"></v-file-input>
                 <v-img :src="url" :aspect-ratio="1" style="position: absolute; max-width: 300px; height: 100%; width: 100%; max-height: 288px; bottom: 0;" class="my-8 pt-3" v-if="file"></v-img>
               </div>
-              <v-checkbox label="Allow Uploaded Document to be Visible to Others" v-model="license.documentVisible"></v-checkbox>
+              <!-- <v-checkbox label="Allow Uploaded Document to be Visible to Others" v-model="license.documentVisible"></v-checkbox> -->
             </v-col>
+
             <v-col cols="12" md="6" class="d-flex flex-column justify-space-around">
               <v-text-field label="Name of License/Certificate" class="license__input flex-grow-0" placeholder=" " v-model="license.name" hint="An Label For Your Own Internal Naming Purposes"></v-text-field>
               <v-text-field label="License or Certificate ID Number" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseNumber"></v-text-field>
-<!--              <v-select label="License Type" class="license__input flex-grow-0" placeholder=" " v-model="license.type"></v-select>-->
-              <v-text-field label="License Type" placeholder=" " class="license__input flex-grow-0" v-model="license.type"></v-text-field>
-<!--              <v-select label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation" :items="locations" item-text="state" item-value="state"></v-select>-->
+              <!-- <v-select label="License Type" class="license__input flex-grow-0" placeholder=" " v-model="license.type"></v-select>-->
+              <!-- <v-text-field label="License Type" placeholder=" " class="license__input flex-grow-0" v-model="license.type"></v-text-field> -->
+              <!-- <v-select label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation" :items="locations" item-text="state" item-value="state"></v-select>-->
               <v-text-field label="License Location" class="license__input flex-grow-0" placeholder=" " v-model="license.licenseLocation"></v-text-field>
               <v-text-field label="Expiration Date" class="license__input flex-grow-0" placeholder=" " v-model="license.expirationDate" type="date"></v-text-field>
             </v-col>
+          
           </v-row>
         </v-form>
       </v-col>
