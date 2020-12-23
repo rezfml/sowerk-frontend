@@ -870,6 +870,7 @@
           {
             name: '',
             policyNumber: '',
+            insuranceType: '',
             expirationDateVal: '',
             documentUrl: '',
             documentVisible: false,
@@ -879,6 +880,7 @@
         insurance: {
           name: '',
           insuranceCompany: '',
+          insuranceType: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
@@ -888,7 +890,7 @@
         insuranceFiles: [],
         licenses: [
           {
-            type: '',
+            // type: '',
             licenseNumber: '',
             licenseLocation: '',
             expirationDate: '',
@@ -898,7 +900,7 @@
           }
         ],
         license: {
-          type: '',
+          // type: '',
           licenseNumber: '',
           licenseLocation: '',
           expirationDate: '',
