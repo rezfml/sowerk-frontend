@@ -461,6 +461,7 @@
                       this.approvedProviders++
                       console.log('i', i, 'approvedproviders', this.approvedProviders)
                       this.connections.push(response.data[i]);
+                      //this.vendors.push(response.data[i]);
                       console.log(response.data[i], 'approved')
                       console.log('response.data', response.data)
                       await this.getLocations(response.data[i].spcompanies_id);

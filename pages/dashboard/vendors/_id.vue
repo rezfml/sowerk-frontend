@@ -37,27 +37,42 @@
                 :items="vendorTypes"
                 v-model="vendorTypes"
                 label="Type"
+                item-text="vendorType"
+                item-value="vendorType"
+                multiple
+                outlined
+                chips
                 v-if="vendorTypes.length > 0"
               ></v-select>
-              <v-card-text style=" font-size: 18px; text-align: center;">There are no types for this channel</v-card-text>
+              <v-card-text style=" font-size: 18px; text-align: center;" v-if="vendorTypes.length === 0">There are no types for this channel</v-card-text>
               <v-select
                 style="width: 90%; text-align: center;"
                 readonly
+                chips
                 :items="location.services"
                 v-model="location.services"
+                item-text="name"
+                item-value="name"
                 label="Category"
-                v-if="location.services[0] != 'There are no services'"
+                v-if="location.services[0] !== 'There are no services'"
+                multiple
+                outlined
               ></v-select>
-              <v-card-text style=" font-size: 18px; text-align: center;">There are no categories for this channel</v-card-text>
+              <v-card-text style=" font-size: 18px; text-align: center;" v-if="location.services[0] === 'There are no services'">There are no categories for this channel</v-card-text>
               <v-select
                 style="width: 90%; text-align: center;"
                 readonly
                 :items="location.locationtags"
                 v-model="location.locationtags"
                 label="Tags"
-                v-if="location.locationtags[0] != 'There are no location tags'"
+                chips
+                item-text="name"
+                item-value="name"
+                multiple
+                outlined
+                v-if="location.locationtags[0] !== 'There are no location tags'"
               ></v-select>
-              <v-card-text style="text-align: center; font-size: 18px;">There are no location tags for this channel</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
               <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
               <v-card-title style="color:#A61C00; font-size: 24px;">Channel Contact</v-card-title>
               <v-card-text style="text-align: center; font-size: 18px;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
@@ -293,18 +308,19 @@
             :headers="notesHeaders"
             :items="notes"
             style="width: 90%;"
+            :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
               <p v-if="item.note.length > 10">{{item.note.splice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a href="item.file" target="_blank" download v-if="item.file !== ''">View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
               <v-btn>View</v-btn>
-              <v-btn @click="deleteNote(item)" v-if="this.$store.state.user.user.user.is_superuser || (this.$store.state.user.user.user.email === item.email && this.$store.state.user.user.user.phone === item.phone && this.$store.state.user.user.user.first_name === item.contact_first_name)">Delete</v-btn>
+              <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitNotesModalLoad">< Back</v-btn>
@@ -836,6 +852,9 @@
         await this.$http.get('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + id)
           .then(response => {
             console.log(response.data, 'vendor types!!!!!!!')
+            if(response.data[0] !== 'There are no vendor types') {
+              this.vendorTypes = response.data
+            }
           })
           .catch(err => {
             console.log(err, 'err in getting location type')
@@ -1022,9 +1041,9 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.$store.state.user.user.user.companies_id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.$route.params.id)
           .then(response => {
-            console.log(response.data, 'notes');
+            console.log(response.data, 'notes!!!!');
             this.notes = response.data;
           })
           .catch(err => {
