@@ -2,12 +2,33 @@
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
     <v-container class="" fluid id="v-step-0" style="width: 100%;">
       <v-row class="d-flex justify-center">
-        <v-col cols="12">
+<!--        <v-col cols="12">-->
+<!--          <v-skeleton-loader-->
+<!--            v-if="!locationApproved"-->
+<!--            type="card-avatar, article, article, actions"-->
+<!--            min-height="50vh"-->
+<!--            min-width="50vw"-->
+<!--          ></v-skeleton-loader>-->
+<!--        </v-col>-->
+        <v-col cols="3" class="mx-2">
           <v-skeleton-loader
             v-if="!locationApproved"
-            type="card-avatar, article, article, actions"
-            min-height="50vh"
-            min-width="50vw"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="3" class="mx-2">
+          <v-skeleton-loader
+            v-if="!locationApproved"
+            type="card-avatar, actions"
+            min-height="30vh"
           ></v-skeleton-loader>
         </v-col>
         <v-col cols="3" class="mx-2">
@@ -78,22 +99,93 @@
 <!--          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>-->
         </v-card>
       </transition>
-      <transition name="slide-fade">
-          <HomeCard
-            v-if="locations && locationApproved && company"
-            :items="locations"
-            :company="company"
-            :title="'Channels You Manage - ' + locations.length"
-            :tableProperties="headers"
-            slug="/dashboard/channels/"
-          ></HomeCard>
-      </transition>
+<!--      <transition name="slide-fade">-->
+<!--          <HomeCard-->
+<!--            v-if="locations && locationApproved && company"-->
+<!--            :items="locations"-->
+<!--            :company="company"-->
+<!--            :title="'Channels You Manage - ' + locations.length"-->
+<!--            :tableProperties="headers"-->
+<!--            slug="/dashboard/channels/"-->
+<!--          ></HomeCard>-->
+<!--      </transition>-->
 
-      <v-row v-if="company && company.company_type !== 'false'">
-        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in stats" :key="index">
-          <transition name="slide-fade">
-          <StatCard v-if="statApproved" :stat="stat"></StatCard>
-          </transition>
+      <v-row style="width: 100%;" class="mt-n16" v-if="company && company.company_type !== 'false'">
+        <v-col cols="4" style="height: 50vh;">
+          <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
+            <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
+              <img style="width: 10%" class="ml-12 mt-n16" src="/channels-icon.svg">
+              <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWerk-LogoFacilities.png">
+            </v-row>
+            <v-card-text class="">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+            <v-row class="mt-n8">
+              <v-col cols="3" style="text-align:center;">
+                <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
+              </v-col>
+
+              <v-col cols="3" style="text-align:center">
+                <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <h2 style="font-weight:900;font-size:1.1rem;">Major Projects</h2>
+              </v-col>
+
+              <v-col cols="3" style="text-align:center">
+                <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
+              </v-col>
+
+              <v-col cols="3" style="text-align:center">
+                <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
+              </v-col>
+            </v-row>
+            <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px;">View Channels</v-btn>
+          </v-card>
+        </v-col>
+        <v-col cols="4" style="height: 50vh;">
+          <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
+            <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
+              <img style="width: 10%" class="ml-12 mt-n16" src="/resume-icon.svg">
+              <img style="width: 90%;" class="ml-n12 mt-n16" src="/VendorApplicationsLogo-159.png">
+            </v-row>
+            <v-card-subtitle>Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-subtitle>
+            <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px;" to="dashboard/vendors/applications">Manage Applications</v-btn>
+          </v-card>
+        </v-col>
+        <v-col cols="4" style="height: 50vh;">
+          <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
+            <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
+              <img style="width: 10%" class="ml-12 mt-n16" src="/resume-icon.svg">
+              <img style="width: 90%;" class="ml-n12 mt-n16" src="/VendorApplicationsLogo-159.png">
+            </v-row>
+            <v-card-subtitle>Once your channels established and Vendor applications published it's time to find Vendors to apply.</v-card-subtitle>
+            <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px;" to="dashboard/vendors">View Vendor Directory</v-btn>
+            <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row style="width: 100%;" class="mt-4" v-if="company && company.company_type !== 'false'">
+        <v-col cols="4" style="height: 40vh;">
+          <v-card style="width: 100%; height: 40vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
+            <v-card-title style="text-align: center">SOWERK 101</v-card-title>
+            <v-card-text style="color: white; text-align: center">Check out the SOWerk 101 knowledge center for support</v-card-text>
+            <v-btn outlined color="white" class="py-8 my-2" style="width: 90%; border-radius: 10px;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank">View All</v-btn>
+
+          </v-card>
+        </v-col>
+        <v-col cols="8" style="height: 40vh;">
+          <v-card style="width: 100%; height: 40vh;" class="d-flex align-center">
+            <v-col class="d-flex flex-column align-center mt-16" cols="3">
+              <img src="/complete-icon.svg" style="width: 40%;" class="mb-n16 mt-16">
+              <img src="/APPROVED-VENDORS-Logo-163.png" style="width: 200%;" class="mt-n16 ml-16">
+            </v-col>
+            <v-col cols="3" style="height: 40vh;" v-for="(stat, index) in stats" :key="index">
+              <transition name="slide-fade">
+                <StatCard v-if="statApproved" :stat="stat"></StatCard>
+              </transition>
+            </v-col>
+          </v-card>
         </v-col>
       </v-row>
 
@@ -246,7 +338,7 @@
         ],
         stats: [
           {
-            title: 'Approved Vendors',
+            title: 'Your Approved Vendors',
             value: 0,
             link: '/dashboard/vendors/approved'
           },
@@ -256,12 +348,12 @@
           //   link: '#'
           // },
           {
-            title: 'All Pending Applications',
+            title: 'Pending Vendor Applications',
             value: 0,
             link: '/dashboard/vendors/applicants'
           },
           {
-            title: 'Unread Messages',
+            title: 'Your Unread Messages',
             value: 0,
             link: '/dashboard/messages-and-alerts/'
           }
@@ -375,8 +467,6 @@
       },
     },
     async mounted () {
-      setTimeout(async () => {
-        console.log(this.currentUser);
         if(!this.currentUser) this.$router.go();
         this.loading = true;
         await this.getUser();
@@ -385,7 +475,6 @@
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
         await this.getMessages(this.currentUser.companies_id);
-      }, 1000),
         this.loadModal = true
     },
     computed: {
@@ -500,7 +589,6 @@
           }
           console.log(this.locations, 'locations', data, 'data')
         })
-        this.loading = false;
         console.log(this.locationApproved, this.statApproved, 'Approved!!!')
       },
       exit() {
@@ -547,6 +635,9 @@
         // }
       },
       async getMessages(id) {
+        this.loading = false;
+        this.locationApproved = true;
+        this.statApproved = true;
         await this.$http.get('https://www.sowerkbackend.com/api/messages/byRecieverId/' + id)
           .then(response => {
             console.log('messages', response)
@@ -559,6 +650,7 @@
           .catch(err => {
             console.log('cannot get messages', err)
           })
+
       }
     }
   };

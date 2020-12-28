@@ -535,9 +535,9 @@
                     style="width: 95%;"
                   >
                     <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
-                      <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
+                      <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px; ">
                         <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                        <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
+                        <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word">{{Number(index) + 1}} - {{form.name}}</p>
                         <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                         <div class="d-flex justify-end" style="width: 100%;">
                           <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
@@ -879,7 +879,7 @@
                       <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
                         <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
                           <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                          <p class="mx-2 pt-10" style="width: 70%; text-align: center">{{Number(index) + 1}} - {{form.name}}</p>
+                          <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word">{{Number(index) + 1}} - {{form.name}}</p>
                           <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                           <div class="d-flex justify-end" style="width: 100%;">
                             <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
