@@ -122,6 +122,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       hint="Choose All That Apply"
                       :placeholder="vendorType"
                       multiple
+                      outlined
                     >
                     </v-autocomplete>
                   </v-col>
@@ -135,6 +136,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       solo
                       clearable
                       hint="This is generated from the NAICS directory."
+                      outlined
                     >
                       <!--                    <template v-slot:selection="data">-->
                       <!--                      <v-chip-->
@@ -172,6 +174,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                       multiple
                       label="Add Additional Tags"
                       hint="Tags help you and others keyword search for this Channel"
+                      outlined
                     >
                       <template v-slot:selection="data">
                         <v-chip
@@ -237,7 +240,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
                     <v-select
                       label="Select From List of Users Your Manager For This Channel"
                       :items="users"
-                      class="text-caption"
+                      outlined
                     >
                       <template slot="selection" slot-scope="data">
                         <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
@@ -315,7 +318,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         },
         item: {
           lat: null,
-          lng: null
+          lng: null,
+          zoom: 10,
         },
         mapOptions: {
           center: { lat: 38, lng: -95.5 },
@@ -567,6 +571,11 @@ on your account dashboard. Example: SOWerk Cafe #013)"
         this.form.zipcode = Number(addressData.postal_code);
         this.form.latitude = addressData.latitude;
         this.form.longitude = addressData.longitude;
+        this.item.lat = addressData.latitude;
+        this.item.lng = addressData.longitude;
+        this.mapOptions.zoom = 10;
+        this.mapOptions.center.lat = addressData.latitude
+        this.mapOptions.center.lng = addressData.longitude;
         this.formatFullAddress();
       },
       // This method formats the address components into a readable string for display purposes

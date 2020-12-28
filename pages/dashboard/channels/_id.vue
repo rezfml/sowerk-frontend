@@ -303,7 +303,7 @@
     },
     computed: {
       currentUser() {
-        return this.$store.getters['user/user'].user.user;
+        return this.$store.state.user.user.user;
       },
     },
     methods: {
@@ -323,8 +323,11 @@
               }
             //  Else if Service Provider
             } else if(this.company.company_type === 'false') {
-              console.log('Service provider');
-              this.loading = false;
+              if(this.locationCondition === true) {
+                await this.getConnectionTable(this.company.id)
+              } else {
+                await this.getLocation();
+              }
             }
           })
           .catch(err => {

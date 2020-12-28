@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal">
+      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad">
         <v-col cols="4">
           <v-skeleton-loader
             v-if="!loading"
@@ -232,17 +232,56 @@
             label="Select a channel to go with your note"
             style="width: 80%;"
             :items="company.locations"
-            v-model="chosenLocation"
-            item-text="name"
-            item-value="name"
             solo
-          ></v-select>
+            v-model="chosenLocation"
+            outlined
+          >
+            <template slot="selection" slot-scope="data">
+              <p>{{ data.item.name }}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p>{{ data.item.name }}</p>
+            </template>
+          </v-select>
           <v-text-field
             label="Your note goes here"
             style="width: 80%;"
+            outlined
+            v-model="note.note"
           ></v-text-field>
-          <v-file-input></v-file-input>
-          <v-btn style="width: 40%; color: white;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
+          <v-img
+            :src="note.fileUrl"
+            :aspect-ratio="1"
+            class="my-8 rounded-circle flex-grow-1"
+            style="width: 100%; max-width: 300px;"
+            v-if="note.fileUrl"
+          ></v-img>
+          <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
+          <img
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
+            alt="SoWerk rounded icon"
+            style="width: 150px;"
+            v-else
+          />
+          <v-file-input
+            class="company-image-upload ma-0 pa-0"
+            :class="{
+                        'company-image-upload--selected': notesFileFile
+                      }"
+            v-model="notesFileFile"
+            v-on:change.native="selectNotesFile"
+            id="companyImage"
+            style="visibility: hidden; height: 0; max-height: 0;"
+          ></v-file-input>
+          <v-btn
+            @click="clickNotesFileUpload"
+            color="primary"
+            outlined
+            rounded
+            class="flex-grow-0 px-10 py-6 my-4"
+          >Upload File</v-btn
+          >
+          <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
@@ -272,23 +311,23 @@
         </v-card>
       </transition>
 
-      <v-overlay
-        :absolute="absolute"
-        :opacity="opacity"
-        :value="overlayRequest"
-      >
+<!--      <v-overlay-->
+<!--        :absolute="absolute"-->
+<!--        :opacity="opacity"-->
+<!--        :value="overlayRequest"-->
+<!--      >-->
         <transition name="slide-fade">
-          <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
-            <template style="text-align: center; width: 100%;">
-              <v-card-text class="d-flex flex-wrap justify-center" style="width: 100%;">You will request this Vendor for
+          <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: 50vh;" class="d-flex flex-column align-center justify-center">
+            <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
+              <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
                 <v-form class="mx-4" style="width: 60%;">
                   <v-select
-                    dense
                     label="Step 1 - Choose Your Channel"
                     :items="company.locations"
                     item-text="name address city state zipcode"
                     item-value="name address city state zipcode"
                     style="width: 100%;"
+                    outlined
                   >
                     <template slot="selection" slot-scope="data">
                       <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
@@ -301,7 +340,7 @@
                 to fill out your
                 <v-form class="mx-3" style="width: 50%;">
                   <v-select
-                    dense
+                    outlined
                     label="Step 2 - Choose Your Application"
                     :items="userforms"
                     item-text="name id"
@@ -316,32 +355,32 @@
                     </template>
                   </v-select>
                 </v-form>
-                specialized application.</v-card-text>
+                specialized application.</v-card-title>
             </template>
-            <v-btn @click="sendMessage" outlined color="primary" rounded width="90%" class="mb-4">Request Application</v-btn>
-            <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="closeRequestModal">X</v-btn>
+            <v-btn @click="sendMessage" outlined color="primary" rounded width="80%" class="mb-4 py-8">Request Application</v-btn>
+            <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeRequestModal">X</v-btn>
             <transition name="slide-fade">
               <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
             </transition>
           </v-card>
         </transition>
-      </v-overlay>
+<!--      </v-overlay>-->
 
-      <v-overlay
-        :absolute="absolute"
-        :opacity="opacity"
-        :value="overlayMessage"
-      >
+<!--      <v-overlay-->
+<!--        :absolute="absolute"-->
+<!--        :opacity="opacity"-->
+<!--        :value="overlayMessage"-->
+<!--      >-->
         <transition name="slide-fade">
-          <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
-            <v-form class="mx-4" style="width: 60%;">
+          <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: 50vh;" class="d-flex flex-column align-center justify-center">
+            <v-form class="mx-4" style="width: 80%;">
               <v-select
-                dense
                 label="Step 1 - Choose Your Channel"
                 :items="company.locations"
                 item-text="name address city state zipcode"
                 item-value="name address city state zipcode"
                 style="width: 100%;"
+                outlined
               >
                 <template slot="selection" slot-scope="data">
                   <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
@@ -359,6 +398,7 @@
                 solo
                 clearable
                 hint="This is generated from the NAICS directory."
+                outlined
               >
                 <template slot="selection" slot-scope="data">
                   <p>{{ data.item.name }}</p>
@@ -370,13 +410,14 @@
               <v-text-field
                 v-model="sendMessageNonApp.message"
                 label="Step 3 - Type in Message"
+                outlined
               ></v-text-field>
             </v-form>
-            <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="90%" class="mb-4">Send Message</v-btn>
-            <v-btn text style="position: absolute; top: 10px; right: 10px;" @click="closeMessageModal">X</v-btn>
+            <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-4 py-8">Send Message</v-btn>
+            <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
           </v-card>
         </transition>
-      </v-overlay>
+<!--      </v-overlay>-->
 
       <transition name="slide-fade">
         <v-card v-if="openCompanyLocationsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
@@ -434,6 +475,7 @@
           <v-btn text @click="approvedChannelsModal = false" style="position: absolute; top: 10px; right: 10px; font-size: 24px; color: white;">X</v-btn>
         </v-card>
       </transition>
+
       <transition name="slide-fade">
         <v-card v-if="recentlyApprovedChannelsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="">
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Recently Approved Connections To Current Vendor</v-card-title>
@@ -474,6 +516,7 @@
     },
     data() {
       return {
+        notesFileFile: null,
         approvedChannelsModal: false,
         recentlyApprovedChannelsModal: false,
         approvedChannelsList: [],
@@ -521,7 +564,7 @@
         notes: [],
         note: {
           note: '',
-          fileUrl: '',
+          fileUrl: null,
           locations_id: Number,
           userprofiles_id: Number,
           spLocationsId: Number,
@@ -560,6 +603,11 @@
         locationsForVendor: [],
       }
     },
+    computed: {
+      currentUser() {
+        return this.$store.state.user.user.user;
+      },
+    },
     async mounted() {
       console.log(this.$route.params.id, 'hey')
       await this.getNaicsList();
@@ -573,6 +621,70 @@
       await this.getNotes();
     },
     methods: {
+      async getChosenLocation(location) {
+        this.chosenLocation = location;
+        console.log(this.chosenLocation, 'chosenLocation!!!!!')
+      },
+      async submitNote() {
+        this.note.userprofiles_id = this.currentUser.id
+        this.note.locations_id = this.chosenLocation.id
+        this.note.companies_id = this.currentUser.companies_id
+        this.note.spLocationsId = Number(this.$route.params.id)
+        console.log(this.chosenLocation, 'hello')
+        let formData = new FormData();
+        let file = this.notesFileFile;
+        formData.append('file', file);
+        console.log(formData, 'formdata');
+        this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then((response) => {
+            console.log(response, 'response.data for company document upload')
+            this.note.fileUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading location image', err)
+          })
+
+        setTimeout(() => {
+          this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
+            .then(response => {
+              console.log(response.data, 'note submission success!!!!')
+            })
+            .catch(err => {
+              console.log(err, 'err in submitting note', this.note)
+            })
+        }, 1000)
+      },
+      clickNotesFileUpload() {
+        console.log(this)
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyImage').click()
+      },
+      selectNotesFile(e) {
+        this.notesFileFile = e.target.files[0]
+        console.log(this.notesFileFile)
+        this.note.fileUrl = URL.createObjectURL(e.target.files[0])
+        console.log(this.note.fileUrl, 'fileUrl')
+        // this.selectFile(this.notesFileFile);
+        // this.selectNotesUrl( this.note.fileUrl);
+      },
+      readFile(e) {
+        this.selectedFile = e.target.files[0]
+
+        this.url = URL.createObjectURL(this.selectedFile)
+        console.log(this.url, 'this.url')
+
+        //this.selectFile(this.selectedFile)
+      },
+      selectFile(file) {
+        this.notesFileFile = file;
+        console.log(this.notesFileFile);
+      },
+      selectNotesUrl(url) {
+        this.note.fileUrl = url;
+        console.log(this.note.fileUrl);
+      },
 
       async closeRequestModal() {
         this.requestModalLoad = false;
@@ -811,12 +923,20 @@
         //   }
         // }
 
-        if (item.userforms[0] !== 'There are no userforms') {
-          for (let i=0; i<item.userforms.length; i++) {
-            this.userforms.push(item.userforms[i])
-          }
+        if(this.requestModalLoad === true) {
+          await this.getUserFormsSingleLocation(item.id)
         }
         console.log(this.userforms, 'userforms');
+      },
+      async getUserFormsSingleLocation(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
+          .then(response => {
+            console.log(response.data, 'userforms for single location!')
+            this.userforms = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting userforms for single location')
+          })
       },
       async getUserForms(item) {
         console.log(item, 'getuserforms');
@@ -908,7 +1028,7 @@
             this.notes = response.data;
           })
           .catch(err => {
-            console.log(err, 'err in getting notes for this location by this company')
+            console.log(err, 'err in getting notes for this location by this company', this.note)
           })
       },
       async deleteNote(note) {
