@@ -1399,42 +1399,7 @@
         let { data, status } = await this.$http
           .post('https://www.sowerkbackend.com/api/auth/register', this.user)
           .catch((e) => e)
-        // await this.postLocations(data.user.companies_id)
       },
-      // async loopLocationImages() {
-      //   this.locations.forEach((location, index) => {
-      //     const formData = new FormData()
-      //     console.log(location)
-      //     formData.append('file', location.imageUrl)
-      //     this.uploadLocationImage(formData, index)
-      //   })
-      //   console.log(this.locations)
-      // },
-      // async uploadLocationImage(formData, index) {
-      //   let { data, status } = await this.$http
-      //     .post('https://www.sowerkbackend.com/api/upload', formData)
-      //     .catch((err) => {
-      //       console.log('error in uploading location image', err)
-      //     })
-
-      //   this.locations[index].imageUrl = data.data.Location;
-      // },
-      // async postLocations(userId) {
-      //   for (let i = 0; i < this.locations.length; i++) {
-      //     this.locations[i].companies_id = userId;
-      //     this.locations[i].zipcode = Number(this.locations[i].zipcode)
-      //   }
-      //   await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
-      //     .then(response => {
-      //       console.log('success in posting group locations', response)
-      //     })
-      //     .catch(err => {
-      //       console.log('error in posting group locations', err, this.locations)
-      //     })
-      //   // this.loading = false;
-      //   // if (this.$error(status, message, errors)) return;
-      //   await this.getUserLocations(userId);
-      // },
       async getUserLocations(userId) {
         let { data, status } = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)
