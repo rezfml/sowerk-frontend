@@ -364,7 +364,12 @@
               <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
-              <nuxt-link :to="slug + item.id" append>
+              <nuxt-link :to="slug + item.id" append v-if="action !== 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined>
+                  View
+                </v-btn>
+              </nuxt-link>
+              <nuxt-link :to="slug + item.splocations_id" append v-else>
                 <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined>
                   View
                 </v-btn>
@@ -539,7 +544,7 @@
               <v-btn style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" outlined color="white" :to="'/dashboard/vendors/' + item.id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'ViewApproved'">
-              <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
+              <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.splocations_id">View</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else-if="action === 'approvedActions'">
               <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined :to="'/dashboard/vendors/approved/' + item.id">View</v-btn>
@@ -552,7 +557,12 @@
               <v-btn @click="submitMassAssignUserToLocation" style="width: 90%;" outlined color="primary">Mass Assign User To Channel</v-btn>
             </template>
             <template v-slot:item.actions="{ item }" v-else>
-              <nuxt-link :to="slug + item.id" append>
+              <nuxt-link :to="slug + item.id" append v-if="action !== 'ViewApproved'">
+                <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined>
+                  View
+                </v-btn>
+              </nuxt-link>
+              <nuxt-link :to="slug + item.splocations_id" append v-else>
                 <v-btn class="my-1" style="width: 90%;background: linear-gradient(to right, #A61C00, #741502); width: 100%;" color="white" outlined>
                   View
                 </v-btn>
