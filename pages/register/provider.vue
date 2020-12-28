@@ -402,17 +402,17 @@
                               @change="getLevel2Children"
                             ></v-select>
                           </template> -->
-<!--                          <template v-if="companyLevel2">-->
-<!--                            <v-select-->
-<!--                              :items="industryLevel3"-->
-<!--                              placeholder=" "-->
-<!--                              item-text="title"-->
-<!--                              item-value="code"-->
-<!--                              v-model="companyLevel3"-->
-<!--                              @change="getLevel3Children"-->
-<!--                            ></v-select>-->
-<!--                          </template>-->
-                        <!-- </v-col> -->
+    <!--                          <template v-if="companyLevel2">-->
+    <!--                            <v-select-->
+    <!--                              :items="industryLevel3"-->
+    <!--                              placeholder=" "-->
+    <!--                              item-text="title"-->
+    <!--                              item-value="code"-->
+    <!--                              v-model="companyLevel3"-->
+    <!--                              @change="getLevel3Children"-->
+    <!--                            ></v-select>-->
+    <!--                          </template>-->
+                            <!-- </v-col> -->
 
                       </v-row>
                     </v-container>
@@ -581,10 +581,18 @@
                   </p>
                   <v-col cols="12" class="align-center text-center mx-auto">
                     <!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
+                    <v-img
+                      :src="companyImageUrl"
+                      :aspect-ratio="1"
+                      class="my-8 rounded-circle"
+                      style="max-height: 200px; width: 100%; max-width: 200px; margin-left:40%"
+                      v-if="companyImageFile"
+                    ></v-img>
                     <v-icon
                       color="grey"
                       style="font-size: 100px; text-align: center"
                       class="mx-auto"
+                      v-if="this.companyImageFile === null"
                       >person</v-icon
                     >
                     <p class="headline font-weight-bold">
@@ -761,9 +769,17 @@
                 v-if="tab === 2"
               >
                 <template v-slot:label>
-                    <span style="font-weight:bold">Check here if you have read our <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> and <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a></span>
+                    <span style="font-weight:bold">You Agree to SOWerk <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> & <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a></span>
                 </template>
               </v-checkbox>
+
+              <v-btn
+                color="gray"
+                class="px-8"
+                @click="needToCheckTermsBox"
+                v-if="tab === 2 && userTerms !== true"
+                >Submit</v-btn
+              >
 
               <v-btn
                 color="primary"
@@ -862,15 +878,16 @@
           last_name: '',
           email: '',
           password: '',
-          is_superuser: true,
+          is_superuser: false,
           phone: '',
           companies_id: null
         },
         insurances: [
           {
             name: '',
+            insuranceCompany: '',
+            type: '',
             policyNumber: '',
-            insuranceType: '',
             expirationDateVal: '',
             documentUrl: '',
             documentVisible: false,
@@ -880,7 +897,7 @@
         insurance: {
           name: '',
           insuranceCompany: '',
-          insuranceType: '',
+          type: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
@@ -1056,6 +1073,9 @@
       }
     },
     methods: {
+      needToCheckTermsBox() {
+        alert("Please accept SOWerk Terms")
+      },
       getSectorChildren(e) {
         console.log(e);
         if (this.companySector) {
@@ -1095,10 +1115,13 @@
       //   console.log(this.companyLevel3);
       // },
       selectInsuranceFile(file, index) {
-        this.insuranceFiles[index].file = file;
+        console.log(file, "HEYYYYYYYYYYYYYYYYYY")
+        console.log(index, "index gggggggggggggggg")
+        console.log(this.insuranceFiles, "FILESSSSSSSSSSSSSSSS")
+        this.insuranceFiles[index] = file;
       },
       selectLicenseFile(file, index) {
-        this.licenseFiles[index].file = file;
+        this.licenseFiles[index] = file;
       },
       selectCompanyImage(e) {
         this.companyImageFile = e.target.files[0];
@@ -1234,11 +1257,12 @@
         let newInsurance = {
           name: '',
           insuranceCompany: '',
+          type: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
           documentVisible: false,
-          companies_id: null,
+          companies_id: null
         }
         this.insurances.push(newInsurance)
 
@@ -1251,13 +1275,12 @@
       addLicense() {
         this.editingLicense = true
         let newLicense = {
-          name: '',
-          insuranceCompany: '',
-          policyNumber: '',
+          licenseNumber: '',
+          licenseLocation: '',
           expirationDate: '',
           documentUrl: '',
           documentVisible: false,
-          companies_id: null,
+          companies_id: null
         }
         this.licenses.push(newLicense)
       },
@@ -1292,7 +1315,7 @@
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
             // this.postLocations(response.data.companies.id);
-            this.$router.push('/verify');
+            this.$router.push('/register/verify');
           })
           .catch(err => {
             console.log('error in posting companies registering', err)
@@ -1313,6 +1336,8 @@
       async postInsurances(companyId) {
         for (const insurance of this.insurances) {
           insurance.companies_id = companyId;
+          insurance.policyNumber = insurance.policyNumber.toString()
+          console.log(insurance, "test ggggggggggggg")
           let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
           console.log(data);
         }
@@ -1329,12 +1354,6 @@
             console.log('error in uploading company image', err);
           })
       },
-      loopInsuranceFilesForUpload() {
-        this.insuranceFiles.forEach((insuranceFile, index) => {
-          this.uploadInsuranceFile(insuranceFile, index);
-        })
-
-      },
       async uploadInsuranceFile(insuranceFile, index) {
         let formData = new FormData();
         formData.append('file', insuranceFile.file);
@@ -1350,55 +1369,37 @@
             console.log('error in uploading insurance file', err);
           })
       },
+      async uploadLicenseFile(licenseFile, index) {
+        let formData = new FormData();
+        formData.append('file', licenseFile.file);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading license file', response)
+            this.licenses[index].documentUrl = response.data.data.Location;
+            this.loading = false;
+            console.log(this.licenses);
+            return this.licenses;
+          })
+          .catch(err => {
+            console.log('error in uploading license file', err);
+          })
+      },
+      loopInsuranceFilesForUpload() {
+        this.insuranceFiles.forEach((insuranceFile, index) => {
+          this.uploadInsuranceFile(insuranceFile, index);
+        })
+      },
       loopLicenseFilesForUpload() {
         this.licenseFiles.forEach((licenseFile, index) => {
           this.uploadLicenseFile(licenseFile, index);
         })
-          .catch((err) => {
-            console.log(err, 'error in uploading license files')
-          })
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id
         let { data, status } = await this.$http
           .post('https://www.sowerkbackend.com/api/auth/register', this.user)
           .catch((e) => e)
-        // await this.postLocations(data.user.companies_id)
       },
-      // async loopLocationImages() {
-      //   this.locations.forEach((location, index) => {
-      //     const formData = new FormData()
-      //     console.log(location)
-      //     formData.append('file', location.imageUrl)
-      //     this.uploadLocationImage(formData, index)
-      //   })
-      //   console.log(this.locations)
-      // },
-      // async uploadLocationImage(formData, index) {
-      //   let { data, status } = await this.$http
-      //     .post('https://www.sowerkbackend.com/api/upload', formData)
-      //     .catch((err) => {
-      //       console.log('error in uploading location image', err)
-      //     })
-
-      //   this.locations[index].imageUrl = data.data.Location;
-      // },
-      // async postLocations(userId) {
-      //   for (let i = 0; i < this.locations.length; i++) {
-      //     this.locations[i].companies_id = userId;
-      //     this.locations[i].zipcode = Number(this.locations[i].zipcode)
-      //   }
-      //   await this.$http.post('https://www.sowerkbackend.com/api/group-locations/byCompaniesId/' + userId, this.locations)
-      //     .then(response => {
-      //       console.log('success in posting group locations', response)
-      //     })
-      //     .catch(err => {
-      //       console.log('error in posting group locations', err, this.locations)
-      //     })
-      //   // this.loading = false;
-      //   // if (this.$error(status, message, errors)) return;
-      //   await this.getUserLocations(userId);
-      // },
       async getUserLocations(userId) {
         let { data, status } = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + userId).catch(e => e);
         console.log('get companys locations: ', data)

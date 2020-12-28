@@ -370,6 +370,7 @@
           <v-card-text class="py-0">
             <v-form>
               <v-row v-if="loadCompany">
+
                 <v-col
                   cols="12"
                   class="d-flex flex-column align-center"
@@ -409,6 +410,7 @@
                   >Edit Logo</v-btn
                   >
                 </v-col>
+
                 <v-col cols="12" class="pb-0 mt-3">
                   <v-subheader class="px-0 headline font-weight-bold primary--text" light>Edit Profile</v-subheader>
                 </v-col>
@@ -571,61 +573,61 @@
                 </v-col>
               </v-row>
 
-<!--              COMMENTED OUT FOR NOW THIS IS THE USER WHO IS LOGGED IN. IF A USER WANTS TO EDIT THEIR ACCOUNT THEY WOULD HAVE HERE AS WELL AS THE EDIT IN USER SECTION. THIS WAS BAD UX WE MAY REVISIT THIS THOUGH SO COMMENTED OUT JUST FOR NOW-->
-<!--              <v-row v-if="loadCompany">-->
+              <!--              COMMENTED OUT FOR NOW THIS IS THE USER WHO IS LOGGED IN. IF A USER WANTS TO EDIT THEIR ACCOUNT THEY WOULD HAVE HERE AS WELL AS THE EDIT IN USER SECTION. THIS WAS BAD UX WE MAY REVISIT THIS THOUGH SO COMMENTED OUT JUST FOR NOW-->
+              <!--              <v-row v-if="loadCompany">-->
 
-<!--                <v-col cols="12" class="py-0 mt-0">-->
-<!--                  <v-subheader class="px-0 headline font-weight-bold primary&#45;&#45;text" light>Profile Current User</v-subheader>-->
-<!--                </v-col>-->
+              <!--                <v-col cols="12" class="py-0 mt-0">-->
+              <!--                  <v-subheader class="px-0 headline font-weight-bold primary&#45;&#45;text" light>Profile Current User</v-subheader>-->
+              <!--                </v-col>-->
 
-<!--                <v-col cols="12" md="6" class="pt-0">-->
-<!--                  <v-text-field-->
-<!--                    label="First Name"-->
-<!--                    light-->
-<!--                    placeholder="First Name"-->
-<!--                    v-model="currentUserVal.first_name"-->
-<!--                  >-->
-<!--                    <template v-slot:label>-->
-<!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>-->
-<!--                    </template>-->
-<!--                  </v-text-field>-->
-<!--                </v-col>-->
+              <!--                <v-col cols="12" md="6" class="pt-0">-->
+              <!--                  <v-text-field-->
+              <!--                    label="First Name"-->
+              <!--                    light-->
+              <!--                    placeholder="First Name"-->
+              <!--                    v-model="currentUserVal.first_name"-->
+              <!--                  >-->
+              <!--                    <template v-slot:label>-->
+              <!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>-->
+              <!--                    </template>-->
+              <!--                  </v-text-field>-->
+              <!--                </v-col>-->
 
-<!--                <v-col cols="12" md="6" class="pt-0">-->
-<!--                  <v-text-field-->
-<!--                    label="Last Name"-->
-<!--                    light-->
-<!--                    placeholder="Last Name"-->
-<!--                    v-model="currentUserVal.last_name"-->
-<!--                  >-->
-<!--                    <template v-slot:label>-->
-<!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>-->
-<!--                    </template>-->
-<!--                  </v-text-field>-->
-<!--                </v-col>-->
+              <!--                <v-col cols="12" md="6" class="pt-0">-->
+              <!--                  <v-text-field-->
+              <!--                    label="Last Name"-->
+              <!--                    light-->
+              <!--                    placeholder="Last Name"-->
+              <!--                    v-model="currentUserVal.last_name"-->
+              <!--                  >-->
+              <!--                    <template v-slot:label>-->
+              <!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>-->
+              <!--                    </template>-->
+              <!--                  </v-text-field>-->
+              <!--                </v-col>-->
 
-<!--                <v-col cols="12" md="6" class="py-0">-->
-<!--                  <v-text-field-->
-<!--                    light-->
-<!--                    placeholder="Email"-->
-<!--                    v-model="currentUserVal.email"-->
-<!--                  >-->
-<!--                    <template v-slot:label>-->
-<!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>-->
-<!--                    </template>-->
-<!--                  </v-text-field>-->
-<!--                </v-col>-->
+              <!--                <v-col cols="12" md="6" class="py-0">-->
+              <!--                  <v-text-field-->
+              <!--                    light-->
+              <!--                    placeholder="Email"-->
+              <!--                    v-model="currentUserVal.email"-->
+              <!--                  >-->
+              <!--                    <template v-slot:label>-->
+              <!--                      <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>-->
+              <!--                    </template>-->
+              <!--                  </v-text-field>-->
+              <!--                </v-col>-->
 
-<!--                <v-col cols="12" md="6" class="py-0">-->
-<!--                  <v-text-field-->
-<!--                    light-->
-<!--                    placeholder="Phone"-->
-<!--                    v-model="currentUserVal.phone"-->
-<!--                  ><template v-slot:label>-->
-<!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
-<!--                  </template></v-text-field>-->
-<!--                </v-col>-->
-<!--              </v-row>-->
+              <!--                <v-col cols="12" md="6" class="py-0">-->
+              <!--                  <v-text-field-->
+              <!--                    light-->
+              <!--                    placeholder="Phone"-->
+              <!--                    v-model="currentUserVal.phone"-->
+              <!--                  ><template v-slot:label>-->
+              <!--                    <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
+              <!--                  </template></v-text-field>-->
+              <!--                </v-col>-->
+              <!--              </v-row>-->
               <v-btn v-if="company" color="primary" class="px-8 my-2" @click="updateCompany()">Update Profile</v-btn>
             </v-form>
 
