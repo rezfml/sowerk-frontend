@@ -402,17 +402,17 @@
                               @change="getLevel2Children"
                             ></v-select>
                           </template> -->
-<!--                          <template v-if="companyLevel2">-->
-<!--                            <v-select-->
-<!--                              :items="industryLevel3"-->
-<!--                              placeholder=" "-->
-<!--                              item-text="title"-->
-<!--                              item-value="code"-->
-<!--                              v-model="companyLevel3"-->
-<!--                              @change="getLevel3Children"-->
-<!--                            ></v-select>-->
-<!--                          </template>-->
-                        <!-- </v-col> -->
+    <!--                          <template v-if="companyLevel2">-->
+    <!--                            <v-select-->
+    <!--                              :items="industryLevel3"-->
+    <!--                              placeholder=" "-->
+    <!--                              item-text="title"-->
+    <!--                              item-value="code"-->
+    <!--                              v-model="companyLevel3"-->
+    <!--                              @change="getLevel3Children"-->
+    <!--                            ></v-select>-->
+    <!--                          </template>-->
+                            <!-- </v-col> -->
 
                       </v-row>
                     </v-container>
@@ -581,10 +581,18 @@
                   </p>
                   <v-col cols="12" class="align-center text-center mx-auto">
                     <!--                  <v-img :src="company.image" max-height="300px" max-width="300px" aspect-ratio="1" v-if="company.image && company.image != ''"></v-img>-->
+                    <v-img
+                      :src="companyImageUrl"
+                      :aspect-ratio="1"
+                      class="my-8 rounded-circle"
+                      style="max-height: 200px; width: 100%; max-width: 200px; margin-left:40%"
+                      v-if="companyImageFile"
+                    ></v-img>
                     <v-icon
                       color="grey"
                       style="font-size: 100px; text-align: center"
                       class="mx-auto"
+                      v-if="this.companyImageFile === null"
                       >person</v-icon
                     >
                     <p class="headline font-weight-bold">
@@ -761,9 +769,17 @@
                 v-if="tab === 2"
               >
                 <template v-slot:label>
-                    <span style="font-weight:bold">Check here if you have read our <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> and <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a></span>
+                    <span style="font-weight:bold">You Agree to SOWerk <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> & <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a></span>
                 </template>
               </v-checkbox>
+
+              <v-btn
+                color="gray"
+                class="px-8"
+                @click="needToCheckTermsBox"
+                v-if="tab === 2 && userTerms !== true"
+                >Submit</v-btn
+              >
 
               <v-btn
                 color="primary"
@@ -862,7 +878,7 @@
           last_name: '',
           email: '',
           password: '',
-          is_superuser: true,
+          is_superuser: false,
           phone: '',
           companies_id: null
         },
@@ -1057,6 +1073,9 @@
       }
     },
     methods: {
+      needToCheckTermsBox() {
+        alert("Please accept SOWerk Terms")
+      },
       getSectorChildren(e) {
         console.log(e);
         if (this.companySector) {
