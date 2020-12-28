@@ -151,7 +151,7 @@
       if(this.user) {
         this.getCompany(this.user.companies_id)
       } else if (this.location) {
-        this.getCompanyLocation(this.location.companies_id)
+        this.getCompanyLocation(this.currentUser.companies_id)
       }
       console.log(this.locationImageUrl);
     },

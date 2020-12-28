@@ -177,7 +177,7 @@
             }
           }
         ],
-        windowLocation: '',
+        windowLocation: 'https://www.sowerk.com/dashboard',
         items: [
           {
             icon: 'about',
