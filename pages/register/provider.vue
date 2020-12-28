@@ -869,8 +869,9 @@
         insurances: [
           {
             name: '',
+            insuranceCompany: '',
+            type: '',
             policyNumber: '',
-            insuranceType: '',
             expirationDateVal: '',
             documentUrl: '',
             documentVisible: false,
@@ -880,7 +881,7 @@
         insurance: {
           name: '',
           insuranceCompany: '',
-          insuranceType: '',
+          type: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
@@ -1095,10 +1096,13 @@
       //   console.log(this.companyLevel3);
       // },
       selectInsuranceFile(file, index) {
-        this.insuranceFiles[index].file = file;
+        console.log(file, "HEYYYYYYYYYYYYYYYYYY")
+        console.log(index, "index gggggggggggggggg")
+        console.log(this.insuranceFiles, "FILESSSSSSSSSSSSSSSS")
+        this.insuranceFiles[index] = file;
       },
       selectLicenseFile(file, index) {
-        this.licenseFiles[index].file = file;
+        this.licenseFiles[index] = file;
       },
       selectCompanyImage(e) {
         this.companyImageFile = e.target.files[0];
@@ -1234,11 +1238,12 @@
         let newInsurance = {
           name: '',
           insuranceCompany: '',
+          type: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
           documentVisible: false,
-          companies_id: null,
+          companies_id: null
         }
         this.insurances.push(newInsurance)
 
@@ -1291,7 +1296,7 @@
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
             // this.postLocations(response.data.companies.id);
-            this.$router.push('/verify');
+            this.$router.push('/register/verify');
           })
           .catch(err => {
             console.log('error in posting companies registering', err)
@@ -1312,6 +1317,8 @@
       async postInsurances(companyId) {
         for (const insurance of this.insurances) {
           insurance.companies_id = companyId;
+          insurance.policyNumber = insurance.policyNumber.toString()
+          console.log(insurance, "test ggggggggggggg")
           let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + companyId, insurance).catch(e => e);
           console.log(data);
         }
@@ -1328,12 +1335,6 @@
             console.log('error in uploading company image', err);
           })
       },
-      loopInsuranceFilesForUpload() {
-        this.insuranceFiles.forEach((insuranceFile, index) => {
-          this.uploadInsuranceFile(insuranceFile, index);
-        })
-
-      },
       async uploadInsuranceFile(insuranceFile, index) {
         let formData = new FormData();
         formData.append('file', insuranceFile.file);
@@ -1349,13 +1350,30 @@
             console.log('error in uploading insurance file', err);
           })
       },
+      async uploadLicenseFile(licenseFile, index) {
+        let formData = new FormData();
+        formData.append('file', licenseFile.file);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading license file', response)
+            this.licenses[index].documentUrl = response.data.data.Location;
+            this.loading = false;
+            console.log(this.licenses);
+            return this.licenses;
+          })
+          .catch(err => {
+            console.log('error in uploading license file', err);
+          })
+      },
+      loopInsuranceFilesForUpload() {
+        this.insuranceFiles.forEach((insuranceFile, index) => {
+          this.uploadInsuranceFile(insuranceFile, index);
+        })
+      },
       loopLicenseFilesForUpload() {
         this.licenseFiles.forEach((licenseFile, index) => {
           this.uploadLicenseFile(licenseFile, index);
         })
-          .catch((err) => {
-            console.log(err, 'error in uploading license files')
-          })
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id

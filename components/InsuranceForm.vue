@@ -23,7 +23,7 @@
               <!--              <v-select label="Insurance Company" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-select>-->
               <v-text-field label="Insurance Company Name" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceCompany"></v-text-field>
               <v-text-field label="Policy Number" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.policyNumber"></v-text-field>
-              <v-text-field label="Type of Insurance" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.insuranceType"></v-text-field>
+              <v-text-field label="Type of Insurance" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.type"></v-text-field>
               <v-text-field label="Expiration Date" class="insurance__input flex-grow-0" placeholder=" " v-model="insurance.expirationDateVal" type="date"></v-text-field>
             </v-col>
             
@@ -60,12 +60,9 @@
     methods: {
       readFile(e) {
         this.selectedFile = e.target.files[0];
-
         this.url = URL.createObjectURL(this.selectedFile);
         console.log(this.url);
-
         this.$emit('selectFile', this.selectedFile, this.index);
-
       },
     }
   }
@@ -78,12 +75,10 @@
     max-height: 300px;
     width: 100%;
   }
-
   .insurance-upload >>> .v-input__control {
     height: 100%;
     position: relative;
   }
-
   .insurance-upload >>> .v-input__control:before {
     position: absolute;
     width: 100%;
@@ -98,26 +93,20 @@
     align-items: center;
     pointer-events: none;
   }
-
   .insurance-upload--selected >>> .v-input__control:before {
     content: '';
   }
-
   .insurance-upload--selected >>> .v-input__icon.v-input__icon--clear {
     z-index: 10;
     background-color: white;
     border-radius: 0!important;
   }
-
   .insurance-upload >>> .v-input__append-inner {
     margin-top: 0!important;
   }
-
   .insurance-upload >>> .v-input__icon.v-input__icon--clear > button {
     color: #333;
-
   }
-
   .insurance-upload >>> .v-input__slot {
     height: 100%;
     background-color: #ddd;
@@ -126,29 +115,23 @@
     -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5);
     box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5);
   }
-
   .insurance-upload >>> .v-input__slot:hover {
     cursor: pointer;
   }
-
   .insurance-upload >>> .v-input__prepend-outer {
     display: none;
   }
-
   .insurance-upload >>> .v-input__slot:before {
     height: 100%;
     border-width: 0;
   }
-
   .insurance-upload >>> .v-text-field__slot {
     height: 100%;
     width: 100%;
   }
-
   .insurance-upload >>> .v-input__slot:after {
     display: none;
   }
-
   .license__input >>> .v-label {
     color: black;
     font-weight: bold;
