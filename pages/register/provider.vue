@@ -402,17 +402,17 @@
                               @change="getLevel2Children"
                             ></v-select>
                           </template> -->
-    <!--                          <template v-if="companyLevel2">-->
-    <!--                            <v-select-->
-    <!--                              :items="industryLevel3"-->
-    <!--                              placeholder=" "-->
-    <!--                              item-text="title"-->
-    <!--                              item-value="code"-->
-    <!--                              v-model="companyLevel3"-->
-    <!--                              @change="getLevel3Children"-->
-    <!--                            ></v-select>-->
-    <!--                          </template>-->
-                            <!-- </v-col> -->
+                        <!--                          <template v-if="companyLevel2">-->
+                        <!--                            <v-select-->
+                        <!--                              :items="industryLevel3"-->
+                        <!--                              placeholder=" "-->
+                        <!--                              item-text="title"-->
+                        <!--                              item-value="code"-->
+                        <!--                              v-model="companyLevel3"-->
+                        <!--                              @change="getLevel3Children"-->
+                        <!--                            ></v-select>-->
+                        <!--                          </template>-->
+                        <!-- </v-col> -->
 
                       </v-row>
                     </v-container>
@@ -420,55 +420,8 @@
                 </v-card-text>
               </v-container>
             </v-tab-item>
-            <!-- <v-tab-item eager>
-              <v-container style="max-width: 80%;" mx-auto>
-                <v-card-text class="pa-0 pt-12">
-                  <template v-if="editingLocation">
-                    <span
-                      class="title font-weight-regular text-center my-12 grey--text text--darken-2"
-                    >Now tell us about your first location</span>
-                    <v-form class="mx-auto">
-                      <v-container>
-                        <LocationForm
-                          :location="location"
-                          :index="editingIndex"
-                          :user="user"
-                        />
-                      </v-container>
-                    </v-form>
-                  </template>
-                  <template v-else>
-                    <v-data-table
-                      :headers="headers"
-                      :items="locations"
-                      :items-per-page="10"
-                    >
-                      <template v-slot:item.id="{ item }">{{
-                        locations.indexOf(item) + 1
-                      }}</template>
-                      <template v-slot:item.full_name="{ item }"
-                        >{{ item.contact_first_name }}
-                        {{ item.contact_last_name }}</template
-                      >
-                      <template v-slot:item.actions="{ item }">
-                        <v-btn
-                          icon
-                          @click="editLocation(locations.indexOf(item))"
-                        >
-                          <v-icon small class="mr-2">
-                            mdi-pencil
-                          </v-icon>
-                        </v-btn>
-                        <v-icon small @click="deleteItem(item)">
-                          mdi-delete
-                        </v-icon>
-                      </template>
-                    </v-data-table>
-                  </template>
-                </v-card-text>
-              </v-container>
-            </v-tab-item> -->
 
+            <!-- VENDOR DOCUMENT UPLOAD TAB -->
             <v-tab-item eager>
               <v-container style="max-width: 100%;" class="mx-auto mb-12">
                 <v-card-text class="pa-0">
@@ -571,6 +524,7 @@
               </v-container>
             </v-tab-item>
 
+            <!-- REVIEW INFORMATION TAB - READ ONLY --> 
             <v-tab-item eager>
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
@@ -712,8 +666,10 @@
                 </v-card-text>
               </v-container>
             </v-tab-item>
+            
           </v-tabs-items>
 
+          <!-- BOTTOM NAVIGATION BUTTONS -->
           <v-card-actions class="py-10 mx-auto d-flex " style="max-width: 80%;">
             <v-col xs="12" sm="12" class="bottomNav d-flex justify-end">
               <v-btn

@@ -67,6 +67,7 @@
                 $8.33<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $100.00 Per Year</p>
+              <p class="text-caption" style="color:darkred;font-weight:500;">$25 Annual Fee</p>
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -112,6 +113,7 @@
                 $20.83<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $250.00 Per Year</p>
+              <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p>
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -157,6 +159,7 @@
                 $41.67<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $500.00 Per Year</p>
+              <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p>
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -208,6 +211,7 @@
                 $125.00<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $1,500.00 Per Year</p>
+              <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p>
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"

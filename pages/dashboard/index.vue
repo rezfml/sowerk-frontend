@@ -170,7 +170,7 @@
           <v-card style="width: 100%; height: 40vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
             <v-card-title style="text-align: center">SOWERK 101</v-card-title>
             <v-card-text style="color: white; text-align: center">Check out the SOWerk 101 knowledge center for support</v-card-text>
-            <v-btn outlined color="white" class="py-8 my-2" style="width: 90%; border-radius: 10px;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank">View All</v-btn>
+            <v-btn outlined color="white" class="py-8 my-2" style="width: 90%; border-radius: 10px;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
 
           </v-card>
         </v-col>
