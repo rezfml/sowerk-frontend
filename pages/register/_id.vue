@@ -755,6 +755,8 @@
         insurances: [
           {
             name: '',
+            insuranceCompany: '',
+            type: '',
             policyNumber: '',
             expirationDateVal: '',
             documentUrl: '',
@@ -765,20 +767,17 @@
         insurance: {
           name: '',
           insuranceCompany: '',
+          type: '',
           policyNumber: '',
           expirationDateVal: '',
           documentUrl: '',
           documentVisible: false,
           companies_id: null
         },
-        insuranceFiles: [
-          {
-            file: null
-          }
-        ],
+        insuranceFiles: [],
         licenses: [
           {
-            type: '',
+            // type: '',
             licenseNumber: '',
             licenseLocation: '',
             expirationDate: '',
@@ -788,7 +787,7 @@
           }
         ],
         license: {
-          type: '',
+          // type: '',
           licenseNumber: '',
           licenseLocation: '',
           expirationDate: '',
@@ -796,11 +795,7 @@
           documentVisible: false,
           companies_id: null
         },
-        licenseFiles: [
-          {
-            file: null
-          }
-        ],
+        licenseFiles: [],
         companyImageFile: null,
         companyImageUrl: null,
         confirmPassword: null,
