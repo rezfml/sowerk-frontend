@@ -718,6 +718,7 @@
           'Review'
         ],
         company: {
+          public_name: '',
           account_name: '',
           brand_name: '',
           address: '',
@@ -730,8 +731,6 @@
           isFranchise: false,
           servicesOffered: [],
           imgUrl: null,
-          website: null,
-          llcName: ''
         },
         bestSelection: [
           {
@@ -748,7 +747,7 @@
           last_name: '',
           email: '',
           password: '',
-          is_superuser: true,
+          is_superuser: false,
           phone: '',
           companies_id: null
         },
@@ -777,7 +776,6 @@
         insuranceFiles: [],
         licenses: [
           {
-            // type: '',
             licenseNumber: '',
             licenseLocation: '',
             expirationDate: '',
@@ -787,7 +785,6 @@
           }
         ],
         license: {
-          // type: '',
           licenseNumber: '',
           licenseLocation: '',
           expirationDate: '',
@@ -830,24 +827,6 @@
         ],
         fullAddress: null,
         locations: [],
-        // location: {
-        //   name: null,
-        //   address: null,
-        //   city: null,
-        //   state: null,
-        //   zipcode: null,
-        //   contact_first_name: null,
-        //   contact_last_name: null,
-        //   phone: null,
-        //   email: null,
-        //   latitude: null,
-        //   longitude: null,
-        //   radius: 0,
-        //   year_founded: '',
-        //   pfLogoCheckbox: false,
-        //   imageUrl: null,
-        //   companies_id: null
-        // },
         formattedServicesProvided: [],
         editingIndex: 0,
         editingIndexInsurance: 0,
@@ -954,10 +933,10 @@
         })
       },
       selectInsuranceFile(file, index) {
-        this.insuranceFiles[index].file = file;
+        this.insuranceFiles[index] = file;
       },
       selectLicenseFile(file, index) {
-        this.licenseFiles[index].file = file;
+        this.licenseFiles[index] = file;
       },
       selectCompanyImage(e) {
         this.companyImageFile = e.target.files[0];
@@ -1112,32 +1091,33 @@
       async register() {
         this.loading = true;
 
-        await this.uploadCompanyImage();
-        this.loopInsuranceFilesForUpload();
-        this.loopLicenseFilesForUpload();
-
-        // await this.loopLocationImages();
+        this.company.servicesOffered = this.company.servicesOffered.join();
+        await this.uploadCompanyImage()
+        if (this.insuranceFiles.length > 0) {
+          this.loopInsuranceFilesForUpload()
+        }
+        if (this.licenseFiles.length > 0) {
+          this.loopLicenseFilesForUpload()
+        }
 
         console.log(this.company, 'this.company');
-        // console.log(this.locations, 'this.locations');
         this.company.servicesOffered = this.company.servicesOffered.join(", ")
         this.company.zipcode = Number(this.company.zipcode)
         this.company.year_founded = Number(this.company.year_founded)
         this.company.company_type = this.company.company_type.toString()
 
-        console.log(this.company, "THIS DOT COMPANY")
         await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company)
           .then(response => {
-            console.log('register button post company:', response)
-            console.log(response.data.companies.id)
+            console.log('post company:', response)
+
             this.user.companies_id = response.data.companies.id;
             this.registerUser(response.data.companies.id);
+
             this.postLocationInsideRegister()
+
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
-            // this.postLocations(response.data.user.id);
 
-            // this.$router.push('/login');
             setTimeout(() => {
               this.$router.push('/login');
             }, 4000)
@@ -1145,13 +1125,6 @@
           .catch(err => {
             console.log('error in posting companies registering', err)
           })
-
-        // await this.$http.post('/locations/byCompaniesId/:id')
-
-        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
-        //   .then(response => {
-        //     console.log(response);
-        //   })
       },
       async postLocationInsideRegister() {
 
