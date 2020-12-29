@@ -40,30 +40,26 @@
               <v-row>
                 <v-col cols="12">
                   <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
-                  <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
+                  <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! They can represent different areas or aspects of your business and how you serve your Customers.
                   </p>
+                  <p>It's okay to have just one Channel, but you could have a Channel for service and another for supply, Channels for different locations, or even different Channels for separate product lines. The right Channel structure can help you organize Customer relationships, not to mention give your application for approved Vendor status a more personalized touch.</p>
                 </v-col>
               </v-row>
               
               
               <v-row>
-                <v-col cols="3" style="text-align:center;">
-                  <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-col cols="4" style="text-align:center;">
+                  <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:30%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
                 </v-col>
-                
-                <v-col cols="3" style="text-align:center">
-                  <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
-                  <h2 style="font-weight:900;font-size:1.1rem;">Major Projects</h2>
-                </v-col>
                
-                <v-col cols="3" style="text-align:center">
-                  <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-col cols="4" style="text-align:center">
+                  <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:30%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
                 </v-col>
                 
-                <v-col cols="3" style="text-align:center">
-                  <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-col cols="4" style="text-align:center">
+                  <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:30%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                 </v-col>
               </v-row>

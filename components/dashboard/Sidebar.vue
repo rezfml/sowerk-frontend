@@ -533,17 +533,17 @@
               {
                 to: '/dashboard/businesses/',
                 slug: 'businesses',
-                text: 'SOWerk Connections'
+                text: 'Customer Connections'
               },
               {
                 to: '/dashboard/businesses/search',
                 slug: 'requesting_businesses',
-                text: 'Requesting Customers'
+                text: 'Customer Leads'
               },
               {
                 to: '/dashboard/businesses/search',
                 slug: 'search_businesses',
-                text: 'All Customers Search'
+                text: 'Search Business Directory'
               }
             ]
           },/*

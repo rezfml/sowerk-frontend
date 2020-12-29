@@ -6,48 +6,6 @@
     >
       <v-row style="max-width: 95%;">
         <v-row class="justify-center flex-wrap: wrap">
-          <!-- SOWERK BASIC CARD -->
-          <v-col
-            cols="12"
-            lg="2"
-            md="12"
-            class="d-flex pa-0 mx-auto"
-            style="max-height: 100%;"
-          >
-            <v-card
-              class="text-center flex-grow-1 my-2"
-              style="border-radius: 24px; border-top: 45px solid #707070; border-left: 4px solid #707070; border-right: 4px solid #707070; border-bottom: 4px solid #707070; "
-            >
-              <v-card-text
-                class="text-body-1 white--text font-weight-bold text-uppercase pa-0"
-                style="margin-top:-35px;"
-                >Sowerk Basic</v-card-text
-              >
-              <!-- <v-card-text class="text-h5 black--text font-weight-bold">SOWERK BASIC</v-card-text> -->
-              <p
-                class="text-md-h3 font-weight-bold pt-5 pb-4"
-                style="color: #707070; font-size: 40px"
-              >
-                FREE
-              </p>
-              <v-divider></v-divider>
-              <v-card-subtitle
-                class="black--text font-weight-bold text-uppercase"
-                >Package Includes</v-card-subtitle
-              >
-              <v-col cols="12" class="pt-1" style="max-width: 100%;">
-                <ul
-                  style="list-style: none; text-align: center; font-size: 15px; padding-left: 0; color:#666666; line-height: 3em;"
-                >
-                  <li>1 User License</li>
-                  <li>SOWerk Profile</li>
-                  <li>Listed in Vendor Directory</li>
-                  <li>Customer Management Tools</li>
-                  <li>Potential Vendor Listings</li>
-                </ul>
-              </v-col>
-            </v-card>
-          </v-col>
 
           <!-- SOWERK STARTER CARD -->
           <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
@@ -86,7 +44,8 @@
                     <span style="color: #a61c00">$1.50</span> Per Additional
                     Connection(s)
                   </li>
-                  <li>SOWerk Profile</li>
+                  <li>SOWerk Profile(Free to Apply!)</li>
+                  <li>Unlimited Channels</li>
                   <li>Listed in Vendor Directory</li>
                   <li>Customer Management Tools</li>
                   <li>Potential Vendor Listings</li>
@@ -132,7 +91,8 @@
                     <span style="color: #a61c00">$1.00</span> Per Additional
                     Connection(s)
                   </li>
-                  <li>SOWerk Profile</li>
+                  <li>SOWerk Profile(Free to Apply!)</li>
+                  <li>Unlimited Channels</li>
                   <li>Listed in Vendor Directory</li>
                   <li>Customer Management Tools</li>
                   <li>Potential Vendor Listings</li>
@@ -178,7 +138,8 @@
                     <span style="color: #a61c00">$0.75</span> Per Additional
                     Connection(s)
                   </li>
-                  <li>SOWerk Profile</li>
+                  <li>SOWerk Profile(Free to Apply!)</li>
+                  <li>Unlimited Channels</li>
                   <li>Listed in Vendor Directory</li>
                   <li>Customer Management Tools</li>
                   <li>Potential Vendor Listings</li>
@@ -230,7 +191,8 @@
                     <span style="color: #a61c00">$0.50</span> Per Additional
                     Connection(s)
                   </li>
-                  <li>SOWerk Profile</li>
+                  <li>SOWerk Profile(Free to Apply!)</li>
+                  <li>Unlimited Channels</li>
                   <li>Listed in Vendor Directory</li>
                   <li>Customer Management Tools</li>
                   <li>Potential Vendor Listings</li>
