@@ -54,7 +54,7 @@
                 max-width="350"
                 style="border-radius: 16px"
                 to="/landingpage/join-product-landing"
-                >Property & Facility</v-btn
+                >Property & Businesses</v-btn
               >
             </div>
           </v-card-text>

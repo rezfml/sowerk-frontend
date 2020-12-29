@@ -749,6 +749,7 @@
     },
     data() {
       return {
+        userTerms: false,
         show1: false,
         verificationId: null,
         verification: null,
@@ -1063,6 +1064,12 @@
           companies_id: null
         };
         this.licenses.push(newLicense);
+
+        let newLicenseFile = {
+          file: null
+        }
+
+        this.licenseFiles.push(newLicenseFile);
       },
       saveCompanyAddress(addressObj) {
         this.company.address = addressObj.street_number + ' ' + addressObj.route;
@@ -1080,8 +1087,8 @@
         if (this.licenseFiles.length > 0) {
           this.loopLicenseFilesForUpload()
         }
-
         console.log(this.company, 'this.company');
+
         this.company.zipcode = Number(this.company.zipcode)
         this.company.year_founded = Number(this.company.year_founded)
         this.company.company_type = this.company.company_type.toString()

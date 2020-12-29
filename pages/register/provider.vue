@@ -1123,6 +1123,12 @@
           companies_id: null
         }
         this.licenses.push(newLicense)
+
+        let newLicenseFile = {
+          file: null
+        }
+
+        this.licenseFiles.push(newLicenseFile);
       },
       saveCompanyAddress(addressObj) {
         this.company.address = addressObj.street_number + ' ' + addressObj.route
@@ -1141,10 +1147,13 @@
         if (this.licenseFiles.length > 0) {
           this.loopLicenseFilesForUpload()
         }
+        console.log(this.company, 'this.company');
 
         this.company.public_name = this.company.account_name.replace(/[^0-9a-z]/gi, '')
-        console.log(this.company, 'this.company');
-        console.log(this.locations, 'this.locations');
+
+        this.company.zipcode = Number(this.company.zipcode)
+        this.company.year_founded = Number(this.company.year_founded)
+        this.company.company_type = this.company.company_type.toString()
 
         await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company)
           .then(response => {
@@ -1153,7 +1162,7 @@
             this.user.companies_id = response.data.companies.id;
             this.registerUser(response.data.companies.id);
 
-            // this.postLocationInsideRegister()
+            this.postLocationInsideRegister()
 
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
