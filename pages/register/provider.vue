@@ -666,7 +666,7 @@
                 </v-card-text>
               </v-container>
             </v-tab-item>
-            
+
           </v-tabs-items>
 
           <!-- BOTTOM NAVIGATION BUTTONS -->
@@ -811,8 +811,6 @@
           isFranchise: false,
           servicesOffered: [],
           imgUrl: null,
-          // phone: '',
-          // email: ''
         },
         companySector: null,
         companyLevel1: null,
@@ -863,7 +861,6 @@
         insuranceFiles: [],
         licenses: [
           {
-            // type: '',
             licenseNumber: '',
             licenseLocation: '',
             expirationDate: '',
@@ -873,7 +870,6 @@
           }
         ],
         license: {
-          // type: '',
           licenseNumber: '',
           licenseLocation: '',
           expirationDate: '',
@@ -915,24 +911,6 @@
         ],
         fullAddress: null,
         locations: [],
-        location: {
-          name: null,
-          address: null,
-          city: null,
-          state: null,
-          zipcode: null,
-          contact_first_name: null,
-          contact_last_name: null,
-          phone: null,
-          email: null,
-          latitude: null,
-          longitude: null,
-          radius: 0,
-          year_founded: '',
-          pfLogoCheckbox: false,
-          imageUrl: null,
-          companies_id: null
-        },
         formattedServicesProvided: [],
         editingIndex: 0,
         editingIndexInsurance: 0,
@@ -940,7 +918,6 @@
         imageUrlLocation: '',
         autocomplete: null,
         markers: [],
-        // editingLocation: true,
         editingInsurance: true,
         editingLicense: true,
         sectors: [],
@@ -1071,9 +1048,6 @@
       //   console.log(this.companyLevel3);
       // },
       selectInsuranceFile(file, index) {
-        console.log(file, "HEYYYYYYYYYYYYYYYYYY")
-        console.log(index, "index gggggggggggggggg")
-        console.log(this.insuranceFiles, "FILESSSSSSSSSSSSSSSS")
         this.insuranceFiles[index] = file;
       },
       selectLicenseFile(file, index) {
@@ -1248,6 +1222,7 @@
       },
       async register() {
         this.loading = true
+
         this.company.servicesOffered = this.company.servicesOffered.join();
         await this.uploadCompanyImage()
         if (this.insuranceFiles.length > 0) {
@@ -1257,8 +1232,6 @@
           this.loopLicenseFilesForUpload()
         }
 
-        // await this.loopLocationImages();
-
         this.company.public_name = this.company.account_name.replace(/[^0-9a-z]/gi, '')
         console.log(this.company, 'this.company');
         console.log(this.locations, 'this.locations');
@@ -1266,21 +1239,22 @@
         await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company)
           .then(response => {
             console.log('post company:', response)
+
             this.user.companies_id = response.data.companies.id;
             this.registerUser(response.data.companies.id);
+
+            // this.postLocationInsideRegister()
+
             this.postLicenses(response.data.companies.id);
             this.postInsurances(response.data.companies.id);
-            // this.postLocations(response.data.companies.id);
-            this.$router.push('/register/verify');
+
+            setTimeout(() => {
+              this.$router.push('/login');
+            }, 4000)
           })
           .catch(err => {
             console.log('error in posting companies registering', err)
           })
-        // await this.$http.post('https://api.sowerk.com/v1/companies/buyer', form )
-        //   .then(response => {
-        //     console.log(response);
-        //   })
-
       },
       async postLicenses(companyId) {
         for (const license of this.licenses) {
