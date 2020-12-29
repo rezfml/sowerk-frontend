@@ -668,13 +668,56 @@
 
               <!-- BOTTOM NAVIGATION BUTTONS -->
               <v-card-actions class="py-10 mx-auto" style="max-width: 80%;">
-                <v-btn color="primary" class="px-8" text @click="prevPageIfNotFirst" v-show="tab !== 0 && !editingLocation"> < Back</v-btn>
+                <v-col xs="12" sm="12" class="bottomNav d-flex justify-end">
+                  <v-btn
+                    color="primary"
+                    class="px-8"
+                    text
+                    @click="prevPageIfNotFirst"
+                    v-show="tab !== 0"
+                  >
+                    < Back</v-btn
+                  >
+                  <v-spacer v-if="tab !== 1"></v-spacer>
+                  <v-btn
+                    color="primary"
+                    class="px-8 d-flex "
+                    @click="nextPageIfNotLast"
+                    v-if="tab === 0"
+                    >Next >
+                  </v-btn>
+                  <v-btn
+                    color="primary"
+                    class="px-8 d-flex justify-end"
+                    @click="nextPageIfNotLast"
+                    v-if="tab === 1"
+                    >Next >
+                  </v-btn>
+                  <v-checkbox
+                    v-model="userTerms"
+                    v-if="tab === 2"
+                  >
+                    <template v-slot:label>
+                        <span style="font-weight:bold">You Agree to SOWerk <a target="_blank" href="https://www.sowerk.com/UserTerms" class="px-2" @click.stop>User Terms</a> & <a target="_blank" href="https://www.sowerk.com/CustomerTerms" class="mx-2" @click.stop>Customer Terms</a></span>
+                    </template>
+                  </v-checkbox>
 
-                <v-spacer v-if="editingLocation || tab !== 1"></v-spacer>
+                  <v-btn
+                    color="gray"
+                    class="px-8"
+                    @click="needToCheckTermsBox"
+                    v-if="tab === 2 && userTerms !== true"
+                    >Submit</v-btn
+                  >
 
-                <v-btn color="primary" class="px-8" @click="nextPageIfNotLast" v-if="tab === 0 || tab === 1">Next > </v-btn>
-
-                <v-btn color="primary" class="px-8" @click="register" v-if="tab === 2">Submit</v-btn>
+                  <v-btn
+                    color="primary"
+                    class="px-8"
+                    @click="register"
+                    v-if="tab === 2 && userTerms === true"
+                    >Submit</v-btn
+                  >
+                </v-col>
               </v-card-actions>
             </v-card>
 
@@ -751,18 +794,7 @@
           phone: '',
           companies_id: null
         },
-        insurances: [
-          {
-            name: '',
-            insuranceCompany: '',
-            type: '',
-            policyNumber: '',
-            expirationDateVal: '',
-            documentUrl: '',
-            documentVisible: false,
-            companies_id: null
-          }
-        ],
+        insurances: [],
         insurance: {
           name: '',
           insuranceCompany: '',
@@ -774,16 +806,7 @@
           companies_id: null
         },
         insuranceFiles: [],
-        licenses: [
-          {
-            licenseNumber: '',
-            licenseLocation: '',
-            expirationDate: '',
-            documentUrl: '',
-            documentVisible: false,
-            companies_id: null
-          }
-        ],
+        licenses: [],
         license: {
           licenseNumber: '',
           licenseLocation: '',
@@ -906,6 +929,9 @@
       }
     },
     methods: {
+      needToCheckTermsBox() {
+        alert("Please accept SOWerk Terms")
+      },      
       focusAddressField() {
         console.log('focus');
       },

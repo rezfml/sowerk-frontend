@@ -812,18 +812,7 @@
           phone: '',
           companies_id: null
         },
-        insurances: [
-          {
-            name: '',
-            insuranceCompany: '',
-            type: '',
-            policyNumber: '',
-            expirationDateVal: '',
-            documentUrl: '',
-            documentVisible: false,
-            companies_id: null
-          }
-        ],
+        insurances: [],
         insurance: {
           name: '',
           insuranceCompany: '',
@@ -835,16 +824,7 @@
           companies_id: null
         },
         insuranceFiles: [],
-        licenses: [
-          {
-            licenseNumber: '',
-            licenseLocation: '',
-            expirationDate: '',
-            documentUrl: '',
-            documentVisible: false,
-            companies_id: null
-          }
-        ],
+        licenses: [],
         license: {
           licenseNumber: '',
           licenseLocation: '',
