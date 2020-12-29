@@ -1047,7 +1047,6 @@
       async register() {
         this.loading = true;
 
-        this.company.servicesOffered = this.company.servicesOffered.join();
         await this.uploadCompanyImage()
         if (this.insuranceFiles.length > 0) {
           this.loopInsuranceFilesForUpload()
@@ -1057,7 +1056,6 @@
         }
 
         console.log(this.company, 'this.company');
-        this.company.servicesOffered = this.company.servicesOffered.join(", ")
         this.company.zipcode = Number(this.company.zipcode)
         this.company.year_founded = Number(this.company.year_founded)
         this.company.company_type = this.company.company_type.toString()
