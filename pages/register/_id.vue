@@ -918,9 +918,6 @@
           }
           this.company.account_name = response.data.invitation[0].companyName;
           this.company.brand_name = response.data.invitation[0].companyName;
-          this.company.servicesOffered.push(response.data.invitation[0].service);
-          // this.company.phone = response.data.invitation[0].phone;
-          // this.company.email = response.data.invitation[0].email;
           this.user.phone = response.data.invitation[0].phone;
           this.user.email = response.data.invitation[0].email;
           this.user.first_name = response.data.invitation[0].first_name;
@@ -940,12 +937,9 @@
       },
       selectCompanyImage(e) {
         this.companyImageFile = e.target.files[0];
-        console.log(this.companyImageFile, "company image file");
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
-        console.log(this.companyImageUrl, "company image URL");
       },
       clickCompanyImageUpload() {
-        console.log(this);
         // let imageInput = this.$refs.companyImage;
         // console.log(imageInput);
         // imageInput.$el.click();
@@ -963,12 +957,6 @@
       setTab(tabIndex) {
         console.log(tabIndex)
       },
-      finishEditing() {
-        this.editingLocation = false;
-        console.log(this.location);
-        this.locations[this.editingIndex] = this.location;
-        this.editingIndex = null;
-      },
       finishEditingInsuranceLicense() {
         this.editingInsurance = false;
         this.editingLicense = false;
@@ -976,13 +964,6 @@
         this.licenses[this.editingIndexLicense] = this.license;
         this.editingIndexInsurance = null;
         this.editingIndexInsurance = null;
-      },
-      editLocation(index) {
-        console.log(index);
-        this.editingIndex = index;
-        this.location = this.locations[index];
-        console.log(this.location);
-        this.editingLocation = true;
       },
       editInsurance(index) {
         console.log(index);
@@ -1008,9 +989,6 @@
         this.fullAddress = this.company.address + ', ' + this.company.city + ', ' + this.company.state + ' ' + this.company.zipcode;
         console.log(this.fullAddress, "full address log formatFullAddress method");
       },
-      onRadiusSlide(value, index) {
-
-      },
       animateAddressFieldOnFocus(e) {
         let addressLabel = e.target.previousElementSibling;
         addressLabel.classList.toggle('v-label--focus');
@@ -1027,28 +1005,6 @@
       },
       convertMilesToMeters(miles) {
         return miles * 1609.34;
-      },
-      addLocation() {
-        let newLocation = {
-          name: null,
-          address: null,
-          city: null,
-          state: null,
-          zipcode: null,
-          contact_first_name: null,
-          contact_last_name: null,
-          phone: null,
-          email: null,
-          latitude: null,
-          longitude: null,
-          radius: 0,
-          year_founded: '',
-          companies_id: null
-        };
-        this.locations.push(newLocation);
-        this.location = this.locations[this.locations.length - 1];
-        this.editingIndex = this.locations.length - 1;
-        this.editingLocation = true;
       },
       addInsurance() {
         this.editingInsurance = true;

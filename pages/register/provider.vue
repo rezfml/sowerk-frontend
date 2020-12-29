@@ -689,16 +689,6 @@
                 v-if="tab === 0"
                 >Next >
               </v-btn>
-              <!-- <v-btn
-                color="primary"
-                outlined
-                class="px-8 mx-8 saveBtn"
-                style="flex-grow: 1; border-width: 2px;"
-                @click="addLocation"
-                v-if="!editingLocation && tab === 1"
-                >+ Save and Add <br v-if="$vuetify.breakpoint.mobile" />
-                Another Location
-              </v-btn> -->
               <v-btn
                 color="primary"
                 class="px-8 d-flex justify-end"
@@ -706,20 +696,6 @@
                 v-if="tab === 1"
                 >Next >
               </v-btn>
-              <!-- <v-btn
-                color="primary"
-                class="px-8"
-                @click="finishEditing"
-                v-else-if="editingLocation && tab === 1"
-                >Finish Location
-              </v-btn> -->
-              <!-- <v-btn
-                color="primary"
-                class="px-8"
-                @click="nextPageIfNotLast"
-                v-else-if="tab === 2"
-                >Review</v-btn
-              > -->
               <v-checkbox
                 v-model="userTerms"
                 v-if="tab === 2"
@@ -1044,9 +1020,9 @@
           this.industryLevel3.push(category);
         }
       },
-      // getLevel3Children() {
-      //   console.log(this.companyLevel3);
-      // },
+      focusAddressField() {
+        console.log('focus');
+      },
       selectInsuranceFile(file, index) {
         this.insuranceFiles[index] = file;
       },
@@ -1055,30 +1031,15 @@
       },
       selectCompanyImage(e) {
         this.companyImageFile = e.target.files[0];
-        console.log(this.companyImageFile);
         this.companyImageUrl = URL.createObjectURL(this.companyImageFile);
-        console.log(this.companyImageUrl);
-      },
-      focusAddressField() {
-        console.log('focus');
       },
       clickCompanyImageUpload() {
-        console.log(this);
         // let imageInput = this.$refs.companyImage;
         // console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('companyImage').click();
       },
-      nextPageIfNotLast() {
-        console.log(this.tab);
-        if (this.tab === 3) return;
-        if (!this.validate(this.tab)) return;
-        this.tab += 1
-        console.log(this.locations)
-      },
       validate(tab) {
-        console.log(this.$refs.companyDetails);
-
         if (tab == 0) {
           if (!this.$refs.companyDetails.validate()) {
             this.$nextTick(() => {
@@ -1088,23 +1049,21 @@
           }
           return true;
         }
-
-        console.log(tab);
-        console.log(this.$refs.companyDetails.$refs.register);
         return true;
       },
+      nextPageIfNotLast() {
+        console.log(this.tab);
+        if (this.tab === 3) return;
+        if (!this.validate(this.tab)) return;
+        this.tab += 1
+        console.log(this.locations)
+      },      
       prevPageIfNotFirst() {
         if (this.tab === 0) return;
         this.tab -= 1;
       },
       setTab(tabIndex) {
         console.log(tabIndex)
-      },
-      finishEditing() {
-        // this.editingLocation = false;
-        console.log(this.location);
-        this.locations[this.editingIndex] = this.location;
-        this.editingIndex = null;
       },
       finishEditingInsuranceLicense() {
         this.editingInsurance = false;
@@ -1113,13 +1072,6 @@
         this.licenses[this.editingIndexLicense] = this.license;
         this.editingIndexInsurance = null;
         this.editingIndexInsurance = null;
-      },
-      editLocation(index) {
-        console.log(index);
-        this.editingIndex = index;
-        this.location = this.locations[index];
-        console.log(this.location);
-        // this.editingLocation = true;
       },
       editInsurance(index) {
         console.log(index);
@@ -1159,28 +1111,6 @@
       },
       convertMilesToMeters(miles) {
         return miles * 1609.34
-      },
-      addLocation() {
-        let newLocation = {
-          name: null,
-          address: null,
-          city: null,
-          state: null,
-          zipcode: null,
-          contact_first_name: null,
-          contact_last_name: null,
-          phone: null,
-          email: null,
-          latitude: null,
-          longitude: null,
-          radius: 0,
-          year_founded: '',
-          companies_id: null,n
-        }
-        this.locations.push(newLocation)
-        this.location = this.locations[this.locations.length - 1]
-        this.editingIndex = this.locations.length - 1
-        // this.editingLocation = true
       },
       addInsurance() {
         this.editingInsurance = true
@@ -1256,6 +1186,51 @@
             console.log('error in posting companies registering', err)
           })
       },
+      async postLocationInsideRegister() {
+
+        let admin = 0;
+
+        if(this.user.is_superuser === true) {
+          admin = 1
+        } else if (this.user.is_superuser === false) {
+          admin = 0
+        }
+
+        let locationPost = {
+          name: this.company.account_name,
+          email: this.user.email,
+          address: this.company.address,
+          state: this.company.state,
+          city: this.company.city,
+          zipcode: this.company.zipcode,
+          year_founded: this.company.year_founded,
+          radius: 0,
+          longitude: this.long,
+          latitude: this.lat,
+          contact_first_name: this.user.first_name,
+          contact_last_name: this.user.last_name,
+          phone: this.user.phone,
+          adminLevel: admin,
+          pfLogoCheckbox: false,
+          description: this.company.description,
+          imageUrl: this.company.imgUrl,
+        }
+
+        console.log(locationPost, 'locationPost')
+
+        await this.$http.post('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.user.companies_id, locationPost)
+          .then(response => {
+            console.log(response, 'location posted YAYYYYYYYYYYYYYYYYYYYYYY!')
+            this.loading = false;
+            this.successPopup = true;
+            setTimeout(() => {
+              this.$router.push('/login');
+            }, 2000)
+          })
+          .catch(err => {
+            console.log(err, 'err in posting location')
+          })
+      },
       async postLicenses(companyId) {
         for (const license of this.licenses) {
           license.companies_id = companyId;
@@ -1284,6 +1259,11 @@
             console.log('error in uploading company image', err);
           })
       },
+      loopInsuranceFilesForUpload() {
+        this.insuranceFiles.forEach((insuranceFile, index) => {
+          this.uploadInsuranceFile(insuranceFile, index);
+        })
+      },      
       async uploadInsuranceFile(insuranceFile, index) {
         let formData = new FormData();
         formData.append('file', insuranceFile.file);
@@ -1299,6 +1279,11 @@
             console.log('error in uploading insurance file', err);
           })
       },
+      loopLicenseFilesForUpload() {
+        this.licenseFiles.forEach((licenseFile, index) => {
+          this.uploadLicenseFile(licenseFile, index);
+        })
+      },      
       async uploadLicenseFile(licenseFile, index) {
         let formData = new FormData();
         formData.append('file', licenseFile.file);
@@ -1313,16 +1298,6 @@
           .catch(err => {
             console.log('error in uploading license file', err);
           })
-      },
-      loopInsuranceFilesForUpload() {
-        this.insuranceFiles.forEach((insuranceFile, index) => {
-          this.uploadInsuranceFile(insuranceFile, index);
-        })
-      },
-      loopLicenseFilesForUpload() {
-        this.licenseFiles.forEach((licenseFile, index) => {
-          this.uploadLicenseFile(licenseFile, index);
-        })
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id
