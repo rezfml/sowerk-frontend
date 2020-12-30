@@ -435,6 +435,12 @@
         </v-autocomplete>
         <v-btn style="position: absolute; bottom: 15px; left: 20px; width: 20%;" class="py-6 px-16" color="primary" @click="backToCompanyDocuments">< BACK</v-btn>
         <v-btn style="width: 40%;" class="my-2" color="primary" @click="sendToVendorDocs">Send To Vendor(s)</v-btn>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          :size="20"
+          v-if="loadingSubmitVendorDocs"
+        ></v-progress-circular>
       </v-card>
     </transition>
 
@@ -1213,6 +1219,7 @@ const naics = require("naics");
         loadApplicationTemplates: false,
         loadYourCompanyTemplates: false,
         loadYourCompanyDocuments: false,
+        loadingSubmitVendorDocs: false,
         addToLocationLoad: false,
         addNewCompanyTemplateLoad: false,
         addNewVendorFormLoad: false,
@@ -1389,16 +1396,17 @@ const naics = require("naics");
         if(this.channelsList.length <= 0) {
           return;
         } else {
+          this.loadingSubmitVendorDocs = true;
          for(let i=0; i<this.channelsList.length; i++) {
            // console.log({
-           //   companies_id: this.currentUser.companies_id,
+           //   // companies_id: this.currentUser.companies_id,
            //   documentName: this.documentToSend.documentName,
            //   documentUrl: this.documentToSend.documentUrl,
            //   required: true,
            //   vendor_companiesId: this.channelsList[i].companies_id,
            //   vendor_channelsId: this.channelsList[i].id
            // })
-           this.$http.post('https://www.sowerkbackend.com/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
+           this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
              // companies_id: this.currentUser.companies_id,
              documentName: this.documentToSend.documentName,
              documentUrl: this.documentToSend.documentUrl,
@@ -1413,6 +1421,7 @@ const naics = require("naics");
               console.log(err, 'err in adding vendor docs')
             })
          }
+         this.loadingSubmitVendorDocs = false;
         }
       },
       addChannelToVendorDocList(channel) {
