@@ -376,7 +376,7 @@
             <v-col cols="6" class="d-flex flex-column align-center justify-center">
               <template style="" class="d-flex flex-column align-center">
                 <v-img
-                  src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
+                  :src="company.imgUrl"
                   :aspect-ratio="1"
                   class="my-8 rounded-circle flex-grow-1"
                   style="width: 100%; max-width: 300px; max-height: 300px;"
@@ -424,14 +424,14 @@
                   hint="(This is generated from the NAICS directory.)"
                   persistent-hint
                   outlined
-                  color="white"
-                  style="width: 80%;"
+                  color=""
+                  style="width: 80%; background-color: white"
                 >
                   <template slot="selection" slot-scope="data">
-                    <p>{{ data.item.name }}</p>
+                    <p style="color: #151515">{{ data.item.name }}</p>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <p>{{ data.item.name }}</p>
+                    <p style="color: #151515">{{ data.item.name }}</p>
                   </template>
                 </v-autocomplete>
               </v-card>
