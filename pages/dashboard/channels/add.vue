@@ -328,6 +328,18 @@
                 </GmapMap>
               </client-only>
 
+              <v-slider
+                class="mt-10"
+                label="Choose your Channel service radius"
+                thumb-label="always"
+                max="1005"
+                min="5"
+                step="10"
+                ticks="always"
+                v-model="form.radius"
+                v-if="company.company_type === 'false'"
+              ></v-slider>
+
               <v-autocomplete
                   :items="vendorTypeOptions"
                   item-text="vendorType"

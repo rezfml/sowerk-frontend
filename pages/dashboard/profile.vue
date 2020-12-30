@@ -80,6 +80,7 @@
           { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
+        company: {}
       }
     },
     computed: {
@@ -88,9 +89,20 @@
       },
     },
     async mounted() {
+      await this.getCompany(this.currentUser.companies_id);
       await this.getCompanyDocuments();
     },
     methods: {
+      async getCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            console.log(response.data, 'company')
+            this.company = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting company')
+          })
+      },
       uploadCard() {
         this.showUploadCard = true
       },
@@ -99,14 +111,25 @@
       },
       async getCompanyDocuments() {
         this.companyDocuments = [];
-        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
-          .then(response => {
-            console.log(response.data, 'companyDocuments response.data')
-            this.companyDocuments = response.data;
-          })
-          .catch(err => {
-            console.log(err, 'err in getting company documents for this company')
-          })
+        if(this.company.company_type === 'true') {
+          await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+            .then(response => {
+              console.log(response.data, 'companyDocuments response.data')
+              this.companyDocuments = response.data;
+            })
+            .catch(err => {
+              console.log(err, 'err in getting company documents for this company')
+            })
+        } else {
+          await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byVendorCompanyId/' + this.currentUser.companies_id)
+            .then(response => {
+              console.log(response.data, 'companyDocuments response.data')
+              this.companyDocuments = response.data;
+            })
+            .catch(err => {
+              console.log(err, 'err in getting company documents for this company')
+            })
+        }
       },
       async deleteCompanyDocument(document, index) {
         await this.$http.delete('https://www.sowerkbackend.com/api/companydocuments/' + document.id)

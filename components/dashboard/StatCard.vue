@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="fill-height d-flex flex-column justify-space-between" style="white-space: pre-wrap !important;">
+  <v-container v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="fill-height d-flex flex-column justify-space-between" style="white-space: pre-wrap !important; background-color: white;">
 <!--    <v-card v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="fill-height d-flex flex-column justify-space-between">-->
       <v-card-title>
         <p class="text-center primary--text mx-auto mb-0 font-weight-bold" style="font-size: 18px; white-space: pre-wrap !important; word-break: break-word">{{ stat.title }}</p>
