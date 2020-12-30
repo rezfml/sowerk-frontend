@@ -1,6 +1,6 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container style="max-width: 95%;" mt-12 mx-auto>
+    <v-container style="max-width: 95%; height: 100%;" mt-12>
       <v-skeleton-loader
         v-if="!loading"
         type="card-avatar, article, article, actions"
@@ -15,15 +15,308 @@
         style="z-index: 10; position: fixed; top: 25vh; left: 50vw;"
       ></v-progress-circular>
       <transition name="slide-fade">
-        <v-card v-if="loading">
-        <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Channel</v-card-title>
-        <v-card-text class="px-6 pt-12 pb-0 mx-auto">
-          <v-row class="px-3 pt-3">
-            <v-col cols="12" class="pa-0 elevation-2" style="width: 100%; top: 0; border-radius: 10px; overflow: hidden; height: 50vh; max-height: 500px; z-index: 4;">
+        <v-card v-if="loading" style="width: 100%; height: 100%;" class="d-flex flex-column align-center">
+          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Channel</v-card-title>
+
+<!--          <v-card-text class="px-6 pt-12 pb-0 mx-auto">-->
+<!--            <v-row class="px-3 pt-3">-->
+<!--              <v-col cols="12" class="pa-0 elevation-2" style="width: 100%; top: 0; border-radius: 10px; overflow: hidden; height: 50vh; max-height: 500px; z-index: 4;">-->
+<!--                <client-only>-->
+<!--                  <GmapMap-->
+<!--                    id="locations-map"-->
+<!--                    style="width: 100%; height: 100%; "-->
+<!--                    ref="location-map"-->
+<!--                    :center="this.mapOptions.center"-->
+<!--                    :zoom="this.mapOptions.zoom"-->
+<!--                    :options="mapOptions"-->
+<!--                  >-->
+<!--                    <gmap-marker-->
+<!--                      :position="this.item"-->
+<!--                    />-->
+<!--                  </GmapMap>-->
+<!--                </client-only>-->
+<!--              </v-col>-->
+<!--              <v-col cols="12" class="mt-4">-->
+<!--                <v-form>-->
+<!--                  <v-row>-->
+<!--                    <v-col cols="12">-->
+<!--                      <v-text-field-->
+<!--                        placeholder=" "-->
+<!--                        hint="(Consider that this name will be viewed by Service Providers and listed-->
+<!--  on your account dashboard. Example: SOWerk Cafe #013)"-->
+<!--                        persistent-hint-->
+<!--                        v-model="form.name"-->
+<!--                      >-->
+<!--                        <template v-slot:label>-->
+<!--                          <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Channel Name</p>-->
+<!--                        </template>-->
+<!--                      </v-text-field>-->
+<!--                    </v-col>-->
+<!--  &lt;!&ndash;                  <v-col cols="3">&ndash;&gt;-->
+<!--  &lt;!&ndash;                    <v-text-field&ndash;&gt;-->
+<!--  &lt;!&ndash;                      placeholder=" "&ndash;&gt;-->
+<!--  &lt;!&ndash;                      v-model="form.year_founded"&ndash;&gt;-->
+<!--  &lt;!&ndash;                      type="number"&ndash;&gt;-->
+<!--  &lt;!&ndash;                    >&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <template v-slot:label>&ndash;&gt;-->
+<!--  &lt;!&ndash;                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Channel Year Founding</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      </template>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-text-field>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  </v-col>&ndash;&gt;-->
+<!--                    <v-col cols="12">-->
+<!--                      <div class="v-input theme&#45;&#45;light v-text-field v-text-field&#45;&#45;is-booted">-->
+<!--                        <div class="v-input__control">-->
+<!--                          <div class="v-input__slot" style="width: 100%;">-->
+<!--                            <label class="v-label v-label&#45;&#45;active theme&#45;&#45;light black&#45;&#45;text font-weight-bold" style="left: 0px; right: auto; position: absolute;"><p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Channel Address</p></label>-->
+<!--  &lt;!&ndash;                          <client-only>&ndash;&gt;-->
+<!--                              <vue-google-autocomplete-->
+<!--                                id="company-address"-->
+<!--                                name="company_address"-->
+<!--                                classname="form-control"-->
+<!--                                v-on:placechanged="getAddressData"-->
+<!--                                placeholder=" "-->
+<!--                                style="width: 100%;"-->
+<!--                                validate-on-blur-->
+<!--                                v-model="fullAddress"-->
+<!--                              >-->
+<!--                              </vue-google-autocomplete>-->
+<!--  &lt;!&ndash;                          </client-only>&ndash;&gt;-->
+<!--                          </div>-->
+<!--                          <div class="v-text-field__details"><div class="v-messages theme&#45;&#45;light"><div class="v-messages__wrapper"></div></div></div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--  &lt;!&ndash;                    <v-row>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenChannel">Drop Pin At Above Written Channel</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getChannel">Use Current Channel</v-btn>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-row>&ndash;&gt;-->
+<!--                    </v-col>-->
+<!--                    <v-col cols="12">-->
+<!--                      <v-textarea-->
+<!--                        placeholder=" "-->
+<!--                        hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"-->
+<!--                        persistent-hint-->
+<!--                        v-model="form.description"-->
+<!--                      >-->
+<!--                        <template v-slot:label>-->
+<!--                          <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Channel Description</p>-->
+<!--                        </template>-->
+<!--                      </v-textarea>-->
+<!--                    </v-col>-->
+<!--                    <v-col cols="12" class="mt-4" v-if="company.company_type === 'false'">-->
+<!--                      <v-slider-->
+<!--                        label="Choose your Channel service radius"-->
+<!--                        thumb-label="always"-->
+<!--                        max="1005"-->
+<!--                        min="5"-->
+<!--                        step="10"-->
+<!--                        ticks="always"-->
+<!--                        v-model="form.radius"-->
+<!--                      ></v-slider>-->
+<!--                      <v-subheader class="mt-n8">Choose the number of miles that your channel will operate. IE, I service a 50 mile radius of my channel.</v-subheader>-->
+<!--                    </v-col>-->
+<!--                    <v-col cols="12" class="mt-8">-->
+<!--                      <v-autocomplete-->
+<!--                        :items="vendorTypeOptions"-->
+<!--                        item-text="vendorType"-->
+<!--                        item-value="vendorType"-->
+<!--                        v-model="vendorType"-->
+<!--                        label="Select A Type That Describes What This Channel Provides"-->
+<!--                        hint="Choose All That Apply"-->
+<!--                        :placeholder="vendorType"-->
+<!--                        multiple-->
+<!--                        outlined-->
+<!--                      >-->
+<!--                      </v-autocomplete>-->
+<!--                    </v-col>-->
+<!--                    <v-col cols="12" class="mt-8">-->
+<!--                      <v-autocomplete-->
+<!--                        v-model="services"-->
+<!--                        :items="naicsList"-->
+<!--                        item-text="name"-->
+<!--                        item-value="name"-->
+<!--                        label="Select A Category That Describes What This Channel Provides"-->
+<!--                        solo-->
+<!--                        clearable-->
+<!--                        hint="This is generated from the NAICS directory."-->
+<!--                        outlined-->
+<!--                      >-->
+<!--                        &lt;!&ndash;                    <template v-slot:selection="data">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                      <v-chip&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        style="width: auto;"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        v-for="(item, index) in services"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                      >&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                      </v-chip>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    </template>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    <template v-slot:item="data">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                      <v-chip&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        style="width: auto;"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        v-for="(item, index) in services"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                      >&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                      </v-chip>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    </template>&ndash;&gt;-->
+<!--                        <template slot="selection" slot-scope="data">-->
+<!--                          <p>{{ data.item.name }}</p>-->
+<!--                        </template>-->
+<!--                        <template slot="item" slot-scope="data">-->
+<!--                          <p>{{ data.item.name }}</p>-->
+<!--                        </template>-->
+<!--                      </v-autocomplete>-->
+<!--                    </v-col>-->
+<!--                    <v-col cols="12" class="mt-8">-->
+<!--                      <v-combobox-->
+<!--                        v-model="locationTags"-->
+<!--                        :items="sowerkTags"-->
+<!--                        item-text="name"-->
+<!--                        item-value="name"-->
+<!--                        chips-->
+<!--                        multiple-->
+<!--                        label="Add Additional Tags"-->
+<!--                        hint="Tags help you and others keyword search for this Channel"-->
+<!--                        outlined-->
+<!--                      >-->
+<!--                        <template v-slot:selection="data">-->
+<!--                          <v-chip-->
+<!--                            class="v-chip&#45;&#45;select-multi"-->
+<!--                            style="width: auto;"-->
+<!--                          >-->
+<!--                            <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
+<!--                            <v-card-text v-else>{{data.item}}</v-card-text>-->
+<!--                            <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
+<!--                          </v-chip>-->
+<!--                        </template>-->
+<!--                        <template v-slot:item="data">-->
+<!--                          <p>{{data.item.name}}</p>-->
+<!--                        </template>-->
+<!--                      </v-combobox>-->
+<!--                    </v-col>-->
+<!--                    <v-row style="height: 2px; width: 100%; background: #A61c00;"></v-row>-->
+<!--                    <v-col cols="12" class="mt-12 mb-4">-->
+<!--                      <h2 class="mx-auto text-center">Channel Manager</h2>-->
+<!--                      <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this channel.</p>-->
+<!--                    </v-col>-->
+<!--  &lt;!&ndash;                  <v-col cols="12" md="6">&ndash;&gt;-->
+<!--  &lt;!&ndash;                    <v-text-field&ndash;&gt;-->
+<!--  &lt;!&ndash;                      placeholder=" "&ndash;&gt;-->
+<!--  &lt;!&ndash;                      v-model="form.contact_first_name"&ndash;&gt;-->
+<!--  &lt;!&ndash;                    >&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <template v-slot:label>&ndash;&gt;-->
+<!--  &lt;!&ndash;                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      </template>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-text-field>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  </v-col>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  <v-col cols="12" md="6">&ndash;&gt;-->
+<!--  &lt;!&ndash;                    <v-text-field&ndash;&gt;-->
+<!--  &lt;!&ndash;                      placeholder=" "&ndash;&gt;-->
+<!--  &lt;!&ndash;                      v-model="form.contact_last_name"&ndash;&gt;-->
+<!--  &lt;!&ndash;                    >&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <template v-slot:label>&ndash;&gt;-->
+<!--  &lt;!&ndash;                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      </template>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-text-field>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  </v-col>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  <v-col cols="12" md="6">&ndash;&gt;-->
+<!--  &lt;!&ndash;                    <v-text-field&ndash;&gt;-->
+<!--  &lt;!&ndash;                      placeholder=" "&ndash;&gt;-->
+<!--  &lt;!&ndash;                      v-model="form.phone"&ndash;&gt;-->
+<!--  &lt;!&ndash;                    >&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <template v-slot:label>&ndash;&gt;-->
+<!--  &lt;!&ndash;                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      </template>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-text-field>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  </v-col>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  <v-col cols="12" md="6">&ndash;&gt;-->
+<!--  &lt;!&ndash;                    <v-text-field&ndash;&gt;-->
+<!--  &lt;!&ndash;                      placeholder=" "&ndash;&gt;-->
+<!--  &lt;!&ndash;                      v-model="form.email"&ndash;&gt;-->
+<!--  &lt;!&ndash;                    >&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <template v-slot:label>&ndash;&gt;-->
+<!--  &lt;!&ndash;                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      </template>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-text-field>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  </v-col>&ndash;&gt;-->
+<!--                    <v-col cols="12">-->
+<!--                      <v-select-->
+<!--                        label="Select From List of Users Your Manager For This Channel"-->
+<!--                        :items="users"-->
+<!--                        outlined-->
+<!--                      >-->
+<!--                        <template slot="selection" slot-scope="data">-->
+<!--                          <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>-->
+<!--                        </template>-->
+<!--                        <template slot="item" slot-scope="data">-->
+<!--                          <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>-->
+<!--                        </template>-->
+<!--                      </v-select>-->
+<!--                    </v-col>-->
+<!--                    <v-col cols="12" md="6">-->
+<!--                      <v-checkbox-->
+<!--                        :label="'This location will be managed by: Admin ' + currentUser.first_name + ' ' + currentUser.last_name"-->
+<!--                        v-model="managerIsUser"-->
+<!--                        @click="setManagerToUser"-->
+<!--                      >-->
+<!--                      </v-checkbox>-->
+<!--                    </v-col>-->
+<!--  &lt;!&ndash;                  <v-col cols="12" md="6">&ndash;&gt;-->
+<!--  &lt;!&ndash;                    <v-select&ndash;&gt;-->
+<!--  &lt;!&ndash;                      :items="adminOptions"&ndash;&gt;-->
+<!--  &lt;!&ndash;                      v-model="form.adminLevel"&ndash;&gt;-->
+<!--  &lt;!&ndash;                      placeholder=" "&ndash;&gt;-->
+<!--  &lt;!&ndash;                    >&ndash;&gt;-->
+<!--  &lt;!&ndash;                      <template v-slot:label>&ndash;&gt;-->
+<!--  &lt;!&ndash;                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>&ndash;&gt;-->
+<!--  &lt;!&ndash;                      </template>&ndash;&gt;-->
+<!--  &lt;!&ndash;                    </v-select>&ndash;&gt;-->
+<!--  &lt;!&ndash;                  </v-col>&ndash;&gt;-->
+<!--                  </v-row>-->
+<!--                </v-form>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+
+          <v-row style="width: 100%;" class="mt-12">
+            <v-col cols="6">
+              <v-text-field
+                  placeholder=" "
+                  hint="(The name you give will be visible to other businesses and vendors, try to be short and clear (i.e. SOWerk Cafe - Baxter VA)"
+                  persistent-hint
+                  v-model="form.name"
+                  outlined
+                  class="mb-8"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Channel Name <span style="color: #A61c00">*</span></p>
+                  </template>
+                </v-text-field>
+
+              <div class="v-input theme--light v-text-field v-text-field--is-booted" >
+                  <div class="v-input__control">
+                    <div class="v-input__slot" style="width: 100%; border: 1px solid #707070">
+                      <label class="v-label v-label--active theme--light black--text font-weight-bold" style="left: 0px; right: auto; position: absolute; top: -5px;"><p class="grey--text text--darken-4 font-weight-bold">Channel Address <span style="color: #A61c00">*</span></p></label>
+                      <!--                          <client-only>-->
+                      <vue-google-autocomplete
+                        id="company-address"
+                        name="company_address"
+                        classname="form-control"
+                        v-on:placechanged="getAddressData"
+                        placeholder=" "
+                        style="width: 100%;"
+                        validate-on-blur
+                        v-model="fullAddress"
+                      >
+                      </vue-google-autocomplete>
+                      <!--                          </client-only>-->
+                    </div>
+                    <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
+                  </div>
+                </div>
+
               <client-only>
                 <GmapMap
                   id="locations-map"
-                  style="width: 100%; height: 100%; "
+                  style="width: 100%; height: 300px; "
                   ref="location-map"
                   :center="this.mapOptions.center"
                   :zoom="this.mapOptions.zoom"
@@ -34,251 +327,153 @@
                   />
                 </GmapMap>
               </client-only>
+
+              <v-autocomplete
+                  :items="vendorTypeOptions"
+                  item-text="vendorType"
+                  item-value="vendorType"
+                  v-model="vendorType"
+                  hint="(Select a type that describes what this channel provides)"
+                  persistent-hint
+                  :placeholder="vendorType"
+                  multiple
+                  outlined
+                  class="mt-8"
+                >
+                  <template v-slot:label>
+                    <p class="grey--text text--darken-4 font-weight-bold">Channel Type <span style="color: #A61c00">*</span></p>
+                  </template>
+                </v-autocomplete>
+
+              <v-textarea
+                placeholder=" "
+                hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
+                persistent-hint
+                v-model="form.description"
+                rows="4"
+                auto-grow
+                class="mt-8"
+                outlined
+              >
+                <template v-slot:label>
+                  <p class="grey--text text--darken-4 font-weight-bold">Channel Description <span style="color: #A61c00">*</span></p>
+                </template>
+              </v-textarea>
             </v-col>
-            <v-col cols="12" class="mt-4">
-              <v-form>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field
-                      placeholder=" "
-                      hint="(Consider that this name will be viewed by Service Providers and listed
-on your account dashboard. Example: SOWerk Cafe #013)"
-                      persistent-hint
-                      v-model="form.name"
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Channel Name</p>
-                      </template>
-                    </v-text-field>
-                  </v-col>
-<!--                  <v-col cols="3">-->
-<!--                    <v-text-field-->
-<!--                      placeholder=" "-->
-<!--                      v-model="form.year_founded"-->
-<!--                      type="number"-->
-<!--                    >-->
-<!--                      <template v-slot:label>-->
-<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Channel Year Founding</p>-->
-<!--                      </template>-->
-<!--                    </v-text-field>-->
-<!--                  </v-col>-->
-                  <v-col cols="12">
-                    <div class="v-input theme--light v-text-field v-text-field--is-booted">
-                      <div class="v-input__control">
-                        <div class="v-input__slot" style="width: 100%;">
-                          <label class="v-label v-label--active theme--light black--text font-weight-bold" style="left: 0px; right: auto; position: absolute;"><p class="grey--text text--darken-4 font-weight-bold">Channel Address</p></label>
-<!--                          <client-only>-->
-                            <vue-google-autocomplete
-                              id="company-address"
-                              name="company_address"
-                              classname="form-control"
-                              v-on:placechanged="getAddressData"
-                              placeholder=" "
-                              style="width: 100%;"
-                              validate-on-blur
-                              v-model="fullAddress"
-                            >
-                            </vue-google-autocomplete>
-<!--                          </client-only>-->
-                        </div>
-                        <div class="v-text-field__details"><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div>
-                      </div>
-                    </div>
-<!--                    <v-row>-->
-<!--                      <v-btn :disabled="this.form.latitude === null" @click="useWrittenChannel">Drop Pin At Above Written Channel</v-btn><p class="pb-6 px-8" style="padding-top: 8px">- OR -</p><v-btn @click="getChannel">Use Current Channel</v-btn>-->
-<!--                    </v-row>-->
-                  </v-col>
-                  <v-col cols="12">
-                    <v-textarea
-                      placeholder=" "
-                      hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
-                      persistent-hint
-                      v-model="form.description"
-                    >
-                      <template v-slot:label>
-                        <p class="grey--text text--darken-4 font-weight-bold">Channel Description</p>
-                      </template>
-                    </v-textarea>
-                  </v-col>
-                  <v-col cols="12" class="mt-4" v-if="company.company_type === 'false'">
-                    <v-slider
-                      label="Choose your Channel service radius"
-                      thumb-label="always"
-                      max="1005"
-                      min="5"
-                      step="10"
-                      ticks="always"
-                      v-model="form.radius"
-                    ></v-slider>
-                    <v-subheader class="mt-n8">Choose the number of miles that your channel will operate. IE, I service a 50 mile radius of my channel.</v-subheader>
-                  </v-col>
-                  <v-col cols="12" class="mt-8">
-                    <v-autocomplete
-                      :items="vendorTypeOptions"
-                      item-text="vendorType"
-                      item-value="vendorType"
-                      v-model="vendorType"
-                      label="Select A Type That Describes What This Channel Provides"
-                      hint="Choose All That Apply"
-                      :placeholder="vendorType"
-                      multiple
-                      outlined
-                    >
-                    </v-autocomplete>
-                  </v-col>
-                  <v-col cols="12" class="mt-8">
-                    <v-autocomplete
-                      v-model="services"
-                      :items="naicsList"
-                      item-text="name"
-                      item-value="name"
-                      label="Select A Category That Describes What This Channel Provides"
-                      solo
-                      clearable
-                      hint="This is generated from the NAICS directory."
-                      outlined
-                    >
-                      <!--                    <template v-slot:selection="data">-->
-                      <!--                      <v-chip-->
-                      <!--                        style="width: auto;"-->
-                      <!--                        v-for="(item, index) in services"-->
-                      <!--                      >-->
-                      <!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
-                      <!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
-                      <!--                      </v-chip>-->
-                      <!--                    </template>-->
-                      <!--                    <template v-slot:item="data">-->
-                      <!--                      <v-chip-->
-                      <!--                        style="width: auto;"-->
-                      <!--                        v-for="(item, index) in services"-->
-                      <!--                      >-->
-                      <!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
-                      <!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
-                      <!--                      </v-chip>-->
-                      <!--                    </template>-->
-                      <template slot="selection" slot-scope="data">
-                        <p>{{ data.item.name }}</p>
-                      </template>
-                      <template slot="item" slot-scope="data">
-                        <p>{{ data.item.name }}</p>
-                      </template>
-                    </v-autocomplete>
-                  </v-col>
-                  <v-col cols="12" class="mt-8">
-                    <v-combobox
-                      v-model="locationTags"
-                      :items="sowerkTags"
-                      item-text="name"
-                      item-value="name"
-                      chips
-                      multiple
-                      label="Add Additional Tags"
-                      hint="Tags help you and others keyword search for this Channel"
-                      outlined
-                    >
-                      <template v-slot:selection="data">
-                        <v-chip
-                          class="v-chip--select-multi"
-                          style="width: auto;"
-                        >
-                          <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                          <v-card-text v-else>{{data.item}}</v-card-text>
-                          <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
-                        </v-chip>
-                      </template>
-                      <template v-slot:item="data">
-                        <p>{{data.item.name}}</p>
-                      </template>
-                    </v-combobox>
-                  </v-col>
-                  <v-row style="height: 2px; width: 100%; background: #A61c00;"></v-row>
-                  <v-col cols="12" class="mt-12 mb-4">
-                    <h2 class="mx-auto text-center">Channel Manager</h2>
-                    <p class="mt-4 mx-auto pb-0" style="max-width: 720px">This should be the main contact person who will be responsible for managing approved vendors at this channel.</p>
-                  </v-col>
-<!--                  <v-col cols="12" md="6">-->
-<!--                    <v-text-field-->
-<!--                      placeholder=" "-->
-<!--                      v-model="form.contact_first_name"-->
-<!--                    >-->
-<!--                      <template v-slot:label>-->
-<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">First Name</p>-->
-<!--                      </template>-->
-<!--                    </v-text-field>-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="12" md="6">-->
-<!--                    <v-text-field-->
-<!--                      placeholder=" "-->
-<!--                      v-model="form.contact_last_name"-->
-<!--                    >-->
-<!--                      <template v-slot:label>-->
-<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Last Name</p>-->
-<!--                      </template>-->
-<!--                    </v-text-field>-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="12" md="6">-->
-<!--                    <v-text-field-->
-<!--                      placeholder=" "-->
-<!--                      v-model="form.phone"-->
-<!--                    >-->
-<!--                      <template v-slot:label>-->
-<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Phone</p>-->
-<!--                      </template>-->
-<!--                    </v-text-field>-->
-<!--                  </v-col>-->
-<!--                  <v-col cols="12" md="6">-->
-<!--                    <v-text-field-->
-<!--                      placeholder=" "-->
-<!--                      v-model="form.email"-->
-<!--                    >-->
-<!--                      <template v-slot:label>-->
-<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Email</p>-->
-<!--                      </template>-->
-<!--                    </v-text-field>-->
-<!--                  </v-col>-->
-                  <v-col cols="12">
-                    <v-select
-                      label="Select From List of Users Your Manager For This Channel"
-                      :items="users"
-                      outlined
-                    >
-                      <template slot="selection" slot-scope="data">
-                        <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
-                      </template>
-                      <template slot="item" slot-scope="data">
-                        <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
-                      </template>
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-checkbox
-                      :label="'This location will be managed by: Admin ' + currentUser.first_name + ' ' + currentUser.last_name"
-                      v-model="managerIsUser"
-                      @click="setManagerToUser"
-                    >
-                    </v-checkbox>
-                  </v-col>
-<!--                  <v-col cols="12" md="6">-->
-<!--                    <v-select-->
-<!--                      :items="adminOptions"-->
-<!--                      v-model="form.adminLevel"-->
-<!--                      placeholder=" "-->
-<!--                    >-->
-<!--                      <template v-slot:label>-->
-<!--                        <p class="grey&#45;&#45;text text&#45;&#45;darken-4 font-weight-bold">Admin Level*</p>-->
-<!--                      </template>-->
-<!--                    </v-select>-->
-<!--                  </v-col>-->
-                </v-row>
-              </v-form>
+
+            <v-col cols="6" class="d-flex flex-column align-center justify-center">
+              <template style="" class="d-flex flex-column align-center">
+                <v-img
+                  src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
+                  :aspect-ratio="1"
+                  class="my-8 rounded-circle flex-grow-1"
+                  style="width: 100%; max-width: 300px; max-height: 300px;"
+                  v-if="form.imageUrl === '' && !locationImageUrl"
+                ></v-img>
+                <v-img
+                  :src="locationImageUrl"
+                  :aspect-ratio="1"
+                  class="my-8 rounded-circle flex-grow-1"
+                  style="width: 100%; max-width: 300px; max-height: 300px;"
+                  v-else-if="locationImageUrl"
+                ></v-img>
+                <v-file-input
+                  class="company-image-upload ma-0 pa-0"
+                  :class="{
+                        'company-image-upload--selected': locationImageFile
+                      }"
+                  v-model="locationImageFile"
+                  v-on:change.native="selectLocationImage"
+                  id="locationImage"
+                  style="visibility: hidden; height: 0; max-height: 0;"
+                ></v-file-input>
+                <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">Channel Logo or Image</p>
+                <p class="grey--text text--darken-1 font-weight-regular" style="width: 100%; text-align: center">(If you choose not to add a unique logo or image SOWerk will default to your account logo/image)</p>
+                <v-btn
+                  @click="clickLocationImageUpload"
+                  color="primary"
+                  outlined
+                  rounded
+                  class="flex-grow-0 px-12 py-6"
+                  style="width: 50%;"
+                >Edit</v-btn
+                >
+              </template>
+
+              <v-card style="width: 100%; background-color: #9A9A9A;" class="d-flex flex-column align-center mt-4">
+                <h2 class="my-2" style="width: 100%; color: white; text-align: center;">List Channel Category <span style="color: #A61c00">*</span></h2>
+                <v-autocomplete
+                  v-model="services"
+                  :items="naicsList"
+                  item-text="name"
+                  item-value="name"
+                  solo
+                  clearable
+                  hint="(This is generated from the NAICS directory.)"
+                  persistent-hint
+                  outlined
+                  color="white"
+                  style="width: 80%;"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p>{{ data.item.name }}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p>{{ data.item.name }}</p>
+                  </template>
+                </v-autocomplete>
+              </v-card>
             </v-col>
           </v-row>
-        </v-card-text>
-        <v-card-actions class="pb-6 px-8">
-          <v-spacer></v-spacer>
-          <v-btn right @click="submit" color="primary" large class="px-4">Register Channel</v-btn>
-        </v-card-actions>
-      </v-card>
+
+          <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
+          <v-combobox
+            v-model="locationTags"
+            :items="sowerkTags"
+            item-text="name"
+            item-value="name"
+            chips
+            multiple
+            hint="(Tags help you and others keyword search for this Channel)"
+            outlined
+            style="width: 90%;"
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                class="v-chip--select-multi"
+                style="width: auto;"
+              >
+                <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                <v-card-text v-else>{{data.item}}</v-card-text>
+                <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <p>{{data.item.name}}</p>
+            </template>
+          </v-combobox>
+
+          <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">Channel Managers <span style="color: #A61c00">*</span></p>
+          <v-autocomplete
+            hint="(Choose from your list of users who will manage this channel)"
+            persistent-hint
+            :items="users"
+            outlined
+            style="width: 90%;"
+          >
+            <template slot="selection" slot-scope="data">
+              <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+            </template>
+          </v-autocomplete>
+
+          <v-card-actions class="pb-6 px-8">
+            <v-spacer></v-spacer>
+            <v-btn right @click="submit" color="primary" large class="px-4">Register Channel</v-btn>
+          </v-card-actions>
+        </v-card>
       </transition>
     </v-container>
   </v-app>
@@ -316,6 +511,8 @@ on your account dashboard. Example: SOWerk Cafe #013)"
           adminLevel: false,
           imageUrl: ''
         },
+        locationImageFile: null,
+        locationImageUrl: null,
         item: {
           lat: null,
           lng: null,
@@ -495,6 +692,33 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       },
     },
     methods: {
+      async uploadLocationImage() {
+        const formData = new FormData();
+        formData.append('file', this.locationImageFile);
+        await this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then(response => {
+            console.log('success in uploading company image', response)
+            this.form.imageUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading company image', err);
+          })
+      },
+      selectLocationImage(e) {
+        this.locationImageFile = e.target.files[0]
+        console.log(this.locationImageFile)
+        this.locationImageUrl = URL.createObjectURL(this.locationImageFile)
+        console.log(this.locationImageUrl);
+        // this.$emit('selectFile', this.locationImageFile);
+        this.$emit('selectFileUrl', this.locationImageUrl);
+      },
+      clickLocationImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('locationImage').click();
+      },
       async getNaicsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
           .then(response => {
@@ -584,6 +808,7 @@ on your account dashboard. Example: SOWerk Cafe #013)"
       },
       async submit() {
         this.loadSubmit = false;
+        await this.uploadLocationImage();
         console.log(this.currentUser);
         console.log(this.form, 'this.form');
         this.form.year_founded = this.company.year_founded;
