@@ -206,9 +206,9 @@
             :headers="vendorHeaders"
             style="width: 80%;"
           >
-            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-              <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
-              <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+            <template v-slot:item.actions="{item, index}" class="d-flex justify-center">
+              <v-btn :href="item.documentUrl" target="_blank" color="#707070" class="my-1" style="width: 40%; color: white;">Download</v-btn>
+              <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 40%; color: white;">Send Back To Business</v-btn>
             </template>
           </v-data-table>
         </v-col>
@@ -518,7 +518,8 @@
         this.loading = true;
         await this.getUser();
         await this.getCompany();
-        await this.getLocations();
+
+        // await this.getLocations();
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
         await this.getMessages(this.currentUser.companies_id);

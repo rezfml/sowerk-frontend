@@ -432,11 +432,13 @@
                   <p>{{ data.item.name }}</p>
                 </template>
               </v-autocomplete>
-              <v-text-field
+              <v-textarea
                 v-model="sendMessageNonApp.message"
                 label="Step 3 - Type in Message"
                 outlined
-              ></v-text-field>
+                rows="8"
+                auto-grow
+              ></v-textarea>
             </v-form>
             <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-4 py-8">Send Message</v-btn>
             <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
