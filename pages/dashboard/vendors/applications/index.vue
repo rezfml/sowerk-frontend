@@ -2633,7 +2633,11 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response.data, 'companyDocuments response.data')
-            this.companyDocuments = response.data;
+            for(let i=0; i<response.data.length; i++) {
+              if(response.data[i].vendor_channelsId === null && response.data[i].vendor_companiesId === null) {
+                this.companyDocuments = response.data;
+              }
+            }
           })
           .catch(err => {
             console.log(err, 'err in getting company documents for this company')
