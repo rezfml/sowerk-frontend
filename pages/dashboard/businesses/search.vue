@@ -1,8 +1,27 @@
 <template>
   <v-container class="px-0" style="max-width: 100%">
+
+    <!--VENDOR'S BUSINESS SEARCH BANNER -->
+    <transition name="slide-fade">
+      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+        <v-row style="width:100%;height:auto" class="d-flex flex align-center">
+          <v-col cols="1" style="margin-left:5%">
+            <v-img src="/complete-icon.svg"></v-img>
+          </v-col>
+
+          <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%;">
+            
+          </v-col>
+
+          <v-col cols="5" class="d-flex flex-column justify-center">
+            <h2 style="color:darkred;padding-bottom:2%">Search Through Our Directory of Accepting Businesses</h2>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
-        <p class="white--text text-h5 font-weight-bold">Search Accepting Businesses</p>
         <v-card class="white">
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
