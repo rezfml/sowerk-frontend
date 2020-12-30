@@ -8,19 +8,18 @@
     ></v-skeleton-loader>
 
     <!-- THIS IS FOR THE BUSINESS TYPE USER -->
-    <v-row v-if="this.user.is_superuser === true">
+    <v-row v-if="company.company_type === 'true'">
       <!-- THIS IS THE USER PROFILE CARD! -->
       <v-col cols="12">
         <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column pt-12" max-height="auto">
-            <v-col cols="8">
-              <template v-if="loadCompany || loadCompanyLocation">
+          <template v-if="loadCompany || loadCompanyLocation">
                 <!--        <transition name="slide-fade">-->
                 <!--        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
                 <!--        </transition>-->
 
                 <transition name="slide-fade">
                   <div style="" class="d-flex justify-center" v-if="loadCompanyLocation && location">
-                    <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
+                    <v-avatar style="border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
                       <v-img v-if="location.imageUrl !== ''" :src="location.imageUrl" ></v-img>
                       <v-img v-else-if="company.imgUrl !== ''" :src="company.imgUrl" ></v-img>
                       <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
@@ -119,25 +118,25 @@
 
                 <v-spacer></v-spacer>
                 <v-card-actions class="d-flex justify-center py-6">
-                  <v-btn v-if="this.user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
+                  <v-btn v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 
-                  <v-btn v-if="this.user && loadCompany && this.user.is_superuser === false" style="color:white;" color="#802525" @click="uploadCard">Upload Document</v-btn>
+                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
 
-                  <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
+                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
+
+                  <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
                 </v-card-actions>
               </template>
-            </v-col>
         </v-card>
       </v-col>
     </v-row>
 
     <!-- THIS IS FOR THE VENDOR TYPE USER -->
-    <v-row v-if="this.user.is_superuser === false">
+    <v-row v-if="company.company_type === 'false'">
       <!-- THIS IS THE USER PROFILE CARD! -->
-      <v-col cols="5">
-        <v-card min-height="90vh" style="position: relative;" light class="d-flex flex-column pt-12" max-height="auto">
-            <v-col cols="8">
-              <template v-if="loadCompany || loadCompanyLocation">
+      <v-col cols="12">
+        <v-card min-height="90vh" style="" light class="d-flex flex-column pt-12" max-height="auto">
+          <template v-if="loadCompany || loadCompanyLocation">
                 <!--        <transition name="slide-fade">-->
                 <!--        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
                 <!--        </transition>-->
@@ -243,52 +242,17 @@
 
                 <v-spacer></v-spacer>
                 <v-card-actions class="d-flex justify-center py-6">
-                  <v-btn v-if="this.user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
+                  <v-btn v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 
-                  <v-btn v-if="this.user && loadCompany && this.user.is_superuser === false" style="color:white;" color="#802525" @click="uploadCard">Upload Document</v-btn>
+                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
 
-                  <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && this.currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
+                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
+
+                  <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
                 </v-card-actions>
               </template>
-            </v-col>
         </v-card>
       </v-col>
-
-      <!-- THIS IS THE DOCUMENT UPLOAD CARD! -->
-      <transition name="slide-fade" >
-        <v-col cols="7" v-if="this.user.is_superuser === false && this.showUploadCard === true">
-
-          <v-row class="mt-8">
-            <v-col cols="12">
-              <v-card>
-                <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
-                <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-                <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
-                <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
-              </v-card>
-            </v-col>
-          </v-row>
-
-          <v-row class="mt-8">
-            <v-col cols="12">
-              <v-card>
-                <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
-                <v-data-table
-                  class="pt-16"
-                  :items="companyDocuments"
-                  :headers="companyDocumentsHeaders"
-                >
-                  <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-                    <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;">Remove</v-btn>
-                    <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%;">View</v-btn>
-                  </template>
-                </v-data-table>
-              </v-card>
-            </v-col>
-          </v-row>
-
-        </v-col>
-      </transition>
     </v-row>
   </transition>
 </template>
@@ -310,11 +274,13 @@
       "editVendorRequirement",
       "editLocationDetail",
       "editLocation",
-      "locationImageUrl"
+      "locationImageUrl",
+      "showUploadCard",
+      "uploadCard",
+      "editCompany"
     ],
     data() {
       return {
-        showUploadCard: false,
         companyDocumentImageUrl: null,
         companyDocumentImageFile: null,
         companyDocuments: [],
@@ -327,7 +293,7 @@
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        ],        
+        ],
       }
     },
     mounted() {
@@ -357,7 +323,7 @@
           .catch(err => {
             console.log(err, 'err in getting company documents for this company')
           })
-      },      
+      },
       async deleteCompanyDocument(document, index) {
         await this.$http.delete('https://www.sowerkbackend.com/api/companydocuments/' + document.id)
           .then(response => {
@@ -367,14 +333,14 @@
           .catch(err => {
             console.log(err, 'err in deleting company document')
           })
-      },      
+      },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);
         // let imageInput = this.$refs.companyImage;
         // console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('companyDocumentImage').click();
-      },      
+      },
       async selectCompanyDocumentsImage(e) {
         this.companyDocument.documentUrl = e.target.files[0];
         this.companyDocument.documentName = e.target.files[0].name;
@@ -405,9 +371,6 @@
               console.log('error in uploading location image', err)
             })
         }, 250)
-      },      
-      uploadCard() {
-        this.showUploadCard = true
       },
       async logout() {
         await this.$store.dispatch('user/logout');

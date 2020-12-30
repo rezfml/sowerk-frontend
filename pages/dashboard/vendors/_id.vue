@@ -231,6 +231,15 @@
               </v-row>
               <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
+              <v-data-table
+                :items-per-page="4"
+                :items="vendorDocuments"
+                :headers="vendorHeaders"
+              >
+                <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+                  <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
+                </template>
+              </v-data-table>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
@@ -615,8 +624,14 @@
           { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
+        vendorHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
         companyForVendor: [],
         locationsForVendor: [],
+        vendorDocuments: [],
       }
     },
     computed: {
@@ -635,8 +650,19 @@
       await this.getReviews();
       await this.getMessages();
       await this.getNotes();
+      await this.getVendorProvidedDocuments();
     },
     methods: {
+      async getVendorProvidedDocuments() {
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompanyId/' + this.currentUser.companies_id + '/byVendorChannelId/' + this.$route.params.id)
+          .then(response => {
+            console.log(response.data, 'response for vendor docs')
+            this.vendorDocuments = response.data
+          })
+          .catch(err => {
+           console.log(err, 'err in getting list')
+          })
+      },
       async getChosenLocation(location) {
         this.chosenLocation = location;
         console.log(this.chosenLocation, 'chosenLocation!!!!!')

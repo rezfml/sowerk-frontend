@@ -384,12 +384,58 @@
             >
               <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
                 <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;">Remove</v-btn>
-                <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%;">View</v-btn>
+                <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
+                <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
               </template>
             </v-data-table>
           </v-card>
         </v-col>
       </v-row>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToVendorLoad" class="d-flex flex-column align-center">
+        <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose Vendor, then Channel</v-card-title>
+        <v-autocomplete
+          label="Step 1 - Choose The Vendor You Want to Send Your Document To"
+          :items="vendorsList"
+          item-text="name"
+          item-value="name"
+          style="width: 100%;"
+          outlined
+          chips
+          class="mt-16"
+          clearable
+        >
+          <template slot="selection" slot-scope="data">
+            <p @click="getChannelsForVendor(data.item)">{{ data.item.account_name }}</p>
+          </template>
+          <template slot="item" slot-scope="data">
+            <p @click="getChannelsForVendor(data.item)">{{ data.item.account_name }}</p>
+          </template>
+        </v-autocomplete>
+        <v-autocomplete
+          outlined
+          label="Step 2 - Choose The Channels You Want to Send Your Document To"
+          :items="vendorChannels"
+          item-text="name address city state zipcode"
+          item-value="name address city state zipcode"
+          style="width: 100%;"
+          class="mb-10"
+          chips
+          clearable
+          multiple
+        >
+          <template slot="selection" slot-scope="data">
+            <p @click="addChannelToVendorDocList(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+          </template>
+          <template slot="item" slot-scope="data">
+            <p @click="addChannelToVendorDocList(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+          </template>
+        </v-autocomplete>
+        <v-btn style="position: absolute; bottom: 15px; left: 20px; width: 20%;" class="py-6 px-16" color="primary" @click="backToCompanyDocuments">< BACK</v-btn>
+        <v-btn style="width: 40%;" class="my-2" color="primary" @click="sendToVendorDocs">Send To Vendor(s)</v-btn>
+      </v-card>
     </transition>
 
     <transition name="slide-fade">
@@ -1137,6 +1183,7 @@ const naics = require("naics");
     },
     data () {
       return {
+        addToVendorLoad: false,
         applicationtemplateTagsNew: [],
         sowerkTags: [],
         categoryRules: [
@@ -1295,12 +1342,18 @@ const naics = require("naics");
         naicsList: [],
         loadChannelList: false,
         loadAssignTagCategoryType: false,
+        vendorsList: [],
+        vendorChosen: { },
+        vendorChannels: [],
+        channelsList: [],
+        documentToSend: {}
         }
     },
     async mounted() {
       // await this.getCompany(this.currentUser.companies_id);
       await this.getSowerkTags();
       await this.getNaicsList();
+      await this.getVendorsList();
       // ORIGINAL CODE FOR NAICS NPM PACKAGE
       // let codes = naics.Industry.sectors();
       // console.log(this.sectors, 'before push of other sectors')
@@ -1332,6 +1385,73 @@ const naics = require("naics");
       },
     },
     methods: {
+      async sendToVendorDocs() {
+        if(this.channelsList.length <= 0) {
+          return;
+        } else {
+         for(let i=0; i<this.channelsList.length; i++) {
+           // console.log({
+           //   companies_id: this.currentUser.companies_id,
+           //   documentName: this.documentToSend.documentName,
+           //   documentUrl: this.documentToSend.documentUrl,
+           //   required: true,
+           //   vendor_companiesId: this.channelsList[i].companies_id,
+           //   vendor_channelsId: this.channelsList[i].id
+           // })
+           this.$http.post('https://www.sowerkbackend.com/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
+             // companies_id: this.currentUser.companies_id,
+             documentName: this.documentToSend.documentName,
+             documentUrl: this.documentToSend.documentUrl,
+             required: true,
+             vendor_companiesId: this.channelsList[i].companies_id,
+             vendor_channelsId: this.channelsList[i].id
+           })
+            .then(response => {
+              console.log(response, 'success in added vendor docs')
+            })
+            .catch(err => {
+              console.log(err, 'err in adding vendor docs')
+            })
+         }
+        }
+      },
+      addChannelToVendorDocList(channel) {
+        console.log(channel)
+        this.channelsList.push(channel)
+        console.log(this.channelsList, 'hello!!!!!')
+      },
+      async getChannelsForVendor(vendor) {
+        console.log(vendor, 'chosen item');
+        this.channelsList = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + vendor.id)
+          .then(response => {
+            console.log(response.data, 'locations for vendor chosen')
+            this.vendorChannels = response.data.location
+            console.log(this.vendorChannels, 'hello vendor channels!!!!')
+          })
+          .catch(err => {
+            console.log(err, 'err in getting locations for particular vendor')
+          })
+      },
+      async getVendorsList() {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
+          .then(response => {
+            console.log(response, 'hello!!!!!')
+            this.vendorsList = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting vendors list')
+          })
+      },
+      async selectVendor(document) {
+        console.log(document, 'document');
+        this.documentToSend = document
+        this.addToVendorLoad = true;
+      },
+      async backToCompanyDocuments() {
+        this.addToVendorLoad = false;
+        this.loadYourCompanyDocuments = true;
+      },
       async getSowerkTags() {
         await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
           .then(response => {

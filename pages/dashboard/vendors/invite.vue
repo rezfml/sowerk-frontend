@@ -39,26 +39,26 @@
                     disable-pagination
                     hide-default-footer
                   >
-<!--                    <template v-slot:item.service="{ item }">-->
-<!--                      <v-autocomplete-->
-<!--                        v-model="item.service"-->
-<!--                        :items="naicsList"-->
-<!--                        item-text="name"-->
-<!--                        item-value="name"-->
-<!--                        label="Select A Category That Describes What This Application Provides"-->
-<!--                        solo-->
-<!--                        clearable-->
-<!--                        hint="This is generated from the NAICS directory."-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                      >-->
-<!--                        <template slot="selection" slot-scope="data">-->
-<!--                          <p>{{ data.item.name }}</p>-->
-<!--                        </template>-->
-<!--                        <template slot="item" slot-scope="data">-->
-<!--                          <p>{{ data.item.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-autocomplete>-->
-<!--                    </template>-->
+                    <!--                    <template v-slot:item.service="{ item }">-->
+                    <!--                      <v-autocomplete-->
+                    <!--                        v-model="item.service"-->
+                    <!--                        :items="naicsList"-->
+                    <!--                        item-text="name"-->
+                    <!--                        item-value="name"-->
+                    <!--                        label="Select A Category That Describes What This Application Provides"-->
+                    <!--                        solo-->
+                    <!--                        clearable-->
+                    <!--                        hint="This is generated from the NAICS directory."-->
+                    <!--                        :rules="rules.requiredRules"-->
+                    <!--                      >-->
+                    <!--                        <template slot="selection" slot-scope="data">-->
+                    <!--                          <p>{{ data.item.name }}</p>-->
+                    <!--                        </template>-->
+                    <!--                        <template slot="item" slot-scope="data">-->
+                    <!--                          <p>{{ data.item.name }}</p>-->
+                    <!--                        </template>-->
+                    <!--                      </v-autocomplete>-->
+                    <!--                    </template>-->
                     <template v-slot:item.companyName="{ item }">
                       <v-text-field
                         class="text-caption"
@@ -107,7 +107,6 @@
                         item-text="text"
                         item-value="value"
                         class="text-caption"
-
                         :rules="rules.requiredSelectRules"
                       >
                       </v-select>
@@ -118,16 +117,18 @@
                         item-text="name"
                         v-model="item.property"
                         class="text-caption"
+                        multiple
+                        chips
                         :rules="rules.requiredRules"
                       >
                         <template slot="selection" slot-scope="data">
                           <p @click="selectUserforms(data.item.id)">{{ data.item.name }} - {{ data.item.address }}
-                          {{ data.item.city }}, {{ data.item.state }}
+                            {{ data.item.city }}, {{ data.item.state }}
                             {{ data.item.zipcode }}</p>
                         </template>
                         <template slot="item" slot-scope="data">
                           <p @click="selectUserforms(data.item.id)">{{ data.item.name }} - {{ data.item.address }}
-                          {{ data.item.city }}, {{ data.item.state }}
+                            {{ data.item.city }}, {{ data.item.state }}
                             {{ data.item.zipcode }}</p>
                         </template>
                       </v-select>
@@ -139,14 +140,16 @@
                         item-value="name"
                         v-model="item.application"
                         class="text-caption"
+                        multiple
+                        chips
                         :rules="rules.requiredRules"
                         v-if="item.preapproved === false"
                       >
                         <template slot="selection" slot-scope="data">
-                          {{ data.item.name }}
+                          {{ data.item.id }} - {{ data.item.name }}
                         </template>
                         <template slot="item" slot-scope="data">
-                          {{ data.item.name }}
+                          {{ data.item.id }} - {{ data.item.name }}
                         </template>
                       </v-select>
                     </template>
@@ -359,7 +362,14 @@ export default {
       await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
         .then(response => {
           console.log('USERFORM SELECTION', response.data)
-          this.userforms = response.data
+          for(let i=0; i<response.data.length; i++) {
+            if(response.data[i].applicationStatus === 1 || response.data[i].applicationStatus === 2) {
+              this.userforms.push(response.data[i])
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err, 'err on getting userforms for location')
         })
     },
     async getNaicsList() {
@@ -431,6 +441,8 @@ export default {
           companyImg: this.company.imgUrl,
           application: [],
         }
+        providersObject.property.push(this.vendors.property)
+        providersObject.application.push(this.vendors.application)
         for (let i = 0; i < this.vendors.length; i++) {
           providersObject.companyName.push(this.vendors[i].companyName)
           providersObject.first_name.push(this.vendors[i].firstName)
@@ -438,8 +450,6 @@ export default {
           providersObject.phone.push(this.vendors[i].phone)
           providersObject.toEmail.push(this.vendors[i].email)
           providersObject.pre_approved.push(this.vendors[i].preapproved)
-          providersObject.property.push(this.vendors[i].property)
-          providersObject.property.push(this.vendors[i].application)
         }
         console.log(providersObject, 'yay')
         await this.$http
