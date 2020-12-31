@@ -9,7 +9,7 @@
 <!--    </div>-->
 
 <!--    TOP INFO BANNER WITH LINK TO YOUTUBE VIDEO    -->
-    <!-- <transition name="slide-fade">
+    <transition name="slide-fade">
       <v-card class="my-4 flex-row justify-space-between align-center mx-0">
         <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
@@ -21,16 +21,76 @@
             <p style="font-size:1.1rem">Watch our short video to learn about Vendor Requirements and why they are important to your SOWerk Account.</p>
           </v-col>
 
-          <v-col cols="4" style="width:100%;text-align:center;">
-            <a target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%;text-decoration:none;color:inherit;">
+          <!-- VENDOR APPLICATIONS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.vendorApplications === true">
+            <v-btn @click="watchClickedVendorApplications" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
               <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW
+                WATCH NOW -Vendor Applications-
               </span>
-            </a>
+            </v-btn>
+          </v-col>
+
+          <!-- COMPANY DOCUMENTS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyDocuments === true">
+            <v-btn @click="watchClickedCompanyDocuments" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW -Company Documents-
+              </span>
+            </v-btn>
+          </v-col>
+
+          <!-- COMPANY TEMPLATES VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyTemplates === true">
+            <v-btn @click="watchClickedCompanyTemplates" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW -Company Templates-
+              </span>
+            </v-btn>
+          </v-col>
+
+          <!-- SOWERK TEMPLATES VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.sowerkTemplates === true">
+            <v-btn @click="watchClickedSowerkTemplates" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW -SOWERK Templates-
+              </span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-card>
-    </transition> -->
+    </transition>
+
+    <transition name="slide-fade">
+
+      <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.vendorApplications === true">
+        <div style="position:relative;border-radius:1%;">
+          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card>
+
+      <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyDocuments === true">
+        <div style="position:relative;;border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card>   
+
+      <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyTemplates === true">
+        <div style="position:relative;;border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card> 
+
+      <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.sowerkTemplates === true">
+        <div style="position:relative;;border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card> 
+
+    </transition>
 
 <!--    SKELETON LOADER    -->
     <v-skeleton-loader
@@ -1189,6 +1249,18 @@ const naics = require("naics");
     },
     data () {
       return {
+        clickedLinks: {
+          vendorApplications: false,
+          companyDocuments: false,
+          companyTemplates: false,
+          sowerkTemplates: false,
+        },
+        videosLinks: {
+          vendorApplications: false,
+          companyDocuments: false,
+          companyTemplates: false,
+          sowerkTemplates: false,
+        },
         addToVendorLoad: false,
         applicationtemplateTagsNew: [],
         sowerkTags: [],
@@ -1385,6 +1457,7 @@ const naics = require("naics");
       //
       // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
       await this.getLocations(this.currentUser.companies_id);
+      this.videosLinks.vendorApplications = true
     },
     computed: {
       currentUser() {
@@ -1392,6 +1465,54 @@ const naics = require("naics");
       },
     },
     methods: {
+      watchClickedVendorApplications() {
+        this.clickedLinks.vendorApplications = true
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = false
+      },
+      watchClickedCompanyDocuments() {
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = true
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = false
+      },
+      watchClickedCompanyTemplates() {
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = true
+        this.clickedLinks.sowerkTemplates = false
+      },
+      watchClickedSowerkTemplates() {
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = true
+      },
+      showVendorApplicationsVideo() {
+        this.videosLinks.vendorApplications = true
+        this.videosLinks.companyDocuments = false
+        this.videosLinks.companyTemplates = false
+        this.videosLinks.sowerkTemplates = false
+      },
+      showCompanyDocumentsVideo() {
+        this.videosLinks.vendorApplications = false
+        this.videosLinks.companyDocuments = true
+        this.videosLinks.companyTemplates = false
+        this.videosLinks.sowerkTemplates = false
+      },
+      showCompanyTemplateVideo() {
+        this.videosLinks.vendorApplications = false
+        this.videosLinks.companyDocuments = false
+        this.videosLinks.companyTemplates = true
+        this.videosLinks.sowerkTemplates = false
+      },
+      showSowerkTemplatesVideo() {
+        this.videosLinks.vendorApplications = false
+        this.videosLinks.companyDocuments = false
+        this.videosLinks.companyTemplates = false
+        this.videosLinks.sowerkTemplates = true
+      },
       async sendToVendorDocs() {
         if(this.channelsList.length <= 0) {
           return;
@@ -1680,6 +1801,8 @@ const naics = require("naics");
           })
       },
       async getUserforms(id, valueUserForms, valueServices) {
+          console.log(id, valueUserForms, valueServices, "HEYYYYYYYYYYYYYYYYYYYYYY")
+
           await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
             .then(async (response) => {
               // this.totalLength += response.data.length;
@@ -1754,9 +1877,18 @@ const naics = require("naics");
           })
       },
       async loadCompanyDocumentsFunction() {
+
+        this.showCompanyDocumentsVideo()
+
         if(this.loadApplicationTemplates != true) {
           await this.getCompanyDocuments();
         }
+
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = false
+
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
@@ -1773,6 +1905,14 @@ const naics = require("naics");
         this.singleExpand = true;
       },
       async loadApplicationLocationsFunction() {
+
+        this.showVendorApplicationsVideo()
+
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = false
+
         this.loadApplicationLocations = true;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = false;
@@ -1789,9 +1929,18 @@ const naics = require("naics");
         this.singleExpand = true;
       },
       async loadYourCompanyTemplatesFunction() {
+
+        this.showCompanyTemplateVideo()
+
         if(this.loadYourCompanyTemplates != true) {
           await this.getCompanyTemplates();
         }
+
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = false
+
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = false;
         this.loadYourCompanyTemplates = true;
@@ -1808,9 +1957,18 @@ const naics = require("naics");
         this.singleExpand = true;
       },
       async loadApplicationTemplatesFunction() {
+
+        this.showSowerkTemplatesVideo()
+
         if(this.loadApplicationTemplates != true) {
           await this.getApplicationTemplates();
         }
+
+        this.clickedLinks.vendorApplications = false
+        this.clickedLinks.companyDocuments = false
+        this.clickedLinks.companyTemplates = false
+        this.clickedLinks.sowerkTemplates = false
+
         this.loadApplicationLocations = false;
         this.loadApplicationTemplates = true;
         this.loadYourCompanyTemplates = false;
