@@ -118,7 +118,7 @@
               <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWerk-LogoFacilities.png">
             </v-row>
             <v-card-text class="">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
-            <v-row class="mt-n8">
+            <v-row class="mt-n2 mb-n2">
               <v-col cols="3" style="text-align:center;">
                 <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
                 <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
@@ -148,7 +148,7 @@
               <img style="width: 10%" class="ml-12 mt-n16" src="/resume-icon.svg">
               <img style="width: 90%;" class="ml-n12 mt-n16" src="/VendorApplicationsLogo-159.png">
             </v-row>
-            <v-card-subtitle>Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-subtitle>
+            <v-card-subtitle class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-subtitle>
             <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px;" to="dashboard/vendors/applications">Manage Applications</v-btn>
           </v-card>
         </v-col>
