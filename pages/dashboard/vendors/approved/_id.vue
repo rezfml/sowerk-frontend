@@ -231,6 +231,7 @@
               </v-row>
               <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
+              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-data-table
                 :items-per-page="4"
                 :items="vendorDocuments"
@@ -240,7 +241,6 @@
                   <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
                 </template>
               </v-data-table>
-              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-card-text style=" font-size: 18px;">Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
@@ -432,11 +432,13 @@
                 <p>{{ data.item.name }}</p>
               </template>
             </v-autocomplete>
-            <v-text-field
+            <v-textarea
               v-model="sendMessageNonApp.message"
               label="Step 3 - Type in Message"
               outlined
-            ></v-text-field>
+              rows="8"
+              auto-grow
+            ></v-textarea>
           </v-form>
           <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-4 py-8">Send Message</v-btn>
           <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
@@ -624,13 +626,13 @@
           { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
-        companyForVendor: [],
-        locationsForVendor: [],
         vendorHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
+        companyForVendor: [],
+        locationsForVendor: [],
         vendorDocuments: [],
       }
     },
@@ -1142,3 +1144,4 @@
     opacity: 0;
   }
 </style>
+

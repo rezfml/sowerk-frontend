@@ -461,7 +461,7 @@
           :items="vendorsList"
           item-text="name"
           item-value="name"
-          style="width: 100%;"
+          style="width: 90%;"
           outlined
           chips
           class="mt-16"
@@ -480,11 +480,13 @@
           :items="vendorChannels"
           item-text="name address city state zipcode"
           item-value="name address city state zipcode"
-          style="width: 100%;"
+          style="width: 90%;"
           class="mb-10"
           chips
           clearable
           multiple
+          persistent-hint
+          hint="Please Note, if you have a document that only needs to be filled out once for all company wide interactions, you may select just one channel, or leave this field blank and we will default to the company HQ channel that was created upon registration."
         >
           <template slot="selection" slot-scope="data">
             <p @click="addChannelToVendorDocList(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
@@ -1515,7 +1517,23 @@ const naics = require("naics");
       },
       async sendToVendorDocs() {
         if(this.channelsList.length <= 0) {
-          return;
+          console.log(this.vendorChannels[0], 'hey')
+          this.loadingSubmitVendorDocs = true;
+          this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
+            // companies_id: this.currentUser.companies_id,
+            documentName: this.documentToSend.documentName,
+            documentUrl: this.documentToSend.documentUrl,
+            required: true,
+            vendor_companiesId: this.vendorChannels[0].companies_id,
+            vendor_channelsId: this.vendorChannels[0].id
+          })
+            .then(response => {
+              console.log(response, 'success in added vendor docs')
+            })
+            .catch(err => {
+              console.log(err, 'err in adding vendor docs')
+            })
+          this.loadingSubmitVendorDocs = false;
         } else {
           this.loadingSubmitVendorDocs = true;
          for(let i=0; i<this.channelsList.length; i++) {
@@ -2793,7 +2811,7 @@ const naics = require("naics");
             console.log(response.data, 'companyDocuments response.data')
             for(let i=0; i<response.data.length; i++) {
               if(response.data[i].vendor_channelsId === null && response.data[i].vendor_companiesId === null) {
-                this.companyDocuments = response.data;
+                this.companyDocuments.push(response.data[i]);
               }
             }
           })

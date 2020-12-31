@@ -97,15 +97,21 @@
         <v-btn color="primary" :href="'../../../dashboard/vendors/applicants'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
       </v-card>
 
-      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">
-        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-        <v-card-title class="mt-n16" color="primary">You have denied this application. Would you like to leave them a message letting the applicant know why? If not, just click below to return to the applicants page.</v-card-title>
-        <v-form style="width: 80%;">
-          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>
-          <v-btn @click="submit">Send Message</v-btn>
-        </v-form>
-        <v-btn class="my-4" color="primary" :href="'../../../dashboard/vendors/applicants'" rounded>Return To SOWerk Request Dashboard</v-btn>
-      </v-card>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="75"
+        v-if="failure === true"
+      ></v-progress-circular>
+<!--      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">-->
+<!--        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>-->
+<!--        <v-card-title class="mt-n16" color="primary">You have denied this application. Would you like to leave them a message letting the applicant know why? If not, just click below to return to the applicants page.</v-card-title>-->
+<!--        <v-form style="width: 80%;">-->
+<!--          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>-->
+<!--          <v-btn @click="submit">Send Message</v-btn>-->
+<!--        </v-form>-->
+<!--        <v-btn class="my-4" color="primary" :href="'../../../dashboard/vendors/applicants'" rounded>Return To SOWerk Request Dashboard</v-btn>-->
+<!--      </v-card>-->
 
     </v-container>
   </v-app>
@@ -349,48 +355,104 @@ import * as moment from 'moment'
 
         console.log(denialChanges);
 
-        // await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.application.id, denialChanges)
-        //   .then(response => {
-        //     console.log('success in changes', response)
-        //     this.failure = true;
-        //   })
-        //   .catch(err => {
-        //     console.log('err', err);
-        //   })
+        await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.application.id, denialChanges)
+          .then(response => {
+            console.log('success in changes', response)
+            this.failure = true;
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
 
         await this.messageVendorAboutDenial();
 
-        // this.$router.push('/dashboard/vendors/applicants');
+        setTimeout(() => {
+          this.$router.push('/dashboard/vendors/applicants');
+        }, 1000)
       },
       async messageVendorAboutDenial() {
         console.log(this.application);
 
         let pmLocation;
+        let applicationName;
+        let companyName;
+        let spCompanyName;
 
-        await this.$http.get('https://www.sowerkbackend.com/api/services/' + this.application.pmservices_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.application.pmuserforms_id)
           .then(response => {
-            console.log('SUCCESS', response)
-            this.denialMessage.service = response.data.service.name;
+            console.log('SUCCESS userform', response)
+            applicationName = response.data.name
           })
           .catch(err => {
             console.log(err);
           })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.pmcompanies_id)
+          .then(response => {
+            console.log('SUCCESS company', response)
+            companyName = response.data.account_name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.spcompanies_id)
+          .then(response => {
+            console.log('SUCCESS company', response)
+            spCompanyName = response.data.account_name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        // No longer needed as part of the message
+        // await this.$http.get('https://www.sowerkbackend.com/api/services/' + this.application.pmservices_id)
+        //   .then(response => {
+        //     console.log('SUCCESS', response)
+        //     this.denialMessage.service = response.data.service.name;
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   })
 
         // Get Property Manager Location that application was sent to
         await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.pmlocations_id)
           .then(response => {
             console.log('SUCCESS', response)
-            pmLocation = response.data.service.name;
+            pmLocation = response.data.name;
+            this.denialMessage.location = response.data.name + ' - ' + response.data.address + ' '+ response.data.city + ' ' + response.data.state + ' ' + response.data.zipcode.toString()
+            this.denialMessage.service = response.data.services[0].name
+            this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.pmcompanies_id)
+              .then(responseVal => {
+                console.log(responseVal.data)
+                this.denialMessage.company = responseVal.data.account_name
+              })
           })
           .catch(err => {
             console.log(err);
           })
 
-        this.denialMessage.location = this.location;
-        // this.denialMessage.company =
-        this.denialMessage.message = "Your " + this.denialMessage.service + " application to " + pmLocation + " was denied for the following reason: \n\n" + this.application.denial_reason;
-        console.log(this.denialMessage.message);
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.splocations_id)
+          .then(response => {
+            console.log('SUCCESS', response)
+            this.denialMessage.spLocationId = response.data.id
+            this.denialMessage.spLocationName = response.data.name
+          })
+          .catch(err => {
+            console.log(err);
+          })
 
+        // Dear __vendor account name__, the application you submitted (__application name__) to __business channel name__, a channel of __business account name__, was not approved at  this time.
+        this.denialMessage.message = "Dear " + spCompanyName + ", the application you submitted, " + applicationName + ", to " + pmLocation + ", a channel of " + companyName + ", was not approved at this time. \n\n If the denial reason was provided it will be listed below. Please keep in mind there are many ways to connect to businesses and their channels here on SOWerk including ones where you may have been denied before.\n\n" + this.application.denial_reason;
+        console.log(this.denialMessage, this.application, 'wow submit denial and application')
+        await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.application.spcompanies_id, this.denialMessage)
+          .then(response => {
+            console.log('SUCCESS', response)
+          })
+          .catch(err => {
+            console.log(err);
+          })
       },
       async cancelDeny() {
         this.isDenying = false;
@@ -405,7 +467,9 @@ import * as moment from 'moment'
           .catch(err => {
             console.log(err);
           })
-        this.$router.push('/dashboard/vendors/applicants');
+        setTimeout(() => {
+          this.$router.push('/dashboard/vendors/applicants');
+        }, 1000)
       },
     }
   }
