@@ -231,6 +231,7 @@
               </v-row>
               <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
+              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-data-table
                 :items-per-page="4"
                 :items="vendorDocuments"
@@ -240,7 +241,6 @@
                   <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
                 </template>
               </v-data-table>
-              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-card-text style=" font-size: 18px;">Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
@@ -342,7 +342,8 @@
 <!--        :value="overlayRequest"-->
 <!--      >-->
         <transition name="slide-fade">
-          <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: 50vh;" class="d-flex flex-column align-center justify-center">
+          <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
+            <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
             <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
               <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
                 <v-form class="mx-4" style="width: 60%;">
@@ -397,10 +398,11 @@
 <!--        :value="overlayMessage"-->
 <!--      >-->
         <transition name="slide-fade">
-          <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: 50vh;" class="d-flex flex-column align-center justify-center">
-            <v-form class="mx-4" style="width: 80%;">
+          <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto" class="d-flex flex-column align-center justify-center">
+            <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
+            <v-form class="mx-4 my-2" style="width: 80%;">
               <v-select
-                label="Step 1 - Choose Your Channel"
+                label="Step 1 - Choose Your Company Channel"
                 :items="company.locations"
                 item-text="name address city state zipcode"
                 item-value="name address city state zipcode"
@@ -414,16 +416,24 @@
                   <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
                 </template>
               </v-select>
+              <v-textarea
+                v-model="sendMessageNonApp.message"
+                label="Step 3 - Type in Message"
+                outlined
+                rows="8"
+                auto-grow
+              ></v-textarea>
               <v-autocomplete
                 v-model="sendMessageNonApp.name"
                 :items="naicsList"
                 item-text="name"
                 item-value="name"
-                label="Step 2 - Select A Category"
+                label="Optionally - Select A Category"
                 solo
                 clearable
-                hint="This is generated from the NAICS directory."
+                hint=""
                 outlined
+                persistent-hint
               >
                 <template slot="selection" slot-scope="data">
                   <p>{{ data.item.name }}</p>
@@ -432,15 +442,8 @@
                   <p>{{ data.item.name }}</p>
                 </template>
               </v-autocomplete>
-              <v-textarea
-                v-model="sendMessageNonApp.message"
-                label="Step 3 - Type in Message"
-                outlined
-                rows="8"
-                auto-grow
-              ></v-textarea>
             </v-form>
-            <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-4 py-8">Send Message</v-btn>
+            <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-8 py-8">Send Message</v-btn>
             <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
           </v-card>
         </transition>

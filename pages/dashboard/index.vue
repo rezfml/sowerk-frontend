@@ -216,14 +216,15 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-row v-if="openUploadModelLoad">
-          <v-card style="background-color: white; height: 50vh; width: 100%;">
+        <v-row v-if="openUploadModelLoad" class="d-flex flex-column align-center">
+          <v-card style="background-color: white; height: auto; width: 80%;" class="d-flex flex-column align-center">
             <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
             <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
             <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
             <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
             <v-title v-if="successuploaddoc !== null && successuploaddoc === false">Error with adding this document. Please retry.</v-title>
-            <v-title v-if="successuploaddoc">Successfully added this document!</v-title>
+            <v-img v-if="successuploaddoc" style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+            <v-card-title v-if="successuploaddoc" class="mt-2" color="primary">Successfully added this document!</v-card-title>
             <v-btn @click="closeUploadModel" style="position: absolute; top: 10px; right: 10px; font-size: 25px;" color="primary">X</v-btn>
           </v-card>
         </v-row>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-16 mb-4" style="width: 80vw;">
+  <v-card class="mt-16 mb-4" style="width: 80vw;" v-if="!success">
     <v-card-title
       style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient"
     >{{ title }}</v-card-title>
@@ -76,6 +76,11 @@
           </template>
         </v-data-table>
   </v-card>
+  <v-card v-else style="height: auto;" class="d-flex flex-column align-center">
+    <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
+    <v-card-title class="mt-2" color="primary">Your SOWerk Application Has Been Approved!</v-card-title>
+    <v-btn color="primary" :href="'../../../dashboard/vendors/applicants'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
+  </v-card>
 </template>
 
 <script>
@@ -84,7 +89,20 @@
     props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
     data() {
       return {
-
+        denialMessage: {
+          service: '',
+          company: '',
+          primary_contact_first_name: this.$store.state.user.user.user.first_name,
+          primary_contact_last_name: this.$store.state.user.user.user.last_name,
+          message: '',
+          location: '',
+          userprofiles_id: this.$store.state.user.user.user.id,
+          pmMessageRead: false,
+          spMessageRead: false,
+          spLocationId: Number,
+          spLocationName: Number
+        },
+        success: false,
       }
     },
     async mounted() {
@@ -103,13 +121,7 @@
         await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, approvalChanges)
           .then(response => {
             console.log('success in changes', response)
-          })
-          .catch(err => {
-            console.log('err', err);
-          })
-        await this.$http.put('https://www.sowerkbackend.com/api/companies/' + itemVal.pmcompanies_id, approvalChanges)
-          .then(response => {
-            console.log('success in changes', response)
+            this.success = true
           })
           .catch(err => {
             console.log('err', err);
@@ -129,13 +141,93 @@
           approval_status: 2
         }
         await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, denialChanges)
-          .then(response => {
+          .then(async(response) => {
             console.log('success in changes', response)
-            this.$router.go();
+            let pmLocation;
+            let applicationName;
+            let companyName;
+            let spCompanyName;
+
+            await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + itemVal.pmuserforms_id)
+              .then(response => {
+                console.log('SUCCESS userform', response)
+                applicationName = response.data.name
+              })
+              .catch(err => {
+                console.log(err);
+              })
+
+            await this.$http.get('https://www.sowerkbackend.com/api/companies/' + itemVal.pmcompanies_id)
+              .then(response => {
+                console.log('SUCCESS company', response)
+                companyName = response.data.account_name
+              })
+              .catch(err => {
+                console.log(err);
+              })
+
+
+            await this.$http.get('https://www.sowerkbackend.com/api/companies/' + itemVal.spcompanies_id)
+              .then(response => {
+                console.log('SUCCESS company', response)
+                spCompanyName = response.data.account_name
+              })
+              .catch(err => {
+                console.log(err);
+              })
+
+            // No longer needed as part of the message
+            // await this.$http.get('https://www.sowerkbackend.com/api/services/' + itemVal.pmservices_id)
+            //   .then(response => {
+            //     console.log('SUCCESS', response)
+            //     this.denialMessage.service = response.data.service.name;
+            //   })
+            //   .catch(err => {
+            //     console.log(err);
+            //   })
+
+            // Get Property Manager Location that application was sent to
+            await this.$http.get('https://www.sowerkbackend.com/api/locations/' + itemVal.pmlocations_id)
+              .then(response => {
+                console.log('SUCCESS', response)
+                pmLocation = response.data.name;
+                this.denialMessage.location = response.data.name + ' - ' + response.data.address + ' '+ response.data.city + ' ' + response.data.state + ' ' + response.data.zipcode.toString()
+                this.denialMessage.service = response.data.services[0].name
+                this.$http.get('https://www.sowerkbackend.com/api/companies/' + itemVal.pmcompanies_id)
+                  .then(responseVal => {
+                    console.log(responseVal.data)
+                    this.denialMessage.company = responseVal.data.account_name
+                  })
+              })
+              .catch(err => {
+                console.log(err);
+              })
+
+            await this.$http.get('https://www.sowerkbackend.com/api/locations/' + itemVal.splocations_id)
+              .then(response => {
+                console.log('SUCCESS', response)
+                this.denialMessage.spLocationId = response.data.id
+                this.denialMessage.spLocationName = response.data.name
+              })
+              .catch(err => {
+                console.log(err);
+              })
+
+            // Dear __vendor account name__, the application you submitted (__application name__) to __business channel name__, a channel of __business account name__, was not approved at  this time.
+            this.denialMessage.message = "Dear " + spCompanyName + ", the application you submitted, " + applicationName + ", to " + pmLocation + ", a channel of " + companyName + ", was not approved at this time. \n\n If the denial reason was provided it will be listed below. Please keep in mind there are many ways to connect to businesses and their channels here on SOWerk including ones where you may have been denied before.\n\n" + itemVal.denial_reason;
+            console.log(this.denialMessage, itemVal, 'wow submit denial and application')
+            await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + itemVal.spcompanies_id, this.denialMessage)
+              .then(response => {
+                console.log('SUCCESS', response)
+              })
+              .catch(err => {
+                console.log(err);
+              })
           })
           .catch(err => {
             console.log('err', err);
           })
+        await this.$router.go();
       },
       async Review(itemVal) {
         console.log(itemVal)
