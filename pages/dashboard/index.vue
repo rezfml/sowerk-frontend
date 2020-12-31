@@ -165,24 +165,24 @@
         </v-col>
       </v-row>
 
-      <v-row style="width: 100%;" class="mt-4" v-if="company && company.company_type !== 'false'">
-        <v-col cols="4" style="height: 40vh;">
-          <v-card style="width: 100%; height: 40vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
-            <v-card-title style="text-align: center">SOWERK 101</v-card-title>
-            <v-card-text style="color: white; text-align: center">Check out the SOWerk 101 knowledge center for support</v-card-text>
-            <v-btn outlined color="white" class="py-8 my-2" style="width: 90%; border-radius: 10px;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
+      <v-row style="width: 100%;" class="mt-4 d-flex justify-center align-center" v-if="company && company.company_type !== 'false'">
+        <v-col cols="4">
+          <v-card style="width: 100%; height: 50vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
+            <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
+            <v-card-text class="my-2" style="color: white; text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
+            <v-btn outlined color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
 
           </v-card>
         </v-col>
-        <v-col cols="8" style="height: 40vh;">
-          <v-card style="width: 100%; height: 40vh;" class="d-flex align-center">
-            <v-col class="d-flex flex-column align-center mt-16" cols="3">
+        <v-col cols="8" style="height: auto;">
+          <v-card style="width: 100%; height: 50vh;" class="d-flex align-center">
+            <v-col class="d-flex flex-column align-center justify-center mt-16 mb-n16" cols="3">
               <img src="/complete-icon.svg" style="width: 40%;" class="mb-n16 mt-16">
-              <img src="/APPROVED-VENDORS-Logo-163.png" style="width: 200%;" class="mt-n16 ml-16">
+              <img src="/APPROVED-VENDORS-Logo-163.png" style="width: 200%;" class="mt-n16 ml-16 mr-n4">
             </v-col>
-            <v-col cols="3" style="height: 40vh;" v-for="(stat, index) in stats" :key="index">
+            <v-col v-for="(stat, index) in stats" cols="3" style="height: auto; width: 25%;" class="d-flex justify-center">
               <transition name="slide-fade">
-                <StatCard v-if="statApproved" :stat="stat"></StatCard>
+                <StatCard :key="index" v-if="statApproved" :stat="stat"></StatCard>
               </transition>
             </v-col>
           </v-card>
@@ -191,28 +191,28 @@
 
       <transition name="slide-fade">
         <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
-        <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index" class="d-flex nowrap">
-          <transition name="slide-fade">
-            <StatCard :stat="stat"></StatCard>
-          </transition>
-        </v-col>
+          <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index" class="d-flex nowrap">
+            <transition name="slide-fade">
+              <StatCard :stat="stat"></StatCard>
+            </transition>
+          </v-col>
 
-        <v-col cols="12" class="d-flex flex-column align-center">
-          <v-card-title style="color: white" class="text-bold text-center">Pending Documents</v-card-title>
-          <v-card-subtitle style="color: white; width: 80%;" class="text-bold text-center">These are documents that are being requested by businesses on SOWerk for you to fill out. Typically this is done to move forward in an approval process, bid request, or to provide other sensitive information that may have to be provided through other means, or be filled out by you.</v-card-subtitle>
-          <v-data-table
-            :items-per-page="4"
-            :items="vendorDocuments"
-            :headers="vendorHeaders"
-            style="width: 80%;"
-          >
-            <template v-slot:item.actions="{item, index}" class="d-flex justify-center">
-              <v-btn :href="item.documentUrl" target="_blank" color="#707070" class="my-1" style="width: 40%; color: white;">Download</v-btn>
-              <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 40%; color: white;">Send Back To Business</v-btn>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
+          <v-col cols="12" class="d-flex flex-column align-center">
+            <v-card-title style="color: white" class="text-bold text-center">Pending Documents</v-card-title>
+            <v-card-subtitle style="color: white; width: 80%;" class="text-bold text-center">These are documents that are being requested by businesses on SOWerk for you to fill out. Typically this is done to move forward in an approval process, bid request, or to provide other sensitive information that may have to be provided through other means, or be filled out by you.</v-card-subtitle>
+            <v-data-table
+              :items-per-page="4"
+              :items="vendorDocuments"
+              :headers="vendorHeaders"
+              style="width: 80%;"
+            >
+              <template v-slot:item.actions="{item, index}" class="d-flex justify-center">
+                <v-btn :href="item.documentUrl" target="_blank" color="#707070" class="my-1" style="width: 40%; color: white;">Download</v-btn>
+                <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 40%; color: white;">Send Back To Business</v-btn>
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
       </transition>
 
       <transition name="slide-fade">
