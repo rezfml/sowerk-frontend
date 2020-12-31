@@ -3,7 +3,7 @@
 
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
     <transition name="slide-fade">
-      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+      <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
         <v-row style="width:100%;height:auto" class="d-flex flex align-center">
           <v-col cols="1" style="margin-left:5%">
             <v-img src="/complete-icon.svg"></v-img>

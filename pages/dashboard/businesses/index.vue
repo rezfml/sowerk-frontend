@@ -1,5 +1,24 @@
 <template>
   <v-app class="grey lighten-3">
+    <!--VENDOR'S BUSINESS SEARCH BANNER -->
+    <transition name="slide-fade">
+      <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
+        <v-row style="width:100%;height:auto" class="d-flex flex align-center">
+          <v-col cols="1" style="margin-left:5%">
+            <v-img src="/complete-icon.svg"></v-img>
+          </v-col>
+
+          <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%;">
+            
+          </v-col>
+
+          <v-col cols="5" class="d-flex flex-column justify-center">
+            <h2 style="color:darkred;padding-bottom:2%">Your Customer Connections</h2>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
       <v-progress-circular
         indeterminate

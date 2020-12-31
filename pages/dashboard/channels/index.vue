@@ -446,10 +446,13 @@
         if(this.currentUser.is_superuser === false && this.company.locations[0] !== 'There are no locations') {
           for(let i=0; i<this.company.locations.length; i++){
             if(this.company.locations[i].email === this.currentUser.email && this.company.locations[i].phone === this.currentUser.phone) {
-              this.locations.push(this.company.locations[i].location[i]);
-              this.originalLocations.push(this.company.locations[i].location[i]);
+              console.log(this.company.locations[i], "this.company.location")
+              this.locations.push(this.company.locations[i]);
+              this.originalLocations.push(this.company.locations[i]);
             }
           }
+          this.locationApproved = true;
+          this.loading = true;
         } else if (this.company.locations[0] !== 'There are no locations') {
           this.locations = this.company.locations;
           this.originalLocations = this.company.locations;
