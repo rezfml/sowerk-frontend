@@ -2,29 +2,74 @@
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
       
+      <!-- NOT SUPER USER -->
       <transition name="slide-fade">
-        <v-card class="my-4 flex-row justify-space-between align-center mx-0">
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.currentUser.is_superuser === false">
+          <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
+
+            <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
+              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:#404040">SOWERK 101</h1>
+            </v-col>
+
+            <v-col cols="5" style="color:#404040;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+            </v-col>
+
+            <!-- VENDOR CHANNELS VIDEO -->
+            <v-col cols="4" style="width:100%;text-align:center;">
+              <v-btn @click="showVideoCard" style="display:block;border: 1px solid #404040;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:white">
+                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:#404040;text-align:center;">
+                  WATCH NOW -Account Channels-
+                </span>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card>
+
+        <!-- SUPER USER -->
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.currentUser.is_superuser === true">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
             <v-col cols="3" style="color:white;width:100%;text-align:center;">
-              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
+              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
             </v-col>
 
             <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
               <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
             </v-col>
 
+            <!-- VENDOR CHANNELS VIDEO -->
             <v-col cols="4" style="width:100%;text-align:center;">
-              <a href="https://www.youtube.com/watch?v=ypTRBCA-BOY" target="_blank" style="display:block;border: 1px solid white;padding-top:5%;padding-bottom:5%;text-decoration:none;color:inherit;">
+              <v-btn @click="showVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                 <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                  WATCH NOW
+                  WATCH NOW -Account Channels-
                 </span>
-              </a>          
+              </v-btn>
             </v-col>
           </v-row>
         </v-card>
       </transition>
 
+      <!-- NOT SUPER USER -->
+      <transition name="slide-fade">
+        <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.currentUser.is_superuser === false">
+          <div style="position:relative;border-radius:1%;">
+            <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+            </iframe>
+          </div>
+        </v-card>
+      </transition>
+      <!-- SUPER USER -->
+      <transition name="slide-fade">
+        <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && this.currentUser.is_superuser === true">
+          <div style="position:relative;border-radius:1%;">
+            <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+            </iframe>
+          </div>
+        </v-card>
+      </transition>
+
+      <!-- ACCOUNT CHANNELS BANNER -->
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
@@ -42,7 +87,7 @@
                   <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
                   <p class="mt-4" style="font-size:1rem">Channel(s) here on SOWerk are the backbone of your account! They can represent different areas or aspects of your business and how you serve your Customers.
                   </p>
-                  <p>It's okay to have just one Channel, but you could have a Channel for service and another for supply, Channels for different locations, or even different Channels for separate product lines. The right Channel structure can help you organize Customer relationships, not to mention give your application for approved Vendor status a more personalized touch.</p>
+                  <p>It's okay to have just one Channel, but you could have a Channel for service and another for supply, Channels for different locations, or even different Channels for separate product lines. The right Channel structure can help you organize Customer relationships.</p>
                 </v-col>
               </v-row>
               
@@ -293,6 +338,7 @@
     },
     data() {
       return {
+        showVideo: false,
         loading: false,
         company: {},
         locations: [
@@ -431,7 +477,7 @@
       this.getCompany();
       // this.getLocations();
       this.getSowerkTags();
-      console.log(this.currentUser);
+      console.log(this.currentUser, "gggggggggggggggggggggggg");
     },
     computed: {
       currentUser() {
@@ -439,6 +485,9 @@
       },
     },
     methods: {
+      showVideoCard() {
+        this.showVideo = true
+      },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
