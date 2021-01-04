@@ -60,15 +60,16 @@
           ></v-skeleton-loader>
         </v-col>
       </v-row>
-<!--      Maint modal on render-->
-<!--      <transition name="slide-fade">-->
-<!--        <v-card v-if="loadModal === true && locationApproved">-->
-<!--          <template style="margin: 3%; justify-content: center" >-->
-<!--            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>-->
-<!--            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>-->
-<!--          </template>-->
-<!--        </v-card>-->
-<!--      </transition>-->
+        <!--      Maint modal on render-->
+        <!--      <transition name="slide-fade">-->
+        <!--        <v-card v-if="loadModal === true && locationApproved">-->
+        <!--          <template style="margin: 3%; justify-content: center" >-->
+        <!--            <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700; ">We are currently performing maintenance. If you experience issues with the website, we apologize for the inconvenience and thank you for your understanding.</p>-->
+        <!--            <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>-->
+        <!--          </template>-->
+        <!--        </v-card>-->
+        <!--      </transition>-->
+
       <transition name="slide-fade">
         <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
@@ -96,21 +97,23 @@
             @click:append="show1 = !show1"
           ></v-text-field>
           <v-btn @click="passwordKeep" color="primary" large class="my-2 px-16">Save New Password</v-btn>
-<!--          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>-->
+          <!--          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>-->
         </v-card>
       </transition>
-<!--      <transition name="slide-fade">-->
-<!--          <HomeCard-->
-<!--            v-if="locations && locationApproved && company"-->
-<!--            :items="locations"-->
-<!--            :company="company"-->
-<!--            :title="'Channels You Manage - ' + locations.length"-->
-<!--            :tableProperties="headers"-->
-<!--            slug="/dashboard/channels/"-->
-<!--          ></HomeCard>-->
-<!--      </transition>-->
+
+        <!--      <transition name="slide-fade">-->
+        <!--          <HomeCard-->
+        <!--            v-if="locations && locationApproved && company"-->
+        <!--            :items="locations"-->
+        <!--            :company="company"-->
+        <!--            :title="'Channels You Manage - ' + locations.length"-->
+        <!--            :tableProperties="headers"-->
+        <!--            slug="/dashboard/channels/"-->
+        <!--          ></HomeCard>-->
+        <!--      </transition>-->
 
       <v-row style="width: 100%;" class="mt-n16" v-if="company && company.company_type !== 'false'">
+        <!-- ACCOUNT CHANNELS CARD  -->
         <v-col cols="4" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
             <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
@@ -120,28 +123,30 @@
             <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
             <v-row class="mt-n2 mb-n2">
               <v-col cols="3" style="text-align:center;">
-                <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
                 <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
               </v-col>
 
               <v-col cols="3" style="text-align:center">
-                <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
                 <h2 style="font-weight:900;font-size:1.1rem;">Major Projects</h2>
               </v-col>
 
               <v-col cols="3" style="text-align:center">
-                <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
                 <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
               </v-col>
 
               <v-col cols="3" style="text-align:center">
-                <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
                 <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
               </v-col>
             </v-row>
             <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
           </v-card>
         </v-col>
+
+        <!-- VENDOR APPLICATIONS CARD -->
         <v-col cols="4" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
             <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
@@ -152,6 +157,8 @@
             <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/applications">Manage Applications</v-btn>
           </v-card>
         </v-col>
+
+        <!-- VENDOR SEARCH CARD -->
         <v-col cols="4" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center">
             <v-row style="width: 100%;" class="d-flex align-center justify-center">
@@ -165,15 +172,17 @@
         </v-col>
       </v-row>
 
+      <!-- SOWERK 101 CARD -->
       <v-row style="width: 100%;" class="mt-4 d-flex justify-center align-center" v-if="company && company.company_type !== 'false'">
+        
         <v-col cols="4">
           <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
             <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
             <v-card-text class="my-2" style="color: white; text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-            <v-btn outlined color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
-
+            <v-btn outlined @click="renderVideoCard" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
           </v-card>
         </v-col>
+
         <v-col cols="8" style="height: auto;">
           <v-card style="width: 100%; height: 30vh;" class="d-flex align-center">
             <v-col class="d-flex flex-column align-center mt-16 mb-n16" cols="3">
@@ -187,7 +196,23 @@
             </v-col>
           </v-card>
         </v-col>
+
       </v-row>
+
+      <!-- THIS IS THE CARD THAT WILL RENDOR BELOW THE SOWERK 101 AFTER "VIEW ALL" HAS BEEN CLICKED, AND WILL HOLD THE EMBEDDED VIDEO -->
+      <transition name="slide-fade">
+
+        <!-- LINK TO YOUTUBE PLAYLIST OF SOWERK -->
+        <!-- https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1 -->
+
+        <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="viewVideoCard === true">
+          <div style="position:relative;border-radius:1%;">
+            <iframe src="" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+            </iframe>
+          </div>
+        </v-card>
+
+      </transition>
 
       <transition name="slide-fade">
         <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
@@ -459,6 +484,7 @@
     },
     data() {
       return {
+        viewVideoCard: false,
         openUploadModelLoad: false,
         loadModal: false,
         loading: false,
@@ -677,6 +703,9 @@
           .catch(err => {
             console.log('err', err);
           })
+      },
+      renderVideoCard() {
+        this.viewVideoCard = true
       },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);
