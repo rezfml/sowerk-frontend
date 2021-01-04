@@ -785,6 +785,7 @@
     methods: {
       async changeUrl(location) {
         console.log(location, 'changeUrl', window.location.href);
+        this.loading = false;
         this.$route.params.id = location.id
         // window.location.href = "https://www.sowerk.com/dashboard/vendors/" + location.id.toString()
         await this.getLocation();
@@ -793,6 +794,7 @@
         await this.getMessages();
         await this.getNotes();
         await this.getVendorProvidedDocuments();
+        this.loading = true;
       },
       async getVendorProvidedDocuments() {
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompanyId/' + this.currentUser.companies_id + '/byVendorChannelId/' + this.$route.params.id)
