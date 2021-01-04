@@ -994,7 +994,7 @@
                 }
               }
               this.singleCompanyConnections = response.data.filter(connection => {
-                if(connection.pmcompanies_id === this.$store.state.user.user.user.companies_id && connection.spcompanies_id === this.location.companies_id && connection.splocations_id === this.location.splocations_id) {
+                if(connection.pmcompanies_id === this.$store.state.user.user.user.companies_id && connection.spcompanies_id === this.location.companies_id) {
                   return connection
                 }
               })
