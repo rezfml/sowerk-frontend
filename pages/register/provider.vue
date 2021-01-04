@@ -1,4 +1,4 @@
-<template>
+ <template>
   <v-container
     style="max-width:none !important; width: 100%; background-image: url('https://sowerk-images.s3.us-east-2.amazonaws.com/building-1080602.jpg') ; background-size: cover; background-position: center;"
   >
