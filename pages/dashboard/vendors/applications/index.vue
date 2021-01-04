@@ -100,6 +100,8 @@
       min-width="50vw"
     ></v-skeleton-loader>
 
+
+
 <!--    BUTTONS AND TEXT TO THE RIGHT OF VENDER APPLICATIONS BACKGROUND IMAGE    -->
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
