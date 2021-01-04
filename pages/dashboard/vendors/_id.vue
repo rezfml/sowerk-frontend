@@ -315,7 +315,7 @@
             v-if="!loading"
             type="card-avatar, article, article, actions"
             min-height="50vh"
-            min-width="30vw"
+            min-width="25vw"
           ></v-skeleton-loader>
           <v-btn v-if="loading" color="primary" rounded class="mt-16" style="width: 100%;" @click="openRequestModal">REQUEST TO APPLY</v-btn>
           <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="openMessageModal">SEND MESSAGE</v-btn>
