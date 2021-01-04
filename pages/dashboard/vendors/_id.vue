@@ -322,11 +322,12 @@
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-4" style="width: 100%;">
               <v-card-title style="color: #A61c00; font-size: 35px;">Your Connection Details</v-card-title>
-              <v-row class="d-flex justify-center mb-4">
+              <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
                   <v-img :src="company.imgUrl" v-if="company.imgUrl !== ''"></v-img>
                   <v-icon v-else size="60">person</v-icon>
                 </v-avatar>
+                <v-img style="width: 50px !important; max-width: 150px;" src="/18073.png"></v-img>
                 <v-avatar size="100" class="text-center ml-6 mt-4 rounded-circle elevation-5" color="white">
                   <v-img :src="companyForVendor.imgUrl" v-if="companyForVendor.imgUrl !== ''"></v-img>
                   <v-icon v-else size="60">person</v-icon>
@@ -867,7 +868,6 @@
         this.note.fileUrl = url;
         console.log(this.note.fileUrl);
       },
-
       async closeRequestModal() {
         this.requestModalLoad = false;
         this.overlayRequest = false
@@ -994,7 +994,7 @@
                 }
               }
               this.singleCompanyConnections = response.data.filter(connection => {
-                if(connection.pmcompanies_id === this.$store.state.user.user.user.companies_id && connection.spcompanies_id === this.location.companies_id && connection.splocations_id) {
+                if(connection.pmcompanies_id === this.$store.state.user.user.user.companies_id && connection.spcompanies_id === this.location.companies_id) {
                   return connection
                 }
               })
