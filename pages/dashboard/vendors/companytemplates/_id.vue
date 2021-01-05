@@ -120,7 +120,8 @@
                   </transition>
                   <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
                     <v-btn style="background: #707070; color: white;" @click.stop="addOption(form, index)">Add Another Option</v-btn>
-                    <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                    <v-card-title v-if="form.options !== String" v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-title>
+                    <v-card-title v-else v-for="(option,iVal) in form.options.split(',')" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-title>
                   </template>
                 </v-card>
               </draggable>
@@ -616,14 +617,14 @@
                 return formfield
               }
             })
-            this.finishedFormFields = true;
-            this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.sort((a,b) => {
-              return a.order - b.order
-            })
             for(let i=0; i<this.companyTemplate.companytemplatesformfields.length; i++) {
               this.companyTemplate.companytemplatesformfields[i].options = this.companyTemplate.companytemplatesformfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
               console.log(this.companyTemplate.companytemplatesformfields[i].options, 'option #', i)
             }
+            this.finishedFormFields = true;
+            this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.sort((a,b) => {
+              return a.order - b.order
+            })
             console.log(this.companyTemplates, 'this.companyTemplates sort')
             this.getLocation(response.data.locations_id)
             this.getFormFields(response.data.id)
@@ -748,40 +749,77 @@
             formfield["companytemplates_id"] = this.companyTemplates.id
             formfield.order = index;
             if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
-              let newFormField = {
-                companytemplates_id: formfield.companytemplates_id,
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                let newFormField = {
+                  companytemplates_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
+              } else {
+                let newFormField = {
+                  companytemplates_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
               }
               this.filteredUniqueUserForms.push(formfield)
-              await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.companyTemplates.id, newFormField)
-                .then(response => {
-                  console.log(response, 'posting new formfield for userform');
-                })
-                .catch(err => {
-                  console.log(err, 'err');
-                })
             } else {
               this.filteredSameUserForms.push(formfield)
-              const changes = {
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(formfield.type !== 'select') {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
+              } else {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
               }
-              await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
-                .then(response => {
-                  console.log(response, 'updating formfield ', formfield.id)
-                })
-                .catch(err => {
-                  console.log('error in updating formfield', err)
-                })
             }
           })
         } else {
@@ -790,41 +828,77 @@
             formfield["companytemplates_id"] = this.companyTemplates.id
             formfield.order = index;
             if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
-              let newFormField = {
-                companytemplates_id: formfield.companytemplates_id,
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                let newFormField = {
+                  companytemplates_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
+              } else {
+                let newFormField = {
+                  companytemplates_id: formfield.companytemplates_id,
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
               }
               this.filteredUniqueUserForms.push(formfield)
-              await this.$http.post('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + this.companyTemplates.id, newFormField)
-                .then(response => {
-                  console.log(response, 'posting new formfield for userform');
-                })
-                .catch(err => {
-                  console.log(err, 'err');
-                })
             } else {
               this.filteredSameUserForms.push(formfield)
-              const changes = {
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
+              } else {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
               }
-              await this.$http.put('https://www.sowerkbackend.com/api/companytemplatesformfields/' + formfield.id, changes)
-                .then(response => {
-                  console.log(response, 'updating formfield ', formfield.id)
-                })
-                .catch(err => {
-                  console.log('error in updating formfield', err)
-                })
-
             }
           })
         }
@@ -859,7 +933,10 @@
         for(let i=0; i<this.companyTemplate.companytemplatesformfields.length; i++) {
           console.log(this.companyTemplate.companytemplatesformfields[i])
           this.companyTemplate.companytemplatesformfields[i].order = i;
-          console.log(this.companyTemplate.companytemplatesformfields[i].options, 'OPTIONS!!!!!')
+          if(this.companyTemplate.companytemplatesformfields[i].options !== '' && typeof this.companyTemplate.companytemplatesformfields[i].options === 'string') {
+            this.companyTemplate.companytemplatesformfields[i].options = this.companyTemplate.companytemplatesformfields[i].options.split(', ')
+            console.log(this.companyTemplate.companytemplatesformfields[i].options, 'OPTIONS!!!!!')
+          }
         }
         console.log(this.companyTemplate.companytemplatesformfields, 'updating companyTemplate.companytemplatesformfields');
       },
@@ -1004,15 +1081,15 @@
                 return formfield
               }
             })
+            for(let i=0; i<this.companyTemplate.companytemplatesformfields.length; i++) {
+              this.companyTemplate.companytemplatesformfields[i].options = this.companyTemplate.companytemplatesformfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
+              console.log(this.companyTemplate.companytemplatesformfields[i].options, 'option #', i)
+            }
 
             this.finishedFormFields = true;
             this.companyTemplate.companytemplatesformfields = this.companyTemplate.companytemplatesformfields.sort((a,b) => {
               return a.order - b.order
             })
-            for(let i=0; i<this.companyTemplate.companytemplatesformfields.length; i++) {
-              this.companyTemplate.companytemplatesformfields[i].options = this.companyTemplate.companytemplatesformfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
-              console.log(this.companyTemplate.companytemplatesformfields[i].options, 'option #', i)
-            }
           })
           .catch(err => {
             console.log(err, 'err in companyTemplate')
