@@ -203,7 +203,6 @@
                     v-model="services"
                     :items="naicsList"
                     item-text="name"
-                    item-value="name"
                     label="Choose your categories here"
                     solo
                     hint="This is generated from the NAICS directory."
@@ -335,6 +334,7 @@
                   label="Select From List of Users Your Manager For This Channel"
                   :items="users"
                   class="text-caption"
+                  :placeholder="location.contact_first_name + ' ' + location.contact_last_name"
                 >
                   <template slot="selection" slot-scope="data">
                     <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
@@ -636,12 +636,17 @@
       </transition>
     </v-container>
 
-    <transition name="slide-fade">
-      <v-card v-if="modalSuccessEditLoad" style="position: fixed; top: 25vh; left: 20vw; width: 50%;">
-        <v-card-title>Successfully Edited Location!</v-card-title>
-        <v-btn @click="modalSuccessEditLoad = !modalSuccessEditLoad" text style="position: absolute; top: 10px; right: 10px;">X</v-btn>
-      </v-card>
-    </transition>
+    <v-overlay
+      :absolute="absolute"
+      :value="modalSuccessEditLoad"
+    >
+      <transition name="slide-fade">
+        <v-card v-if="modalSuccessEditLoad" class="d-flex flex-column align-center" style="position: fixed; top: 25vh; left: 45vw; width: 50%; background-color: white; border: 1px solid #A61c00">
+          <v-card-title style="color: #151515; text-align: center;">You Have Successfully Edited This Channel</v-card-title>
+          <v-btn color="black" @click="modalSuccessEditLoad = !modalSuccessEditLoad" text style="position: absolute; top: 10px; right: 10px; font-size: 24px;">X</v-btn>
+        </v-card>
+      </transition>
+    </v-overlay>
   </v-card>
 </template>
 
@@ -665,6 +670,7 @@
     ],
     data() {
       return {
+        absolute: true,
         firstName: null,
         lastName: null,
         title: null,

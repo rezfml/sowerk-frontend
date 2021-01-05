@@ -358,7 +358,7 @@
                 </v-autocomplete>
 
               <v-textarea
-                placeholder=" "
+                placeholder=""
                 hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
                 persistent-hint
                 v-model="form.description"
@@ -366,6 +366,7 @@
                 auto-grow
                 class="mt-8"
                 outlined
+                clearable
               >
                 <template v-slot:label>
                   <p class="grey--text text--darken-4 font-weight-bold">Channel Description <span style="color: #A61c00">*</span></p>
@@ -757,6 +758,7 @@
           .then(response => {
             console.log(response, 'company response')
             this.company = response.data;
+            this.form.description = response.data.description
           })
           .catch(err => {
             console.log(err, 'err in getting company')

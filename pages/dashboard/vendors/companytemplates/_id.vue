@@ -888,7 +888,7 @@
           this.companyTemplate.companytemplatesformfields.splice(formfieldVal.order, 1);
           console.log('this.companyTemplates on delete', this.companyTemplate.companytemplatesformfields);
         } else {
-          let confirmDelete = confirm('We noticed this formfield is saved to your userform. If you confirm this, it will delete the question permanently.');
+          let confirmDelete = confirm('We noticed this question is saved to your application. Are you sure you would like to remove this question from your application');
           if(confirmDelete === true) {
             this.companyTemplate.companytemplatesformfields.splice(formfieldVal.order, 1);
             console.log('this.companyTemplates on delete', this.companyTemplate.companytemplatesformfields);

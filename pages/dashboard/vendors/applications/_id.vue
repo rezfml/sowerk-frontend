@@ -296,21 +296,26 @@
       </v-row>
     </transition>
 
-    <transition name="slide-fade">
-      <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
-        <v-card-text style="text-align: center; width: 100%; font-size: 24px; color: #A61c00;">Edit Question #{{openEditFormFieldVal.order + 1}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
-        <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
-          <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
-          <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-          <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
-        </v-form>
-        <div style="width: 100%;" class="d-flex justify-space-between">
-          <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
-          <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mr-2 mb-2" color="white" style="background: #707070;" outlined>Update Form Field</v-btn>
-        </div>
-        <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
-      </v-card>
-    </transition>
+    <v-overlay
+      :absolute="absolute"
+      :value="openEditFormFieldLoad"
+    >
+      <transition name="slide-fade">
+        <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="background-color: white; border: 1px solid #A61c00; width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
+          <v-card-text style="text-align: center; width: 100%; font-size: 24px; color: #A61c00;">Edit Question #{{openEditFormFieldVal.order + 1}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
+          <v-form style="width: 90%; font-size: 24px;" class="d-flex flex-wrap justify-center">
+            <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
+            <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
+            <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+          </v-form>
+          <div style="width: 100%;" class="d-flex justify-center">
+            <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="mx-4 mb-2" color="primary" outlined style="width: 30%;">Delete Form Field</v-btn>
+            <v-btn @click="updateSingleFormfield(openEditFormFieldVal)" class="mx-4 mb-2" color="white" style="background: #707070; width: 30%;" outlined>Update Form Field</v-btn>
+          </div>
+          <v-btn text style="font-size: 48px; position: absolute; right: 20px; top: 20px;" light @click="closeEditFormField">X</v-btn>
+        </v-card>
+      </transition>
+    </v-overlay>
 
   </v-container>
 </template>
@@ -328,6 +333,7 @@
     },
     data () {
       return {
+        absolute: true,
         vendorType: [
           'Supplier',
           'Servicer'
@@ -916,7 +922,7 @@
           this.userForms.formfields.splice(formfieldVal.order, 1);
           console.log('this.userForms on delete', this.userForms);
         } else {
-          let confirmDelete = confirm('We noticed this formfield is saved to your userform. If you confirm this, it will delete the question permanently.');
+          let confirmDelete = confirm('We noticed this question is saved to your application. Are you sure you would like to remove this question from your application');
           if(confirmDelete === true) {
             this.userForms.formfields.splice(formfieldVal.order, 1);
             console.log('this.userForms on delete', this.userForms);

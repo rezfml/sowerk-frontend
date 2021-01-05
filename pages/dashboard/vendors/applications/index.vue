@@ -74,21 +74,21 @@
           <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
           </iframe>
         </div>
-      </v-card>   
+      </v-card>
 
       <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyTemplates === true">
         <div style="position:relative;;border-radius:1%;">
           <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
           </iframe>
         </div>
-      </v-card> 
+      </v-card>
 
       <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.sowerkTemplates === true">
         <div style="position:relative;;border-radius:1%;">
           <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
           </iframe>
         </div>
-      </v-card> 
+      </v-card>
 
     </transition>
 
@@ -413,13 +413,13 @@
           </template>
           <template v-slot:item.actions="{item}" class="d-flex flex-column align-center">
             <div class="d-flex flex-column align-center" v-if="$vuetify.breakpoint.xl">
-              <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2" style="width: 80%;">Edit</v-btn>
+              <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
-              <v-btn @click="deleteCompanyTemplates(item)" class="mx-2" color="primary" style="width: 80%;">Delete</v-btn>
+              <v-btn @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
             </div>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-1" style="width: 80%;">Edit</v-btn>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Delete</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
           </template>
         </v-data-table>
       </template>
@@ -2305,7 +2305,7 @@ const naics = require("naics");
       async submitTagCategoryType() {
         const userform = {
           locations_id: this.locationIdChoice,
-          applicationStatus: 1,
+          applicationStatus: 0,
           name: this.addLocation.form_name,
           service: this.addLocation.service_name,
           vendorType: this.addLocation.vendorType,
@@ -2448,7 +2448,7 @@ const naics = require("naics");
             this.addServiceLoad = false;
           })
           .catch(err => {
-            alert('err in adding new service');
+            ('err in adding new service');
             console.log(err, 'err in adding new service');
           })
         this.companySector = null;
@@ -2782,7 +2782,7 @@ const naics = require("naics");
           this.newAssignUserForm.formfields.splice(formfieldVal.order, 1);
           console.log('this.userForms on delete', this.userForms);
         } else {
-          let confirmDelete = confirm('We noticed this formfield is saved to your userform. If you confirm this, it will delete the question permanently.');
+          let confirmDelete = confirm('We noticed this question is saved to your application. Are you sure you would like to remove this question from your application');
           if(confirmDelete === true) {
             this.newAssignUserForm.formfields.splice(formfieldVal.order, 1);
             console.log('this.userForms on delete', this.newAssignUserForm);
