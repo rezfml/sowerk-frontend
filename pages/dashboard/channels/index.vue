@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
-      
+
       <!-- NOT SUPER USER -->
       <transition name="slide-fade">
         <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.currentUser.is_superuser === false">
@@ -90,23 +90,23 @@
                   </p>
                 </v-col>
               </v-row>
-              
+
               <v-row>
                 <v-col cols="3" style="text-align:center;">
                   <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
                 </v-col>
-                
+
                 <v-col cols="3" style="text-align:center">
                   <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Major Projects</h2>
                 </v-col>
-               
+
                 <v-col cols="3" style="text-align:center">
                   <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
                 </v-col>
-                
+
                 <v-col cols="3" style="text-align:center">
                   <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
@@ -122,7 +122,7 @@
                   to="../../dashboard/channels/add"
                 >Add Another Channel - Click Here!</v-btn>
               </v-row>
-              
+
             </v-col>
           </v-row>
         </v-card>
@@ -149,26 +149,26 @@
                   <p>It's okay to have just one Channel, but you could have a Channel for service and another for supply, Channels for different locations, or even different Channels for separate product lines. The right Channel structure can help you organize Customer relationships.</p>
                 </v-col>
               </v-row>
-              
-              
+
+
               <v-row>
                 <v-col cols="4" style="text-align:center;">
                   <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:30%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
                 </v-col>
-               
+
                 <v-col cols="4" style="text-align:center">
                   <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:30%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
                 </v-col>
-                
+
                 <v-col cols="4" style="text-align:center">
                   <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:30%;"></v-img>
                   <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                 </v-col>
               </v-row>
 
-              <v-row>
+              <v-row v-if="this.currentUser.is_superuser">
                 <v-btn
                   style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
                   large
@@ -177,7 +177,7 @@
                   to="../../dashboard/channels/add"
                 >Add Another Channel - Click Here!</v-btn>
               </v-row>
-              
+
 
 
             </v-col>
@@ -218,7 +218,7 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
-          
+
           <!--          <transition name="slide-fade">-->
           <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center flex-wrap mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
           <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->

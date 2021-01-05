@@ -11,7 +11,7 @@
           ></v-skeleton-loader>
           <v-card class="d-flex flex-column align-center mt-16" v-if="loading">
             <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="companyForVendor.imgUrl"></v-img>
-            <v-card-title style="color: #A61c00; font-size: 48px;">{{companyForVendor.account_name}}</v-card-title>
+            <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.25em;">{{companyForVendor.account_name}}</v-card-title>
             <v-card-text style="text-align: center; font-size: 18px;">{{companyForVendor.description}}</v-card-text>
             <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
               <v-row class="d-flex justify-center" style="width: 100%;">
@@ -63,14 +63,14 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <div v-if="loading" class="d-flex justify-center align-center mt-16">
-              <div style="width: 20%; word-break: break-word; white-space: pre-wrap;">
+              <div style="width: 20%; word-break: break-word; white-space: pre-wrap;" class="d-flex justify-center">
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-if="companyForVendor.locations.length > 0">{{companyForVendor.locations.length}}</v-card-title>
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
               </div>
               <div style="width: 80%; word-break: break-word; white-space: pre-wrap;">
-                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>
-                <v-card-title style="font-size: 48px; color: #A61C00" v-else>{{companyForVendor.brand_name}}</v-card-title>
-                <v-card-title style="font-size: 48px;">SOWerk Channels</v-card-title>
+<!--                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
+<!--                <v-card-title style="font-size: 48px; color: #A61C00" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
+                <v-card-title style="font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.75em;">Channels On SOWerk</v-card-title>
               </div>
             </div>
           </transition>
@@ -338,7 +338,7 @@
               <div class="d-flex justify-center mb-4">
                 <v-card-title style="color: #A61C00; font-size: 108px;">{{singleCompanyConnections.length}}</v-card-title>
                 <div class="d-flex flex-column align-center">
-                  <v-card-title style="font-size: 24px;">Relationship Connections</v-card-title>
+                  <v-card-text style="font-size: 24px;">Relationship Connections</v-card-text>
                   <v-btn style="width: 100%;" color="primary" rounded>View Details</v-btn>
                 </div>
               </div>
@@ -355,20 +355,33 @@
               </v-row>
 <!--              <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
               <v-divider style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-card-title style="color: #A61c00; font-size: 24px;">Vendor Provided Documents</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 24px;">Relationship Documents</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-data-table
                 :items-per-page="4"
                 :items="vendorDocuments"
                 :headers="vendorHeaders"
+                style="width: 90%;"
               >
-                <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-                  <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
+                <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+                  <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
+                    {{item.documentName}}</v-btn>
+                </template>
+                <template v-slot:footer >
+                  <v-row class="d-flex justify-center" style="width: 100%;">
+                    <v-btn to='/dashboard/vendor-documents' color="primary" style="width: 100%;"  class="my-4" rounded outlined>View All</v-btn>
+                  </v-row>
                 </template>
               </v-data-table>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-              <v-card-text style=" font-size: 18px;">Vendor Messages: <span style="color: #A61c00">{{vendorMessages.length}}</span></v-card-text>
+              <v-row style="width: 100%;" class="d-flex justify-center my-8">
+                <v-card-title style="font-size: 108px; width: 20%; text-align: center; color: #A61C00">{{vendorMessages.length}}</v-card-title>
+                <div style="width: 80%;" class="d-flex flex-column align-center">
+                  <v-card-text style="font-size: 24px; text-align: center">All Messages</v-card-text>
+                  <v-btn to="../../../dashboard/messages-and-alerts" color="primary" rounded style="width: 80%;">View All</v-btn>
+                </div>
+              </v-row>
             </v-card>
           </transition>
         </v-col>
@@ -755,9 +768,7 @@
           { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         vendorHeaders: [
-          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: '', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
         ],
         companyForVendor: [],
         locationsForVendor: [],
