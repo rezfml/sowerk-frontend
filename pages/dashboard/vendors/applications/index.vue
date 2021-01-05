@@ -470,10 +470,10 @@
           clearable
         >
           <template slot="selection" slot-scope="data">
-            <p @click="getChannelsForVendor(data.item)">{{ data.item.account_name }}</p>
+            <p @click="getChannelsForVendor(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
           </template>
           <template slot="item" slot-scope="data">
-            <p @click="getChannelsForVendor(data.item)">{{ data.item.account_name }}</p>
+            <p @click="getChannelsForVendor(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
           </template>
         </v-autocomplete>
         <v-autocomplete
@@ -491,10 +491,10 @@
           hint="Please Note, if you have a document that only needs to be filled out once for all company wide interactions, you may select just one channel, or leave this field blank and we will default to the company HQ channel that was created upon registration."
         >
           <template slot="selection" slot-scope="data">
-            <p @click="addChannelToVendorDocList(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            <p @click="addChannelToVendorDocList(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
           </template>
           <template slot="item" slot-scope="data">
-            <p @click="addChannelToVendorDocList(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+            <p @click="addChannelToVendorDocList(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
           </template>
         </v-autocomplete>
         <v-btn style="position: absolute; bottom: 15px; left: 20px; width: 20%;" class="py-6 px-16" color="primary" @click="backToCompanyDocuments">< BACK</v-btn>
@@ -1585,7 +1585,7 @@ const naics = require("naics");
           })
       },
       async getVendorsList() {
-        await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response, 'hello!!!!!')
             this.vendorsList = response.data;
