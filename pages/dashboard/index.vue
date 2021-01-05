@@ -173,7 +173,7 @@
         </v-col>
       </v-row>
 
-      <!-- SOWERK 101 CARD -->
+      <!-- SOWERK 101 CARD AND APPROVED VENDORS CARD -->
       <v-row style="width: 100%;" class="mt-4 d-flex justify-center align-center" v-if="company && company.company_type !== 'false'">
 
         <v-col cols="4">
@@ -187,13 +187,9 @@
         <v-col cols="8" style="height: auto;">
           <v-card style="width: 100%; height: 30vh;" class="d-flex align-center">
 
-              <v-col class="d-flex flex-column align-center mt-16 mb-n16" cols="3">
-                <v-row style="width:100%;">
-                  <img src="/complete-icon.svg" style="width: 50%;margin-left:20%;margin-bottom:-200px">
-                </v-row>
-
+              <v-col class="d-flex flex-column align-center" cols="3">
                 <v-row style="width:100%">
-                  <img src="/APPROVED-VENDORS-Logo-163.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
+                  <img src="/SoWork Logos with Icons-173.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
                 </v-row>
               </v-col>
 
