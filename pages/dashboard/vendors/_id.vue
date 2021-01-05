@@ -98,7 +98,8 @@
               <v-row>
                 <v-col cols="12" align="center">
                   <v-avatar size="100" class="text-center mx-auto mt-4 rounded-circle elevation-5" color="white">
-                    <v-img :src="location.imageUrl" v-if="location.imageUrl && location.imageUrl !== '{}'"></v-img>
+                    <v-img :src="location.imageUrl" v-if="location.imageUrl && (location.imageUrl !== '{}' || location.imageUrl !== '')"></v-img>
+                    <v-img :src="companyForVendor.imgUrl" v-else-if="companyForVendor.imgUrl && companyForVendor.imgUrl !== ''"></v-img>
                     <v-icon v-else size="60">person</v-icon>
                   </v-avatar>
                 </v-col>
@@ -171,21 +172,21 @@
               <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
               <v-row style="width: 100%;" class="d-flex nowrap mt-6">
                 <v-card-text style="width: 50%; font-size: 24px; text-align: center" >Internal Channel Notes</v-card-text>
-                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="locationNotes.length > 0">{{locationNotes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               </v-row>
               <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">
                 <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">Read Notes</v-btn>
                 <v-btn class="mx-auto" @click="addNotesModal" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
-              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-row style="width: 100%;" class="d-flex nowrap mt-6">
-                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="connections.length > 0">{{connections.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
-                <v-card-text style="width: 50%; font-size: 24px; text-align: center" >Approved Applications</v-card-text>
-              </v-row>
-              <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">
-                <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">View Connections</v-btn>
-                <v-btn class="mx-auto" @click="addNotesModal" rounded outlined color="primary" style="width: 40%;">View Applications</v-btn>
-              </v-row>
+<!--              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>-->
+<!--              <v-row style="width: 100%;" class="d-flex nowrap mt-6">-->
+<!--                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="connections.length > 0">{{connections.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
+<!--                <v-card-text style="width: 50%; font-size: 24px; text-align: center" >Approved Applications</v-card-text>-->
+<!--              </v-row>-->
+<!--              <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">-->
+<!--                <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">View Connections</v-btn>-->
+<!--                <v-btn class="mx-auto" @click="addNotesModal" rounded outlined color="primary" style="width: 40%;">View Applications</v-btn>-->
+<!--              </v-row>-->
 <!--              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
 <!--              <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>-->
 <!--              <template style="width: 100%;" v-if="insurances.length > 0" class="d-flex justify-center">-->
@@ -362,7 +363,13 @@
                 :items="vendorDocuments"
                 :headers="vendorHeaders"
                 style="width: 90%;"
+                class="mt-2"
               >
+                <template v-slot:header>
+                  <v-row class="d-flex justify-end mt-n16" style="width: 100%;">
+                    <v-btn to='/dashboard/vendor-documents' color="primary" style="width: 30%;"  class="my-4" rounded outlined>Add</v-btn>
+                  </v-row>
+                </template>
                 <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
                   <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
                     {{item.documentName}}</v-btn>
@@ -389,9 +396,10 @@
 
       <transition name="slide-fade">
         <v-card v-if="addNotesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
-          <v-card-title style="color: #A61c00;">Please Fill Out All Fields Below</v-card-title>
+          <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}}</v-card-title>
+          <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
-            label="Select a channel to go with your note"
+            label="Select the Channel that goes with your note"
             style="width: 80%;"
             :items="company.locations"
             solo
@@ -444,6 +452,7 @@
           >Upload File</v-btn
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
+          <v-card-title style="color: #A61c00;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
@@ -481,7 +490,8 @@
 <!--      >-->
         <transition name="slide-fade">
           <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
-            <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
+            <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
+            <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
             <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
               <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
                 <v-form class="mx-4" style="width: 60%;">
@@ -684,6 +694,7 @@
     },
     data() {
       return {
+        addNotesSuccess: false,
         notesFileFile: null,
         approvedChannelsModal: false,
         recentlyApprovedChannelsModal: false,
@@ -773,6 +784,7 @@
         companyForVendor: [],
         locationsForVendor: [],
         vendorDocuments: [],
+        locationNotes: [],
       }
     },
     computed: {
@@ -792,6 +804,7 @@
       await this.getMessages();
       await this.getNotes();
       await this.getVendorProvidedDocuments();
+      await this.getLocationNotes();
     },
     methods: {
       async changeUrl(location) {
@@ -805,6 +818,7 @@
         await this.getMessages();
         await this.getNotes();
         await this.getVendorProvidedDocuments();
+        await this.getLocationNotes();
         this.loading = true;
       },
       async getVendorProvidedDocuments() {
@@ -844,6 +858,7 @@
           this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
+              this.submitNotesSuccess = true;
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)
@@ -1229,6 +1244,16 @@
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.notes = response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting notes for this location by this company', this.note)
+          })
+      },
+      async getLocationNotes() {
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byLocationId/' + this.location.id + '/bySPLocationId/' + this.$route.params.id)
+          .then(response => {
+            console.log(response.data, 'notes!!!!');
+            this.locationNotes = response.data;
           })
           .catch(err => {
             console.log(err, 'err in getting notes for this location by this company', this.note)

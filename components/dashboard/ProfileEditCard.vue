@@ -197,34 +197,57 @@
                 </v-col>
               </v-row>
 
-              <v-row>
+              <v-row v-if="services">
+                <v-col cols="12" class="mt-8">
+                  <v-card>
+                    <v-card-title style="align-self: center; color: #A61C00; text-align: center">Current Channel Categories</v-card-title>
+                    <div class="d-flex justify-center">
+                      <v-card-text v-for="(service) in services">{{service.name}}</v-card-text>
+                    </div>
+                  </v-card>
+                </v-col>
                 <v-col cols="12" class="mt-8">
                   <v-autocomplete
-                    v-model="services"
+                    v-model="servicesVal"
                     :items="naicsList"
                     item-text="name"
-                    label="Choose your categories here"
-                    solo
+                    item-value="name"
+                    label="Choose your Primary Channel Category here"
                     hint="This is generated from the NAICS directory."
                   >
-<!--                    <template v-slot:selection="data">-->
-<!--                      <v-chip-->
-<!--                        style="width: auto;"-->
-<!--                        v-for="(item, index) in services"-->
-<!--                      >-->
-<!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
-<!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
-<!--                      </v-chip>-->
-<!--                    </template>-->
-<!--                    <template v-slot:item="data">-->
-<!--                      <v-chip-->
-<!--                        style="width: auto;"-->
-<!--                        v-for="(item, index) in services"-->
-<!--                      >-->
-<!--                        <v-card-text style="" v-if="item.name">{{ item.name }}</v-card-text>-->
-<!--                        <v-btn @click="removeService(item)" text class="ml-n6">X</v-btn>-->
-<!--                      </v-chip>-->
-<!--                    </template>-->
+                    <template slot="selection" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
+                    </template>
+                  </v-autocomplete>
+                </v-col>
+                <v-col cols="12" class="mt-8">
+                  <v-autocomplete
+                    v-model="servicesAdditional1"
+                    :items="naicsList"
+                    item-text="name"
+                    item-value="name"
+                    label="Choose your Additional Channel Category here"
+                    hint="This is generated from the NAICS directory."
+                  >
+                    <template slot="selection" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
+                    </template>
+                    <template slot="item" slot-scope="data">
+                      <p>{{ data.item.name }}</p>
+                    </template>
+                  </v-autocomplete>
+                </v-col>
+                <v-col cols="12" class="mt-8">
+                  <v-autocomplete
+                    v-model="servicesAdditional2"
+                    :items="naicsList"
+                    item-text="name"
+                    label="Choose your Additional Channel Category here"
+                    hint="This is generated from the NAICS directory."
+                  >
                     <template slot="selection" slot-scope="data">
                       <p>{{ data.item.name }}</p>
                     </template>
@@ -244,7 +267,6 @@
                     item-value="name"
                     chips
                     multiple
-                    label="Choose your tags here"
                   >
                     <template v-slot:selection="data">
                       <v-chip
@@ -723,6 +745,9 @@
         locationTagsNew: [],
         modalSuccessEditLoad: false,
         services: [],
+        servicesVal: '',
+        servicesAdditional1: '',
+        servicesAdditional2: '',
         originalServices: [],
         naicsList: [],
         vendorType: [],
@@ -754,8 +779,8 @@
         console.log(this.locationTags, this.sowerkTags, 'props this.locationTag', this.location)
         this.locationTagsNew = this.locationTags;
         if(this.location.services[0] !== 'There are no services') {
-          this.services = this.location.services[0];
-          this.originalServices = this.location.services[0];
+          this.services = this.location.services;
+          this.originalServices = this.location.services;
         }
         this.getUsers(this.location.companies_id)
         //this.getServices(this.location.id);
@@ -920,22 +945,12 @@
                 }
               }
             }
-            this.services = {
-              name: this.services
-            }
-            console.log(this.services, 'this.services!!!!!!');
-            if(this.originalServices.name !== this.services.name) {
-                  this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, this.services)
-                    .then(responseVal => {
-                      console.log(responseVal, 'success in posting location tags')
-                    })
-                    .catch(err => {
-                      console.log(err, 'err in posting locationtags')
-                    })
-                }
-            if(this.services.name !== this.originalServices.name) {
-                  console.log(this.originalServices, 'this.category DELETE')
-                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices.id)
+
+            console.log(this.services, this.servicesVal, this.servicesAdditional1, this.servicesAdditional2, 'this.services!!!!!!');
+            if(this.originalServices.includes(this.servicesVal)) {
+              for(let i=0; i<this.originalServices.length; i++) {
+                if(this.originalServices[i].name === this.servicesVal) {
+                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
                     .then(response => {
                       console.log(response, 'success in deleting category')
                     })
@@ -943,6 +958,76 @@
                       console.log(err, 'err in deleting location tag')
                     })
                 }
+              }
+            } else if (this.servicesVal !== '') {
+              this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {name:this.servicesVal})
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting this.servicesVal')
+                  this.services.push(responseVal.data.service)
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting locationtags')
+                })
+            }
+            if(this.originalServices.includes(this.servicesAdditional1)) {
+              for(let i=0; i<this.originalServices.length; i++) {
+                if(this.originalServices[i].name === this.servicesAdditional1) {
+                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
+                    .then(response => {
+                      console.log(response, 'success in deleting category')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in deleting location tag')
+                    })
+                }
+              }
+            } else if (this.servicesAdditional1 !== '') {
+              this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {name:this.servicesAdditional1})
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting services add 1')
+                  this.services.push(responseVal.data.service)
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting locationtags')
+                })
+            }
+            if(this.originalServices.includes(this.servicesAdditional2)) {
+              for(let i=0; i<this.originalServices.length; i++) {
+                if(this.originalServices[i].name === this.servicesAdditional2) {
+                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
+                    .then(response => {
+                      console.log(response, 'success in deleting category')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in deleting location tag')
+                    })
+                }
+              }
+            } else if (this.servicesAdditional2 !== '') {
+              this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {name:this.servicesAdditional2})
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting services add 2')
+                  this.services.push(responseVal.data.service)
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting locationtags')
+                })
+            }
+
+            if(this.services.length > 2) {
+              for(let i=0; i<this.services.length; i++) {
+                if(this.services.length > 2) {
+                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.services[i].id)
+                    .then(response => {
+                      console.log(response, 'success in deleting category')
+                    })
+                    .catch(err => {
+                      console.log(err, 'err in deleting location tag')
+                    })
+
+                }
+              }
+            }
           })
           .catch(e => {
             console.log(e, 'err in updating')
@@ -1076,6 +1161,7 @@
           year_founded: this.company.year_founded,
           description: this.company.description,
           imgUrl: this.company.imgUrl,
+          website: this.company.website,
           public_name: this.company.account_name.replace(/[^0-9a-z]/gi, '')
         }
         await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUserVal.id, userChanges)
