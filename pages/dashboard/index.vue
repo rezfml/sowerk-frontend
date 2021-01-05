@@ -175,7 +175,7 @@
 
       <!-- SOWERK 101 CARD AND APPROVED VENDORS CARD -->
       <v-row style="width: 100%;" class="mt-4 d-flex justify-center align-center" v-if="company && company.company_type !== 'false'">
-        
+
         <v-col cols="4">
           <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
             <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
@@ -192,13 +192,13 @@
                   <img src="/SoWork Logos with Icons-173.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
                 </v-row>
               </v-col>
-              
-              <v-col v-for="(stat, index) in stats" cols="3" style="margin-top:-10%">
+
+              <v-col v-for="(stat, index) in stats" cols="3">
                 <transition name="slide-fade">
                   <StatCard :key="index" v-if="statApproved" :stat="stat"></StatCard>
                 </transition>
               </v-col>
-              
+
           </v-card>
         </v-col>
       </v-row>

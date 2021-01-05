@@ -496,8 +496,10 @@
           'text',
           'number',
           'date',
+          'checkbox',
           // 'file',
           'select',
+
         ],
         saveLoad: true,
         colors: ["#a61c00", "#707070"],
