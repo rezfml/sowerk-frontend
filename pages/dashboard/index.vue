@@ -154,7 +154,8 @@
               <img style="width: 90%;" class="ml-n12 mt-n16" src="/VendorApplicationsLogo-159.png">
             </v-row>
             <v-card-text style="font-size: 18px; text-align: center;margin-bottom:12%;" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
-            <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/applications">Manage Applications</v-btn>
+            <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/applications">Manage Applications</v-btn>
+
           </v-card>
         </v-col>
 
@@ -190,7 +191,7 @@
 
             <v-col class="d-flex flex-column align-center" cols="3">
               <v-row style="width:100%">
-                <img src="/SoWork Logos with Icons-173.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
+                <img src="/SoWork Logos with Icons-173.png" style="max-width: 500px;max-height:500px;margin-left:-110px;margin-top:0px">
               </v-row>
             </v-col>
 
