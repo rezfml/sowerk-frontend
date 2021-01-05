@@ -104,11 +104,11 @@
                         </template>
                       </v-checkbox>
                       <v-select
-                        placeholder=" "
+                        placeholder=""
                         class="my-2"
                         :rules="rules.requiredRules"
                         v-model="formfield.value"
-                        :items="formfield.options.split(',')"
+                        :items="formfield.options.split(', ')"
                         v-if="formfield.type ==='select'"
                         outlined
                       >
