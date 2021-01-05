@@ -86,6 +86,7 @@
                         :rules="rules.requiredRules"
                         v-model="formfield.value"
                         v-if="formfield.type ==='text'"
+                        outlined
                       >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
@@ -107,8 +108,9 @@
                         class="my-2"
                         :rules="rules.requiredRules"
                         v-model="formfield.value"
-                        :items="formfield.options"
+                        :items="formfield.options.split(',')"
                         v-if="formfield.type ==='select'"
+                        outlined
                       >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
