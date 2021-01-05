@@ -356,6 +356,13 @@
             id: 'supportfeedback',
             children: [
               {
+                to: '/dashboard/feedback/',
+                slug: 'feedback',
+                icon: 'mdi-comment-question',
+                text: 'Feedback',
+                class: 'fixed-bottom',
+              },
+              {
                 to: '/dashboard/feedback/sowerkInfo/',
                 slug: 'profile',
                 icon: 'settings',
