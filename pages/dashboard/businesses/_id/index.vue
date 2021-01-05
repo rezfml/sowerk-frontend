@@ -85,11 +85,35 @@
                         class="my-2"
                         :rules="rules.requiredRules"
                         v-model="formfield.value"
+                        v-if="formfield.type ==='text'"
                       >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
                       </v-text-field>
+                      <v-checkbox
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        v-model="formfield.value"
+                        v-if="formfield.type ==='checkbox'"
+                      >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-checkbox>
+                      <v-select
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        v-model="formfield.value"
+                        :items="formfield.options"
+                        v-if="formfield.type ==='select'"
+                      >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-select>
                     </template>
                   </v-form>
                 </v-card-text>
