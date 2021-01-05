@@ -1402,6 +1402,7 @@ const naics = require("naics");
           'text',
           'number',
           'date',
+          'checkbox',
           // 'file',
           // 'select',
         ],
@@ -2481,19 +2482,14 @@ const naics = require("naics");
         // }
       },
       async userformEditActive(userform) {
-        console.log(userform.active, 'active userform');
+        console.log(userform.applicationStatus, 'active userform');
         const changes = {
           applicationStatus: Number,
-          applicationStatusLinkPublish: false
         }
         if(userform.applicationStatus === 'Unpublished') {
           changes.applicationStatus = 0
-          changes.applicationStatusLinkPublish = false
-          userform.applicationStatusLinkPublish = false
         } else if (userform.applicationStatus === 'Published - Public') {
           changes.applicationStatus = 1
-          changes.applicationStatusLinkPublish = false
-          userform.applicationStatusLinkPublish = false
         } else {
           changes.applicationStatus = 2
         }
@@ -2502,7 +2498,7 @@ const naics = require("naics");
             console.log(response, 'success, form is now active changed')
           })
           .catch(err => {
-            console.log(err, 'err in changing form')
+            console.log(err, 'err in changing form', changes)
           })
       },
       async userformEditApplicationPublish(userform) {
