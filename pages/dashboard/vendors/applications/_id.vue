@@ -147,7 +147,8 @@
                   </transition>
                   <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
                     <v-btn style="background: #707070; color: white;" @click.prevent="addOption(form, index)">Add Another Option</v-btn>
-                    <v-card-text v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                    <v-card-title v-if="form.options !== String" v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-title>
+                    <v-card-title v-else v-for="(option,iVal) in form.options.split(', ')" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-title>
                   </template>
                 </v-card>
               </draggable>
@@ -792,40 +793,77 @@
             formfield["userform_id"] = this.userForms.id
             formfield.order = index;
             if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
-              let newFormField = {
-                userform_id: formfield.userform_id,
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                let newFormField = {
+                  userform_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
+              } else {
+                let newFormField = {
+                  userform_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
               }
               this.filteredUniqueUserForms.push(formfield)
-              await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
-                .then(response => {
-                  console.log(response, 'posting new formfield for userform');
-                })
-                .catch(err => {
-                  console.log(err, 'err');
-                })
             } else {
               this.filteredSameUserForms.push(formfield)
-              const changes = {
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
+              } else {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
               }
-              await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
-                .then(response => {
-                  console.log(response, 'updating formfield ', formfield.id)
-                })
-                .catch(err => {
-                  console.log('error in updating formfield', err)
-                })
             }
           })
         } else {
@@ -834,40 +872,77 @@
             formfield["userform_id"] = this.userForms.id
             formfield.order = index;
             if(!(this.originalUserForms.some(val => (val.id === formfield.id)))) {
-              let newFormField = {
-                userform_id: formfield.userform_id,
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                let newFormField = {
+                  userform_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
+              } else {
+                let newFormField = {
+                  userform_id: this.$route.params.id,
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.$route.params.id, newFormField)
+                  .then(response => {
+                    console.log(response, 'posting new formfield for userform');
+                  })
+                  .catch(err => {
+                    console.log(err, 'err');
+                  })
               }
               this.filteredUniqueUserForms.push(formfield)
-              await this.$http.post('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + this.userForms.id, newFormField)
-                .then(response => {
-                  console.log(response, 'posting new formfield for userform');
-                })
-                .catch(err => {
-                  console.log(err, 'err');
-                })
             } else {
               this.filteredSameUserForms.push(formfield)
-              const changes = {
-                name: formfield.name,
-                options: formfield.options,
-                order: formfield.order,
-                required: formfield.required,
-                type: formfield.type,
-                value: formfield.value
+              if(typeof formfield.options === 'string') {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options,
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
+              } else {
+                const changes = {
+                  name: formfield.name,
+                  options: formfield.options.join(', '),
+                  order: formfield.order,
+                  required: formfield.required,
+                  type: formfield.type,
+                  value: formfield.value
+                }
+                await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
+                  .then(response => {
+                    console.log(response, 'updating formfield ', formfield.id)
+                  })
+                  .catch(err => {
+                    console.log('error in updating formfield', err)
+                  })
               }
-              await this.$http.put('https://www.sowerkbackend.com/api/formfields/' + formfield.id, changes)
-                .then(response => {
-                  console.log(response, 'updating formfield ', formfield.id)
-                })
-                .catch(err => {
-                  console.log('error in updating formfield', err)
-                })
             }
           })
         }
@@ -892,6 +967,10 @@
         for(let i=0; i<this.userForms.formfields.length; i++) {
           console.log(this.userForms.formfields[i])
           this.userForms.formfields[i].order = i;
+          if( this.userForms.formfields[i].options !== '' && typeof  this.userForms.formfields[i].options === 'string') {
+             this.userForms.formfields[i].options =  this.userForms.formfields[i].options.split(', ')
+            console.log( this.userForms.formfields[i].options, 'OPTIONS!!!!!')
+          }
           console.log(this.userForms.formfields[i].options, 'OPTIONS!!!!!')
         }
         console.log(this.userForms.formfields, 'updating userForms.formfields');
