@@ -120,7 +120,7 @@
                   </transition>
                   <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
                     <v-btn style="background: #707070; color: white;" @click.stop="addOption(form, index)">Add Another Option</v-btn>
-                    <v-card-text v-for="(option,iVal) in form.options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                    <v-card-text v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-text>
                   </template>
                 </v-card>
               </draggable>
