@@ -354,6 +354,15 @@
             icon: 'mdi-comment-question',
             text: 'Support & Feedback',
             id: 'supportfeedback',
+            children: [
+              {
+                to: '/dashboard/feedback/sowerkInfo/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'SOWERK 101',
+                class: 'fixed-bottom',
+              },
+            ]
           },
           {
             to: '/dashboard/profile/',
