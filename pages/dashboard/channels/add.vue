@@ -413,10 +413,32 @@
                 >
               </template>
 
-              <v-card style="width: 100%; background-color: #9A9A9A;" class="d-flex flex-column align-center mt-4">
-                <h2 class="my-2" style="width: 100%; color: white; text-align: center;">List Channel Category <span style="color: #A61c00">*</span></h2>
+              <v-card style="width: 100%; background-color: lightgrey;" class="d-flex flex-column mt-4">
+                <h2 class="ml-4 my-4" style="width: 100%;">List Primary Category <span style="color: #A61c00">*</span></h2>
                 <v-autocomplete
                   v-model="services"
+                  :items="naicsList"
+                  item-text="name"
+                  item-value="name"
+                  solo
+                  clearable
+                  hint="(Select the primary NAICS category that best defines this channel.)"
+                  persistent-hint
+                  outlined
+                  color=""
+                  style="width: 80%;"
+                  class="ml-4"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p style="color: #151515">{{ data.item.name }}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p style="color: #151515">{{ data.item.name }}</p>
+                  </template>
+                </v-autocomplete>
+                <h2 class="ml-4 my-4" style="width: 100%;">Additional Channel Category</h2>
+                <v-autocomplete
+                  v-model="servicesAdditional1"
                   :items="naicsList"
                   item-text="name"
                   item-value="name"
@@ -426,7 +448,30 @@
                   persistent-hint
                   outlined
                   color=""
-                  style="width: 80%; background-color: white"
+                  style="width: 80%;"
+                  class="ml-4"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p style="color: #151515">{{ data.item.name }}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p style="color: #151515">{{ data.item.name }}</p>
+                  </template>
+                </v-autocomplete>
+                <h2 class="ml-4 my-4" style="width: 100%;">Additional Channel Category</h2>
+                <v-autocomplete
+                  v-model="servicesAdditional2"
+                  :items="naicsList"
+                  item-text="name"
+                  item-value="name"
+                  solo
+                  clearable
+                  hint="(This is generated from the NAICS directory.)"
+                  persistent-hint
+                  outlined
+                  color=""
+                  style="width: 80%;"
+                  class="ml-4"
                 >
                   <template slot="selection" slot-scope="data">
                     <p style="color: #151515">{{ data.item.name }}</p>
@@ -680,6 +725,8 @@
         sowerkTags: [],
         search: null,
         services: '',
+        servicesAdditional1: '',
+        servicesAdditional2: '',
         naicsList: [],
         vendorType: [],
         originalVendorType: [],
@@ -836,6 +883,28 @@
             if(this.services !== '') {
               this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
                 name: this.services
+              })
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting service')
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting service')
+                })
+            }
+            if(this.servicesAdditional1 !== '') {
+              this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
+                name: this.servicesAdditional1
+              })
+                .then(responseVal => {
+                  console.log(responseVal, 'success in posting service')
+                })
+                .catch(err => {
+                  console.log(err, 'err in posting service')
+                })
+            }
+            if(this.servicesAdditional2 !== '') {
+              this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + response.data.location.id, {
+                name: this.servicesAdditional2
               })
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting service')
