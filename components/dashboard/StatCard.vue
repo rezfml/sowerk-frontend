@@ -1,13 +1,17 @@
 <template>
   <v-container v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="d-flex flex-column align-center" style="white-space: pre-wrap !important; background-color: white; height: 100%;">
 <!--    <v-card v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="fill-height d-flex flex-column justify-space-between">-->
-      <v-card-title class="text-center primary--text font-weight-bold" style="font-size: 18px; white-space: pre-wrap !important; word-break: break-word;">{{ stat.title }}</v-card-title>
-      <v-card-text class="text-center primary--text mt-12" style="font-size: 108px;">{{ stat.value }}</v-card-text>
+      <v-card-title class="text-center primary--text font-weight-bold" style="font-size: 1rem; white-space: pre-wrap !important; word-break: break-word;">{{ stat.title }}</v-card-title>
+      
+      <v-card-text class="text-center primary--text" style="font-size: 4rem;">{{ stat.value }}</v-card-text>
+      
       <v-card-actions style="position: absolute; bottom: 10px;">
-        <v-btn outlined rounded block color="primary" class="px-16 py-6" style="width: 100% !important; font-size: 18px;" :to="stat.link">View All</v-btn>
+        <v-btn outlined rounded block color="primary" class="px-16 py-6" style="width: 100% !important; font-size: .8rem;" :to="stat.link">View All</v-btn>
       </v-card-actions>
 <!--    </v-card>-->
   </v-container>
+
+
   <v-container v-else style="white-space: pre-wrap !important;">
     <!--    <v-card v-else class="fill-height d-flex flex-column justify-space-between" style="min-width:135%;margin-left:-17.5%;">-->
     <v-card-title>

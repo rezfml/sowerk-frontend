@@ -4,7 +4,8 @@
 
       <!-- NOT SUPER USER -->
       <transition name="slide-fade">
-        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.currentUser.is_superuser === false">
+        <!-- VENDOR USER -->
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.companyType === false">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
 
             <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
@@ -27,7 +28,7 @@
         </v-card>
 
         <!-- SUPER USER -->
-        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.currentUser.is_superuser === true">
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.companyType === true">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
             <v-col cols="3" style="color:white;width:100%;text-align:center;">
@@ -49,10 +50,10 @@
           </v-row>
         </v-card>
       </transition>
-
-      <!-- NOT SUPER USER -->
+      
+      <!-- VENDOR USER -->
       <transition name="slide-fade">
-        <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.currentUser.is_superuser === false">
+        <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.companyType === false">
           <div style="position:relative;border-radius:1%;">
             <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
             </iframe>
@@ -60,9 +61,9 @@
         </v-card>
       </transition>
 
-      <!-- SUPER USER -->
+      <!-- BUSINESS USER -->
       <transition name="slide-fade">
-        <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && this.currentUser.is_superuser === true">
+        <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && this.companyType === true">
           <div style="position:relative;border-radius:1%;">
             <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
             </iframe>
@@ -70,9 +71,9 @@
         </v-card>
       </transition>
 
-      <!-- CCOUNT CHANNELS BANNER if Business -->
+      <!-- COUNT CHANNELS BANNER if Business -->
       <transition name="slide-fade">
-        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.currentUser.is_superuser === true">
+        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
             <v-col cols="1" style="margin-left:5%">
               <v-img src="/channels-icon.svg"></v-img>
@@ -130,7 +131,7 @@
 
       <!-- ACCOUNT CHANNELS BANNER if Vendor -->
       <transition name="slide-fade">
-        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.currentUser.is_superuser === false">
+        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
             <v-col cols="1" style="margin-left:5%">
               <v-img src="/channels-icon.svg"></v-img>
@@ -363,20 +364,6 @@
               :filterItems="filterItems"
             ></FacilitiesCard>
           </transition>
-            <!--          <transition name="slide-fade">-->
-            <!--            <v-row class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;" v-if="currentUser.is_superuser && loading">-->
-            <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
-            <!--              <v-btn-->
-            <!--                style=""-->
-            <!--                class="px-16 mr-16"-->
-            <!--                large-->
-            <!--                outlined-->
-            <!--                rounded-->
-            <!--                color="white"-->
-            <!--                to="add"-->
-            <!--              >Add Now</v-btn>-->
-            <!--            </v-row>-->
-            <!--          </transition>-->
         </v-col>
       </v-row>
     </v-container>
@@ -521,6 +508,7 @@
         originalLocations: [],
         sowerkTags: [],
         locationFilterTags: [],
+        companyType: null
       }
     },
     watch: {
@@ -534,9 +522,7 @@
     },
     mounted() {
       this.getCompany();
-      // this.getLocations();
       this.getSowerkTags();
-      console.log(this.currentUser, "gggggggggggggggggggggggg");
     },
     computed: {
       currentUser() {
@@ -544,11 +530,22 @@
       },
     },
     methods: {
-      showVideoCard() {
-        this.showVideo = true
+      showVideoCard(){
+        if(this.showVideo === false){
+          this.showVideo = true
+        } else {
+          this.showVideo = false
+        }
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        console.log(data, "oooooooooo")
+        if (data.company_type === "false"){
+          this.companyType = false
+        } else if (data.company_type === "true"){
+          this.companyType = true
+        }
+        console.log(this.companyType, "hey")
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
         if(this.currentUser.is_superuser === false && this.company.locations[0] !== 'There are no locations') {

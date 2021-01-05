@@ -116,30 +116,30 @@
         <!-- ACCOUNT CHANNELS CARD  -->
         <v-col cols="4" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-            <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
+            <v-row style="width: 100%; height: 40%;" class="d-flex justify-center mt-n16">
               <img style="width: 10%" class="ml-12 mt-n16" src="/channels-icon.svg">
               <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWerk-LogoFacilities.png">
             </v-row>
-            <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+            <v-card-text class="" style="font-size: 18px; text-align: center;margin-bottom:5%;margin-top:10%">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
             <v-row class="mt-n2 mb-n2">
               <v-col cols="3" style="text-align:center;">
-                <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
-                <h2 style="font-weight:900;font-size:1.1rem;">Locations</h2>
+                <v-img src="/building.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                <h2 style="font-weight:900;font-size:.8rem;">Locations</h2>
               </v-col>
 
               <v-col cols="3" style="text-align:center">
-                <v-img src="/digging.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
-                <h2 style="font-weight:900;font-size:1.1rem;">Major Projects</h2>
+                <v-img src="/digging.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                <h2 style="font-weight:900;font-size:.8rem;">Major Projects</h2>
               </v-col>
 
               <v-col cols="3" style="text-align:center">
-                <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
-                <h2 style="font-weight:900;font-size:1.1rem;">Departments</h2>
+                <v-img src="/connection.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                <h2 style="font-weight:900;font-size:.8rem;">Departments</h2>
               </v-col>
 
               <v-col cols="3" style="text-align:center">
-                <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:10%;"></v-img>
-                <h2 style="font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
+                <v-img src="/business-and-finance.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
               </v-col>
             </v-row>
             <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
@@ -153,8 +153,8 @@
               <img style="width: 10%" class="ml-12 mt-n16" src="/resume.svg">
               <img style="width: 90%;" class="ml-n12 mt-n16" src="/VendorApplicationsLogo-159.png">
             </v-row>
-            <v-card-text style="font-size: 18px; text-align: center" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
-            <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/applications">Manage Applications</v-btn>
+            <v-card-text style="font-size: 18px; text-align: center;margin-bottom:12%;" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
+            <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/applications">Manage Applications</v-btn>
           </v-card>
         </v-col>
 
@@ -163,11 +163,12 @@
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center">
             <v-row style="width: 100%;" class="d-flex align-center justify-center">
               <img style="width: 10%;" class="" src="/magnifying-glass.svg">
-              <img style="width: 45%;" class="" src="/SoWork Vendor Search -170.png" >
+              <img style="width: 35%;" class="" src="/SoWork Vendor Search -170.png" >
             </v-row>
-            <v-card-text style="font-size: 18px;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
-            <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-            <v-btn color="primary" class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+            <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
+            <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn>
+            <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
+            <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
           </v-card>
         </v-col>
       </v-row>
@@ -177,43 +178,45 @@
         
         <v-col cols="4">
           <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
-            <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
-            <v-card-text class="my-2" style="color: white; text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
+            <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
+            <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
             <v-btn outlined @click="renderVideoCard" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
           </v-card>
         </v-col>
 
         <v-col cols="8" style="height: auto;">
           <v-card style="width: 100%; height: 30vh;" class="d-flex align-center">
-            <v-col class="d-flex flex-column align-center mt-16 mb-n16" cols="3">
-              <img src="/complete-icon.svg" style="width: 40%;" class="mb-n16 mt-16">
-              <img src="/APPROVED-VENDORS-Logo-163.png" style="width: 200%; margin-top: -150px !important;" class="mt-n16 ml-16 mr-n4">
-            </v-col>
-            <v-col v-for="(stat, index) in stats" cols="3" style="height: 100%;" class="">
-              <transition name="slide-fade">
-                <StatCard :key="index" v-if="statApproved" :stat="stat"></StatCard>
-              </transition>
-            </v-col>
+
+              <v-col class="d-flex flex-column align-center mt-16 mb-n16" cols="3">
+                <v-row style="width:100%;">
+                  <img src="/complete-icon.svg" style="width: 50%;margin-left:20%;margin-bottom:-200px">
+                </v-row>
+
+                <v-row style="width:100%">
+                  <img src="/APPROVED-VENDORS-Logo-163.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
+                </v-row>
+              </v-col>
+              
+              <v-col v-for="(stat, index) in stats" cols="3">
+                <transition name="slide-fade">
+                  <StatCard :key="index" v-if="statApproved" :stat="stat"></StatCard>
+                </transition>
+              </v-col>
+              
           </v-card>
         </v-col>
-
       </v-row>
 
-      <!-- THIS IS THE CARD THAT WILL RENDOR BELOW THE SOWERK 101 AFTER "VIEW ALL" HAS BEEN CLICKED, AND WILL HOLD THE EMBEDDED VIDEO -->
+      <!-- CARD THAT HOLDS VIDEO BELOW OTHER CARDS -->
       <transition name="slide-fade">
-
-        <!-- LINK TO YOUTUBE PLAYLIST OF SOWERK -->
-        <!-- https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1 -->
-
-        <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="viewVideoCard === true">
-          <div style="position:relative;border-radius:1%;">
-            <iframe src="" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
-            </iframe>
+        <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="viewVideoCard === true && company.company_type === 'true'">
+          <div style="position:relative;border-radius:1%;margin-left:22%;">
+            <iframe src="https://player.vimeo.com/video/496996565" width="900" height="450" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
           </div>
         </v-card>
-
       </transition>
 
+      <!-- RENDERS ONLY IF USER IS VENDOR -->
       <transition name="slide-fade">
         <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
           <v-col cols="12" class="d-flex justify-center mt-n8">
@@ -242,6 +245,7 @@
                   <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                 </v-card>
               </v-col>
+
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                   <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
@@ -252,6 +256,7 @@
                   <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
+
               <v-col cols="12" class="my-4 mt-8">
                 <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                   <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
@@ -259,6 +264,7 @@
                   <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
                 </v-card>
               </v-col>
+
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                   <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
@@ -269,6 +275,7 @@
                   <v-btn color="primary" target="_blank" href="https://www.youtube.com/channel/UC1e-4shGXMhvdhZUotuKOYg" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
+
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                   <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
@@ -279,6 +286,7 @@
                   <v-btn color="primary" to="dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
                 </v-card>
               </v-col>
+
               <v-col cols="12" class="mt-8">
                 <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex align-center justify-center">
                   <v-card-title class="" style="font-size: 50px; width: 70%; text-align: left">MANAGE SOWERK ACCOUNT</v-card-title>
@@ -335,27 +343,6 @@
               </v-card>
             </v-col>
           </v-col>
-<!--          <v-col col-md-12 col-xs-12 col-sm-12 v-for="(stat, index) in providerStats" :key="index" class="d-flex nowrap">-->
-<!--            <transition name="slide-fade">-->
-<!--              <StatCard :stat="stat"></StatCard>-->
-<!--            </transition>-->
-<!--          </v-col>-->
-
-<!--          <v-col cols="12" class="d-flex flex-column align-center">-->
-<!--            <v-card-title style="color: white" class="text-bold text-center">Pending Documents</v-card-title>-->
-<!--            <v-card-subtitle style="color: white; width: 80%;" class="text-bold text-center">These are documents that are being requested by businesses on SOWerk for you to fill out. Typically this is done to move forward in an approval process, bid request, or to provide other sensitive information that may have to be provided through other means, or be filled out by you.</v-card-subtitle>-->
-<!--            <v-data-table-->
-<!--              :items-per-page="4"-->
-<!--              :items="vendorDocuments"-->
-<!--              :headers="vendorHeaders"-->
-<!--              style="width: 80%;"-->
-<!--            >-->
-<!--              <template v-slot:item.actions="{item, index}" class="d-flex justify-center">-->
-<!--                <v-btn :href="item.documentUrl" target="_blank" color="#707070" class="my-1" style="width: 40%; color: white;">Download</v-btn>-->
-<!--                <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 40%; color: white;">Send Back To Business</v-btn>-->
-<!--              </template>-->
-<!--            </v-data-table>-->
-<!--          </v-col>-->
         </v-row>
       </transition>
 
@@ -373,97 +360,6 @@
           </v-card>
         </v-row>
       </transition>
-<!--      <v-row v-if="company && company.company_type === 'false'">-->
-<!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
-<!--        </v-col>-->
-<!--      <v-card class="white pt-0 mt-12" v-if="company && company.company_type !== 'false'">-->
-<!--        <v-container fluid >-->
-<!--          <v-card-title v-if="$vuetify.breakpoint.xs"  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14px;line-height:1.2;" class="primary white&#45;&#45;text font-weight-regular red-gradient; " >Approved Vendors - <br/>Quick Look Up</v-card-title>-->
-<!--          <v-card-title v-else-if="$vuetify.breakpoint.md||$vuetify.breakpoint.sm "  md="6" xs="12" style="position: relative; top: -30px; width: 50%; border-radius: 3px; font-size: 14.5px; line-height:1.2;" class="primary white&#45;&#45;text font-weight-regular red-gradient " >Approved Vendors - Quick Look Up</v-card-title>-->
-<!--          <v-card-title v-else style="position: absolute; top: -30px; left: 25px; width: 35%; border-radius: 3px; font-size: 18px;" class="primary white&#45;&#45;text font-weight-regular red-gradient " >Approved Vendors - <br v-show="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md"/> Quick Look Up</v-card-title>-->
-
-<!--          <v-card-actions v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" class="d-flex justify-end px-0 py-0">-->
-<!--            <v-row class="py-0">-->
-<!--              <v-spacer></v-spacer>-->
-<!--              <v-col cols="12" class="mt-1">-->
-<!--                <v-text-field-->
-<!--                  label="Search"-->
-<!--                  light-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--          </v-card-actions>-->
-
-<!--          <v-card-actions v-else class="d-flex justify-end px-4 py-0">-->
-<!--            <v-row class="py-0">-->
-<!--              <v-spacer></v-spacer>-->
-<!--              <v-col cols="6" class="py-0">-->
-<!--                <v-text-field-->
-<!--                  label="Search"-->
-<!--                  light-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--          </v-card-actions>-->
-
-<!--          <v-card-text class="pt-0" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs || $vuetify.breakpoint.md" >-->
-<!--            <v-sheet-->
-<!--              class="mx-auto"-->
-<!--              max-width="100%"-->
-<!--            >-->
-<!--              <v-slide-group multiple show-arrows>-->
-<!--                <v-slide-item-->
-<!--                  v-for="(item, index) in quickLookUps"-->
-<!--                  :key="index"-->
-<!--                  v-slot:default="{ active, toggle }"-->
-<!--                  class ="px-3"-->
-<!--                >-->
-<!--                  <v-card width="200" elevation="0">-->
-<!--                    <v-row>-->
-<!--                      <v-col class="d-flex flex-column justify-center py-0">-->
-<!--                        <p class="text-center primary&#45;&#45;text title" size="50">{{ item.name }}</p>-->
-<!--                        <v-icon color="primary" size="50">{{ item.icon }}</v-icon>-->
-<!--                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="70%">View All</v-btn>-->
-<!--                      </v-col>-->
-<!--                    </v-row>-->
-<!--                  </v-card>-->
-<!--                </v-slide-item>-->
-<!--              </v-slide-group>-->
-<!--            </v-sheet>-->
-<!--          </v-card-text>-->
-
-<!--          <v-card-text class="pt-0" v-else>-->
-<!--            <v-sheet-->
-<!--              class="mx-auto"-->
-<!--              max-width="100%"-->
-<!--            >-->
-<!--              <v-slide-group multiple show-arrows>-->
-<!--                <v-slide-item-->
-<!--                  v-for="(item, index) in quickLookUps"-->
-<!--                  :key="index"-->
-<!--                  v-slot:default="{ active, toggle }"-->
-<!--                  class ="px-4"-->
-<!--                >-->
-<!--                  <v-card width="200" elevation="0">-->
-<!--                    <v-row>-->
-<!--                      <v-col class="d-flex flex-column justify-center py-0">-->
-<!--                        <p class="text-center primary&#45;&#45;text title">{{ item.name }}</p>-->
-<!--                        <v-icon color="primary" size="100">{{ item.icon }}</v-icon>-->
-<!--                        <v-btn class="mx-auto mt-4" color="primary" outlined rounded small :href="item.link" width="100%">View All</v-btn>-->
-<!--                      </v-col>-->
-<!--                    </v-row>-->
-<!--                  </v-card>-->
-<!--                </v-slide-item>-->
-<!--              </v-slide-group>-->
-<!--            </v-sheet>-->
-<!--          </v-card-text>-->
-<!--        </v-container>-->
-<!--      </v-card>-->
     </v-container>
   </v-app>
 </template>
@@ -668,7 +564,6 @@
         await this.getCompany();
         await this.getLicenses();
         await this.getInsurances();
-        // await this.getLocations();
         await this.getApprovedProviderConnections();
         await this.getApplications(this.currentUser.companies_id);
         await this.getMessages(this.currentUser.companies_id);
@@ -676,6 +571,7 @@
         if(this.company.company_type === 'false') {
           await this.getVendorProvidedDocuments();
         }
+        console.log(this.company.company_type, "Gggggggg")
     },
     methods: {
       async getInsurances() {
@@ -705,7 +601,11 @@
           })
       },
       renderVideoCard() {
-        this.viewVideoCard = true
+        if(this.viewVideoCard === true){
+          this.viewVideoCard = false
+        } else {
+          this.viewVideoCard = true
+        }
       },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);
@@ -823,6 +723,7 @@
       },
       async getUser() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id).catch(e => e);
+        console.log(data, "gggggggd")
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
