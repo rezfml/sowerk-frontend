@@ -7,6 +7,33 @@
 <!--        :size="50"-->
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
+
+    <!-- NOT SUPER USER -->
+    <transition name="slide-fade">
+      <!-- SUPER USER -->
+      <v-card class="my-4 flex-row justify-space-between align-center" style="position: relative; margin-left:3%;margin-right:4%;">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+          </v-col>
+
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn about Finding A SOWerk Vendor.</p>
+          </v-col>
+
+          <!-- VENDOR CHANNELS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <v-btn @click="renderVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW -Find A SOWerk Vendor-
+              </span>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
     <v-row>
       <v-col cols="3">
         <v-skeleton-loader
@@ -25,51 +52,61 @@
         ></v-skeleton-loader>
       </v-col>
     </v-row>
+
+    <!-- CARD THAT HOLDS VIDEO BELOW OTHER CARDS -->
     <transition name="slide-fade">
-    <v-container class="px-0" style="max-width: 95%; position: absolute; top: 10px; left: 10px;" v-if="loading">
-<!--      <v-row class="d-flex align-center" style="width: 100%">-->
-<!--        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
-<!--        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">-->
-<!--          <v-slide-item-->
-<!--            v-for="(item, index) in quickLookUps"-->
-<!--            :key="index"-->
-<!--            v-slot:default="{ active, toggle }"-->
-<!--            class="px-4 d-flex align-center"-->
-<!--            style=" background: #E0E0E0; width: 70%; border-radius: 50px;"-->
-<!--          >-->
-<!--            <v-card width="300" elevation="0">-->
-<!--              <v-row>-->
-<!--                <v-col class="d-flex flex-column align-center justify-center py-0">-->
-<!--                  <p class="text-center primary&#45;&#45;text title">{{ item.name }}</p>-->
-<!--                  <v-icon color="primary" size="100">{{ item.icon }}</v-icon>-->
-<!--                </v-col>-->
-<!--              </v-row>-->
-<!--            </v-card>-->
-<!--          </v-slide-item>-->
-<!--        </v-slide-group>-->
-<!--      </v-row>-->
-      <v-row>
-<!--        <v-col cols="3">-->
-<!--          <img style="width: 100%;" class="mb-n16 mt-n16" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
-<!--          <FilterCard-->
-<!--            class="mt-n4"-->
-<!--            title="Filter"-->
-<!--            :filters="filters"-->
-<!--          ></FilterCard>-->
-<!--        </v-col>-->
-        <v-col cols="12" class="d-flex flex-column justify-space-between">
-          <FacilitiesCard
-            v-if="vendors && loading === true"
-            :title="'Find A SOWerk Vendor'"
-            :items="vendors"
-            :tableProperties="headers"
-            :viewAll="false"
-            action="View"
-            slug="/dashboard/vendors/"
-          ></FacilitiesCard>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="viewVideoCard === true">
+        <div style="position:relative;border-radius:1%;margin-left:22%;">
+          <iframe src="https://player.vimeo.com/video/496996565" width="900" height="450" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-container class="px-0" style="max-width: 95%;margin-bottom:10%" v-if="loading">
+        <!--      <v-row class="d-flex align-center" style="width: 100%">-->
+        <!--        <img style="width: 30%; margin-bottom: -170px; margin-top: -100px;" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
+        <!--        <v-slide-group multiple :show-arrows="showArrows" style="background: #E0E0E0; width: 70%; max-height: 200px; margin-top: 50px; border-radius: 140px;">-->
+        <!--          <v-slide-item-->
+        <!--            v-for="(item, index) in quickLookUps"-->
+        <!--            :key="index"-->
+        <!--            v-slot:default="{ active, toggle }"-->
+        <!--            class="px-4 d-flex align-center"-->
+        <!--            style=" background: #E0E0E0; width: 70%; border-radius: 50px;"-->
+        <!--          >-->
+        <!--            <v-card width="300" elevation="0">-->
+        <!--              <v-row>-->
+        <!--                <v-col class="d-flex flex-column align-center justify-center py-0">-->
+        <!--                  <p class="text-center primary&#45;&#45;text title">{{ item.name }}</p>-->
+        <!--                  <v-icon color="primary" size="100">{{ item.icon }}</v-icon>-->
+        <!--                </v-col>-->
+        <!--              </v-row>-->
+        <!--            </v-card>-->
+        <!--          </v-slide-item>-->
+        <!--        </v-slide-group>-->
+        <!--      </v-row>-->
+        <v-row>
+          <!--        <v-col cols="3">-->
+          <!--          <img style="width: 100%;" class="mb-n16 mt-n16" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-156.png" />-->
+          <!--          <FilterCard-->
+          <!--            class="mt-n4"-->
+          <!--            title="Filter"-->
+          <!--            :filters="filters"-->
+          <!--          ></FilterCard>-->
+          <!--        </v-col>-->
+          <v-col cols="12" class="d-flex flex-column justify-space-between">
+            <FacilitiesCard
+              v-if="vendors && loading === true"
+              :title="'Find A SOWerk Vendor'"
+              :items="vendors"
+              :tableProperties="headers"
+              :viewAll="false"
+              action="View"
+              slug="/dashboard/vendors/"
+            ></FacilitiesCard>
+          </v-col>
+        </v-row>
+      </v-container>
     </transition>
   </v-app>
 </template>
@@ -87,6 +124,7 @@
     },
     data() {
       return {
+        viewVideoCard: false,
         loading: false,
         vendors: [
         ],
@@ -267,6 +305,13 @@
       await this.getBusinesses();
     },
     methods: {
+      renderVideoCard() {
+        if(this.viewVideoCard === true){
+          this.viewVideoCard = false
+        } else {
+          this.viewVideoCard = true
+        }
+      },      
       async getBusinesses() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
           .then(response => {

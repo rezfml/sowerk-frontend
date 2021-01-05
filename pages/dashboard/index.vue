@@ -2,14 +2,14 @@
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
     <v-container class="" fluid id="v-step-0" style="width: 100%;">
       <v-row class="d-flex justify-center">
-<!--        <v-col cols="12">-->
-<!--          <v-skeleton-loader-->
-<!--            v-if="!locationApproved"-->
-<!--            type="card-avatar, article, article, actions"-->
-<!--            min-height="50vh"-->
-<!--            min-width="50vw"-->
-<!--          ></v-skeleton-loader>-->
-<!--        </v-col>-->
+        <!--        <v-col cols="12">-->
+        <!--          <v-skeleton-loader-->
+        <!--            v-if="!locationApproved"-->
+        <!--            type="card-avatar, article, article, actions"-->
+        <!--            min-height="50vh"-->
+        <!--            min-width="50vw"-->
+        <!--          ></v-skeleton-loader>-->
+        <!--        </v-col>-->
         <v-col cols="3" class="mx-2">
           <v-skeleton-loader
             v-if="!locationApproved"
@@ -166,7 +166,8 @@
               <img style="width: 35%;" class="" src="/SoWork Vendor Search -170.png" >
             </v-row>
             <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
-            <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn>
+            <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
+            <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
             <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
             <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
           </v-card>
@@ -180,37 +181,28 @@
           <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
             <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
             <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-            <v-btn outlined @click="renderVideoCard" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+            <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
           </v-card>
         </v-col>
 
         <v-col cols="8" style="height: auto;">
           <v-card style="width: 100%; height: 30vh;" class="d-flex align-center">
 
-              <v-col class="d-flex flex-column align-center" cols="3">
-                <v-row style="width:100%">
-                  <img src="/SoWork Logos with Icons-173.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
-                </v-row>
-              </v-col>
+            <v-col class="d-flex flex-column align-center" cols="3">
+              <v-row style="width:100%">
+                <img src="/SoWork Logos with Icons-173.png" style="width: 500px;height:500px;margin-left:-110px;margin-top:0px">
+              </v-row>
+            </v-col>
 
-              <v-col v-for="(stat, index) in stats" cols="3">
-                <transition name="slide-fade">
-                  <StatCard :key="index" v-if="statApproved" :stat="stat"></StatCard>
-                </transition>
-              </v-col>
+            <v-col v-for="(stat, index) in stats" cols="3">
+              <transition name="slide-fade">
+                <StatCard :key="index" v-if="statApproved" :stat="stat"></StatCard>
+              </transition>
+            </v-col>
 
           </v-card>
         </v-col>
       </v-row>
-
-      <!-- CARD THAT HOLDS VIDEO BELOW OTHER CARDS -->
-      <transition name="slide-fade">
-        <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="viewVideoCard === true && company.company_type === 'true'">
-          <div style="position:relative;border-radius:1%;margin-left:22%;">
-            <iframe src="https://player.vimeo.com/video/496996565" width="900" height="450" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-          </div>
-        </v-card>
-      </transition>
 
       <!-- RENDERS ONLY IF USER IS VENDOR -->
       <transition name="slide-fade">
@@ -376,7 +368,6 @@
     },
     data() {
       return {
-        viewVideoCard: false,
         openUploadModelLoad: false,
         loadModal: false,
         loading: false,
@@ -595,13 +586,6 @@
           .catch(err => {
             console.log('err', err);
           })
-      },
-      renderVideoCard() {
-        if(this.viewVideoCard === true){
-          this.viewVideoCard = false
-        } else {
-          this.viewVideoCard = true
-        }
       },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);
