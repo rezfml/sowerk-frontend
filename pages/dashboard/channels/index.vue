@@ -50,7 +50,7 @@
           </v-row>
         </v-card>
       </transition>
-
+      
       <!-- VENDOR USER -->
       <transition name="slide-fade">
         <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.companyType === false">
@@ -523,7 +523,6 @@
     mounted() {
       this.getCompany();
       this.getSowerkTags();
-      console.log(this.currentUser, "gggggggggggggggggggggggg");
     },
     computed: {
       currentUser() {
@@ -531,6 +530,13 @@
       },
     },
     methods: {
+      showVideoCard(){
+        if(this.showVideo === false){
+          this.showVideo = true
+        } else {
+          this.showVideo = false
+        }
+      },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         console.log(data, "oooooooooo")
