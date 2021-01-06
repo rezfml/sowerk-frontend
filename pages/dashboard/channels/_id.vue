@@ -37,7 +37,7 @@
             action="ViewApproved"
             :company="company"
             :locationApproved="locationApproved"
-            slug="/dashboard/vendors/approved"
+            slug="/dashboard/vendors/approved/"
           ></FacilitiesCard>
           </transition>
 
