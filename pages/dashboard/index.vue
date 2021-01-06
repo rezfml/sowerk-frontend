@@ -260,8 +260,8 @@
                     <img style="width: 10%;" class="ml-12 mt-n16" src="/resume.svg">
                     <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWork Logo-172.png">
                   </v-row>
-                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 60%; color: #A61C00">0</v-card-text>
-                  <v-btn color="primary" target="_blank" href="https://www.youtube.com/channel/UC1e-4shGXMhvdhZUotuKOYg" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 60%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                  <v-btn color="primary"to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
 
