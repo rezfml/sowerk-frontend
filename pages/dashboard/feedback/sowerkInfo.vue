@@ -7,70 +7,84 @@
       max-width="80vw"
     ></v-skeleton-loader> -->
 
+    <!-- BUSINESS - VIDEO PLAYLIST -->
     <transition name="slide-fade">
-        <v-row>
+      <v-row style="width:100%;" v-if="this.companyType === 'true'">
+        <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='position:absolute;top:40px;left:30px;width:95%;height:80%;'></iframe>
+      </v-row>
+    </transition>
+
+    <!-- VENDOR - VIDEO PLAYLIST -->
+    <transition name="slide-fade">
+      <v-row style="width:100%;" v-if="this.companyType === 'false'">
+        <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='position:absolute;top:40px;left:30px;width:95%;height:80%;'></iframe>
+      </v-row>
+    </transition>    
+
+    <!-- <transition name="slide-fade"> -->
+        <!-- <v-row> -->
           <!-- ALL THE BUTTONS, AND VIDEO INFO -->
-          <v-col cols="4">
+            <!-- <v-col cols="4"> -->
 
-            <!-- ALL APPLICATION VIDEOS! -->
-            <v-row style="width:100%;padding-left:5%">
-              <v-btn @click="showAllVenAppVidsfunc" class="py-4 mb-3" color="primary" style="width:100%;height:70px;padding:15%">
-                <span style="padding-top:5%;padding-left:5%;">
-                  <p style="font-size:1.1rem"> ALL APPLICATION</p>
-                  <v-spacer></v-spacer>
-                  <p style="font-size:1.1rem">VIDEOS</p>
-                </span>
-              </v-btn>
-            </v-row>
-            <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
-              <v-btn @click="showVidApp1of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                  WATCH NOW -Applications 1/4-
-              </span>
-              </v-btn>
-            </v-row>
-            <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
-              <v-btn @click="showVidApp2of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                  WATCH NOW -Applications 2/4-
-              </span>
-              </v-btn>
-            </v-row>               
-            <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
-              <v-btn @click="showVidApp3of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                  WATCH NOW -Applications 3/4-
-              </span>
-              </v-btn>
-            </v-row>
-            <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
-              <v-btn @click="showVidApp4of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                  WATCH NOW -Applications 4/4-
-              </span>
-              </v-btn>
-            </v-row>            
-
-            
-            <v-row style="width:100%;padding-left:5%">
-                <v-btn style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              <!-- ALL APPLICATION VIDEOS! -->
+              <!-- <v-row style="width:100%;padding-left:5%">
+                <v-btn @click="showAllVenAppVidsfunc" class="py-4 mb-3" color="primary" style="width:100%;height:70px;padding:15%">
+                  <span style="padding-top:5%;padding-left:5%;">
+                    <p style="font-size:1.1rem"> ALL APPLICATION</p>
+                    <v-spacer></v-spacer>
+                    <p style="font-size:1.1rem">VIDEOS</p>
+                  </span>
+                </v-btn>
+              </v-row>
+              <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
+                <v-btn @click="showVidApp1of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                 <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                    WATCH NOW -Vendor Applications-
+                    WATCH NOW -Applications 1/4-
                 </span>
                 </v-btn>
-            </v-row>
-
-            <v-row style="width:100%;padding-left:5%">
-                <v-btn style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              </v-row>
+              <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
+                <v-btn @click="showVidApp2of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                 <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                    WATCH NOW -Vendor Applications-
+                    WATCH NOW -Applications 2/4-
                 </span>
                 </v-btn>
-            </v-row>                                    
-            </v-col>
-            
-            <!-- JUST THE VIDEOS! -->
-            <v-col cols="8">
+              </v-row>               
+              <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
+                <v-btn @click="showVidApp3of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                    WATCH NOW -Applications 3/4-
+                </span>
+                </v-btn>
+              </v-row>
+              <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
+                <v-btn @click="showVidApp4of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                    WATCH NOW -Applications 4/4-
+                </span>
+                </v-btn>
+              </v-row>            
+
+              
+              <v-row style="width:100%;padding-left:5%">
+                  <v-btn style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                      WATCH NOW -Vendor Applications-
+                  </span>
+                  </v-btn>
+              </v-row>
+
+              <v-row style="width:100%;padding-left:5%">
+                  <v-btn style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                      WATCH NOW -Vendor Applications-
+                  </span>
+                  </v-btn>
+              </v-row>                                    
+              </v-col> -->
+              
+              <!-- JUST THE VIDEOS! -->
+              <!-- <v-col cols="8">
                 <v-card style="height:500px;width:100%;background-color:#404040;border-radius:1%;" v-if="this.venAppVids.vid1of4 === true">
                     <iframe src="https://player.vimeo.com/video/496999264" allowfullscreen frameborder="0" style="top:0;left:0;width:980px;height:490px;margin-left:8%;border-radius:3%;">
                     </iframe>
@@ -90,9 +104,9 @@
                     <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="top:0;left:0;width:980px;height:490px;margin-left:8%;border-radius:3%;">
                     </iframe>
                 </v-card>  
-            </v-col>
-        </v-row>
-    </transition>
+            </v-col> -->
+        <!-- </v-row> -->
+    <!-- </transition> -->
   </div>
 </template>
 
@@ -103,6 +117,7 @@
     name: 'sowerkInfo',
     data() {
       return {
+        companyType: null,
         loading: false,
         showAllVenAppVids: false,
         venAppVids: {
@@ -114,6 +129,8 @@
       }
     },
     async mounted() {
+      console.log(this.currentUser, "ggggggggggg")
+      console.log("hello")
       this.getCompany();
     },
     computed: {
@@ -155,10 +172,13 @@
           }
         },
         async getCompany() {
+          console.log("glglglglglgl")
             await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
             .then(response => {
-                this.feedbackForm.company_name = response.data.account_name;
+                // this.feedbackForm.company_name = response.data.account_name;
                 console.log(response.data, 'company');
+                this.companyType = response.data.company_type
+                console.log(this.companyType)
                 this.loading = true;
             })
             .catch(err => {
