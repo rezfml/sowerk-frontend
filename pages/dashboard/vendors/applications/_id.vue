@@ -1002,7 +1002,7 @@
           this.userForms.formfields.splice(formfieldVal.order, 1);
           console.log('this.userForms on delete', this.userForms);
         } else {
-          let confirmDelete = confirm('We noticed this question is saved to your application. Are you sure you would like to remove this question from your application');
+          let confirmDelete = confirm('Are you sure you would like to remove this question from your application?');
           if(confirmDelete === true) {
             this.userForms.formfields.splice(formfieldVal.order, 1);
             console.log('this.userForms on delete', this.userForms);
