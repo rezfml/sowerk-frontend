@@ -19,7 +19,7 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
                 <div class="d-flex flex-column align-center" style="width: 60%;">
                   <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                  <v-btn to="dashboard/businesses" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                  <v-btn to="../vendors/approved" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                 </div>
               </v-row>
             </v-row>
@@ -373,11 +373,6 @@
                 <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
                   <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
                     {{item.documentName}}</v-btn>
-                </template>
-                <template v-slot:footer >
-                  <v-row class="d-flex justify-center" style="width: 100%;">
-                    <v-btn to='/dashboard/vendor-documents' color="primary" style="width: 100%;"  class="my-4" rounded outlined>View All</v-btn>
-                  </v-row>
                 </template>
               </v-data-table>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
