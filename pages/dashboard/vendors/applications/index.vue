@@ -460,9 +460,9 @@
         <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose Vendor, then Channel</v-card-title>
         <v-autocomplete
           label="Step 1 - Choose The Vendor You Want to Send Your Document To"
-          :items="vendorsList"
-          item-text="name"
-          item-value="name"
+          :items="approvedVendorsList"
+          item-text="account_name"
+          item-value="account_name"
           style="width: 90%;"
           outlined
           chips
@@ -1336,8 +1336,8 @@ const naics = require("naics");
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         headers: [
-          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
@@ -1427,6 +1427,7 @@ const naics = require("naics");
         loadChannelList: false,
         loadAssignTagCategoryType: false,
         vendorsList: [],
+        approvedVendorsList: [],
         vendorChosen: { },
         vendorChannels: [],
         channelsList: [],
@@ -1587,8 +1588,19 @@ const naics = require("naics");
       async getVendorsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + this.currentUser.companies_id)
           .then(response => {
-            console.log(response, 'hello!!!!!')
             this.vendorsList = response.data;
+            this.vendorsList = this.vendorsList.filter(item => item.approval_status !== 0)
+            this.vendorsList = [...new Map(this.vendorsList.map(item => [item['spcompanies_id'], item])).values()]
+            console.log(response, 'hello!!!!!')
+            if(this.vendorsList.length > 0) {
+              for(let i=0; i<this.vendorsList.length; i++) {
+                this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.vendorsList[i].spcompanies_id)
+                  .then(response => {
+                    console.log('COMPANY VAL', response.data)
+                    this.approvedVendorsList.push(response.data)
+                  })
+              }
+            }
           })
           .catch(err => {
             console.log(err, 'err in getting vendors list')
