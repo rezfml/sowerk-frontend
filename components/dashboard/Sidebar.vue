@@ -8,6 +8,7 @@
         :size="50"
       ></v-progress-circular>
     </div>
+    
     <v-list height="100%" style="position: relative" dark class="list">
       <v-list-item >
         <v-list-item-content class="py-0">
@@ -84,18 +85,18 @@
 
       <div v-else-if="company && company.company_type === 'false'">
         <template v-for="(link, index) in providerItems">
-<!--          <nuxt-link-->
-<!--            v-for="(link) in providerItems"-->
-<!--            :to="link.to"-->
-<!--            style="text-decoration: none;"-->
-<!--            v-on:click="setActiveLink(link.slug)"-->
-<!--            :class="link.class"-->
-<!--          >-->
-<!--            <v-list-item>-->
-<!--              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>-->
-<!--              <v-list-item-title>{{ link.text }}</v-list-item-title>-->
-<!--            </v-list-item>-->
-<!--          </nuxt-link>-->
+          <!--          <nuxt-link-->
+          <!--            v-for="(link) in providerItems"-->
+          <!--            :to="link.to"-->
+          <!--            style="text-decoration: none;"-->
+          <!--            v-on:click="setActiveLink(link.slug)"-->
+          <!--            :class="link.class"-->
+          <!--          >-->
+          <!--            <v-list-item>-->
+          <!--              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>-->
+          <!--              <v-list-item-title>{{ link.text }}</v-list-item-title>-->
+          <!--            </v-list-item>-->
+          <!--          </nuxt-link>-->
           <v-list-item v-if="!link.children" :key="index" :to="link.to" exact>
             <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
             <v-list-item-title>{{ link.text }}</v-list-item-title>
@@ -122,12 +123,12 @@
     </v-list>
 
 
-<!--    <v-switch-->
-<!--      v-model="$vuetify.theme.dark"-->
-<!--      label="Dark Mode"-->
-<!--      persistent-hint-->
-<!--      style="align-self: center;"-->
-<!--    ></v-switch>-->
+        <!--    <v-switch-->
+        <!--      v-model="$vuetify.theme.dark"-->
+        <!--      label="Dark Mode"-->
+        <!--      persistent-hint-->
+        <!--      style="align-self: center;"-->
+        <!--    ></v-switch>-->
 
   </v-navigation-drawer>
 
@@ -488,6 +489,22 @@
             icon: 'mdi-comment-question',
             text: 'Support & Feedback',
             id: 'supportfeedback',
+            children: [
+              {
+                to: '/dashboard/feedback/',
+                slug: 'feedback',
+                icon: 'mdi-comment-question',
+                text: 'Feedback',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/feedback/sowerkInfo/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'SOWERK 101',
+                class: 'fixed-bottom',
+              },
+            ]
           },
           {
             to: '/dashboard/profile/',
@@ -593,6 +610,22 @@
             icon: 'mdi-comment-question',
             text: 'Support & Feedback',
             id: 'supportfeedback',
+            children: [
+              {
+                to: '/dashboard/feedback/',
+                slug: 'feedback',
+                icon: 'mdi-comment-question',
+                text: 'Feedback',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/feedback/sowerkInfo/',
+                slug: 'profile',
+                icon: 'settings',
+                text: 'SOWERK 101',
+                class: 'fixed-bottom',
+              },
+            ]
           },
           {
             to: '/dashboard/profile/',
