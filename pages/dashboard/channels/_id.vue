@@ -37,6 +37,7 @@
             action="ViewApproved"
             :company="company"
             :locationApproved="locationApproved"
+            slug="/dashboard/vendors/approved/"
           ></FacilitiesCard>
           </transition>
 
@@ -90,12 +91,12 @@
           0
         ],
         headers: [
-          { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          // { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Company', value: 'companyAccountName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Primary Contact', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         locations: [
@@ -317,15 +318,19 @@
             // If Property Manager
             if(this.company.company_type === 'true') {
               if(this.locationCondition === true) {
+                console.log('hey1')
                 await this.getConnectionTable(this.company.id)
               } else {
+                console.log('hey2')
                 await this.getLocation();
               }
             //  Else if Service Provider
             } else if(this.company.company_type === 'false') {
               if(this.locationCondition === true) {
+                console.log('hey3')
                 await this.getConnectionTable(this.company.id)
               } else {
+                console.log('hey4')
                 await this.getLocation();
               }
             }
@@ -344,11 +349,18 @@
         console.log('user current', this.currentUser, 'current company', this.company);
         if(this.company.company_type === "true") {
           console.log('true');
-          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + id)
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
             .then(response => {
               console.log(response.data, 'yoooo');
               if(response.data.length === 0) {
                 // this.loading = true;
+              }
+              let newObj = {
+                companyName: '',
+                fullname: '',
+                email: '',
+                phone: '',
+                name: '',
               }
                 for(let i = 0; i<response.data.length; i++) {
                   this.connections.push(response.data[i]);
@@ -452,22 +464,53 @@
               console.log('true');
               await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmLocationId/' + id)
                 .then(async (response) => {
-                  console.log(response.data, 'yoooo approved');
+                  console.log(response.data, 'yoooo approved!!!');
                   if(response.data.length === 0) {
                     this.locationApproved = true;
+                  }
+                  let newObj = {
+                    id: Number,
+                    companyAccountName: '',
+                    fullname: '',
+                    email: '',
+                    phone: '',
+                    name: '',
                   }
                   for(let i = 0; i<response.data.length; i++) {
                     if(response.data[i].approval_status === 1) {
                       this.approvedProviders++
-                      console.log('i', i, 'approvedproviders', this.approvedProviders)
+                      console.log('i', i, 'approvedproviders!!!!!', this.approvedProviders)
                       this.connections.push(response.data[i]);
-                      //this.vendors.push(response.data[i]);
                       console.log(response.data[i], 'approved')
                       console.log('response.data', response.data)
-                      await this.getLocations(response.data[i].spcompanies_id);
+                      //await this.getLocations(response.data[i].spcompanies_id);
                       console.log(this.connections, 'connections');
+                      this.$http.get('https://www.sowerkbackend.com/api/companies/' + response.data[i].spcompanies_id)
+                        .then(companyVal => {
+                          console.log(companyVal.data)
+                          newObj.companyAccountName = companyVal.data.account_name;
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
+                      this.$http.get('https://www.sowerkbackend.com/api/locations/' + response.data[i].splocations_id)
+                        .then(responseVal => {
+                          console.log(responseVal.data, 'HEY!')
+                          newObj.fullname = responseVal.data.contact_first_name + ' ' + responseVal.data.contact_last_name;
+                          newObj.email = responseVal.data.email;
+                          newObj.phone = responseVal.data.phone;
+                          newObj.name = responseVal.data.name;
+                          newObj.id = responseVal.data.id;
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
+                      this.vendors.push(newObj)
                     }
                   }
+                  setTimeout(() => {
+                    this.locationApproved = true;
+                  }, 500)
                 })
                 .catch(err => {
                   console.log(err, 'err');

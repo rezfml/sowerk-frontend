@@ -19,7 +19,7 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
                 <div class="d-flex flex-column align-center" style="width: 60%;">
                   <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                  <v-btn to="dashboard/businesses" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                  <v-btn to="../vendors/approved" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                 </div>
               </v-row>
             </v-row>

@@ -9,6 +9,90 @@
             min-height="50vh"
             min-width="25vw"
           ></v-skeleton-loader>
+          <v-card class="d-flex flex-column align-center mt-16" v-if="loading">
+            <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="companyForVendor.imgUrl"></v-img>
+            <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.25em;">{{companyForVendor.account_name}}</v-card-title>
+            <v-card-text style="text-align: center; font-size: 18px;">{{companyForVendor.description}}</v-card-text>
+            <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
+              <v-row class="d-flex justify-center" style="width: 100%;">
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyConnections.length > 0">{{singleCompanyConnections.length}}</v-card-title>
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+                <div class="d-flex flex-column align-center" style="width: 60%;">
+                  <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
+                  <v-btn to="../vendors/approved" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                </div>
+              </v-row>
+            </v-row>
+            <v-row class="py-8 d-flex justify-center" style="border-bottom: 1px solid #7C7C7C; width: 90%;">
+              <v-card-title style="font-size: 24px; text-align: left;">SOWerk Channels</v-card-title>
+              <v-card-title style="color: #A61C00; font-size: 108px;" v-if="companyForVendor.locations.length > 0">{{companyForVendor.locations.length}}</v-card-title>
+              <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+            </v-row>
+            <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Headquarters</v-card-title>
+            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.address}}</v-card-text>
+            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.city}} {{companyForVendor.state}}, {{companyForVendor.zipcode}}</v-card-text>
+            <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
+            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate}}</v-card-text>
+            <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
+            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
+            <v-btn :to="companyForVendor.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 24px;" color="primary" outlined rounded>Company Website</v-btn>
+            <v-row class="py-8 d-flex justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C;width: 90%;">
+              <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
+              <v-row class="d-flex flex-column align-end">
+                <v-card-title style="font-size: 24px;">Insurance Policies</v-card-title>
+                <v-btn to="dashboard/insurances" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+              </v-row>
+            </v-row>
+            <v-row class="py-8 d-flex justify-center" style="width: 90%;">
+              <v-row class="d-flex flex-column align-left">
+                <v-card-title style="font-size: 24px;">Certificates & Licenses</v-card-title>
+                <v-btn to="dashboard/licenses" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+              </v-row>
+              <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
+            </v-row>
+          </v-card>
+        </v-col>
+        <v-col cols="4" class="mt-10">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, article, article, actions"
+            min-height="50vh"
+            min-width="25vw"
+          ></v-skeleton-loader>
+          <transition name="slide-fade">
+            <div v-if="loading" class="d-flex justify-center align-center mt-16">
+              <div style="width: 20%; word-break: break-word; white-space: pre-wrap;" class="d-flex justify-center">
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-if="companyForVendor.locations.length > 0">{{companyForVendor.locations.length}}</v-card-title>
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+              </div>
+              <div style="width: 80%; word-break: break-word; white-space: pre-wrap;">
+                <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
+                <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
+                <v-card-title style="font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.75em;">Channels On SOWerk</v-card-title>
+              </div>
+            </div>
+          </transition>
+          <transition name="slide-fade">
+            <v-autocomplete
+              v-if="loading"
+              :items="companyForVendor.locations"
+              solo
+              clearable
+              outlined
+              item-text="name"
+              item-value="name"
+              :placeholder="location.name"
+            >
+              <template slot="selection" slot-scope="data">
+                <p style="color: #151515; width: 100%;" @click="changeUrl(data.item)">{{ data.item.name }}</p>
+              </template>
+              <template slot="item" slot-scope="data">
+                <p style="color: #151515; width: 100%;" @click="changeUrl(data.item)">{{ data.item.name }}</p>
+              </template>
+            </v-autocomplete>
+          </transition>
           <transition name="slide-fade">
             <v-card class="mt-16 d-flex flex-column align-center" v-if="loading">
               <v-row>
@@ -237,8 +321,15 @@
                 :items="vendorDocuments"
                 :headers="vendorHeaders"
               >
-                <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-                  <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
+
+                <template v-slot:header>
+                  <v-row class="d-flex justify-end mt-n16" style="width: 100%;">
+                    <v-btn to='/dashboard/vendor-documents' color="primary" style="width: 30%;"  class="my-4" rounded outlined v-if="connections.length > 0">Add</v-btn>
+                  </v-row>
+                </template>
+                <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+                  <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
+                    {{item.documentName}}</v-btn>
                 </template>
               </v-data-table>
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>

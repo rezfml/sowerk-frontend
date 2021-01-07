@@ -241,7 +241,7 @@
                     <img style="width: 10%" class="ml-12 mt-n16" src="/complete-icon.svg">
                     <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWork Logo-171.png">
                   </v-row>
-                  <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;">0</v-card-text>
+                  <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                   <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
@@ -293,7 +293,7 @@
                 <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                 <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                   <v-row class="d-flex justify-center" style="width: 100%;">
-                    <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00">0</v-card-title>
+                    <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 60%;">
                       <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
                       <v-btn to="dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
@@ -522,6 +522,7 @@
         successuploaddoc: null,
         insurances: [],
         licenses: [],
+        approvedVendorConnectionCount: 0,
       }
     },
     watch: {
@@ -779,26 +780,25 @@
             .catch(err => {
               console.log('err in getting approved provider connections', err);
             })
+        } else {
+          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + this.currentUser.companies_id)
+            .then(response => {
+              console.log('response approvedproviderconnections', response.data);
+              if(this.currentUser.is_superuser === false) {
+                for(let i=0; i<response.data.length; i++) {
+                  if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                    console.log(response.data[i], 'applications for staff account')
+                    this.approvedVendorConnectionCount ++
+                  }
+                }
+              } else {
+                this.approvedVendorConnectionCount = response.data.length
+              }
+            })
+            .catch(err => {
+              console.log('err in getting approved provider connections', err);
+            })
         }
-        // } else {
-        //   await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + this.currentUser.companies_id)
-        //     .then(response => {
-        //       console.log('response approvedproviderconnections', response.data);
-        //       if(this.currentUser.is_superuser === false) {
-        //         for(let i=0; i<response.data.length; i++) {
-        //           if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
-        //             console.log(response.data[i], 'applications for staff account')
-        //             this.providerStats[0].value ++
-        //           }
-        //         }
-        //       } else {
-        //         this.providerStats[0].value = response.data.length
-        //       }
-        //     })
-        //     .catch(err => {
-        //       console.log('err in getting approved provider connections', err);
-        //     })
-        // }
       },
       async getMessages(id) {
         this.loading = false;
