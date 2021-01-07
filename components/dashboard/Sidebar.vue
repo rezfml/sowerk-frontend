@@ -8,7 +8,7 @@
         :size="50"
       ></v-progress-circular>
     </div>
-    
+
     <v-list height="100%" style="position: relative" dark class="list">
       <v-list-item >
         <v-list-item-content class="py-0">
@@ -569,7 +569,7 @@
                 text: 'Customer Connections'
               },
               {
-                to: '/dashboard/businesses/search',
+                to: '/dashboard/businesses/leads',
                 slug: 'requesting_businesses',
                 text: 'Customer Leads'
               },

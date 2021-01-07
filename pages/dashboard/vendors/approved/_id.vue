@@ -392,7 +392,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note}}</p>
+              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
@@ -400,7 +400,7 @@
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
-              <v-btn @click="viewNoteFunc(item)" >View</v-btn>
+              <!-- <v-btn @click="viewNoteFunc(item)" >View</v-btn> -->
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>

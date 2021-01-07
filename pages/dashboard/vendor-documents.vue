@@ -1,23 +1,93 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-card class="mt-8">
-      <v-data-table
-        :items="vendorDocuments"
-        :headers="vendorHeaders"
-        :items-per-page="5"
-      >
-        <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-          <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
-            {{item.documentName}}</v-btn>
-        </template>
-        <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-          <v-btn color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">{{item.created.slice(0,4)}}</v-btn>
-        </template>
-        <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-          <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
-        </template>
-      </v-data-table>
-    </v-card>
+    <v-row style="width: 100%;" class="d-flex flex-column" v-if="!loading">
+      <v-col cols="12" class="mx-2 my-2">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, actions"
+          min-height="30vh"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12" class="mx-2 my-2">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, actions"
+          min-height="30vh"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12" class="mx-2 my-2">
+        <v-skeleton-loader
+          v-if="!loading"
+          type="card-avatar, actions"
+          min-height="30vh"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <!-- NOT SUPER USER -->
+    <transition name="slide-fade">
+      <!-- VENDOR USER -->
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loading">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+          </v-col>
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn how to utilize the Requesting Documents function on SOWerk.</p>
+          </v-col>
+          <!-- VENDOR CHANNELS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">WATCH NOW</span>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+    <!-- VENDOR USER -->
+    <transition name="slide-fade">
+      <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
+        <div style="position:relative;border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card>
+    </transition>
+    <!--VENDOR'S BUSINESS SEARCH BANNER -->
+    <transition name="slide-fade">
+      <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
+        <v-row style="width:100%;height:auto" class="d-flex justify-center nowrap">
+          <v-col cols="7" style="">
+            <v-img height="400px" src="/SoWork Logo-174-174.png"></v-img>
+          </v-col>
+
+          <v-col cols="5" class="d-flex flex-column justify-center">
+            <v-card-title style="color:darkred; font-size: 24px">Manage Requesting Documents</v-card-title>
+            <v-card-text style="font-size: 18px;">Vendors can utilize the Requesting Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading">
+        <v-data-table
+          :items="vendorDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
+              {{item.documentName}}</v-btn>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <v-btn color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">{{item.created.slice(0,4)}}</v-btn>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </transition>
 
     <transition name="slide-fade">
       <v-row v-if="openUploadModelLoad" class="mt-8">
@@ -53,6 +123,9 @@
         companyDocumentImageFile: null,
         successuploaddoc: null,
         openUploadModelLoad: false,
+        showVideo: false,
+        company: {},
+        loading: false,
       }
     },
     watch: {
@@ -70,9 +143,22 @@
       }
     },
     async mounted() {
+      await this.getCompany();
       await this.getVendorProvidedDocuments();
     },
     methods: {
+      async getCompany() {
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+        console.log('company from business/index: ', data.company_type);
+        this.company = data;
+      },
+      showVideoCard(){
+        if(this.showVideo === false){
+          this.showVideo = true
+        } else {
+          this.showVideo = false
+        }
+      },
       async getVendorProvidedDocuments() {
         await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byVendorVendorId/' + this.currentUser.companies_id)
           .then(response => {
@@ -82,6 +168,8 @@
           .catch(err => {
             console.log(err, 'err in getting list')
           })
+
+        this.loading = true;
       },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);

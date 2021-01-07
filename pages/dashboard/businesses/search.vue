@@ -1,20 +1,45 @@
 <template>
   <v-container class="px-0" style="max-width: 100%">
-
+    <!-- NOT SUPER USER -->
+    <transition name="slide-fade">
+      <!-- VENDOR USER -->
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loadingInit">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+          </v-col>
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn how to utilize the New Customer Search function on SOWerk.</p>
+          </v-col>
+          <!-- VENDOR CHANNELS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">WATCH NOW</span>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+    <!-- VENDOR USER -->
+    <transition name="slide-fade">
+      <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
+        <div style="position:relative;border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card>
+    </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
     <transition name="slide-fade">
-      <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
-        <v-row style="width:100%;height:auto" class="d-flex flex align-center">
-          <v-col cols="1" style="margin-left:5%">
-            <v-img src="/complete-icon.svg"></v-img>
-          </v-col>
-
-          <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%;">
-            
+      <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loadingInit">
+        <v-row style="width:100%;" class="d-flex justify-center nowrap">
+          <v-col cols="7" style="">
+            <v-img height="400px" src="/SoWork Logos with Icons-172.png"></v-img>
           </v-col>
 
           <v-col cols="5" class="d-flex flex-column justify-center">
-            <h2 style="color:darkred;padding-bottom:2%">Search Through Our Directory of Accepting Businesses</h2>
+            <v-card-title style="color:darkred; font-size: 24px">How To Utilize New Customer Search</v-card-title>
+            <v-card-text style="font-size: 18px;">Vendors can search the business directory to identify who is on SOWerk as well as seek out particular applications that are open. Once you have identified a business you can click to review their account/channel profile, choose the application you are interested in, and then click to start the application process.</v-card-text>
           </v-col>
         </v-row>
       </v-card>
@@ -103,18 +128,40 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ],
       loading: false,
+      showVideo: false,
+      company: {},
+      loadingInit: false,
+    }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters['user/user'].user.user;
     }
   },
   mounted() {
+    this.getCompany();
     this.getActiveUserforms();
     this.getAllCompanies();
   },
   methods: {
+    async getCompany() {
+      let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
+      console.log('company from business/index: ', data.company_type);
+      this.company = data;
+    },
+    showVideoCard(){
+      if(this.showVideo === false){
+        this.showVideo = true
+      } else {
+        this.showVideo = false
+      }
+    },
     async getActiveUserforms() {
         this.loading = true;
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/userforms/byStatusId/1').catch(e => e);
         this.activeUserforms = data;
         console.log(this.activeUserforms, 'active userforms!!')
+      this.loadingInit = true;
     },
     async getAllCompanies() {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/type/true')

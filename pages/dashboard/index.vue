@@ -174,9 +174,8 @@
           <v-card style="width: 100%; height: 30vh;" class="d-flex align-center">
 
             <v-col class="d-flex flex-column align-center" cols="3">
-              <v-row style="width:100%">
-                <img src="/SoWork Logos with Icons-173-edited.png" style="width: 300px;height:200px;margin-left:-10px;margin-top:0px">
-              </v-row>
+                <v-img src="/SoWork Logos with Icons-173-edited.png" height="200px"></v-img>
+
             </v-col>
 
             <v-col v-for="(stat, index) in stats" cols="3">

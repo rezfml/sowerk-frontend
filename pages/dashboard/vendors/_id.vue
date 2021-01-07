@@ -334,7 +334,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note}}</p>
+              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
@@ -342,7 +342,7 @@
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
-              <v-btn @click="viewNoteFunc(item)" >View</v-btn>
+              <!-- <v-btn @click="viewNoteFunc(item)" >View</v-btn> -->
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>
@@ -371,10 +371,10 @@
                     outlined
                   >
                     <template slot="selection" slot-scope="data">
-                      <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                      <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                      <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
                     </template>
                   </v-select>
                 </v-form>
@@ -389,10 +389,10 @@
                     style="width: 100%;"
                   >
                     <template slot="selection" slot-scope="data">
-                      <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                      <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                      <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
                     </template>
                   </v-select>
                 </v-form>
@@ -617,6 +617,7 @@
           userprofiles_id: Number,
           spLocationsId: Number,
           companies_id: Number,
+          spcompaniesId: Number,
         },
         chosenLocation: {},
         addNotesModalLoad: false,
@@ -716,7 +717,8 @@
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
         this.note.spLocationsId = Number(this.$route.params.id)
-        console.log(this.chosenLocation, 'hello')
+        this.note.spcompaniesId = this.location.companies_id
+        console.log(this.chosenLocation, 'hello', this.location)
         let formData = new FormData();
         let file = this.notesFileFile;
         formData.append('file', file);
@@ -1122,7 +1124,7 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.notes = response.data;
@@ -1132,7 +1134,8 @@
           })
       },
       async getLocationNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/bySpLocationId/' + this.$route.params.id)
+        this.locationNotes = []
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/bySpLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.locationNotes = response.data;
@@ -1142,15 +1145,23 @@
           })
       },
       async deleteNote(note) {
-        confirm("Are you sure you would like to delete this note?")        
-        await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
-          .then(response => {
-            console.log('success in deleting this note', response)
-            alert("Note was successfully deleted")
-          })
-          .catch(err => {
-            console.log('err in deleting this note', err);
-          })
+        let firm = confirm("Are you sure you would like to delete this note?")   
+        if (firm) {
+          await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
+            .then(response => {
+              console.log('success in deleting this note', response)
+              alert("Note was successfully deleted")
+              this.notes.forEach((selectedNote, index) => {
+                if(selectedNote === note){
+                  this.notes.splice(this.notes[index], 1)
+                }
+              })
+              this.getNotes()
+            })
+            .catch(err => {
+              console.log('err in deleting this note', err);
+            })
+        }     
       },
       async addNotesModal() {
         this.addNotesModalLoad = true;
@@ -1161,6 +1172,8 @@
       },
       async listNotesModal() {
         this.notesModalLoad = true;
+        this.notes = []
+        await this.getNotes()
       },
       async exitNotesModalLoad() {
         this.notesModalLoad = false;
