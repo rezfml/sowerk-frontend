@@ -1,19 +1,46 @@
 <template>
   <v-app class="grey lighten-3">
+    <!-- NOT SUPER USER -->
+    <transition name="slide-fade">
+      <!-- VENDOR USER -->
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.company.company_type === 'false'">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+          </v-col>
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn what connections are and why they are important to your SOWerk Account.</p>
+          </v-col>
+          <!-- VENDOR CHANNELS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">WATCH NOW</span>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+    <!-- VENDOR USER -->
+    <transition name="slide-fade">
+      <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.company.company_type === 'false'">
+        <div style="position:relative;border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          </iframe>
+        </div>
+      </v-card>
+    </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
-        <v-row style="width:100%;height:auto" class="d-flex flex align-center">
-          <v-col cols="1" style="margin-left:5%">
-            <v-img src="/complete-icon.svg"></v-img>
-          </v-col>
-
-          <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%;">
-            
+        <v-row style="width:100%;height:auto" class="d-flex justify-center nowrap">
+          <v-col cols="7" style="">
+            <v-img height="400px" src="/SoWork Logos with Icons-170.png"></v-img>
           </v-col>
 
           <v-col cols="5" class="d-flex flex-column justify-center">
-            <h2 style="color:darkred;padding-bottom:2%">Your Customer Connections</h2>
+            <v-card-title style="color:darkred; font-size: 24px">Manage Your Connections On SOWerk</v-card-title>
+            <v-card-text style="font-size: 18px;">In the Customer Connections section of SOWerk a Vendor can see all their approved connections they have made on the platform. From here you can choose to dive into any one of your Customer accounts where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account. This interface is your customer relationship management solution here on SOWerk.</v-card-text>
+            <v-btn color="primary" class="py-6 ml-4" style="width: 95%; border-radius: 10px;">View Customer Leads</v-btn>
           </v-col>
         </v-row>
       </v-card>
@@ -240,8 +267,9 @@
         //   { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-regular' },
         // ],
         businesses: [],
-        company: null,
+        company: { },
         connections: null,
+        showVideo: false,
       }
     },
     watch: {
@@ -263,6 +291,13 @@
       },
     },
     methods: {
+      showVideoCard(){
+        if(this.showVideo === false){
+          this.showVideo = true
+        } else {
+          this.showVideo = false
+        }
+      },
       async getBusinesses(companyType) {
         if(companyType === 'true') {
           this.locations = [];
