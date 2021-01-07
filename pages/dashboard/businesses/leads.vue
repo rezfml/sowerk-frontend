@@ -54,7 +54,7 @@
     </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
     <transition name="slide-fade">
-      <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
+      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
         <v-row style="width:100%;height:auto" class="d-flex justify-center nowrap">
           <v-col cols="7" style="">
             <v-img height="400px" src="/SoWork Logos with Icons-171.png"></v-img>

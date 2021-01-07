@@ -499,10 +499,10 @@
                     outlined
                   >
                     <template slot="selection" slot-scope="data">
-                      <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                      <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                      <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
                     </template>
                   </v-select>
                 </v-form>
@@ -517,10 +517,10 @@
                     style="width: 100%;"
                   >
                     <template slot="selection" slot-scope="data">
-                      <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                      <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p @click="getUserForms(data.item)"># {{data.item.id}} - {{ data.item.name }}</p>
+                      <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
                     </template>
                   </v-select>
                 </v-form>
