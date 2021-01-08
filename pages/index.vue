@@ -11,17 +11,14 @@
     >
       <v-card
         max-height="400px"
-         :height="$vuetify.breakpoint.mdAndUp ? '50vh' : '45vh'"
+        :height="$vuetify.breakpoint.mdAndUp ? '50vh' : '45vh'"
         :width="$vuetify.breakpoint.lgAndUp ? '60%' : '100%'"
         max-width="1200px"
         style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
         class="d-flex flex-column justify-center"
         id="herocorners"
-        color="rgba(0,0,0,0.7)"
-      >
-        <div
-          style="width: 100%; display: flex; flex-direction: column; flex-wrap: nowrap;"
-        >
+        color="rgba(0,0,0,0.7)" >
+        <div style="width: 100%; display: flex; flex-direction: column; flex-wrap: nowrap;" >
           <v-card-title
             ><v-img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
@@ -59,6 +56,10 @@
             </div>
           </v-card-text>
         </div>
+      </v-card>
+
+      <v-card style="background-color:black;border-radius:3%;margin-left:1%">
+          <iframe src="https://player.vimeo.com/video/498208221" width="700" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </v-card>
     </v-row>
 

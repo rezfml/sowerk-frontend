@@ -371,7 +371,8 @@
             v => !!v || v === 0 || 'Field is required',
           ],
         },
-        applicationFormData: {}
+        applicationFormData: {},
+        vendorInfo: null
       }
     },
     watch: {
@@ -398,6 +399,12 @@
         this.loading = true;
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
+            console.log(response.data, "kasdjflkajsdf;lkjas;lkdjf;asdklj")
+
+            this.vendorInfo = response.data
+
+
+
             this.company = response.data;
             this.company_type = this.company.company_type;
 
