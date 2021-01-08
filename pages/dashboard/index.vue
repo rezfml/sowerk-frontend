@@ -1241,16 +1241,25 @@
 
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                  <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
-                    <img style="width: 10%;" class="ml-12 mt-n16" src="/resume.svg">
-                    <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWork Logo-172.png">
+                  <v-row style="width: 100%; margin-top: 125px;">
+                    <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
+                  </v-row>
+                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 60%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                  <v-btn color="primary"to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                </v-card>
+              </v-col>
+
+              <v-col cols="6" style="height: 50vh;">
+                <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
+                  <v-row style="width: 100%; margin-top: 125px;">
+                    <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                   </v-row>
                   <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 60%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
                   <v-btn color="primary"to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
 
-              <v-col cols="6" style="height: 50vh;">
+              <v-col cols="6" class="mt-8" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                   <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
                     <img style="width: 10%" class="ml-12 mt-n16" src="/magnifying-glass.svg">
@@ -1261,10 +1270,10 @@
                 </v-card>
               </v-col>
 
-              <v-col cols="12" class="mt-8">
-                <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex align-center justify-center">
-                  <v-card-title class="" style="font-size: 50px; width: 70%; text-align: left">MANAGE SOWERK ACCOUNT</v-card-title>
-                  <div class="d-flex flex-column align-center" style="width: 30%;">
+              <v-col cols="6" style="height: 50vh;" class="mt-8">
+                <v-card style="width: 100%; background-color: white; height: 50vh;" class="d-flex flex-column align-center justify-center">
+                  <v-card-title class="" style="font-size: 50px; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.4em">MANAGE SOWERK ACCOUNT</v-card-title>
+                  <div class="d-flex flex-column align-center" style="width: 100%;">
                     <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
                     <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
                   </div>
@@ -1274,7 +1283,7 @@
             <v-col cols="4" class="mt-10">
               <v-card class="d-flex flex-column align-center">
                 <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                <v-card-title style="color: #A61c00; font-size: 48px;">{{company.account_name}}</v-card-title>
+                <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
                 <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                 <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                   <v-row class="d-flex justify-center" style="width: 100%;">
@@ -1294,7 +1303,7 @@
                 <v-card-text style="font-size: 24px; text-align: left;">{{company.address}}</v-card-text>
                 <v-card-text style="font-size: 24px; text-align: left;">{{company.city}} {{company.state}}, {{company.zipcode}}</v-card-text>
                 <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
-                <v-card-text style="font-size: 24px; text-align: left;">{{company.creationDate}}</v-card-text>
+                <v-card-text style="font-size: 24px; text-align: left;">{{company.creationDate.slice(0, 4)}}</v-card-text>
                 <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
                 <v-card-text style="font-size: 24px; text-align: left;">{{company.year_founded}}</v-card-text>
                 <v-btn :to="company.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 24px;" color="primary" outlined rounded>Company Website</v-btn>
@@ -1302,14 +1311,14 @@
                   <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
                   <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                   <v-row class="d-flex flex-column align-end">
-                    <v-card-title style="font-size: 24px;">Insurance Policies</v-card-title>
-                    <v-btn to="dashboard/insurances" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                    <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
+                    <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                   </v-row>
                 </v-row>
                 <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                   <v-row class="d-flex flex-column align-left">
-                    <v-card-title style="font-size: 24px;">Certificates & Licenses</v-card-title>
-                    <v-btn to="dashboard/licenses" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                    <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
+                    <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                   </v-row>
                   <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                   <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>

@@ -19,27 +19,27 @@
       </v-list-item>
 
       <v-list-item style="padding: 0px 0px !important;">
-        <v-list-item-avatar class="mx-auto mr-3" size="80px" >
+        <v-list-item-avatar class="mx-auto mr-3" size="90px" >
           <v-img :src="company.imgUrl" aspect-ratio="1"/>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-row class="mx-0 pl-2" style="border-left: thin solid rgba(255,255,255,0.3);">
             <v-col cols="12" class="pa-0 ma-0 d-flex flex-column align-left" >
               <template v-if="company">
-                <v-list-item-title style="font-size: 1rem; align-self: flex-start;">{{company.account_name}}</v-list-item-title>
+                <v-list-item-title style="font-size: 1rem; align-self: center; text-align: center; word-break: break-word; white-space: pre-wrap;">{{company.account_name}}</v-list-item-title>
               </template>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><p v-if="company.locations[0] !== 'There are no locations'"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Channels - {{ company.locations.length }}</p><p v-else><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Channels - 0</p></v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px; align-self: center; text-align: center; word-break: break-word; white-space: pre-wrap;" v-if="company.locations"><p v-if="company.locations[0] !== 'There are no locations'"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Channels - {{ company.locations.length }}</p><p v-else><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>All Channels - 0</p></v-list-item-subtitle>
             </v-col>
             <v-col cols="12" class="px-0 py-2" style="width: 100%;"><v-divider style="border-color: rgba(255,255,255,0.3);"></v-divider></v-col>
             <v-col cols="12" class="pa-0 ma-0">
               <template v-if="currentUser">
-                <v-list-item-title style="font-size: 1rem;" v-if="currentUser.first_name">{{ currentUser.first_name }} {{ currentUser.last_name }}</v-list-item-title
+                <v-list-item-title style="font-size: 1rem; align-self: center; text-align: center; word-break: break-word; white-space: pre-wrap;" v-if="currentUser.first_name">{{ currentUser.first_name }} {{ currentUser.last_name }}</v-list-item-title
                 >
-                <v-list-item-title style="font-size: 1rem;" v-else-if="currentUser.rep_name">{{ currentUser.rep_name }}</v-list-item-title
+                <v-list-item-title style="font-size: 1rem; align-self: center; text-align: center; word-break: break-word; white-space: pre-wrap;" v-else-if="currentUser.rep_name">{{ currentUser.rep_name }}</v-list-item-title
                 >
               </template>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="currentUser">{{ currentUser.is_superuser == true ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
-              <v-list-item-subtitle class="mt-1" style="font-size: 11px" v-if="company.locations"><template v-if="company.locations[0] !== 'There are no locations'"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Channels Access - {{ company.locations.length }}</template><template v-else><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Channels Access - 0</template>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px; align-self: center; text-align: center; word-break: break-word; white-space: pre-wrap;" v-if="currentUser">{{ currentUser.is_superuser == true ? 'Super Admin' : 'Staff Account' }}</v-list-item-subtitle>
+              <v-list-item-subtitle class="mt-1" style="font-size: 11px; align-self: center; text-align: center; word-break: break-word; white-space: pre-wrap;" v-if="company.locations"><template v-if="company.locations[0] !== 'There are no locations'"><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Channels Access - {{ company.locations.length }}</template><template v-else><v-icon color="primary" class="mr-2" style="font-size: 11px">store</v-icon>Channels Access - 0</template>
               </v-list-item-subtitle>
             </v-col>
           </v-row>

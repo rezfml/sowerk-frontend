@@ -313,6 +313,11 @@
                 <p >{{ item.contact }}</p>
             </template>
 
+            <template class="d-flex flex-column align-center" v-slot:item.full_name="{ item }" v-if="locationAssignUser">
+              <v-icon color="primary">mdi-account</v-icon>
+              <p >{{ item.contact_first_name }} {{item.contact_last_name}}</p>
+            </template>
+
             <template class="d-flex flex-column align-center" v-slot:item.full_name_vendor="{ item }">
               <v-icon color="primary">mdi-account</v-icon>
               <p >{{ item.contact_first_name }} {{item.contact_last_name}}</p>
