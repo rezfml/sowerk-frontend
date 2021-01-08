@@ -5,7 +5,7 @@
       <!-- NOT SUPER USER -->
       <transition name="slide-fade">
         <!-- VENDOR USER -->
-        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.companyType === false">
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
 
             <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
@@ -28,7 +28,7 @@
         </v-card>
 
         <!-- SUPER USER -->
-        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="this.companyType === true">
+        <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
             <v-col cols="3" style="color:white;width:100%;text-align:center;">
@@ -50,10 +50,10 @@
           </v-row>
         </v-card>
       </transition>
-      
+
       <!-- VENDOR USER -->
       <transition name="slide-fade">
-        <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.companyType === false">
+        <v-card class="mb-4" style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && company.company_type === 'false'">
           <div style="position:relative;border-radius:1%;">
             <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
             </iframe>
@@ -63,9 +63,9 @@
 
       <!-- BUSINESS USER -->
       <transition name="slide-fade">
-        <v-card style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && this.companyType === true">
+        <v-card class="mb-4" style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
           <div style="position:relative;border-radius:1%;">
-            <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+            <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
             </iframe>
           </div>
         </v-card>
@@ -73,7 +73,7 @@
 
       <!-- COUNT CHANNELS BANNER if Business -->
       <transition name="slide-fade">
-        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
+        <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
             <v-col cols="1" style="margin-left:5%">
               <v-img src="/channels-icon.svg"></v-img>
@@ -131,7 +131,7 @@
 
       <!-- ACCOUNT CHANNELS BANNER if Vendor -->
       <transition name="slide-fade">
-        <v-card class="my-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
+        <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
             <v-col cols="1" style="margin-left:5%">
               <v-img src="/channels-icon.svg"></v-img>

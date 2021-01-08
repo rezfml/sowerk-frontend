@@ -40,7 +40,7 @@
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px">Manage Your Connections On SOWerk</v-card-title>
             <v-card-text style="font-size: 18px;">In the Customer Connections section of SOWerk a Vendor can see all their approved connections they have made on the platform. From here you can choose to dive into any one of your Customer accounts where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account. This interface is your customer relationship management solution here on SOWerk.</v-card-text>
-            <v-btn color="primary" class="py-6 ml-4" style="width: 95%; border-radius: 10px;">View Customer Leads</v-btn>
+            <v-btn to="/dashboard/businesses/leads" color="primary" class="py-6 ml-4" style="width: 95%; border-radius: 10px;">View Customer Leads</v-btn>
           </v-col>
         </v-row>
       </v-card>
@@ -82,13 +82,37 @@
           <v-row>
             <v-col cols="12" class="d-flex flex-column justify-space-between">
               <v-card class="white">
+                <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="businesses.length > 0">Customer Connections - {{businesses.length}}</v-card-title>
+                <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
+                <v-card-actions class="d-flex justify-end px-4 py-0">
+                  <v-row class="py-0 mt-8">
+                    <v-spacer></v-spacer>
+                    <v-col cols="4" class="py-0">
+                      <v-text-field v-model="search" label="Search By Customer, Address, Name, Email, or Phone" light></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-card-actions>
                 <v-data-table
                   :items="businesses"
                   :headers="providerHeaders"
+                  :items-per-page="10"
+                  :search="search"
                 >
                   <template v-slot:item.imageUrl="{item}"  >
                     <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
                     <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                  </template>
+                  <template v-slot:item.address="{item}">
+                    <div style="width: 100%;" class="d-flex flex-column align-center">
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
+                    </div>
+                  </template>
+                  <template v-slot:item.contact_first_name="{item}">
+                    <div style="width: 100%;" class="d-flex flex-column align-center">
+                      <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
+                    </div>
                   </template>
                   <template v-slot:item.actions="{ item }" class="d-flex">
                     <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
@@ -116,6 +140,7 @@
     },
     data() {
       return {
+        search: '',
         loading: false,
         locations: [
           {
@@ -244,12 +269,13 @@
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         providerHeaders: [
-          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
+          { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         // connectionsHeaders: [
         //   {

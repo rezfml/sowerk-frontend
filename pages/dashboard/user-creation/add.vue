@@ -1,5 +1,5 @@
 <template>
-  <v-card class="d-flex flex-column align-center" v-if="company.company_type === true">
+  <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
     <v-skeleton-loader
       v-if="!companyLoad"
       type="card-avatar, article, article, actions"
@@ -97,7 +97,7 @@
       </transition>
       <v-card-title v-if="companyLoad" style="color: white; font-size:1rem">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
       <transition name="slide-fade">
-        <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
+        <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
           <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
           <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
