@@ -11,7 +11,44 @@
         class="mt-12"
       ></MessageCompanyCard>
     </v-row>
-    <v-form class="mb-10 d-flex flex-column align-center" style="width: 80%;" v-if="companySelection === true">
+    <v-form class="mb-10 d-flex flex-column align-center" style="width: 80%;" v-if="companySelection === true && company.company_type === 'true'">
+      <v-col cols="12" class="d-flex justify-center">
+        <v-text-field class="mx-2 text-h6" style="width: 30%;" readonly label="From" v-model="messageForm.company"></v-text-field>
+        <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="First Name" v-model="messageForm.primary_contact_first_name"></v-text-field>
+        <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="Last Name" v-model="messageForm.primary_contact_last_name"></v-text-field>
+      </v-col>
+      <v-col cols="12" class="d-flex">
+        <v-autocomplete cols="8" multiple clearable label="Which Channels Are Associated With Your Message" v-model="messageForm.location" :items="locations" name="location" item-text="name" item-value="name address city state zipcode" class="text-caption mx-1">
+          <template slot="selection" slot-scope="data">
+            <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
+          </template>
+          <template slot="item" slot-scope="data">
+            <v-card-text class="text-h6" @click="getServices(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
+          </template>
+        </v-autocomplete>
+        <v-select cols="4" clearable label="Your Category For Channel Goes Here" v-model="messageForm.service" :items="naicsList" name="service" item-text="name" item-value="name" class="text-caption mx-1">
+          <template slot="selection" slot-scope="data">
+            <v-card-text class="text-h6">{{ data.item.name }}</v-card-text>
+          </template>
+          <template slot="item" slot-scope="data">
+            <v-card-text class="text-h6">{{ data.item.name }}</v-card-text>
+          </template>
+        </v-select>
+      </v-col>
+      <v-col cols="12" class="d-flex">
+        <v-select cols="12"  label="Channel of Company you are sending message to" :items="spcompanylocations" name="location" item-text="name address city state zipcode" item-value="name address city state zipcode" class="text-caption mx-1">
+          <template slot="selection" slot-scope="data">
+            <v-card-text class="text-h6" @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
+          </template>
+          <template slot="item" slot-scope="data">
+            <v-card-text class="text-h6" @click="getLocationForSP(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</v-card-text>
+          </template>
+        </v-select>
+      </v-col>
+      <v-textarea style="width: 100%;" class="text-h6" placeholder="Message Goes Here" v-model="messageForm.message" auto-grow rows="1"></v-textarea>
+      <v-btn color="primary" class="py-5 px-10" large @click="submit">Send Message</v-btn>
+    </v-form>
+    <v-form class="mb-10 d-flex flex-column align-center" style="width: 80%; background-color: white; border-radius: 20px; box-shadow: 4px 4px 4px darkred; border: 1px solid #A61c00;" v-else-if="companySelection === true && company.company_type === 'false'">
       <v-col cols="12" class="d-flex justify-center">
         <v-text-field class="mx-2 text-h6" style="width: 30%;" readonly label="From" v-model="messageForm.company"></v-text-field>
         <v-text-field class="mx-2 text-h6" style="width: 20%;" readonly label="First Name" v-model="messageForm.primary_contact_first_name"></v-text-field>

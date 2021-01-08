@@ -118,14 +118,14 @@
 
               <v-row>
                 <v-col cols="6" class="d-flex flex-column">
-                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
                     <span>
-                      <span><v-img src="/resume-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
+                      <span><v-img src="/profile-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
-                    <span style="padding-top:5%;padding-left:5%;">
-                      <p style="font-size:1.1rem"> YOUR VENDOR</p>
+                    <span style="padding-top:5%;padding-left:5%">
+                      <p style="font-size:1.1rem">COMPANY</p>
                       <v-spacer></v-spacer>
-                      <p style="font-size:1.1rem">APPLICATIONS</p>
+                      <p style="font-size:1.1rem">TEMPLATES</p>
                     </span>
                   </v-btn>
                 </v-col>
@@ -136,7 +136,7 @@
                       <span><v-img src="/outbox-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:1.1rem"> YOUR COMPANY</p>
+                      <p style="font-size:1.1rem">COMPANY</p>
                       <v-spacer></v-spacer>
                       <p style="font-size:1.1rem">DOCUMENTS</p>
                     </span>
@@ -146,14 +146,14 @@
 
               <v-row>
                 <v-col cols="6" class="d-flex flex-column">
-                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
                     <span>
-                      <span><v-img src="/profile-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
+                      <span><v-img src="/resume-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
-                    <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:1.1rem"> YOUR COMPANY</p>
+                    <span style="padding-top:5%;padding-left:5%;">
+                      <p style="font-size:1.1rem">ALL VENDOR</p>
                       <v-spacer></v-spacer>
-                      <p style="font-size:1.1rem">TEMPLATES</p>
+                      <p style="font-size:1.1rem">APPLICATIONS</p>
                     </span>
                   </v-btn>
                 </v-col>
@@ -315,7 +315,13 @@
     </div>
 
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loadApplicationTemplates" style="width: 100%;">
+      <v-card class="d-flex justify-center" v-if="loadYourCompanyTemplates || loadApplicationTemplates">
+        <v-card-title class="" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* A quick way to build a Vendor Application or Company Template is to start with a SOWerk Template that provides more of your desired questions (i.e. “General Questions” template). Then, once added to Company Templates or Assigned Channel you simply find this new item and choose Edit where you can add more questions.</v-card-title>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-16" v-if="loadApplicationTemplates" style="width: 100%;">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">SOWerk Application Templates</v-card-title>
       <template v-if="loading" style="width: 100%;">
         <v-data-table
@@ -369,61 +375,62 @@
     <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
     <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Your Company Application Templates</v-card-title>-->
     <!--    </v-row>-->
+
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loadYourCompanyTemplates">
-      <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Company Approved Templates</v-card-title>
-      <v-btn @click="addNewCompanyTemplateLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Template</v-btn>
-      <template v-if="loading" style="width: 100%;">
-        <v-data-table
-          :headers="headers"
-          :items="companyTemplates"
-          :items-per-page="10"
-          class="pt-16"
-          :expanded.sync="expanded"
-          show-expand
-          single-expand
-        >
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              <v-simple-table
-                fixed-header
-                height="300px"
-              >
-                <template v-slot:default>
-                  <thead>
-                  <tr>
-                    <th>Question</th>
-                    <th>Name</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="app in item.companytemplatesformfields" :key="app.name">
-                    <td>Question# {{app.order}}</td>
-                    <td>{{ app.name }}</td>
-                  </tr>
-                  </tbody>
-                </template>
-              </v-simple-table>
-            </td>
-          </template>
+      <v-card class="mt-16" v-if="loadYourCompanyTemplates">
+        <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Company Approved Templates</v-card-title>
+        <v-btn @click="addNewCompanyTemplateLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Template</v-btn>
+        <template v-if="loading" style="width: 100%;">
+          <v-data-table
+            :headers="headers"
+            :items="companyTemplates"
+            :items-per-page="10"
+            class="pt-16"
+            :expanded.sync="expanded"
+            show-expand
+            single-expand
+          >
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                <v-simple-table
+                  fixed-header
+                  height="300px"
+                >
+                  <template v-slot:default>
+                    <thead>
+                    <tr>
+                      <th>Question</th>
+                      <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="app in item.companytemplatesformfields" :key="app.name">
+                      <td>Question# {{app.order}}</td>
+                      <td>{{ app.name }}</td>
+                    </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </td>
+            </template>
 
 
-          <template v-slot:item.questions="{item}">
-            <p>{{item.companytemplatesformfields.length}}</p>
-          </template>
-          <template v-slot:item.actions="{item}" class="d-flex flex-column align-center">
-            <div class="d-flex flex-column align-center" v-if="$vuetify.breakpoint.xl">
-              <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
-              <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
-              <v-btn @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
-            </div>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
-          </template>
-        </v-data-table>
-      </template>
-    </v-card>
+            <template v-slot:item.questions="{item}">
+              <p>{{item.companytemplatesformfields.length}}</p>
+            </template>
+            <template v-slot:item.actions="{item}" class="d-flex flex-column align-center">
+              <div class="d-flex flex-column align-center" v-if="$vuetify.breakpoint.xl">
+                <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
+                <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
+                <v-btn @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
+              </div>
+              <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
+              <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
+              <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
+            </template>
+          </v-data-table>
+        </template>
+      </v-card>
     </transition>
 
     <transition name="slide-fade">
