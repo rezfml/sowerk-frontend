@@ -947,6 +947,9 @@
             }
 
             console.log(this.services, this.servicesVal, this.servicesAdditional1, this.servicesAdditional2, 'this.services!!!!!!');
+            for(let i=0; i<this.originalServices.length; i++) {
+
+            }
             if(this.originalServices.includes(this.servicesVal)) {
               for(let i=0; i<this.originalServices.length; i++) {
                 if(this.originalServices[i].name === this.servicesVal) {

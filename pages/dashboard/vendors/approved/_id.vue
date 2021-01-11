@@ -1111,9 +1111,7 @@
           .then(response => {
             console.log(response.data, 'response.data insurances');
             for (let i = 0; i < response.data.length; i++) {
-              if(response.data[i].documentVisible === true) {
-                this.insurances.push(response.data[0]);
-              }
+              this.insurances.push(response.data[0]);
             }
             console.log(this.insurances, 'this.insurances')
           })
@@ -1126,9 +1124,7 @@
           .then(response => {
             console.log(response.data, 'response.data licenses');
             for (let i = 0; i < response.data.length; i++) {
-              if(response.data[i].documentVisible === true) {
-                this.licenses.push(response.data[0]);
-              }
+              this.licenses.push(response.data[0]);
             }
             console.log(this.licenses, 'this.licenses')
           })

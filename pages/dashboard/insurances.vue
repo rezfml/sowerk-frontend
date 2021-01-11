@@ -62,7 +62,8 @@
 
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px">Manage Insurance Documents</v-card-title>
-            <v-card-text style="font-size: 18px;">Vendors can utilize the Insurance Documents page for uploading specific forms that businesses require in order to do business with insurances. By uploading your Insurance Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
+            <v-card-text style="font-size: 18px;">Customers want to know you have insurance and can be trusted, and at SOWerk we want to make that easy for you to demonstrate and/or provide. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
+            <v-card-text style="font-size: 18px;">Therefore, we give you the option to make any insurance document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your insurance documents. Please note, when you select Unpublished SOWerk will still indicate that an insurance document exists on your profile and the insurance coverage type, but no other details will be provided.</v-card-text>
           </v-col>
         </v-row>
       </v-card>
