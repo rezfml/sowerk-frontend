@@ -5,7 +5,7 @@
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; height: 80vh; max-height: 1200px; padding-top: 275px; padding-bottom: 100px"
+  background-size: cover; height: 80vh; max-height: 1200px; padding-top: 275px; padding-bottom: 100px;"
       align-content="center"
       class="pt-md-16 ma-0"
     >
@@ -57,11 +57,9 @@
           </v-card-text>
         </div>
       </v-card>
-
-      <v-card style="background-color:black;border-radius:3%;margin-left:1%">
-          <iframe src="https://player.vimeo.com/video/498208221" width="700" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-      </v-card>
     </v-row>
+
+
 
 
     <!--BUSINESSES & VENDORS COME TOGETHER ON SOWERK SECTION -->

@@ -122,17 +122,17 @@
                       </v-text-field>
 
                       <!-- VENDORS ADDRESS OF APPLICATION 4 -->
-                      <!-- <v-text-field
+                      <v-text-field
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
-                        :value="vendorName"
-                        v-if="formfield.name === 'Vendor Name'"
+                        :value="vendorAppAddress"
+                        v-if="formfield.name === addressOfApp"
                         outlined >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
-                      </v-text-field> -->
+                      </v-text-field>
                       
                       <!-- COMPANY FOUNDED 5 -->
                       <v-text-field
@@ -238,19 +238,13 @@
                         </template>
                       </v-text-field>
 
-
-
-
-
-
-
                       <!-- START OF CUSTOM FORM FIELDS -->
                       <v-text-field
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
                         v-model="formfield.value"
-                        v-if="formfield.type === 'text' && formfield.name !== 'Vendor Name' && formfield.name !== 'Vendor Type' && formfield.name !== 'Vendor Category' && formfield.name !== 'Company Founded' && formfield.name !== 'Contact Person Phone' && formfield.name !== 'Contact Person Email' && formfield.name !== 'Contact Person Name' && formfield.name !== 'Contact Website' && formfield.name !== 'Number of Employees' && formfield.name !== 'SOWerk Connections' && formfield.name !== 'Applicants Service Radius'"
+                        v-if="formfield.type === 'text' && formfield.name !== 'Vendor Name' && formfield.name !== 'Vendor Type' && formfield.name !== 'Vendor Category' && formfield.name !== 'Company Founded' && formfield.name !== 'Contact Person Phone' && formfield.name !== 'Contact Person Email' && formfield.name !== 'Contact Person Name' && formfield.name !== 'Contact Website' && formfield.name !== 'Number of Employees' && formfield.name !== 'SOWerk Connections' && formfield.name !== 'Applicants Service Radius' && formfield.name !== addressOfApp"
                         outlined
                       >
                         <template v-slot:label>
@@ -349,6 +343,7 @@
     },
     data() {
       return {
+        addressOfApp: "Vendor's Address of Application",
         loading: false,
         locations: [
           {
@@ -558,7 +553,6 @@
     watch: {
       loading: function() {
         if(this.loading){
-          console.log(document);
           return
         }
         document.documentElement.style.overflow = 'auto'
@@ -568,6 +562,7 @@
       this.locationId = this.$route.params.id;
       this.getMyCompany();
       this.getLocation();
+      this.getVendorInfo();
     },
     computed: {
       currentUser() {
@@ -575,6 +570,18 @@
       },
     },
     methods: {
+      async getVendorInfo() {
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + this.company.id)
+        .then(response => {
+          console.log(response.data.user[0], "GWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWG!!!");
+
+          this.contactPersonPhone = response.data.user[0].phone,
+          this.contactPersonEmail = response.data.user[0].email,
+          this.contactPersonName = response.data.user[0].first_name
+
+        })
+        .catch(e => e);
+      },
       async getMyCompany() {
         this.loading = true;
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
@@ -582,6 +589,7 @@
             console.log(response.data, "THIS DOT COMPANY!!!")
 
             this.company = response.data;
+
             this.company_type = this.company.company_type;
 
             this.vendorName = response.data.account_name,
@@ -589,9 +597,11 @@
             this.vendorAppAddress = response.data.address,
             this.companyFounded = response.data.year_founded,
 
+            this.sowerkConnections = response.data.currentConnections
             this.contactWebsite = response.data.website,
             this.applicantServiceRange = response.data,
 
+            this.getVendorInfo();
             this.getLocation();
 
             // //  If Property Manager
@@ -608,11 +618,9 @@
       async getLocation() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
-        console.log(data, "JUST SAYS DATA");
+        console.log(data, "Data of BUSINESS Location information!!!");
 
-        this.contactPersonPhone = data.phone,
-        this.contactPersonEmail = data.email,
-        this.contactPersonName = data.name,
+ 
 
         this.$nextTick(function() {
           this.location = data;
