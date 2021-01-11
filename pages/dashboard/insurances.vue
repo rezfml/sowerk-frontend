@@ -92,6 +92,9 @@
               </template>
             </v-select>
           </template>
+          <template v-slot:item.expirationDateVal="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <v-card-text>{{item.expirationDateVal.slice(0,4)}}</v-card-text>
+          </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
             <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
             <v-btn @click='removeInsurance(item)' color="primary" class="my-1" style="width: 80%; color: white;">Remove Insurance</v-btn>
