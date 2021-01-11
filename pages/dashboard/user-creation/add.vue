@@ -1,7 +1,7 @@
 <template>
 
 <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
-<div v-if="$vuetify.breakpoint.xl">
+<div style="width: 100%;" v-if="$vuetify.breakpoint.xl">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
     <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -135,12 +135,12 @@
         <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
         <!--    </transition>-->
       </template>
-    </v-card>  
-  
+    </v-card>
+
 </div>
 
 <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
-<div v-else-if="$vuetify.breakpoint.lg">
+<div style="width: 100%;"  v-else-if="$vuetify.breakpoint.lg">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
     <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -274,12 +274,12 @@
         <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
         <!--    </transition>-->
       </template>
-    </v-card>  
-  
+    </v-card>
+
 </div>
 
 <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
-<div v-else-if="$vuetify.breakpoint.md">
+<div style="width: 100%;"  v-else-if="$vuetify.breakpoint.md">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
     <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -413,12 +413,12 @@
         <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
         <!--    </transition>-->
       </template>
-    </v-card>  
-  
+    </v-card>
+
 </div>
 
 <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
-<div v-else-if="$vuetify.breakpoint.sm">
+<div style="width: 100%;"  v-else-if="$vuetify.breakpoint.sm">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
     <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -443,12 +443,14 @@
           <v-card-title v-if="companyLoad" style="color: #a61c00; font-size:.8rem">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
         <transition name="slide-fade">
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
-            <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+            <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-col cols="12">
+              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" ></v-select>
+            </v-col>
             <v-col cols="12">
               <v-select
                 :items="locations"
@@ -475,7 +477,7 @@
             <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
             <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
             <transition name="slide-fade">
-              <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
+              <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 70%;" class="my-4 py-8" large color="primary" rounded>Submit</v-btn>
               <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
             </transition>
           </v-form>
@@ -556,12 +558,12 @@
         <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
         <!--    </transition>-->
       </template>
-    </v-card>  
-  
+    </v-card>
+
 </div>
 
-<!-- BREAKPOINT - SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
-<div v-else-if="$vuetify.breakpoint.xs">
+<!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
+<div style="width: 100%;"  v-else-if="$vuetify.breakpoint.xs">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
     <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -581,18 +583,20 @@
 
       <template>
         <transition name="slide-fade">
-          <v-card-title style="width: 40%; border-radius: 3px; font-size:1.1rem;line-height:1.5;" class="primary white--text justify-center font-weight-regular red-gradient mb-10" v-if="companyLoad">Invite A New User </v-card-title>
+          <v-card-title style="width: 60%; border-radius: 3px; font-size:1.1rem;line-height:1.5; text-align: center; word-break: break-word; white-space: pre-wrap;" class="primary white--text justify-center font-weight-regular red-gradient mb-10" v-if="companyLoad">Invite A New User </v-card-title>
         </transition>
           <v-card-title v-if="companyLoad" style="color: #a61c00; font-size:.9rem;">Fill out the form below to add a new user to </v-card-title>
-          <v-card-title v-if="companyLoad" style="color: #a61c00; font-size:.9rem;">your company! All fields are required!</v-card-title>          
+          <v-card-title v-if="companyLoad" style="color: #a61c00; font-size:.9rem;">your company! All fields are required!</v-card-title>
         <transition name="slide-fade">
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
-            <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-            <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-            <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-            <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2"></v-select>
+            <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-col cols="12">
+              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" ></v-select>
+            </v-col>
             <v-col cols="12">
               <v-select
                 :items="locations"
@@ -619,7 +623,7 @@
             <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
             <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
             <transition name="slide-fade">
-              <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
+              <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 70%;" class="my-4 py-8" large color="primary" rounded>Submit</v-btn>
               <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
             </transition>
           </v-form>
@@ -639,7 +643,7 @@
         min-height="50vh"
         min-width="70vw"
       ></v-skeleton-loader>
-      
+
       <transition name="slide-fade">
         <v-card v-if="this.requiredFieldsFilled === false && $vuetify.breakpoint.xs" class="mt-n8" style="position:absolute;top:55vh;justify-content:center;background-color:#a61c00;z-index:1;overlay:true">
           <v-card-title style="color:white;padding-top:12%;font-size:1.8rem;justify-content:space-around;">All Fields Are Required!</v-card-title>
@@ -700,8 +704,8 @@
         <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
         <!--    </transition>-->
       </template>
-    </v-card>  
-  
+    </v-card>
+
 </div>
 
 </template>
