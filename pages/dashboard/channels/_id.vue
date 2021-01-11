@@ -84,42 +84,21 @@
 
           <transition name="slide-fade">
             <v-card class="mt-4" v-if="channelLeadsLoad" style="width: 100%; background-color: white;">
-              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="connections.length > 0">Customer Connections - {{connections.length}}</v-card-title>
-              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
+              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="leads.length > 0">Channel Leads - {{leads.length}}</v-card-title>
+              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Channel Leads - 0</v-card-title>
               <v-card-actions class="d-flex justify-end px-4 py-0">
                 <v-row class="py-0 mt-8">
                   <v-spacer></v-spacer>
                   <v-col cols="4" class="py-0">
-                    <v-text-field v-model="search" label="Search By Customer, Address, Name, Email, or Phone" light></v-text-field>
+                    <v-text-field v-model="searchVal" label="Search By Customer, Address, Name, Email, or Phone" light></v-text-field>
                   </v-col>
                 </v-row>
               </v-card-actions>
               <v-data-table
-                :items="businesses"
-                :headers="providerHeaders"
+                :items="leads"
                 :items-per-page="10"
-                :search="search"
-              >
-                <template v-slot:item.imageUrl="{item}"  >
-                  <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
-                  <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
-                </template>
-                <template v-slot:item.address="{item}">
-                  <div style="width: 100%;" class="d-flex flex-column align-center">
-                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
-                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
-                  </div>
-                </template>
-                <template v-slot:item.contact_first_name="{item}">
-                  <div style="width: 100%;" class="d-flex flex-column align-center">
-                    <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
-                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
-                  </div>
-                </template>
-                <template v-slot:item.actions="{ item }" class="d-flex">
-                  <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
-                </template>
-              </v-data-table>
+                :search="searchVal"
+              ></v-data-table>
             </v-card>
           </transition>
 
@@ -168,6 +147,9 @@
     },
     data() {
       return {
+        search: '',
+        searchVal: '',
+        leads: [],
         adminLevels: [
           1,
           0
