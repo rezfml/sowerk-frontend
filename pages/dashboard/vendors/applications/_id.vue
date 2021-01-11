@@ -31,9 +31,11 @@
         ></v-progress-circular>
       </v-row>
     </transition>
+
     <transition name="slide-fade">
       <v-divider v-if="loading" style="width: 100%; border: 1px solid #707070"></v-divider>
     </transition>
+    
     <transition name="slide-fade">
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
         <v-col style="width: 55%;">
