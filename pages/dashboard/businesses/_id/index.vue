@@ -199,19 +199,6 @@
                         </template>
                       </v-text-field>
 
-                      <!-- NUMBER OF EMPLOYEES 10 -->
-                      <v-text-field
-                        placeholder=" "
-                        class="my-2"
-                        :rules="rules.requiredRules"
-                        :value="numberOfEmployees"
-                        v-if="formfield.name === 'Number of Employees'"
-                        outlined >
-                        <template v-slot:label>
-                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                        </template>
-                      </v-text-field>
-
                       <!-- SOWERK CONNECTIONS 11 -->
                       <v-text-field
                         placeholder=" "
@@ -545,7 +532,6 @@
         contactPersonEmail: null,
         contactPersonName: null,
         contactWebsite: null,
-        numberOfEmployees: null,
         sowerkConnections: null,
         applicantServiceRange: null,
       }
@@ -593,13 +579,11 @@
             this.company_type = this.company.company_type;
 
             this.vendorName = response.data.account_name,
-            this.vendorType = response.data.company_type,
             this.vendorAppAddress = response.data.address,
             this.companyFounded = response.data.year_founded,
 
             this.sowerkConnections = response.data.currentConnections
             this.contactWebsite = response.data.website,
-            this.applicantServiceRange = response.data,
 
             this.getVendorInfo();
             this.getLocation();
@@ -619,6 +603,8 @@
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         console.log(data, "Data of BUSINESS Location information!!!");
+
+        this.applicantServiceRange = data.radius
 
  
 
@@ -736,6 +722,10 @@
             } else {
               console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');
               this.myActiveUserforms.push(response.data);
+
+              this.vendorType = response.data.vendorType
+              this.vendorCategory = response.data.service
+              
             }
           })
           .catch(err => {

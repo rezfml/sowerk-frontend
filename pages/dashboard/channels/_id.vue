@@ -3,7 +3,7 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="width: 100%; height: 100%;">
         <v-col cols="12" md="4" xl="3">
-          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" :getLocationTags="getLocationTags"></ProfileCard>
+          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :customerConnections="customerConnections" :channelLeads="channelLeads" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" :getLocationTags="getLocationTags"></ProfileCard>
         </v-col>
 
         <v-col cols="12" md="8" xl="9" class="pb-12 d-flex flex-column align-center">
@@ -22,14 +22,14 @@
 <!--            :size="50"-->
 <!--          ></v-progress-circular>-->
           <v-skeleton-loader
-            v-if="!locationApproved && !pendingApplicants && !editVendorRequirements && !editLocationDetails"
+            v-if="!customerConnectionsLoad && !channelLeadsLoad && !locationApproved && !pendingApplicants && !editVendorRequirements && !editLocationDetails"
             type="card-avatar, article, article, actions"
             min-height="50vh"
             min-width="50vw"
           ></v-skeleton-loader>
           <transition name="slide-fade">
           <FacilitiesCard
-            v-if="vendors && !editLocationDetails && locationApproved"
+            v-if="vendors && !editLocationDetails && locationApproved && company.company_type==='true'"
             :title="'Channel Approved Vendors'"
             :items="vendors"
             :tableProperties="headers"
@@ -39,6 +39,88 @@
             :locationApproved="locationApproved"
             slug="/dashboard/vendors/approved/"
           ></FacilitiesCard>
+          </transition>
+
+          <transition name="slide-fade">
+            <v-card class="mt-4" v-if="customerConnectionsLoad" style="width: 100%; background-color: white;">
+              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="connections.length > 0">Customer Connections - {{connections.length}}</v-card-title>
+              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
+              <v-card-actions class="d-flex justify-end px-4 py-0">
+                <v-row class="py-0 mt-8">
+                  <v-spacer></v-spacer>
+                  <v-col cols="4" class="py-0">
+                    <v-text-field v-model="search" label="Search By Customer, Address, Name, Email, or Phone" light></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+              <v-data-table
+                :items="businesses"
+                :headers="providerHeaders"
+                :items-per-page="10"
+                :search="search"
+              >
+                <template v-slot:item.imageUrl="{item}"  >
+                  <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                  <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                </template>
+                <template v-slot:item.address="{item}">
+                  <div style="width: 100%;" class="d-flex flex-column align-center">
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
+                  </div>
+                </template>
+                <template v-slot:item.contact_first_name="{item}">
+                  <div style="width: 100%;" class="d-flex flex-column align-center">
+                    <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
+                  </div>
+                </template>
+                <template v-slot:item.actions="{ item }" class="d-flex">
+                  <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                </template>
+              </v-data-table>
+            </v-card>
+          </transition>
+
+          <transition name="slide-fade">
+            <v-card class="mt-4" v-if="channelLeadsLoad" style="width: 100%; background-color: white;">
+              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="connections.length > 0">Customer Connections - {{connections.length}}</v-card-title>
+              <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
+              <v-card-actions class="d-flex justify-end px-4 py-0">
+                <v-row class="py-0 mt-8">
+                  <v-spacer></v-spacer>
+                  <v-col cols="4" class="py-0">
+                    <v-text-field v-model="search" label="Search By Customer, Address, Name, Email, or Phone" light></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+              <v-data-table
+                :items="businesses"
+                :headers="providerHeaders"
+                :items-per-page="10"
+                :search="search"
+              >
+                <template v-slot:item.imageUrl="{item}"  >
+                  <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                  <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                </template>
+                <template v-slot:item.address="{item}">
+                  <div style="width: 100%;" class="d-flex flex-column align-center">
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
+                  </div>
+                </template>
+                <template v-slot:item.contact_first_name="{item}">
+                  <div style="width: 100%;" class="d-flex flex-column align-center">
+                    <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
+                  </div>
+                </template>
+                <template v-slot:item.actions="{ item }" class="d-flex">
+                  <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                </template>
+              </v-data-table>
+            </v-card>
           </transition>
 
           <transition name="slide-fade">
@@ -289,10 +371,22 @@
         pendingApplicants: false,
         editVendorRequirements: false,
         editLocationDetails: false,
+        customerConnectionsLoad: false,
+        channelLeadsLoad: false,
         locationImageUrl: null,
         locationTags: [],
         sowerkTags: [],
         originalLocationTags: [],
+        providerHeaders: [
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
+          { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+        ],
+        businesses: [],
       }
     },
     mounted() {
@@ -528,13 +622,26 @@
                       console.log('response.data', response.data)
                       this.getLocations(response.data[i].spcompanies_id);
                       console.log(this.connections, 'connections');
+                      this.customerConnectionsLoad = true;
+                      this.getBusinessLocation(response.data[i].pmlocations_id);
                     }
                   }
                 })
                 .catch(err => {
                   console.log(err, 'err');
+                  this.customerConnectionsLoad = true;
                 })
             }
+      },
+      async getBusinessLocation(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
+          .then(response => {
+            console.log('approved connection location!!', response.data)
+            this.businesses.push(response.data)
+          })
+          .catch(err => {
+            console.log(err, 'err in getting connection')
+          })
       },
       selectLocationImageUrl(url) {
         console.log('hello world');
@@ -559,11 +666,29 @@
       async editFunction() {
         this.edit = true;
       },
+      async customerConnections() {
+        this.locationApproved = false;
+        this.pendingApplicants = false;
+        this.editVendorRequirements = false;
+        this.editLocationDetails = false;
+        this.customerConnectionsLoad = true;
+        this.channelLeadsLoad = false;
+      },
+      async channelLeads() {
+        this.locationApproved = false;
+        this.pendingApplicants = false;
+        this.editVendorRequirements = false;
+        this.editLocationDetails = false;
+        this.customerConnectionsLoad = false;
+        this.channelLeadsLoad = true;
+      },
       async locationApproval() {
         this.locationApproved = true;
         this.pendingApplicants = false;
         this.editVendorRequirements = false;
         this.editLocationDetails = false;
+        this.customerConnectionsLoad = false;
+        this.channelLeadsLoad = false;
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async pendingApplication() {
@@ -571,6 +696,8 @@
         this.pendingApplicants = true;
         this.editVendorRequirements = false;
         this.editLocationDetails = false;
+        this.customerConnectionsLoad = false;
+        this.channelLeadsLoad = false;
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async editVendorRequirement() {
@@ -578,6 +705,8 @@
         this.pendingApplicants = false;
         this.editVendorRequirements = true;
         this.editLocationDetails = false;
+        this.customerConnectionsLoad = false;
+        this.channelLeadsLoad = false;
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async editLocationDetail() {
@@ -585,6 +714,8 @@
         this.pendingApplicants = false;
         this.editVendorRequirements = false;
         this.editLocationDetails = true;
+        this.customerConnectionsLoad = false;
+        this.channelLeadsLoad = false;
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async getSowerkTags() {

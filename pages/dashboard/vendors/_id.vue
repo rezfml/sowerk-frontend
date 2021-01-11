@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad">
+      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad">
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -32,7 +32,7 @@
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.address}}</v-card-text>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.city}} {{companyForVendor.state}}, {{companyForVendor.zipcode}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
-            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate}}</v-card-text>
+            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
             <v-btn :to="companyForVendor.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 24px;" color="primary" outlined rounded>Company Website</v-btn>
@@ -40,21 +40,22 @@
               <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
               <v-row class="d-flex flex-column align-end">
-                <v-card-title style="font-size: 24px;">Insurance Policies</v-card-title>
-                <v-btn to="dashboard/insurances" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                <v-row class="d-flex flex-column align-end">
+                  <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
+                  <v-btn @click="openInsuranceModal" class="py-6 mr-8" style="width: 80%;" color="primary" rounded>View Details</v-btn>
+                </v-row>
               </v-row>
             </v-row>
             <v-row class="py-8 d-flex justify-center" style="width: 90%;">
               <v-row class="d-flex flex-column align-left">
-                <v-card-title style="font-size: 24px;">Certificates & Licenses</v-card-title>
-                <v-btn to="dashboard/licenses" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
+                <v-btn @click="openLicenseModal" class="py-6 ml-8" style="width: 70%;" color="primary" rounded>View Details</v-btn>
               </v-row>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
             </v-row>
           </v-card>
         </v-col>
-
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -69,6 +70,8 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
               </div>
               <div style="width: 80%; word-break: break-word; white-space: pre-wrap;">
+                <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
+                <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
                 <v-card-title style="font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.75em;">Channels On SOWerk</v-card-title>
               </div>
             </div>
@@ -112,6 +115,13 @@
                 <v-card-text style="text-align: center; font-size: 18px;">Founded: <span style="color: #A61C00">{{companyForVendor.year_founded}}</span></v-card-text>
                 <v-card-text v-if="location.created" style="text-align: center; font-size: 18px;">Joined SOWerk: <span style="color: #A61C00">{{location.created.slice(0,4)}}</span></v-card-text>
               </div>
+              <!--              <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>-->
+              <!--              <v-card-title style="color:#A61C00; font-size: 24px;">Company Details</v-card-title>-->
+              <!--              <v-card-title style="font-size: 24px;" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
+              <!--              <v-card-title style="font-size: 24px;" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
+              <!--              <v-card-title style="font-size: 24px;" v-if="companyForVendor.locations[0] != 'There are no locations'"><v-btn color="primary" text @click="openCompanyLocationsModal = true" style="font-size: 24px;">{{companyForVendor.locations.length}}</v-btn> Total Channels</v-card-title>-->
+              <!--              <v-card-title style="font-size: 24px;" v-else><span style="color:#A61C00;">0</span> Total Channels</v-card-title>-->
+              <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
               <v-select
                 style="width: 90%; text-align: center;"
                 readonly
@@ -170,10 +180,139 @@
                 <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">Read Notes</v-btn>
                 <v-btn class="mx-auto" @click="addNotesModal" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
+              <!--              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>-->
+              <!--              <v-row style="width: 100%;" class="d-flex nowrap mt-6">-->
+              <!--                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="connections.length > 0">{{connections.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
+              <!--                <v-card-text style="width: 50%; font-size: 24px; text-align: center" >Approved Applications</v-card-text>-->
+              <!--              </v-row>-->
+              <!--              <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">-->
+              <!--                <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">View Connections</v-btn>-->
+              <!--                <v-btn class="mx-auto" @click="addNotesModal" rounded outlined color="primary" style="width: 40%;">View Applications</v-btn>-->
+              <!--              </v-row>-->
+              <!--              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
+              <!--              <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>-->
+              <!--              <template style="width: 100%;" v-if="insurances.length > 0" class="d-flex justify-center">-->
+              <!--                <template v-for="(insurance, index) in insurances.slice(0,4)">-->
+              <!--                  <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>-->
+              <!--                  <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>-->
+              <!--                </template>-->
+              <!--                <v-btn color="primary" outlined rounded style="width: 50%;">View Insurances</v-btn>-->
+              <!--              </template>-->
+              <!--              <template style="width: 100%;" v-else class="d-flex justify-center">-->
+              <!--                <v-card-text style="text-align: center; font-size: 18px;">There are no insurances to view for this channel</v-card-text>-->
+              <!--              </template>-->
+              <!--              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
+              <!--              <v-card-title style="color:#A61C00; font-size: 24px;">Licenses</v-card-title>-->
+              <!--              <template style="width: 100%;" v-if="licenses.length > 0" class="d-flex justify-center">-->
+              <!--                <template v-for="(license, index) in licenses.slice(0,4)">-->
+              <!--                  <v-card-text >{{license.name}} - {{license.licenseLocation}}</v-card-text>-->
+              <!--                  <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>-->
+              <!--                </template>-->
+              <!--                <v-btn class="mb-4" color="primary" outlined rounded style="width: 50%">View Licenses</v-btn>-->
+              <!--              </template>-->
+              <!--              <template style="width: 100%;" v-else class="d-flex justify-center">-->
+              <!--                <v-card-text style="text-align: center; font-size: 18px;">There are no licenses to view for this channel</v-card-text>-->
+              <!--              </template>-->
             </v-card>
           </transition>
         </v-col>
-
+        <!--        <v-col cols="3">-->
+        <!--          <v-skeleton-loader-->
+        <!--            v-if="!loading"-->
+        <!--            type="card-avatar, article, article, actions"-->
+        <!--            min-height="50vh"-->
+        <!--            min-width="20vw"-->
+        <!--          ></v-skeleton-loader>-->
+        <!--          <transition name="slide-fade">-->
+        <!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;" @click="openApprovedChannelsList">-->
+        <!--              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Approved Channels</v-card-title>-->
+        <!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;" v-if="connections.length > 0">{{connections.length}}</v-card-title>-->
+        <!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;" v-else>0</v-card-title>-->
+        <!--            </v-card>-->
+        <!--          </transition>-->
+        <!--          <transition name="slide-fade">-->
+        <!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;" @click="openRecentlyApprovedChannelsList">-->
+        <!--              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>-->
+        <!--              <v-card-subtitle style=" font-size: 18px;">Past 30 days</v-card-subtitle>-->
+        <!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>-->
+        <!--            </v-card>-->
+        <!--          </transition>-->
+        <!--&lt;!&ndash;          <transition name="slide-fade">&ndash;&gt;-->
+        <!--&lt;!&ndash;            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">&ndash;&gt;-->
+        <!--&lt;!&ndash;              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <v-slide-group&ndash;&gt;-->
+        <!--&lt;!&ndash;                multiple&ndash;&gt;-->
+        <!--&lt;!&ndash;                show-arrows&ndash;&gt;-->
+        <!--&lt;!&ndash;              >&ndash;&gt;-->
+        <!--&lt;!&ndash;                <v-slide-item v-for="(review, index) in reviews">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <v-divider></v-divider>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <v-rating&ndash;&gt;-->
+        <!--&lt;!&ndash;                    empty-icon="$mdiStarOutline"&ndash;&gt;-->
+        <!--&lt;!&ndash;                    full-icon="$mdiStar"&ndash;&gt;-->
+        <!--&lt;!&ndash;                    half-icon="$mdiStarHalfFull"&ndash;&gt;-->
+        <!--&lt;!&ndash;                    half-increments&ndash;&gt;-->
+        <!--&lt;!&ndash;                    hover&ndash;&gt;-->
+        <!--&lt;!&ndash;                    length="5"&ndash;&gt;-->
+        <!--&lt;!&ndash;                    size="64"&ndash;&gt;-->
+        <!--&lt;!&ndash;                    :value="review.stars"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  ></v-rating>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </v-slide-item>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </v-slide-group>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </v-card>&ndash;&gt;-->
+        <!--&lt;!&ndash;          </transition>&ndash;&gt;-->
+        <!--          &lt;!&ndash;          <v-card class="d-flex flex-column align-center mt-10">&ndash;&gt;-->
+        <!--          &lt;!&ndash;            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>&ndash;&gt;-->
+        <!--          &lt;!&ndash;            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>&ndash;&gt;-->
+        <!--          &lt;!&ndash;            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>&ndash;&gt;-->
+        <!--          &lt;!&ndash;          </v-card>&ndash;&gt;-->
+        <!--          <v-overlay-->
+        <!--            :absolute="absolute"-->
+        <!--            :opacity="opacity"-->
+        <!--            :value="overlay"-->
+        <!--          >-->
+        <!--            <transition name="slide-fade">-->
+        <!--              <v-card color="white" v-if="loadLeaveReviewModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">-->
+        <!--                <v-card-title style="color: #A61C00">Leave a review for this vendor!</v-card-title>-->
+        <!--                <v-row style="width: 100%;" class="d-flex nowrap justify-center align-center">-->
+        <!--                  <v-rating-->
+        <!--                    color="primary"-->
+        <!--                    half-increments-->
+        <!--                    hover-->
+        <!--                    length="5"-->
+        <!--                    size="40"-->
+        <!--                    value="5"-->
+        <!--                    v-model="leaveReview.stars"-->
+        <!--                    style="width: 30%;"-->
+        <!--                  ></v-rating>-->
+        <!--                  <v-card-text style="color: #A61C00; width: 10%;">{{leaveReview.stars}}/5</v-card-text>-->
+        <!--                </v-row>-->
+        <!--                <v-text-field-->
+        <!--                  class="mt-2"-->
+        <!--                  label="Title Your Review*"-->
+        <!--                  v-model="leaveReview.reviewTitle"-->
+        <!--                  style="color: white; opacity: 0.65; width: 80%;"-->
+        <!--                  outlined-->
+        <!--                  single-line-->
+        <!--                  background-color="#4a4a4a"-->
+        <!--                ></v-text-field>-->
+        <!--                <v-textarea-->
+        <!--                  label="Review Details Here*"-->
+        <!--                  v-model="leaveReview.reviewerDescription"-->
+        <!--                  style="color: white; opacity: 0.65; width: 80%;"-->
+        <!--                  outlined-->
+        <!--                  single-line-->
+        <!--                  background-color="#4a4a4a"-->
+        <!--                ></v-textarea>-->
+        <!--                <v-btn @click="submitReview" color="primary" class="mb-4" style="width: 40%;">Submit Review</v-btn>-->
+        <!--                <v-btn style="position: absolute; top: 10px; right: 10px; font-size: 25px; color: #151515;" text @click="exitLoadLeaveReview">X</v-btn>-->
+        <!--              </v-card>-->
+        <!--            </transition>-->
+        <!--          </v-overlay>-->
+        <!--        </v-col>-->
         <v-col cols="4" class="d-flex flex-column align-center mt-10" >
           <v-skeleton-loader
             v-if="!loading"
@@ -315,18 +454,9 @@
         </v-card>
       </transition>
 
-      <!-- CARD ON COMPANY INTERNAL NOTES -->
       <transition name="slide-fade">
-        <!-- CARD THAT WILL SHOW WHEN "VIEW" NOTE IS CLICKED -->
-        <!-- <v-card v-if="this.viewNote === true">
-          <template>
-            {{this.note}}
-          </template>
-        </v-card> -->
-
         <v-card v-if="notesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor</v-card-title>
-          <!-- DATA TABLE FOR COMPANY NOTES! -->
           <v-data-table
             :headers="notesHeaders"
             :items="notes"
@@ -334,7 +464,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
+              <p v-if="item.note.length > 10">{{item.note.splice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
@@ -342,7 +472,7 @@
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
-              <!-- <v-btn @click="viewNoteFunc(item)" >View</v-btn> -->
+              <v-btn>View</v-btn>
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>
@@ -350,119 +480,119 @@
         </v-card>
       </transition>
 
-<!--      <v-overlay-->
-<!--        :absolute="absolute"-->
-<!--        :opacity="opacity"-->
-<!--        :value="overlayRequest"-->
-<!--      >-->
-        <transition name="slide-fade">
-          <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
-            <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
-            <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
-            <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
-              <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
-                <v-form class="mx-4" style="width: 60%;">
-                  <v-select
-                    label="Step 1 - Choose Your Channel"
-                    :items="company.locations"
-                    item-text="name address city state zipcode"
-                    item-value="name address city state zipcode"
-                    style="width: 100%;"
-                    outlined
-                  >
-                    <template slot="selection" slot-scope="data">
-                      <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                    </template>
-                  </v-select>
-                </v-form>
-                to fill out your
-                <v-form class="mx-3" style="width: 50%;">
-                  <v-select
-                    outlined
-                    label="Step 2 - Choose Your Application"
-                    :items="userforms"
-                    item-text="name id"
-                    item-value="name id"
-                    style="width: 100%;"
-                  >
-                    <template slot="selection" slot-scope="data">
-                      <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
-                    </template>
-                  </v-select>
-                </v-form>
-                specialized application.</v-card-title>
-            </template>
-            <v-btn @click="sendMessage" outlined color="primary" rounded width="80%" class="mb-4 py-8">Request Application</v-btn>
-            <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeRequestModal">X</v-btn>
-            <transition name="slide-fade">
-              <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
-            </transition>
-          </v-card>
-        </transition>
-<!--      </v-overlay>-->
+      <!--      <v-overlay-->
+      <!--        :absolute="absolute"-->
+      <!--        :opacity="opacity"-->
+      <!--        :value="overlayRequest"-->
+      <!--      >-->
+      <transition name="slide-fade">
+        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
+          <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
+          <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
+          <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
+            <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
+              <v-form class="mx-4" style="width: 60%;">
+                <v-select
+                  label="Step 1 - Choose Your Channel"
+                  :items="company.locations"
+                  item-text="name address city state zipcode"
+                  item-value="name address city state zipcode"
+                  style="width: 100%;"
+                  outlined
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p @click="getUserFormsForLocation(data.item)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+                  </template>
+                </v-select>
+              </v-form>
+              to fill out your
+              <v-form class="mx-3" style="width: 50%;">
+                <v-select
+                  outlined
+                  label="Step 2 - Choose Your Application"
+                  :items="userforms"
+                  item-text="name id"
+                  item-value="name id"
+                  style="width: 100%;"
+                >
+                  <template slot="selection" slot-scope="data">
+                    <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>
+                  </template>
+                </v-select>
+              </v-form>
+              specialized application.</v-card-title>
+          </template>
+          <v-btn @click="sendMessage" outlined color="primary" rounded width="80%" class="mb-4 py-8">Request Application</v-btn>
+          <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeRequestModal">X</v-btn>
+          <transition name="slide-fade">
+            <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+          </transition>
+        </v-card>
+      </transition>
+      <!--      </v-overlay>-->
 
-<!--      <v-overlay-->
-<!--        :absolute="absolute"-->
-<!--        :opacity="opacity"-->
-<!--        :value="overlayMessage"-->
-<!--      >-->
-        <transition name="slide-fade">
-          <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto" class="d-flex flex-column align-center justify-center">
-            <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
-            <v-form class="mx-4 my-2" style="width: 80%;">
-              <v-select
-                label="Step 1 - Choose Your Company Channel"
-                :items="company.locations"
-                item-text="name address city state zipcode"
-                item-value="name address city state zipcode"
-                style="width: 100%;"
-                outlined
-              >
-                <template slot="selection" slot-scope="data">
-                  <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                </template>
-                <template slot="item" slot-scope="data">
-                  <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
-                </template>
-              </v-select>
-              <v-textarea
-                v-model="sendMessageNonApp.message"
-                label="Step 3 - Type in Message"
-                outlined
-                rows="8"
-                auto-grow
-              ></v-textarea>
-              <v-autocomplete
-                v-model="sendMessageNonApp.name"
-                :items="naicsList"
-                item-text="name"
-                item-value="name"
-                label="Optionally - Select A Category"
-                solo
-                clearable
-                hint=""
-                outlined
-                persistent-hint
-              >
-                <template slot="selection" slot-scope="data">
-                  <p>{{ data.item.name }}</p>
-                </template>
-                <template slot="item" slot-scope="data">
-                  <p>{{ data.item.name }}</p>
-                </template>
-              </v-autocomplete>
-            </v-form>
-            <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-8 py-8">Send Message</v-btn>
-            <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
-          </v-card>
-        </transition>
-<!--      </v-overlay>-->
+      <!--      <v-overlay-->
+      <!--        :absolute="absolute"-->
+      <!--        :opacity="opacity"-->
+      <!--        :value="overlayMessage"-->
+      <!--      >-->
+      <transition name="slide-fade">
+        <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto" class="d-flex flex-column align-center justify-center">
+          <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
+          <v-form class="mx-4 my-2" style="width: 80%;">
+            <v-select
+              label="Step 1 - Choose Your Company Channel"
+              :items="company.locations"
+              item-text="name address city state zipcode"
+              item-value="name address city state zipcode"
+              style="width: 100%;"
+              outlined
+            >
+              <template slot="selection" slot-scope="data">
+                <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+              </template>
+              <template slot="item" slot-scope="data">
+                <p @click="getUserFormsForLocation(data.item)">{{ data.item.name }} - {{ data.item.address }} {{data.item.city}}, {{data.item.state}} {{data.item.zipcode}}</p>
+              </template>
+            </v-select>
+            <v-textarea
+              v-model="sendMessageNonApp.message"
+              label="Step 3 - Type in Message"
+              outlined
+              rows="8"
+              auto-grow
+            ></v-textarea>
+            <v-autocomplete
+              v-model="sendMessageNonApp.name"
+              :items="naicsList"
+              item-text="name"
+              item-value="name"
+              label="Optionally - Select A Category"
+              solo
+              clearable
+              hint=""
+              outlined
+              persistent-hint
+            >
+              <template slot="selection" slot-scope="data">
+                <p>{{ data.item.name }}</p>
+              </template>
+              <template slot="item" slot-scope="data">
+                <p>{{ data.item.name }}</p>
+              </template>
+            </v-autocomplete>
+          </v-form>
+          <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-8 py-8">Send Message</v-btn>
+          <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
+        </v-card>
+      </transition>
+      <!--      </v-overlay>-->
 
       <transition name="slide-fade">
         <v-card v-if="openCompanyLocationsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
@@ -546,6 +676,46 @@
           <v-btn text @click="recentlyApprovedChannelsModal = false" style="position: absolute; top: 10px; right: 10px; font-size: 24px; color: white;">X</v-btn>
         </v-card>
       </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="licenseModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
+          <v-data-table
+            :headers="licenseHeaders"
+            :items="licenses"
+            style="width: 90%;"
+            :items-per-page="10"
+          >
+            <template v-slot:item.expirationDate="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+              <v-card-text>{{item.expirationDate.slice(0,4)}}</v-card-text>
+            </template>
+            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+              <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitLicenseModal">< Back</v-btn>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="insuranceModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
+          <v-data-table
+            :headers="insuranceHeaders"
+            :items="insurances"
+            style="width: 90%;"
+            :items-per-page="10"
+          >
+            <template v-slot:item.expirationDateVal="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+              <v-card-text>{{item.expirationDateVal.slice(0,4)}}</v-card-text>
+            </template>
+            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+              <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitInsuranceModal">< Back</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -561,8 +731,6 @@
     },
     data() {
       return {
-        viewedNote: null,
-        viewNote: false,
         addNotesSuccess: false,
         notesFileFile: null,
         approvedChannelsModal: false,
@@ -572,7 +740,6 @@
         openCompanyLocationsModal: false,
         vendorTypes: [],
         sendMessageNonApp: {
-
         },
         naicsList: [],
         messageModalLoad: false,
@@ -583,7 +750,6 @@
         overlayMessage: false,
         overlayRequest: false,
         location: {
-
         },
         company: {},
         userforms: [],
@@ -617,7 +783,6 @@
           userprofiles_id: Number,
           spLocationsId: Number,
           companies_id: Number,
-          spcompaniesId: Number,
         },
         chosenLocation: {},
         addNotesModalLoad: false,
@@ -655,15 +820,29 @@
         locationsForVendor: [],
         vendorDocuments: [],
         locationNotes: [],
+        licenseHeaders: [
+          { text: 'Document Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'License Number', value: 'licenseNumber', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'License Location', value: 'licenseLocation', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        licenseModal: false,
+        insuranceHeaders: [
+          { text: 'Document Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Insurance Company', value: 'insuranceCompany', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Insurance Type', value: 'type', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Policy Number', value: 'policyNumber', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Expiration Date', value: 'expirationDateVal', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        insuranceModal: false,
       }
     },
     computed: {
       currentUser() {
         return this.$store.state.user.user.user;
       },
-      noteList() {
-        this.notes = this.notes
-      }
     },
     async mounted() {
       console.log(this.$route.params.id, 'hey')
@@ -680,10 +859,6 @@
       await this.getLocationNotes();
     },
     methods: {
-      async viewNoteFunc(note) {
-        this.viewedNote = note
-        this.viewNote = true
-      },      
       async changeUrl(location) {
         console.log(location, 'changeUrl', window.location.href);
         this.loading = false;
@@ -705,7 +880,7 @@
             this.vendorDocuments = response.data
           })
           .catch(err => {
-           console.log(err, 'err in getting list')
+            console.log(err, 'err in getting list')
           })
       },
       async getChosenLocation(location) {
@@ -717,8 +892,7 @@
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
         this.note.spLocationsId = Number(this.$route.params.id)
-        this.note.spcompaniesId = this.location.companies_id
-        console.log(this.chosenLocation, 'hello', this.location)
+        console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
         formData.append('file', file);
@@ -731,18 +905,11 @@
           .catch(err => {
             console.log('error in uploading location image', err)
           })
-
         setTimeout(() => {
           this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
-              // this.submitNotesSuccess = true;
-              alert("Note submission successful!")
-              this.notes.push(response.data.note)
-              // if(this.location.id === this.$route.params.id){
-              //   this.locationNotes.push(response.data.note)
-              // } 
-              this.locationNotes.push(response.data.note)
+              this.submitNotesSuccess = true;
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)
@@ -766,10 +933,8 @@
       },
       readFile(e) {
         this.selectedFile = e.target.files[0]
-
         this.url = URL.createObjectURL(this.selectedFile)
         console.log(this.url, 'this.url')
-
         //this.selectFile(this.selectedFile)
       },
       selectFile(file) {
@@ -826,7 +991,6 @@
           locationImg: '',
           locationAddress: '',
         }
-
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             console.log(response.data, 'response for company approval!!!!!!!!!')
@@ -856,7 +1020,6 @@
           locationImg: '',
           locationAddress: '',
         }
-
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
             console.log(response.data, 'response for company approval!!!!!!!!!')
@@ -948,7 +1111,9 @@
           .then(response => {
             console.log(response.data, 'response.data insurances');
             for (let i = 0; i < response.data.length; i++) {
-              this.insurances.push(response.data[0]);
+              if(response.data[i].documentVisible === true) {
+                this.insurances.push(response.data[0]);
+              }
             }
             console.log(this.insurances, 'this.insurances')
           })
@@ -961,7 +1126,9 @@
           .then(response => {
             console.log(response.data, 'response.data licenses');
             for (let i = 0; i < response.data.length; i++) {
-              this.licenses.push(response.data[0]);
+              if(response.data[i].documentVisible === true) {
+                this.licenses.push(response.data[0]);
+              }
             }
             console.log(this.licenses, 'this.licenses')
           })
@@ -1024,7 +1191,6 @@
         //     }
         //   }
         // }
-
         if(this.requestModalLoad === true) {
           await this.getUserFormsSingleLocation(item.id)
         }
@@ -1104,7 +1270,6 @@
           })
       },
       async getMessages() {
-
         await this.$http.get('https://www.sowerkbackend.com/api/messages/byUserId/' + this.$store.state.user.user.user.id)
           .then(response => {
             console.log(response.data, 'message by user response.data')
@@ -1124,7 +1289,7 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.$route.params.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.notes = response.data;
@@ -1134,8 +1299,7 @@
           })
       },
       async getLocationNotes() {
-        this.locationNotes = []
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/bySpLocationId/' + this.location.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byLocationId/' + this.location.id + '/bySPLocationId/' + this.$route.params.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.locationNotes = response.data;
@@ -1145,23 +1309,13 @@
           })
       },
       async deleteNote(note) {
-        let firm = confirm("Are you sure you would like to delete this note?")   
-        if (firm) {
-          await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
-            .then(response => {
-              console.log('success in deleting this note', response)
-              alert("Note was successfully deleted")
-              this.notes.forEach((selectedNote, index) => {
-                if(selectedNote === note){
-                  this.notes.splice(this.notes[index], 1)
-                }
-              })
-              this.getNotes()
-            })
-            .catch(err => {
-              console.log('err in deleting this note', err);
-            })
-        }     
+        await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
+          .then(response => {
+            console.log('success in deleting this note', response)
+          })
+          .catch(err => {
+            console.log('err in deleting this note', err);
+          })
       },
       async addNotesModal() {
         this.addNotesModalLoad = true;
@@ -1172,11 +1326,21 @@
       },
       async listNotesModal() {
         this.notesModalLoad = true;
-        this.notes = []
-        await this.getNotes()
       },
       async exitNotesModalLoad() {
         this.notesModalLoad = false;
+      },
+      async openLicenseModal() {
+        this.licenseModal = true;
+      },
+      async exitLicenseModal() {
+        this.licenseModal = false;
+      },
+      async openInsuranceModal() {
+        this.insuranceModal = true;
+      },
+      async exitInsuranceModal() {
+        this.insuranceModal = false;
       },
       async loadLeaveReview() {
         this.loadLeaveReviewModal = true;
@@ -1192,7 +1356,6 @@
         } else {
           this.leaveReview.reviewerAccountType = 'Staff Account';
         }
-
         await this.$http.post('https://www.sowerkbackend.com/api/locationreviews', this.leaveReview)
           .then(response => {
             console.log(response, 'success in adding location review')
@@ -1222,4 +1385,3 @@
     opacity: 0;
   }
 </style>
-

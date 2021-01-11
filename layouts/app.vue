@@ -129,8 +129,7 @@
             header: {
               title: '',
             },
-            content: `<h1>Welcome to your SOWerk dashboard!</h1><p>This page is specific to you and your account level access.<br/>If you have administrator access your dashboard will show all account locations, all account Vendors, and every Vendor management tool.<br/>However, if you only have staff-level access to a specific location(s) then this dashboard revolves specifically around your needs. Enjoy!
-</p>`,
+            content: `<h1>Welcome to SOWerk!</h1><p>The first thing to know is that your experience will be unique to your specific access level. Just like most software platforms administrator access will have more visibility than staff level access. Second, if at any time you have issues or would like to share some feedback you may do so in the Support & Feedback section of your SOWerk navigation.</p>`,
             params: {
               placement: 'bottom',
               highlight: true,
@@ -141,7 +140,7 @@
             header: {
               title: '',
             },
-            content: `<h1>Step #1<br/>Locations Are Critical</h1><p>Your SOWerk account is made up of locations. They are places where you will be doing business with Vendors now or in the future and therefore <strong style="text-decoration: underline">super important</strong>. It is essential that you create each property, facility, project, or otherwise unique location so that Vendor vetting and management tools can properly work. </p>`,
+            content: `<h1>Step #1<br/>Create Your Channels</h1><p>Before you can start vetting Vendors you will need to first identify any facility, area/district, major project, or even company departments where you will be vetting and managing Vendors. </p>`,
             params: {
               placement: "top",
             }
@@ -151,7 +150,7 @@
             header: {
               title: '',
             },
-            content: `<h1>Step #2<br/>Build Vendor Requirements</h1><p>Once locations are established it’s time to define your Vendor requirements. Don’t worry, we make this easy.<br/><br/>You can utilize SOWerk templates to help get you started. The power to vet is all yours! You can completely customize any Vendor application by service/supply category and at each location. If you have the same requirements at all locations administrators can build company templates. </p>`,
+            content: `<h1>Step #2<br/>Vendor Applications</h1><p>Once Channels are established it’s time to build your Vendor applications. Think of Vendor applications just like you would if you were hiring an employee. Establishing an approved supplier or service provider isn't much different. You create the application, Vendors apply, and then you review and choose to approve or deny their application for the position of approved Vendor. Need help getting started? Try using a SOWerk Template.</p>`,
             params: {
               placement: "top",
             }
@@ -161,7 +160,7 @@
             header: {
               title: '',
             },
-            content: `<h1>Step #3<br/>Connect With Vendors</h1><p>Your location's built and your Vendor requirements are set. It’s time to mix and mingle!<br/><br/>Use the Vendor invite tool to send invitations to those Vendors you wish to apply on SOWerk for your Vendor requirements or invite pre-approved Vendors to connect on SOWerk without application. You can also search the SOWerk Vendor directory to find vendors to invite. </p>`,
+            content: `<h1>Step #3<br/>Connect With Vendors</h1><p>Your Channels are set and your Vendor applications are published. Now, it’s time to mix and mingle! Try using the Vendor invite tool to invite any of your existing vendors to join SOWerk, or search through the Vendor directory to review and invite Vendors to apply.</p>`,
             params: {
               placement: "top",
             }

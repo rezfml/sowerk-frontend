@@ -106,8 +106,8 @@
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;margin-bottom:5%" class="d-flex flex align-center">
-            <v-col cols="7" style="height:auto;margin-top:-15%;margin-bottom:-15%;">
-              <v-img class="" src="/VendorApplicationsLogo-159.png"></v-img>
+            <v-col cols="7" style="">
+              <v-img height="400px" src="/SoWork Logos with Icons-159.png"></v-img>
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center">
@@ -2127,9 +2127,14 @@ const naics = require("naics");
             console.log(response.data, 'formfields for application template userform', id);
             console.log(response.data[0])
             console.log(response.data[0].order)
-            this.sortedSowerkTemplates = response.data.sort((a,b)=>(a.order>b.order)?1:(a.order===b.order)?((a.order>b.order)?1:-1) : -1)
+            response.data.sort((a,b) => {
+              if (a.order > b.order) return 1;
+              if (b.order > a.order) return -1;
+
+              return 0;
+            })
             console.log(this.sortedSowerkTemplates)
-            this.applicationTemplates[indexPostion].applicationtemplatesformfields = this.sortedSowerkTemplates;
+            this.applicationTemplates[indexPostion].applicationtemplatesformfields = response.data;
           })
           .catch(err => {
             console.log(err, 'err in application templates form fields')
@@ -2163,6 +2168,12 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for company userform', id);
+            response.data.sort((a,b) => {
+              if (a.order > b.order) return 1;
+              if (b.order > a.order) return -1;
+
+              return 0;
+            })
             this.companyTemplates[indexPostion].companytemplatesformfields = response.data;
           })
           .catch(err => {

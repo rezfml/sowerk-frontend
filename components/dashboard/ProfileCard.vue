@@ -234,8 +234,8 @@
                   </v-card-text>
                 </transition>
 
-                <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Customer Connections</v-btn>
-                <v-btn @click="editVendorRequirement" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Channel Leads</v-btn>
+                <v-btn @click="customerConnections" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Customer Connections</v-btn>
+                <v-btn @click="channelLeads" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Channel Leads</v-btn>
                 <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Channel Details</v-btn>
 
                 <v-spacer></v-spacer>
@@ -275,7 +275,9 @@
       "locationImageUrl",
       "showUploadCard",
       "uploadCard",
-      "editCompany"
+      "editCompany",
+      "customerConnections",
+      "channelLeads"
     ],
     data() {
       return {
