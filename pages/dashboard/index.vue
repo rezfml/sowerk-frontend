@@ -112,13 +112,12 @@
         <!--          ></HomeCard>-->
         <!--      </transition>-->
 
-      <v-row style="width: 100%;" class="mt-n16" v-if="company && company.company_type !== 'false'">
+      <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
         <!-- ACCOUNT CHANNELS CARD  -->
-        <v-col cols="4" style="height: 50vh;">
+        <v-col cols="12" xl="4" lg="4" md="8" sm="10" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-            <v-row style="width: 100%; height: 40%;" class="d-flex justify-center mt-n16">
-              <img style="width: 10%" class="ml-12 mt-n16" src="/channels-icon.svg">
-              <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWerk-LogoFacilities.png">
+            <v-row style="width: 100%;" class="mt-16">
+              <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
             </v-row>
             <v-card-text class="" style="font-size: 18px; text-align: center;margin-bottom:5%;margin-top:10%">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
             <v-row class="mt-n2 mb-n2">
@@ -147,11 +146,10 @@
         </v-col>
 
         <!-- VENDOR APPLICATIONS CARD -->
-        <v-col cols="4" style="height: 50vh;">
+        <v-col cols="12" xl="4" lg="4" md="8" sm="10" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-            <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
-              <img style="width: 10%" class="ml-12 mt-n16" src="/resume.svg">
-              <img style="width: 90%;" class="ml-n12 mt-n16" src="/VendorApplicationsLogo-159.png">
+            <v-row style="width: 100%;" class="mt-16">
+              <v-img width="400px" height="75px" src="/SoWork Logos with Icons-159.png"></v-img>
             </v-row>
             <v-card-text style="font-size: 18px; text-align: center;margin-bottom:12%;" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
             <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/applications">Manage Applications</v-btn>
@@ -160,25 +158,21 @@
         </v-col>
 
         <!-- VENDOR SEARCH CARD -->
-        <v-col cols="4" style="height: 50vh;">
+        <v-col cols="12" xl="4" lg="4" md="8" sm="10" style="height: 50vh;">
           <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center">
-            <v-row style="width: 100%;" class="d-flex align-center justify-center">
-              <img style="width: 10%;" class="" src="/magnifying-glass.svg">
-              <img style="width: 35%;" class="" src="/SoWork Vendor Search -170.png" >
+            <v-row style="width: 100%;" class="mt-16">
+              <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
             </v-row>
-            <v-card-text style="font-size: 18px;text-align:center">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
+            <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
             <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
             <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
             <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
             <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
           </v-card>
         </v-col>
-      </v-row>
 
-      <!-- SOWERK 101 CARD AND APPROVED VENDORS CARD -->
-      <v-row style="width: 100%;" class="mt-4 d-flex justify-center align-center" v-if="company && company.company_type !== 'false'">
-
-        <v-col cols="4">
+        <!-- SOWERK 101 CARD -->
+        <v-col cols="12" xl="4" lg="4" md="4" sm="10" class="mt-6">
           <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
             <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
             <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
@@ -186,7 +180,8 @@
           </v-card>
         </v-col>
 
-        <v-col cols="8" style="height: auto;">
+        <!-- APPROVED VENDORS CARD -->
+        <v-col cols="12" xl="8" lg="8" md="8" sm="10" style="height: auto;" class="mt-6">
           <v-card style="width: 100%; height: 30vh;" class="d-flex align-center">
 
             <v-col class="d-flex flex-column align-center" cols="3">
@@ -212,22 +207,21 @@
             <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                  <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
-                    <img style="width: 10%" class="ml-12 mt-n16" src="/channels-icon.svg">
-                    <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWerk-LogoFacilities.png">
+                  <v-row style="width: 100%;" class="mt-16">
+                    <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                   </v-row>
                   <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
                   <v-row class="mt-n2 mb-n2" style="width: 100%;">
                     <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
-                      <v-img src="/building.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                      <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
                       <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Locations</h2>
                     </v-col>
                     <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center">
-                      <v-img src="/connection.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                      <v-img src="/connection.svg" style="max-width:75px;max-height:75px;"></v-img>
                       <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Departments</h2>
                     </v-col>
                     <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center">
-                      <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;margin-left:20%;"></v-img>
+                      <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;"></v-img>
                       <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                     </v-col>
                   </v-row>
@@ -237,11 +231,10 @@
 
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                  <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
-                    <img style="width: 10%" class="ml-12 mt-n16" src="/complete-icon.svg">
-                    <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWork Logo-171.png">
+                  <v-row style="width: 100%;" class="mt-16">
+                    <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                   </v-row>
-                  <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
+                  <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                   <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
@@ -256,31 +249,30 @@
 
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                  <v-row style="width: 100%; margin-top: 125px;">
+                  <v-row style="width: 100%;" class="mt-16">
                     <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
                   </v-row>
-                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 60%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                  <v-btn color="primary"to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                  <v-btn color="primary" to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
 
               <v-col cols="6" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                  <v-row style="width: 100%; margin-top: 125px;">
+                  <v-row style="width: 100%;" class="mt-16">
                     <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                   </v-row>
-                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 60%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                  <v-btn color="primary"to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                  <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                  <v-btn color="primary" to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                 </v-card>
               </v-col>
 
               <v-col cols="6" class="mt-8" style="height: 50vh;">
                 <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                  <v-row style="width: 100%; height: 40%" class="d-flex justify-center mt-n16">
-                    <img style="width: 10%" class="ml-12 mt-n16" src="/magnifying-glass.svg">
-                    <img style="width: 90%;" class="ml-n12 mt-n16" src="/SoWork Logo-173.png">
+                  <v-row style="width: 100%;" class="mt-16">
+                    <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
                   </v-row>
-                  <v-card-text class="" style="font-size: 18px; text-align: center; position:absolute; top: 60%;">SOWerk offers Vendors the new customer search tool to help make great connections.</v-card-text>
+                  <v-card-text class="" style="font-size: 18px; text-align: center; position:absolute; top: 50%;">SOWerk offers Vendors the new customer search tool to help make great connections.</v-card-text>
                   <v-btn color="primary" to="dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
                 </v-card>
               </v-col>

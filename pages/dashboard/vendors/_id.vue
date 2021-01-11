@@ -32,7 +32,7 @@
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.address}}</v-card-text>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.city}} {{companyForVendor.state}}, {{companyForVendor.zipcode}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
-            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate}}</v-card-text>
+            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
             <v-btn :to="companyForVendor.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 24px;" color="primary" outlined rounded>Company Website</v-btn>
@@ -40,14 +40,16 @@
               <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
               <v-row class="d-flex flex-column align-end">
-                <v-card-title style="font-size: 24px;">Insurance Policies</v-card-title>
-                <v-btn to="dashboard/insurances" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                <v-row class="d-flex flex-column align-end">
+                  <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
+                  <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 80%;" color="primary" rounded>View Details</v-btn>
+                </v-row>
               </v-row>
             </v-row>
             <v-row class="py-8 d-flex justify-center" style="width: 90%;">
               <v-row class="d-flex flex-column align-left">
-                <v-card-title style="font-size: 24px;">Certificates & Licenses</v-card-title>
-                <v-btn to="dashboard/licenses" class="py-6" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
+                <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 70%;" color="primary" rounded>View Details</v-btn>
               </v-row>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
