@@ -560,7 +560,7 @@
   
 </div>
 
-<!-- BREAKPOINT - SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
+<!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
 <div v-else-if="$vuetify.breakpoint.xs">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
