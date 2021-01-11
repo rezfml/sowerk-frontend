@@ -277,7 +277,6 @@
           .catch(err => {
             console.log(err, 'err in getting list')
           })
-
         this.loading = true;
       },
       // async clickCompanyDocumentsImageUpload() {
@@ -335,7 +334,6 @@
           .catch(err => {
             console.log('error in uploading location image', err)
           })
-
         setTimeout(() => {
           this.$http.post('https://www.sowerkbackend.com/api/license/byCompanyId/' + this.currentUser.companies_id, this.license)
             .then(response => {
@@ -379,10 +377,8 @@
       },
       readFile(e) {
         this.selectedFile = e.target.files[0]
-
         this.url = URL.createObjectURL(this.selectedFile)
         console.log(this.url, 'this.url')
-
         //this.selectFile(this.selectedFile)
       },
       selectFile(file) {
@@ -417,6 +413,4 @@
 </script>
 
 <style scoped>
-
 </style>
-
