@@ -75,8 +75,8 @@
       <transition name="slide-fade">
         <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
-            <v-col cols="6" style="height:auto;">
-              <v-img src="/SoWork Logos with Icons-162.png"></v-img>
+            <v-col cols="7" style="height:auto;">
+              <v-img height="400px" src="/SoWork Logos with Icons-162.png"></v-img>
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
@@ -130,7 +130,7 @@
         <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
           <v-row style="width:100%;height:auto" class="d-flex flex align-center">
             <v-col cols="6" style="height:auto;">
-              <v-img src="/SoWork Logos with Icons-162.png"></v-img>
+              <v-img height="400px" src="/SoWork Logos with Icons-162.png"></v-img>
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">

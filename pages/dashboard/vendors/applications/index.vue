@@ -107,7 +107,7 @@
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;margin-bottom:5%" class="d-flex flex align-center">
             <v-col cols="7" style="">
-              <v-img src="/SoWork Logos with Icons-159.png"></v-img>
+              <v-img height="400px" src="/SoWork Logos with Icons-159.png"></v-img>
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center">
