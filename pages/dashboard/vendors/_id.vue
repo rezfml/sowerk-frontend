@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="!addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad">
+      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad">
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -42,14 +42,14 @@
               <v-row class="d-flex flex-column align-end">
                 <v-row class="d-flex flex-column align-end">
                   <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                  <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 80%;" color="primary" rounded>View Details</v-btn>
+                  <v-btn @click="openInsuranceModal" class="py-6 mr-8" style="width: 80%;" color="primary" rounded>View Details</v-btn>
                 </v-row>
               </v-row>
             </v-row>
             <v-row class="py-8 d-flex justify-center" style="width: 90%;">
               <v-row class="d-flex flex-column align-left">
                 <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 70%;" color="primary" rounded>View Details</v-btn>
+                <v-btn @click="openLicenseModal" class="py-6 ml-8" style="width: 70%;" color="primary" rounded>View Details</v-btn>
               </v-row>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -548,6 +548,46 @@
           <v-btn text @click="recentlyApprovedChannelsModal = false" style="position: absolute; top: 10px; right: 10px; font-size: 24px; color: white;">X</v-btn>
         </v-card>
       </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="licenseModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
+          <v-data-table
+            :headers="licenseHeaders"
+            :items="licenses"
+            style="width: 90%;"
+            :items-per-page="10"
+          >
+            <template v-slot:item.expirationDate="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+              <v-card-text>{{item.expirationDate.slice(0,4)}}</v-card-text>
+            </template>
+            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+              <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitLicenseModal">< Back</v-btn>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="insuranceModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
+          <v-data-table
+            :headers="insuranceHeaders"
+            :items="insurances"
+            style="width: 90%;"
+            :items-per-page="10"
+          >
+            <template v-slot:item.expirationDateVal="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+              <v-card-text>{{item.expirationDateVal.slice(0,4)}}</v-card-text>
+            </template>
+            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+              <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitInsuranceModal">< Back</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -657,6 +697,23 @@
         locationsForVendor: [],
         vendorDocuments: [],
         locationNotes: [],
+        licenseHeaders: [
+          { text: 'Document Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'License Number', value: 'licenseNumber', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'License Location', value: 'licenseLocation', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Expiration Date', value: 'expirationDate', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        licenseModal: false,
+        insuranceHeaders: [
+          { text: 'Document Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Insurance Company', value: 'insuranceCompany', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Insurance Type', value: 'type', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Policy Number', value: 'policyNumber', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Expiration Date', value: 'expirationDateVal', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        insuranceModal: false,
       }
     },
     computed: {
@@ -950,7 +1007,9 @@
           .then(response => {
             console.log(response.data, 'response.data insurances');
             for (let i = 0; i < response.data.length; i++) {
-              this.insurances.push(response.data[0]);
+              if(response.data[i].documentVisible === true) {
+                this.insurances.push(response.data[0]);
+              }
             }
             console.log(this.insurances, 'this.insurances')
           })
@@ -963,7 +1022,9 @@
           .then(response => {
             console.log(response.data, 'response.data licenses');
             for (let i = 0; i < response.data.length; i++) {
-              this.licenses.push(response.data[0]);
+              if(response.data[i].documentVisible === true) {
+                this.licenses.push(response.data[0]);
+              }
             }
             console.log(this.licenses, 'this.licenses')
           })
@@ -1179,6 +1240,18 @@
       },
       async exitNotesModalLoad() {
         this.notesModalLoad = false;
+      },
+      async openLicenseModal() {
+        this.licenseModal = true;
+      },
+      async exitLicenseModal() {
+        this.licenseModal = false;
+      },
+      async openInsuranceModal() {
+        this.insuranceModal = true;
+      },
+      async exitInsuranceModal() {
+        this.insuranceModal = false;
       },
       async loadLeaveReview() {
         this.loadLeaveReviewModal = true;

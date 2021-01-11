@@ -56,11 +56,11 @@
       <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
         <v-row style="width:100%;height:auto" class="d-flex justify-center nowrap">
           <v-col cols="7" style="">
-            <v-img height="400px" src="/SoWork Logos with Icons-171.png"></v-img>
+            <v-img height="400px" src="\SoWork Logo-180.png"></v-img>
           </v-col>
 
           <v-col cols="5" class="d-flex flex-column justify-center">
-            <v-card-title style="color:darkred; font-size: 24px">What Are Customer Application Requests?</v-card-title>
+            <v-card-title style="color:darkred; font-size: 24px">What Are Customer Leads?</v-card-title>
             <v-card-text style="font-size: 18px;">Businesses every day are using SOWerk to find their next approved vendor. When they identify your account as a potential solution to their needs they can choose to request your application. To make things easier on you the Vendor any of these requests will all be shown here so that you can quickly review and apply.</v-card-text>
           </v-col>
         </v-row>
@@ -117,7 +117,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="white" color="mt-8" v-if="loading">
+      <v-card class="mt-8 mb-4" color="white" v-if="loading">
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingApprovedApplications.length > 0 && loading">Pre Approved Requests - {{requestingApprovedApplications.length}}</v-card-title>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingApprovedApplications.length === 0 && loading">Pre Approved Requests - 0</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
