@@ -9,17 +9,23 @@
 
     <!-- BUSINESS - VIDEO PLAYLIST -->
     <transition name="slide-fade">
-      <v-row style="width:100%;" v-if="this.companyType === 'true'">
-        <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='position:absolute;top:40px;left:30px;width:95%;height:80%;'></iframe>
+      <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'true' && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+        <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='width: 80vw; height: 90vh;' ></iframe>
+      </v-row>
+      <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'true' && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)">
+        <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='width: 100vw; height: 70vh;'></iframe>
       </v-row>
     </transition>
 
     <!-- VENDOR - VIDEO PLAYLIST -->
     <transition name="slide-fade">
-      <v-row style="width:100%;" v-if="this.companyType === 'false'">
-        <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='position:absolute;top:40px;left:30px;width:95%;height:80%;'></iframe>
+      <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'false' && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+        <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='width: 80vw; height: 90vh;' ></iframe>
       </v-row>
-    </transition>    
+      <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'false' && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)">
+        <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='width: 100vw; height: 70vh;'></iframe>
+      </v-row>
+    </transition>
 
     <!-- <transition name="slide-fade"> -->
         <!-- <v-row> -->
@@ -49,7 +55,7 @@
                     WATCH NOW -Applications 2/4-
                 </span>
                 </v-btn>
-              </v-row>               
+              </v-row>
               <v-row style="width:100%;padding-left:5%" v-if="this.showAllVenAppVids === true">
                 <v-btn @click="showVidApp3of4func" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                 <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
@@ -63,9 +69,9 @@
                     WATCH NOW -Applications 4/4-
                 </span>
                 </v-btn>
-              </v-row>            
+              </v-row>
 
-              
+
               <v-row style="width:100%;padding-left:5%">
                   <v-btn style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                   <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
@@ -80,30 +86,30 @@
                       WATCH NOW -Vendor Applications-
                   </span>
                   </v-btn>
-              </v-row>                                    
+              </v-row>
               </v-col> -->
-              
+
               <!-- JUST THE VIDEOS! -->
               <!-- <v-col cols="8">
                 <v-card style="height:500px;width:100%;background-color:#404040;border-radius:1%;" v-if="this.venAppVids.vid1of4 === true">
                     <iframe src="https://player.vimeo.com/video/496999264" allowfullscreen frameborder="0" style="top:0;left:0;width:980px;height:490px;margin-left:8%;border-radius:3%;">
                     </iframe>
-                </v-card>   
+                </v-card>
 
                 <v-card style="height:500px;width:100%;background-color:#404040;border-radius:1%;" v-if="this.venAppVids.vid2of4 === true">
                     <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="top:0;left:0;width:980px;height:490px;margin-left:8%;border-radius:3%;">
                     </iframe>
-                </v-card>   
+                </v-card>
 
                 <v-card style="height:500px;width:100%;background-color:#404040;border-radius:1%;" v-if="this.venAppVids.vid3of4 === true">
                     <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="top:0;left:0;width:980px;height:490px;margin-left:8%;border-radius:3%;">
                     </iframe>
-                </v-card>   
+                </v-card>
 
                 <v-card style="height:500px;width:100%;background-color:#404040;border-radius:1%;" v-if="this.venAppVids.vid4of4 === true">
                     <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="top:0;left:0;width:980px;height:490px;margin-left:8%;border-radius:3%;">
                     </iframe>
-                </v-card>  
+                </v-card>
             </v-col> -->
         <!-- </v-row> -->
     <!-- </transition> -->

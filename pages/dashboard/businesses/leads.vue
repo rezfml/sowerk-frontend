@@ -1,28 +1,31 @@
 <template>
   <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-    <v-row style="width: 100%;" class="d-flex flex-column" v-if="!loading">
-      <v-col cols="12" class="mx-2 my-2">
-        <v-skeleton-loader
-          v-if="!loading"
-          type="card-avatar, actions"
-          min-height="30vh"
-        ></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" class="mx-2 my-2">
-        <v-skeleton-loader
-          v-if="!loading"
-          type="card-avatar, actions"
-          min-height="30vh"
-        ></v-skeleton-loader>
-      </v-col>
-      <v-col cols="12" class="mx-2 my-2">
-        <v-skeleton-loader
-          v-if="!loading"
-          type="card-avatar, actions"
-          min-height="30vh"
-        ></v-skeleton-loader>
-      </v-col>
-    </v-row>
+    <transition name="slide-fade">
+      <v-row style="width: 100%;" class="d-flex flex-column" v-if="!loading">
+        <v-col cols="12" class="mx-2 my-2">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="12" class="mx-2 my-2">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+        <v-col cols="12" class="mx-2 my-2">
+          <v-skeleton-loader
+            v-if="!loading"
+            type="card-avatar, actions"
+            min-height="30vh"
+          ></v-skeleton-loader>
+        </v-col>
+      </v-row>
+    </transition>
+
     <!-- NOT SUPER USER -->
     <transition name="slide-fade">
       <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loading">
@@ -62,13 +65,15 @@
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px">What Are Customer Leads?</v-card-title>
             <v-card-text style="font-size: 18px;">Businesses every day are using SOWerk to find their next approved vendor. When they identify your account as a potential solution to their needs they can choose to request your application. To make things easier on you the Vendor any of these requests will all be shown here so that you can quickly review and apply.</v-card-text>
+            <v-btn @click="applicationRequestsModalOpen" class="my-2 py-6 mx-auto" style="width: 80%" rounded color="primary">Application Requests</v-btn>
+            <v-btn @click="preApprovedRequestsModalOpen" class="my-2 py-6 mx-auto" style="width: 80%" rounded color="primary">Pre Approved Requests</v-btn>
           </v-col>
         </v-row>
       </v-card>
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="white" color="mt-8" v-if="loading">
+      <v-card class="white" color="mt-8" v-if="loading && applicationRequestsModal">
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingApplications.length > 0 && loading">Application Requests - {{requestingApplications.length}}</v-card-title>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingApplications.length === 0 && loading">Application Requests - 0</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
@@ -100,24 +105,24 @@
       </v-card>
     </transition>
 
-    <!--VENDOR'S PRE APPROVED BANNER -->
-    <transition name="slide-fade">
-      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
-        <v-row style="width:100%;height:auto" class="d-flex justify-center nowrap">
-          <v-col cols="7" style="">
-            <v-img height="400px" src="/SoWork Logos with Icons-171.png"></v-img>
-          </v-col>
+<!--    &lt;!&ndash;VENDOR'S PRE APPROVED BANNER &ndash;&gt;-->
+<!--    <transition name="slide-fade">-->
+<!--      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">-->
+<!--        <v-row style="width:100%;height:auto" class="d-flex justify-center nowrap">-->
+<!--          <v-col cols="7" style="">-->
+<!--            <v-img height="400px" src="/SoWork Logos with Icons-171.png"></v-img>-->
+<!--          </v-col>-->
 
-          <v-col cols="5" class="d-flex flex-column justify-center">
-            <v-card-title style="color:darkred; font-size: 24px">What Are Pre Approved Customer Requests?</v-card-title>
-            <v-card-text style="font-size: 18px;">Businesses every day are using SOWerk to find their next approved vendor. When they identify your account as a potential solution to their needs they can choose to pre approve you. To make things easier on you the Vendor any of these requests will all be shown here so that you can quickly accept or deny this request.</v-card-text>
-          </v-col>
-        </v-row>
-      </v-card>
-    </transition>
+<!--          <v-col cols="5" class="d-flex flex-column justify-center">-->
+<!--            <v-card-title style="color:darkred; font-size: 24px">What Are Pre Approved Customer Requests?</v-card-title>-->
+<!--            <v-card-text style="font-size: 18px;">Businesses every day are using SOWerk to find their next approved vendor. When they identify your account as a potential solution to their needs they can choose to pre approve you. To make things easier on you the Vendor any of these requests will all be shown here so that you can quickly accept or deny this request.</v-card-text>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+<!--      </v-card>-->
+<!--    </transition>-->
 
     <transition name="slide-fade">
-      <v-card class="mt-8 mb-4" color="white" v-if="loading">
+      <v-card class="mt-8 mb-4" color="white" v-if="loading && preApprovedRequestsModal">
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingApprovedApplications.length > 0 && loading">Pre Approved Requests - {{requestingApprovedApplications.length}}</v-card-title>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingApprovedApplications.length === 0 && loading">Pre Approved Requests - 0</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
@@ -200,6 +205,8 @@
           { text: 'Application', value: 'userform_name', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
+        applicationRequestsModal: true,
+        preApprovedRequestsModal: false,
       }
     },
     watch: {
@@ -220,6 +227,14 @@
       await this.getCompany();
     },
     methods: {
+      async applicationRequestsModalOpen() {
+        this.applicationRequestsModal = true
+        this.preApprovedRequestsModal = false
+      },
+      async preApprovedRequestsModalOpen() {
+        this.applicationRequestsModal = false
+        this.preApprovedRequestsModal = true
+      },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         console.log('company from business/index: ', data.company_type);
