@@ -34,7 +34,7 @@
       </v-card>
     </transition>
 
-    <v-row>
+    <v-row v-if="!loading">
       <v-col cols="3">
         <v-skeleton-loader
           v-if="!loading"
@@ -311,7 +311,7 @@
         } else {
           this.viewVideoCard = true
         }
-      },      
+      },
       async getBusinesses() {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
           .then(response => {

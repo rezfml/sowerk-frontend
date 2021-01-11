@@ -55,9 +55,35 @@
             </v-row>
             <v-row class="px-12">
               <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
-                <p style="color: #D9D9D9; font-size: 14px;" class="mb-n1 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
-                <v-text-field readonly style="width: 100%; font-size: 18px;" :value="application.subData[index].value" :name="formfield.name">
+                <p style="color: #151515; font-size: 14px;" class="mb-n1 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
+                <v-text-field
+                  placeholder=" "
+                  class="my-2"
+                  :value="application.subData[index].value"
+                  :name="formfield.name"
+                  v-if="formfield.type ==='text' && application.subData[index]"
+                  outlined
+                  readonly
+                >
                 </v-text-field>
+                <v-checkbox
+                  placeholder=" "
+                  class="my-2"
+                  v-model="application.subData[index].value"
+                  :name="formfield.name"
+                  v-if="formfield.type ==='checkbox' && application.subData[index]"
+                  readonly
+                >
+                </v-checkbox>
+                <v-select
+                  placeholder=""
+                  class="my-2"
+                  v-model="application.subData[index].value"
+                  :items="formfield.options.split(', ')"
+                  v-if="formfield.type ==='select'  && application.subData[index]"
+                  outlined
+                  readonly
+                ></v-select>
               </v-col>
             </v-row>
             <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;" v-if="!isDenying">
@@ -194,12 +220,12 @@ import * as moment from 'moment'
             console.log(response.data, 'response application');
             this.application = response.data;
             this.application.created = moment(response.data).format('lll');
-            this.application.subData = JSON.parse(this.application.subData);
+            this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
             if (this.application.required === 'required') {
               this.application.required = true
             }
-            console.log(this.application, 'this.application');
+            console.log(this.application, 'this.application!!!!!!!!!!!!!!');
             this.getSPLocation(response.data.splocations_id);
             this.getPMLocation(response.data.pmlocations_id);
             this.getPMUserForm(response.data.pmuserforms_id);
@@ -280,7 +306,8 @@ import * as moment from 'moment'
           .catch(err => {
             console.log('err', err);
           })
-      },async getLicenses() {
+      },
+      async getLicenses() {
         await this.$http.get('https://www.sowerkbackend.com/api/license/byCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'response.data licenses');

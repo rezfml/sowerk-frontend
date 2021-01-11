@@ -43,13 +43,9 @@
       <!-- ACCOUNT CHANNELS BANNER AND PARAGRAPH TEXT, PLUS ADD NOW BUTTON -->
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
-          <v-row style="width:100%;height:auto" class="d-flex flex align-center">
-            <v-col cols="1" style="margin-left:5%">
-              <v-img src="/complete-icon.svg"></v-img>
-            </v-col>
-
-            <v-col cols="6" style="height:auto;margin-left:-10%;margin-top:-10%;margin-bottom:-10%;">
-              <v-img src="/APPROVED-VENDORS-Logo-163.png"></v-img>
+          <v-row style="width:100%;height:auto;" class="d-flex align-center">
+            <v-col cols="6" style="">
+              <v-img height="400px" src="/SoWork Logos with Icons-163.png"></v-img>
             </v-col>
 
             <v-col cols="5" class="d-flex flex-column justify-center">
