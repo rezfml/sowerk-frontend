@@ -1479,28 +1479,44 @@ const naics = require("naics");
     },
     methods: {
       watchClickedVendorApplications() {
-        this.clickedLinks.vendorApplications = true
-        this.clickedLinks.companyDocuments = false
-        this.clickedLinks.companyTemplates = false
-        this.clickedLinks.sowerkTemplates = false
+        if(this.clickedLinks.vendorApplications === true){
+          this.clickedLinks.vendorApplications = false
+        } else {
+          this.clickedLinks.vendorApplications = true
+          this.clickedLinks.companyDocuments = false
+          this.clickedLinks.companyTemplates = false
+          this.clickedLinks.sowerkTemplates = false
+        }
       },
       watchClickedCompanyDocuments() {
-        this.clickedLinks.vendorApplications = false
-        this.clickedLinks.companyDocuments = true
-        this.clickedLinks.companyTemplates = false
-        this.clickedLinks.sowerkTemplates = false
+        if(this.clickedLinks.companyDocuments === true){
+          this.clickedLinks.companyDocuments = false
+        } else {        
+          this.clickedLinks.vendorApplications = false
+          this.clickedLinks.companyDocuments = true
+          this.clickedLinks.companyTemplates = false
+          this.clickedLinks.sowerkTemplates = false
+        }
       },
       watchClickedCompanyTemplates() {
-        this.clickedLinks.vendorApplications = false
-        this.clickedLinks.companyDocuments = false
-        this.clickedLinks.companyTemplates = true
-        this.clickedLinks.sowerkTemplates = false
+        if(this.clickedLinks.companyTemplates === true){
+          this.clickedLinks.companyTemplates = false
+        } else {
+          this.clickedLinks.vendorApplications = false
+          this.clickedLinks.companyDocuments = false
+          this.clickedLinks.companyTemplates = true
+          this.clickedLinks.sowerkTemplates = false
+        }
       },
       watchClickedSowerkTemplates() {
-        this.clickedLinks.vendorApplications = false
-        this.clickedLinks.companyDocuments = false
-        this.clickedLinks.companyTemplates = false
-        this.clickedLinks.sowerkTemplates = true
+        if(this.clickedLinks.sowerkTemplates === true){
+          this.clickedLinks.sowerkTemplates = false
+        } else {
+          this.clickedLinks.vendorApplications = false
+          this.clickedLinks.companyDocuments = false
+          this.clickedLinks.companyTemplates = false
+          this.clickedLinks.sowerkTemplates = true
+        }
       },
       showVendorApplicationsVideo() {
         this.videosLinks.vendorApplications = true
