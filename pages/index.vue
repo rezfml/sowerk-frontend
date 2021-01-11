@@ -5,23 +5,20 @@
       style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://sowerk-images.s3.us-east-2.amazonaws.com/construction-645465copy.jpg') no-repeat center center; -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; height: 80vh; max-height: 1200px; padding-top: 275px; padding-bottom: 100px"
+  background-size: cover; height: 80vh; max-height: 1200px; padding-top: 275px; padding-bottom: 100px;"
       align-content="center"
       class="pt-md-16 ma-0"
     >
       <v-card
         max-height="400px"
-         :height="$vuetify.breakpoint.mdAndUp ? '50vh' : '45vh'"
+        :height="$vuetify.breakpoint.mdAndUp ? '50vh' : '45vh'"
         :width="$vuetify.breakpoint.lgAndUp ? '60%' : '100%'"
         max-width="1200px"
         style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;"
         class="d-flex flex-column justify-center"
         id="herocorners"
-        color="rgba(0,0,0,0.7)"
-      >
-        <div
-          style="width: 100%; display: flex; flex-direction: column; flex-wrap: nowrap;"
-        >
+        color="rgba(0,0,0,0.7)" >
+        <div style="width: 100%; display: flex; flex-direction: column; flex-wrap: nowrap;" >
           <v-card-title
             ><v-img
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWorkLogo-153-cropped.png"
@@ -61,6 +58,8 @@
         </div>
       </v-card>
     </v-row>
+
+
 
 
     <!--BUSINESSES & VENDORS COME TOGETHER ON SOWERK SECTION -->

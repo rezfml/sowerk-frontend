@@ -6,6 +6,12 @@
       style="background: linear-gradient(180deg, rgba(166,28,0,1) 35%, rgba(129,22,0,1) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;position:relative;z-index:1;"
       class="skew-top"
     >
+      <v-row>
+        <v-card style="background-color:black;border-radius:3%;margin-left:1%">
+          <iframe src="https://player.vimeo.com/video/498208221" width="1400" height="700" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </v-card>
+      </v-row>
+
       <v-row align="center" justify="center">
         <v-col cols="12" class="pa-0">
           <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm"

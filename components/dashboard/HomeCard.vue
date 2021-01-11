@@ -296,3 +296,4 @@ export default {
   padding-left: 0px !important;
 }
 </style>
+ 

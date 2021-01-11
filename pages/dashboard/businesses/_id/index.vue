@@ -64,9 +64,8 @@
               </v-row>
             </v-card>
           </v-col>
+
           <v-col cols="8" class="py-12 d-flex flex-column justify-space-between">
-
-
             <!--      Show Application is isApplying      -->
             <template v-if="isApplying">
               <v-card class="pa-6">
@@ -80,18 +79,166 @@
                 <v-card-text class="mt-8">
                   <v-form v-if="currentApplication" ref="applicationForm">
                     <template v-for="(formfield, index) in currentApplication.formfields">
+
+                      <!-- START OF DEFAULT FORM FIELDS - x12 -->
+
+                      <!-- VENDOR'S NAME 1 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="vendorName"
+                        v-if="formfield.name === 'Vendor Name' "
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- VENDOR'S TYPE 2 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="vendorType"
+                        v-if="formfield.name === 'Vendor Type'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>                    
+
+                      <!-- VENDOR CATEGORY 3 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="vendorCategory"
+                        v-if="formfield.name === 'Vendor Category'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- VENDORS ADDRESS OF APPLICATION 4 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="vendorAppAddress"
+                        v-if="formfield.name === addressOfApp"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+                      
+                      <!-- COMPANY FOUNDED 5 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="companyFounded"
+                        v-if="formfield.name === 'Company Founded'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>  
+
+                      <!-- CONTACT PERSON PHONE 6 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="contactPersonPhone"
+                        v-if="formfield.name === 'Contact Person Phone'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- CONTACT PERSON EMAIL 7 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="contactPersonEmail"
+                        v-if="formfield.name === 'Contact Person Email'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- CONTACT PERSON NAME 8 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="contactPersonName"
+                        v-if="formfield.name === 'Contact Person Name'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- CONTACT WEBSITE 9 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="contactWebsite"
+                        v-if="formfield.name === 'Company Website'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- SOWERK CONNECTIONS 11 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="sowerkConnections"
+                        v-if="formfield.name === 'SOWerk Connections'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- APPLICANTS SERVICE RANGE 12 -->
+                      <v-text-field
+                        placeholder=" "
+                        class="my-2"
+                        :rules="rules.requiredRules"
+                        :value="applicantServiceRange"
+                        v-if="formfield.name === 'Applicants Service Radius'"
+                        outlined >
+                        <template v-slot:label>
+                          <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                        </template>
+                      </v-text-field>
+
+                      <!-- START OF CUSTOM FORM FIELDS -->
                       <v-text-field
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
                         v-model="formfield.value"
-                        v-if="formfield.type ==='text'"
+                        v-if="formfield.type === 'text' && formfield.name !== 'Vendor Name' && formfield.name !== 'Vendor Type' && formfield.name !== 'Vendor Category' && formfield.name !== 'Company Founded' && formfield.name !== 'Contact Person Phone' && formfield.name !== 'Contact Person Email' && formfield.name !== 'Contact Person Name' && formfield.name !== 'Contact Website' && formfield.name !== 'Number of Employees' && formfield.name !== 'SOWerk Connections' && formfield.name !== 'Applicants Service Radius' && formfield.name !== addressOfApp"
                         outlined
                       >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
                       </v-text-field>
+
                       <v-checkbox
                         placeholder=" "
                         class="my-2"
@@ -103,6 +250,7 @@
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
                       </v-checkbox>
+
                       <v-select
                         placeholder=""
                         class="my-2"
@@ -116,9 +264,11 @@
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
                       </v-select>
+
                     </template>
                   </v-form>
                 </v-card-text>
+
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn @click="cancelApply" color="primary" outlined class="px-8">Cancel</v-btn>
@@ -180,6 +330,7 @@
     },
     data() {
       return {
+        addressOfApp: "Vendor's Address of Application",
         loading: false,
         locations: [
           {
@@ -371,13 +522,23 @@
             v => !!v || v === 0 || 'Field is required',
           ],
         },
-        applicationFormData: {}
+        applicationFormData: {},
+        vendorName: null,
+        vendorType: null,
+        vendorCategory: null,
+        vendorAppAddress: null,
+        companyFounded: null,
+        contactPersonPhone: null,
+        contactPersonEmail: null,
+        contactPersonName: null,
+        contactWebsite: null,
+        sowerkConnections: null,
+        applicantServiceRange: null,
       }
     },
     watch: {
       loading: function() {
         if(this.loading){
-          console.log(document);
           return
         }
         document.documentElement.style.overflow = 'auto'
@@ -387,6 +548,7 @@
       this.locationId = this.$route.params.id;
       this.getMyCompany();
       this.getLocation();
+      this.getVendorInfo();
     },
     computed: {
       currentUser() {
@@ -394,13 +556,36 @@
       },
     },
     methods: {
+      async getVendorInfo() {
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + this.company.id)
+        .then(response => {
+          console.log(response.data.user[0], "GWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWG!!!");
+
+          this.contactPersonPhone = response.data.user[0].phone,
+          this.contactPersonEmail = response.data.user[0].email,
+          this.contactPersonName = response.data.user[0].first_name
+
+        })
+        .catch(e => e);
+      },
       async getMyCompany() {
         this.loading = true;
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
+            console.log(response.data, "THIS DOT COMPANY!!!")
+
             this.company = response.data;
+
             this.company_type = this.company.company_type;
 
+            this.vendorName = response.data.account_name,
+            this.vendorAppAddress = response.data.address,
+            this.companyFounded = response.data.year_founded,
+
+            this.sowerkConnections = response.data.currentConnections
+            this.contactWebsite = response.data.website,
+
+            this.getVendorInfo();
             this.getLocation();
 
             // //  If Property Manager
@@ -417,7 +602,12 @@
       async getLocation() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
-        console.log(data);
+        console.log(data, "Data of BUSINESS Location information!!!");
+
+        this.applicantServiceRange = data.radius
+
+ 
+
         this.$nextTick(function() {
           this.location = data;
           console.log(this.location, 'location value')
@@ -460,6 +650,10 @@
             console.log(response.data);
             if(!response.data.formfields) return;
             this.currentApplication = response.data;
+            console.log(this.currentApplication.formfields, "FORM FIELDS DATA!!!")
+
+
+
             // this.getServiceForUserform(response.data);
           })
           .catch(err => {
@@ -528,6 +722,10 @@
             } else {
               console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');
               this.myActiveUserforms.push(response.data);
+
+              this.vendorType = response.data.vendorType
+              this.vendorCategory = response.data.service
+              
             }
           })
           .catch(err => {
