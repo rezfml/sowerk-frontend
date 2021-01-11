@@ -56,6 +56,7 @@
             </v-row>
           </v-card>
         </v-col>
+
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -70,8 +71,6 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
               </div>
               <div style="width: 80%; word-break: break-word; white-space: pre-wrap;">
-<!--                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
-<!--                <v-card-title style="font-size: 48px; color: #A61C00" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
                 <v-card-title style="font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.75em;">Channels On SOWerk</v-card-title>
               </div>
             </div>
@@ -115,13 +114,6 @@
                 <v-card-text style="text-align: center; font-size: 18px;">Founded: <span style="color: #A61C00">{{companyForVendor.year_founded}}</span></v-card-text>
                 <v-card-text v-if="location.created" style="text-align: center; font-size: 18px;">Joined SOWerk: <span style="color: #A61C00">{{location.created.slice(0,4)}}</span></v-card-text>
               </div>
-<!--              <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>-->
-<!--              <v-card-title style="color:#A61C00; font-size: 24px;">Company Details</v-card-title>-->
-<!--              <v-card-title style="font-size: 24px;" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
-<!--              <v-card-title style="font-size: 24px;" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
-<!--              <v-card-title style="font-size: 24px;" v-if="companyForVendor.locations[0] != 'There are no locations'"><v-btn color="primary" text @click="openCompanyLocationsModal = true" style="font-size: 24px;">{{companyForVendor.locations.length}}</v-btn> Total Channels</v-card-title>-->
-<!--              <v-card-title style="font-size: 24px;" v-else><span style="color:#A61C00;">0</span> Total Channels</v-card-title>-->
-              <!--            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>-->
               <v-select
                 style="width: 90%; text-align: center;"
                 readonly
@@ -180,139 +172,10 @@
                 <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">Read Notes</v-btn>
                 <v-btn class="mx-auto" @click="addNotesModal" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
-<!--              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>-->
-<!--              <v-row style="width: 100%;" class="d-flex nowrap mt-6">-->
-<!--                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="connections.length > 0">{{connections.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
-<!--                <v-card-text style="width: 50%; font-size: 24px; text-align: center" >Approved Applications</v-card-text>-->
-<!--              </v-row>-->
-<!--              <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">-->
-<!--                <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">View Connections</v-btn>-->
-<!--                <v-btn class="mx-auto" @click="addNotesModal" rounded outlined color="primary" style="width: 40%;">View Applications</v-btn>-->
-<!--              </v-row>-->
-<!--              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
-<!--              <v-card-title style="color:#A61C00; font-size: 24px;">Insurances</v-card-title>-->
-<!--              <template style="width: 100%;" v-if="insurances.length > 0" class="d-flex justify-center">-->
-<!--                <template v-for="(insurance, index) in insurances.slice(0,4)">-->
-<!--                  <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>-->
-<!--                  <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>-->
-<!--                </template>-->
-<!--                <v-btn color="primary" outlined rounded style="width: 50%;">View Insurances</v-btn>-->
-<!--              </template>-->
-<!--              <template style="width: 100%;" v-else class="d-flex justify-center">-->
-<!--                <v-card-text style="text-align: center; font-size: 18px;">There are no insurances to view for this channel</v-card-text>-->
-<!--              </template>-->
-<!--              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>-->
-<!--              <v-card-title style="color:#A61C00; font-size: 24px;">Licenses</v-card-title>-->
-<!--              <template style="width: 100%;" v-if="licenses.length > 0" class="d-flex justify-center">-->
-<!--                <template v-for="(license, index) in licenses.slice(0,4)">-->
-<!--                  <v-card-text >{{license.name}} - {{license.licenseLocation}}</v-card-text>-->
-<!--                  <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>-->
-<!--                </template>-->
-<!--                <v-btn class="mb-4" color="primary" outlined rounded style="width: 50%">View Licenses</v-btn>-->
-<!--              </template>-->
-<!--              <template style="width: 100%;" v-else class="d-flex justify-center">-->
-<!--                <v-card-text style="text-align: center; font-size: 18px;">There are no licenses to view for this channel</v-card-text>-->
-<!--              </template>-->
             </v-card>
           </transition>
         </v-col>
-<!--        <v-col cols="3">-->
-<!--          <v-skeleton-loader-->
-<!--            v-if="!loading"-->
-<!--            type="card-avatar, article, article, actions"-->
-<!--            min-height="50vh"-->
-<!--            min-width="20vw"-->
-<!--          ></v-skeleton-loader>-->
-<!--          <transition name="slide-fade">-->
-<!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;" @click="openApprovedChannelsList">-->
-<!--              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Approved Channels</v-card-title>-->
-<!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;" v-if="connections.length > 0">{{connections.length}}</v-card-title>-->
-<!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;" v-else>0</v-card-title>-->
-<!--            </v-card>-->
-<!--          </transition>-->
-<!--          <transition name="slide-fade">-->
-<!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;" @click="openRecentlyApprovedChannelsList">-->
-<!--              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>-->
-<!--              <v-card-subtitle style=" font-size: 18px;">Past 30 days</v-card-subtitle>-->
-<!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>-->
-<!--            </v-card>-->
-<!--          </transition>-->
-<!--&lt;!&ndash;          <transition name="slide-fade">&ndash;&gt;-->
-<!--&lt;!&ndash;            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>&ndash;&gt;-->
-<!--&lt;!&ndash;              <v-slide-group&ndash;&gt;-->
-<!--&lt;!&ndash;                multiple&ndash;&gt;-->
-<!--&lt;!&ndash;                show-arrows&ndash;&gt;-->
-<!--&lt;!&ndash;              >&ndash;&gt;-->
-<!--&lt;!&ndash;                <v-slide-item v-for="(review, index) in reviews">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <v-divider></v-divider>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <v-rating&ndash;&gt;-->
-<!--&lt;!&ndash;                    empty-icon="$mdiStarOutline"&ndash;&gt;-->
-<!--&lt;!&ndash;                    full-icon="$mdiStar"&ndash;&gt;-->
-<!--&lt;!&ndash;                    half-icon="$mdiStarHalfFull"&ndash;&gt;-->
-<!--&lt;!&ndash;                    half-increments&ndash;&gt;-->
-<!--&lt;!&ndash;                    hover&ndash;&gt;-->
-<!--&lt;!&ndash;                    length="5"&ndash;&gt;-->
-<!--&lt;!&ndash;                    size="64"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :value="review.stars"&ndash;&gt;-->
-<!--&lt;!&ndash;                  ></v-rating>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>&ndash;&gt;-->
-<!--&lt;!&ndash;                </v-slide-item>&ndash;&gt;-->
-<!--&lt;!&ndash;              </v-slide-group>&ndash;&gt;-->
-<!--&lt;!&ndash;            </v-card>&ndash;&gt;-->
-<!--&lt;!&ndash;          </transition>&ndash;&gt;-->
-<!--          &lt;!&ndash;          <v-card class="d-flex flex-column align-center mt-10">&ndash;&gt;-->
-<!--          &lt;!&ndash;            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>&ndash;&gt;-->
-<!--          &lt;!&ndash;            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>&ndash;&gt;-->
-<!--          &lt;!&ndash;            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>&ndash;&gt;-->
-<!--          &lt;!&ndash;          </v-card>&ndash;&gt;-->
-<!--          <v-overlay-->
-<!--            :absolute="absolute"-->
-<!--            :opacity="opacity"-->
-<!--            :value="overlay"-->
-<!--          >-->
-<!--            <transition name="slide-fade">-->
-<!--              <v-card color="white" v-if="loadLeaveReviewModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">-->
-<!--                <v-card-title style="color: #A61C00">Leave a review for this vendor!</v-card-title>-->
-<!--                <v-row style="width: 100%;" class="d-flex nowrap justify-center align-center">-->
-<!--                  <v-rating-->
-<!--                    color="primary"-->
-<!--                    half-increments-->
-<!--                    hover-->
-<!--                    length="5"-->
-<!--                    size="40"-->
-<!--                    value="5"-->
-<!--                    v-model="leaveReview.stars"-->
-<!--                    style="width: 30%;"-->
-<!--                  ></v-rating>-->
-<!--                  <v-card-text style="color: #A61C00; width: 10%;">{{leaveReview.stars}}/5</v-card-text>-->
-<!--                </v-row>-->
-<!--                <v-text-field-->
-<!--                  class="mt-2"-->
-<!--                  label="Title Your Review*"-->
-<!--                  v-model="leaveReview.reviewTitle"-->
-<!--                  style="color: white; opacity: 0.65; width: 80%;"-->
-<!--                  outlined-->
-<!--                  single-line-->
-<!--                  background-color="#4a4a4a"-->
-<!--                ></v-text-field>-->
-<!--                <v-textarea-->
-<!--                  label="Review Details Here*"-->
-<!--                  v-model="leaveReview.reviewerDescription"-->
-<!--                  style="color: white; opacity: 0.65; width: 80%;"-->
-<!--                  outlined-->
-<!--                  single-line-->
-<!--                  background-color="#4a4a4a"-->
-<!--                ></v-textarea>-->
-<!--                <v-btn @click="submitReview" color="primary" class="mb-4" style="width: 40%;">Submit Review</v-btn>-->
-<!--                <v-btn style="position: absolute; top: 10px; right: 10px; font-size: 25px; color: #151515;" text @click="exitLoadLeaveReview">X</v-btn>-->
-<!--              </v-card>-->
-<!--            </transition>-->
-<!--          </v-overlay>-->
-<!--        </v-col>-->
+
         <v-col cols="4" class="d-flex flex-column align-center mt-10" >
           <v-skeleton-loader
             v-if="!loading"
@@ -356,7 +219,7 @@
                 <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">View Notes</v-btn>
                 <v-btn class="mx-auto" @click="addNotesModal" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
-<!--              <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
+              <!--              <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
               <v-divider style="background: #707070; height: 1px; width: 90%;"></v-divider>
               <v-card-title style="color: #A61c00; font-size: 24px;">Relationship Documents</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
@@ -454,9 +317,18 @@
         </v-card>
       </transition>
 
+      <!-- CARD ON COMPANY INTERNAL NOTES -->
       <transition name="slide-fade">
+        <!-- CARD THAT WILL SHOW WHEN "VIEW" NOTE IS CLICKED -->
+        <!-- <v-card v-if="this.viewNote === true">
+          <template>
+            {{this.note}}
+          </template>
+        </v-card> -->
+
         <v-card v-if="notesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor</v-card-title>
+          <!-- DATA TABLE FOR COMPANY NOTES! -->
           <v-data-table
             :headers="notesHeaders"
             :items="notes"
@@ -464,7 +336,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note.splice(0, 10)}}...</p>
+              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
@@ -472,7 +344,7 @@
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
-              <v-btn>View</v-btn>
+              <!-- <v-btn @click="viewNoteFunc(item)" >View</v-btn> -->
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>
@@ -731,6 +603,8 @@
     },
     data() {
       return {
+        viewedNote: null,
+        viewNote: false,
         addNotesSuccess: false,
         notesFileFile: null,
         approvedChannelsModal: false,
@@ -785,6 +659,7 @@
           userprofiles_id: Number,
           spLocationsId: Number,
           companies_id: Number,
+          spcompaniesId: Number,
         },
         chosenLocation: {},
         addNotesModalLoad: false,
@@ -845,6 +720,9 @@
       currentUser() {
         return this.$store.state.user.user.user;
       },
+      noteList() {
+        this.notes = this.notes
+      }
     },
     async mounted() {
       console.log(this.$route.params.id, 'hey')
@@ -861,6 +739,10 @@
       await this.getLocationNotes();
     },
     methods: {
+      async viewNoteFunc(note) {
+        this.viewedNote = note
+        this.viewNote = true
+      },      
       async changeUrl(location) {
         console.log(location, 'changeUrl', window.location.href);
         this.loading = false;
@@ -894,7 +776,8 @@
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
         this.note.spLocationsId = Number(this.$route.params.id)
-        console.log(this.chosenLocation, 'hello')
+        this.note.spcompaniesId = this.location.companies_id
+        console.log(this.chosenLocation, 'hello', this.location)
         let formData = new FormData();
         let file = this.notesFileFile;
         formData.append('file', file);
@@ -912,7 +795,13 @@
           this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
-              this.submitNotesSuccess = true;
+              // this.submitNotesSuccess = true;
+              alert("Note submission successful!")
+              this.notes.push(response.data.note)
+              // if(this.location.id === this.$route.params.id){
+              //   this.locationNotes.push(response.data.note)
+              // } 
+              this.locationNotes.push(response.data.note)
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)
@@ -1298,7 +1187,7 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.location.companies_id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.notes = response.data;
@@ -1308,7 +1197,8 @@
           })
       },
       async getLocationNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byLocationId/' + this.location.id + '/bySPLocationId/' + this.$route.params.id)
+        this.locationNotes = []
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/bySpLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.locationNotes = response.data;
@@ -1318,13 +1208,23 @@
           })
       },
       async deleteNote(note) {
-        await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
-          .then(response => {
-            console.log('success in deleting this note', response)
-          })
-          .catch(err => {
-            console.log('err in deleting this note', err);
-          })
+        let firm = confirm("Are you sure you would like to delete this note?")   
+        if (firm) {
+          await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
+            .then(response => {
+              console.log('success in deleting this note', response)
+              alert("Note was successfully deleted")
+              this.notes.forEach((selectedNote, index) => {
+                if(selectedNote === note){
+                  this.notes.splice(this.notes[index], 1)
+                }
+              })
+              this.getNotes()
+            })
+            .catch(err => {
+              console.log('err in deleting this note', err);
+            })
+        }     
       },
       async addNotesModal() {
         this.addNotesModalLoad = true;
@@ -1335,6 +1235,8 @@
       },
       async listNotesModal() {
         this.notesModalLoad = true;
+        this.notes = []
+        await this.getNotes()
       },
       async exitNotesModalLoad() {
         this.notesModalLoad = false;

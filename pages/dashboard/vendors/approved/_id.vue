@@ -54,6 +54,7 @@
             </v-row>
           </v-card>
         </v-col>
+
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -194,6 +195,7 @@
             </v-card>
           </transition>
         </v-col>
+
         <v-col cols="3">
           <v-skeleton-loader
             v-if="!loading"
@@ -214,38 +216,7 @@
               <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>
             </v-card>
           </transition>
-          <!--          <transition name="slide-fade">-->
-          <!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">-->
-          <!--              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>-->
-          <!--              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>-->
-          <!--              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>-->
-          <!--              <v-slide-group-->
-          <!--                multiple-->
-          <!--                show-arrows-->
-          <!--              >-->
-          <!--                <v-slide-item v-for="(review, index) in reviews">-->
-          <!--                  <v-divider></v-divider>-->
-          <!--                  <v-rating-->
-          <!--                    empty-icon="$mdiStarOutline"-->
-          <!--                    full-icon="$mdiStar"-->
-          <!--                    half-icon="$mdiStarHalfFull"-->
-          <!--                    half-increments-->
-          <!--                    hover-->
-          <!--                    length="5"-->
-          <!--                    size="64"-->
-          <!--                    :value="review.stars"-->
-          <!--                  ></v-rating>-->
-          <!--                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>-->
-          <!--                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>-->
-          <!--                </v-slide-item>-->
-          <!--              </v-slide-group>-->
-          <!--            </v-card>-->
-          <!--          </transition>-->
-          <!--          <v-card class="d-flex flex-column align-center mt-10">-->
-          <!--            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>-->
-          <!--            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>-->
-          <!--            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>-->
-          <!--          </v-card>-->
+ 
           <v-overlay
             :absolute="absolute"
             :opacity="opacity"
@@ -290,6 +261,7 @@
             </transition>
           </v-overlay>
         </v-col>
+        
         <v-col cols="5" class="d-flex flex-column align-center">
           <v-skeleton-loader
             v-if="!loading"
@@ -420,7 +392,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note}}</p>
+              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
@@ -428,7 +400,7 @@
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
-              <v-btn @click="viewNoteFunc(item)" >View</v-btn>
+              <!-- <v-btn @click="viewNoteFunc(item)" >View</v-btn> -->
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>
@@ -1193,7 +1165,6 @@
         await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
           .then(response => {
             console.log('success in deleting this note', response)
-            this.getNotes();
             alert("Note was successfully deleted")
           })
           .catch(err => {
