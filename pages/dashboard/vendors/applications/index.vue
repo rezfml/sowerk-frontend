@@ -2127,9 +2127,14 @@ const naics = require("naics");
             console.log(response.data, 'formfields for application template userform', id);
             console.log(response.data[0])
             console.log(response.data[0].order)
-            this.sortedSowerkTemplates = response.data.sort((a,b)=>(a.order>b.order)?1:(a.order===b.order)?((a.order>b.order)?1:-1) : -1)
+            response.data.sort((a,b) => {
+              if (a.order > b.order) return 1;
+              if (b.order > a.order) return -1;
+
+              return 0;
+            })
             console.log(this.sortedSowerkTemplates)
-            this.applicationTemplates[indexPostion].applicationtemplatesformfields = this.sortedSowerkTemplates;
+            this.applicationTemplates[indexPostion].applicationtemplatesformfields = response.data;
           })
           .catch(err => {
             console.log(err, 'err in application templates form fields')
@@ -2163,6 +2168,12 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/companytemplatesformfields/byCompanyTemplatesId/' + id)
           .then(response => {
             console.log(response.data, 'formfields for company userform', id);
+            response.data.sort((a,b) => {
+              if (a.order > b.order) return 1;
+              if (b.order > a.order) return -1;
+
+              return 0;
+            })
             this.companyTemplates[indexPostion].companytemplatesformfields = response.data;
           })
           .catch(err => {
