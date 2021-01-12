@@ -628,6 +628,34 @@
             ]
           },
           {
+            to: '/dashboard/assets/',
+            slug: 'assets',
+            icon: 'mdi-file-account',
+            text: 'Assets',
+            id: 'assets',
+            children: [
+              {
+                to: '/dashboard/insurances/',
+                slug: 'insurances',
+                icon: 'safe-square',
+                text: 'Insurances',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/licenses',
+                slug: 'licenses',
+                icon: 'license',
+                text: 'Licenses & Certificates',
+              },
+              {
+                to: '/dashboard/vendor-documents',
+                slug: 'vendor-documents',
+                icon: 'mdi-file',
+                text: 'Requested Documents'
+              },
+            ]
+          },
+          {
             to: '/dashboard/profile/',
             slug: 'profile',
             icon: 'settings',
