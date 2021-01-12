@@ -97,8 +97,8 @@
             <v-card-text>{{item.expirationDate.slice(0,4)}}</v-card-text>
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-            <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
-            <v-btn @click='removeLicense(item)' color="primary" class="my-1" style="width: 80%; color: white;">Remove License</v-btn>
+            <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 90%; color: white;">Download</v-btn>
+            <v-btn @click='removeLicense(item)' color="primary" class="my-1" style="width: 90%; color: white;">Remove License</v-btn>
           </template>
         </v-data-table>
       </v-card>

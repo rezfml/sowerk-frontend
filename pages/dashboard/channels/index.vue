@@ -18,11 +18,7 @@
 
             <!-- VENDOR CHANNELS VIDEO -->
             <v-col cols="4" style="width:100%;text-align:center;">
-              <v-btn @click="showVideoCard" style="display:block;border: 1px solid #404040;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:white">
-                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:#404040;text-align:center;">
-                  WATCH NOW -Account Channels-
-                </span>
-              </v-btn>
+              <v-btn @click="showVideoCard" class="py-12" style="font-size: 1rem; width: 100%; border: 1px solid #404040;text-decoration:none;color:inherit;background-color:white; word-break: break-word; white-space: pre-wrap">WATCH NOW <br/>-Account Channels-</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -41,11 +37,7 @@
 
             <!-- VENDOR CHANNELS VIDEO -->
             <v-col cols="4" style="width:100%;text-align:center;">
-              <v-btn @click="showVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-                <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                  WATCH NOW -Account Channels-
-                </span>
-              </v-btn>
+              <v-btn @click="showVideoCard" class="py-12" style="font-size: 1rem; width: 100%; border: 1px solid white;text-decoration:none;color:inherit;background-color:#404040; word-break: break-word; white-space: pre-wrap; color: white;">WATCH NOW <br/>-Account Channels-</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -54,20 +46,15 @@
       <!-- VENDOR USER -->
       <transition name="slide-fade">
         <v-card class="mb-4" style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && company.company_type === 'false'">
-          <div style="position:relative;border-radius:1%;">
-            <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
-            </iframe>
-          </div>
+            <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
         </v-card>
       </transition>
 
       <!-- BUSINESS USER -->
       <transition name="slide-fade">
         <v-card class="mb-4" style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
-          <div style="position:relative;border-radius:1%;">
-            <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+            <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:100%;height:450px;">
             </iframe>
-          </div>
         </v-card>
       </transition>
 

@@ -66,7 +66,7 @@
 
                     <v-row v-else-if="user">
                       <v-col cols="12" class="py-1 mt-12">
-                        <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px;">{{ company.account_name }}</p>
+                        <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px; word-break: break-word; white-space: pre-wrap">{{ company.account_name }}</p>
                         <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
                       </v-col>
                       <v-col cols="12" class="py-1 text-body-1">
@@ -117,12 +117,12 @@
                 <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Channel Details</v-btn>
 
                 <v-spacer></v-spacer>
-                <v-card-actions class="d-flex justify-center py-6">
-                  <v-btn v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
+                <v-card-actions class="d-flex flex-wrap justify-center py-6">
+                  <v-btn class="my-1" v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 
-                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
+                  <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
 
-                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
+                  <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
 
                   <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
                 </v-card-actions>
@@ -190,7 +190,7 @@
 
                     <v-row v-else-if="user">
                       <v-col cols="12" class="py-1 mt-12">
-                        <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px;">{{ company.account_name }}</p>
+                        <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px; word-break: break-word; white-space: pre-wrap">{{ company.account_name }}</p>
                         <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
                       </v-col>
                       <v-col cols="12" class="py-1 text-body-1">
@@ -239,12 +239,12 @@
                 <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Channel Details</v-btn>
 
                 <v-spacer></v-spacer>
-                <v-card-actions class="d-flex justify-center py-6">
-                  <v-btn v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
+                <v-card-actions class="d-flex flex-wrap justify-center py-6">
+                  <v-btn class="my-1" v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 
-                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
+                  <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
 
-                  <v-btn v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
+                  <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
 
                   <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
                 </v-card-actions>

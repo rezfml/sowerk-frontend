@@ -137,7 +137,7 @@
               </v-row>
               <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
             </v-card>
-            <v-card style="width: 100%; height: 60vh;" class="d-flex flex-column align-center justify-center" v-else>
+            <v-card style="width: 100%; height: 60vh;" class="d-flex flex-column align-center justify-center" v-else-if="this.$vuetify.breakpoint.height > 700">
               <v-row style="width: 100%;" class="mt-16">
                 <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
               </v-row>
@@ -159,6 +159,34 @@
                 </v-col>
 
                 <v-col cols="3" style="text-align:center">
+                  <v-img src="/business-and-finance.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                  <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
+                </v-col>
+              </v-row>
+              <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+            </v-card>
+            <v-card style="width: 100%; height: 100vh;" class="d-flex flex-column align-center justify-center" v-else>
+              <v-row style="width: 100%;" class="mt-16">
+                <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
+              </v-row>
+              <v-card-text class="" style="font-size: 18px; text-align: center;margin-bottom:5%;margin-top:10%">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+              <v-row class="mt-n2 mb-n2 d-flex flex-wrap justify-center">
+                <v-col class="d-flex flex-column align-center" cols="6" style="text-align:center;">
+                  <v-img src="/building.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                  <h2 style="font-weight:900;font-size:.8rem;">Locations</h2>
+                </v-col>
+
+                <v-col class="d-flex flex-column align-center" cols="6" style="text-align:center">
+                  <v-img src="/digging.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                  <h2 style="font-weight:900;font-size:.8rem;">Major Projects</h2>
+                </v-col>
+
+                <v-col class="d-flex flex-column align-center" cols="6" style="text-align:center">
+                  <v-img src="/connection.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
+                  <h2 style="font-weight:900;font-size:.8rem;">Departments</h2>
+                </v-col>
+
+                <v-col class="d-flex flex-column align-center" cols="6" style="text-align:center">
                   <v-img src="/business-and-finance.svg" style="max-width:65px;max-height:65px;margin-left:10%;"></v-img>
                   <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                 </v-col>
@@ -236,7 +264,14 @@
               <v-card-text style="font-size: 18px; text-align: center;margin-bottom:12%;" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
               <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/applications">Manage Applications</v-btn>
             </v-card>
-            <v-card v-else style="width: 100%; height: 60vh;" class="d-flex flex-column align-center justify-center">
+            <v-card v-else-if="this.$vuetify.breakpoint.height > 700" style="width: 100%; height: 60vh;" class="d-flex flex-column align-center justify-center">
+              <v-row style="width: 100%;" class="mt-16">
+                <v-img width="400px" height="75px" src="/SoWork Logos with Icons-159.png"></v-img>
+              </v-row>
+              <v-card-text style="font-size: 18px; text-align: center;margin-bottom:12%;" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
+              <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/applications">Manage Applications</v-btn>
+            </v-card>
+            <v-card v-else style="width: 100%; height: 100vh;" class="d-flex flex-column align-center justify-center">
               <v-row style="width: 100%;" class="mt-16">
                 <v-img width="400px" height="75px" src="/SoWork Logos with Icons-159.png"></v-img>
               </v-row>
@@ -473,7 +508,7 @@
             <v-col cols="4" class="mt-10">
               <v-card class="d-flex flex-column align-center">
                 <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
+                <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em; word-break: break-word; white-space: pre-wrap">{{company.account_name}}</v-card-title>
                 <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                 <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                   <v-row class="d-flex justify-center" style="width: 100%;">
