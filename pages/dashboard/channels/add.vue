@@ -22,7 +22,7 @@
             <v-card-title style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Add New Channel</v-card-title>
 
             <v-row style="width: 100%;" class="mt-12">
-              <v-col cols="6">
+              <v-col cols="6" style="" >
                 <v-text-field
                     placeholder=" "
                     hint="(The name you give will be visible to other businesses and vendors, try to be short and clear (i.e. SOWerk Cafe - Baxter VA)"
@@ -61,7 +61,7 @@
                 <client-only>
                   <GmapMap
                     id="locations-map"
-                    style="width: 100%; height: 300px; "
+                    style="width: 100%; height: 450px; "
                     ref="location-map"
                     :center="this.mapOptions.center"
                     :zoom="this.mapOptions.zoom"
@@ -102,14 +102,12 @@
                     </template>
                   </v-autocomplete>
 
-                
-                
                 <v-textarea
                   placeholder=""
                   hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
                   persistent-hint
                   v-model="form.description"
-                  rows="4"
+                  rows="8"
                   auto-grow
                   class="mt-8"
                   outlined
@@ -232,6 +230,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
+            <v-card-subtitle class="mt-n4" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -345,7 +344,7 @@
                 <client-only>
                   <GmapMap
                     id="locations-map"
-                    style="width: 100%; height: 300px; "
+                    style="width: 100%; height: 450px; "
                     ref="location-map"
                     :center="this.mapOptions.center"
                     :zoom="this.mapOptions.zoom"
@@ -386,8 +385,8 @@
                     </template>
                   </v-autocomplete>
 
-                
-                
+
+
                 <v-textarea
                   placeholder=""
                   hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
@@ -516,6 +515,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -629,7 +629,7 @@
                 <client-only>
                   <GmapMap
                     id="locations-map"
-                    style="width: 100%; height: 300px; "
+                    style="width: 100%; height: 450px; "
                     ref="location-map"
                     :center="this.mapOptions.center"
                     :zoom="this.mapOptions.zoom"
@@ -670,8 +670,8 @@
                     </template>
                   </v-autocomplete>
 
-                
-                
+
+
                 <v-textarea
                   placeholder=""
                   hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
@@ -800,6 +800,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -1026,7 +1027,7 @@
                 <client-only>
                   <GmapMap
                     id="locations-map"
-                    style="width: 100%; height: 300px; "
+                    style="width: 100%; height: 450px; "
                     ref="location-map"
                     :center="this.mapOptions.center"
                     :zoom="this.mapOptions.zoom"
@@ -1067,8 +1068,8 @@
                     </template>
                   </v-autocomplete>
 
-                
-                
+
+
                 <v-textarea
                   placeholder=""
                   hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
@@ -1088,6 +1089,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -1314,7 +1316,7 @@
                 <client-only>
                   <GmapMap
                     id="locations-map"
-                    style="width: 100%; height: 300px; "
+                    style="width: 100%; height: 450px; "
                     ref="location-map"
                     :center="this.mapOptions.center"
                     :zoom="this.mapOptions.zoom"
@@ -1355,8 +1357,8 @@
                     </template>
                   </v-autocomplete>
 
-                
-                
+
+
                 <v-textarea
                   placeholder=""
                   hint="(Does this channel have unique details you want to share with approved and applying vendors, Directions, Features, Etc.)"
@@ -1377,6 +1379,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center;font-size:.8rem">List Channel Tags <span style="color: #A61c00">*</span></p>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"

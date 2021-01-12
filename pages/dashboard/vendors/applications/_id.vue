@@ -35,7 +35,7 @@
     <transition name="slide-fade">
       <v-divider v-if="loading" style="width: 100%; border: 1px solid #707070"></v-divider>
     </transition>
-    
+
     <transition name="slide-fade">
       <v-row v-if="loading" class="d-flex justify-center" style="width: 100%;">
         <v-col style="width: 55%;">
@@ -296,6 +296,23 @@
             </v-container>
           </transition>
         </v-col>
+      </v-row>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-divider v-if="loading" style="width: 100%; border: 1px solid #707070"></v-divider>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
+        <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-2 mb-2 mx-2 py-8">Save</v-btn>
+        <v-btn :href="'../../vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-2 mb-2 mx-2 py-8">Exit</v-btn>
+        <v-progress-circular
+          v-if="saveLoad === false"
+          indeterminate
+          color="primary"
+          :size="30"
+        ></v-progress-circular>
       </v-row>
     </transition>
 

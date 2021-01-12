@@ -26,8 +26,8 @@
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
             <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;" :rules="rules.requiredFirstNameRules"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;" :rules="rules.requiredLastNameRules"></v-text-field>
             <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
             <v-col cols="12">
@@ -159,8 +159,8 @@
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
             <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;" :rules="rules.requiredFirstNameRules"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;" :rules="rules.requiredLastNameRules"></v-text-field>
             <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
             <v-col cols="12">
@@ -298,8 +298,8 @@
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
             <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;" :rules="rules.requiredFirstNameRules"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;" :rules="rules.requiredLastNameRules"></v-text-field>
             <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
             <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
             <v-col cols="12">
@@ -439,8 +439,8 @@
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
             <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
             <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 100%; font-size: 18px;" :rules="rules.requiredFirstNameRules"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 100%; font-size: 18px;" :rules="rules.requiredLastNameRules"></v-text-field>
             <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
             <v-col cols="12">
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" ></v-select>
@@ -585,8 +585,8 @@
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
             <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
             <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
-            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
+            <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 100%; font-size: 18px;" :rules="rules.requiredFirstNameRules"></v-text-field>
+            <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 100%; font-size: 18px;" :rules="rules.requiredLastNameRules"></v-text-field>
             <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 100%; font-size: 18px;"></v-text-field>
             <v-col cols="12">
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" ></v-select>
@@ -737,9 +737,9 @@
           'Staff Account'
         ],
         rules: {
-          requiredRules: [(v) => !!v && v === 0 || 'Field is required'],
-          requiredFirstNameRules: [(v) => !!v && v === 0 || 'First Name is required'],
-          requiredLastNameRules: [(v) => !!v && v === 0 || 'Last Name is required'],
+          requiredRules: [(v) => !!v || 'Field is required'],
+          requiredFirstNameRules: [(v) => !!v || 'First Name is required'],
+          requiredLastNameRules: [(v) => !!v || 'Last Name is required'],
           // usernameRules: [
           //   (v) => !!v  'Name is required',
           //   (v) =>

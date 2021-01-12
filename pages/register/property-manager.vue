@@ -539,7 +539,7 @@ export default {
           this.loading = false;
           this.successPopup = true;
           setTimeout(() => {
-            this.$router.push('/login');
+            this.$router.push('/register/verify')
           }, 2000)
         })
         .catch(err => {
@@ -557,9 +557,9 @@ export default {
       console.log(this.locations);
       this.loading = false;
       this.successPopup = true;
-      setTimeout(() => {
-        this.$router.push('/login');
-      }, 2000)
+      // setTimeout(() => {
+      //   this.$router.push('/login');
+      // }, 2000)
     },
     async uploadLocationImage(formData, index) {
       // let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/upload', formData).catch(err => {

@@ -8,12 +8,12 @@
         <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
 
-            <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
-              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:#404040">SOWERK 101</h1>
+            <v-col cols="4" style="color:#404040;width:100%;text-align:center;">
+              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:#404040; word-break: break-word; white-space: pre-wrap;">SOWERK 101</h1>
             </v-col>
 
-            <v-col cols="5" style="color:#404040;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-              <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+            <v-col cols="4" style="color:#404040;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <p style="font-size:1.1rem; text-align: center;">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
             </v-col>
 
             <!-- VENDOR CHANNELS VIDEO -->
@@ -27,12 +27,12 @@
         <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
           <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
-            <v-col cols="3" style="color:white;width:100%;text-align:center;">
-              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+            <v-col cols="4" style="color:white;width:100%;text-align:center;">
+              <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white; word-break: break-word; white-space: pre-wrap;">SOWERK 101</h1>
             </v-col>
 
-            <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-              <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+            <v-col cols="4" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <p style="font-size:1.1rem; text-align: center;">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
             </v-col>
 
             <!-- VENDOR CHANNELS VIDEO -->
@@ -104,7 +104,7 @@
                   outlined
                   color="white"
                   to="../../dashboard/channels/add"
-                >Add Another Channel - Click Here!</v-btn>
+                >Add Another Channel</v-btn>
               </v-row>
 
             </v-col>
@@ -155,7 +155,7 @@
                   outlined
                   color="white"
                   to="../../dashboard/channels/add"
-                >Add Another Channel - Click Here!</v-btn>
+                >Add Another Channel</v-btn>
               </v-row>
 
 
