@@ -449,7 +449,7 @@
           >Upload File</v-btn
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
-          <v-card-title style="color: #A61c00;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
+          <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
@@ -531,7 +531,7 @@
           <v-btn @click="sendMessage" outlined color="primary" rounded width="80%" class="mb-4 py-8">Request Application</v-btn>
           <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeRequestModal">X</v-btn>
           <transition name="slide-fade">
-            <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+            <v-card-text v-if="messageSendLoad" style="color: #A61C00; text-align: center; font-size: 24px;">Successfully sent message!</v-card-text>
           </transition>
         </v-card>
       </transition>
@@ -910,6 +910,14 @@
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
               this.submitNotesSuccess = true;
+              this.note = {
+                note: '',
+                fileUrl: null,
+                locations_id: Number,
+                userprofiles_id: Number,
+                spLocationsId: Number,
+                companies_id: Number,
+              }
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)

@@ -524,7 +524,7 @@
               </v-container>
             </v-tab-item>
 
-            <!-- REVIEW INFORMATION TAB - READ ONLY --> 
+            <!-- REVIEW INFORMATION TAB - READ ONLY -->
             <v-tab-item eager>
               <v-container style="max-width: 80%;" mx-auto>
                 <v-card-text class="pa-0">
@@ -1037,7 +1037,7 @@
         if (!this.validate(this.tab)) return;
         this.tab += 1
         console.log(this.locations)
-      },      
+      },
       prevPageIfNotFirst() {
         if (this.tab === 0) return;
         this.tab -= 1;
@@ -1168,7 +1168,7 @@
             this.postInsurances(response.data.companies.id);
 
             setTimeout(() => {
-              this.$router.push('/login');
+              this.$router.push('/register/verify')
             }, 4000)
           })
           .catch(err => {
@@ -1212,9 +1212,9 @@
             console.log(response, 'location posted YAYYYYYYYYYYYYYYYYYYYYYY!')
             this.loading = false;
             this.successPopup = true;
-            setTimeout(() => {
-              this.$router.push('/login');
-            }, 2000)
+            // setTimeout(() => {
+            //   this.$router.push('/login');
+            // }, 2000)
           })
           .catch(err => {
             console.log(err, 'err in posting location')
@@ -1252,7 +1252,7 @@
         this.insuranceFiles.forEach((insuranceFile, index) => {
           this.uploadInsuranceFile(insuranceFile, index);
         })
-      },      
+      },
       async uploadInsuranceFile(insuranceFile, index) {
         let formData = new FormData();
         formData.append('file', insuranceFile.file);
@@ -1272,7 +1272,7 @@
         this.licenseFiles.forEach((licenseFile, index) => {
           this.uploadLicenseFile(licenseFile, index);
         })
-      },      
+      },
       async uploadLicenseFile(licenseFile, index) {
         let formData = new FormData();
         formData.append('file', licenseFile.file);
