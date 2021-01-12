@@ -1,7 +1,7 @@
 <template>
 
 <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
-<div style="width: 100%;" v-if="$vuetify.breakpoint.xl">
+<div style="width: 100%;" class="d-flex align-center" v-if="$vuetify.breakpoint.xl">
 
     <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
     <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -69,7 +69,7 @@
     </v-card>
 
     <!-- THIS RENDERS IF COMPANY_TYPE = FALSE -->
-    <v-card class="d-flex flex-column align-center" v-else>
+    <v-card class="d-flex flex-column align-center justify-center" v-else>
       <v-skeleton-loader
         v-if="!companyLoad"
         type="card-avatar, article, article, actions"
@@ -82,12 +82,11 @@
           <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px; color: white">X</v-btn>
         </v-card>
       </transition>
-      <template>
-        <transition name="slide-fade">
+      <transition name="slide-fade">
           <v-card-title style="width: 40%; border-radius: 3px; font-size:2rem;line-height:1.5;" class="primary white--text justify-center font-weight-regular red-gradient mb-10" v-if="companyLoad">Invite A New User </v-card-title>
         </transition>
-        <v-card-title v-if="companyLoad" style="color: white; font-size:1rem">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
-        <transition name="slide-fade">
+      <v-card-title v-if="companyLoad" style="color: white; font-size:1rem">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
+      <transition name="slide-fade">
           <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
             <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
             <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
@@ -130,11 +129,6 @@
             </transition>
           </v-form>
         </transition>
-        <!--    <transition name="slide-fade">-->
-        <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-        <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
-        <!--    </transition>-->
-      </template>
     </v-card>
 
 </div>

@@ -1,7 +1,7 @@
 <template>
 
   <v-container v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.md && this.$vuetify.breakpoint.height > 925" class="d-flex flex-column align-center" style="white-space: pre-wrap !important; background-color: white;">
-      <v-card-title class="text-center primary--text font-weight-bold" style="position: absolute; top: 30px;margin-right:6%;margin-left:6%;">{{ stat.title }}</v-card-title>
+      <v-card-title class="text-center primary--text font-weight-bold" style="position: absolute; top: 30px; word-break: break-word; white-space: pre-wrap;">{{ stat.title }}</v-card-title>
 
       <v-card-text class="text-center primary--text" style="font-size:4rem;margin-top:10%;">{{ stat.value }}</v-card-text>
 
