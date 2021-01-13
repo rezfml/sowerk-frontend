@@ -46,10 +46,7 @@
     <!-- VENDOR USER -->
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
-        <div style="position:relative;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
-          </iframe>
-        </div>
+        <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
       </v-card>
     </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
@@ -61,7 +58,7 @@
           </v-col>
 
           <v-col cols="5" class="d-flex flex-column justify-center">
-            <v-card-title style="color:darkred; font-size: 24px">Manage Licenses and Certificates</v-card-title>
+            <v-card-title style="color:darkred; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">Manage Licenses and Certificates</v-card-title>
             <v-card-text style="font-size: 18px;">Besides demonstrating that you have other companies who trust you as their approved vendor (SOWerk connections) the next best way to earn new business is your licenses and certifications. Show your credentials by uploading them here. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
             <v-card-text style="font-size: 18px;">Therefore, we give you the option to make any license/certification document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
           </v-col>
@@ -105,7 +102,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-row v-if="openUploadModelLoad" class="mt-8 mb-4">
+      <v-row v-if="openUploadModelLoad" class="mt-8 mb-4 d-flex flex-column align-center" style="width: 100%;">
         <v-card style="background-color: white; height: auto; width: 100%;" class="d-flex flex-column align-center">
           <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New License Documents</v-card-title>
           <v-card-text class="pt-16 ml-4" style="text-align: center">Upload any license document or template that you have, or is required of you here.</v-card-text>

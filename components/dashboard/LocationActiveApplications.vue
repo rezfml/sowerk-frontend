@@ -28,58 +28,52 @@
               :size="50"
               v-if="loading === false"
             ></v-progress-circular>
-            <v-data-table
-              :items="applications"
-              :headers="headers"
-              :items-per-page="5"
-              style="font-size: 14px;"
-            >
-              <template v-slot:item.services="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.serviceName}}</p>
-                </v-row>
-              </template>
-              <template class="d-flex" v-slot:item.companyName="{item}">
-                <v-row class="d-flex">
-                  <p><v-img style="width: 30px !important; height: 30px; border-radius: 50px;" :src="item.img"></v-img> {{item.companyName}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.full_name="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.contact}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.email="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.email}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.phone="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.phone}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.addressCityState="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.addressName}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.yearFounded="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.yearFounded}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.radius="{item}">
-                <v-row class="d-flex" cols="12" md="6">
-                  <p>{{item.radius}}</p>
-                </v-row>
-              </template>
-              <template v-slot:item.actions="{ item }" class="d-flex">
-                <v-btn color="green" outlined @click="Approve(item)">Approve</v-btn>
-                <v-btn block color="primary" outlined @click="Deny(item)">Deny</v-btn>
-                <v-btn block color="primary" @click="Review(item)">Review</v-btn>
-              </template>
-            </v-data-table>
+            <transition name="slide-fade">
+              <v-data-table
+                :items="applications"
+                :headers="headers"
+                :items-per-page="5"
+                v-if="loading"
+              >
+                <template v-slot:item.companyName="{item}">
+                  <v-row class="d-flex">
+                    <p><v-img style="width: 30px !important; height: 30px; border-radius: 50px;" :src="item.img"></v-img> {{item.companyName}}</p>
+                  </v-row>
+                </template>
+                <template v-slot:item.contact="{item}">
+                  <v-row class="d-flex" cols="12" md="6">
+                    <p>{{item.contact}}</p>
+                  </v-row>
+                </template>
+                <template v-slot:item.email="{item}">
+                  <v-row class="d-flex" cols="12" md="6">
+                    <p>{{item.email}}</p>
+                  </v-row>
+                </template>
+                <template v-slot:item.phone="{item}">
+                  <v-row class="d-flex" cols="12" md="6">
+                    <p>{{item.phone}}</p>
+                  </v-row>
+                </template>
+                <template v-slot:item.name="{item}">
+                  <v-row class="d-flex" cols="12" md="6">
+                    <p>{{item.name}}</p>
+                  </v-row>
+                </template>
+                <template v-slot:item.radius="{item}">
+                  <v-row class="d-flex" cols="12" md="6">
+                    <p>{{item.radius}}</p>
+                  </v-row>
+                </template>
+                <template v-slot:item.actions="{ item }">
+                  <v-row class="d-flex flex-column align-center" style="width: 100%;">
+                    <v-btn class="my-1" color="primary" style="color: white; width: 100%;" outlined @click="Approve(item)">Approve</v-btn>
+                    <v-btn class="my-1" color="primary" style="width: 100%;" @click="Deny(item)">Deny</v-btn>
+                    <v-btn class="my-1" color="#c0c0c0" style="color: white; width: 100%;" @click="Review(item)">Review</v-btn>
+                  </v-row>
+                </template>
+              </v-data-table>
+            </transition>
           </v-card-text>
         </v-container>
       </v-card>
@@ -207,15 +201,11 @@ export default {
         }
       ],
       headers: [
-        { text: 'Service', value: 'services', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Location', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+        { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
+        { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
+        { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+        // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ],
       applications: [],
@@ -333,12 +323,13 @@ export default {
       await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
         .then(async (response) => {
           console.log('response.data for location', response.data)
-          this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
-          this.applications[this.applicationsCount].addressName = `${response.data.city}, ${response.data.state}`;
-          this.applications[this.applicationsCount].email = `${response.data.email}`;
-          this.applications[this.applicationsCount].phone = `${response.data.phone}`;
-          this.applications[this.applicationsCount].yearFounded = `${response.data.year_founded}`;
-          this.applications[this.applicationsCount].radius = `${response.data.radius}`;
+          this.applications[this.applicationsCount].full_name = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
+          this.applications[this.applicationsCount].addressCityState = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`;
+          this.applications[this.applicationsCount].channelName = `${response.data.name}`;
+          // this.applications[this.applicationsCount].email = `${response.data.email}`;
+          // this.applications[this.applicationsCount].phone = `${response.data.phone}`;
+          // this.applications[this.applicationsCount].yearFounded = `${response.data.year_founded}`;
+          // this.applications[this.applicationsCount].radius = `${response.data.radius}`;
         })
         .catch(err => {
           console.log('err in getting sp location', err);

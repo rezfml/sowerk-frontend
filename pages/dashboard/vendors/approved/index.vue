@@ -339,7 +339,7 @@
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Contact', value: 'contact', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-center' },
