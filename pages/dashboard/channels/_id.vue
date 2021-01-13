@@ -10,17 +10,17 @@
           <transition name="slide-fade">
           <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags"  :originalLocationTags="originalLocationTags"></ProfileEditCard>
           </transition>
-<!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
-<!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
-<!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
-<!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
-<!--            </v-card>-->
-<!--          </v-row>-->
-<!--          <v-progress-circular-->
-<!--            indeterminate-->
-<!--            color="primary"-->
-<!--            :size="50"-->
-<!--          ></v-progress-circular>-->
+            <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
+            <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
+            <!--              <v-card-text class="ml-4" style="color: white; font-size: 24px;">Looking To Edit The Application Questions At This Property?</v-card-text>-->
+            <!--              <v-btn @click="editFunction" color="white" class="mt-2 mr-4" outlined rounded >Edit Now</v-btn>-->
+            <!--            </v-card>-->
+            <!--          </v-row>-->
+            <!--          <v-progress-circular-->
+            <!--            indeterminate-->
+            <!--            color="primary"-->
+            <!--            :size="50"-->
+            <!--          ></v-progress-circular>-->
           <v-skeleton-loader
             v-if="!customerConnectionsLoad && !channelLeadsLoad && !locationApproved && !pendingApplicants && !editVendorRequirements && !editLocationDetails"
             type="card-avatar, article, article, actions"

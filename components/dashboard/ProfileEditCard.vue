@@ -674,7 +674,6 @@
 
 <script>
   import VImageInput from 'vuetify-image-input'
-
   export default {
     name: "ProfileEditCard",
     components: {
@@ -857,9 +856,7 @@
         } else {
           this.location.adminLevel = this.adminOptions[1].value
         }
-
         await this.uploadLocationImage();
-
         await this.$http.put('https://www.sowerkbackend.com/api/locations/' + this.location.id, this.locationEdit)
           .then(response => {
             console.log(response, 'success')
@@ -945,10 +942,8 @@
                 }
               }
             }
-
             console.log(this.services, this.servicesVal, this.servicesAdditional1, this.servicesAdditional2, 'this.services!!!!!!');
             for(let i=0; i<this.originalServices.length; i++) {
-
             }
             if(this.originalServices.includes(this.servicesVal)) {
               for(let i=0; i<this.originalServices.length; i++) {
@@ -1016,7 +1011,6 @@
                   console.log(err, 'err in posting locationtags')
                 })
             }
-
             if(this.services.length > 2) {
               for(let i=0; i<this.services.length; i++) {
                 if(this.services.length > 2) {
@@ -1027,7 +1021,6 @@
                     .catch(err => {
                       console.log(err, 'err in deleting location tag')
                     })
-
                 }
               }
             }
@@ -1035,7 +1028,6 @@
           .catch(e => {
             console.log(e, 'err in updating')
           });
-
         this.modalSuccessEditLoad = true;
         setTimeout(() => {
           this.getLocationTags(this.location.id);
@@ -1044,7 +1036,6 @@
         //   this.locationEdit = data;
         // })
       },
-
       async uploadLocationImage() {
         const formData = new FormData();
         formData.append('file', this.locationImageFile);
@@ -1069,7 +1060,6 @@
             console.log('error in uploading company image', err);
           })
       },
-
       selectLocationImage(e) {
         this.locationImageFile = e.target.files[0]
         console.log(this.locationImageFile)
@@ -1086,12 +1076,10 @@
         // this.$emit('selectFile', this.companyImageFile);
         this.$emit('selectFileUrl', this.companyImageUrl);
       },
-
       cancelEditLocation() {
         console.log('CANCEL 1');
         this.$emit('cancel');
       },
-
       clickLocationImageUpload() {
         console.log(this);
         // let imageInput = this.$refs.companyImage;
@@ -1106,13 +1094,11 @@
         // imageInput.$el.click();
         document.getElementById('companyImage').click();
       },
-
       // Since vue-google-autocomplete is not a vuetify input field, we need this method to add a class to the address label to animate it on focus
       animateAddressFieldOnFocus(e) {
         let addressLabel = e.target.previousElementSibling;
         addressLabel.classList.toggle('v-label--focus');
       },
-
       // Since vue-google-autocomplete is not a vuetify-input-field, we need this method to add a class to the label when filled
       animateAddressFieldOnFilled(e) {
         // checks if e.target exists
@@ -1127,7 +1113,6 @@
           e.target.previousElementSibling.classList.remove('v-label--filled');
         }
       },
-
       // This method gets the necessary props from the address object returned by vue-google-autocomplete and saves to data
       getAddressData(addressData) {
         this.locationEdit.address = addressData.street_number + ' ' + addressData.route;
@@ -1136,7 +1121,6 @@
         this.locationEdit.zipcode = addressData.postal_code;
         // this.formatFullAddress();
       },
-
       // This method formats the address components into a readable string for display purposes
       formatFullAddress(location) {
         this.fullAddress = location.address + ', ' + location.city + ', ' + location.state + ' ' + location.zipcode;
@@ -1240,11 +1224,9 @@
     color: #333!important;
     font-weight: bold;
   }
-
   .v-text-field  {
     font-size: .9rem;
   }
-
   /* Enter and leave animations can use different */
   /* durations and timing functions.              */
   .slide-fade-enter-active {

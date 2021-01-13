@@ -53,7 +53,6 @@
   import ProfileCard from "~/components/dashboard/ProfileCard";
   import ProfileEditCard from "~/components/dashboard/ProfileEditCard";
   import CustomFormCard from "~/components/dashboard/CustomFormCard";
-
   export default {
     name: "profile",
     layout: "app",
@@ -197,15 +196,7 @@
     transform: translateX(10px);
     opacity: 0;
   }
-
 </style>
-
-
-
-
-
-
-
 
 
 

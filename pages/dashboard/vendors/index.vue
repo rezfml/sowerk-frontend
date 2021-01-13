@@ -1,12 +1,12 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
-<!--      <v-progress-circular-->
-<!--        indeterminate-->
-<!--        color="primary"-->
-<!--        :size="50"-->
-<!--      ></v-progress-circular>-->
-<!--    </div>-->
+      <!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+      <!--      <v-progress-circular-->
+      <!--        indeterminate-->
+      <!--        color="primary"-->
+      <!--        :size="50"-->
+      <!--      ></v-progress-circular>-->
+      <!--    </div>-->
 
     <!-- NOT SUPER USER -->
     <transition name="slide-fade">
@@ -24,6 +24,7 @@
 
           <!-- VENDOR CHANNELS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;">
+
             <v-btn class="py-12" @click="renderVideoCard" style="width: 100%; border: 1px solid white;text-decoration:none;color:inherit;background-color:#404040; font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW <br/>-Find A SOWerk Vendor-
             </v-btn>

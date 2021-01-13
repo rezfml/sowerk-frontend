@@ -2,14 +2,14 @@
 <v-container style="width: 100%; margin: 0px; max-width: 100vw;">
   <div style="width: 100%" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
     <div v-if="locationApproved" style="width: 100%" class="d-flex">
-<!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
-<!--        <FilterCard-->
-<!--          title="Filter"-->
-<!--          :filters="filters"-->
-<!--          :locationApproved="locationApproved"-->
-<!--          :loadModal="loadModal"-->
-<!--        ></FilterCard>-->
-<!--      </v-col>-->
+        <!--      <v-col cols="3" v-if="$vuetify.breakpoint.xl" class="ml-n6">-->
+        <!--        <FilterCard-->
+        <!--          title="Filter"-->
+        <!--          :filters="filters"-->
+        <!--          :locationApproved="locationApproved"-->
+        <!--          :loadModal="loadModal"-->
+        <!--        ></FilterCard>-->
+        <!--      </v-col>-->
       <v-col cols="12" xl="12">
         <v-card class="white pt-0 mt-12 mb-4">
           <v-progress-circular
@@ -29,33 +29,33 @@
                 <v-col cols="4" class="py-0">
                   <v-text-field v-model="search" label="Search By Channel, Name, Email, or Phone" light></v-text-field>
                 </v-col>
-<!--                <v-col cols="4" class="py-0">-->
-<!--                  <v-combobox-->
-<!--                    v-model="locationFilterTags"-->
-<!--                    :items="sowerkTags"-->
-<!--                    item-text="name"-->
-<!--                    item-value="name"-->
-<!--                    chips-->
-<!--                    multiple-->
-<!--                    label="Choose your tags here"-->
-<!--                    @click="filterItems()"-->
-<!--                  >-->
-<!--                    <template v-slot:selection="data">-->
-<!--                      <v-chip-->
-<!--                        class="v-chip&#45;&#45;select-multi"-->
-<!--                        style="width: auto;"-->
-<!--                      >-->
-<!--                        <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
-<!--                        <v-card-text v-else>{{data.item}}</v-card-text>-->
-<!--                        <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
-<!--                      </v-chip>-->
-<!--                    </template>-->
-<!--                    <template v-slot:item="data">-->
-<!--                      <p>{{data.item.name}}</p>-->
-<!--                    </template>-->
-<!--                  </v-combobox>-->
-<!--                </v-col>-->
-<!--                <v-btn @click="filterItems" color="primary" large>Filter By Type, Tag, And Category</v-btn>-->
+                  <!--                <v-col cols="4" class="py-0">-->
+                  <!--                  <v-combobox-->
+                  <!--                    v-model="locationFilterTags"-->
+                  <!--                    :items="sowerkTags"-->
+                  <!--                    item-text="name"-->
+                  <!--                    item-value="name"-->
+                  <!--                    chips-->
+                  <!--                    multiple-->
+                  <!--                    label="Choose your tags here"-->
+                  <!--                    @click="filterItems()"-->
+                  <!--                  >-->
+                  <!--                    <template v-slot:selection="data">-->
+                  <!--                      <v-chip-->
+                  <!--                        class="v-chip&#45;&#45;select-multi"-->
+                  <!--                        style="width: auto;"-->
+                  <!--                      >-->
+                  <!--                        <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
+                  <!--                        <v-card-text v-else>{{data.item}}</v-card-text>-->
+                  <!--                        <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
+                  <!--                      </v-chip>-->
+                  <!--                    </template>-->
+                  <!--                    <template v-slot:item="data">-->
+                  <!--                      <p>{{data.item.name}}</p>-->
+                  <!--                    </template>-->
+                  <!--                  </v-combobox>-->
+                  <!--                </v-col>-->
+                  <!--                <v-btn @click="filterItems" color="primary" large>Filter By Type, Tag, And Category</v-btn>-->
               </v-row>
             </v-card-actions>
             <v-card-text class="pt-0 pb-2">
@@ -169,9 +169,9 @@
                       View
                     </v-btn>
                   </nuxt-link>
-                  <!--            <v-icon small @click="deleteItem(item)">-->
-                  <!--              mdi-delete-->
-                  <!--            </v-icon>-->
+                    <!--            <v-icon small @click="deleteItem(item)">-->
+                    <!--              mdi-delete-->
+                    <!--            </v-icon>-->
                 </template>
               </v-data-table>
             </v-card-text>
@@ -190,6 +190,7 @@
         </v-card>
       </v-col>
     </div>
+    
     <v-card v-else class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
         v-if="loading != true"
@@ -208,32 +209,32 @@
             <v-col cols="4" class="py-0">
               <v-text-field v-model="search" label="Search By Channel, Name, Email, or Phone" light></v-text-field>
             </v-col>
-<!--            <v-col cols="4" class="py-0">-->
-<!--              <v-combobox-->
-<!--                v-model="locationFilterTags"-->
-<!--                :items="sowerkTags"-->
-<!--                item-text="name"-->
-<!--                item-value="name"-->
-<!--                chips-->
-<!--                multiple-->
-<!--                label="Choose your tags here"-->
-<!--              >-->
-<!--                <template v-slot:selection="data">-->
-<!--                  <v-chip-->
-<!--                    class="v-chip&#45;&#45;select-multi"-->
-<!--                    style="width: auto;"-->
-<!--                  >-->
-<!--                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
-<!--                    <v-card-text v-else>{{data.item}}</v-card-text>-->
-<!--                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
-<!--                  </v-chip>-->
-<!--                </template>-->
-<!--                <template v-slot:item="data">-->
-<!--                  <p>{{data.item.name}}</p>-->
-<!--                </template>-->
-<!--              </v-combobox>-->
-<!--            </v-col>-->
-<!--            <v-btn @click="filterItems" color="primary" large>Filter By Type, Tag, And Category</v-btn>-->
+              <!--            <v-col cols="4" class="py-0">-->
+              <!--              <v-combobox-->
+              <!--                v-model="locationFilterTags"-->
+              <!--                :items="sowerkTags"-->
+              <!--                item-text="name"-->
+              <!--                item-value="name"-->
+              <!--                chips-->
+              <!--                multiple-->
+              <!--                label="Choose your tags here"-->
+              <!--              >-->
+              <!--                <template v-slot:selection="data">-->
+              <!--                  <v-chip-->
+              <!--                    class="v-chip&#45;&#45;select-multi"-->
+              <!--                    style="width: auto;"-->
+              <!--                  >-->
+              <!--                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
+              <!--                    <v-card-text v-else>{{data.item}}</v-card-text>-->
+              <!--                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
+              <!--                  </v-chip>-->
+              <!--                </template>-->
+              <!--                <template v-slot:item="data">-->
+              <!--                  <p>{{data.item.name}}</p>-->
+              <!--                </template>-->
+              <!--              </v-combobox>-->
+              <!--            </v-col>-->
+              <!--            <v-btn @click="filterItems" color="primary" large>Filter By Type, Tag, And Category</v-btn>-->
           </v-row>
         </v-card-actions>
         <v-card-text class="pt-0 pb-2">
@@ -379,9 +380,9 @@
                   View
                 </v-btn>
               </nuxt-link>
-              <!--            <v-icon small @click="deleteItem(item)">-->
-              <!--              mdi-delete-->
-              <!--            </v-icon>-->
+                <!--            <v-icon small @click="deleteItem(item)">-->
+                <!--              mdi-delete-->
+                <!--            </v-icon>-->
             </template>
           </v-data-table>
         </v-card-text>
@@ -398,8 +399,8 @@
         </v-card-actions>
       </v-container>
     </v-card>
-    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
-    >
+
+    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;">
       <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
       <v-form style="width: 80%;">
@@ -411,6 +412,7 @@
       <v-card-title class="my-4" style="color: #A61C00;" v-if="successMessage === true">{{successText}}</v-card-title>
     </v-card>
   </div>
+
 
   <div style="width: 100%" v-else >
 
@@ -432,32 +434,32 @@
             <v-col cols="4" class="py-0">
               <v-text-field v-model="search" label="Search By Channel, Name, Email, or Phone" light></v-text-field>
             </v-col>
-<!--            <v-col cols="4" class="py-0">-->
-<!--              <v-combobox-->
-<!--                v-model="locationFilterTags"-->
-<!--                :items="sowerkTags"-->
-<!--                item-text="name"-->
-<!--                item-value="name"-->
-<!--                chips-->
-<!--                multiple-->
-<!--                label="Choose your tags here"-->
-<!--              >-->
-<!--                <template v-slot:selection="data">-->
-<!--                  <v-chip-->
-<!--                    class="v-chip&#45;&#45;select-multi"-->
-<!--                    style="width: auto;"-->
-<!--                  >-->
-<!--                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
-<!--                    <v-card-text v-else>{{data.item}}</v-card-text>-->
-<!--                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
-<!--                  </v-chip>-->
-<!--                </template>-->
-<!--                <template v-slot:item="data">-->
-<!--                  <p>{{data.item.name}}</p>-->
-<!--                </template>-->
-<!--              </v-combobox>-->
-<!--            </v-col>-->
-<!--            <v-btn @click="filterItems" color="primary" large>Filter By Type, Tag, And Category</v-btn>-->
+              <!--            <v-col cols="4" class="py-0">-->
+              <!--              <v-combobox-->
+              <!--                v-model="locationFilterTags"-->
+              <!--                :items="sowerkTags"-->
+              <!--                item-text="name"-->
+              <!--                item-value="name"-->
+              <!--                chips-->
+              <!--                multiple-->
+              <!--                label="Choose your tags here"-->
+              <!--              >-->
+              <!--                <template v-slot:selection="data">-->
+              <!--                  <v-chip-->
+              <!--                    class="v-chip&#45;&#45;select-multi"-->
+              <!--                    style="width: auto;"-->
+              <!--                  >-->
+              <!--                    <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>-->
+              <!--                    <v-card-text v-else>{{data.item}}</v-card-text>-->
+              <!--                    <v-btn @click="removeTag(data.item)" text class="ml-n6">X</v-btn>-->
+              <!--                  </v-chip>-->
+              <!--                </template>-->
+              <!--                <template v-slot:item="data">-->
+              <!--                  <p>{{data.item.name}}</p>-->
+              <!--                </template>-->
+              <!--              </v-combobox>-->
+              <!--            </v-col>-->
+              <!--            <v-btn @click="filterItems" color="primary" large>Filter By Type, Tag, And Category</v-btn>-->
           </v-row>
         </v-card-actions>
         <v-card-text class="pt-n6 pb-2 mt-n12">
@@ -572,9 +574,9 @@
                   View
                 </v-btn>
               </nuxt-link>
-              <!--            <v-icon small @click="deleteItem(item)">-->
-              <!--              mdi-delete-->
-              <!--            </v-icon>-->
+                <!--            <v-icon small @click="deleteItem(item)">-->
+                <!--              mdi-delete-->
+                <!--            </v-icon>-->
             </template>
           </v-data-table>
         </v-card-text>
@@ -591,8 +593,8 @@
         </v-card-actions>
       </v-container>
     </v-card>
-    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;"
-    >
+
+    <v-card class="d-flex flex-column align-center" v-if="loadModal === true" style="width: 70vw; height: 70vh; z-index: 25; position: absolute; top: 50px; left: 80px; text-align: center;">
       <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
       <v-card-title>Please fill in the <span style="color: #A61C00; padding: 0px 5px 0px 5px;">message field</span> below and click send message to send message</v-card-title>
       <v-form style="width: 80%;">
@@ -606,6 +608,7 @@
   </div>
   </v-container>
 </template>
+
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
