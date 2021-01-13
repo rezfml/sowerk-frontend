@@ -23,8 +23,8 @@
 
           <!-- VENDOR APPLICATIONS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.vendorApplications === true">
-            <v-btn @click="watchClickedVendorApplications" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+            <v-btn @click="watchClickedVendorApplications" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Vendor Applications-
               </span>
             </v-btn>
@@ -32,8 +32,8 @@
 
           <!-- COMPANY DOCUMENTS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyDocuments === true">
-            <v-btn @click="watchClickedCompanyDocuments" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+            <v-btn @click="watchClickedCompanyDocuments" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Company Documents-
               </span>
             </v-btn>
@@ -41,8 +41,8 @@
 
           <!-- COMPANY TEMPLATES VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyTemplates === true">
-            <v-btn @click="watchClickedCompanyTemplates" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+            <v-btn @click="watchClickedCompanyTemplates" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Company Templates-
               </span>
             </v-btn>
@@ -50,8 +50,8 @@
 
           <!-- SOWERK TEMPLATES VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.sowerkTemplates === true">
-            <v-btn @click="watchClickedSowerkTemplates" style="display:block;border: 1px solid white;padding:8% 12% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+            <v-btn @click="watchClickedSowerkTemplates" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -SOWERK Templates-
               </span>
             </v-btn>
@@ -62,30 +62,30 @@
 
     <transition name="slide-fade">
 
-      <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.vendorApplications === true">
-        <div style="position:relative;border-radius:1%;">
-          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.vendorApplications === true">
+        <div style="border-radius:1%;">
+          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
           </iframe>
         </div>
       </v-card>
 
-      <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyDocuments === true">
-        <div style="position:relative;;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyDocuments === true">
+        <div style="border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
           </iframe>
         </div>
       </v-card>
 
-      <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyTemplates === true">
-        <div style="position:relative;;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyTemplates === true">
+        <div style="border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
           </iframe>
         </div>
       </v-card>
 
-      <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.sowerkTemplates === true">
-        <div style="position:relative;;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.sowerkTemplates === true">
+        <div style="border-radius:1%;">
+          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
           </iframe>
         </div>
       </v-card>
@@ -164,7 +164,9 @@
                       <span><v-img src="/data-management-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:1.1rem;color:white"> SOWERK TEMPLATES</p>
+                      <p style="font-size:1.1rem;color:white">SOWERK</p>
+                      <v-spacer></v-spacer>
+                      <p style="font-size:1.1rem;color:white">TEMPLATES</p>
                     </span>
                   </v-btn>
                 </v-col>
@@ -292,10 +294,10 @@
       </template>
     </v-card>
     </transition>
-    <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadApplicationTemplates">-->
-    <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
-    <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
-    <!--    </v-row>-->
+      <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadApplicationTemplates">-->
+      <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
+      <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Application Templates</v-card-title>-->
+      <!--    </v-row>-->
 
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="addCompanyLoader">
       <v-progress-circular
@@ -371,10 +373,10 @@
       </template>
     </v-card>
     </transition>
-    <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadYourCompanyTemplates">-->
-    <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
-    <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Your Company Application Templates</v-card-title>-->
-    <!--    </v-row>-->
+      <!--    <v-row class="d-flex justify-center align-center mt-4" style="width: 100%; background:#a61c00;" v-if="loadYourCompanyTemplates">-->
+      <!--      <v-btn text @click="loadApplicationLocationsFunction" class="" color="#707070" style="color:white; width: 20%; border-radius: 10px;" ><- Back</v-btn>-->
+      <!--      <v-card-title class="center" style="color: white; width: 80%; text-align: center;">Your Company Application Templates</v-card-title>-->
+      <!--    </v-row>-->
 
     <transition name="slide-fade">
       <v-card class="mt-16" v-if="loadYourCompanyTemplates">
@@ -1188,56 +1190,56 @@
             </v-form>
           </v-col>
         </v-row>
-    <!--        OLD DESIGN WITH NAICS SELECT LIST-->
-    <!--        <v-form style="width: 90%;" class="d-flex flex-column align-center">-->
-    <!--&lt;!&ndash;          <v-text-field&ndash;&gt;-->
-    <!--&lt;!&ndash;            style="width: 80%;"&ndash;&gt;-->
-    <!--&lt;!&ndash;          label="Service Name Goes Here"&ndash;&gt;-->
-    <!--&lt;!&ndash;          v-model="serviceAdd.name"&ndash;&gt;-->
-    <!--&lt;!&ndash;          ></v-text-field>&ndash;&gt;-->
-    <!--          <v-select-->
-    <!--            :items="sectors"-->
-    <!--            label="First, select your sector."-->
-    <!--            placeholder=" "-->
-    <!--            item-text="title"-->
-    <!--            item-value="code"-->
-    <!--            style="width: 90%;"-->
-    <!--            @change="getSectorChildren"-->
-    <!--          ></v-select>-->
-    <!--          <template v-if="companySector">-->
-    <!--            <v-select-->
-    <!--              :items="industryLevel1"-->
-    <!--              placeholder=" "-->
-    <!--              label="Next, select a sub-sector."-->
-    <!--              item-text="title"-->
-    <!--              item-value="code"-->
-    <!--              v-model="companyLevel1"-->
-    <!--              style="width: 90%;"-->
-    <!--              @change="getLevel1Children"-->
-    <!--            ></v-select>-->
-    <!--          </template>-->
-    <!--          <template v-if="companyLevel1">-->
-    <!--            <v-select-->
-    <!--              :items="industryLevel2"-->
-    <!--              label="Finally, select your final sub-category."-->
-    <!--              placeholder=" "-->
-    <!--              item-text="title"-->
-    <!--              item-value="code"-->
-    <!--              v-model="companyLevel2"-->
-    <!--              style="width: 90%;"-->
-    <!--              @change="getLevel2Children"-->
-    <!--            ></v-select>-->
-    <!--          </template>-->
-    <!--          <template>-->
-    <!--            <v-text-field-->
-    <!--              label="Can't find what you're looking for? Enter here for other!"-->
-    <!--              hint="We will keep track of all additions in other and work diligently to either add them to our database, or notify you on why we cannot use this category."-->
-    <!--              v-model="serviceAdd.name"-->
-    <!--              style="width: 90%;"-->
-    <!--            ></v-text-field>-->
-    <!--          </template>-->
-    <!--          <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>-->
-    <!--        </v-form>-->
+        <!--        OLD DESIGN WITH NAICS SELECT LIST-->
+        <!--        <v-form style="width: 90%;" class="d-flex flex-column align-center">-->
+        <!--&lt;!&ndash;          <v-text-field&ndash;&gt;-->
+        <!--&lt;!&ndash;            style="width: 80%;"&ndash;&gt;-->
+        <!--&lt;!&ndash;          label="Service Name Goes Here"&ndash;&gt;-->
+        <!--&lt;!&ndash;          v-model="serviceAdd.name"&ndash;&gt;-->
+        <!--&lt;!&ndash;          ></v-text-field>&ndash;&gt;-->
+        <!--          <v-select-->
+        <!--            :items="sectors"-->
+        <!--            label="First, select your sector."-->
+        <!--            placeholder=" "-->
+        <!--            item-text="title"-->
+        <!--            item-value="code"-->
+        <!--            style="width: 90%;"-->
+        <!--            @change="getSectorChildren"-->
+        <!--          ></v-select>-->
+        <!--          <template v-if="companySector">-->
+        <!--            <v-select-->
+        <!--              :items="industryLevel1"-->
+        <!--              placeholder=" "-->
+        <!--              label="Next, select a sub-sector."-->
+        <!--              item-text="title"-->
+        <!--              item-value="code"-->
+        <!--              v-model="companyLevel1"-->
+        <!--              style="width: 90%;"-->
+        <!--              @change="getLevel1Children"-->
+        <!--            ></v-select>-->
+        <!--          </template>-->
+        <!--          <template v-if="companyLevel1">-->
+        <!--            <v-select-->
+        <!--              :items="industryLevel2"-->
+        <!--              label="Finally, select your final sub-category."-->
+        <!--              placeholder=" "-->
+        <!--              item-text="title"-->
+        <!--              item-value="code"-->
+        <!--              v-model="companyLevel2"-->
+        <!--              style="width: 90%;"-->
+        <!--              @change="getLevel2Children"-->
+        <!--            ></v-select>-->
+        <!--          </template>-->
+        <!--          <template>-->
+        <!--            <v-text-field-->
+        <!--              label="Can't find what you're looking for? Enter here for other!"-->
+        <!--              hint="We will keep track of all additions in other and work diligently to either add them to our database, or notify you on why we cannot use this category."-->
+        <!--              v-model="serviceAdd.name"-->
+        <!--              style="width: 90%;"-->
+        <!--            ></v-text-field>-->
+        <!--          </template>-->
+        <!--          <v-btn @click="addNewService" color="primary" large rounded style="font-size: 20px;" class="px-16 py-8 my-4">Submit</v-btn>-->
+        <!--        </v-form>-->
         <v-btn @click="closeService" text style="position: absolute; top: 10px; right: 10px; font-size: 25px;">X</v-btn>
       </v-card>
     </transition>

@@ -68,20 +68,20 @@
                     color="white"
                     href="/dashboard/vendors/invite"
                   >
-                    <span style="padding-right:5%"><v-img src="/add-user.svg" style="height:50px;width:50px;"></v-img></span>
+                    <span style="padding-right:5%"><v-img src="/add-user.svg" style="height:40px;width:40px;"></v-img></span>
                   Invite New Vendors
                   </v-btn>
                 </v-col>
 
                 <v-col cols="6">
                   <v-btn
-                    style="background:linear-gradient(to right, #A61C00, #741502);width:100%;height:70px;border-radius:8px"
+                    style="background:linear-gradient(to right, #A61C00, #741502);width:100%;height:70px;border-radius:8px;font-size:.8rem"
                     large
                     outlined
                     color="white"
                     href="/dashboard/vendors/"
                   >
-                    <span style="padding-right:5%"><v-img src="/agenda.svg" style="height:50px;width:50px;"></v-img></span>
+                    <span style="padding-right:5%"><v-img src="/agenda.svg" style="height:40px;width:40px;"></v-img></span>
                   View Vendor Directory</v-btn>
                 </v-col>
               </v-row>

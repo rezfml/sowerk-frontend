@@ -89,7 +89,7 @@
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
               <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                 <v-row style="width: 100%;" class="mt-16">
-                  <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
+                  <v-img width="400px" height="125px" src="/SoWork Logos with Icons-162.png"></v-img>
                 </v-row>
                 <v-card-text class="" style="font-size: 18px; text-align: center;margin-bottom:5%;margin-top:10%">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
                 <v-row class="mt-n2 mb-n2">
@@ -152,7 +152,7 @@
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
               <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                 <v-row style="width: 100%;" class="mt-16">
-                  <v-img width="400px" height="75px" src="/SoWork Logos with Icons-159.png"></v-img>
+                  <v-img width="400px" height="125px" src="/SoWork Logos with Icons-159.png"></v-img>
                 </v-row>
                 <v-card-text style="font-size: 18px; text-align: center;margin-bottom:12%;" class="mt-n8">Just like hiring a new employee for a facility, department or major project you can do the same with finding approved vendors for each of your SOWerk channels. You simply establish a Vendor vetting application for any specific Vendor service or supply category at any of your channels. It's an identical process to how you vet an employee hire.</v-card-text>
                 <v-btn color="primary" class="py-8 my-4" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/applications">Manage Applications</v-btn>
@@ -172,7 +172,7 @@
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
               <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center">
                 <v-row style="width: 100%;" class="mt-16">
-                  <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
+                  <v-img width="400px" height="125px" src="/SoWork Logos with Icons-172.png"></v-img>
                 </v-row>
                 <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
@@ -1989,6 +1989,7 @@
       </v-container>
     </v-app>
   </div>
+  
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;">
-        <v-col cols="12" md="4" class="py-12" v-if="currentUser.is_superuser">
+      <v-row style="height: 100%;" class="d-flex flex-wrap justify-center">
+        <v-col cols="12" md="4" sm="12" class="py-12" v-if="currentUser.is_superuser">
           <ProfileCard :showUploadCard="showUploadCard" :uploadCard="uploadCard" :editCompany="editCompany" :user="currentUser"></ProfileCard>
         </v-col>
-        <v-col cols="12" md="8" class="pb-12 d-flex flex-column" v-if="currentUser.is_superuser && !showUploadCard">
+        <v-col cols="12" md="8" sm="12" class="pb-12 d-flex flex-column" v-if="currentUser.is_superuser && !showUploadCard">
           <ProfileEditCard  :user="currentUser"></ProfileEditCard>
         </v-col>
 
@@ -53,7 +53,6 @@
   import ProfileCard from "~/components/dashboard/ProfileCard";
   import ProfileEditCard from "~/components/dashboard/ProfileEditCard";
   import CustomFormCard from "~/components/dashboard/CustomFormCard";
-
   export default {
     name: "profile",
     layout: "app",
@@ -197,15 +196,7 @@
     transform: translateX(10px);
     opacity: 0;
   }
-
 </style>
-
-
-
-
-
-
-
 
 
 

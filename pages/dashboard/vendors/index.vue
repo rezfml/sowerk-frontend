@@ -1,12 +1,12 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-<!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
-<!--      <v-progress-circular-->
-<!--        indeterminate-->
-<!--        color="primary"-->
-<!--        :size="50"-->
-<!--      ></v-progress-circular>-->
-<!--    </div>-->
+      <!--    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading != true">-->
+      <!--      <v-progress-circular-->
+      <!--        indeterminate-->
+      <!--        color="primary"-->
+      <!--        :size="50"-->
+      <!--      ></v-progress-circular>-->
+      <!--    </div>-->
 
     <!-- NOT SUPER USER -->
     <transition name="slide-fade">
@@ -24,8 +24,8 @@
 
           <!-- VENDOR CHANNELS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;">
-            <v-btn @click="renderVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+            <v-btn @click="renderVideoCard" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
+              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Find A SOWerk Vendor-
               </span>
             </v-btn>

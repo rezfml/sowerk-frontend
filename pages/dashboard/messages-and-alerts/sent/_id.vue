@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0 fill-height d-flex flex-column align-center justify-center" style="text-align: center;">
-      <v-card class="d-flex flex-column align-center mb-10">
+      <v-card class="d-flex flex-column align-center mb-10" style="width:80%">
         <v-skeleton-loader
           v-if="!editFormLoad"
           type="card-avatar, article, article, actions"
