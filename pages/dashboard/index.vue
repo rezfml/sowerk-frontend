@@ -177,8 +177,8 @@
                 <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="" v-else>
@@ -189,8 +189,8 @@
                 <v-card-text style="font-size: 18px;text-align:center;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
 
@@ -575,8 +575,8 @@
                 <v-card-text style="font-size: 1rem;text-align:center; margin-top: 5%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 1rem;padding-bottom:5%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-6" style="width: 90%; border-radius: 10px; font-size: 1rem;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-6" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 1rem;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-6" style="width: 90%; border-radius: 10px; font-size: 1rem;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-6" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 1rem;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="" v-else>
@@ -587,8 +587,8 @@
                 <v-card-text style="font-size: 18px;text-align:center;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
 
@@ -973,8 +973,8 @@
                 <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="" v-else>
@@ -985,8 +985,8 @@
                 <v-card-text style="font-size: 18px;text-align:center;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
 
@@ -1371,8 +1371,8 @@
                 <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="" v-else>
@@ -1383,8 +1383,8 @@
                 <v-card-text style="font-size: 18px;text-align:center;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
 
@@ -1769,8 +1769,8 @@
                 <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="" v-else>
@@ -1781,8 +1781,8 @@
                 <v-card-text style="font-size: 18px;text-align:center;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
-                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
 
@@ -1989,7 +1989,7 @@
       </v-container>
     </v-app>
   </div>
-  
+
 </template>
 
 <script>
