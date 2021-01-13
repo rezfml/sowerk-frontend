@@ -11,14 +11,14 @@
           ></v-skeleton-loader>
           <v-card class="d-flex flex-column align-center mt-16" v-if="loading">
             <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="companyForVendor.imgUrl"></v-img>
-            <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.25em;">{{companyForVendor.account_name}}</v-card-title>
+            <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.25em; word-break: break-word; white-space: pre-wrap;">{{companyForVendor.account_name}}</v-card-title>
             <v-card-text style="text-align: center; font-size: 18px;">{{companyForVendor.description}}</v-card-text>
             <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
               <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyConnections.length > 0">{{singleCompanyConnections.length}}</v-card-title>
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
                 <div class="d-flex flex-column align-center" style="width: 60%;">
-                  <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
+                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Companies Approved</v-card-title>
                   <v-btn to="../vendors/approved" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                 </div>
               </v-row>
@@ -324,7 +324,7 @@
           <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="openMessageModal">SEND MESSAGE</v-btn>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-4" style="width: 100%;">
-              <v-card-title style="color: #A61c00; font-size: 35px;">Your Connection Details</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 35px; text-align: center; word-break: break-word; white-space: pre-wrap;">Your Connection Details</v-card-title>
               <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
                   <v-img :src="company.imgUrl" v-if="company.imgUrl !== ''"></v-img>
@@ -449,7 +449,7 @@
           >Upload File</v-btn
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
-          <v-card-title style="color: #A61c00;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
+          <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
@@ -531,7 +531,7 @@
           <v-btn @click="sendMessage" outlined color="primary" rounded width="80%" class="mb-4 py-8">Request Application</v-btn>
           <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeRequestModal">X</v-btn>
           <transition name="slide-fade">
-            <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+            <v-card-text v-if="messageSendLoad" style="color: #A61C00; text-align: center; font-size: 24px;">Successfully sent message!</v-card-text>
           </transition>
         </v-card>
       </transition>
@@ -910,6 +910,14 @@
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
               this.submitNotesSuccess = true;
+              this.note = {
+                note: '',
+                fileUrl: null,
+                locations_id: Number,
+                userprofiles_id: Number,
+                spLocationsId: Number,
+                companies_id: Number,
+              }
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)

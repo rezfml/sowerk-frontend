@@ -10,7 +10,7 @@
     <!-- BUSINESS - VIDEO PLAYLIST -->
     <transition name="slide-fade">
       <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'true' && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-        <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='width: 80vw; height: 90vh;' ></iframe>
+        <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='width: 90%; height: 90vh;' ></iframe>
       </v-row>
       <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'true' && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)">
         <iframe src='https://vimeo.com/showcase/7975303/embed' allowfullscreen frameborder='0' style='width: 100vw; height: 70vh;'></iframe>
@@ -20,7 +20,7 @@
     <!-- VENDOR - VIDEO PLAYLIST -->
     <transition name="slide-fade">
       <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'false' && !$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-        <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='width: 80vw; height: 90vh;' ></iframe>
+        <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='width: 90%; height: 90vh;' ></iframe>
       </v-row>
       <v-row class="mx-auto mt-8 d-flex flex-column align-center" style="width:100%;" v-if="this.companyType === 'false' && ($vuetify.breakpoint.sm || $vuetify.breakpoint.xs)">
         <iframe src='https://vimeo.com/showcase/7955395/embed' allowfullscreen frameborder='0' style='width: 100vw; height: 70vh;'></iframe>

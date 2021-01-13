@@ -1,7 +1,8 @@
 <template>
 
-  <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
-  <div v-if="$vuetify.breakpoint.xl">
+
+<!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
+<div style="width: 100%;" class="d-flex align-center" v-if="$vuetify.breakpoint.xl">
 
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
@@ -434,6 +435,7 @@
             <v-card-title style="color:white;padding-top:12%;font-size:1.8rem;justify-content:space-around;">All Fields Are Required!</v-card-title>
             <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px; color: white">X</v-btn>
           </v-card>
+
         </transition>
 
         <template>
@@ -577,6 +579,7 @@
             <v-card-title style="color:white;padding-top:12%;font-size:1.8rem;justify-content:space-around;">All Fields Are Required!</v-card-title>
             <v-btn @click="editExit" text style="font-size: 24px; position: absolute; right: 5px; top: 5px; color: white">X</v-btn>
           </v-card>
+
         </transition>
 
         <template>
@@ -739,9 +742,9 @@
           'Staff Account'
         ],
         rules: {
-          requiredRules: [(v) => !!v && v === 0 || 'Field is required'],
-          requiredFirstNameRules: [(v) => !!v && v === 0 || 'First Name is required'],
-          requiredLastNameRules: [(v) => !!v && v === 0 || 'Last Name is required'],
+          requiredRules: [(v) => !!v || 'Field is required'],
+          requiredFirstNameRules: [(v) => !!v || 'First Name is required'],
+          requiredLastNameRules: [(v) => !!v || 'Last Name is required'],
           // usernameRules: [
           //   (v) => !!v  'Name is required',
           //   (v) =>

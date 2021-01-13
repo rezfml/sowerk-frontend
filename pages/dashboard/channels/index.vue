@@ -663,7 +663,6 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
             <v-row style="width:100%;" class="d-flex flex-column align-center">
-              
               <v-row>
                 <v-col cols="12">
                   <v-img style="width:300px;height:300px;margin-bottom:-50px;margin-top:-50px" src="/SoWork Logos with Icons-162.png"></v-img>
@@ -1026,7 +1025,7 @@
                   outlined
                   color="white"
                   to="../../dashboard/channels/add"
-                >Add Another Channel - Click Here!</v-btn>
+                >Add Another Channel</v-btn>
               </v-row>
 
             </v-row>
@@ -1366,7 +1365,7 @@
                   outlined
                   color="white"
                   to="../../dashboard/channels/add"
-                >Add Another Channel - Click Here!</v-btn>
+                >Add Another Channel</v-btn>
               </v-row>
 
             </v-row>

@@ -24,10 +24,9 @@
 
           <!-- VENDOR CHANNELS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;">
-            <v-btn @click="renderVideoCard" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW -Find A SOWerk Vendor-
-              </span>
+
+            <v-btn class="py-12" @click="renderVideoCard" style="width: 100%; border: 1px solid white;text-decoration:none;color:inherit;background-color:#404040; font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW <br/>-Find A SOWerk Vendor-
             </v-btn>
           </v-col>
         </v-row>

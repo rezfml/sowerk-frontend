@@ -104,7 +104,7 @@
 
 <!--    BUTTONS AND TEXT TO THE RIGHT OF VENDER APPLICATIONS BACKGROUND IMAGE    -->
     <transition name="slide-fade">
-      <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
+      <v-card class="mt-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
           <v-row style="width: 100%; height: auto;margin-bottom:5%" class="d-flex flex align-center">
             <v-col cols="7" style="">
               <v-img height="400px" src="/SoWork Logos with Icons-159.png"></v-img>
@@ -178,6 +178,18 @@
     <!--    <v-row class="d-flex flex-column align-center mt-2 mb-4" style="background: #A61C00; width: 100%;">-->
     <!--      <v-card-title style="color: white;">Manage Vendor Applications</v-card-title>-->
     <!--    </v-row>-->
+
+    <transition name="slide-fade">
+      <v-card class="d-flex justify-center mt-n16" v-if="loadYourCompanyTemplates || loadApplicationTemplates">
+        <p class="mt-4" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* A quick way to build a Vendor Application or Company Template is to start with a SOWerk Template that provides more of your desired questions (i.e. “General Questions” template). Then, once added to Company Templates or Assigned Channel you simply find this new item and choose Edit where you can add more questions.</p>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="d-flex justify-center mt-n16" v-if="loadApplicationLocations">
+        <p class="mt-4" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* If you have multiple Channels that will vet Vendors in a similar manner, rather than build a single application for each of those Channels try building a Company Template first. Company Templates can be assigned to multiple channeTls. Then, if you need to customize the application at just one of your channels you can do so without affecting the original Company Template or any other channel that uses said template. </p>
+      </v-card>
+    </transition>
 
     <!--    LOWER SECTION, 'YOUR VENDOR APPLICATIONS' & 'ADD NEW VENDOR FORM' button & TABLE below    -->
     <transition name="slide-fade">
@@ -315,12 +327,6 @@
         v-if="assignChannel"
       ></v-progress-circular>
     </div>
-
-    <transition name="slide-fade">
-      <v-card class="d-flex justify-center" v-if="loadYourCompanyTemplates || loadApplicationTemplates">
-        <v-card-title class="" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* A quick way to build a Vendor Application or Company Template is to start with a SOWerk Template that provides more of your desired questions (i.e. “General Questions” template). Then, once added to Company Templates or Assigned Channel you simply find this new item and choose Edit where you can add more questions.</v-card-title>
-      </v-card>
-    </transition>
 
     <transition name="slide-fade">
       <v-card class="mt-16" v-if="loadApplicationTemplates" style="width: 100%;">
@@ -624,7 +630,7 @@
           <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewCompanyTemplateLoad">
             <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
               <v-btn @click="saveCompanyTemplate" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
-              <v-btn :href="'../../dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+              <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
             </v-row>
             <v-row class="d-flex justify-center" style="width: 100%;">
               <v-col cols="4" class="d-flex flex-column align-center">
@@ -809,7 +815,7 @@
               <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
                 <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
                 <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-                <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+                <v-select item-text="name" item-value="value" :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
               </v-form>
               <div style="width: 100%;" class="d-flex justify-space-between">
                 <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
@@ -986,7 +992,7 @@
               <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
                   <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
-                  <v-btn :href="'../../dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+                  <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
                 </v-row>
                 <v-col cols="4" class="d-flex flex-column align-center">
                   <v-card-title style="color: #A61C00">Your Application</v-card-title>
@@ -1150,7 +1156,7 @@
                 <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
                   <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
                   <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-                  <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+                  <v-select item-text="name" item-value="value" :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
                 </v-form>
                 <div style="width: 100%;" class="d-flex justify-space-between">
                   <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
@@ -1408,12 +1414,22 @@ const naics = require("naics");
         openEditFormFieldLoad: false,
         openEditFormFieldVal: {},
         typeSelect: [
-          'text',
-          'number',
-          'date',
-          'checkbox',
-          // 'file',
-          // 'select',
+          {
+            name: 'Text',
+            value: 'text',
+          },
+          {
+            name: 'Number',
+            value: 'number',
+          },
+          {
+            name: 'Date',
+            value: 'date',
+          },
+          {
+            name: 'Checkbox',
+            value: 'checkbox',
+          },
         ],
         applicationOptions: [
           'Published - Public',
@@ -1493,7 +1509,7 @@ const naics = require("naics");
       watchClickedCompanyDocuments() {
         if(this.clickedLinks.companyDocuments === true){
           this.clickedLinks.companyDocuments = false
-        } else {        
+        } else {
           this.clickedLinks.vendorApplications = false
           this.clickedLinks.companyDocuments = true
           this.clickedLinks.companyTemplates = false
@@ -2797,7 +2813,7 @@ const naics = require("naics");
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
-        }, 1000)
+        }, 1500)
       },
       async reorderFormField({moved}) {
         console.log(moved, 'moved information for formfield')
