@@ -326,7 +326,7 @@
           <v-form style="width: 90%; font-size: 24px;" class="d-flex flex-wrap justify-center">
             <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
             <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-            <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+            <v-select item-text="name" item-value="value" :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%; font-size: 18px;" light :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
           </v-form>
           <div style="width: 100%;" class="d-flex justify-center">
             <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="mx-4 mb-2" color="primary" outlined style="width: 30%;">Delete Form Field</v-btn>
@@ -540,12 +540,26 @@
         openEditFormFieldLoad: false,
         openEditFormFieldVal: {},
         typeSelect: [
-          'text',
-          'number',
-          'date',
-          // 'file',
-          'select',
-          'checkbox',
+          {
+            name: 'Text',
+            value: 'text',
+          },
+          {
+            name: 'Number',
+            value: 'number',
+          },
+          {
+            name: 'Date',
+            value: 'date',
+          },
+          {
+            name: 'Select',
+            value: 'select',
+          },
+          {
+            name: 'Checkbox',
+            value: 'checkbox',
+          },
         ],
         saveLoad: true,
         colors: ["#a61c00", "#707070"],

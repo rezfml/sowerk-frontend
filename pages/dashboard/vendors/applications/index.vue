@@ -185,7 +185,7 @@
 
     <transition name="slide-fade">
       <v-card class="d-flex justify-center mt-n16" v-if="loadApplicationLocations">
-        <p class="mt-4" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* If you have multiple Channels that will vet Vendors in a similar manner, rather than build a single application for each of those Channels try building a Company Template first. Company Templates can be assigned to multiple channels. Then, if you need to customize the application at just one of your channels you can do so without affecting the original Company Template or any other channel that uses said template. </p>
+        <p class="mt-4" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* If you have multiple Channels that will vet Vendors in a similar manner, rather than build a single application for each of those Channels try building a Company Template first. Company Templates can be assigned to multiple channeTls. Then, if you need to customize the application at just one of your channels you can do so without affecting the original Company Template or any other channel that uses said template. </p>
       </v-card>
     </transition>
 
@@ -813,7 +813,7 @@
               <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
                 <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
                 <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-                <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+                <v-select item-text="name" item-value="value" :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
               </v-form>
               <div style="width: 100%;" class="d-flex justify-space-between">
                 <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
@@ -1154,7 +1154,7 @@
                 <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
                   <v-text-field v-model="openEditFormFieldVal.name" class="mx-2" style="width: 45%;" :label="'Question'" :name="openEditFormFieldVal.name"></v-text-field>
                   <v-checkbox v-model="openEditFormFieldVal.required" class="mx-2" style="width: 45%;" :label="'Required Question?'" :name="openEditFormFieldVal.required"></v-checkbox>
-                  <v-select :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
+                  <v-select item-text="name" item-value="value" :items="typeSelect" v-model="openEditFormFieldVal.type" class="mx-2" style="width: 45%;" :label="'Type of Question'" :name="openEditFormFieldVal.type"></v-select>
                 </v-form>
                 <div style="width: 100%;" class="d-flex justify-space-between">
                   <v-btn @click="deleteSingleFormfield(openEditFormFieldVal)" class="ml-2 mb-2" color="primary" outlined>Delete Form Field</v-btn>
@@ -1412,12 +1412,22 @@ const naics = require("naics");
         openEditFormFieldLoad: false,
         openEditFormFieldVal: {},
         typeSelect: [
-          'text',
-          'number',
-          'date',
-          'checkbox',
-          // 'file',
-          // 'select',
+          {
+            name: 'Text',
+            value: 'text',
+          },
+          {
+            name: 'Number',
+            value: 'number',
+          },
+          {
+            name: 'Date',
+            value: 'date',
+          },
+          {
+            name: 'Checkbox',
+            value: 'checkbox',
+          },
         ],
         applicationOptions: [
           'Published - Public',
