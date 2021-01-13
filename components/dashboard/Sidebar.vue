@@ -218,21 +218,53 @@
 
 
       <div v-else-if="company && company.company_type === 'false'" >
-        <template>
-          <nuxt-link
-            v-for="(link) in providerItems"
-            :to="link.to"
-            style="text-decoration: none;"
-            v-on:click="setActiveLink(link.slug)"
-            :class="link.class"
-            :id="link.id"
-          >
-            <v-list-item>
-              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+        <template v-if="user.is_superuser === true" v-for="(link, index) in providerItems" >
+          <v-list-item v-if="!link.children" :id="link.id" :key="index" :to="link.to" style="color:white;">
+            <v-list-item-icon style="color: white;"><v-icon style="color:white;">{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title style="color:white;">{{ link.text }}</v-list-item-title>
+          </v-list-item>
+          <v-list-group v-else :key="index" class="list-group">
+            <template v-slot:activator>
+              <v-list-item-icon style="color: white;"><v-icon style="color:white;">{{ link.icon }}</v-icon></v-list-item-icon>
               <v-list-item-title style="color:white;">{{ link.text }}</v-list-item-title>
+            </template>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5);color:white;" :to="child.to" exact-active-class="v-list-item--exact">
+              <v-list-item-title v-if="j < link.children.length - 1" style="color:white;">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; color:white;">{{ child.text }}</v-list-item-title>
             </v-list-item>
-          </nuxt-link>
+          </v-list-group>
         </template>
+        <template v-if="user.is_superuser === false" v-for="(link, index) in providerStaffItems">
+          <v-list-item v-if="!link.children" :key="index" :id="link.id" :to="link.to" style="color:white;">
+            <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item>
+          <v-list-group v-else :key="index" class="list-group" style="color:white;">
+            <template v-slot:activator>
+              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>
+              <v-list-item-title>{{ link.text }}</v-list-item-title>
+            </template>
+            <v-list-item v-for="(child, j) in link.children" :key="j" style="background-color: rgba(166,29,0,0.5);color:white;" :to="child.to" exact-active-class="v-list-item--exact">
+              <v-list-item-title v-if="j < link.children.length - 1">{{ child.text }}</v-list-item-title>
+              <v-list-item-title v-else style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">{{ child.text }}</v-list-item-title>
+            </v-list-item>
+          </v-list-group>
+        </template>
+<!--        <template>-->
+<!--          <nuxt-link-->
+<!--            v-for="(link) in providerItems"-->
+<!--            :to="link.to"-->
+<!--            style="text-decoration: none;"-->
+<!--            v-on:click="setActiveLink(link.slug)"-->
+<!--            :class="link.class"-->
+<!--            :id="link.id"-->
+<!--          >-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-icon><v-icon>{{ link.icon }}</v-icon></v-list-item-icon>-->
+<!--              <v-list-item-title style="color:white;">{{ link.text }}</v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--          </nuxt-link>-->
+<!--        </template>-->
       </div>
         <v-list-item @click="logout">
         <v-list-item-icon><v-icon style="color:white;">mdi-logout</v-icon></v-list-item-icon>

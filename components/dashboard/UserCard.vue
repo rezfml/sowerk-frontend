@@ -113,7 +113,7 @@
 
     <v-container v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
       <transition name="slide-fade">
-        <v-card v-if="editStartLoad === true" class="mt-n8 d-flex flex-column align-center">
+        <v-card v-if="editStartLoad === true" class="mt-n8 d-flex flex-column align-center" style="width: 100%;">
           <v-card-title style="color: #a61c00">Edit User #{{userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
             <v-text-field v-model="userEditForm.first_name" :placeholder="userEdit.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
@@ -151,7 +151,7 @@
 
     <v-container v-else style="">
       <transition name="slide-fade">
-        <v-card v-if="editStartLoad === true" class="mt-8 d-flex flex-column align-center" style="margin-top:-20%;">
+        <v-card v-if="editStartLoad === true" class="mt-8 d-flex flex-column align-center" style="">
           <v-card-title style="color: #a61c00">Edit User #{{userEdit.id}} - {{userEdit.first_name}} {{userEdit.last_name}}</v-card-title>
           <v-form style="width: 80%;" class="d-flex flex-wrap justify-center">
             <v-text-field v-model="userEditForm.first_name" :placeholder="userEdit.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>

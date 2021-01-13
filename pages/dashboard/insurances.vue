@@ -45,10 +45,7 @@
 
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
-        <div style="position:relative;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
-          </iframe>
-        </div>
+        <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
       </v-card>
     </transition>
 
@@ -105,7 +102,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-row v-if="openUploadModelLoad" class="mt-8 mb-4">
+      <v-row v-if="openUploadModelLoad" class="mt-8 mb-4 d-flex flex-column align-center" style="width: 100%;">
         <v-card style="background-color: white; height: auto; width: 100%;" class="d-flex flex-column align-center">
           <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Insurance Documents</v-card-title>
           <v-card-text class="pt-16 ml-4" style="text-align: center">Upload any insurance document or template that you have, or is required of you here.</v-card-text>
