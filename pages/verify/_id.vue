@@ -44,14 +44,10 @@ export default {
   },
   methods: {
     async getVerification() {
-      await this.$http.put('https://www.sowerkbackend.com/api/auth/verify/' + this.verificationId, this.payload)
-      .then(res => {
-        console.log(res, "RESPONSE")
-      })
-      .catch(err => {
-        console.log(err, "GGGGGGGGGGGGGGG")
-      })
-      
+      let {data, status} = await this.$http.put('https://www.sowerkbackend.com/api/auth/verify/' + this.verificationId, this.payload).catch(e => e);
+      if (this.$error(status)) return;
+      console.log(data);
+      this.verification = data;
       setTimeout(function() {
         window.location.href = '/login';
       }, 5000);
