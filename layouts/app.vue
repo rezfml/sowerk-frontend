@@ -84,8 +84,8 @@
       </v-footer>
     </v-content>
 
-    <v-tour v-if="windowLocation === 'http://localhost:3000/dashboard' || windowLocation === 'https://www.sowerk.com/dashboard'" name="myTour" :steps="steps" :options="myOptions">
-    </v-tour>
+<!--    <v-tour v-if="windowLocation === 'http://localhost:3000/dashboard' || windowLocation === 'https://www.sowerk.com/dashboard'" name="myTour" :steps="steps" :options="myOptions">-->
+<!--    </v-tour>-->
   </v-app>
 </template>
 
