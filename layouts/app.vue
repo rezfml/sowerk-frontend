@@ -1,8 +1,8 @@
 <template>
-  <v-app dark>
-    <v-content>
+  <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
+    <v-content :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
       <Sidebar :steps="steps" :company="company"></Sidebar>
-      <nuxt :steps="steps" :class="{'grey darken-3' : companyType === 'false'}" style="min-height: 100vh; min-width: 100%;" />
+      <nuxt :steps="steps" :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" style="min-height: 100vh; min-width: 100%;" />
       <!-- -----------FOOTER----------- -->
       <v-footer style="background:#a61c00; color: white; height: auto; width: 100%; display: flex;flex-direction: column">
         <v-row style="text-align: center; width: 100%;" class="pb-15 pb-sm-0" align="center">
@@ -93,11 +93,8 @@
   import Sidebar from "~/components/dashboard/Sidebar";
   import VueTour from 'vue-tour'
   import Vue from 'vue';
-
   require('vue-tour/dist/vue-tour.css')
-
   Vue.use(VueTour)
-
   export default {
     components: {
       Sidebar
@@ -228,7 +225,6 @@
   .v-application--wrap{
     min-height: unset !important;
   }
-
   #v-step-46f34eda {
     width: 400px !important;
     transform: translate3d(30vw, 5px, 0px) !important;

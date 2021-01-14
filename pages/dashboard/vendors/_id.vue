@@ -392,7 +392,7 @@
       </v-row>
 
       <transition name="slide-fade">
-        <v-card v-if="addNotesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 20vh; width: 77vw; left: 20vw; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}} - {{location.name}}</v-card-title>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
