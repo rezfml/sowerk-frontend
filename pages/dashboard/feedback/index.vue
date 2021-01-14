@@ -7,36 +7,7 @@
       max-width="80vw"
     ></v-skeleton-loader>
     <!-- COUNT CHANNELS BANNER if Business -->
-    <transition name="slide-fade">
-      <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="feedbackSuccess === false && loading">
-        <v-row style="width:100%;height:auto" class="d-flex flex justify-center align-center">
-          <v-col cols="12" sm="12" md="7" style="height:auto;" class="d-flex justify-center">
-            <h1 style="letter-spacing:5px; font-weight:450;font-style:italic;font-size:3.8rem;padding-left:2%;color: #707070">SOWERK 101</h1>
-          </v-col>
 
-          <v-col cols="12" sm="12" md="5" class="d-flex flex-column justify-center" style="height:auto">
-            <v-row>
-              <v-col cols="12">
-                <h2 style="color:darkred;font-size:1.5rem">How Can SOWerk 101 Help?</h2>
-                <p class="mt-4" style="font-size:1rem">Although we try to keep SOWerk easy to use we understand that sometimes you just need a little guidance and insight. Below you will find a complete playlist of all the SOWerk 101 videos found in your account. As we develop more help resources they will be added to this page and/or this video playlist. If you have any issues or requests please use the Feedback area of SOWerk, we are here to help!
-                </p>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-btn
-                style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
-                large
-                outlined
-                color="white"
-                to="../../dashboard/feedback/"
-              >Feedback & Support</v-btn>
-            </v-row>
-
-          </v-col>
-        </v-row>
-      </v-card>
-    </transition>
     <transition name="slide-fade">
       <v-card class="d-flex flex-column align-center justify-center" style="width: 100%; height: auto;" v-if="feedbackSuccess === false && loading">
 
