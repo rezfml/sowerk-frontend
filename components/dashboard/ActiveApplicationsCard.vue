@@ -134,7 +134,96 @@
           .catch(err => {
             console.log('err', err)
           })
+
+        await this.messageVendorAboutApproval();
       },
+      async messageVendorAboutApproval() {
+        console.log(this.application);
+
+        let pmLocation;
+        let applicationName;
+        let companyName;
+        let spCompanyName;
+
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.application.pmuserforms_id)
+          .then(response => {
+            console.log('SUCCESS userform', response)
+            applicationName = response.data.name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.pmcompanies_id)
+          .then(response => {
+            console.log('SUCCESS company', response)
+            companyName = response.data.account_name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.spcompanies_id)
+          .then(response => {
+            console.log('SUCCESS company', response)
+            spCompanyName = response.data.account_name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        // No longer needed as part of the message
+        // await this.$http.get('https://www.sowerkbackend.com/api/services/' + this.application.pmservices_id)
+        //   .then(response => {
+        //     console.log('SUCCESS', response)
+        //     this.denialMessage.service = response.data.service.name;
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   })
+
+        // Get Property Manager Location that application was sent to
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.pmlocations_id)
+          .then(response => {
+            console.log('SUCCESS', response)
+            pmLocation = response.data.name;
+            this.approvalMessage.location = response.data.name + ' - ' + response.data.address + ' '+ response.data.city + ' ' + response.data.state + ' ' + response.data.zipcode.toString()
+            this.approvalMessage.service = response.data.services[0].name
+            this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.pmcompanies_id)
+              .then(responseVal => {
+                console.log(responseVal.data)
+                this.approvalMessage.company = responseVal.data.account_name
+              })
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.splocations_id)
+          .then(response => {
+            console.log('SUCCESS', response)
+            this.approvalMessage.spLocationId = response.data.id
+            this.approvalMessage.spLocationName = response.data.name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        // Congratulations __vendor account name__, the approved Vendor application that your company applied for (__application name__)  has been reviewed. __business account name__ has approved your application and you are now connected to __business channel name__, a channel of __account name__. We will automatically update your profile details so others on SOWerk know you are a trusted solution for __business account name__. You will also be able to view and maintain your relationship details with __business account name__ by viewing their profile. This can be found in the Customer section of your navigation.
+        this.approvalMessage.message = `Congratulations ${spCompanyName}, the approved Vendor application that your company applied for ${applicationName} has been reviewed. ${companyName} has approved your application and you are now connected to ${pmLocation}, a channel of ${companyName}. We will automatically update your profile details so others on SOWerk know you are a trusted solution for ${pmLocation}. You will also be able to view and maintain your relationship details with ${companyName} by viewing their profile. This can be found in the Customer section of your navigation.`
+        console.log(this.approvalMessage, this.application, 'wow submit this.approvalMessage and application')
+        await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.application.spcompanies_id, this.approvalMessage)
+          .then(response => {
+            console.log('SUCCESS', response)
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        await this.$router.go();
+      },
+
       async Deny(itemVal) {
         console.log(itemVal, 'itemVal deny');
         const denialChanges = {
