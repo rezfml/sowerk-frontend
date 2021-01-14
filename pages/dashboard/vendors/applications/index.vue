@@ -14,7 +14,7 @@
         <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
-            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;">SOWERK 101</h1>
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;">SOWERK 101</h1>
           </v-col>
 
           <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
@@ -24,7 +24,7 @@
           <!-- VENDOR APPLICATIONS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.vendorApplications === true">
             <v-btn @click="watchClickedVendorApplications" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
+              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Vendor Applications-
               </span>
             </v-btn>
@@ -33,7 +33,7 @@
           <!-- COMPANY DOCUMENTS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyDocuments === true">
             <v-btn @click="watchClickedCompanyDocuments" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
+              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Company Documents-
               </span>
             </v-btn>
@@ -42,7 +42,7 @@
           <!-- COMPANY TEMPLATES VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyTemplates === true">
             <v-btn @click="watchClickedCompanyTemplates" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
+              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -Company Templates-
               </span>
             </v-btn>
@@ -51,7 +51,7 @@
           <!-- SOWERK TEMPLATES VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.sowerkTemplates === true">
             <v-btn @click="watchClickedSowerkTemplates" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:1rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
+              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW -SOWERK Templates-
               </span>
             </v-btn>
@@ -64,28 +64,28 @@
 
       <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.vendorApplications === true">
         <div style="border-radius:1%;">
-          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
+          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
           </iframe>
         </div>
       </v-card>
 
       <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyDocuments === true">
         <div style="border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
+          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
           </iframe>
         </div>
       </v-card>
 
       <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyTemplates === true">
         <div style="border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
+          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
           </iframe>
         </div>
       </v-card>
 
       <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.sowerkTemplates === true">
         <div style="border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="width:75vw;height:550px;border-radius:3%;margin-left:3%;">
+          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
           </iframe>
         </div>
       </v-card>
@@ -123,9 +123,9 @@
                       <span><v-img src="/profile-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:1.1rem">COMPANY</p>
+                      <p style="font-size:.8rem">COMPANY</p>
                       <v-spacer></v-spacer>
-                      <p style="font-size:1.1rem">TEMPLATES</p>
+                      <p style="font-size:.8rem">TEMPLATES</p>
                     </span>
                   </v-btn>
                 </v-col>
@@ -136,9 +136,9 @@
                       <span><v-img src="/outbox-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:1.1rem">COMPANY</p>
+                      <p style="font-size:.8rem">COMPANY</p>
                       <v-spacer></v-spacer>
-                      <p style="font-size:1.1rem">DOCUMENTS</p>
+                      <p style="font-size:.8rem">DOCUMENTS</p>
                     </span>
                   </v-btn>
                 </v-col>
@@ -151,9 +151,9 @@
                       <span><v-img src="/resume-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%;">
-                      <p style="font-size:1.1rem">ALL VENDOR</p>
+                      <p style="font-size:.8rem">ALL VENDOR</p>
                       <v-spacer></v-spacer>
-                      <p style="font-size:1.1rem">APPLICATIONS</p>
+                      <p style="font-size:.8rem">APPLICATIONS</p>
                     </span>
                   </v-btn>
                 </v-col>
@@ -164,9 +164,9 @@
                       <span><v-img src="/data-management-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
                     </span>
                     <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:1.1rem;color:white">SOWERK</p>
+                      <p style="font-size:.8rem;color:white">SOWERK</p>
                       <v-spacer></v-spacer>
-                      <p style="font-size:1.1rem;color:white">TEMPLATES</p>
+                      <p style="font-size:.8rem;color:white">TEMPLATES</p>
                     </span>
                   </v-btn>
                 </v-col>
