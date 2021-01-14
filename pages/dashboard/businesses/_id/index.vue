@@ -57,9 +57,9 @@
                   <p>Joined SOWerk: {{ year_joined }}</p>
                   <v-divider style="width: 90%" class="mx-auto mb-6"></v-divider>
                   <p class="text-center primary--text font-weight-bold">Main Contact</p>
-                  <p>Address: {{ location.contact_first_name }} {{ location.contact_last_name }}</p>
-                  <p>Founded: {{ location.year_founded }}</p>
-                  <p>Joined SOWerk: {{ year_joined }}</p>
+                  <p>Name: {{ location.contact_first_name }} {{ location.contact_last_name }}</p>
+                  <p>Phone: {{ location.phone }}</p>
+                  <p>Email: {{ location.email }}</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -106,7 +106,7 @@
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
-                      </v-text-field>                    
+                      </v-text-field>
 
                       <!-- VENDOR CATEGORY 3 -->
                       <v-text-field
@@ -133,7 +133,7 @@
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
                       </v-text-field>
-                      
+
                       <!-- COMPANY FOUNDED 5 -->
                       <v-text-field
                         placeholder=" "
@@ -145,7 +145,7 @@
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
-                      </v-text-field>  
+                      </v-text-field>
 
                       <!-- CONTACT PERSON PHONE 6 -->
                       <v-text-field
@@ -606,7 +606,7 @@
 
         this.applicantServiceRange = data.radius
 
- 
+
 
         this.$nextTick(function() {
           this.location = data;
@@ -725,7 +725,7 @@
 
               this.vendorType = response.data.vendorType
               this.vendorCategory = response.data.service
-              
+
             }
           })
           .catch(err => {
