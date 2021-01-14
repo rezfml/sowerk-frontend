@@ -2,7 +2,7 @@
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div v-if="$vuetify.breakpoint.xl" style="width:100%">
-    <v-app class="grey lighten-3" overflow-y-auto>
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
       <v-container style="max-width: 95%; height: 100%;" mt-12>
         <v-skeleton-loader
           v-if="!loading"
@@ -285,7 +285,7 @@
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
   <div v-else-if="$vuetify.breakpoint.lg" style="width:100%">
-    <v-app class="grey lighten-3" overflow-y-auto>
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
       <v-container style="max-width: 95%; height: 100%;" mt-12>
         <v-skeleton-loader
           v-if="!loading"
@@ -570,7 +570,7 @@
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.md" style="width:100%">
-    <v-app class="grey lighten-3" overflow-y-auto>
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
       <v-container style="max-width: 95%; height: 100%;" mt-12>
         <v-skeleton-loader
           v-if="!loading"
@@ -855,7 +855,7 @@
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.sm" style="width:100%">
-    <v-app class="grey lighten-3" overflow-y-auto>
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
       <v-container style="max-width: 95%; height: 100%;" mt-12>
         <v-skeleton-loader
           v-if="!loading"
@@ -1144,7 +1144,7 @@
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.xs" style="width:100%">
-    <v-app class="grey lighten-3" overflow-y-auto>
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
       <v-container style="max-width: 95%; height: 100%;" mt-12>
         <v-skeleton-loader
           v-if="!loading"

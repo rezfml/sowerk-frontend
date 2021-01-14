@@ -1,9 +1,9 @@
 <template>
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
-  <div v-if="$vuetify.breakpoint.xl" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+  <div  v-if="$vuetify.breakpoint.xl" style="width:100%;">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -400,8 +400,8 @@
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
   <div v-else-if="$vuetify.breakpoint.lg" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -798,8 +798,8 @@
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.md" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -1196,8 +1196,8 @@
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.sm" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -1594,8 +1594,8 @@
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.xs" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
