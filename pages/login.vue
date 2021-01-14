@@ -71,7 +71,7 @@
 
               <v-btn rounded color="primary" type="submit" value="LET'S GO" style="text-align: center;" class="px-10 mb-4 mx-auto center" v-on:click="login" >LET'S GO</v-btn>
 
-              <v-btn to="../register" class="mb-4" text>Not On SOWerk? Set Up Your Business Here</v-btn>
+              <a href="https://www.sowerk.com/register" class="mb-4" style="text-decoration: none; color: #707070; word-break: break-word; white-space: pre-wrap;" >Not On SOWerk? Set Up Your Business Here</a>
               <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="sendReset" >Forgot Password?</v-btn>-->
               <p style="font-weight: 700">Already registered? Check your email for verification!</p>
             </v-form>
