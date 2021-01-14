@@ -51,7 +51,7 @@
         <!-- TEMPORARY PASSWORD RENDERED CARD -->
         <transition name="slide-fade">
           <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
-            <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
+            <v-card-title class="" style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
             <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
               style="text-align-center; width: 80%;"
@@ -1650,7 +1650,7 @@
 
         <!-- TEMPORARY PASSWORD RENDERED CARD -->
         <transition name="slide-fade">
-          <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
+          <v-card style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
             <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
             <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
@@ -1677,7 +1677,7 @@
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="show1 = !show1"
             ></v-text-field>
-            <v-btn @click="passwordKeep" color="primary" large class="my-2 px-16">Save New Password</v-btn>
+            <v-btn @click="passwordKeep" color="primary" large class="my-2 px-16" style="postion: fixed; bottom: 50px;">Save New Password</v-btn>
             <!--          <v-btn @click="exitPasswordPopup" text style="font-size: 25px; position: absolute; top: 10px; right: 10px;">X</v-btn>-->
           </v-card>
         </transition>
@@ -2009,9 +2009,12 @@
       <v-btn text @click="removeFirstTimeLogin" style="font-size: 24px; position: absolute; top: 10px; right: 10px;">X</v-btn>
     </v-card>
     <v-card class="d-flex flex-column align-center" v-else-if="company.company_type === 'false'">
-      <v-card-title class="my-2" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
+      <v-card-title v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="my-2" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
+      <v-card-title v-else class="my-2 mt-4" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
       <v-card-subtitle>Hello, seeing as this is the first time you have logged in, before you begin, we recommend watching the video down below as your quick start guide to SOWerk!</v-card-subtitle>
-      <iframe src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="margin-top: 12.5vh;width:75vw;height:75vh;border-radius:3%;margin-left:5%;">
+      <iframe v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="margin-top: 12.5vh;width:75vw;height:75vh;border-radius:3%;margin-left:5%;">
+      </iframe>
+      <iframe v-else src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="margin-top: 1vh;width:75vw;border-radius:3%;">
       </iframe>
       <v-btn text @click="removeFirstTimeLogin" style="font-size: 24px; position: absolute; top: 10px; right: 10px;">X</v-btn>
     </v-card>

@@ -21,6 +21,46 @@
       </v-row>
 
       <transition name="slide-fade">
+        <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
+          <v-row style="width:100%;height:auto" class="d-flex flex justify-center align-center">
+            <v-col cols="12" sm="12" md="7" style="height:auto;">
+              <v-img height="400px" src="/SoWork Logo-177.png"></v-img>
+            </v-col>
+
+            <v-col cols="12" sm="12" md="5" class="d-flex flex-column justify-center" style="height:auto">
+              <v-row>
+                <v-col cols="12">
+                  <h2 style="color:darkred;font-size:1.5rem">Vendors That Have Applied</h2>
+                  <p class="mt-4" style="font-size:1rem">On this page you can see all the Vendors that have applied to any application and every channel across your company account, If a Vendor has applied to more than one Channel then each application will be displayed and require your approval or denial. Depending on your access level within the Company account some features and functionality may be different. Finally, it should be noted that you can also review a more limited list of Vendor applicants by navigating to a specific Channel dashboard located under Channels.
+                  </p>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
+                  large
+                  outlined
+                  color="white"
+                  to="../../dashboard/channels"
+                  class="my-1"
+                >Channels</v-btn>
+                <v-btn
+                  style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
+                  large
+                  outlined
+                  color="white"
+                  to="../../dashboard/vendors/approved"
+                  class="my-1"
+                >Approved Vendors</v-btn>
+              </v-row>
+
+            </v-col>
+          </v-row>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
         <template v-if="loading" class="d-flex flex-column align-center">
           <template class="d-flex flex-column align-center mt-16" v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
             <ActiveApplicationsCard

@@ -6,6 +6,8 @@
       min-height="50vh"
       max-width="80vw"
     ></v-skeleton-loader>
+    <!-- COUNT CHANNELS BANNER if Business -->
+
     <transition name="slide-fade">
       <v-card class="d-flex flex-column align-center justify-center" style="width: 100%; height: auto;" v-if="feedbackSuccess === false && loading">
 

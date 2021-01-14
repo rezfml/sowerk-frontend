@@ -820,7 +820,7 @@
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(response => {
-            console.log('services', response)
+            console.log('services!!!!!!', response)
             this.services = response.data;
             this.originalServices = response.data;
           })
@@ -942,11 +942,9 @@
                 }
               }
             }
-            console.log(this.services, this.servicesVal, this.servicesAdditional1, this.servicesAdditional2, 'this.services!!!!!!');
+            console.log(this.services, this.originalServices, this.servicesVal, this.servicesAdditional1, this.servicesAdditional2, 'this.services!!!!!!');
+
             for(let i=0; i<this.originalServices.length; i++) {
-            }
-            if(this.originalServices.includes(this.servicesVal)) {
-              for(let i=0; i<this.originalServices.length; i++) {
                 if(this.originalServices[i].name === this.servicesVal) {
                   this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
                     .then(response => {
@@ -957,7 +955,7 @@
                     })
                 }
               }
-            } else if (this.servicesVal !== '') {
+            if (this.servicesVal !== '') {
               this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {name:this.servicesVal})
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting this.servicesVal')
@@ -967,8 +965,7 @@
                   console.log(err, 'err in posting locationtags')
                 })
             }
-            if(this.originalServices.includes(this.servicesAdditional1)) {
-              for(let i=0; i<this.originalServices.length; i++) {
+            for(let i=0; i<this.originalServices.length; i++) {
                 if(this.originalServices[i].name === this.servicesAdditional1) {
                   this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
                     .then(response => {
@@ -979,7 +976,7 @@
                     })
                 }
               }
-            } else if (this.servicesAdditional1 !== '') {
+            if (this.servicesAdditional1 !== '') {
               this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {name:this.servicesAdditional1})
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting services add 1')
@@ -989,8 +986,7 @@
                   console.log(err, 'err in posting locationtags')
                 })
             }
-            if(this.originalServices.includes(this.servicesAdditional2)) {
-              for(let i=0; i<this.originalServices.length; i++) {
+            for(let i=0; i<this.originalServices.length; i++) {
                 if(this.originalServices[i].name === this.servicesAdditional2) {
                   this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.originalServices[i].id)
                     .then(response => {
@@ -1001,7 +997,7 @@
                     })
                 }
               }
-            } else if (this.servicesAdditional2 !== '') {
+            if (this.servicesAdditional2 !== '') {
               this.$http.post('https://www.sowerkbackend.com/api/services/byLocationId/' + this.location.id, {name:this.servicesAdditional2})
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting services add 2')
@@ -1011,19 +1007,27 @@
                   console.log(err, 'err in posting locationtags')
                 })
             }
-            if(this.services.length > 2) {
-              for(let i=0; i<this.services.length; i++) {
-                if(this.services.length > 2) {
-                  this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.services[i].id)
-                    .then(response => {
-                      console.log(response, 'success in deleting category')
-                    })
-                    .catch(err => {
-                      console.log(err, 'err in deleting location tag')
-                    })
+            console.log(this.services.length, this.services)
+            setTimeout(() => {
+              if(this.services.length > 3) {
+                for(let i=0; i<this.services.length; i++) {
+                  if((this.services.length - i) > 3) {
+                    this.$http.delete('https://www.sowerkbackend.com/api/services/' + this.services[i].id)
+                      .then(response => {
+                        console.log(response, 'success in deleting category')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in deleting location tag')
+                      })
+                  }
                 }
               }
-            }
+              setTimeout(() => {
+                this.services = [];
+                this.originalServices = [];
+                this.getServices(this.$route.params.id);
+              }, 500)
+            }, 1000)
           })
           .catch(e => {
             console.log(e, 'err in updating')

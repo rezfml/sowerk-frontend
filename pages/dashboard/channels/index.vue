@@ -895,7 +895,7 @@
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.sm" style="width:100%">
-    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" >
       <v-container class="px-0" style="max-width: 95%;">
 
         <!-- SOWERK 101 BANNER -->
