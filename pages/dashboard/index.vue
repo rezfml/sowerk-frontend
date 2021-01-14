@@ -1,9 +1,8 @@
 <template>
-
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
-  <div v-if="$vuetify.breakpoint.xl && !firstTimeLogin" style="width:100%">
+  <div  v-if="$vuetify.breakpoint.xl && !firstTimeLogin" style="width:100%;">
     <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+      <v-container fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -53,8 +52,9 @@
         <transition name="slide-fade">
           <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
             <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
-            <v-card-text>It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
+            <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="password"
               label="Password*"
               type="password"
@@ -66,6 +66,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="confirm"
               label="Confirm Password*"
               type="password"
@@ -83,7 +84,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 60vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -242,7 +243,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -399,8 +400,8 @@
   </div>
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
-  <div v-else-if="$vuetify.breakpoint.lg && !firstTimeLogin" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
+  <div v-else-if="$vuetify.breakpoint.lg  && !firstTimeLogin" style="width:100%">
+    <v-app class=" overflow-scroll" overflow-y-auto>
       <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
@@ -451,8 +452,9 @@
         <transition name="slide-fade">
           <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
             <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
-            <v-card-text>It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
+            <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="password"
               label="Password*"
               type="password"
@@ -464,6 +466,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="confirm"
               label="Confirm Password*"
               type="password"
@@ -481,7 +484,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 60vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -640,7 +643,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -797,7 +800,7 @@
   </div>
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
-  <div v-else-if="$vuetify.breakpoint.md && !firstTimeLogin" style="width:100%">
+  <div v-else-if="$vuetify.breakpoint.md  && !firstTimeLogin" style="width:100%">
     <v-app class=" overflow-scroll" overflow-y-auto>
       <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
@@ -849,8 +852,9 @@
         <transition name="slide-fade">
           <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
             <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
-            <v-card-text>It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
+            <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="password"
               label="Password*"
               type="password"
@@ -862,6 +866,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="confirm"
               label="Confirm Password*"
               type="password"
@@ -879,7 +884,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -1038,7 +1043,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -1195,7 +1200,7 @@
   </div>
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
-  <div v-else-if="$vuetify.breakpoint.sm && !firstTimeLogin" style="width:100%">
+  <div v-else-if="$vuetify.breakpoint.sm  && !firstTimeLogin" style="width:100%">
     <v-app class=" overflow-scroll" overflow-y-auto>
       <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
@@ -1247,8 +1252,9 @@
         <transition name="slide-fade">
           <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
             <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
-            <v-card-text>It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
+            <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="password"
               label="Password*"
               type="password"
@@ -1260,6 +1266,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="confirm"
               label="Confirm Password*"
               type="password"
@@ -1277,7 +1284,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -1436,7 +1443,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -1593,7 +1600,7 @@
   </div>
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
-  <div v-else-if="$vuetify.breakpoint.xs && !firstTimeLogin" style="width:100%">
+  <div v-else-if="$vuetify.breakpoint.xs  && !firstTimeLogin" style="width:100%">
     <v-app class=" overflow-scroll" overflow-y-auto>
       <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
@@ -1645,8 +1652,9 @@
         <transition name="slide-fade">
           <v-card v-if="changePasswordPopup" style="z-index: 10; position: fixed; top: 0vh; left: 0vw; width: 100vw; height:100vh" class="d-flex flex-column align-center justify-center">
             <v-card-title style="color: #A61c00;">Hello, {{user.first_name}}! Welcome To SOWerk.</v-card-title>
-            <v-card-text>It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
+            <v-card-text style="text-align-center; width: 80%;">It seems you've been assigned a password that's been designated temporary. You MUST change this for security reasons. You may do this below</v-card-text>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="password"
               label="Password*"
               type="password"
@@ -1658,6 +1666,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
             <v-text-field
+              style="text-align-center; width: 80%;"
               id="confirm"
               label="Confirm Password*"
               type="password"
@@ -1675,7 +1684,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -1990,6 +1999,24 @@
     </v-app>
   </div>
 
+  <!-- First Time Login Popup -->
+  <div v-else-if="firstTimeLogin">
+    <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
+      <v-card-title class="my-2" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
+      <v-card-subtitle>Hello, seeing as this is the first time you have logged in, before you begin, we recommend watching the video down below as your quick start guide to SOWerk!</v-card-subtitle>
+      <iframe src="https://player.vimeo.com/video/500079903" allowfullscreen frameborder="0" style="width:75vw;height:75vh;border-radius:3%;margin-left:5%;">
+      </iframe>
+      <v-btn text @click="removeFirstTimeLogin" style="font-size: 24px; position: absolute; top: 10px; right: 10px;">X</v-btn>
+    </v-card>
+    <v-card class="d-flex flex-column align-center" v-else-if="company.company_type === 'false'">
+      <v-card-title class="my-2" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
+      <v-card-subtitle>Hello, seeing as this is the first time you have logged in, before you begin, we recommend watching the video down below as your quick start guide to SOWerk!</v-card-subtitle>
+      <iframe src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="margin-top: 12.5vh;width:75vw;height:75vh;border-radius:3%;margin-left:5%;">
+      </iframe>
+      <v-btn text @click="removeFirstTimeLogin" style="font-size: 24px; position: absolute; top: 10px; right: 10px;">X</v-btn>
+    </v-card>
+  </div>
+
 </template>
 
 <script>
@@ -2007,6 +2034,7 @@
     },
     data() {
       return {
+        firstTimeLogin: null,
         openUploadModelLoad: false,
         loadModal: false,
         loading: false,
@@ -2129,7 +2157,7 @@
         ],
         locations: [],
         user: null,
-        company: null,
+        company: {  },
         locationApproved: false,
         statApproved: false,
         changePasswordPopup: false,
@@ -2181,7 +2209,7 @@
         ]
       },
       currentUser() {
-        return this.$store.getters['user/user'].user.user;
+        return this.$store.state.user.user.user;
       }
     },
     async mounted () {
@@ -2194,11 +2222,11 @@
       await this.getApprovedProviderConnections();
       await this.getApplications(this.currentUser.companies_id);
       await this.getMessages(this.currentUser.companies_id);
-      this.loadModal = true
       if(this.company.company_type === 'false') {
         await this.getVendorProvidedDocuments();
       }
       console.log(this.company.company_type, "Gggggggg")
+      this.loadModal = true
     },
     methods: {
       async getInsurances() {
@@ -2347,6 +2375,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
+          this.firstTimeLogin = data.firstTimeLogin
           if(this.user.temporaryPasswordBoolean) {
             this.changePasswordPopup = true;
           }
@@ -2357,7 +2386,6 @@
         this.changePasswordPopup = false;
       },
       async passwordKeep() {
-        if(this.$refs.validate()) {
           await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id, {
             password: this.password,
             temporaryPasswordBoolean: false,
@@ -2369,7 +2397,18 @@
             .catch(err => {
               console.log(err, 'err in temp password popup edit')
             })
-        }
+      },
+      async removeFirstTimeLogin() {
+          await this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + this.currentUser.id, {
+            firstTimeLogin: false,
+          })
+            .then(response => {
+              console.log(response, 'success in temp password popup edit')
+              this.firstTimeLogin = false;
+            })
+            .catch(err => {
+              console.log(err, 'err in temp password popup edit')
+            })
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);

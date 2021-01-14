@@ -2,7 +2,7 @@
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div v-if="$vuetify.breakpoint.xl" style="width:100%">
-    <v-app class="grey lighten-3">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
       <v-container class="px-0" style="max-width: 95%;">
 
         <!-- NOT SUPER USER -->
@@ -278,7 +278,7 @@
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
   <div v-else-if="$vuetify.breakpoint.lg" style="width:100%">
-    <v-app class="grey lighten-3">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
       <v-container class="px-0" style="max-width: 95%;">
 
         <!-- NOT SUPER USER -->
@@ -533,7 +533,7 @@
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.md" style="width:100%">
-    <v-app class="grey lighten-3">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
       <v-container class="px-0" style="max-width: 95%;">
 
         <!-- NOT SUPER USER -->
@@ -895,14 +895,14 @@
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.sm" style="width:100%">
-    <v-app class="grey lighten-3">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
       <v-container class="px-0" style="max-width: 95%;">
 
         <!-- SOWERK 101 BANNER -->
         <transition name="slide-fade">
           <!-- VENDOR USER -->
           <v-card class="my-4 flex-column justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
-            
+
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:#404040;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.2rem;padding-left:2%;color:#404040">SOWERK 101</h1>
@@ -912,7 +912,7 @@
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:#404040;text-align:left;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.4rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
-              </v-col>            
+              </v-col>
             </v-row>
 
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
@@ -923,14 +923,14 @@
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
-              </v-col>            
+              </v-col>
             </v-row>
 
           </v-card>
 
           <!-- SUPER USER -->
           <v-card class="my-4 flex-column justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
-            
+
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:white;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.2rem;padding-left:2%;color:white">SOWERK 101</h1>
@@ -940,9 +940,9 @@
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:white;text-align:center;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.4rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
-              </v-col>            
+              </v-col>
             </v-row>
-            
+
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <!-- VENDOR CHANNELS VIDEO -->
               <v-col cols="12" style="text-align:center;">
@@ -951,7 +951,7 @@
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
-              </v-col>            
+              </v-col>
             </v-row>
 
           </v-card>
@@ -981,7 +981,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
             <v-row style="width:100%;" class="d-flex flex-column align-center">
-              
+
               <v-row>
                 <v-col cols="12">
                   <v-img style="width:500px;height:500px;margin-bottom:-75px;margin-top:-50px" src="/SoWork Logos with Icons-162.png"></v-img>
@@ -1036,7 +1036,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
             <v-row style="width:100%;" class="d-flex flex-column align-center">
-              
+
               <v-row>
                 <v-col cols="12">
                   <v-img style="width:300px;height:300px;margin-bottom:-50px;margin-top:-50px" src="/SoWork Logos with Icons-162.png"></v-img>
@@ -1184,14 +1184,14 @@
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.xs" style="width:100%">
-    <v-app class="grey lighten-3">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'">
       <v-container class="px-0" style="max-width: 95%;">
 
         <!-- SOWERK 101 BANNER -->
         <transition name="slide-fade">
           <!-- VENDOR USER -->
           <v-card class="my-4 flex-column justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
-            
+
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:#404040;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;color:#404040">SOWERK 101</h1>
@@ -1201,7 +1201,7 @@
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:#404040;text-align:left;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.2rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
-              </v-col>            
+              </v-col>
             </v-row>
 
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
@@ -1212,14 +1212,14 @@
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
-              </v-col>            
+              </v-col>
             </v-row>
 
           </v-card>
 
           <!-- SUPER USER -->
           <v-card class="my-4 flex-column justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
-            
+
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:white;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;color:white">SOWERK 101</h1>
@@ -1229,9 +1229,9 @@
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <v-col cols="12" style="color:white;text-align:center;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.2rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
-              </v-col>            
+              </v-col>
             </v-row>
-            
+
             <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
               <!-- VENDOR CHANNELS VIDEO -->
               <v-col cols="12" style="text-align:center;">
@@ -1240,7 +1240,7 @@
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
-              </v-col>            
+              </v-col>
             </v-row>
 
           </v-card>
@@ -1270,7 +1270,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
             <v-row style="width:100%;" class="d-flex flex-column align-center">
-              
+
               <v-row>
                 <v-col cols="12">
                   <v-img style="width:300px;height:300px;margin-bottom:-50px;margin-top:-50px" src="/SoWork Logos with Icons-162.png"></v-img>
@@ -1325,7 +1325,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === false">
             <v-row style="width:100%;" class="d-flex flex-column align-center">
-              
+
               <v-row>
                 <v-col cols="12">
                   <v-img style="width:300px;height:300px;margin-bottom:-50px;margin-top:-50px" src="/SoWork Logos with Icons-162.png"></v-img>

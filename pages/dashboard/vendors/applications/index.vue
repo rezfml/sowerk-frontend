@@ -187,7 +187,7 @@
 
     <transition name="slide-fade">
       <v-card class="d-flex justify-center mt-n16" v-if="loadApplicationLocations">
-        <p class="mt-4" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* If you have multiple Channels that will vet Vendors in a similar manner, rather than build a single application for each of those Channels try building a Company Template first. Company Templates can be assigned to multiple channeTls. Then, if you need to customize the application at just one of your channels you can do so without affecting the original Company Template or any other channel that uses said template. </p>
+        <p class="mt-4" style="color: #A61C00; width: 80%; text-align: center; word-break: break-word;">Tip* If you have multiple Channels that will vet Vendors in a similar manner, rather than build a single application for each of those Channels try building a Company Template first. Company Templates can be assigned to multiple channels. Then, if you need to customize the application at just one of your channels you can do so without affecting the original Company Template or any other channel that uses said template. </p>
       </v-card>
     </transition>
 

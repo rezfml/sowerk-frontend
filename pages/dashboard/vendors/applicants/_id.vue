@@ -119,8 +119,25 @@
 
       <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
         <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-        <v-card-title class="mt-2" color="primary">Your SOWerk Application Has Been Approved!</v-card-title>
-        <v-btn color="primary" :href="'../../../dashboard/vendors/applicants'" class="mb-4" rounded>Return To SOWerk Request Dashboard</v-btn>
+        <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Your SOWerk Application Has Been Approved!</v-card-title>
+        <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Would You Like To Send A Company Document?</v-card-title>
+        <v-card-subtext>Choose from the list of company documents below to send to the Vendor for them to download, complete and upload back to SOWerk for your records.</v-card-subtext>
+        <v-card class="mt-8">
+          <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
+          <v-data-table
+            class="pt-16"
+            :items="companyDocuments"
+            :headers="companyDocumentsHeaders"
+          >
+            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+              <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
+              <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
+            </template>
+          </v-data-table>
+        </v-card>
+
+        <v-btn to='/dashboard/vendors/applications' color="primary" style="width: 30%;"  class="my-4" rounded outlined>Add Company Document</v-btn>
+        <v-btn :href="'../../../dashboard/vendors/applicants'" color="primary" style="width: 30%;"  class="my-4" rounded>Return To SOWerk Request Dashboard</v-btn>
       </v-card>
 
       <v-progress-circular
@@ -201,7 +218,27 @@ import * as moment from 'moment'
           spMessageRead: false,
           spLocationId: Number,
           spLocationName: Number
-        }
+        },
+        approvalMessage: {
+          service: '',
+          company: '',
+          primary_contact_first_name: this.$store.state.user.user.user.first_name,
+          primary_contact_last_name: this.$store.state.user.user.user.last_name,
+          message: '',
+          location: '',
+          userprofiles_id: this.$store.state.user.user.user.id,
+          pmMessageRead: false,
+          spMessageRead: false,
+          spLocationId: Number,
+          spLocationName: Number
+        },
+        companyDocuments: [],
+        documentToSend: {},
+        companyDocumentsHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
       }
     },
     async mounted() {
@@ -214,6 +251,25 @@ import * as moment from 'moment'
       },
     },
     methods: {
+      async selectVendor(document) {
+        console.log(document, 'document');
+        this.documentToSend = document
+        this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
+          // companies_id: this.currentUser.companies_id,
+          documentName: this.documentToSend.documentName,
+          documentUrl: this.documentToSend.documentUrl,
+          required: true,
+          vendor_companiesId: this.application.spcompanies_id,
+          vendor_channelsId: this.application.splocations_id
+        })
+          .then(response => {
+            console.log(response, 'success in added vendor docs')
+            alert(`Successfully sent ${this.documentToSend.documentName} to Vendor!`)
+          })
+          .catch(err => {
+            console.log(err, 'err in adding vendor docs')
+          })
+      },
       async getApplication(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/applications/' + id)
           .then(response => {
@@ -341,6 +397,17 @@ import * as moment from 'moment'
         }
         return true;
       },
+      async getCompanyDocuments() {
+        this.companyDocuments = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'companyDocuments response.data')
+            this.companyDocuments=response.data;
+          })
+          .catch(err => {
+            console.log(err, 'err in getting company documents for this company')
+          })
+      },
       async Approve() {
         const approvalChanges = {
           approval_status: 1
@@ -360,9 +427,100 @@ import * as moment from 'moment'
           .then(response => {
             console.log('success', response);
             this.success = true;
+            this.getCompanyDocuments();
           })
           .catch(err => {
             console.log('err', err)
+          })
+
+        await this.messageVendorAboutApproval();
+
+        // setTimeout(() => {
+        //   this.$router.push('/dashboard/vendors/applicants');
+        // }, 1000)
+      },
+      async messageVendorAboutApproval() {
+        console.log(this.application);
+
+        let pmLocation;
+        let applicationName;
+        let companyName;
+        let spCompanyName;
+
+        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.application.pmuserforms_id)
+          .then(response => {
+            console.log('SUCCESS userform', response)
+            applicationName = response.data.name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.pmcompanies_id)
+          .then(response => {
+            console.log('SUCCESS company', response)
+            companyName = response.data.account_name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.spcompanies_id)
+          .then(response => {
+            console.log('SUCCESS company', response)
+            spCompanyName = response.data.account_name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        // No longer needed as part of the message
+        // await this.$http.get('https://www.sowerkbackend.com/api/services/' + this.application.pmservices_id)
+        //   .then(response => {
+        //     console.log('SUCCESS', response)
+        //     this.denialMessage.service = response.data.service.name;
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   })
+
+        // Get Property Manager Location that application was sent to
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.pmlocations_id)
+          .then(response => {
+            console.log('SUCCESS', response)
+            pmLocation = response.data.name;
+            this.approvalMessage.location = response.data.name + ' - ' + response.data.address + ' '+ response.data.city + ' ' + response.data.state + ' ' + response.data.zipcode.toString()
+            this.approvalMessage.service = response.data.services[0].name
+            this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.application.pmcompanies_id)
+              .then(responseVal => {
+                console.log(responseVal.data)
+                this.approvalMessage.company = responseVal.data.account_name
+              })
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.application.splocations_id)
+          .then(response => {
+            console.log('SUCCESS', response)
+            this.approvalMessage.spLocationId = response.data.id
+            this.approvalMessage.spLocationName = response.data.name
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+        // Congratulations __vendor account name__, the approved Vendor application that your company applied for (__application name__)  has been reviewed. __business account name__ has approved your application and you are now connected to __business channel name__, a channel of __account name__. We will automatically update your profile details so others on SOWerk know you are a trusted solution for __business account name__. You will also be able to view and maintain your relationship details with __business account name__ by viewing their profile. This can be found in the Customer section of your navigation.
+        this.approvalMessage.message = `Congratulations ${spCompanyName}, the approved Vendor application that your company applied for ${applicationName} has been reviewed. ${companyName} has approved your application and you are now connected to ${pmLocation}, a channel of ${companyName}. We will automatically update your profile details so others on SOWerk know you are a trusted solution for ${pmLocation}. You will also be able to view and maintain your relationship details with ${companyName} by viewing their profile. This can be found in the Customer section of your navigation.`
+        console.log(this.approvalMessage, this.application, 'wow submit this.approvalMessage and application')
+        await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.application.spcompanies_id, this.approvalMessage)
+          .then(response => {
+            console.log('SUCCESS', response)
+          })
+          .catch(err => {
+            console.log(err);
           })
       },
       async Deny() {
