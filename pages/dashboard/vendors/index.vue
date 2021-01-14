@@ -61,6 +61,38 @@
       </v-card>
     </transition>
 
+    <!-- BANNER CARD -->
+    <transition name="slide-fade">
+      <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
+        <v-row style="width:100%;height:auto" class="d-flex flex justify-center align-center">
+          <v-col cols="12" sm="12" md="7" style="height:auto;">
+            <v-img height="400px" src="/SoWork Logo-178.png"></v-img>
+          </v-col>
+
+          <v-col cols="12" sm="12" md="5" class="d-flex flex-column justify-center" style="height:auto">
+            <v-row>
+              <v-col cols="12">
+                <h2 style="color:darkred;font-size:1.5rem">Find The Next Great Vendor</h2>
+                <p class="mt-4" style="font-size:1rem">It's great to publish a Vendor application whereby businesses can seek you out and apply. However, we also encourage you to utilize our ever-growing SOWerk Vendor directory. Once you find a potential Vendor you can review their profile, request them to apply for a public or private application, send them a message or even leave an internal note for yourself and your company. Don't see a Vendor you know or have worked with? Try using the SOWerk Invite Tool.
+                </p>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-btn
+                style="background: linear-gradient(to right, #A61C00, #741502); width:100%;border-radius:8px"
+                large
+                outlined
+                color="white"
+                to="../../dashboard/vendors/invite"
+              >Vendor Invite Tool</v-btn>
+            </v-row>
+
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
     <transition name="slide-fade">
       <v-container class="px-0" style="max-width: 95%;margin-bottom:10%" v-if="loading">
         <!--      <v-row class="d-flex align-center" style="width: 100%">-->

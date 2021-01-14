@@ -190,7 +190,7 @@
         </v-card>
       </v-col>
     </div>
-    
+
     <v-card v-else class="white pt-0 mt-12 mb-4" style="width: 100%">
       <v-progress-circular
         v-if="loading != true"
