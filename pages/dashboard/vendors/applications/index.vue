@@ -633,6 +633,7 @@
               <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
             </v-row>
             <v-row class="d-flex justify-center" style="width: 100%;">
+
               <v-col cols="4" class="d-flex flex-column align-center">
                 <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
                 <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
@@ -679,6 +680,7 @@
                 </v-card>
                 <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
               </v-col>
+
               <v-col cols="5" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00; border-right: 1px dashed #A61C00;">
                 <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
                 <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
@@ -695,7 +697,7 @@
                     :expanded.sync="expanded"
                     show-expand
                     single-expand
-                    style="width: 100%;"
+                    style="width: 100%;font-size:1rem"
                     v-if="sowerkDragNDrop"
                   >
                     <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
@@ -783,6 +785,7 @@
                   </v-data-table>
                 </transition>
               </v-col>
+
               <v-col cols="3" class="d-flex flex-column align-center">
                 <v-card-title style="color: #A61C00; text-align: center">New Questions</v-card-title>
                 <v-card-subtitle style="text-align: center">Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
@@ -1021,6 +1024,7 @@
                   </v-card>
                   <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
                 </v-col>
+                
                 <v-col cols="5" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00; border-right: 1px dashed #A61C00;">
                   <v-card-title style="color: #A61C00">Question Library</v-card-title>
                   <v-card-subtitle>In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>

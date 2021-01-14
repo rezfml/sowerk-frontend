@@ -1,8 +1,8 @@
 <template>
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
-  <div v-if="$vuetify.breakpoint.xl" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
+  <div v-if="$vuetify.breakpoint.xl && !firstTimeLogin" style="width:100%">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
       <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
@@ -399,9 +399,9 @@
   </div>
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
-  <div v-else-if="$vuetify.breakpoint.lg" style="width:100%">
+  <div v-else-if="$vuetify.breakpoint.lg && !firstTimeLogin" style="width:100%">
     <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -797,9 +797,9 @@
   </div>
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
-  <div v-else-if="$vuetify.breakpoint.md" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+  <div v-else-if="$vuetify.breakpoint.md && !firstTimeLogin" style="width:100%">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -970,7 +970,7 @@
                 <v-row style="width: 100%;" class="mt-16">
                   <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
                 </v-row>
-                <v-card-text style="font-size: 18px;text-align:center; margin-top: 10%;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
+                <v-card-text style="font-size: 18px;text-align:center; margin-top: -10px;">Once your channels are established and Vendor applications published it's time to find Vendors to apply.</v-card-text>
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;padding-bottom:10%;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
                 <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
@@ -986,7 +986,7 @@
                 <!-- <v-btn class="py-8 my-2" style="width: 90%; border-radius: 10px; font-size: 18px;background-color: #7C7C7C;color:white" @click="renderVideoCard">SOWERK 101</v-btn> -->
                 <v-card-text style="font-size: 18px;text-align:center">Use the Vendor Invite tool to invite existing relationships you have to connect on SOWerk or search the Vendor Directory.</v-card-text>
                 <v-btn color="primary" class="py-8" style="width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors">View Vendor Directory</v-btn>
-                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
+                <v-btn color="primary" class="py-8" style="margin-bottom:3%;margin-top:1%;width: 90%; border-radius: 10px; font-size: 18px;padding-bottom:50px" to="/dashboard/vendors/invite">Invite New Vendors</v-btn>
               </v-card>
             </v-col>
 
@@ -1195,9 +1195,9 @@
   </div>
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
-  <div v-else-if="$vuetify.breakpoint.sm" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+  <div v-else-if="$vuetify.breakpoint.sm && !firstTimeLogin" style="width:100%">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -1593,9 +1593,9 @@
   </div>
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
-  <div v-else-if="$vuetify.breakpoint.xs" style="width:100%">
-    <v-app class="grey lighten-3 overflow-scroll" overflow-y-auto>
-      <v-container class="d-flex flex-column align-center" fluid id="v-step-0" style="width: 100%;">
+  <div v-else-if="$vuetify.breakpoint.xs && !firstTimeLogin" style="width:100%">
+    <v-app class=" overflow-scroll" overflow-y-auto>
+      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
