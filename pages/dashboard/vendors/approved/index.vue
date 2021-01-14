@@ -44,11 +44,11 @@
       <transition name="slide-fade">
         <v-card class="my-4" style="width: 100%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" >
           <v-row style="width:100%;height:auto;" class="d-flex align-center">
-            <v-col cols="6" style="">
-              <v-img height="400px" src="/SoWork Logos with Icons-163.png"></v-img>
+            <v-col cols="5" style="width:100%">
+              <v-img height="400px" style="margin-left:-10%;margin-right:-10%;" src="/SoWork Logos with Icons-163.png"></v-img>
             </v-col>
 
-            <v-col cols="5" class="d-flex flex-column justify-center">
+            <v-col cols="7" class="d-flex flex-column justify-center" style="width:100%;margin-left:-5%">
               <!-- <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p> -->
               <v-spacer></v-spacer>
