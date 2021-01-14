@@ -2,8 +2,8 @@
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div  v-if="$vuetify.breakpoint.xl" style="width:100%;">
-    <v-app class=" overflow-scroll" overflow-y-auto>
-      <v-container :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" fluid id="v-step-0" style="width: 100%;">
+    <v-app :class="company.company_type === 'false' ? 'grey darken-3' : 'grey lighten-3'" overflow-y-auto>
+      <v-container fluid id="v-step-0" style="width: 100%;">
         <v-row class="d-flex justify-center">
           <v-col cols="3" class="mx-2">
             <v-skeleton-loader
@@ -83,7 +83,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -242,7 +242,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -481,7 +481,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -640,7 +640,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -879,7 +879,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -1038,7 +1038,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -1277,7 +1277,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -1436,7 +1436,7 @@
 
         <!-- RENDERS ONLY IF USER IS VENDOR -->
         <transition name="slide-fade">
-          <v-row v-if="company && company.company_type === 'false' && !openUploadModelLoad">
+          <v-row v-if="locationApproved && company.company_type === 'false' && !openUploadModelLoad">
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
@@ -1675,7 +1675,7 @@
 
         <!-- CONTAINER OF CARDS - ACCOUNT CHANNELS, VENDOR APPS, CUSTOMER SEARCH, SOWERK 101, APPROVED VENDORS  -->
         <transition name="slide-fade">
-          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="company && company.company_type !== 'false'">
+          <v-row style="width: 100%;" class="mt-n16 d-flex justify-center" v-if="locationApproved && company.company_type !== 'false'">
 
             <!-- ACCOUNT CHANNELS CARD  -->
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" style="height: 50vh;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
@@ -2129,7 +2129,7 @@
         ],
         locations: [],
         user: null,
-        company: null,
+        company: {  },
         locationApproved: false,
         statApproved: false,
         changePasswordPopup: false,
@@ -2194,11 +2194,11 @@
       await this.getApprovedProviderConnections();
       await this.getApplications(this.currentUser.companies_id);
       await this.getMessages(this.currentUser.companies_id);
-      this.loadModal = true
       if(this.company.company_type === 'false') {
         await this.getVendorProvidedDocuments();
       }
       console.log(this.company.company_type, "Gggggggg")
+      this.loadModal = true
     },
     methods: {
       async getInsurances() {
