@@ -2,7 +2,7 @@
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div v-if="$vuetify.breakpoint.xl" style="width:100%">
-    <v-container style="white-space: pre-wrap !important; height: 20vh;" class="d-flex flex-column align-center">
+    <v-container style="white-space: pre-wrap !important; height: 40vh;padding-top:70px;" class="d-flex flex-column align-center">
       <v-card-title style="width: 100%;">
         <p class="text-center primary--text mx-auto mb-0 font-weight-bold" style="width: 100%; font-size: 18px; white-space: pre-wrap !important; word-break: break-word;">{{ stat.title }}</p>
       </v-card-title>
@@ -16,16 +16,16 @@
   </div>
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
-  <div v-else-if="$vuetify.breakpoint.lg" style="width: 100%">
-    <v-container style="white-space: pre-wrap !important; height: 30vh;" class="d-flex flex-column align-center">
-      <v-card-title style="">
-        <p class="text-center primary--text mx-auto mb-0 font-weight-bold" style="width: 100%; font-size: 1rem; white-space: pre-wrap !important; word-break: break-word;">{{ stat.title }}</p>
+  <div v-else-if="$vuetify.breakpoint.lg" style="width: 100%;padding:0%;margin:0%;">
+    <v-container style="white-space: pre-wrap !important; height: 40vh;width:100%;padding-top:70px" class="d-flex flex-column align-center">
+      <v-card-title style="width:100%;padding:0%;margin:0%;">
+        <p class="text-center primary--text font-weight-bold" style="width: 100%; font-size: .8rem; white-space: pre-wrap !important; word-break: break-word;padding:0%;">{{ stat.title }}</p>
       </v-card-title>
-      <v-card-text>
-        <p class="text-center primary--text mb-0" style="font-size: 2rem; line-height: 104px;">{{ stat.value }}</p>
+      <v-card-text style="width:100%;padding:0%;margin:0%;">
+        <p class="text-center primary--text" style="font-size: 1rem; line-height: 40px;">{{ stat.value }}</p>
       </v-card-text>
-      <v-card-actions class="px-6 pb-6">
-        <v-btn outlined rounded block color="primary" class="mx-auto px-16" style="width: 100% !important;" :to="stat.link">View All</v-btn>
+      <v-card-actions class="px-2 pb-2" style="width:100%;padding:0%;margin:0%;">
+        <v-btn outlined rounded block color="primary" class="px-12" style="width: 100% !important;" :to="stat.link">View All</v-btn>
       </v-card-actions>
     </v-container>
   </div>
