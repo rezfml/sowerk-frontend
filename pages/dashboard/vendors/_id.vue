@@ -392,7 +392,7 @@
       </v-row>
 
       <transition name="slide-fade">
-        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 20vh; width: 77vw; left: 20vw; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 10vh; width: 73vw; left: 1vw; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}} - {{location.name}}</v-card-title>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
@@ -450,7 +450,8 @@
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
           <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
-          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
+          <v-btn v-if="this.$vuetify.breakpoint.width > 1500" color="primary" style="font-size: 1rem; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
+          <v-btn v-else-if="this.$vuetify.breakpoint.width < 1500" color="primary" style="font-size: 1rem;margin-bottom:2%" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
 
@@ -485,8 +486,9 @@
       <!--        :opacity="opacity"-->
       <!--        :value="overlayRequest"-->
       <!--      >-->
+
       <transition name="slide-fade">
-        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="requestModalLoad" style="position: fixed; top: 10vh; width: 70vw; left: 26vw; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
@@ -543,7 +545,7 @@
       <!--        :value="overlayMessage"-->
       <!--      >-->
       <transition name="slide-fade">
-        <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="messageModalLoad" style="position: fixed; top: 10vh; width: 70vw; left: 26vw; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
           <v-form class="mx-4 my-2" style="width: 80%;">
             <v-select
@@ -678,8 +680,9 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="licenseModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="licenseModal" style="position: fixed; top: 10vh; width: 70vw; left: 27vw;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
+          <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="licenseHeaders"
             :items="licenses"
@@ -698,8 +701,9 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="insuranceModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="insuranceModal" style="position: fixed; top: 10vh; width: 70vw; left: 27vw;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
+          <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="insuranceHeaders"
             :items="insurances"
