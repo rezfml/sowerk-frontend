@@ -30,7 +30,7 @@
                 <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-                <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+                <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
                 <v-col cols="12">
                   <v-select
                     :items="locations"
@@ -98,6 +98,7 @@
                   :items="selectOptions"
                   v-model="addUserForm.is_superuser"
                   label="Select the type of Account you want this User assigned to be"
+                  style="width: 40%; font-size: 18px;"
                 ></v-select>
                 <v-col cols="12">
                   <v-select
@@ -166,7 +167,7 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-select
                   :items="locations"
@@ -233,6 +234,7 @@
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
+                style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
                 <v-select
@@ -301,7 +303,7 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-select
                   :items="locations"
@@ -368,6 +370,7 @@
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
+                style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
                 <v-select
@@ -439,7 +442,7 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions"></v-select>
+              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-select
                   :items="locations"
@@ -508,6 +511,7 @@
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
+                style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
                 <v-select
@@ -580,7 +584,7 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2"></v-select>
+              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-select
                   :items="locations"
@@ -650,6 +654,7 @@
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
+                style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
                 <v-select
@@ -855,7 +860,7 @@
               })
             console.log(this.addUserForm);
             this.successAddUserForm = true;
-            this.$router.go()
+            this.$router.push('../user-creation')
           }, 2000)
         }
       },

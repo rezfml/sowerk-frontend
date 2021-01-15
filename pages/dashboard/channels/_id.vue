@@ -2,13 +2,13 @@
   <v-app class="grey lighten-3 ml-n4" overflow-y-auto>
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row style="width: 100%; height: 100%;">
-        <v-col cols="12" md="4" xl="3">
-          <ProfileCard :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :customerConnections="customerConnections" :channelLeads="channelLeads" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" :getLocationTags="getLocationTags"></ProfileCard>
+        <v-col cols="12" md="4" xl="4">
+          <ProfileCard  :locationApproval="locationApproval" :pendingApplication="pendingApplication" :editVendorRequirement="editVendorRequirement" :editLocationDetail="editLocationDetail" :customerConnections="customerConnections" :channelLeads="channelLeads" :locationApproved="locationApproved" :pendingApplicants="pendingApplicants" :editVendorRequirements="editVendorRequirements" :editLocationDetails="editLocationDetails" :approvedProviders="approvedProviders" :deleteLocation="deleteLocation" :location="location" :editLocation="editLocation" :locationImageUrl="locationImageUrl" :getLocationTags="getLocationTags"></ProfileCard>
         </v-col>
 
-        <v-col cols="12" md="8" xl="9" class="pb-12 d-flex flex-column align-center">
+        <v-col cols="12" md="8" xl="8" class="pb-12 d-flex flex-column align-center mb-16">
           <transition name="slide-fade">
-          <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags"  :originalLocationTags="originalLocationTags"></ProfileEditCard>
+            <ProfileEditCard :adminLevels="adminLevels" :location="location" v-if="location && editLocation === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags"  :originalLocationTags="originalLocationTags"></ProfileEditCard>
           </transition>
             <!--          <v-row v-if="edit === false" class="my-4" style="max-height: 50px;">-->
             <!--            <v-card color="primary" class="d-flex" style="width: 100%;">-->
@@ -28,17 +28,17 @@
             min-width="50vw"
           ></v-skeleton-loader>
           <transition name="slide-fade">
-          <FacilitiesCard
-            v-if="vendors && !editLocationDetails && locationApproved && company.company_type==='true'"
-            :title="'Channel Approved Vendors'"
-            :items="vendors"
-            :tableProperties="headers"
-            :viewAll="false"
-            action="ViewApproved"
-            :company="company"
-            :locationApproved="locationApproved"
-            slug="/dashboard/vendors/approved/"
-          ></FacilitiesCard>
+            <FacilitiesCard
+              v-if="vendors && !editLocationDetails && locationApproved && company.company_type==='true'"
+              :title="'Channel Approved Vendors'"
+              :items="vendors"
+              :tableProperties="headers"
+              :viewAll="false"
+              action="ViewApproved"
+              :company="company"
+              :locationApproved="locationApproved"
+              slug="/dashboard/vendors/approved/"
+            ></FacilitiesCard>
           </transition>
 
           <transition name="slide-fade">
@@ -655,6 +655,7 @@
         this.editLocationDetails = false;
         this.customerConnectionsLoad = true;
         this.channelLeadsLoad = false;
+        this.$vuetify.goTo(0);
       },
       async channelLeads() {
         this.locationApproved = false;
@@ -663,6 +664,7 @@
         this.editLocationDetails = false;
         this.customerConnectionsLoad = false;
         this.channelLeadsLoad = true;
+        this.$vuetify.goTo(0);
       },
       async locationApproval() {
         this.locationApproved = true;
@@ -671,6 +673,7 @@
         this.editLocationDetails = false;
         this.customerConnectionsLoad = false;
         this.channelLeadsLoad = false;
+        this.$vuetify.goTo(0);
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async pendingApplication() {
@@ -680,6 +683,7 @@
         this.editLocationDetails = false;
         this.customerConnectionsLoad = false;
         this.channelLeadsLoad = false;
+        this.$vuetify.goTo(0);
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async editVendorRequirement() {
@@ -689,6 +693,7 @@
         this.editLocationDetails = false;
         this.customerConnectionsLoad = false;
         this.channelLeadsLoad = false;
+        this.$vuetify.goTo(0);
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async editLocationDetail() {
@@ -698,6 +703,7 @@
         this.editLocationDetails = true;
         this.customerConnectionsLoad = false;
         this.channelLeadsLoad = false;
+        this.$vuetify.goTo(0);
         console.log(this.location, 'location this', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       },
       async getSowerkTags() {

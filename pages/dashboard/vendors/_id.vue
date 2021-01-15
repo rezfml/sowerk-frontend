@@ -106,7 +106,7 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-card-title style="color:#A61C00; font-size: 24px;">{{location.name}}</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">{{location.name}}</v-card-title>
               <v-card-text style="font-size: 18px; text-align: center;">{{location.address}}</v-card-text>
               <v-card-text style="font-size: 18px; text-align: center;">{{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
               <v-card-text style="text-align: center; font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
