@@ -1129,9 +1129,12 @@
                     </v-data-table>
                   </transition>
                 </v-col>
+
                 <v-col cols="3" class="d-flex flex-column align-center">
                   <v-card-title style="color: #A61C00">New Questions</v-card-title>
+
                   <v-card-subtitle>Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
+                  
                   <draggable
                     style="width: 100%;"
                     class="dragArea list-group"
@@ -1142,11 +1145,15 @@
                       <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
                         <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
                         <p style="width: 70%; text-align: center">{{form.name}}</p>
+                        <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields.length > 1">(The last question you wrote)</p>
+                        <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields.length > 1">{{formTypes[0].name}}</p>
                         <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                       </v-card-title>
                     </v-card>
                   </draggable>
+
                   <rawDisplayer title="List 2" :value="formTypes" />
+
                   <v-progress-circular
                     v-if="saveLoad === false"
                     indeterminate
@@ -1154,6 +1161,7 @@
                     :size="20"
                   ></v-progress-circular>
                 </v-col>
+
               </v-row>
               <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
                 <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
