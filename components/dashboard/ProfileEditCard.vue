@@ -1026,6 +1026,9 @@
                 this.services = [];
                 this.originalServices = [];
                 this.getServices(this.$route.params.id);
+                setTimeout(() => {
+                  this.$router.go();
+                }, 1000)
               }, 500)
             }, 1000)
           })

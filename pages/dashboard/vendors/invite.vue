@@ -29,6 +29,9 @@
                   still be invited to join SOWerk, but will still have to submit
                   an application to your business.)
                 </p>
+                <p class="text-body-1 text-center">
+                  Have a vendor interested in your public profile? Send them this link! <br/> <a target="_blank" :href="'https://www.sowerk.com/landingpage/property-manager/' + company.public_name">https://www.sowerk.com/landingpage/property-manager/{{company.public_name}}</a>
+                </p>
               </v-col>
               <v-col cols="12">
                 <v-form ref="form">
