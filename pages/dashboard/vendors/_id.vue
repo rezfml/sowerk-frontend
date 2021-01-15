@@ -485,8 +485,9 @@
       <!--        :opacity="opacity"-->
       <!--        :value="overlayRequest"-->
       <!--      >-->
+
       <transition name="slide-fade">
-        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 60vw; left: 0vw; height: auto;" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
@@ -543,7 +544,7 @@
       <!--        :value="overlayMessage"-->
       <!--      >-->
       <transition name="slide-fade">
-        <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="messageModalLoad" style="position: fixed; top: 10vh; width: 70vw; left: 26vw; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
           <v-form class="mx-4 my-2" style="width: 80%;">
             <v-select

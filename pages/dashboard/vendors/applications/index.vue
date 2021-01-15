@@ -800,7 +800,7 @@
                       <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
                       <p style="width: 70%; text-align: center">{{form.name}}</p>
                       <!-- <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">(The last question you wrote)</p>
-                      <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">{{formTypes[0].name}}</p> -->
+                      <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">{{formTypes[1].name}}</p> -->
                       <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                     </v-card-title>
                   </v-card>
