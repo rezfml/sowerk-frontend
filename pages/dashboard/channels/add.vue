@@ -230,7 +230,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
-            <v-card-subtitle class="mt-n4" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
+            <v-card-subtitle class="mt-n4" style="width: 80%; text-align: center">Tags help others on SOWerk as well as your staff search for this channel. Type in a Tag and when complete press the Return key to add. </v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -515,7 +515,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
-            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags help others on SOWerk as well as your staff search for this channel. Type in a Tag and when complete press the Return key to add. </v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -800,7 +800,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
-            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags help others on SOWerk as well as your staff search for this channel. Type in a Tag and when complete press the Return key to add. </v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -1089,7 +1089,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center">List Channel Tags <span style="color: #A61c00">*</span></p>
-            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags help others on SOWerk as well as your staff search for this channel. Type in a Tag and when complete press the Return key to add. </v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
@@ -1379,7 +1379,7 @@
             </v-row>
 
             <p class="grey--text text--darken-4 font-weight-bold" style="width: 100%; text-align: center;font-size:.8rem">List Channel Tags <span style="color: #A61c00">*</span></p>
-            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags are extra descriptors to help get your profile seen by other accounts who look for the services you have when a category just isn't enough or doesn't cover everything you may encompass.</v-card-subtitle>
+            <v-card-subtitle class="" style="width: 80%; text-align: center">Tags help others on SOWerk as well as your staff search for this channel. Type in a Tag and when complete press the Return key to add. </v-card-subtitle>
             <v-combobox
               v-model="locationTags"
               :items="sowerkTags"
