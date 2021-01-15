@@ -104,9 +104,11 @@
       },
       uploadCard() {
         this.showUploadCard = true
+        this.$vuetify.goTo(0)
       },
       editCompany() {
         this.showUploadCard = false
+        this.$vuetify.goTo(0)
       },
       async getCompanyDocuments() {
         this.companyDocuments = [];
