@@ -855,7 +855,7 @@
               })
             console.log(this.addUserForm);
             this.successAddUserForm = true;
-            this.$router.go()
+            this.$router.push('../user-creation')
           }, 2000)
         }
       },
