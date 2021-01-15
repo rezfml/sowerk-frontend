@@ -11,6 +11,7 @@
         <v-card v-if="loading && !success">
           <v-container class="px-12">
             <v-row>
+
               <v-col cols="12">
                 <v-img
                   src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png"
@@ -33,12 +34,13 @@
                   Have a vendor interested in your public profile? Send them this link! <br/> <a target="_blank" :href="'https://www.sowerk.com/landingpage/property-manager/' + company.public_name">https://www.sowerk.com/landingpage/property-manager/{{company.public_name}}</a>
                 </p>
               </v-col>
+
               <v-col cols="12">
                 <v-form ref="form">
                   <v-data-table
                     :headers="headers"
                     :items="vendors"
-                    class="text-caption table--bordered"
+                    class="text-caption table--bordered overflow-y-auto"
                     disable-pagination
                     hide-default-footer
                   >
@@ -159,11 +161,13 @@
                   </v-data-table>
                 </v-form>
               </v-col>
+
               <v-col cols="12" class="d-flex justify-end">
                 <v-btn color="primary" text @click="addInvitee"
                   >+ Add Another Line</v-btn
                 >
               </v-col>
+
               <v-col class="d-flex justify-space-between my-12">
                 <v-btn
                   outlined

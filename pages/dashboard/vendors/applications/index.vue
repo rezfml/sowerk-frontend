@@ -372,8 +372,8 @@
               <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 45%;">Assign Channel</v-btn>
               <v-btn @click="addToCompanyTemplates(item)" class="mx-2" color="primary" style="width: 53%;">Add to Company Templates</v-btn>
             </div>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2 my-1" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
-            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-2 my-1" color="primary" style="width: 80%;">Add to Company Templates</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-6 my-1" color="#707070" style="color:white; width: 80%;font-size:.9rem;letter-spacing:1px;">Assign Channel</v-btn>
+            <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addToCompanyTemplates(item)" class="mx-6 my-1" color="primary" style="width: 80%;font-size:.9rem;letter-spacing:1px;">Add to Company Templates</v-btn>
           </template>
         </v-data-table>
       </template>
@@ -524,12 +524,12 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
+      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 5vh; left: 30vw; width: 58vw; height: auto;" v-if="addToLocationLoad">
         <transition name="slide-fade">
           <v-card-title v-if="loadChannelList && !loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
         </transition>
         <transition name="slide-fade">
-          <v-card-title v-if="!loadChannelList && loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose your Type, Category, and Tags</v-card-title>
+          <v-card-title v-if="!loadChannelList && loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose your Type, Category, and Tags</v-card-title>
         </transition>
         <template v-if="loading">
           <transition name="slide-fade">
@@ -799,6 +799,8 @@
                     <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
                       <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
                       <p style="width: 70%; text-align: center">{{form.name}}</p>
+                      <!-- <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">(The last question you wrote)</p>
+                      <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">{{formTypes[0].name}}</p> -->
                       <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                     </v-card-title>
                   </v-card>
@@ -1129,9 +1131,12 @@
                     </v-data-table>
                   </transition>
                 </v-col>
+
                 <v-col cols="3" class="d-flex flex-column align-center">
                   <v-card-title style="color: #A61C00">New Questions</v-card-title>
+
                   <v-card-subtitle>Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
+                  
                   <draggable
                     style="width: 100%;"
                     class="dragArea list-group"
@@ -1142,11 +1147,15 @@
                       <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
                         <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
                         <p style="width: 70%; text-align: center">{{form.name}}</p>
+                        <!-- <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">(The last question you wrote)</p>
+                        <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">{{formTypes[0].name}}</p> -->
                         <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                       </v-card-title>
                     </v-card>
                   </draggable>
+
                   <rawDisplayer title="List 2" :value="formTypes" />
+
                   <v-progress-circular
                     v-if="saveLoad === false"
                     indeterminate
@@ -1154,6 +1163,7 @@
                     :size="20"
                   ></v-progress-circular>
                 </v-col>
+
               </v-row>
               <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
                 <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
