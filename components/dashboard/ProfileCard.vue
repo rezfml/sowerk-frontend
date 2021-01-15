@@ -18,8 +18,12 @@
                 <!--        </transition>-->
 
                 <transition name="slide-fade">
+                  <v-btn small color="primary" outlined style="position: absolute; top: 0px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+                </transition>
+
+                <transition name="slide-fade">
                   <div style="" class="d-flex justify-center" v-if="loadCompanyLocation && location">
-                    <v-avatar style="border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
+                    <v-avatar size="100" class="text-center mx-auto mt-4 rounded-circle elevation-5" color="white">
                       <v-img v-if="location.imageUrl !== ''" :src="location.imageUrl" ></v-img>
                       <v-img v-else-if="company.imgUrl !== ''" :src="company.imgUrl" ></v-img>
                       <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" ></v-img>
@@ -37,29 +41,72 @@
                 </transition>
 
                 <transition name="slide-fade">
-                  <v-card-title v-if="loadCompany || loadCompanyLocation" class="text-center mt-0 pt-12">
+                  <v-card-text v-if="loadCompany || loadCompanyLocation" class="text-center mt-0 pt-12">
 
                     <v-row v-if="loadCompanyLocation" style="text-align: center;" class="">
-                      <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px; word-break: normal">{{ location.name }}</v-card-text>
-                      <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-                      <v-card-text v-else class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+                      <v-card-text class="mx-auto text-center primary--text mb-0" style="color:#A61C00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">{{ location.name }}</v-card-text>
+                      <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" style="font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+                      <v-card-text v-else style="font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+                      <v-card-text style=" font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.description}}</v-card-text>
                       <v-row class="d-flex justify-center" style="width: 100%;">
-                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Founded: {{location.year_founded}}</v-card-text>
-                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Joined SOWerk: {{location.created}}</v-card-text>
+                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Founded: <span style="color: #A61C00">{{location.year_founded}}</span></v-card-text>
+                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created}}</span></v-card-text>
                       </v-row>
 
                       <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
-                      <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
+                      <v-card-text class="mb-n6 mx-auto text-center" style="font-size: 16px !important; text-align: center;word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
 
                       <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
-                      <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Super Admin</span>
-                        <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Staff Account</span></v-card-text>
+                      <v-select
+                        style="text-align: center;"
+                        readonly
+                        :items="vendorTypes"
+                        v-model="vendorTypes"
+                        label="Type"
+                        item-text="vendorType"
+                        item-value="vendorType"
+                        multiple
+                        outlined
+                        chips
+                        v-if="vendorTypes.length > 0"
+                      ></v-select>
+                      <v-card-text style=" font-size: 18px; text-align: center;" v-if="vendorTypes.length === 0">There are no types for this channel</v-card-text>
+                      <v-select
+                        style="text-align: center;"
+                        readonly
+                        chips
+                        :items="location.services"
+                        v-model="location.services"
+                        item-text="name"
+                        item-value="name"
+                        label="Category"
+                        v-if="location.services[0] !== 'There are no services'"
+                        multiple
+                        outlined
+                      ></v-select>
+                      <v-card-text style=" font-size: 18px; text-align: center;" v-if="location.services[0] === 'There are no services'">There are no categories for this channel</v-card-text>
+                      <v-select
+                        style="text-align: center;"
+                        readonly
+                        :items="location.locationtags"
+                        v-model="location.locationtags"
+                        label="Tags"
+                        chips
+                        item-text="name"
+                        item-value="name"
+                        multiple
+                        outlined
+                        v-if="location.locationtags[0] !== 'There are no location tags'"
+                      ></v-select>
+                      <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
 
-                      <v-card-text class="mx-auto mb-n6" style="font-size: 14px !important; word-break: break-word!important;">{{location.email}}</v-card-text>
-
-                      <v-card-text class="mx-auto mb-6" style="font-size: 14px !important; ;word-break: break-word!important;">{{location.phone}}</v-card-text>
+                      <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
+                      <v-card-text style="text-align: center; font-size: 48px; color: #A61C00">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+                      <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
+                      <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
+                      <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
                       <!--          <v-btn outlined rounded block color="primary" class="px-5" style="font-size: 18px;">View Facility Dashboard</v-btn>-->
                       <!--          <v-btn outlined rounded block color="primary" class="px-10 my-4" style="font-size: 18px;">Share This Property</v-btn>-->
                     </v-row>
@@ -75,7 +122,7 @@
                       </v-col>
                     </v-row>
 
-                  </v-card-title>
+                  </v-card-text>
                 </transition>
 
                 <transition name="slide-fade">
@@ -110,7 +157,7 @@
                   </v-card-text>
                 </transition>
 
-                <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Channel Approved Vendors</v-btn>
+                <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n6" color="primary" outlined rounded v-if="location">Channel Approved Vendors</v-btn>
                 <v-btn @click="pendingApplication" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Pending Applicants</v-btn>
 
                 <v-btn @click="editVendorRequirement" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Vendor Requirements</v-btn>
@@ -164,28 +211,69 @@
                   <v-card-title v-if="loadCompany || loadCompanyLocation" class="text-center mt-0 pt-12">
 
                     <v-row v-if="loadCompanyLocation" style="text-align: center;" class="">
-                      <v-card-text class="mx-auto text-center primary--text mb-0" style="font-size: 24px; word-break: normal">{{ location.name }}</v-card-text>
-                      <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-                      <v-card-text v-else class="mx-auto text-center mb-n6" style="font-size: 14px !important; text-align: center;">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+                      <v-card-text class="mx-auto text-center primary--text mb-0" style="color:#A61C00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">{{ location.name }}</v-card-text>
+                      <v-card-text v-if="this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl" style="font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+                      <v-card-text v-else style="font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+                      <v-card-text style=" font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.description}}</v-card-text>
                       <v-row class="d-flex justify-center" style="width: 100%;">
-                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Founded: {{location.year_founded}}</v-card-text>
-                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 14px !important; text-align: center;">Joined SOWerk: {{location.created}}</v-card-text>
+                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Founded: <span style="color: #A61C00">{{location.year_founded}}</span></v-card-text>
+                        <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created}}</span></v-card-text>
                       </v-row>
 
                       <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
-                      <v-card-text class="mb-n6 mx-auto text-center" style="word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
+                      <v-card-text class="mb-n6 mx-auto text-center" style="font-size: 16px !important; text-align: center;word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
 
                       <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
-                      <v-card-text class="mx-auto text-center mb-n6" style=" font-size: 14px !important; word-break: break-word!important;">{{location.contact_first_name}} {{location.contact_last_name}} - <span class="mb-2" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 1"><v-icon color="primary">mdi-account</v-icon>Super Admin</span>
-                        <span class="mb-n6" style="font-size: 14px !important; text-align: center;word-break: break-word!important;" v-if="location.adminLevel === 0"><v-icon color="primary">mdi-account</v-icon>Staff Account</span></v-card-text>
+                      <v-select
+                        style="text-align: center;"
+                        readonly
+                        :items="vendorTypes"
+                        v-model="vendorTypes"
+                        label="Type"
+                        item-text="vendorType"
+                        item-value="vendorType"
+                        multiple
+                        outlined
+                        chips
+                        v-if="vendorTypes.length > 0"
+                      ></v-select>
+                      <v-card-text style=" font-size: 18px; text-align: center;" v-if="vendorTypes.length === 0">There are no types for this channel</v-card-text>
+                      <v-select
+                        style="text-align: center;"
+                        readonly
+                        chips
+                        :items="location.services"
+                        v-model="location.services"
+                        item-text="name"
+                        item-value="name"
+                        label="Category"
+                        v-if="location.services[0] !== 'There are no services'"
+                        multiple
+                        outlined
+                      ></v-select>
+                      <v-card-text style=" font-size: 18px; text-align: center;" v-if="location.services[0] === 'There are no services'">There are no categories for this channel</v-card-text>
+                      <v-select
+                        style="text-align: center;"
+                        readonly
+                        :items="location.locationtags"
+                        v-model="location.locationtags"
+                        label="Tags"
+                        chips
+                        item-text="name"
+                        item-value="name"
+                        multiple
+                        outlined
+                        v-if="location.locationtags[0] !== 'There are no location tags'"
+                      ></v-select>
+                      <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
 
-                      <v-card-text class="mx-auto mb-n6" style="font-size: 14px !important; word-break: break-word!important;">{{location.email}}</v-card-text>
-
-                      <v-card-text class="mx-auto mb-6" style="font-size: 14px !important; ;word-break: break-word!important;">{{location.phone}}</v-card-text>
-                      <!--          <v-btn outlined rounded block color="primary" class="px-5" style="font-size: 18px;">View Facility Dashboard</v-btn>-->
-                      <!--          <v-btn outlined rounded block color="primary" class="px-10 my-4" style="font-size: 18px;">Share This Property</v-btn>-->
+                      <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
+                      <v-card-text style="text-align: center; font-size: 48px; color: #A61C00">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+                      <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
+                      <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
+                      <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
                     </v-row>
 
                     <v-row v-else-if="user">
@@ -234,7 +322,7 @@
                   </v-card-text>
                 </transition>
 
-                <v-btn @click="customerConnections" style="width: 80%;" class="d-flex justify-center mx-auto mt-n12" color="primary" outlined rounded v-if="location">Customer Connections</v-btn>
+                <v-btn @click="customerConnections" style="width: 80%;" class="d-flex justify-center mx-auto mt-n6" color="primary" outlined rounded v-if="location">Customer Connections</v-btn>
                 <v-btn @click="channelLeads" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Channel Leads</v-btn>
                 <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Channel Details</v-btn>
 
@@ -294,6 +382,7 @@
           { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
+        vendorTypes: [],
       }
     },
     mounted() {
@@ -304,6 +393,7 @@
         this.getCompany(this.user.companies_id)
       } else if (this.location) {
         this.getCompanyLocation(this.currentUser.companies_id)
+        this.getVendorTypes();
       }
       console.log(this.locationImageUrl);
     },
@@ -313,6 +403,18 @@
       },
     },
     methods: {
+      async getVendorTypes() {
+        await this.$http.get('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + this.$route.params.id)
+          .then(response => {
+            console.log(response.data, 'vendor types!!!!!!!')
+            if(response.data[0] !== 'There are no vendor types') {
+              this.vendorTypes = response.data
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err in getting location type')
+          })
+      },
       async getCompanyDocuments() {
         this.companyDocuments = [];
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)

@@ -333,7 +333,7 @@
               <v-col cols="4" class="mt-10">
                 <v-card class="d-flex flex-column align-center">
                   <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
+                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em; word-break: break-word; white-space: pre-wrap">{{company.account_name}}</v-card-title>
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
@@ -733,7 +733,7 @@
               <v-col cols="4" class="mt-10">
                 <v-card class="d-flex flex-column align-center">
                   <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
+                  <v-card-title style="word-break: break-word; white-space: pre-wrap; color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
@@ -1133,7 +1133,7 @@
               <v-col cols="4" class="mt-10">
                 <v-card class="d-flex flex-column align-center">
                   <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
+                  <v-card-title style="word-break: break-word; white-space: pre-wrap; color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
@@ -1533,7 +1533,7 @@
               <v-col cols="4" class="mt-10">
                 <v-card class="d-flex flex-column align-center">
                   <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
+                  <v-card-title style="word-break: break-word; white-space: pre-wrap; color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
@@ -1933,7 +1933,7 @@
               <v-col cols="4" class="mt-10">
                 <v-card class="d-flex flex-column align-center">
                   <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
-                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em">{{company.account_name}}</v-card-title>
+                  <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.5em; word-break: break-word; white-space: pre-wrap">{{company.account_name}}</v-card-title>
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
