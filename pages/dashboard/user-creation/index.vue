@@ -8,30 +8,28 @@
     <!--        :size="50"-->
     <!--      ></v-progress-circular>-->
     <!--    </div>-->
+    <!-- BANNER CARD -->
+    <transition name="slide-fade">
+      <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
+        <v-row style="width:100%;height:auto" class="d-flex flex justify-center align-center">
+          <v-col cols="12" sm="12" md="7" style="height:auto;">
+            <v-img height="400px" src="/SoWork Logo-179.png"></v-img>
+          </v-col>
 
+          <v-col cols="12" sm="12" md="5" class="d-flex flex-column justify-center" style="height:auto">
+            <v-row>
+              <v-col cols="12">
+                <h2 style="color:darkred;font-size:1.5rem">Different Types of Users</h2>
+                <p class="mt-4" style="font-size:1rem">Within your SOWerk account you can establish multiple user accounts with different levels of access. You can also assign users to one or multiple channels.
+                </p>
+              </v-col>
+            </v-row>
+
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
     <v-card class="my-16 height:auto;">
-      <!-- BANNER CARD -->
-      <transition name="slide-fade">
-        <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
-          <v-row style="width:100%;height:auto" class="d-flex flex justify-center align-center">
-            <v-col cols="12" sm="12" md="7" style="height:auto;">
-              <v-img height="400px" src="/SoWork Logo-179.png"></v-img>
-            </v-col>
-
-            <v-col cols="12" sm="12" md="5" class="d-flex flex-column justify-center" style="height:auto">
-              <v-row>
-                <v-col cols="12">
-                  <h2 style="color:darkred;font-size:1.5rem">Different Types of Users</h2>
-                  <p class="mt-4" style="font-size:1rem">Within your SOWerk account you can establish multiple user accounts with different levels of access. You can also assign users to one or multiple channels.
-                  </p>
-                </v-col>
-              </v-row>
-
-            </v-col>
-          </v-row>
-        </v-card>
-      </transition>
-
       <v-skeleton-loader
         v-if="!loading"
         type="card-avatar, article, article, actions"

@@ -527,7 +527,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card style="box-shadow: 4px 4px 4px grey; border: 1px solid grey; position:fixed; top: 15vh; left: 20vw; width: 78vw; height: auto;" v-if="addToLocationLoad">
+      <v-card style="box-shadow: 4px 4px 4px darkred; border: 1px solid #A61C00; position:absolute; top: 15vh; width: 80vw; height: auto;" v-if="addToLocationLoad">
         <transition name="slide-fade">
           <v-card-title v-if="loadChannelList && !loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Assign A Channel</v-card-title>
         </transition>

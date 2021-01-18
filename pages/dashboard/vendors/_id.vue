@@ -367,11 +367,11 @@
                 style="width: 90%;"
                 class="mt-2"
               >
-                <template v-slot:header>
-                  <v-row class="d-flex justify-end mt-n16" style="width: 100%;">
-                    <v-btn to='/dashboard/vendor-documents' color="primary" style="width: 30%;"  class="my-4" rounded outlined v-if="connections.length > 0">Add</v-btn>
-                  </v-row>
-                </template>
+<!--                <template v-slot:header>-->
+<!--                  <v-row class="d-flex justify-end mt-n16" style="width: 100%;">-->
+<!--                    <v-btn to='/dashboard/vendor-documents' color="primary" style="width: 30%;"  class="my-4" rounded outlined v-if="connections.length > 0">Add</v-btn>-->
+<!--                  </v-row>-->
+<!--                </template>-->
                 <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
                   <v-btn :href="item.documentUrl" text download color="#9A9A9A" class="my-1" style="width: 100%; height: 100%; color: #A61C00; background-color: lightgrey; text-align: left !important; align-self: flex-start">
                     {{item.documentName}}</v-btn>
@@ -631,6 +631,7 @@
           </v-form>
           <v-btn @click="sendMessageNonApplication" outlined color="primary" rounded width="80%" class="mb-8 py-8">Send Message</v-btn>
           <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeMessageModal">X</v-btn>
+          <v-card-title style="color: #A61c00; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;" v-if="successMessageSent">Successfully sent message to {{companyForVendor.account_name}}</v-card-title>
         </v-card>
       </transition>
       <!--      </v-overlay>-->
@@ -731,7 +732,7 @@
               <v-card-text>{{item.expirationDate.slice(0,4)}}</v-card-text>
             </template>
             <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-              <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
+              <v-btn v-if="connections.length > 0" :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitLicenseModal">< Back</v-btn>
@@ -751,7 +752,7 @@
               <v-card-text>{{item.expirationDateVal.slice(0,4)}}</v-card-text>
             </template>
             <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-              <v-btn :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
+              <v-btn v-if="connections.length > 0" :href="item.documentUrl" download color="#7C7C7C" class="my-1" style="width: 80%; color: white;">Download</v-btn>
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitInsuranceModal">< Back</v-btn>
@@ -772,6 +773,7 @@
     },
     data() {
       return {
+        successMessageSent: false,
         showRelationshipApprovedModal: false,
         showCompaniesApprovedModal: false,
         addNotesSuccess: false,
@@ -1077,6 +1079,8 @@
       async openMessageModal() {
         this.messageModalLoad = true;
         this.overlayMessage = true
+        this.sendMessageNonApp = {}
+        this.successMessageSent = false;
       },
       async openApprovedChannelsList() {
         this.approvedChannelsList = [];
@@ -1380,6 +1384,7 @@
           .then(response => {
             console.log(response, 'success in sending message')
             this.messageSendLoad = true;
+            this.successMessageSent = true;
           })
           .catch(err => {
             console.log(err, 'err in sending message')
