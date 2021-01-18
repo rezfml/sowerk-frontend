@@ -677,8 +677,8 @@
                 ></v-checkbox>
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
-              <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
-              <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
+              <v-card-text><span style="font-weight: bold;">Super Administrator Accounts</span> can create & manage any and all Channels, add User Accounts, access any part of Vendor requirements, and manage any and all aspects of a Vendor relationship in the account.</v-card-text>
+              <v-card-text><span style="font-weight: bold;">Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one Channel or as many Channels as you like. A Staff Account, in a number of ways, is similar to a Super Administrator Account but limited to a specific Channel(s).</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
                 <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>

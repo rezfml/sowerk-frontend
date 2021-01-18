@@ -2070,7 +2070,7 @@
         ],
         stats: [
           {
-            title: 'Your Approved Vendors',
+            title: 'Approved Vendors',
             value: 0,
             link: '/dashboard/vendors/approved'
           },
@@ -2080,12 +2080,12 @@
           //   link: '#'
           // },
           {
-            title: 'Pending Vendor Applications',
+            title: 'Pending Applications',
             value: 0,
             link: '/dashboard/vendors/applicants'
           },
           {
-            title: 'Your Unread Messages',
+            title: 'New Messages',
             value: 0,
             link: '/dashboard/messages-and-alerts/'
           }

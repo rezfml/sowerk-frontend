@@ -21,11 +21,11 @@
             Businesses & Vendors Come Together On SOWerk
           </p>
           <v-container v-else>
-          <p 
+          <p
             class=" text-lg-h3 text-sm-h6 font-weight-bold white--text pt-10 pb-2"
             style=" opacity: .8; font-size: 28px; width: 100%;margin:auto !important;min-width:100% !important;font-weight:700"
           >
-            Businesses & Vendors 
+            Businesses & Vendors
           </p>
           <p class=" text-lg-h3 text-sm-h6 font-weight-bold white--text pb-2 pb-sm-10 mx-0 px-0 d-flex align-center"
             style=" opacity: .8; font-size: 24px; width: 110%;margin:auto !important font-weight:700">Come Together On SOWerk</p>
@@ -75,7 +75,7 @@
                     Our business-to-business platform provides companies the tools to efficiently identify, vet,
                     and manage 3rd party providers for each of their locations.<br/>
                     <span style="font-weight: 800"
-                      >SOWerk is FREE & Powerful!</span
+                      >SOWerk is Powerful!</span
                     >
                   </p>
                 </v-col>
@@ -183,7 +183,7 @@
                     become an approved vendor, receive job/project requests, and
                     communicate with business owners.<br/>
                     <span style="font-weight: 800"
-                      >It's FREE To Get Started!</span
+                      >It's Easy To Get Started!</span
                     >
                   </p>
                 </v-col>
@@ -291,7 +291,7 @@ export default {
 @media (max-width: 680px) {
   .list1 {
     column-count: 1 !important;
-  } 
+  }
 }
 
 @media(max-width: 375px) {

@@ -1,5 +1,6 @@
 <template>
-  <v-card style="max-width:90%; margin:auto">
+  <v-card class="mt-16 mx-16" style="">
+    <v-card-text style="color: #A61c00; text-align: center; font-size: 36px;">Customer Specific Supplement</v-card-text>
     <v-card-title>Effective: October 15, 2020</v-card-title>
     <v-card-text>The terms of the Customer-Specific Supplement (“<b>Customer-Specific Supplement</b>”) below supplement and amend Customer’s Contract (as defined in our <span style="color:blue;">Customer Terms of Service</span>) if Customer falls into the corresponding category of Customer. If there is any conflict between the Customer-Specific Supplement and the Contract, the applicable terms in the Customer-Specific Supplement will prevail. Nothing in this Customer-Specific Supplement makes us a government contractor for any federal, state, local, or foreign government.</v-card-text>
     <v-list>
@@ -12,7 +13,7 @@
     <v-divider></v-divider>
     <v-card-title>I. U.S. Government Customers </v-card-title>
     <v-card-text>If Customer is a U.S. government or U.S. public entity (or use of the Services is for the U.S. Government), the terms of the Customer-Specific Supplement in this Section I apply.</v-card-text>
-    
+
       <v-card-text>   • <b>A. Use By or For the U.S. Government.</b> The Services are a “commercial item,” as defined at 48 C.F.R. §2.101, and constitute “commercial computer software” and “commercial computer software documentation,” as used in 48 C.F.R. §12.212 or 48 C.F.R. §227.7202 to §227.7204. This commercial computer software and related Documentation is provided to end users for use, by and on behalf of the U.S. Government, with only those rights as are granted to all other end users pursuant to the terms and conditions herein.</v-card-text>
       <v-card-text>   • <b>B. Indemnification, Auto-Renewal, Venue, Legal Fees:</b>The sections in the Contract titled “Governing Law,” “Auto-renewal,” “Venue; Waiver of Jury Trial; Fees,” and “Customer’s Indemnification of Us” are hereby waived to the extent they are inconsistent with federal law. </v-card-text>
       <v-card-text>   • <b>C. No Endorsement:</b>We agree that Customer’s seals, trademarks, logos, service marks, trade names, and the fact that Customer has a presence on one of our Sites and uses our Services, will not be used by us in such a manner as to state or imply that our products or services are endorsed, sponsored or recommended by Customer or by any other element of the U.S. Government, or are considered by Customer or the U.S. Government to be superior to any other products or services. Except for pages whose design and content is under the control of the Customer, or for links to or promotion of such pages, we agree not to display any Customer or government seals, trademarks, logos, service marks, and trade names on our homepage or elsewhere on one of our hosted sites unless permission to do so has been granted by Customer or by other relevant federal government authority. We may list Customer’s name in a publicly available customer list on a Site or elsewhere so long as the name is not displayed in a more prominent fashion than that of any other third party name. </v-card-text>
@@ -35,7 +36,9 @@
 </template>
 
 <script>
-
+  export default {
+    layout: 'fullwidth',
+  }
 </script>
 
 <style>

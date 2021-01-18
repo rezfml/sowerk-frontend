@@ -113,7 +113,7 @@
             <v-col cols="5" class="d-flex flex-column justify-center">
               <v-row>
                 <h2 style="color:darkred">What Are Vendor Applications?</h2>
-                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every vendor or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your channels. Create and use a company template that can be implemented across all channels, or in the event of special requirements for only one of your channels (i.e. local permit requirement), take that company template and add a custom question that is only visible to that facility.</p>
+                <p class="mt-4">Vetted Vendors get the job done right, and SOWerk is designed to give you the power to ensure every vendor or supplier meets your requirements. Through this interface, you can build an approved Vendor application specific to a service or supplier category, turn applications on or off, and even customize any application to one of your channels.</p>
               </v-row>
 
               <v-row>
@@ -459,6 +459,9 @@
               :items="companyDocuments"
               :headers="companyDocumentsHeaders"
             >
+              <template v-slot:item.created="{item, index}" class="d-flex flex-column align-center">
+                <v-card-text>{{item.created.slice(0,10)}}</v-card-text>
+              </template>
               <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
                 <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;">Remove</v-btn>
                 <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
@@ -1024,7 +1027,7 @@
                   </v-card>
                   <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
                 </v-col>
-                
+
                 <v-col cols="5" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00; border-right: 1px dashed #A61C00;">
                   <v-card-title style="color: #A61C00">Question Library</v-card-title>
                   <v-card-subtitle>In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>

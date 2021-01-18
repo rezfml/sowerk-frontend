@@ -19,7 +19,7 @@
                   <!--        </transition>-->
 
                   <transition name="slide-fade">
-                    <v-btn small color="primary" outlined style="position: absolute; top: 0px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+                    <v-btn color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
                   </transition>
 
                   <transition name="slide-fade">
@@ -104,7 +104,7 @@
                         <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
 
                         <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
-                        <v-card-text style="text-align: center; font-size: 48px; color: #A61C00">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+                        <v-card-text style="text-align: center; font-size: 48px; color: #A61C00; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
                         <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
                         <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
                         <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
@@ -151,7 +151,7 @@
                     <v-card-text class="mx-auto" style="width: 80%;" v-if="loadCompany">
                       <template v-if="user">
                         <p class="title text-center primary--text">Current Profile Contact</p>
-                        <p class="body-2">{{user.first_name}} {{user.last_name}}</p>
+                        <p class="body-2" style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">{{user.first_name}} {{user.last_name}}</p>
                         <p class="body-2">{{user.email}}</p>
                         <p class="body-2">{{user.phone}}</p>
                       </template>
@@ -159,11 +159,11 @@
                   </transition>
                   <v-spacer></v-spacer>
                   <v-card-actions class="d-flex flex-wrap justify-center py-6">
-                    <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n6" color="primary" outlined rounded v-if="location">Channel Approved Vendors</v-btn>
-                    <v-btn @click="pendingApplication" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Pending Applicants</v-btn>
+                    <v-btn @click="locationApproval" style="width: 80%;" class="d-flex justify-center mx-auto mt-n6" color="primary" outlined rounded v-if="location">Approved Vendors</v-btn>
+                    <v-btn @click="pendingApplication" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Pending Vendors</v-btn>
 
-                    <v-btn @click="editVendorRequirement" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Vendor Requirements</v-btn>
-                    <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Edit Channel Details</v-btn>
+                    <v-btn @click="editVendorRequirement" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Vendor Requirements</v-btn>
+                    <v-btn @click="editLocationDetail" style="width: 80%;" class="d-flex justify-center mx-auto my-1" color="primary" outlined rounded v-if="location">Channel Details</v-btn>
 
                     <v-btn class="my-1" v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 

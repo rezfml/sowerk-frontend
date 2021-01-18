@@ -1,5 +1,6 @@
 <template>
-  <v-card style="max-width:90%; margin:auto">
+  <v-card class="mt-16 mx-16" style="">
+    <v-card-text style="color: #A61c00; text-align: center; font-size: 36px;">User Terms</v-card-text>
     <v-card-title>Effective: October 15, 2020</v-card-title>
     <v-card-text>These User Terms of Service (the “<b>User Terms</b>”) govern your access and use of our
     online vendor management tools and platform (the “<b>Services</b>”). Please read them
@@ -61,7 +62,9 @@
 </template>
 
 <script>
-
+  export default {
+    layout: 'fullwidth',
+  }
 </script>
 
 <style>

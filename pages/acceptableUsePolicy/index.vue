@@ -1,17 +1,17 @@
 <template>
-  <v-card style="max-width:90%; margin:auto">
-    <v-card-title>Effective: October 15, 2020</v-card-title>
+  <v-card class="mt-16 mx-16" style="">
+    <v-card-text style="color: #A61c00; text-align: center; font-size: 36px;">Acceptable Use Policy</v-card-text>
     <v-card-text>This Acceptable Use Policy sets out a list of acceptable and unacceptable conduct for our Services. If we believe a violation of the policy is deliberate, repeated or presents a credible risk of harm to other users, our customers, the Services or any third parties, we may suspend or terminate your access. This policy may change as SOWerk grows and evolves, so please check back regularly for updates and changes. Capitalized terms used below but not defined in this policy have the meaning set forth in the User Terms of Service.</v-card-text>
     <v-card-title>Do:</v-card-title>
     <v-list>
-      <v-list-item>• comply with all User Terms of Service, including the terms of this Acceptable Use Policy;</v-list-item>  
-      <v-list-item>• comply with all applicable laws and governmental regulations, including, but not limited to, all intellectual property, data, privacy, and export control laws, and regulations promulgated by any government agencies, including, but not limited to, the U.S. Securities and Exchange Commission, and any rules of any national and other securities exchanges;</v-list-item> 
-      <v-list-item>• upload and disseminate only Customer Data to which Customer owns all required rights under law and under contractual and fiduciary relationships (such as proprietary and confidential information learned or disclosed as part of employment relationships or under nondisclosure agreements) and do so only consistent with applicable law;</v-list-item> 
-      <v-list-item>• use commercially reasonable efforts to prevent unauthorized access to or use of the Services;</v-list-item> 
-      <v-list-item>• keep passwords and all other login information confidential;</v-list-item> 
-      <v-list-item>• monitor and control all activity conducted through your account in connection with the Services;</v-list-item> 
-      <v-list-item>• promptly notify us if you become aware of or reasonably suspect any illegal or unauthorized activity or a security breach involving your accounts or teams, including any loss, theft, or unauthorized disclosure or use of a username, password, or account; and</v-list-item> 
-      <v-list-item>• comply in all respects with all applicable terms of the third party applications, including any that Customer elects to integrate with the Services that you access or subscribe to in connection with the Services.</v-list-item> 
+      <v-list-item>• comply with all User Terms of Service, including the terms of this Acceptable Use Policy;</v-list-item>
+      <v-list-item>• comply with all applicable laws and governmental regulations, including, but not limited to, all intellectual property, data, privacy, and export control laws, and regulations promulgated by any government agencies, including, but not limited to, the U.S. Securities and Exchange Commission, and any rules of any national and other securities exchanges;</v-list-item>
+      <v-list-item>• upload and disseminate only Customer Data to which Customer owns all required rights under law and under contractual and fiduciary relationships (such as proprietary and confidential information learned or disclosed as part of employment relationships or under nondisclosure agreements) and do so only consistent with applicable law;</v-list-item>
+      <v-list-item>• use commercially reasonable efforts to prevent unauthorized access to or use of the Services;</v-list-item>
+      <v-list-item>• keep passwords and all other login information confidential;</v-list-item>
+      <v-list-item>• monitor and control all activity conducted through your account in connection with the Services;</v-list-item>
+      <v-list-item>• promptly notify us if you become aware of or reasonably suspect any illegal or unauthorized activity or a security breach involving your accounts or teams, including any loss, theft, or unauthorized disclosure or use of a username, password, or account; and</v-list-item>
+      <v-list-item>• comply in all respects with all applicable terms of the third party applications, including any that Customer elects to integrate with the Services that you access or subscribe to in connection with the Services.</v-list-item>
     </v-list>
      <v-card-title>Do Not:</v-card-title>
     <v-list>
@@ -49,7 +49,9 @@
 </template>
 
 <script>
-
+  export default {
+    layout: 'fullwidth',
+  }
 </script>
 
 <style>

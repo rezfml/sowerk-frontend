@@ -52,7 +52,7 @@
               <!-- <p class="mt-4">Channel(s) here on SOWerk are the backbone of your account! Think of Channels as any company facility, division or department, or even a large project where you will want to specifically find, vet, and manage Vendors. You can set up as many Channels as you like and assign users within your company account to manage a Channel. A good rule of thumb is to establish Channels based on how you currently segment Vendor management or how you would like to, going forward.
               </p> -->
               <v-spacer></v-spacer>
-              <h2 style="color:darkred;padding-bottom:2%">What Are Your Approved Vendors?</h2>
+              <h2 style="color:darkred;padding-bottom:2%">All Approved Vendors</h2>
               <v-spacer></v-spacer>
               <p>Here you will find a full and complete list of Vendors that your company account has approved through one channel or multiple channels. However, based on your user access level as well as which channel(s) the Vendor was approved by your company this interface may have different features and functionality. For example, if a Vendor was originally approved through one channel in your company account but that channel is not one you manage then some details and features may be limited.</p>
               <v-spacer></v-spacer>
@@ -75,14 +75,14 @@
 
                 <v-col cols="6">
                   <v-btn
-                    style="background:linear-gradient(to right, #A61C00, #741502);width:100%;height:70px;border-radius:8px;font-size:.8rem"
+                    style="background:linear-gradient(to right, #A61C00, #741502);width:100%;height:70px;border-radius:8px;"
                     large
                     outlined
                     color="white"
                     href="/dashboard/vendors/"
                   >
                     <span style="padding-right:5%"><v-img src="/agenda.svg" style="height:40px;width:40px;"></v-img></span>
-                  View Vendor Directory</v-btn>
+                  Vendor Directory</v-btn>
                 </v-col>
               </v-row>
             </v-col>

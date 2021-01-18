@@ -62,6 +62,7 @@
               <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Channel</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
               <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
+              <v-btn @click="resendInvitation(item)" class="my-1" style="width: 90%;" color="#707070" outlined v-if="item.isVerified===false && currentUser.is_superuser === true">Resend Invitation</v-btn>
             </div>
           </template>
 
@@ -104,6 +105,7 @@
               <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Channel</v-btn>
               <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
               <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
+              <v-btn @click="resendInvitation(item)" class="my-1" style="width: 90%;" color="#707070" outlined v-if="item.isVerified===false && currentUser.is_superuser === true">Resend Invitation</v-btn>
             </div>
           </template>
 
@@ -236,6 +238,30 @@ export default {
     console.log(this.items, 'this.items')
   },
   methods: {
+    async resendInvitation(item) {
+      await this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd/reminder', {
+        companies_id: item.companies_id,
+        email: item.email,
+        password: item.password,
+        is_superuser: item.is_superuser,
+        first_name: item.first_name,
+        last_name: item.last_name,
+        phone: item.phone,
+        isVerified: false,
+        companyName: this.company.account_name,
+        companyImg: this.company.imgUrl,
+        senderFirstName: this.currentUser.first_name,
+        senderLastName: this.currentUser.last_name,
+        temporaryPasswordBoolean: true,
+        uuidVal: item.uuid
+      })
+        .then(response => {
+          console.log(response, 'success in resending invitation')
+        })
+        .catch(err => {
+          console.log(err, 'err')
+        })
+    },
     async assignLocation(user) {
       this.locationAssignUser = user;
       this.locationAssignLoad = true;
