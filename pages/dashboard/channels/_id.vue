@@ -634,6 +634,14 @@
         console.log(locationParam, 'params');
         let confirmDelete = confirm('Are you sure you want to delete this location? Cannot be undone.');
         if (confirmDelete === true) {
+          this.$http.delete('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + locationParam.id)
+            .then(response => {
+              console.log(response, "response from delete vendor type by location")
+            })
+            .catch(err => {
+              console.log(err, "error message from delete vendor type by location")
+            })
+
           this.$http.delete('https://www.sowerkbackend.com/api/locations/' + locationParam.id)
             .then(response => {
               alert('Location successfully deleted');
