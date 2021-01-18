@@ -23,14 +23,14 @@
               <v-col cols="4" style="width:100%;text-align:center;">
                 <v-btn @click="showVideoCard" style="display:block;border: 1px solid #404040;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:white">
                   <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:#404040;text-align:center;">
-                    WATCH NOW -Account Channels-
+                    WATCH NOW -Account Channelsh-
                   </span>
                 </v-btn>
               </v-col>
             </v-row>
           </v-card>
 
-          <!-- SUPER USER -->
+          <!-- BUSINESS USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
             <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
@@ -42,11 +42,11 @@
                 <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
-              <!-- VENDOR CHANNELS VIDEO -->
+              <!-- BUSINESS CHANNELS VIDEO -->
               <v-col cols="4" style="width:100%;text-align:center;">
                 <v-btn @click="showVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                   <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                    WATCH NOW -Account Channels-
+                    WATCH NOW -Account Channelsg-
                   </span>
                 </v-btn>
               </v-col>
@@ -68,7 +68,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="height:600px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
             <div style="border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:600px;border-radius:3%;margin-left:3%;">
+              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:600px;border-radius:3%;margin-left:3%;">
               </iframe>
             </div>
           </v-card>
@@ -306,7 +306,7 @@
             </v-row>
           </v-card>
 
-          <!-- SUPER USER -->
+          <!-- BUSINESS USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
             <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
 
@@ -318,7 +318,7 @@
                 <p style="font-size:1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
-              <!-- VENDOR CHANNELS VIDEO -->
+              <!-- BUSINESS CHANNELS VIDEO -->
               <v-col cols="6" style="width:100%;text-align:center;">
                 <v-btn @click="showVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
                   <span style="font-size:1rem;letter-spacing:2px;font-weight:400;color:white;text-align:center;">
@@ -344,7 +344,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
             <div style="border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;">
+              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;">
               </iframe>
             </div>
           </v-card>
@@ -599,7 +599,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
             <div style="position:relative;border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;margin-left:10%">
+              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;margin-left:10%">
               </iframe>
             </div>
           </v-card>
@@ -971,7 +971,7 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="height:300px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
             <div style="border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:300px;border-radius:3%;margin-left:12%">
+              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:300px;border-radius:3%;margin-left:12%">
               </iframe>
             </div>
           </v-card>
@@ -1260,7 +1260,7 @@
         <transition name="slide-fade" this.$vuetify.breakpoint.width:500px>
           <v-card class="mb-4" style="height:175px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
             <div style="border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:175px;border-radius:3%;margin-left:12%">
+              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:175px;border-radius:3%;margin-left:12%">
               </iframe>
             </div>
           </v-card>
