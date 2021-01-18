@@ -1,5 +1,6 @@
 <template>
-  <v-card>
+  <v-card class="mt-16 mx-16" style="">
+    <v-card-text style="color: #A61c00; text-align: center; font-size: 36px;">Privacy Policy</v-card-text>
     <v-card-title>Effective: October 15, 2020</v-card-title>
     <v-card-text>This Privacy Policy describes how SOWerk collects, uses and discloses information, and what choices you have with respect to the information.</v-card-text>
     <v-card-text>When we refer to “SOWerk”, we mean the SOWerk entity that acts as the controller or processor of your information, as explained in more detail in the “Identifying the Data Controller and Processor” section below.</v-card-text>
@@ -112,7 +113,9 @@
 </template>
 
 <script>
-
+  export default {
+    layout: 'fullwidth',
+  }
 </script>
 
 <style>

@@ -31,7 +31,7 @@
               <v-row>
                 <v-col cols="12">
                   <h2 style="color:darkred;font-size:1.5rem">Vendors That Have Applied</h2>
-                  <p class="mt-4" style="font-size:1rem">On this page you can see all the Vendors that have applied to any application and every channel across your company account, If a Vendor has applied to more than one Channel then each application will be displayed and require your approval or denial. Depending on your access level within the Company account some features and functionality may be different. Finally, it should be noted that you can also review a more limited list of Vendor applicants by navigating to a specific Channel dashboard located under Channels.
+                  <p class="mt-4" style="font-size:1rem">On this page you can see all the Vendors that have applied to any application and on any channel across your company account, If a Vendor has applied to more than one Channel then each application will be displayed and require your approval or denial. Depending on your access level within the Company account some features and functionality may be different. Finally, it should be noted that you can also review a more limited list of Vendor applicants by navigating to a specific Channel dashboard located under Channels.
                   </p>
                 </v-col>
               </v-row>

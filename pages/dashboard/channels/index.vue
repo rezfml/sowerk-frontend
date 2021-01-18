@@ -354,11 +354,11 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
             <v-row style="width:100%;height:auto" class="d-flex flex align-center">
-              <v-col cols="7" style="height:auto;">
+              <v-col cols="6" style="height:auto;">
                 <v-img height="400px" src="/SoWork Logos with Icons-162.png"></v-img>
               </v-col>
 
-              <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
+              <v-col cols="6" class="d-flex flex-column justify-center" style="height:auto">
                 <v-row>
                   <v-col cols="12">
                     <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
@@ -412,7 +412,7 @@
                 <v-img height="400px" src="/SoWork Logos with Icons-162.png"></v-img>
               </v-col>
 
-              <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
+              <v-col cols="6" class="d-flex flex-column justify-center" style="height:auto">
                 <v-row>
                   <v-col cols="12">
                     <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>
@@ -609,11 +609,11 @@
         <transition name="slide-fade">
           <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="this.companyType === true">
             <v-row style="width:100%;height:auto" class="d-flex flex align-center">
-              <v-col cols="7" style="height:auto;">
+              <v-col cols="6" style="height:auto;">
                 <v-img height="400px" src="/SoWork Logos with Icons-162.png"></v-img>
               </v-col>
 
-              <v-col cols="5" class="d-flex flex-column justify-center" style="height:auto">
+              <v-col cols="6" class="d-flex flex-column justify-center" style="height:auto">
                 <v-row>
                   <v-col cols="12">
                     <h2 style="color:darkred;font-size:1.5rem">What Are Account Channels?</h2>

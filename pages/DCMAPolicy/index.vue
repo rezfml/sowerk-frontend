@@ -1,5 +1,6 @@
 <template>
-  <v-card style="max-width:90%; margin:auto">
+  <v-card class="mt-16 mx-16" style="">
+    <v-card-text style="color: #A61c00; text-align: center; font-size: 36px;">DCMA Policy</v-card-text>
     <v-card-title>Effective: October 15, 2020</v-card-title>
     <v-card-text>We take the intellectual property rights of others seriously and require that our Customers and their Authorized Users do the same. The Digital Millennium Copyright Act established a process for addressing claims of copyright infringement that we have implemented for SOWerk services. If you own a copyright or have authority to act on behalf of a copyright owner and want to report a claim that a third party is infringing that material on or through a SOWerk service, please send a notice to our copyright agent that includes all of the items below and we will expeditiously take appropriate action:</v-card-text>
     <v-list>
@@ -24,7 +25,9 @@
 </template>
 
 <script>
-
+  export default {
+    layout: 'fullwidth',
+  }
 </script>
 
 <style>

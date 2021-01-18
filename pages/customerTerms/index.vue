@@ -1,5 +1,6 @@
 <template>
-  <v-card style="max-width:90%; margin:auto">
+  <v-card class="mt-16 mx-16" style="">
+    <v-card-text style="color: #A61c00; text-align: center; font-size: 36px;">Customer Terms</v-card-text>
     <v-card-title>Effective: October 15, 2020</v-card-title>
     <v-card-text>These Customer Terms of Service (the “<b>Customer Terms</b>”) describe your rights and responsibilities when using our online vendor management tools and platform (the “<b>Services</b>”). Please read them carefully. If you are a Customer (defined below), these Customer Terms govern your access and use of our Services. If you are being invited to use our Services by a Customer, the User Terms of Service (the “<b>User Terms</b>”) govern your access and use of the Services.</v-card-text>
     <v-card-title>First Things First</v-card-title>
@@ -51,7 +52,7 @@
     <v-card-subtitle>The SOWerk Extended Family</v-card-subtitle>
     <v-card-text>We may leverage our employees, those of our corporate affiliates and third party contractors (the “<b>SOWerk Extended Family</b>”) in exercising our rights and performing our obligations under the Contract. We will be responsible for the SOWerk Extended Family’s compliance with our obligations under the Contract.</v-card-text>
     <v-card-title>Ownership and Proprietary Rights</v-card-title>
-    <v-card-subtitle>What’s Yours is Yours…</v-card-subtitle> 
+    <v-card-subtitle>What’s Yours is Yours…</v-card-subtitle>
     <v-card-text>As between us on the one hand, and Customer and any Authorized Users on the other, Customer will own all Customer Data. Subject to the terms and conditions of the Contract, Customer (for itself and all of its Authorized Users) grants us and the SOWerk Extended Family a worldwide, non-exclusive, limited term license to access, use, process, copy, distribute, perform, export and display Customer Data, and any Non-SOWerk Products created by or for Customer, only as reasonably necessary (a) to provide, maintain and update the Services; (b) to prevent or address service, security, support or technical issues; (c) as required by law or as permitted by the <span style="color:blue;"><u>Data Request Policy</u></span>; and (d) as expressly permitted in writing by Customer. Customer represents and warrants that it has secured all rights in and to Customer Data from its Authorized Users as may be necessary to grant this license.</v-card-text>
     <v-card-subtitle>And What’s Ours is Ours</v-card-subtitle>
     <v-card-text>We own and will continue to own our Services, including all related intellectual property rights. We may make software components available, via app stores or other channels, as part of the Services. We grant to Customer a non-sublicensable, non-transferable, non-exclusive, limited license for Customer and its Authorized Users to use the object code version of these components, but solely as necessary to use the Services and in accordance with the Contract and the User Terms. All of our rights not expressly granted by this license are hereby retained.</v-card-text>
@@ -169,7 +170,9 @@
 </template>
 
 <script>
-
+  export default {
+    layout: 'fullwidth',
+  }
 </script>
 
 <style>

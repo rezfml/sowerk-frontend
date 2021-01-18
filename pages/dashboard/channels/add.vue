@@ -420,6 +420,13 @@
                     style="width: 100%; max-width: 300px; max-height: 300px;"
                     v-else-if="locationImageUrl"
                   ></v-img>
+                  <v-img
+                    :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'"
+                    :aspect-ratio="1"
+                    class="my-8 rounded-circle flex-grow-1"
+                    style="width: 100%; max-width: 300px; max-height: 300px;"
+                    v-else
+                  ></v-img>
                   <v-file-input
                     class="company-image-upload ma-0 pa-0"
                     :class="{

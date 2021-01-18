@@ -35,7 +35,7 @@
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
-            <v-btn :to="companyForVendor.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 24px;" color="primary" outlined rounded>Company Website</v-btn>
+            <a :href="'https://' + companyForVendor.website" target="_blank" class="my-8 py-6" style="text-decoration: none; text-align: center; width: 90%; font-size: 24px; border-radius: 50px; border: 1px solid #A61C00;">Company Website</a>
             <v-row class="py-8 d-flex justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C;width: 90%;">
               <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
               <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -106,7 +106,7 @@
                   </v-avatar>
                 </v-col>
               </v-row>
-              <v-card-title style="color:#A61C00; font-size: 24px;">{{location.name}}</v-card-title>
+              <v-card-title style="color:#A61C00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">{{location.name}}</v-card-title>
               <v-card-text style="font-size: 18px; text-align: center;">{{location.address}}</v-card-text>
               <v-card-text style="font-size: 18px; text-align: center;">{{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
               <v-card-text style="text-align: center; font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
@@ -324,7 +324,7 @@
           <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="openMessageModal">SEND MESSAGE</v-btn>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-4" style="width: 100%;">
-              <v-card-title style="color: #A61c00; font-size: 35px;">Your Connection Details</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 35px; text-align: center; word-break: break-word; white-space: pre-wrap;">Your Connection Details</v-card-title>
               <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
                   <v-img :src="company.imgUrl" v-if="company.imgUrl !== ''"></v-img>
@@ -341,7 +341,7 @@
               <div class="d-flex justify-center mb-4">
                 <v-card-title style="color: #A61C00; font-size: 108px;">{{singleCompanyConnections.length}}</v-card-title>
                 <div class="d-flex flex-column align-center">
-                  <v-card-text style="font-size: 24px;">Relationship Connections</v-card-text>
+                  <v-card-text style="font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Connections</v-card-text>
                   <v-btn style="width: 100%;" color="primary" rounded>View Details</v-btn>
                 </div>
               </div>
@@ -358,7 +358,7 @@
               </v-row>
               <!--              <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
               <v-divider style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-card-title style="color: #A61c00; font-size: 24px;">Relationship Documents</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Documents</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-data-table
                 :items-per-page="4"
@@ -392,7 +392,7 @@
       </v-row>
 
       <transition name="slide-fade">
-        <v-card v-if="addNotesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}} - {{location.name}}</v-card-title>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
@@ -449,13 +449,13 @@
           >Upload File</v-btn
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
-          <v-card-title style="color: #A61c00;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
+          <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="notesModalLoad" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="notesModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor</v-card-title>
           <v-data-table
             :headers="notesHeaders"
@@ -486,7 +486,7 @@
       <!--        :value="overlayRequest"-->
       <!--      >-->
       <transition name="slide-fade">
-        <v-card v-if="requestModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto;" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="requestModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
@@ -531,7 +531,7 @@
           <v-btn @click="sendMessage" outlined color="primary" rounded width="80%" class="mb-4 py-8">Request Application</v-btn>
           <v-btn text style="position: absolute; top: 10px; right: 10px; font-size: 25px;" @click="closeRequestModal">X</v-btn>
           <transition name="slide-fade">
-            <v-card-text v-if="messageSendLoad" style="color: #A61C00;">Successfully sent message!</v-card-text>
+            <v-card-text v-if="messageSendLoad" style="color: #A61C00; text-align: center; font-size: 24px;">Successfully sent message!</v-card-text>
           </transition>
         </v-card>
       </transition>
@@ -543,8 +543,9 @@
       <!--        :value="overlayMessage"-->
       <!--      >-->
       <transition name="slide-fade">
-        <v-card v-if="messageModalLoad" style="position: fixed; top: 20vh; width: 80vw; left: 17vw; height: auto" class="d-flex flex-column align-center justify-center">
-          <v-card-title>Vendor: <span style="color: #A61c00">{{companyForVendor.account_name}}</span> - {{location.name}}</v-card-title>
+        <v-card v-if="messageModalLoad" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
+          <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Account Name: <span style="color: #A61c00">{{companyForVendor.account_name}}</span></v-card-title>
+          <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Channel Name: <span style="color: #A61c00">{{location.name}}</span></v-card-title>
           <v-form class="mx-4 my-2" style="width: 80%;">
             <v-select
               label="Step 1 - Choose Your Company Channel"
@@ -563,7 +564,7 @@
             </v-select>
             <v-textarea
               v-model="sendMessageNonApp.message"
-              label="Step 3 - Type in Message"
+              label="Step 2 - Type in Message"
               outlined
               rows="8"
               auto-grow
@@ -910,6 +911,14 @@
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
               this.submitNotesSuccess = true;
+              this.note = {
+                note: '',
+                fileUrl: null,
+                locations_id: Number,
+                userprofiles_id: Number,
+                spLocationsId: Number,
+                companies_id: Number,
+              }
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)
@@ -1111,7 +1120,9 @@
           .then(response => {
             console.log(response.data, 'response.data insurances');
             for (let i = 0; i < response.data.length; i++) {
-              this.insurances.push(response.data[0]);
+              if(response.data[i].documentVisible === true) {
+                this.insurances.push(response.data[0]);
+              }
             }
             console.log(this.insurances, 'this.insurances')
           })
@@ -1124,7 +1135,9 @@
           .then(response => {
             console.log(response.data, 'response.data licenses');
             for (let i = 0; i < response.data.length; i++) {
-              this.licenses.push(response.data[0]);
+              if(response.data[i].documentVisible === true) {
+                this.licenses.push(response.data[0]);
+              }
             }
             console.log(this.licenses, 'this.licenses')
           })
