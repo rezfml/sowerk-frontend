@@ -2321,42 +2321,47 @@ const naics = require("naics");
       },
       async deleteUserForm(userform) {
         console.log(userform, 'userform');
-        await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + userform.id)
-          .then(response => {
-            if(response.data.length > 0) {
-              for (let i=0; i<response.data.length; i++) {
-                this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + response.data[i].id)
-                  .then(async (response) => {
-                    console.log('success in deleting formfield company template')
-                  })
-                  .catch(err => {
-                    console.log('err in deleting formfield company template', err)
-                  })
+
+        if (confirm("Are you sure you want to delete this?")){
+            await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + userform.id)
+            .then(response => {
+              if(response.data.length > 0) {
+                for (let i=0; i<response.data.length; i++) {
+                  this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + response.data[i].id)
+                    .then(async (response) => {
+                      console.log('success in deleting formfield company template')
+                    })
+                    .catch(err => {
+                      console.log('err in deleting formfield company template', err)
+                    })
+                }
               }
+            })
+            .catch(err => {
+              console.log(err, 'err in getting template tags for this company')
+            })
+          if(userform.formfields.length > 0) {
+            for(let i=0; i<userform.formfields.length; i++) {
+              await this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + userform.formfields[i].id)
+                .then(response => {
+                  console.log(response, 'success in deleting formfields');
+                })
+                .catch(err => {
+                  console.log(err, 'err in deleting formfields')
+                })
             }
-          })
-          .catch(err => {
-            console.log(err, 'err in getting template tags for this company')
-          })
-        if(userform.formfields.length > 0) {
-          for(let i=0; i<userform.formfields.length; i++) {
-            await this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + userform.formfields[i].id)
-              .then(response => {
-                console.log(response, 'success in deleting formfields');
-              })
-              .catch(err => {
-                console.log(err, 'err in deleting formfields')
-              })
           }
+          await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
+            .then(response => {
+              console.log(response, 'success in deleting userform')
+              this.$router.go();
+            })
+            .catch(err => {
+              console.log(err, 'err in deleting userform');
+            })
+        } else {
+          console.log("did not confirm!!!!!!!!!!!!!")
         }
-        await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
-          .then(response => {
-            console.log(response, 'success in deleting userform')
-            this.$router.go();
-          })
-          .catch(err => {
-            console.log(err, 'err in deleting userform');
-          })
       },
       async addtoLocationLoad(location) {
         this.addToLocationLoad = true;
