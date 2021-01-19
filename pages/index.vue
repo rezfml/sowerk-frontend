@@ -59,14 +59,14 @@
       </v-card>
 
       <!--      Maint modal on render-->
-      <transition name="slide-fade">
+      <!-- <transition name="slide-fade">
         <v-card v-if="loadModal === true && (this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs)">
           <template style="margin: 3%; justify-content: center" >
             <p style="padding: 3%; font-size: 1.7rem; color: #A61c00; font-weight: 700;text-align:center;">This site is not yet optimized for smaller screen sizes, for the best experience please use a higher resolution screen.</p>
             <v-btn @click="closeModal()" style="z-index: 10; border-radius: 10%;" color="primary">X</v-btn>
           </template>
         </v-card>
-      </transition>
+      </transition> -->
 
     </v-row>
 
