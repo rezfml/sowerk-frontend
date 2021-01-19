@@ -1139,7 +1139,7 @@
                   <v-card-title style="color: #A61C00">New Questions</v-card-title>
 
                   <v-card-subtitle>Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
-                  
+
                   <draggable
                     style="width: 100%;"
                     class="dragArea list-group"
@@ -2370,6 +2370,7 @@ const naics = require("naics");
         this.loadChannelList = true;
         this.loadAssignTagCategoryType = false;
         console.log('template form', this.addLocation)
+        this.$vuetify.goTo(0)
       },
       async closeAddToLocationLoad() {
         this.addToLocationLoad = false;

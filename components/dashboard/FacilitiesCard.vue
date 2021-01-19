@@ -20,7 +20,7 @@
           ></v-progress-circular>
           <v-container class="pt-0" fluid v-if="loading === true">
             <v-card-title
-              style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;"
+              style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word"
               class="primary white--text font-weight-regular red-gradient"
             >{{ title }}</v-card-title>
             <v-card-actions class="d-flex justify-end px-4 py-0">
@@ -200,7 +200,7 @@
       ></v-progress-circular>
       <v-container class="pt-0" fluid v-if="loading === true">
         <v-card-title
-          style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
+          style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word"
           class="primary white--text font-weight-regular red-gradient"
         >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
@@ -425,7 +425,7 @@
       ></v-progress-circular>
       <v-container class="pt-0" fluid v-if="loading === true">
         <v-card-title
-          style="position: absolute; top: -30px; left: 25px; width: 95%; border-radius: 3px; font-size: 18px;"
+          style="position: absolute; top: -30px; left: 25px; width: 95%; border-radius: 3px; font-size: 18px;  text-align: center; white-space: pre-wrap; word-break: break-word"
           class="primary white--text font-weight-regular red-gradient"
         >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-8">

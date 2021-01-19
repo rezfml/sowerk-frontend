@@ -31,7 +31,7 @@
                   an application to your business.)
                 </p>
                 <p class="text-body-1 text-center">
-                  Have a vendor interested in your public profile? Send them this link! <br/> <a target="_blank" :href="'https://www.sowerk.com/landingpage/property-manager/' + company.public_name">https://www.sowerk.com/landingpage/property-manager/{{company.public_name}}</a>
+                  Have a vendor interested in your public profile? Send them this link! <br/> <a target="_blank" :href="'https://www.sowerk.com/' + company.public_name">https://www.sowerk.com/{{company.public_name}}</a>
                 </p>
               </v-col>
 

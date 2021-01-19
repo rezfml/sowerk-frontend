@@ -16,10 +16,10 @@
       class="mt-12"
     >
       <template slot="selection" slot-scope="data">
-        <p @click="selectCompany(data.item)">{{ data.item.account_name }}</p>
+        <p @click="selectCompany(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
       </template>
       <template slot="item" slot-scope="data">
-        <p @click="selectCompany(data.item)">{{ data.item.account_name }}</p>
+        <p @click="selectCompany(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
       </template>
     </v-autocomplete>
   </v-card>

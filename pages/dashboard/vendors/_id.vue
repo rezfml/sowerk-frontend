@@ -559,6 +559,7 @@
                   item-text="name id"
                   item-value="name id"
                   style="width: 100%;"
+                  no-data-text="No Public or Private Applications Exist At This Time"
                 >
                   <template slot="selection" slot-scope="data">
                     <p @click="getUserForms(data.item)" style="width: 100%;"># {{data.item.id}} - {{ data.item.name }}</p>

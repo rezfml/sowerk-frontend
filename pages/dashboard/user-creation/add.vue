@@ -47,10 +47,10 @@
                       <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                   </v-select>
-                  <v-checkbox
-                    label="Select this to assign ALL channels to this user"
-                    v-model="locationsChosenCheck"
-                  ></v-checkbox>
+<!--                  <v-checkbox-->
+<!--                    label="Select this to assign ALL channels to this user"-->
+<!--                    v-model="locationsChosenCheck"-->
+<!--                  ></v-checkbox>-->
                 </v-col>
                 <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
                 <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -115,10 +115,10 @@
                       <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                   </v-select>
-                  <v-checkbox
-                    label="Select this to assign ALL channels to this user"
-                    v-model="locationsChosenCheck"
-                  ></v-checkbox>
+<!--                  <v-checkbox-->
+<!--                    label="Select this to assign ALL channels to this user"-->
+<!--                    v-model="locationsChosenCheck"-->
+<!--                  ></v-checkbox>-->
                 </v-col>
                 <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
                 <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -183,10 +183,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -251,10 +251,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -319,10 +319,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -387,10 +387,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -458,10 +458,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -528,10 +528,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -601,10 +601,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">SOWerk Administrator Accounts</span> can create & manage property locations, add staff accounts, and access any vendor applicants or approved vendors.</v-card-text>
@@ -671,10 +671,10 @@
                     <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
-                <v-checkbox
-                  label="Select this to assign ALL channels to this user"
-                  v-model="locationsChosenCheck"
-                ></v-checkbox>
+<!--                <v-checkbox-->
+<!--                  label="Select this to assign ALL channels to this user"-->
+<!--                  v-model="locationsChosenCheck"-->
+<!--                ></v-checkbox>-->
               </v-col>
               <v-card-text>Please Note The Difference Between Account Level Permissions.</v-card-text>
               <v-card-text><span style="font-weight: bold;">Super Administrator Accounts</span> can create & manage any and all Channels, add User Accounts, access any part of Vendor requirements, and manage any and all aspects of a Vendor relationship in the account.</v-card-text>
