@@ -239,10 +239,11 @@ export default {
   },
   methods: {
     async resendInvitation(item) {
+      const rand = '!' + Math.random().toString(36).substr(2, 8) + '!';
       await this.$http.post('https://www.sowerkbackend.com/api/auth/register/userAdd/reminder', {
         companies_id: item.companies_id,
         email: item.email,
-        password: item.password,
+        password: rand,
         is_superuser: item.is_superuser,
         first_name: item.first_name,
         last_name: item.last_name,
@@ -257,6 +258,15 @@ export default {
       })
         .then(response => {
           console.log(response, 'success in resending invitation')
+          this.$http.put('https://www.sowerkbackend.com/api/auth/users/' + item.id, {
+            password: rand
+          })
+            .then(editResponse => {
+              console.log(editResponse, 'success in changing password')
+            })
+            .catch(err => {
+              console.log(err, 'err in changing password')
+            })
         })
         .catch(err => {
           console.log(err, 'err')

@@ -930,6 +930,7 @@
         this.showCompaniesApprovedModal = false;
       },
       async showRelationshipApprovedModalLoad() {
+        this.singleCompanyConnectionRelationships = [];
         this.showRelationshipApprovedModal = true;
         await this.getActualSingleRelationshipConnections();
       },
