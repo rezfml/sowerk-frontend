@@ -25,7 +25,7 @@
               <v-card-title v-if="companyLoad" style="color: #a61c00; font-size:1rem">Fill out the form below to add a new user to your company! All fields are required!</v-card-title>
             <transition name="slide-fade">
               <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
-                <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+                <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" hint="Shared With Approved Vendors ONLY If Assigned To A Channel" persistent-hint class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
@@ -37,7 +37,7 @@
                     item-value="name"
                     v-model="locationsChosen"
                     multiple
-                    label="Select All of the Locations that you want to assign this user to"
+                    label="Select Channels Where User Is POC For Channel Approved Vendors"
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
@@ -173,7 +173,7 @@
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
-                  label="Select All of the Locations that you want to assign this user to"
+                  label="Select Channels Where User Is POC For Channel Approved Vendors"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
@@ -309,7 +309,7 @@
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
-                  label="Select All of the Locations that you want to assign this user to"
+                  label="Select Channels Where User Is POC For Channel Approved Vendors"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
@@ -448,7 +448,7 @@
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
-                  label="Select All of the Locations that you want to assign this user to"
+                  label="Select Channels Where User Is POC For Channel Approved Vendors"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
@@ -591,7 +591,7 @@
                   item-text="name"
                   v-model="locationsChosen"
                   multiple
-                  label="Select All of the Locations that you want to assign this user to"
+                  label="Select Channels Where User Is POC For Channel Approved Vendors"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
@@ -661,7 +661,7 @@
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
-                  label="Select All of the Channels that you want to assign this user to"
+                  label="TSelect All of the Channels that you want to assign this user to"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
