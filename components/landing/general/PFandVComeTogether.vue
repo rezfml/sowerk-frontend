@@ -7,8 +7,24 @@
       class="skew-top"
     >
       <v-row>
-        <v-card style="background-color:black;border-radius:3%;margin:0%">
+        <v-card style="background-color:black;border-radius:3%;margin:0%" v-if="$vuetify.breakpoint.xl">
           <iframe src="https://player.vimeo.com/video/498208221" width="1200" height="670" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="margin-top:.5%;margin-left:.5%;padding-right:1%;"></iframe>
+        </v-card>
+
+        <v-card style="background-color:black;border-radius:3%;margin:0%" v-else-if="$vuetify.breakpoint.lg">
+          <iframe src="https://player.vimeo.com/video/498208221" width="1200" height="670" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="margin-top:.5%;margin-left:.5%;padding-right:1%;"></iframe>
+        </v-card>
+
+        <v-card style="background-color:black;border-radius:3%;margin:0%" v-else-if="$vuetify.breakpoint.md">
+          <iframe src="https://player.vimeo.com/video/498208221" width="900" height="500" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="margin-top:.5%;margin-left:.5%;padding-right:1%;"></iframe>
+        </v-card>
+
+        <v-card style="background-color:black;border-radius:3%;margin:0%" v-else-if="$vuetify.breakpoint.sm">
+          <iframe src="https://player.vimeo.com/video/498208221" width="580" height="330" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="margin-top:.5%;margin-left:.5%;padding-right:1%;"></iframe>
+        </v-card>
+
+        <v-card style="background-color:black;border-radius:3%;margin:0%" v-else-if="$vuetify.breakpoint.xs">
+          <iframe src="https://player.vimeo.com/video/498208221" width="300" height="180" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="margin-top:.5%;margin-left:.5%;padding-right:1%;"></iframe>
         </v-card>
       </v-row>
 

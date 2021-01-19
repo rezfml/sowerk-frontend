@@ -723,7 +723,7 @@
                             >
                               <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
                                 <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order)}}</v-card-text>
                                   <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
                                 </v-card>
                               </tr>
@@ -771,7 +771,7 @@
                             >
                               <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
                                 <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
+                                  <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order)}}</v-card-text>
                                   <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
                                 </v-card>
                               </tr>
