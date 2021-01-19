@@ -79,11 +79,11 @@
                 <v-card-text class="mt-8">
                   <v-form v-if="currentApplication" ref="applicationForm">
                     <template v-for="(formfield, index) in currentApplication.formfields">
-
                       <!-- START OF DEFAULT FORM FIELDS - x12 -->
 
                       <!-- VENDOR'S NAME 1 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -97,6 +97,7 @@
 
                       <!-- VENDOR'S TYPE 2 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -110,6 +111,7 @@
 
                       <!-- VENDOR CATEGORY 3 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -123,6 +125,7 @@
 
                       <!-- VENDORS ADDRESS OF APPLICATION 4 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -136,6 +139,7 @@
 
                       <!-- COMPANY FOUNDED 5 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -149,6 +153,7 @@
 
                       <!-- CONTACT PERSON PHONE 6 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -162,6 +167,7 @@
 
                       <!-- CONTACT PERSON EMAIL 7 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -175,6 +181,7 @@
 
                       <!-- CONTACT PERSON NAME 8 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -188,6 +195,7 @@
 
                       <!-- CONTACT WEBSITE 9 -->
                       <v-text-field
+                        readonly
                         placeholder=" "
                         class="my-2"
                         :rules="rules.requiredRules"
@@ -206,7 +214,9 @@
                         :rules="rules.requiredRules"
                         :value="sowerkConnections"
                         v-if="formfield.name === 'SOWerk Connections'"
-                        outlined >
+                        outlined
+                        readonly
+                      >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
@@ -219,12 +229,15 @@
                         :rules="rules.requiredRules"
                         :value="applicantServiceRange"
                         v-if="formfield.name === 'Applicants Service Radius'"
-                        outlined >
+                        outlined
+                        readonly
+                      >
                         <template v-slot:label>
                           <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                         </template>
                       </v-text-field>
-
+                    </template>
+                    <template v-for="(formfield, index) in currentApplication.formfields">
                       <!-- START OF CUSTOM FORM FIELDS -->
                       <v-text-field
                         placeholder=" "
@@ -668,6 +681,32 @@
         if(!this.validate()) return;
         let currentApplication = this.currentApplication;
         console.log(currentApplication.formfields, 'HELLOOOOOO');
+        for(let i =0; i<this.currentApplication.formfields.length; i++) {
+          if(this.currentApplication.formfields[i].name === 'Vendor Name') {
+            this.currentApplication.formfields[i].value = this.vendorName ;
+          } else if (this.currentApplication.formfields[i].name === 'Vendor Type') {
+            this.currentApplication.formfields[i].value = this.vendorType ;
+          } else if (this.currentApplication.formfields[i].name === 'Vendor Category') {
+            this.currentApplication.formfields[i].value = this.vendorCategory ;
+          } else if (this.currentApplication.formfields[i].name === 'Company Founded') {
+            this.currentApplication.formfields[i].value = this.companyFounded ;
+          } else if (this.currentApplication.formfields[i].name === 'Contact Person Phone') {
+            this.currentApplication.formfields[i].value = this.contactPersonPhone ;
+          } else if (this.currentApplication.formfields[i].name === 'Contact Person Email') {
+            this.currentApplication.formfields[i].value = this.contactPersonEmail ;
+          } else if (this.currentApplication.formfields[i].name === 'Contact Person Name') {
+            this.currentApplication.formfields[i].value = this.contactPersonName ;
+          } else if (this.currentApplication.formfields[i].name === 'Contact Website') {
+            this.currentApplication.formfields[i].value = this.contactWebsite ;
+          } else if (this.currentApplication.formfields[i].name === 'SOWerk Connections') {
+            this.currentApplication.formfields[i].value = this.sowerkConnections ;
+          } else if (this.currentApplication.formfields[i].name === 'Applicants Service Radius') {
+            this.currentApplication.formfields[i].value = this.applicantServiceRange ;
+          } else if (this.currentApplication.formfields[i].name === this.addressOfApp) {
+            this.currentApplication.formfields[i].value = this.vendorAppAddress;
+          }
+        }
+
         let arrayString = JSON.stringify(currentApplication.formfields);
         console.log(arrayString);
         this.applicationFormData.pmuserforms_id = currentApplication.id;
