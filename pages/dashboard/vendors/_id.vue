@@ -490,7 +490,8 @@
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
           <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
-          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
+          <v-btn v-if="this.$vuetify.breakpoint.width > 1500" color="primary" style="font-size: 1rem; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
+          <v-btn v-else-if="this.$vuetify.breakpoint.width < 1500" color="primary" style="font-size: 1rem;margin-bottom:2%" @click="exitAddNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
 
@@ -525,6 +526,7 @@
       <!--        :opacity="opacity"-->
       <!--        :value="overlayRequest"-->
       <!--      >-->
+
       <transition name="slide-fade">
         <v-card v-if="requestModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
@@ -721,8 +723,9 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="licenseModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="licenseModal" style="position: fixed; top: 10vh; width: 70vw; left: 27vw;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
+          <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="licenseHeaders"
             :items="licenses"
@@ -741,8 +744,9 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="insuranceModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="insuranceModal" style="position: fixed; top: 10vh; width: 70vw; left: 27vw;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
+          <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="insuranceHeaders"
             :items="insurances"
