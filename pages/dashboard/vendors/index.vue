@@ -55,7 +55,7 @@
     <!-- CARD THAT HOLDS VIDEO BELOW OTHER CARDS -->
     <transition name="slide-fade">
       <v-card style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="viewVideoCard === true">
-        <div style="position:relative;border-radius:1%;margin-left:22%;">
+        <div class="d-flex justify-center">
           <iframe src="https://player.vimeo.com/video/496996565" width="900" height="450" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
       </v-card>
