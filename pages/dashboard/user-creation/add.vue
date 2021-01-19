@@ -26,7 +26,7 @@
             <transition name="slide-fade">
               <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
                 <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" hint="Shared With Approved Vendors ONLY If Assigned To A Channel" persistent-hint class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-                <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+<!--                <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>-->
                 <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
@@ -90,7 +90,7 @@
             <transition name="slide-fade">
               <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
                 <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-                <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+<!--                <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>-->
                 <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
                 <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
@@ -163,7 +163,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
@@ -226,7 +226,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
@@ -299,7 +299,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
@@ -362,7 +362,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
@@ -438,7 +438,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
@@ -503,7 +503,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
@@ -580,7 +580,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%;" class="d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
@@ -646,7 +646,7 @@
           <transition name="slide-fade">
             <v-form style="width: 80%; background-color: white; border-radius: 20px; border: 1px solid #A61c00; box-shadow: 4px 4px 4px darkred" class="py-4 px-4 d-flex flex-wrap justify-center" v-if="companyLoad">
               <v-text-field type="email" v-model="addUserForm.email" :rules="rules.emailRules" :label="'Email'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
-              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
+<!--              <v-text-field :type="'password'" v-model="addUserForm.password" :rules="rules.passwordRules" :label="'Temporary Password'" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>-->
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredFirstNameRules"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
@@ -811,7 +811,7 @@
         this.companyLoad = true;
       },
       async submitAddUser() {
-        if (this.addUserForm.email === '' || this.addUserForm.password === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '' || this.addUserForm.is_superuser === '') {
+        if (this.addUserForm.email === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '' || this.addUserForm.is_superuser === '') {
           if(this.locationsChosenCheck === true) {
             this.locationsChosen = this.locations;
           }
@@ -828,6 +828,7 @@
           this.addUserForm.companyImg = this.company.imgUrl;
           this.addUserForm.senderFirstName = this.currentUser.first_name;
           this.addUserForm.senderLastName = this.currentUser.last_name;
+          this.addUserForm.password = '!' + Math.random().toString(36).substr(2, 8) + '!';
           if(this.addUserForm.is_superuser === 'Super Admin') {
             this.addUserForm.is_superuser = true;
           } else {
