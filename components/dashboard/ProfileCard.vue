@@ -102,8 +102,6 @@
                           v-if="location.locationtags[0] !== 'There are no location tags'"
                         ></v-select>
                         <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
-
-                        <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
                         <v-card-text style="text-align: center; font-size: 48px; color: #A61C00; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
                         <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
                         <v-card-text style="text-align: center; font-size: 18px;"><v-icon class="" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
