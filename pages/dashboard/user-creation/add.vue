@@ -729,7 +729,7 @@
           'Staff Account'
         ],
         rules: {
-          requiredRules: [(v) => !!v || 'Field is required'],
+          requiredRules: [(v) => !!v || 'Field is required. Phone shared with approved vendors ONLY if assigned to channel'],
           requiredFirstNameRules: [(v) => !!v || 'First Name is required'],
           requiredLastNameRules: [(v) => !!v || 'Last Name is required'],
           // usernameRules: [
@@ -738,10 +738,10 @@
           //     (v && v.length <= 100)  'Name must be less than 100 characters',
           // ],
           emailRules: [
-            v => !!v || 'E-mail is required',
-            (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+            v => !!v || 'E-mail is required & Shared with approved vendors ONLY if assigned to channel',
+            (v) => /.+@.+/.test(v) || 'E-mail must be valid. Email shared with approved vendors ONLY if assigned to channel',
             // v => /.+@.[A-Z]+/.test(v)  'E-mail must be valid',
-            v => (v && v.length <= 100) || 'Email must be less than 100 characters'
+            v => (v && v.length <= 100) || 'Email must be less than 100 characters & Shared with approved vendors ONLY if assigned to channel'
           ],
           // emailNotRequiredRules: [
           //   (v) => /.+@.+/.test(v)  'E-mail must be valid',
@@ -749,7 +749,7 @@
           //     (v && v.length <= 100)  'Email must be less than 100 characters',
           // ],
           phoneRules: [
-            (v) => (v && v.length === 14) || 'Phone Number must be 10 digits',
+            (v) => (v && v.length === 14) || 'Phone Number must be 10 digits. Phone # shared with approved vendors ONLY if assigned to channel',
           ],
           passwordRules: [
             v => !!v || 'Password is required',
