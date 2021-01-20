@@ -114,7 +114,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -145,7 +145,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -267,7 +267,7 @@
                         <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                       </v-col>
                     </v-row>
-                    <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                    <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                   </v-card>
                 </v-col>
 
@@ -277,7 +277,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -315,7 +315,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 18px; text-align: center; position:absolute; top: 50%;">SOWerk offers Vendors the new customer search tool to help make great connections.</v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
                   </v-card>
                 </v-col>
 
@@ -340,7 +340,7 @@
                       <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -362,13 +362,13 @@
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                     <v-row class="d-flex flex-column align-end">
                       <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                      <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                   </v-row>
                   <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                     <v-row class="d-flex flex-column align-left">
                       <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                      <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -514,7 +514,7 @@
                     <h2 style="font-weight:900;font-size:.6rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-6 mb-4" style="width: 90%; border-radius: 10px; font-size: 1rem;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-6 mb-4" style="width: 90%; border-radius: 10px; font-size: 1rem;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -545,7 +545,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -667,7 +667,7 @@
                         <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                       </v-col>
                     </v-row>
-                    <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                    <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                   </v-card>
                 </v-col>
 
@@ -677,7 +677,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -740,7 +740,7 @@
                       <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -762,13 +762,13 @@
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                     <v-row class="d-flex flex-column align-end">
                       <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                      <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                   </v-row>
                   <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                     <v-row class="d-flex flex-column align-left">
                       <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                      <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -914,7 +914,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -945,7 +945,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -1067,7 +1067,7 @@
                         <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                       </v-col>
                     </v-row>
-                    <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                    <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1077,7 +1077,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1115,7 +1115,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 18px; text-align: center; position:absolute; top: 50%;">SOWerk offers Vendors the new customer search tool to help make great connections.</v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1140,7 +1140,7 @@
                       <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -1162,13 +1162,13 @@
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                     <v-row class="d-flex flex-column align-end">
                       <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                      <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                   </v-row>
                   <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                     <v-row class="d-flex flex-column align-left">
                       <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                      <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -1314,7 +1314,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -1345,7 +1345,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -1467,7 +1467,7 @@
                         <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                       </v-col>
                     </v-row>
-                    <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                    <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1477,7 +1477,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1515,7 +1515,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 18px; text-align: center; position:absolute; top: 50%;">SOWerk offers Vendors the new customer search tool to help make great connections.</v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1540,7 +1540,7 @@
                       <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -1562,13 +1562,13 @@
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                     <v-row class="d-flex flex-column align-end">
                       <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                      <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                   </v-row>
                   <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                     <v-row class="d-flex flex-column align-left">
                       <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                      <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -1714,7 +1714,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -1745,7 +1745,7 @@
                     <h2 style="font-weight:900;font-size:.8rem;">Revenue Streams</h2>
                   </v-col>
                 </v-row>
-                <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
               </v-card>
             </v-col>
 
@@ -1867,7 +1867,7 @@
                         <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
                       </v-col>
                     </v-row>
-                    <v-btn color="primary" to="dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
+                    <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1877,7 +1877,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1915,7 +1915,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-172.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 18px; text-align: center; position:absolute; top: 50%;">SOWerk offers Vendors the new customer search tool to help make great connections.</v-card-text>
-                    <v-btn color="primary" to="dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
+                    <v-btn color="primary" to="/dashboard/businesses/search" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">Business Directory</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1940,7 +1940,7 @@
                       <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -1962,13 +1962,13 @@
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                     <v-row class="d-flex flex-column align-end">
                       <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                      <v-btn to="dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                   </v-row>
                   <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                     <v-row class="d-flex flex-column align-left">
                       <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                      <v-btn to="dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
@@ -2443,18 +2443,23 @@
       },
       async getApprovedProviderConnections() {
         if(this.company.company_type !== 'false') {
-          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + this.currentUser.companies_id)
             .then(response => {
               console.log('response approvedproviderconnections', response.data);
               if (this.currentUser.is_superuser === false) {
                 for (let i = 0; i < response.data.length; i++) {
-                  if (response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                  if (response.data[i].pmuserprofiles_id === this.currentUser.id && response.data[i].approval_status === 1) {
                     console.log(response.data[i], 'applications for staff account')
                     this.stats[0].value++
                   }
                 }
               } else {
-                this.stats[0].value = response.data.length
+                for (let i = 0; i < response.data.length; i++) {
+                  if (response.data[i].approval_status === 1) {
+                    console.log(response.data[i], 'applications for staff account')
+                    this.stats[0].value++
+                  }
+                }
               }
             })
             .catch(err => {

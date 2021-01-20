@@ -342,7 +342,7 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;">{{singleCompanyRelationshipConnections.length}}</v-card-title>
                 <div class="d-flex flex-column align-center">
                   <v-card-text style="font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Connections</v-card-text>
-                  <v-btn @click="showRelationshipApprovedModalLoad" style="width: 100%;" color="primary" rounded>View Details</v-btn>
+                  <v-btn @click="showRelationshipApprovedModalLoad" style="width: 100%;" color="primary" rounded>Manage Connections</v-btn>
                 </div>
               </div>
               <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
@@ -416,15 +416,31 @@
           <v-card-title style="color: #A61c00;">Relationships with {{companyForVendor.account_name}}</v-card-title>
           <v-data-table
             :headers="singleCompanyConnectionRelationshipsHeaders"
+            style="width: 90%;"
+            :items-per-page="10"
+            v-if="loadshowRelationshipApprovedModal"
+            :loading="loadshowRelationshipApprovedModal"
+            loading-text="Loading... Please wait"
+          >
+          </v-data-table>
+          <v-data-table
+            :headers="singleCompanyConnectionRelationshipsHeaders"
             :items="singleCompanyConnectionRelationships"
             style="width: 90%;"
             :items-per-page="10"
+            :loading="loadshowRelationshipApprovedModal"
+            loading-text="Loading... Please wait"
+            v-else
           >
             <template v-slot:item.imgUrl="{ item }" class="d-flex flex-column align-center">
               <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
                 <v-img :src="item.imgUrl" v-if="item.imgUrl !== ''"></v-img>
                 <v-icon v-else size="60">person</v-icon>
               </v-avatar>
+            </template>
+            <template v-slot:item.actions="{ item }">
+              <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/original-application/' + item.id">View Original Application</v-btn>
+              <v-btn style="width: 90%;" color="primary" @click="startConnectionRemovalProcess(item)" >Remove Connection</v-btn>
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitShowRelationshipApprovedModalLoad">< Back</v-btn>
@@ -640,7 +656,7 @@
       <!--      </v-overlay>-->
 
       <transition name="slide-fade">
-        <v-card v-if="openCompanyLocationsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">
+        <v-card v-if="openCompanyLocationsModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
           <v-data-table
             :items="companyForVendor.locations"
             v-if="companyForVendor.locations[0] != 'There are no locations'"
@@ -670,7 +686,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="approvedChannelsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="">
+        <v-card v-if="approvedChannelsModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Approved Connections To Current Vendor</v-card-title>
           <v-data-table
             :items="approvedChannelsList"
@@ -697,7 +713,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="recentlyApprovedChannelsModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="">
+        <v-card v-if="recentlyApprovedChannelsModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center" >
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Recently Approved Connections To Current Vendor</v-card-title>
           <v-data-table
             :items="recentlyApprovedChannelsList"
@@ -723,7 +739,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="licenseModal" style="position: fixed; top: 10vh; width: 70vw; left: 27vw;" class="d-flex flex-column align-center">
+        <v-card v-if="licenseModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center" >
           <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
@@ -744,7 +760,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="insuranceModal" style="position: fixed; top: 10vh; width: 70vw; left: 27vw;" class="d-flex flex-column align-center">
+        <v-card v-if="insuranceModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
@@ -867,6 +883,8 @@
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Application', value: 'userformName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         headersrecentlyApprovedChannelsList: [
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
@@ -900,6 +918,7 @@
         singleCompanyRelationshipConnections: [],
         singleCompanyConnectionValues: [],
         singleCompanyConnectionRelationships: [],
+        loadshowRelationshipApprovedModal: true,
       }
     },
     computed: {
@@ -925,14 +944,17 @@
       async showCompaniesApprovedModalLoad() {
         this.showCompaniesApprovedModal = true;
         await this.getActualSingleCompanyConnections();
+        this.$vuetify.goTo(0);
       },
       async exitShowCompaniesApprovedModalLoad() {
         this.showCompaniesApprovedModal = false;
       },
       async showRelationshipApprovedModalLoad() {
+        this.loadshowRelationshipApprovedModal = true;
         this.singleCompanyConnectionRelationships = [];
         this.showRelationshipApprovedModal = true;
         await this.getActualSingleRelationshipConnections();
+        this.$vuetify.goTo(0);
       },
       async exitShowRelationshipApprovedModalLoad() {
         this.showRelationshipApprovedModal = false;
@@ -944,25 +966,37 @@
             companyName: '',
             locationName: '',
             locationAddress: '',
+            userformName: '',
+            id: this.singleCompanyRelationshipConnections[i].id
           }
-          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
+          this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
             .then(response => {
-              newSingleCompanyConnectionRelationships.imgUrl = response.data.imgUrl
-              newSingleCompanyConnectionRelationships.companyName = response.data.account_name
+              newSingleCompanyConnectionRelationships.locationName = response.data.name
+              newSingleCompanyConnectionRelationships.locationAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`
             })
             .catch(err => {
               console.log('err in getting company')
             })
 
-          this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
+          this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.singleCompanyRelationshipConnections[i].pmuserforms_id)
             .then(response => {
-              newSingleCompanyConnectionRelationships.locationName = response.data.name
-              newSingleCompanyConnectionRelationships.locationAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`
-              this.singleCompanyConnectionRelationships.push(newSingleCompanyConnectionRelationships)
+              newSingleCompanyConnectionRelationships.userformName = response.data.name
             })
             .catch(err => {
               console.log('err in getting company')
             })
+
+          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
+            .then(response => {
+              newSingleCompanyConnectionRelationships.imgUrl = response.data.imgUrl
+              newSingleCompanyConnectionRelationships.companyName = response.data.account_name
+              this.singleCompanyConnectionRelationships.push(newSingleCompanyConnectionRelationships)
+              this.loadshowRelationshipApprovedModal = false;
+            })
+            .catch(err => {
+              console.log('err in getting company')
+            })
+
         }
       },
       async getActualSingleCompanyConnections() {
@@ -1457,24 +1491,28 @@
       async addNotesModal() {
         this.addNotesModalLoad = true;
         console.log(this.addNotesModalLoad)
+        this.$vuetify.goTo(0);
       },
       async exitAddNotesModalLoad() {
         this.addNotesModalLoad = false;
       },
       async listNotesModal() {
         this.notesModalLoad = true;
+        this.$vuetify.goTo(0);
       },
       async exitNotesModalLoad() {
         this.notesModalLoad = false;
       },
       async openLicenseModal() {
         this.licenseModal = true;
+        this.$vuetify.goTo(0);
       },
       async exitLicenseModal() {
         this.licenseModal = false;
       },
       async openInsuranceModal() {
         this.insuranceModal = true;
+        this.$vuetify.goTo(0);
       },
       async exitInsuranceModal() {
         this.insuranceModal = false;
@@ -1502,6 +1540,25 @@
           .catch(err => {
             console.log(err, 'err in adding location review')
           })
+      },
+      async startConnectionRemovalProcess(item) {
+        if(confirm('You are about to delete this connection. All history and relationship records will be saved for a period of time based on your SOWerk account level. ARE YOU SURE YOU WANT TO DELETE?')) {
+          await this.$http.put('https://www.sowerkbackend.com/api/applications/' + item.id, {
+            approval_status: 2,
+          })
+            .then(response => {
+              console.log(response.data, 'success in changing application approval')
+              this.getConnections(this.location);
+              setTimeout(() => {
+                this.getActualSingleRelationshipConnections();
+                this.singleCompanyConnectionRelationships = [];
+                this.loadshowRelationshipApprovedModal = true;
+              }, 500)
+            })
+            .catch(err => {
+              console.log(err, 'err in changing application approval')
+            })
+        }
       }
     }
   }
