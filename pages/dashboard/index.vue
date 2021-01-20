@@ -2443,18 +2443,23 @@
       },
       async getApprovedProviderConnections() {
         if(this.company.company_type !== 'false') {
-          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/byPmId/' + this.currentUser.companies_id)
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + this.currentUser.companies_id)
             .then(response => {
               console.log('response approvedproviderconnections', response.data);
               if (this.currentUser.is_superuser === false) {
                 for (let i = 0; i < response.data.length; i++) {
-                  if (response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                  if (response.data[i].pmuserprofiles_id === this.currentUser.id && response.data[i].approval_status === 1) {
                     console.log(response.data[i], 'applications for staff account')
                     this.stats[0].value++
                   }
                 }
               } else {
-                this.stats[0].value = response.data.length
+                for (let i = 0; i < response.data.length; i++) {
+                  if (response.data[i].approval_status === 1) {
+                    console.log(response.data[i], 'applications for staff account')
+                    this.stats[0].value++
+                  }
+                }
               }
             })
             .catch(err => {

@@ -12,7 +12,7 @@
                 </v-avatar>
               </v-col>
             </v-row>
-<!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
+            <!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
@@ -86,10 +86,10 @@
                 ></v-select>
               </v-col>
             </v-row>
-            <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;" v-if="!isDenying">
-              <v-btn @click="Deny" large>Deny</v-btn>
-              <v-btn @click="Approve" color="primary" large>Approve</v-btn>
-            </v-row>
+<!--            <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;" v-if="!isDenying">-->
+<!--              <v-btn @click="Deny" large>Deny</v-btn>-->
+<!--              <v-btn @click="Approve" color="primary" large>Approve</v-btn>-->
+<!--            </v-row>-->
             <v-row v-if="isDenying" class="px-12 mt-8">
               <v-col cols="12">
                 <p class="text-h5 mb-2">Reason For Denial</p>
@@ -146,22 +146,22 @@
         :size="75"
         v-if="failure === true"
       ></v-progress-circular>
-<!--      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">-->
-<!--        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>-->
-<!--        <v-card-title class="mt-n16" color="primary">You have denied this application. Would you like to leave them a message letting the applicant know why? If not, just click below to return to the applicants page.</v-card-title>-->
-<!--        <v-form style="width: 80%;">-->
-<!--          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>-->
-<!--          <v-btn @click="submit">Send Message</v-btn>-->
-<!--        </v-form>-->
-<!--        <v-btn class="my-4" color="primary" :href="'../../../dashboard/vendors/applicants'" rounded>Return To SOWerk Request Dashboard</v-btn>-->
-<!--      </v-card>-->
+      <!--      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">-->
+      <!--        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>-->
+      <!--        <v-card-title class="mt-n16" color="primary">You have denied this application. Would you like to leave them a message letting the applicant know why? If not, just click below to return to the applicants page.</v-card-title>-->
+      <!--        <v-form style="width: 80%;">-->
+      <!--          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>-->
+      <!--          <v-btn @click="submit">Send Message</v-btn>-->
+      <!--        </v-form>-->
+      <!--        <v-btn class="my-4" color="primary" :href="'../../../dashboard/vendors/applicants'" rounded>Return To SOWerk Request Dashboard</v-btn>-->
+      <!--      </v-card>-->
 
     </v-container>
   </v-app>
 </template>
 
 <script>
-import * as moment from 'moment'
+  import * as moment from 'moment'
 
   export default {
     name: 'activeapplicant',
@@ -380,9 +380,9 @@ import * as moment from 'moment'
         await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections');
-              for(let i=0; i<response.data.length; i++) {
-                this.connections.push(response.data[i]);
-              }
+            for(let i=0; i<response.data.length; i++) {
+              this.connections.push(response.data[i]);
+            }
           })
           .catch(err => {
             console.log('err', err);
