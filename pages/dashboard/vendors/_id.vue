@@ -1206,7 +1206,9 @@
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
           .then(response => {
             console.log('naicslist', response)
-            this.naicsList = response.data
+            this.naicsList = response.data.sort((a,b) => {
+              return b.timesUsed-a.timesUsed;
+            })
           })
           .catch(err => {
             console.log(err, 'err on getting naicslist')
