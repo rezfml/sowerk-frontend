@@ -1790,6 +1790,22 @@
               })
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting service')
+                  this.$http.get('https://www.sowerkbackend.com/api/naicslist/name/' + this.services)
+                    .then(responseNaicslist => {
+                      console.log(responseNaicslist, 'hello')
+                      this.$http.put('https://www.sowerkbackend.com/api/naicslist/' + responseNaicslist.data[0].id, {
+                        timesUsed: responseNaicslist.data[0].timesUsed + 1
+                      })
+                        .then(responseEditNaics => {
+                          console.log('success in times used edit')
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
+                    })
+                    .catch(err => {
+                      console.log(err)
+                    })
                 })
                 .catch(err => {
                   console.log(err, 'err in posting service')
@@ -1801,6 +1817,22 @@
               })
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting service')
+                  this.$http.get('https://www.sowerkbackend.com/api/naicslist/name/' + this.servicesAdditional1)
+                    .then(responseNaicslist => {
+                      console.log(responseNaicslist, 'hello')
+                      this.$http.put('https://www.sowerkbackend.com/api/naicslist/' + responseNaicslist.data[0].id, {
+                        timesUsed: responseNaicslist.data[0].timesUsed + 1
+                      })
+                        .then(responseEditNaics => {
+                          console.log('success in times used edit')
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
+                    })
+                    .catch(err => {
+                      console.log(err)
+                    })
                 })
                 .catch(err => {
                   console.log(err, 'err in posting service')
@@ -1812,6 +1844,22 @@
               })
                 .then(responseVal => {
                   console.log(responseVal, 'success in posting service')
+                  this.$http.get('https://www.sowerkbackend.com/api/naicslist/name/' + this.servicesAdditional2)
+                    .then(responseNaicslist => {
+                      console.log(responseNaicslist, 'hello')
+                      this.$http.put('https://www.sowerkbackend.com/api/naicslist/' + responseNaicslist.data[0].id, {
+                        timesUsed: responseNaicslist.data[0].timesUsed + 1
+                      })
+                        .then(responseEditNaics => {
+                          console.log('success in times used edit')
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
+                    })
+                    .catch(err => {
+                      console.log(err)
+                    })
                 })
                 .catch(err => {
                   console.log(err, 'err in posting service')
@@ -1825,6 +1873,22 @@
                   })
                     .then(responseVal => {
                       console.log(responseVal, 'success in posting location tags')
+                      this.$http.get('https://www.sowerkbackend.com/api/sowerktags/name/' + this.locationTags[i].name)
+                        .then(responseNaicslist => {
+                          console.log(responseNaicslist, 'hello')
+                          this.$http.put('https://www.sowerkbackend.com/api/sowerktags/' + responseNaicslist.data[0].id, {
+                            timesUsed: responseNaicslist.data[0].timesUsed + 1
+                          })
+                            .then(responseEditNaics => {
+                              console.log('success in times used edit')
+                            })
+                            .catch(err => {
+                              console.log(err)
+                            })
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
                     })
                     .catch(err => {
                       console.log(err, 'err in posting locationtags')
@@ -1835,6 +1899,22 @@
                   })
                     .then(responseVal => {
                       console.log(responseVal, 'success in posting location tags')
+                      this.$http.get('https://www.sowerkbackend.com/api/sowerktags/name/' + this.locationTags[i])
+                        .then(responseNaicslist => {
+                          console.log(responseNaicslist, 'hello')
+                          this.$http.put('https://www.sowerkbackend.com/api/sowerktags/' + responseNaicslist.data[0].id, {
+                            timesUsed: responseNaicslist.data[0].timesUsed + 1
+                          })
+                            .then(responseEditNaics => {
+                              console.log('success in times used edit')
+                            })
+                            .catch(err => {
+                              console.log(err)
+                            })
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
                     })
                     .catch(err => {
                       console.log(err, 'err in posting locationtags')
@@ -1869,7 +1949,9 @@
               }
             }
             this.loadSubmit = true;
-            this.$router.push('../../../dashboard/channels')
+            setTimeout(() => {
+              this.$router.push('../../../dashboard/channels')
+            }, 2000)
           })
           .catch(e => e);
       },
