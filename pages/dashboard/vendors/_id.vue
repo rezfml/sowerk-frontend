@@ -37,12 +37,12 @@
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
             <a :href="'https://' + companyForVendor.website" target="_blank" class="my-8 py-6" style="text-decoration: none; text-align: center; width: 90%; font-size: 24px; border-radius: 50px; border: 1px solid #A61C00;">Company Website</a>
             <v-row class="py-8 d-flex justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C;width: 90%;">
-              <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
-              <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-else>0</v-card-title>
               <v-row class="d-flex flex-column align-end">
                 <v-row class="d-flex flex-column align-end">
                   <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                  <v-btn @click="openInsuranceModal" class="py-6 mr-8" style="width: 80%;" color="primary" rounded>View Details</v-btn>
+                  <v-btn @click="openInsuranceModal" class="py-6 mr-8" style="width: 70%;" color="primary" rounded>View Details</v-btn>
                 </v-row>
               </v-row>
             </v-row>
@@ -51,8 +51,8 @@
                 <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
                 <v-btn @click="openLicenseModal" class="py-6 ml-8" style="width: 70%;" color="primary" rounded>View Details</v-btn>
               </v-row>
-              <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
-              <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-else>0</v-card-title>
             </v-row>
           </v-card>
         </v-col>
@@ -342,7 +342,7 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;">{{singleCompanyRelationshipConnections.length}}</v-card-title>
                 <div class="d-flex flex-column align-center">
                   <v-card-text style="font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Connections</v-card-text>
-                  <v-btn @click="showRelationshipApprovedModalLoad" style="width: 100%;" color="primary" rounded>Manage Connections</v-btn>
+                  <v-btn @click="showRelationshipApprovedModalLoad" style="width: 85%;" color="primary" rounded>Manage Connections</v-btn>
                 </div>
               </div>
               <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
