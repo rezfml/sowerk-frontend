@@ -398,7 +398,15 @@ export default {
         )
         .catch((e) => e)
       this.company = data
-      this.properties = data.locations
+      if(this.currentUser.is_superuser) {
+        this.properties = data.locations
+      } else {
+        this.properties = data.locations.filter(location => {
+          if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+            return location
+          }
+        })
+      }
       console.log(this.company, 'company')
     },
     async getBusinesses() {

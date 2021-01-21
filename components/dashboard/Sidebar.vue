@@ -546,13 +546,13 @@
             id: 'settings',
             class: 'fixed-bottom',
             children: [
-              {
-                to: '/dashboard/profile/',
-                slug: 'profile',
-                icon: 'settings',
-                text: 'Manage Company Profile',
-                class: 'fixed-bottom',
-              },
+              // {
+              //   to: '/dashboard/profile/',
+              //   slug: 'profile',
+              //   icon: 'settings',
+              //   text: 'Manage Company Profile',
+              //   class: 'fixed-bottom',
+              // },
               {
                 to: '/dashboard/user-creation',
                 slug: 'user-creation',
