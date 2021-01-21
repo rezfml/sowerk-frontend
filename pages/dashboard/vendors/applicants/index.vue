@@ -238,9 +238,11 @@
         companyId: 0,
         serviceId: 0,
         locationId: 0,
+        company: {},
       }
     },
     async mounted() {
+      await this.getCompany(this.currentUser.companies_id)
       await this.getApplications(this.currentUser.companies_id)
     },
     computed: {
@@ -249,13 +251,31 @@
       },
     },
     methods: {
+      async getCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(response => {
+            this.company = response.data
+            if(this.currentUser.is_superuser) {
+              this.company.locations = response.data.locations
+            } else {
+              this.company.locations = response.data.locations.filter(location => {
+                if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+                  return location
+                }
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
       async getApplications(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + id)
           .then(async (response) => {
             console.log(response.data, 'response for applications by Pm id!!!');
             for(let i=0; i<response.data.length; i++){
               console.log(response.data[i], 'HELLOOOOOOOOOOOO');
-              if(response.data[i].approval_status === 0) {
+              if(response.data[i].approval_status === 0 && this.company.locations.some(val => (val.id === response.data[i].pmlocations_id))) {
                 this.applications.push(response.data[i]);
                 // this.serviceId = response.data[i].pmservices_id;
                 this.companyId = response.data[i].spcompanies_id;

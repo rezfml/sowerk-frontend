@@ -546,13 +546,13 @@
             id: 'settings',
             class: 'fixed-bottom',
             children: [
-              {
-                to: '/dashboard/profile/',
-                slug: 'profile',
-                icon: 'settings',
-                text: 'Manage Company Profile',
-                class: 'fixed-bottom',
-              },
+              // {
+              //   to: '/dashboard/profile/',
+              //   slug: 'profile',
+              //   icon: 'settings',
+              //   text: 'Manage Company Profile',
+              //   class: 'fixed-bottom',
+              // },
               {
                 to: '/dashboard/user-creation',
                 slug: 'user-creation',
@@ -755,6 +755,15 @@
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
+        if(this.currentUser.is_superuser) {
+          this.company.locations = data.locations
+        } else {
+          this.company.locations = data.locations.filter(location => {
+            if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+              return location
+            }
+          })
+        }
         this.loading = true;
         console.log(this.user, this.company, 'user and company')
       }
