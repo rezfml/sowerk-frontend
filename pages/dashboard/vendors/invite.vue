@@ -30,7 +30,7 @@
                   still be invited to join SOWerk, but will still have to submit
                   an application to your business.)
                 </p>
-                <p class="text-body-1 text-center">
+                <p class="text-body-1 text-center py-6" style="border: 1px solid #9A9A9A; width: 50%; text-align: center; margin: 0 auto;">
                   Have a vendor interested in your public profile? Send them this link! <br/> <a target="_blank" :href="'https://www.sowerk.com/' + company.public_name">https://www.sowerk.com/{{company.public_name}}</a>
                 </p>
               </v-col>

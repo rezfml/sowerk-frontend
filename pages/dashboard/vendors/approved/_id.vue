@@ -392,7 +392,7 @@
       </v-row>
 
       <transition name="slide-fade">
-        <v-card v-if="showCompaniesApprovedModal" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="showCompaniesApprovedModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Companies Approved with {{companyForVendor.account_name}}</v-card-title>
           <v-data-table
             :headers="singleCompanyConnectionsHeaders"
@@ -412,7 +412,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="showRelationshipApprovedModal" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="showRelationshipApprovedModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Relationships with {{companyForVendor.account_name}}</v-card-title>
           <v-data-table
             :headers="singleCompanyConnectionRelationshipsHeaders"
@@ -440,7 +440,7 @@
             </template>
             <template v-slot:item.actions="{ item }">
               <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/original-application/' + item.id">View Original Application</v-btn>
-              <v-btn style="width: 90%;" color="primary" @click="startConnectionRemovalProcess(item)" >Remove Connection</v-btn>
+              <v-btn v-if="company.locations.includes(item.locationName)" style="width: 90%;" color="primary" @click="startConnectionRemovalProcess(item)" >Remove Connection</v-btn>
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitShowRelationshipApprovedModalLoad">< Back</v-btn>
@@ -448,7 +448,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}} - {{location.name}}</v-card-title>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
@@ -477,8 +477,11 @@
             :aspect-ratio="1"
             class="my-8 rounded-circle flex-grow-1"
             style="width: 100%; max-width: 300px;"
-            v-if="note.fileUrl"
+            v-if="note.fileUrl && notesFileFile.type === 'image/jpeg'"
           ></v-img>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
           <img
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
@@ -512,7 +515,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="notesModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="notesModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor</v-card-title>
           <v-data-table
             :headers="notesHeaders"
@@ -521,7 +524,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note.splice(0, 10)}}...</p>
+              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
               <p v-else>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
@@ -544,7 +547,7 @@
       <!--      >-->
 
       <transition name="slide-fade">
-        <v-card v-if="requestModalLoad" style="position: absolute; top: 10vh; width: 100%; left: 0vw; height: auto;" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="requestModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
@@ -602,7 +605,7 @@
       <!--        :value="overlayMessage"-->
       <!--      >-->
       <transition name="slide-fade">
-        <v-card v-if="messageModalLoad" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="messageModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Account Name: <span style="color: #A61c00">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Channel Name: <span style="color: #A61c00">{{location.name}}</span></v-card-title>
           <v-form class="mx-4 my-2" style="width: 80%;">
@@ -656,7 +659,7 @@
       <!--      </v-overlay>-->
 
       <transition name="slide-fade">
-        <v-card v-if="openCompanyLocationsModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="openCompanyLocationsModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
           <v-data-table
             :items="companyForVendor.locations"
             v-if="companyForVendor.locations[0] != 'There are no locations'"
@@ -686,7 +689,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="approvedChannelsModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="approvedChannelsModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Approved Connections To Current Vendor</v-card-title>
           <v-data-table
             :items="approvedChannelsList"
@@ -713,7 +716,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="recentlyApprovedChannelsModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center" >
+        <v-card v-if="recentlyApprovedChannelsModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center" >
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Recently Approved Connections To Current Vendor</v-card-title>
           <v-data-table
             :items="recentlyApprovedChannelsList"
@@ -739,7 +742,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="licenseModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center" >
+        <v-card v-if="licenseModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center" >
           <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
@@ -760,7 +763,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="insuranceModal" style="position: absolute; top: 10vh; width: 100vw; left: 0vw; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="insuranceModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
@@ -1060,7 +1063,8 @@
           this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
-              this.submitNotesSuccess = true;
+              this.addNotesSuccess = true;
+              this.notes.push(response.data.note)
               this.note = {
                 note: '',
                 fileUrl: null,
@@ -1069,6 +1073,7 @@
                 spLocationsId: Number,
                 companies_id: Number,
               }
+              this.chosenLocation = {}
             })
             .catch(err => {
               console.log(err, 'err in submitting note', this.note)
@@ -1340,6 +1345,15 @@
           .then(response => {
             console.log(response.data, 'THIS COMPANY!!!!!!!!!!!!!')
             this.company = response.data;
+            if(this.currentUser.is_superuser) {
+              this.company.locations = response.data.locations
+            } else {
+              this.company.locations = response.data.locations.filter(location => {
+                if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+                  return location
+                }
+              })
+            }
             this.loading = true;
           })
           .catch(err => {
@@ -1492,11 +1506,13 @@
       },
       async addNotesModal() {
         this.addNotesModalLoad = true;
+        this.addNotesSuccess = false;
         console.log(this.addNotesModalLoad)
         this.$vuetify.goTo(0);
       },
       async exitAddNotesModalLoad() {
         this.addNotesModalLoad = false;
+        this.addNotesSuccess = false;
       },
       async listNotesModal() {
         this.notesModalLoad = true;
