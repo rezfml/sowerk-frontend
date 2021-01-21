@@ -13,10 +13,18 @@
               </v-col>
             </v-row>
             <!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
+            <v-card-title style="color:#A61C00;">{{spcompany.account_name}}</v-card-title>
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
-            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>
+            <v-row>
+              <v-col cols="6" align="center">
+                <v-btn :to="'/dashboard/vendors/' + location.id" outlined color="primary" rounded md>View Profile</v-btn>
+              </v-col>
+              <v-col cols="6" align="center">
+                <v-btn outlined color="primary" rounded md>Download Application</v-btn>
+              </v-col>
+            </v-row>
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">About</v-card-title>
             <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
@@ -46,12 +54,15 @@
             <div class="d-flex justify-center align-center" style="background: #A61C00; width: 5%; height: 50px; position: absolute; left: 10px; top: -20px;">
               <v-icon color="white">mdi-account</v-icon>
             </div>
-            <v-row class="d-flex justify-space-around my-5" style="width: 100%;">
-              <v-card-title style="color: #A61C00; font-size: 24px; width: 50%;"><p style="word-break: normal;">Service Vendor Application - {{ location.name }}</p></v-card-title>
-              <div style="font-size: 18px; width: 40%;">
-                <p>Submitted: {{application.created}}</p>
-                <p>Application Facility: <span style="color: #A61C00;">{{pmlocation.name}} {{pmlocation.city}}, {{pmlocation.state}}</span></p>
-              </div>
+            <v-row style="width: 100%;" class="mt-8">
+              <v-col cols="6">
+                <v-card-text style="width: 100%; font-size: 14px;">Application Name: <span style="color: #A61C00;">{{ userform.name }}</span></v-card-text>
+                <v-card-text style="width: 100%; font-size: 14px;">Associated Channel: <span style="color: #A61C00;">{{ pmlocation.name }}</span></v-card-text>
+              </v-col>
+              <v-col cols="6">
+                <v-card-text style="width: 100%; font-size: 14px;">Applicant Name: <span style="color: #A61C00;">{{spcompany.account_name}}</span></v-card-text>
+                <v-card-text style="width: 100%; font-size: 14px;">Applicant Channel: <span style="color: #A61C00;">{{location.name}}</span></v-card-text>
+              </v-col>
             </v-row>
             <v-row class="px-12">
               <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
@@ -117,45 +128,12 @@
         </v-col>
       </v-row>
 
-      <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
-        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
-        <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Your SOWerk Application Has Been Approved!</v-card-title>
-        <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Would You Like To Send A Company Document?</v-card-title>
-        <v-card-subtext>Choose from the list of company documents below to send to the Vendor for them to download, complete and upload back to SOWerk for your records.</v-card-subtext>
-        <v-card class="mt-8">
-          <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
-          <v-data-table
-            class="pt-16"
-            :items="companyDocuments"
-            :headers="companyDocumentsHeaders"
-          >
-            <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-              <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
-              <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
-            </template>
-          </v-data-table>
-        </v-card>
-
-        <v-btn to='/dashboard/vendors/applications' color="primary" style="width: 30%;"  class="my-4" rounded outlined>Add Company Document</v-btn>
-        <v-btn :href="'../../../dashboard/vendors/applicants'" color="primary" style="width: 30%;"  class="my-4" rounded>Return To SOWerk Request Dashboard</v-btn>
-      </v-card>
-
       <v-progress-circular
         indeterminate
         color="primary"
         :size="75"
         v-if="failure === true"
       ></v-progress-circular>
-      <!--      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">-->
-      <!--        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>-->
-      <!--        <v-card-title class="mt-n16" color="primary">You have denied this application. Would you like to leave them a message letting the applicant know why? If not, just click below to return to the applicants page.</v-card-title>-->
-      <!--        <v-form style="width: 80%;">-->
-      <!--          <v-text-field style="width: 100%; font-size: 18px;" v-model="messageForm.message"></v-text-field>-->
-      <!--          <v-btn @click="submit">Send Message</v-btn>-->
-      <!--        </v-form>-->
-      <!--        <v-btn class="my-4" color="primary" :href="'../../../dashboard/vendors/applicants'" rounded>Return To SOWerk Request Dashboard</v-btn>-->
-      <!--      </v-card>-->
-
     </v-container>
   </v-app>
 </template>
@@ -174,6 +152,7 @@
         location: {},
         pmlocation: {},
         pmcompany: {},
+        spcompany: {},
         licenses: [],
         insurances: [],
         connections: [],
@@ -181,64 +160,6 @@
         service: {},
         success: false,
         failure: false,
-        messageForm: {
-          service: '',
-          company: '',
-          primary_contact_first_name: this.$store.state.user.user.user.first_name,
-          primary_contact_last_name: this.$store.state.user.user.user.last_name,
-          message: '',
-          location: '',
-          userprofiles_id: this.$store.state.user.user.user.id,
-        },
-        sendToId: Number,
-        isDenying: false,
-        denialOptions: [
-          'Available Vendor Position(s) Filled At This Time',
-          'Proximity To Location Was An Issue',
-          'Missing Application Requirements',
-          'Qualifications Not Yet Met- Reapply Optional in 30 Days',
-          'Qualifications Not Yet Met- Reapply Optional in 60 Days',
-          'Qualifications Not Yet Met- Reapply Optional in 90 Days',
-        ],
-        denial_reason: null,
-        rules: {
-          requiredRules: [
-            v => !!v || v === 0 || 'Field is required',
-          ],
-        },
-        denialMessage: {
-          service: '',
-          company: '',
-          primary_contact_first_name: this.$store.state.user.user.user.first_name,
-          primary_contact_last_name: this.$store.state.user.user.user.last_name,
-          message: '',
-          location: '',
-          userprofiles_id: this.$store.state.user.user.user.id,
-          pmMessageRead: false,
-          spMessageRead: false,
-          spLocationId: Number,
-          spLocationName: Number
-        },
-        approvalMessage: {
-          service: '',
-          company: '',
-          primary_contact_first_name: this.$store.state.user.user.user.first_name,
-          primary_contact_last_name: this.$store.state.user.user.user.last_name,
-          message: '',
-          location: '',
-          userprofiles_id: this.$store.state.user.user.user.id,
-          pmMessageRead: false,
-          spMessageRead: false,
-          spLocationId: Number,
-          spLocationName: Number
-        },
-        companyDocuments: [],
-        documentToSend: {},
-        companyDocumentsHeaders: [
-          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        ],
       }
     },
     async mounted() {
@@ -287,6 +208,7 @@
             this.getPMUserForm(response.data.pmuserforms_id);
             this.getPMService(response.data.pmservices_id);
             this.getPMCompany(response.data.pmcompanies_id);
+            this.getSPCompany(response.data.spcompanies_id);
           })
           .catch(err => {
             console.log('err', err);
@@ -324,6 +246,16 @@
             this.pmcompany = response.data;
             this.messageForm.company = response.data.account_name;
             console.log(this.messageForm, 'this.messageForm');
+          })
+          .catch(err => {
+            console.log('err', err);
+          })
+      },
+      async getSPCompany(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+          .then(async (response) => {
+            console.log(response.data, 'response sp company');
+            this.spcompany = response.data;
           })
           .catch(err => {
             console.log('err', err);
