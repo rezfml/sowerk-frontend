@@ -197,62 +197,9 @@
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
-      <!--        <v-simple-table class="pt-16">-->
-      <!--          <thead >-->
-      <!--          <tr class="d-flex justify-start">-->
-      <!--            <th style="color: #a61c00; width: 10%; text-align: center">Application Name</th>-->
-      <!--            <th style="color: #a61c00; width: 10%; text-align: center">Category</th>-->
-      <!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Name</th>-->
-      <!--            <th style="color: #a61c00; width: 15%; text-align: center">Location Address</th>-->
-      <!--            <th style="color: #a61c00; width: 10%; text-align: center">#Questions</th>-->
-      <!--            <th style="color: #a61c00; width: 24%; text-align: center">Application Status</th>-->
-      <!--            <th style="color: #a61c00; width: 10%;">Actions</th>-->
-      <!--          </tr>-->
-      <!--          </thead>-->
-      <!--          <tbody>-->
-      <!--          <tr  v-for="(location, index) in locations" style="background: none !important;">-->
-      <!--            <div v-for="(service, indexService) in location.services">-->
-      <!--              <div class="d-flex justify-start align-center hover-select" style="border-bottom: 1px solid gray; transition: 0.3s;" v-for="(userform, indexUserForm) in service.userforms">-->
-
-      <!--                <td style="width: 10%; text-align: center" class="py-1">{{userform.name}}</td>-->
-      <!--                <td style="width: 10%; text-align: center" class="py-1">{{service.name}}</td>-->
-      <!--                <td style="width: 15%; text-align: center" class="py-1">{{location.name}}</td>-->
-      <!--                <td style="width: 15%; text-align: center" class="py-1">-->
-      <!--                  <div class="d-flex flex-column align-center">-->
-      <!--                    <p>{{location.address}}</p>-->
-      <!--                    <p>{{location.city}}, {{location.state}}</p>-->
-      <!--                  </div>-->
-      <!--                </td>-->
-      <!--                <td style="width: 9%; text-align: center" class="py-1">{{userform.formfields.length}}</td>-->
-      <!--                <td style="width: 22%;" class="py-1 center mr-10 d-flex">-->
-      <!--                  <v-select-->
-      <!--                    v-model="userform.applicationStatus"-->
-      <!--                    :placeholder="userform.applicationStatus"-->
-      <!--                    :items="applicationOptions"-->
-      <!--                    @change="userformEditActive(userform)"-->
-      <!--                  >-->
-      <!--                  </v-select>-->
-      <!--&lt;!&ndash;                  <v-checkbox&ndash;&gt;-->
-      <!--&lt;!&ndash;                    v-if="userform.applicationStatus === 'Published - Private'"&ndash;&gt;-->
-      <!--&lt;!&ndash;                    :label="'Publish Link Publicly?'"&ndash;&gt;-->
-      <!--&lt;!&ndash;                    v-model="userform.applicationStatusLinkPublish"&ndash;&gt;-->
-      <!--&lt;!&ndash;                    class="ml-3"&ndash;&gt;-->
-      <!--&lt;!&ndash;                    @change="userformEditApplicationPublish(userform)"&ndash;&gt;-->
-      <!--&lt;!&ndash;                  ></v-checkbox>&ndash;&gt;-->
-      <!--                </td>-->
-      <!--                <td style="width: 10%;" class="d-flex flex-column align-center">-->
-      <!--                  <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + userform.id" style="color: white; width: 100%;">Edit</v-btn>-->
-      <!--                  <v-btn @click="deleteUserForm(userform)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>-->
-      <!--                </td>-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--          </tr>-->
-      <!--          </tbody>-->
-      <!--        </v-simple-table>-->
-
         <v-data-table
-          :headers="headersApplicationTemplateVal"
-          :items="applicationTemplateVal"
+          :headers="headersChannelVendorApplicationsVal"
+          :items="listOfUserChannels"
           :items-per-page="10"
           class="pt-16"
           :expanded.sync="expanded"
@@ -268,14 +215,32 @@
                 <template v-slot:default>
                   <thead>
                   <tr>
-                    <th>Question</th>
-                    <th>Name</th>
+                    <th>Application Name</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <!-- <th>#Questions</th> -->
+                    <th>Application Status</th>
+                    <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="app in item.formfields" :key="app.id">
-                    <td>Question# {{(app.order + 1)}}</td>
+                  <tr v-for="app in item.userforms" :key="app.id">
                     <td>{{ app.name }}</td>
+                    <td>{{ app.service }}</td>
+                    <td>{{ app.vendorType }}</td>
+                    <td>
+                      <v-select
+                        v-model="app.applicationStatus"
+                        :placeholder="item.applicationStatus"
+                        :items="applicationOptions"
+                        @change="userformEditActive(app)"
+                      >
+                      </v-select>
+                    </td>
+                    <td>
+                      <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
+                      <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
+                    </td>
                   </tr>
                   </tbody>
                 </template>
@@ -283,25 +248,11 @@
             </td>
           </template>
 
-          <template v-slot:item.formfields="{ item }">
-            <p v-if="item.formfields.length">{{item.formfields.length}}</p>
+          <template v-slot:item.userforms="{ item }">
+            <p v-if="item.userforms.length">{{item.userforms.length}}</p>
             <p v-else>0</p>
           </template>
 
-          <template v-slot:item.applicationStatus="{ item }">
-            <v-select
-              v-model="item.applicationStatus"
-              :placeholder="item.applicationStatus"
-              :items="applicationOptions"
-              @change="userformEditActive(item)"
-            >
-            </v-select>
-          </template>
-
-          <template v-slot:item.actions="{item}">
-            <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + item.id" style="color: white; width: 100%;">Edit</v-btn>
-            <v-btn @click="deleteUserForm(item)" class="my-1" color="primary" style="width: 100%;">Delete</v-btn>
-          </template>
         </v-data-table>
       </template>
     </v-card>
@@ -1358,14 +1309,9 @@ const naics = require("naics");
         addLocation: {},
         applicationTemplates: [],
         companyTemplates: [],
-        headersApplicationTemplateVal: [
-          { text: 'Application Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: '#Questions', value: 'formfields', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Application Status', value: 'applicationStatus', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        headersChannelVendorApplicationsVal: [
+          { text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Total Applications', value: 'userforms', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         headers: [
           { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
@@ -1473,11 +1419,14 @@ const naics = require("naics");
         vendorChosen: { },
         vendorChannels: [],
         channelsList: [],
-        documentToSend: {}
+        documentToSend: {},
+
+        listOfUserChannels: [],
+        listOfChannelVendorApps: []
         }
     },
     async mounted() {
-      // await this.getCompany(this.currentUser.companies_id);
+      await this.getCompany(this.currentUser.companies_id);
       await this.getSowerkTags();
       await this.getNaicsList();
       await this.getVendorsList();
@@ -1749,122 +1698,51 @@ const naics = require("naics");
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(async(response) => {
-            console.log(response.data, 'company');
-            this.locations = response.data.locations;
-            for(let i=0; i<this.locations.length; i++) {
-              console.log('this.locations', this.locations[i])
-              if(this.locations[i].services !== 'There are no services') {
-                for(let j=0; j<this.locations[i].services.length; j++) {
-                  console.log('this.services', this.locations[i].services[j])
-                  if(this.locations[i].services[j].userforms !== 'There are no userforms') {
-                    for(let k=0; k<this.locations[i].services[j].userforms.length; k++) {
-                      console.log('this.userforms', this.locations[i].services[j].userforms[k])
-                      await this.getFormFields(this.locations[i].services[j].userforms.id, i, j)
-                    }
-                  } else {
-                    this.locations[i].services[j].userforms === [];
-                  }
-                }
-              } else {
-                this.locations[i].services === [];
-              }
-            }
+            console.log(response.data, "RESPONCE DOT DATA")
+            this.listOfUserChannels = response.data.locations;
+            console.log(this.listOfUserChannels, "----------------------HEY THIS IS THE LIST OF USER CHANNELS")
+
+            this.listOfUserChannels.forEach((channel, index) => {
+              this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + channel.id)
+                .then(res => {
+                  channel.userforms = res.data
+                })
+                .catch(err => {
+                  console.log(err, "error in the getting of locations userforms")
+                })
+            })
+
+
+            console.log(this.listOfUserChannels, "----------------------AUGMENTED LIST")
+
           })
           .catch(err => {
-            console.log('err in company getting', err)
+            console.log('err in getting company list of channels', err)
           })
         setTimeout(() => {
           console.log('this.locations', this.locations)
           this.loading = true;
-        }, 3000)
+        }, 2000)
       },
       async getLocations(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(async response => {
-            // console.log(response.data, 'locations RESPONSE DATA LOCATION');
-            // this.locations = response.data.location;
-            // console.log(this.locations, 'locations THIS DOT LOCATIONS');
-            // this.addLocations = response.data.location;
-            // for(let i=0; i<this.locations.length; i++) {
-            //   // await this.locations.push(response.data.location[i]);
-            //   // await this.addLocations.push(response.data.location[i]);
-            //   // console.log(this.locations, 'this.locations');
-            //   // console.log(this.valueServices, 'this.valueServices')
-            //   // await this.getServices(response.data.location[i].id)
-            //   this.valueServices++;
-            // }
+            console.log(response.data, 'locations RESPONSE DATA LOCATION');
+
             this.locations = response.data.location
             console.log(this.locations, 'locations THIS DOT LOCATIONS');
             this.addLocations = response.data.location;
             response.data.location.forEach(async (location, index) => {
-              // if(location.userforms[0] !== 'There are no userforms') {
-              //   for(let i=0; i<location.userforms.length; i++) {
-              //     let userForm = {
-              //       applicationStatus: location.userforms[i].applicationStatus,
-              //       id: location.userforms[i].id,
-              //       name: location.userforms[i].name,
-              //       service: location.userforms[i].service,
-              //       vendorType: location.userforms[i].vendorType,
-              //       locations_id: location.userforms[i].locations_id,
-              //       formfields: []
-              //     };
-              //     console.log(location, 'this.locations individual')
-              //     let userForm2 = {
-              //       applicationStatus: location.userforms[i].applicationStatus,
-              //       id: location.userforms[i].id,
-              //       name: location.userforms[i].name,
-              //       service: location.userforms[i].service,
-              //       vendorType: location.userforms[i].vendorType,
-              //       locations_id: location.userforms[i].locations_id,
-              //       formfields: [],
-              //       locationName: location.name,
-              //       locationAddress: location.address + " " + location.city + ", " + location.state + " " + location.zipcode,
-              //     };
-              //
-              //     if(userForm.applicationStatus === 0) {
-              //       userForm.applicationStatus = 'Unpublished'
-              //       userForm2.applicationStatus = 'Unpublished'
-              //     } else if (userForm.applicationStatus === 1) {
-              //       userForm.applicationStatus = 'Published - Public'
-              //       userForm2.applicationStatus = 'Published - Public'
-              //     } else {
-              //       userForm.applicationStatus = 'Published - Private'
-              //       userForm2.applicationStatus = 'Published - Private'
-              //     }
-              //     this.userForms.push(userForm);
-              //     this.applicationTemplateVal.push(userForm2);
-              //     this.getFormFields(location.userforms[i].id);
-              //   }
-              // }
-              console.log(this.valueServices, ' bef valueServices');
+
+
+              console.log("DOES THIS EVEN RUN TWICE")
               await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
-              this.valueServices++
-              console.log(this.valueServices, 'after valueServices');
-              this.valueUserForms++
-              // setTimeout(() => {
-              //   if (this.locations[index].services[0] !== 'There are no services') {
-              //     for (let i = 0; i < location.services.length; i++) {
-              //       this.locations[index].services[i].userforms = []
-              //       this.getUserforms(location.services[i].id, this.valueUserForms, this.valueServices)
-              //       console.log(this.valueUserForms, 'valueUserForms')
-              //       this.valueUserForms++
-              //     }
-              //   }
-              // this.valueServices++;
-              // this.valueUserForms = 0;
-              // }, 1000)
+
             })
           })
           .catch(err => {
             console.log('err get locations', err);
           })
-        setTimeout(() => {
-          console.log(this.userForms, 'userForms with formfields Locations');
-          console.log(this.locations, 'locations Locations');
-          console.log(this.applicationTemplateVal, 'APPLICATION TEMPLATE FOR LOOP TABLE')
-          this.loading = true;
-        }, 2000)
-
       },
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
@@ -1904,6 +1782,7 @@ const naics = require("naics");
               // this.locations[valueServices].services[valueUserForms].userforms = response.data;
               console.log(response.data, 'USERFORMS FOR LOCATION')
                 for(let i=0; i<response.data.length; i++) {
+
                   let userForm = {
                     applicationStatus: response.data[i].applicationStatus,
                     id: response.data[i].id,
@@ -1913,7 +1792,7 @@ const naics = require("naics");
                     locations_id: response.data[i].locations_id,
                     formfields: []
                   };
-                  console.log(this.locations[valueServices], 'this.locations individual')
+                  // console.log(this.locations[this.valueServices], 'this.locations individual')
                   let userForm2 = {
                     applicationStatus: response.data[i].applicationStatus,
                     id: response.data[i].id,
@@ -1925,6 +1804,19 @@ const naics = require("naics");
                     locationName: this.locations[this.valueServices].name,
                     locationAddress: this.locations[this.valueServices].address + " " + this.locations[this.valueServices].city + ", " + this.locations[this.valueServices].state + " " + this.locations[this.valueServices].zipcode,
                   };
+
+
+                  console.log(userForm2, "----------------- USERFORM2")
+                  console.log(this.locations, "----------------- this dot locations")
+                  console.log(this.valueServices, "----------------- valueServices")
+                  console.log(this.valueUserForms, "----------------- valueUserForms")
+
+                  if(i === (response.data.length - 1)){
+                    console.log(response.data.length, "LENGTH! should be 1,2 then 1,2 again")
+                    console.log("TEST OF IF STATEMENT")
+                    this.valueServices++
+                    this.valueUserForms++
+                  }
 
                   if(userForm.applicationStatus === 0) {
                     userForm.applicationStatus = 'Unpublished'
@@ -1938,13 +1830,15 @@ const naics = require("naics");
                   }
                   this.userForms.push(userForm);
                   this.applicationTemplateVal.push(userForm2);
-                  console.log(this.applicationTemplateVal, 'applicationTemplateVal!!', this.valueServices)
-                  // console.log(this.applicationTemplateVal, 'applicationTemplateVal', valueServices, 'valueServices', this.locations[valueServices].address + " " + this.locations[valueServices].city + ", " + this.locations[valueServices].state + " " + this.locations[valueServices].zipcode, 'address for individual applicationTemplateVale')
-                  // // console.log(this.valueServices, 'this.valueServices', this.valueUserForms, 'this.valueUserForms', this.locations, 'this.locations')
-                  // // this.locations[valueServices].services[valueUserForms].userforms[i] = userForm;
-                  // console.log(this.locations[valueServices].userforms[i], 'userform');
+                  console.log(this.applicationTemplateVal, "----------------------------------")
+                  
+                  // setTimeout(() => {
+                  //   console.log("set time out")
+                  // }, 4000)
+
                   await this.getFormFields(response.data[i].id);
                 }
+
                 this.finishedFormFields = true;
               // console.log(this.userForms, 'userForms with formfields');
             })
@@ -1955,7 +1849,7 @@ const naics = require("naics");
       async getFormFields(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(async (response) => {
-            console.log(response.data, 'formfields for userform', id, this.valueFormFields, 'valueFormFields');
+            // console.log(response.data, 'formfields for userform', id, this.valueFormFields, 'valueFormFields');
             this.userForms[this.valueFormFields].formfields = response.data;
             this.applicationTemplateVal[this.valueFormFields].formfields = response.data;
             this.valueFormFields++
@@ -2179,7 +2073,7 @@ const naics = require("naics");
             console.log(response.data[0])
             console.log(response.data[0].order)
             response.data.sort((a,b) => {
-              if (a.order > b.order) return 1;
+              if (a.order > b.order) return-1;
               if (b.order > a.order) return -1;
 
               return 0;
@@ -2220,7 +2114,7 @@ const naics = require("naics");
           .then(response => {
             console.log(response.data, 'formfields for company userform', id);
             response.data.sort((a,b) => {
-              if (a.order > b.order) return 1;
+              if (a.order > b.order) return-1;
               if (b.order > a.order) return -1;
 
               return 0;
