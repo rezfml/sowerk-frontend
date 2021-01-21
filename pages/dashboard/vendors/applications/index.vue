@@ -338,7 +338,7 @@
     <transition name="slide-fade">
       <v-card class="mt-16" v-if="loadYourCompanyTemplates">
         <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Company Approved Templates</v-card-title>
-        <v-btn @click="addNewCompanyTemplateLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Template</v-btn>
+        <v-btn v-if="currentUser.is_superuser" @click="addNewCompanyTemplateLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 25%;"><v-icon>mdi-plus</v-icon>Add New Template</v-btn>
         <template v-if="loading" style="width: 100%;">
           <v-data-table
             :headers="headers"
@@ -379,9 +379,9 @@
             </template>
             <template v-slot:item.actions="{item}" class="d-flex flex-column align-center">
               <div class="d-flex flex-column align-center" v-if="$vuetify.breakpoint.xl">
-                <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
+                <v-btn :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;" v-if="currentUser.is_superuser">Edit</v-btn>
                 <v-btn @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
-                <v-btn @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;">Delete</v-btn>
+                <v-btn @click="deleteCompanyTemplates(item)" class="mx-2 my-2" color="primary" style="width: 80%;" v-if="currentUser.is_superuser">Delete</v-btn>
               </div>
               <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" :to="'/dashboard/vendors/companytemplates/' + item.id" class="mx-2 my-2" style="width: 80%;">Edit</v-btn>
               <v-btn v-if="$vuetify.breakpoint.lg || $vuetify.breakpoint.md || $vuetify.breakpoint.sm || $vuetify.breakpoint.xs" @click="addtoLocationLoad(item)" class="mx-2" color="#707070" style="color:white; width: 80%;">Assign Channel</v-btn>
@@ -414,7 +414,7 @@
                 <v-card-text>{{item.created.slice(0,10)}}</v-card-text>
               </template>
               <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-                <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;">Remove</v-btn>
+                <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;" v-if="currentUser.is_superuser">Remove</v-btn>
                 <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
                 <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
               </template>
@@ -1730,14 +1730,72 @@ const naics = require("naics");
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(async response => {
             console.log(response.data, 'locations RESPONSE DATA LOCATION');
-
-            this.locations = response.data.location
+            response.data.location.forEach(async (location, index) => {
+              console.log("DOES THIS EVEN RUN TWICE")
+            // console.log(response.data, 'locations RESPONSE DATA LOCATION');
+            // this.locations = response.data.location;
+            // console.log(this.locations, 'locations THIS DOT LOCATIONS');
+            // this.addLocations = response.data.location;
+            // for(let i=0; i<this.locations.length; i++) {
+            //   // await this.locations.push(response.data.location[i]);
+            //   // await this.addLocations.push(response.data.location[i]);
+            //   // console.log(this.locations, 'this.locations');
+            //   // console.log(this.valueServices, 'this.valueServices')
+            //   // await this.getServices(response.data.location[i].id)
+            //   this.valueServices++;
+            // }
+            if(this.currentUser.is_superuser) {
+              this.locations = response.data.location
+            } else {
+              this.locations = response.data.location.filter(location => {
+                if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+                  return location
+                }
+              })
+            }
             console.log(this.locations, 'locations THIS DOT LOCATIONS');
             this.addLocations = response.data.location;
-            response.data.location.forEach(async (location, index) => {
-
-
-              console.log("DOES THIS EVEN RUN TWICE")
+            this.locations.forEach(async (location, index) => {
+              // if(location.userforms[0] !== 'There are no userforms') {
+              //   for(let i=0; i<location.userforms.length; i++) {
+              //     let userForm = {
+              //       applicationStatus: location.userforms[i].applicationStatus,
+              //       id: location.userforms[i].id,
+              //       name: location.userforms[i].name,
+              //       service: location.userforms[i].service,
+              //       vendorType: location.userforms[i].vendorType,
+              //       locations_id: location.userforms[i].locations_id,
+              //       formfields: []
+              //     };
+              //     console.log(location, 'this.locations individual')
+              //     let userForm2 = {
+              //       applicationStatus: location.userforms[i].applicationStatus,
+              //       id: location.userforms[i].id,
+              //       name: location.userforms[i].name,
+              //       service: location.userforms[i].service,
+              //       vendorType: location.userforms[i].vendorType,
+              //       locations_id: location.userforms[i].locations_id,
+              //       formfields: [],
+              //       locationName: location.name,
+              //       locationAddress: location.address + " " + location.city + ", " + location.state + " " + location.zipcode,
+              //     };
+              //
+              //     if(userForm.applicationStatus === 0) {
+              //       userForm.applicationStatus = 'Unpublished'
+              //       userForm2.applicationStatus = 'Unpublished'
+              //     } else if (userForm.applicationStatus === 1) {
+              //       userForm.applicationStatus = 'Published - Public'
+              //       userForm2.applicationStatus = 'Published - Public'
+              //     } else {
+              //       userForm.applicationStatus = 'Published - Private'
+              //       userForm2.applicationStatus = 'Published - Private'
+              //     }
+              //     this.userForms.push(userForm);
+              //     this.applicationTemplateVal.push(userForm2);
+              //     this.getFormFields(location.userforms[i].id);
+              //   }
+              // }
+              console.log(this.valueServices, ' bef valueServices');
               await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
 
             })

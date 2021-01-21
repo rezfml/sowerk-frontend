@@ -361,7 +361,7 @@
     },
     async mounted() {
       console.log();
-      //await this.getCompany(this.currentUser.companies_id);
+      await this.getCompany(this.currentUser.companies_id);
       await this.getApplications(this.currentUser.companies_id)
     },
     computed: {
@@ -376,7 +376,16 @@
           .then(async (response) => {
             console.log('company', response.data)
             this.company = response.data;
-            await this.getConnectionTable(this.company.id)
+            if(this.currentUser.is_superuser) {
+              this.company.locations = response.data.locations
+            } else {
+              this.company.locations = response.data.locations.filter(location => {
+                if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+                  return location
+                }
+              })
+            }
+            // await this.getConnectionTable(this.company.id)
           })
           .catch(err => {
             console.log('error in getting company', err)
@@ -517,7 +526,7 @@
             console.log(response.data, 'response for applications by Pm id!!!');
             for(let i=0; i<response.data.length; i++){
               console.log(response.data[i], 'HELLOOOOOOOOOOOO');
-              if(response.data[i].approval_status === 1) {
+              if(response.data[i].approval_status === 1  && this.company.locations.some(val => (val.id === response.data[i].pmlocations_id))) {
                 let newApp = {
                   approval_status: response.data[i].approval_status,
                   created: response.data[i].created,

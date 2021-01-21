@@ -834,6 +834,7 @@
           } else {
             this.addUserForm.is_superuser = false;
           }
+          this.addUserForm.email = this.addUserForm.email.toLowerCase();
           console.log(this.locationsChosen, 'locationsChosen');
           if(this.locationsChosen.length > 0) {
             this.locationsChosen.forEach(location => {

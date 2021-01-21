@@ -212,7 +212,15 @@
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)
           .then(response => {
             this.company = response.data;
-            this.locations = response.data.locations
+            if(this.currentUser.is_superuser) {
+              this.locations = response.data.locations
+            } else {
+              this.locations = response.data.locations.filter(location => {
+                if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+                  return location
+                }
+              })
+            }
             this.messageForm.company = response.data.account_name;
             console.log(this.company, 'company');
           })

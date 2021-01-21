@@ -59,10 +59,10 @@
           </template>
           <template v-slot:item.useractions="{item}">
             <div class="d-flex flex-column align-center">
-              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser === true">Assign Channel</v-btn>
-              <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser === true || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
-              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser === true && items.length > 1">Delete</v-btn>
-              <v-btn @click="resendInvitation(item)" class="my-1" style="width: 90%;" color="#707070" outlined v-if="item.isVerified===false && currentUser.is_superuser === true">Resend Invitation</v-btn>
+              <v-btn @click="assignLocation(item)" class="my-1" style="width: 90%;background-color: #D15959;" color="white" outlined v-if="currentUser.is_superuser">Assign Channel</v-btn>
+              <v-btn @click="editStart(item)" class="my-1" style="width: 90%;background-color:#707070;" color="white" outlined v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.first_name === item.first_name)">Edit</v-btn>
+              <v-btn @click="deleteStart(item.id)" class="my-1" style="width: 90%;" color="primary" outlined v-if="currentUser.is_superuser && items.length > 1">Delete</v-btn>
+              <v-btn @click="resendInvitation(item)" class="my-1" style="width: 90%;" color="#707070" outlined v-if="item.isVerified===false && currentUser.is_superuser">Resend Invitation</v-btn>
             </div>
           </template>
 

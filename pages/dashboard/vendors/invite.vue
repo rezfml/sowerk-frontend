@@ -30,7 +30,7 @@
                   still be invited to join SOWerk, but will still have to submit
                   an application to your business.)
                 </p>
-                <p class="text-body-1 text-center">
+                <p class="text-body-1 text-center py-6" style="border: 1px solid #9A9A9A; width: 50%; text-align: center; margin: 0 auto;">
                   Have a vendor interested in your public profile? Send them this link! <br/> <a target="_blank" :href="'https://www.sowerk.com/' + company.public_name">https://www.sowerk.com/{{company.public_name}}</a>
                 </p>
               </v-col>
@@ -398,7 +398,15 @@ export default {
         )
         .catch((e) => e)
       this.company = data
-      this.properties = data.locations
+      if(this.currentUser.is_superuser) {
+        this.properties = data.locations
+      } else {
+        this.properties = data.locations.filter(location => {
+          if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+            return location
+          }
+        })
+      }
       console.log(this.company, 'company')
     },
     async getBusinesses() {
