@@ -198,60 +198,60 @@
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
         <v-data-table
-          :headers="headersChannelVendorApplicationsVal"
-          :items="listOfUserChannels"
-          :items-per-page="10"
-          class="pt-16"
-          :expanded.sync="expanded"
-          show-expand
-          single-expand
+            :headers="headersChannelVendorApplicationsVal"
+            :items="listOfUserChannels"
+            :items-per-page="10"
+            class="pt-16"
+            :expanded.sync="expanded"
+            show-expand
+            single-expand
         >
-          <template v-slot:expanded-item="{ headers, item }">
+            <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <v-simple-table
+                <v-simple-table
                 fixed-header
                 height="300px"
-              >
+                >
                 <template v-slot:default>
-                  <thead>
-                  <tr>
+                    <thead>
+                    <tr>
                     <th>Application Name</th>
                     <th>Category</th>
                     <th>Type</th>
                     <!-- <th>#Questions</th> -->
                     <th>Application Status</th>
                     <th>Actions</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="app in item.userforms" :key="app.id">
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="app in item.userforms" :key="app.id">
                     <td>{{ app.name }}</td>
                     <td>{{ app.service }}</td>
                     <td>{{ app.vendorType }}</td>
                     <td v-if="app !== 'There are no userforms'">
-                      <v-select
+                        <v-select
                         v-model="app.applicationStatus"
                         :placeholder="item.applicationStatus"
                         :items="applicationOptions"
                         @change="userformEditActive(app)"
-                      >
-                      </v-select>
+                        >
+                        </v-select>
                     </td>
                     <td v-if="app !== 'There are no userforms'">
-                      <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
-                      <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
+                        <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
+                        <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
                     </td>
-                  </tr>
-                  </tbody>
+                    </tr>
+                    </tbody>
                 </template>
-              </v-simple-table>
+                </v-simple-table>
             </td>
-          </template>
+            </template>
 
-          <template v-slot:item.userforms="{ item }">
+            <template v-slot:item.userforms="{ item }">
             <p v-if='item.userforms[0] === "There are no userforms" '>0</p>
             <p v-else-if='item.userforms[0] !== "There are no userforms" '>{{item.userforms.length}}</p>
-          </template>
+            </template>
 
         </v-data-table>
       </template>
@@ -1455,8 +1455,6 @@ const naics = require("naics");
       // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
       await this.getLocations(this.currentUser.companies_id);
       this.videosLinks.vendorApplications = true
-      console.log(this.listOfUserChannels, "------------------------------")
-      console.log(this.listOfChannelVendorApps, "---------------------------")
     },
     computed: {
       currentUser() {
@@ -1729,75 +1727,29 @@ const naics = require("naics");
       async getLocations(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
           .then(async response => {
-            console.log(response.data, 'locations RESPONSE DATA LOCATION');
-            response.data.location.forEach(async (location, index) => {
-              console.log("DOES THIS EVEN RUN TWICE")
             // console.log(response.data, 'locations RESPONSE DATA LOCATION');
-            // this.locations = response.data.location;
-            // console.log(this.locations, 'locations THIS DOT LOCATIONS');
-            // this.addLocations = response.data.location;
-            // for(let i=0; i<this.locations.length; i++) {
-            //   // await this.locations.push(response.data.location[i]);
-            //   // await this.addLocations.push(response.data.location[i]);
-            //   // console.log(this.locations, 'this.locations');
-            //   // console.log(this.valueServices, 'this.valueServices')
-            //   // await this.getServices(response.data.location[i].id)
-            //   this.valueServices++;
-            // }
-            if(this.currentUser.is_superuser) {
-              this.locations = response.data.location
-            } else {
-              this.locations = response.data.location.filter(location => {
-                if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
-                  return location
-                }
-              })
-            }
-            console.log(this.locations, 'locations THIS DOT LOCATIONS');
-            this.addLocations = response.data.location;
-            this.locations.forEach(async (location, index) => {
-              // if(location.userforms[0] !== 'There are no userforms') {
-              //   for(let i=0; i<location.userforms.length; i++) {
-              //     let userForm = {
-              //       applicationStatus: location.userforms[i].applicationStatus,
-              //       id: location.userforms[i].id,
-              //       name: location.userforms[i].name,
-              //       service: location.userforms[i].service,
-              //       vendorType: location.userforms[i].vendorType,
-              //       locations_id: location.userforms[i].locations_id,
-              //       formfields: []
-              //     };
-              //     console.log(location, 'this.locations individual')
-              //     let userForm2 = {
-              //       applicationStatus: location.userforms[i].applicationStatus,
-              //       id: location.userforms[i].id,
-              //       name: location.userforms[i].name,
-              //       service: location.userforms[i].service,
-              //       vendorType: location.userforms[i].vendorType,
-              //       locations_id: location.userforms[i].locations_id,
-              //       formfields: [],
-              //       locationName: location.name,
-              //       locationAddress: location.address + " " + location.city + ", " + location.state + " " + location.zipcode,
-              //     };
-              //
-              //     if(userForm.applicationStatus === 0) {
-              //       userForm.applicationStatus = 'Unpublished'
-              //       userForm2.applicationStatus = 'Unpublished'
-              //     } else if (userForm.applicationStatus === 1) {
-              //       userForm.applicationStatus = 'Published - Public'
-              //       userForm2.applicationStatus = 'Published - Public'
-              //     } else {
-              //       userForm.applicationStatus = 'Published - Private'
-              //       userForm2.applicationStatus = 'Published - Private'
-              //     }
-              //     this.userForms.push(userForm);
-              //     this.applicationTemplateVal.push(userForm2);
-              //     this.getFormFields(location.userforms[i].id);
-              //   }
-              // }
-              console.log(this.valueServices, ' bef valueServices');
-              await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
+            response.data.location.forEach(async (location, index) => {
+              // console.log("DOES THIS EVEN RUN TWICE")
 
+              if(this.currentUser.is_superuser) {
+                this.locations = response.data.location
+              } else {
+                this.locations = response.data.location.filter(location => {
+                  if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+                    return location
+                  }
+                })
+              }
+
+              // console.log(this.locations, 'locations THIS DOT LOCATIONS');
+
+              this.addLocations = response.data.location;
+              this.locations.forEach(async (location, index) => {
+
+                // console.log(this.valueServices, ' bef valueServices');
+                await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
+
+              })
             })
           })
           .catch(err => {
