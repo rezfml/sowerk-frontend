@@ -72,11 +72,10 @@ export default {
       },
       headers: [
         { text: 'Read', value: 'pmMessageRead', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-        { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Company', value: 'company', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'From', value: 'company', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Sender', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Associated Channel', value: 'location', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Message', value: 'message', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        { text: 'Channel', value: 'location', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ]
     }
