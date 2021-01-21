@@ -228,7 +228,7 @@
                     <td>{{ app.name }}</td>
                     <td>{{ app.service }}</td>
                     <td>{{ app.vendorType }}</td>
-                    <td>
+                    <td v-if="app !== 'There are no userforms'">
                       <v-select
                         v-model="app.applicationStatus"
                         :placeholder="item.applicationStatus"
@@ -237,7 +237,7 @@
                       >
                       </v-select>
                     </td>
-                    <td>
+                    <td v-if="app !== 'There are no userforms'">
                       <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
                       <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
                     </td>
@@ -249,8 +249,8 @@
           </template>
 
           <template v-slot:item.userforms="{ item }">
-            <p v-if="item.userforms.length">{{item.userforms.length}}</p>
-            <p v-else>0</p>
+            <p v-if='item.userforms[0] === "There are no userforms" '>0</p>
+            <p v-else-if='item.userforms[0] !== "There are no userforms" '>{{item.userforms.length}}</p>
           </template>
 
         </v-data-table>
@@ -1455,6 +1455,8 @@ const naics = require("naics");
       // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
       await this.getLocations(this.currentUser.companies_id);
       this.videosLinks.vendorApplications = true
+      console.log(this.listOfUserChannels, "------------------------------")
+      console.log(this.listOfChannelVendorApps, "---------------------------")
     },
     computed: {
       currentUser() {
@@ -2217,44 +2219,59 @@ const naics = require("naics");
         console.log(userform, 'userform');
 
         if (confirm("Are you sure you want to delete this?")){
+          try {
             await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + userform.id)
-            .then(response => {
-              if(response.data.length > 0) {
-                for (let i=0; i<response.data.length; i++) {
-                  this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + response.data[i].id)
-                    .then(async (response) => {
-                      console.log('success in deleting formfield company template')
-                    })
-                    .catch(err => {
-                      console.log('err in deleting formfield company template', err)
-                    })
+              .then(response => {
+                if(response.data.length > 0) {
+                  for (let i=0; i<response.data.length; i++) {
+                    this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + response.data[i].id)
+                      .then(async (response) => {
+                        console.log('success in deleting userform Tag')
+                      })
+                      .catch(err => {
+                        console.log('err in deleting userform Tag', err)
+                      })
+                  }
                 }
-              }
-            })
-            .catch(err => {
-              console.log(err, 'err in getting template tags for this company')
-            })
-          if(userform.formfields.length > 0) {
-            for(let i=0; i<userform.formfields.length; i++) {
-              await this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + userform.formfields[i].id)
-                .then(response => {
-                  console.log(response, 'success in deleting formfields');
-                })
-                .catch(err => {
-                  console.log(err, 'err in deleting formfields')
-                })
-            }
+              })
+              .catch(err => {
+                console.log(err, 'err in getting template tags for this company')
+              })
+            console.log("THIS IS THE END OF THE TRY BLOCK -------------------")
+            throw 'myException';         
+          } catch {
+            await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + userform.id)
+              .then(response => {
+                if(response.data.length > 0) {
+                  for (let i=0; i<response.data.length; i++) {
+                    this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + response.data[i].id)
+                      .then(async (response) => {
+                        console.log('success in deleting formfield from userform')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in deleting formfields')
+                      })
+                  }
+                }
+              })
+              .catch(err => {
+                console.log(err, 'err in getting template tags for this company')
+              })
+            console.log("THIS IS THE END OF THE CATCH BLOCK -------------------")
+            
+          } finally {
+            await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
+              .then(response => {
+                console.log(response, 'success in deleting userform')
+                this.$router.go();
+              })
+              .catch(err => {
+                console.log(err, 'err in deleting userform');
+              })
+            console.log("THIS IS THE END OF THE FINALLY BLOCK -------------------")
           }
-          await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
-            .then(response => {
-              console.log(response, 'success in deleting userform')
-              this.$router.go();
-            })
-            .catch(err => {
-              console.log(err, 'err in deleting userform');
-            })
         } else {
-          console.log("did not confirm!!!!!!!!!!!!!")
+          console.log("Did not confirm!")
         }
       },
       async addtoLocationLoad(location) {
