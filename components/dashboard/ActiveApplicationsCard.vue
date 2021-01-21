@@ -223,7 +223,6 @@
 
         await this.$router.go();
       },
-
       async Deny(itemVal) {
         console.log(itemVal, 'itemVal deny');
         const denialChanges = {
