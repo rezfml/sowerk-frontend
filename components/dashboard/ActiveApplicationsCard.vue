@@ -21,114 +21,65 @@
 
     <v-data-table
       :headers="tableProperties"
-      :items="items"
+      :items="bizAndVendorData"
       :items-per-page="5"
+      class="pt-16"
       :expanded.sync="expanded"
       show-expand
-      single-expand >
+      single-expand
+      >
 
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-            <v-simple-table
-            fixed-header
-            height="300px"
-            >
+          <v-simple-table
+          fixed-header
+          height="300px"
+          >
             <template v-slot:default>
                 <thead>
                   <tr>
-                    <th>Application Catagory</th>
-                    <th>Type</th>
-                    <th>Category</th>
-                    <!-- <th>#Questions</th> -->
-                    <th>Application Status</th>
-                    <th>Actions</th>
+                    <th style="color:darkred">Approved Category</th>
+                    <th style="color:darkred">Application Type</th>
+                    <th style="color:darkred">Company</th>
+                    <th style="color:darkred">Channel</th>
+                    <th style="color:darkred">Contact Name</th>
+                    <!-- <th style="color:darkred">Approved Connections</th> -->
+                    <th style="color:darkred">Review</th>
+                    <th style="color:darkred">Actions</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr v-for="app in item.userforms" :key="app.id">
-                    <td>{{ app.name }}</td>
-                    <td>{{ app.service }}</td>
-                    <td>{{ app.vendorType }}</td>
-                    <td v-if="app !== 'There are no userforms'">
-                        <v-select
-                        v-model="app.applicationStatus"
-                        :placeholder="item.applicationStatus"
-                        :items="applicationOptions"
-                        @change="userformEditActive(app)"
-                        >
-                        </v-select>
+                  <tr v-for="app in item.vendorAppsForThisChannel" :key="app.id">
+                    <td>{{ item.appCat }}</td>
+                    <td>{{ item.appType }}</td>
+                    <td>{{ app.companyName }}</td>
+                    <td>{{ app.channelName }}</td>
+                    <td>{{ app.contact }}</td>
+                    <!-- <td>{{ app.approveConnections }}</td> -->
+
+                    <td>
+                      <v-btn class="my-1" block color="primary"  @click="Review(app)">Review</v-btn>
                     </td>
-                    <td v-if="app !== 'There are no userforms'">
-                        <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
-                        <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
+
+                    <td>
+                      <v-btn class="my-1" block color="#707070" outlined  @click="Approve(app)">Approve</v-btn>
+                      <v-btn class="my-1" block color="#802525" outlined @click="Deny(app)">Deny</v-btn>
                     </td>
                   </tr>
                 </tbody>
             </template>
-            </v-simple-table>
+          </v-simple-table>
         </td>
       </template>
-<!-- 
-      <template v-slot:item.services="{item}">
-          <v-row class="d-flex" cols="12" md="6">
-            <p class="mx-auto mb-0">{{item.serviceName}}</p>
-          </v-row>
-      </template> -->
 
-      <!-- <template class="d-flex" v-slot:item.companyName="{item}">
-          <v-row class="d-flex align-center">
-            <v-img :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.img"></v-img>
-            <p class="mx-auto mb-0">{{item.companyName}}</p>
-          </v-row>
-      </template> -->
-
-      <!-- <template v-slot:item.full_name="{item}">
-          <v-row class="d-flex" cols="12" md="6">
-            <p class="mx-auto mb-0">{{item.contact}}</p>
-          </v-row>
+      <!-- <template v-slot:item.bizAndVendorData="{ item }">
+        <td style="color:red;">{{ item.bizAndVendorData.businessChannelName }}</td>
       </template>
 
-      <template v-slot:item.email="{item}">
-          <v-row class="d-flex" cols="12" md="6">
-            <p class="mx-auto mb-0">{{item.email}}</p>
-          </v-row>
-      </template>
-
-      <template v-slot:item.phone="{item}">
-          <v-row class="d-flex" cols="12" md="6">
-            <p class="mx-auto mb-0">{{item.phone}}</p>
-          </v-row>
+      <template v-slot:item.bizAndVendorData="{ item }">
+        <p style="color:red;">{{ item.bizAndVendorData[0].vendorAppsForThisChannel.length }}</p>
       </template> -->
-
-      <!-- <template v-slot:item.channelName="{item}">
-        <v-row class="d-flex flex-column align-center" cols="12" md="6">
-          <p class="mx-auto mb-0">{{item.channelName}}</p>
-        </v-row>
-      </template> -->
-
-      <!-- <template v-slot:item.addressCityState="{item}">
-        <v-row class="d-flex flex-column align-center" cols="12" md="6">
-          <p class="mx-auto mb-0">{{item.addressName}}</p>
-        </v-row>
-      </template> -->
-
-          <!--          <template v-slot:item.yearFounded="{item}">-->
-          <!--            <v-row class="d-flex" cols="12" md="6">-->
-          <!--              <p class="mx-auto mb-0">{{item.yearFounded}}</p>-->
-          <!--            </v-row>-->
-          <!--          </template>-->
-          <!--          <template v-slot:item.radius="{item}">-->
-          <!--            <v-row class="d-flex" cols="12" md="6">-->
-          <!--              <p class="mx-auto mb-0">{{item.radius}}</p>-->
-          <!--            </v-row>-->
-          <!--          </template>-->
-
-      <template v-slot:item.actions="{ item }" class="d-flex">
-        <v-btn class="my-1" block color="primary"  @click="Review(item)">Review</v-btn>
-        <v-btn class="my-1" block color="#707070" outlined  @click="Approve(item)">Approve</v-btn>
-        <v-btn class="my-1" block color="#802525" outlined @click="Deny(item)">Deny</v-btn>
-      </template>
 
     </v-data-table>
   </v-card>
@@ -143,7 +94,7 @@
 <script>
   export default {
     name:'activeapplicationscard',
-    props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
+    props: ['bizAndVendorData', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
     data() {
       return {
         denialMessage: {
@@ -160,10 +111,13 @@
           spLocationName: Number
         },
         success: false,
+        expanded: [],
+        singleExpand: true,
+
       }
     },
     async mounted() {
-      console.log(this.items, 'yayyy');
+      console.log(this.bizAndVendorData, 'yayyy');
     },
     methods: {
       async Approve(itemVal) {
