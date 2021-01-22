@@ -224,14 +224,8 @@
           }
         ],
         headers: [
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-center' },
-          // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-center' },
-          // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Your Channels', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Pending Applications', value: 'applications', class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applications: [],
         applicationsCount: 0,
