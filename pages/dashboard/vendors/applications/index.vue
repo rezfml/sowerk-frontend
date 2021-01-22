@@ -197,6 +197,7 @@
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
+        
         <v-data-table
             :headers="headersChannelVendorApplicationsVal"
             :items="listOfUserChannels"
@@ -207,50 +208,54 @@
             single-expand
         >
             <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
+              <td :colspan="headers.length">
                 <v-simple-table
                 fixed-header
                 height="300px"
                 >
-                <template v-slot:default>
-                    <thead>
-                    <tr>
-                    <th>Application Name</th>
-                    <th>Category</th>
-                    <th>Type</th>
-                    <!-- <th>#Questions</th> -->
-                    <th>Application Status</th>
-                    <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="app in item.userforms" :key="app.id">
-                    <td>{{ app.name }}</td>
-                    <td>{{ app.service }}</td>
-                    <td>{{ app.vendorType }}</td>
-                    <td v-if="app !== 'There are no userforms'">
-                        <v-select
-                        v-model="app.applicationStatus"
-                        :placeholder="item.applicationStatus"
-                        :items="applicationOptions"
-                        @change="userformEditActive(app)"
-                        >
-                        </v-select>
-                    </td>
-                    <td v-if="app !== 'There are no userforms'">
-                        <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
-                        <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
-                    </td>
-                    </tr>
-                    </tbody>
-                </template>
+                  <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th style="color:darkred">Application Name</th>
+                          <th style="color:darkred">Category</th>
+                          <th style="color:darkred">Type</th>
+                          <th style="color:darkred">Application Status</th>
+                          <th style="color:darkred">Actions</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr v-for="app in item.userforms" :key="app.id">
+                          <td>{{ app.name }}</td>
+                          <td>{{ app.service }}</td>
+                          <td>{{ app.vendorType }}</td>
+                          <td v-if="app !== 'There are no userforms'">
+                              <v-select
+                              v-model="app.applicationStatus"
+                              :placeholder="item.applicationStatus"
+                              :items="applicationOptions"
+                              @change="userformEditActive(app)"
+                              >
+                              </v-select>
+                          </td>
+                          <td v-if="app !== 'There are no userforms'">
+                              <v-btn class="my-1" color="#707070" :to="'/dashboard/vendors/applications/' + app.id" style="color: white; width: 20%;">Edit</v-btn>
+                              <v-btn @click="deleteUserForm(app)" class="my-1" color="primary" style="width: 20%;">Delete</v-btn>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </template>
                 </v-simple-table>
-            </td>
+              </td>
             </template>
 
             <template v-slot:item.userforms="{ item }">
-            <p v-if='item.userforms[0] === "There are no userforms" '>0</p>
-            <p v-else-if='item.userforms[0] !== "There are no userforms" '>{{item.userforms.length}}</p>
+              <p style="color:red;">{{ item.userforms[0].name }}</p>
+            </template>
+
+            <template v-slot:item.userforms="{ item }">
+              <p v-if='item.userforms[0] === "There are no userforms" '>0</p>
+              <p v-else-if='item.userforms[0] !== "There are no userforms" '>{{item.userforms.length}}</p>
             </template>
 
         </v-data-table>

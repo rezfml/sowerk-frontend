@@ -3,79 +3,87 @@
     <v-card-title
       style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient"
     >{{ title }}</v-card-title>
-<!--      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadingRequests">-->
-<!--        <v-progress-circular-->
-<!--          indeterminate-->
-<!--          color="primary"-->
-<!--          :size="50"-->
-<!--        ></v-progress-circular>-->
-<!--      </v-col>-->
+        <!--      <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadingRequests">-->
+        <!--        <v-progress-circular-->
+        <!--          indeterminate-->
+        <!--          color="primary"-->
+        <!--          :size="50"-->
+        <!--        ></v-progress-circular>-->
+        <!--      </v-col>-->
     <v-card-actions class="d-flex justify-end px-4 py-0">
-        <v-row class="py-0">
-          <v-spacer></v-spacer>
-          <v-col cols="4" class="py-0">
-            <v-text-field label="Search" light></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+      <v-row class="py-0">
+        <v-spacer></v-spacer>
+        <v-col cols="4" class="py-0">
+          <v-text-field label="Search" light></v-text-field>
+        </v-col>
+      </v-row>
+    </v-card-actions>
+
     <v-data-table
-                :items="items"
-                :headers="tableProperties"
-                :items-per-page="5"
-        >
-          <template v-slot:item.services="{item}">
-            <v-row class="d-flex" cols="12" md="6">
-              <p class="mx-auto mb-0">{{item.serviceName}}</p>
-            </v-row>
-          </template>
-          <template class="d-flex" v-slot:item.companyName="{item}">
-            <v-row class="d-flex align-center">
-              <v-img :aspect-ratio="1" class="rounded-circle flex-grow-1 my-2 mr-1" style="" :src="item.img"></v-img>
-              <p class="mx-auto mb-0">{{item.companyName}}</p>
-            </v-row>
-          </template>
-          <template v-slot:item.full_name="{item}">
-            <v-row class="d-flex" cols="12" md="6">
-              <p class="mx-auto mb-0">{{item.contact}}</p>
-            </v-row>
-          </template>
-          <template v-slot:item.email="{item}">
-            <v-row class="d-flex" cols="12" md="6">
-              <p class="mx-auto mb-0">{{item.email}}</p>
-            </v-row>
-          </template>
-          <template v-slot:item.phone="{item}">
-            <v-row class="d-flex" cols="12" md="6">
-              <p class="mx-auto mb-0">{{item.phone}}</p>
-            </v-row>
-          </template>
-          <template v-slot:item.channelName="{item}">
-          <v-row class="d-flex flex-column align-center" cols="12" md="6">
-            <p class="mx-auto mb-0">{{item.channelName}}</p>
-          </v-row>
-        </template>
-          <template v-slot:item.addressCityState="{item}">
-            <v-row class="d-flex flex-column align-center" cols="12" md="6">
-              <p class="mx-auto mb-0">{{item.addressName}}</p>
-            </v-row>
-          </template>
-<!--          <template v-slot:item.yearFounded="{item}">-->
-<!--            <v-row class="d-flex" cols="12" md="6">-->
-<!--              <p class="mx-auto mb-0">{{item.yearFounded}}</p>-->
-<!--            </v-row>-->
-<!--          </template>-->
-<!--          <template v-slot:item.radius="{item}">-->
-<!--            <v-row class="d-flex" cols="12" md="6">-->
-<!--              <p class="mx-auto mb-0">{{item.radius}}</p>-->
-<!--            </v-row>-->
-<!--          </template>-->
-          <template v-slot:item.actions="{ item }" class="d-flex">
-            <v-btn class="my-1" block color="primary"  @click="Review(item)">Review</v-btn>
-            <v-btn class="my-1" block color="#707070" outlined  @click="Approve(item)">Approve</v-btn>
-            <v-btn class="my-1" block color="#802525" outlined @click="Deny(item)">Deny</v-btn>
-          </template>
-        </v-data-table>
+      :headers="tableProperties"
+      :items="bizAndVendorData"
+      :items-per-page="5"
+      class="pt-16"
+      :expanded.sync="expanded"
+      show-expand
+      single-expand
+      >
+
+      <template v-slot:expanded-item="{ headers, item }">
+        <td :colspan="headers.length">
+          <v-simple-table
+          fixed-header
+          height="300px"
+          >
+            <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th style="color:darkred">Approved Category</th>
+                    <th style="color:darkred">Application Type</th>
+                    <th style="color:darkred">Company</th>
+                    <th style="color:darkred">Channel</th>
+                    <th style="color:darkred">Contact Name</th>
+                    <!-- <th style="color:darkred">Approved Connections</th> -->
+                    <th style="color:darkred">Review</th>
+                    <th style="color:darkred">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr v-for="app in item.vendorAppsForThisChannel" :key="app.id">
+                    <td>{{ item.appCat }}</td>
+                    <td>{{ item.appType }}</td>
+                    <td>{{ app.companyName }}</td>
+                    <td>{{ app.channelName }}</td>
+                    <td>{{ app.contact }}</td>
+                    <!-- <td>{{ app.approveConnections }}</td> -->
+
+                    <td>
+                      <v-btn class="my-1" block color="primary"  @click="Review(app)">Review</v-btn>
+                    </td>
+
+                    <td>
+                      <v-btn class="my-1" block color="#707070" outlined  @click="Approve(app)">Approve</v-btn>
+                      <v-btn class="my-1" block color="#802525" outlined @click="Deny(app)">Deny</v-btn>
+                    </td>
+                  </tr>
+                </tbody>
+            </template>
+          </v-simple-table>
+        </td>
+      </template>
+
+      <!-- <template v-slot:item.bizAndVendorData="{ item }">
+        <td style="color:red;">{{ item.bizAndVendorData.businessChannelName }}</td>
+      </template>
+
+      <template v-slot:item.bizAndVendorData="{ item }">
+        <p style="color:red;">{{ item.bizAndVendorData[0].vendorAppsForThisChannel.length }}</p>
+      </template> -->
+
+    </v-data-table>
   </v-card>
+
   <v-card v-else style="height: auto;" class="d-flex flex-column align-center">
     <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
     <v-card-title class="mt-2" color="primary">Your SOWerk Application Has Been Approved!</v-card-title>
@@ -86,7 +94,7 @@
 <script>
   export default {
     name:'activeapplicationscard',
-    props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
+    props: ['bizAndVendorData', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
     data() {
       return {
         denialMessage: {
@@ -103,10 +111,13 @@
           spLocationName: Number
         },
         success: false,
+        expanded: [],
+        singleExpand: true,
+
       }
     },
     async mounted() {
-      console.log(this.items, 'yayyy');
+      console.log(this.bizAndVendorData, 'yayyy');
     },
     methods: {
       async Approve(itemVal) {
