@@ -13,9 +13,9 @@
             <div class="joinconnectiontext">
               <h3>1. Create Account and Vet Vendors</h3>
               <p>
-                In less than 15 minutes, you can have multiple business locations set up
-                with dedicated staff accounts and customized questionnaires vetting
-                local & national vendors.
+                In less than 15 minutes, you can have multiple locations set up
+                with dedicated staff accounts and live questionnaires vetting
+                local & national service providers.
               </p>
             </div>
           </div>
@@ -42,9 +42,9 @@
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
             />
             <div class="joinconnectiontext">
-              <h3>2. Vendor Management</h3>
+              <h3>2. Vendor Management & RFP</h3>
               <p>
-                SOWerk gives your staff at one location or all locations the communication tools to manage vendor relationships.
+                When you need a service at one of your properties, SOWerk makes it easy to communicate in one click to your approved vendors the request for a bid.
               </p>
             </div>
           </div>
@@ -80,10 +80,10 @@
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/profile_1_copy.png"
             />
             <div class="joinconnectiontext">
-              <h3>1. Build Your Business Profile</h3>
+              <h3>1. Build A Profile</h3>
               <p>
-                SOWerk makes it easy & quick for you to show off your company background,
-                and we promote all the company connections you have on SOWerk so businesses know they can trust you.
+                SOWerk makes it easy & quick for you to show off your brand,
+                company background, and we help promote all companies where you are an approved vendor.
                  Your SOWerk profile is both easy and powerful.
               </p>
             </div>
@@ -113,8 +113,7 @@
             <div class="joinconnectiontext">
               <h3>2. Approved Vendor Status</h3>
               <p>
-                Your SOWerk Vendor profile is designed to make applying to approved vendor
-                programs a snap. We know you are short on time so we try to make it both easy & rewarding.
+                Use your profile to qualify for approved vendor status in as little as one click
               </p>
             </div>
           </div>
@@ -143,7 +142,7 @@
             <div class="joinconnectiontext">
               <h3>3. Get The Job</h3>
               <p>
-                Every day, the SOWerk staff is working hard to give Vendors the tools to grow their relationships and business.
+                We make it easy and powerful for businesses to communicate their needs to approved vendors. We also make it easy for you to react quickly with a bid.
               </p>
             </div>
           </div>
@@ -155,6 +154,8 @@
           </button>
         </div>
       </div>
+
+
     </section>
 </template>
 
