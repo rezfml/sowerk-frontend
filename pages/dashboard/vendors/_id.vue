@@ -440,7 +440,7 @@
             </template>
             <template v-slot:item.actions="{ item }">
               <v-btn style="width: 90%;background-color:#707070;" outlined color="white" :to="'/dashboard/vendors/original-application/' + item.id">View Original Application</v-btn>
-              <v-btn v-if="company.locations.includes(item.locationName)" style="width: 90%;" color="primary" @click="startConnectionRemovalProcess(item)" >Remove Connection</v-btn>
+              <v-btn v-if="company.locations.includes(item.locationName) || currentUser.is_superuser" style="width: 90%;" color="primary" @click="startConnectionRemovalProcess(item)" >Remove Connection</v-btn>
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitShowRelationshipApprovedModalLoad">< Back</v-btn>

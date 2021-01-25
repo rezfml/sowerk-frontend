@@ -138,6 +138,8 @@
           :headers="providerApprovedHeaders"
           :items-per-page="10"
           :search="searchVal"
+          :loading="loadRequestingApprovedApplications"
+          loading-text="Loading... Please wait"
         >
           <template v-slot:item.imageUrl="{item}"  >
             <div style="width: 100%;" class="d-flex justify-center">
@@ -151,11 +153,6 @@
             </div>
           </template>
           <template v-slot:item.name="{item}">
-            <div style="width: 100%;" class="d-flex flex-column align-center">
-              <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
-            </div>
-          </template>
-          <template v-slot:item.userform_name="{item}">
             <div style="width: 100%;" class="d-flex flex-column align-center">
               <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
             </div>
@@ -176,6 +173,7 @@
     layout: "app",
     data() {
       return {
+        loadRequestingApprovedApplications: true,
         search: '',
         searchVal: '',
         showVideo: false,
@@ -202,7 +200,6 @@
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
           { text: 'Company', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Application', value: 'userform_name', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applicationRequestsModal: true,
@@ -234,6 +231,18 @@
       async preApprovedRequestsModalOpen() {
         this.applicationRequestsModal = false
         this.preApprovedRequestsModal = true
+        this.getPreApprovedRequests();
+      },
+      async getPreApprovedRequests() {
+        await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data)
+            this.requestingApprovedApplications = response.data
+            this.loadRequestingApprovedApplications = false
+          })
+          .catch(err => {
+            console.log(err)
+          })
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
