@@ -5,6 +5,7 @@
       text-center
       pb-16
       style="background:#2B2B2B; display: flex; justify-content: center; align-items:center; flex-direction: column"
+      class="skew-top"
     >
       <p
         class="text-lg-h3 text-sm-h4 font-weight-bold white--text pl-4 pr-4 pt-10 mb-0 pb-10"
@@ -39,7 +40,7 @@
               style="width: 80%; font-size: 1rem; text-align: center"
             >
               Our simple design makes connecting with other companies quick and
-              painless while using either the desktop or mobile app.
+              painless.
             </div>
           </v-card>
         </v-col>
@@ -68,8 +69,8 @@
               class="py-3"
               style="width: 80%; font-size: 1rem; text-align: center"
             >
-              At the very foundation of SOWerk are powerful vendor vetting tools designed to
-              empower all staff levels and build stronger vendor relations.
+              SOWerk was designed from the ground up to empower both Businesses and Vendors.
+              Built by people who use SOWerk everyday.
             </div>
           </v-card>
         </v-col>
@@ -92,16 +93,14 @@
             </div>
             <v-card-text
               style="font-size: 22px; font-weight:400; color: black; letter-spacing: 1px;"
-              >Automations</v-card-text
+              >Automated</v-card-text
             >
             <div
               class="py-3"
               style="width: 80%; font-size: 1rem; text-align: center"
             >
               SOWerk has many automated features that help make everyone’s life
-              easy, like automatically requiring service providers to requalify
-              or automatically updating a service provider’s profile every time
-              they achieve approved vendor status.
+              easy. We know you have work to do so SOWerk tries to make it easy.
             </div>
           </v-card>
         </v-col>
