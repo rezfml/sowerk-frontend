@@ -3,7 +3,10 @@
   <v-flex class="pt-16" style="background: #EDEDED">
       <v-container>
 
-        <v-row class="justify-space-around" style="width: 100%; max-width: 100%;margin-bottom: 1%;">
+        <v-row 
+          v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.lg || $vuetify.breakpoint.xl"
+          class="justify-space-around" 
+          style="width: 100%; max-width: 100%;margin-bottom: 1%;">
             <v-img style="width:100%" src="/sowerk-reviews.png"></v-img>
         </v-row>
 
