@@ -23,12 +23,12 @@
       :headers="tableProperties"
       :items="bizAndVendorData"
       :items-per-page="5"
+      item-key="businessChannelId"
       class="pt-16"
       :expanded.sync="expanded"
       show-expand
       single-expand
       >
-
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <v-simple-table
@@ -73,13 +73,13 @@
         </td>
       </template>
 
-      <!-- <template v-slot:item.bizAndVendorData="{ item }">
-        <td style="color:red;">{{ item.bizAndVendorData.businessChannelName }}</td>
-      </template>
+<!--      &lt;!&ndash; <template v-slot:item.bizAndVendorData="{ item }">-->
+<!--        <td style="color:red;">{{ item.bizAndVendorData.businessChannelName }}</td>-->
+<!--      </template>-->
 
-      <template v-slot:item.bizAndVendorData="{ item }">
-        <p style="color:red;">{{ item.bizAndVendorData[0].vendorAppsForThisChannel.length }}</p>
-      </template> -->
+<!--      <template v-slot:item.bizAndVendorData="{ item }">-->
+<!--        <p style="color:red;">{{ item.bizAndVendorData[0].vendorAppsForThisChannel.length }}</p>-->
+<!--      </template> &ndash;&gt;-->
 
     </v-data-table>
   </v-card>
@@ -113,7 +113,6 @@
         success: false,
         expanded: [],
         singleExpand: true,
-
       }
     },
     async mounted() {

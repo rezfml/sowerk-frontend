@@ -75,7 +75,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -358,7 +358,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -650,7 +650,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -1048,7 +1048,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -1337,7 +1337,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
