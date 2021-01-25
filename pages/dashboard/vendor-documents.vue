@@ -61,8 +61,8 @@
           </v-col>
 
           <v-col cols="5" class="d-flex flex-column justify-center">
-            <v-card-title style="color:darkred; font-size: 24px">Manage Requesting Documents</v-card-title>
-            <v-card-text style="font-size: 18px;">Vendors can utilize the Requesting Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
+            <v-card-title style="color:darkred; font-size: 24px; word-break: break-word; white-space: pre-wrap;">Manage Requesting Documents</v-card-title>
+            <v-card-text style="font-size: 18px; word-break: break-word; white-space: pre-wrap;">Vendors can utilize the Requesting Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
           </v-col>
         </v-row>
       </v-card>
