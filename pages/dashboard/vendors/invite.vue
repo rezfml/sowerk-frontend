@@ -119,7 +119,8 @@
                     <template v-slot:item.property="{ item }">
                       <v-select
                         :items="properties"
-                        item-text="name"
+                        item-text="id name"
+                        item-value="id name"
                         v-model="item.property"
                         class="text-caption"
                         multiple
@@ -127,12 +128,12 @@
                         :rules="rules.requiredRules"
                       >
                         <template slot="selection" slot-scope="data">
-                          <p @click="selectUserforms(data.item.id)">{{ data.item.name }} - {{ data.item.address }}
+                          <p @click="selectUserforms(data.item.id)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }}
                             {{ data.item.city }}, {{ data.item.state }}
                             {{ data.item.zipcode }}</p>
                         </template>
                         <template slot="item" slot-scope="data">
-                          <p @click="selectUserforms(data.item.id)">{{ data.item.name }} - {{ data.item.address }}
+                          <p @click="selectUserforms(data.item.id)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }}
                             {{ data.item.city }}, {{ data.item.state }}
                             {{ data.item.zipcode }}</p>
                         </template>
@@ -290,8 +291,8 @@ export default {
           lastName: '',
           email: '',
           preapproved: Boolean,
-          property: '',
-          application: '',
+          property: [],
+          application: [],
         }
       ],
       properties: [],
@@ -440,6 +441,7 @@ export default {
     },
     async inviteProviders() {
       this.$refs.form.validate();
+
       if(this.$refs.form.validate()) {
         let providersObject = {
           companies_id: this.$store.state.user.user.user.companies_id,
@@ -456,27 +458,59 @@ export default {
           companyImg: this.company.imgUrl,
           application: [],
         }
+        for (let i = 0; i < this.vendors.length; i++) {
+          this.$http.get('https://www.sowerkbackend.com/api/companies/invitename/' + this.vendors[i].companyName)
+            .then(response => {
+              console.log(response.data, 'company invited in table!!!!')
+              if(response.data.length > 0) {
+                for(let j=0; i<this.vendors[i].property.length; j++) {
+                  this.$http.post('https://www.sowerkbackend.com/api/preapprovedRequest', {
+                    pmcompanies_id: this.$store.state.user.user.user.companies_id,
+                    spcompanies_id: response.data[0].id,
+                    locations_id: this.vendors[i].property[j].id,
+                    companyName: this.company.account_name,
+                    channelName: this.vendors[i].property[j].name,
+                    approval_status: 0,
+                  })
+                    .then(success => {
+                      console.log('pre approval sent')
+                    })
+                    .catch(err => {
+                      console.log(err)
+                    })
+                }
+              }
+            })
+            .catch(err => {
+              console.log(err)
+              this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + this.vendors[i].email)
+                .then(responseUser => {
+                  console.log(responseUser, 'user is here!')
+                })
+                .catch(errUser => {
+                  console.log(errUser)
+                  providersObject.companyName.push(this.vendors[i].companyName)
+                  providersObject.first_name.push(this.vendors[i].firstName)
+                  providersObject.last_name.push(this.vendors[i].lastName)
+                  providersObject.phone.push(this.vendors[i].phone)
+                  providersObject.toEmail.push(this.vendors[i].email)
+                  providersObject.pre_approved.push(this.vendors[i].preapproved)
+                })
+            })
+        }
         providersObject.property.push(this.vendors.property)
         providersObject.application.push(this.vendors.application)
-        for (let i = 0; i < this.vendors.length; i++) {
-          providersObject.companyName.push(this.vendors[i].companyName)
-          providersObject.first_name.push(this.vendors[i].firstName)
-          providersObject.last_name.push(this.vendors[i].lastName)
-          providersObject.phone.push(this.vendors[i].phone)
-          providersObject.toEmail.push(this.vendors[i].email)
-          providersObject.pre_approved.push(this.vendors[i].preapproved)
-        }
-        console.log(providersObject, 'yay')
-        await this.$http
-          .post('https://www.sowerkbackend.com/api/invite', providersObject)
-          .then((response) => {
-            console.log(response, 'success')
-            this.success = true
-          })
-          .catch((err) => {
-            console.log('err', err)
-            alert('error in inviting service providers to our platform')
-          })
+        console.log(providersObject, 'yay', this.vendors, 'vendors')
+        // await this.$http
+        //   .post('https://www.sowerkbackend.com/api/invite', providersObject)
+        //   .then((response) => {
+        //     console.log(response, 'success')
+        //     this.success = true
+        //   })
+        //   .catch((err) => {
+        //     console.log('err', err)
+        //     alert('error in inviting service providers to our platform')
+        //   })
       }
     },
     async getServices() {
@@ -523,8 +557,8 @@ export default {
         email: '',
         phone: '',
         preapproved: Boolean,
-        property: '',
-        application: '',
+        property: [],
+        application: [],
       }
       this.vendors.push(newVendor)
     }
