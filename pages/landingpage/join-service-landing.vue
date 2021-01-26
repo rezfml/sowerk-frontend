@@ -47,7 +47,7 @@
     </v-container>
     <PricingLevels class="pricing-levels" />
     <!-- GETTING STARTED IS FREE AND EASY -->
-    <v-container fluid class="py-10" style="background: #151515; height: 40vh">
+    <v-container fluid class="py-10" style="background: #151515; height: 40vh" >
       <v-row class="py-5 px-0">
         <v-col cols="12" class="text-center px-0">
           <p class="white--text font-weight-bold px-1" style="margin-left:15%;margin-right:15%;">
@@ -72,7 +72,7 @@
 
     <!-- NEW SECTION - JOIN STEPS -->
     <section class="joinservicesteps">
-      <div class="joinservicestepscontainer">
+      <div class="joinservicestepscontainer" style="margin-top:15%">
         <div class="joinservicestepcontainerstep">
           <img
             v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
