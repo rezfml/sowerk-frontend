@@ -2037,7 +2037,7 @@
     },
     data() {
       return {
-        firstTimeLogin: true,
+        firstTimeLogin: null,
         openUploadModelLoad: false,
         loadModal: false,
         loading: false,
@@ -2378,7 +2378,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
-          // this.firstTimeLogin = data.firstTimeLogin
+          this.firstTimeLogin = data.firstTimeLogin
           if(this.user.temporaryPasswordBoolean) {
             this.changePasswordPopup = true;
           }

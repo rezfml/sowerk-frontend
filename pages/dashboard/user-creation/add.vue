@@ -32,7 +32,7 @@
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
                 <v-col cols="12">
-                  <v-select
+                  <v-autocomplete
                     :items="locations"
                     item-value="name"
                     v-model="locationsChosen"
@@ -46,7 +46,7 @@
                     <template slot="item" slot-scope="data">
                       <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
-                  </v-select>
+                  </v-autocomplete>
 <!--                  <v-checkbox-->
 <!--                    label="Select this to assign ALL channels to this user"-->
 <!--                    v-model="locationsChosenCheck"-->
@@ -101,7 +101,7 @@
                   style="width: 40%; font-size: 18px;"
                 ></v-select>
                 <v-col cols="12">
-                  <v-select
+                  <v-autocomplete
                     :items="locations"
                     v-model="locationsChosen"
                     multiple
@@ -114,7 +114,7 @@
                     <template slot="item" slot-scope="data">
                       <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
-                  </v-select>
+                  </v-autocomplete>
 <!--                  <v-checkbox-->
 <!--                    label="Select this to assign ALL channels to this user"-->
 <!--                    v-model="locationsChosenCheck"-->
@@ -170,7 +170,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -183,7 +183,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -238,7 +238,7 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -251,7 +251,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -307,7 +307,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -320,7 +320,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -375,7 +375,7 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -388,7 +388,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -447,7 +447,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -460,7 +460,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -517,7 +517,7 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -530,7 +530,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -590,7 +590,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   item-text="name"
                   v-model="locationsChosen"
@@ -604,7 +604,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -661,11 +661,11 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
-                  label="TSelect All of the Channels that you want to assign this user to"
+                  label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
@@ -674,7 +674,7 @@
                   <template slot="item" slot-scope="data">
                     <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
