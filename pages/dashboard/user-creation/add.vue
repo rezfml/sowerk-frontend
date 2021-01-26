@@ -41,10 +41,10 @@
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                   </v-select>
 <!--                  <v-checkbox-->
@@ -109,10 +109,10 @@
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                   </v-select>
 <!--                  <v-checkbox-->
@@ -178,10 +178,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -246,10 +246,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -315,10 +315,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -383,10 +383,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -455,10 +455,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -525,10 +525,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -599,10 +599,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -669,10 +669,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
