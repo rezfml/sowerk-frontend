@@ -26,6 +26,12 @@
       </v-row>
     </v-container>
 
+    <v-container>
+      <div>
+        <img src="/CRM-homePage.png" alt="">
+      </div>
+    </v-container>
+
     <!-- VENDOR TOOLBOXES SECTION -->
     <VendorToolBoxes />
     <!-- PRICING LEVELS -->
