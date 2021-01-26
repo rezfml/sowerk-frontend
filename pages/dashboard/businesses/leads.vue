@@ -138,6 +138,8 @@
           :headers="providerApprovedHeaders"
           :items-per-page="10"
           :search="searchVal"
+          :loading="loadRequestingApprovedApplications"
+          loading-text="Loading... Please wait"
         >
           <template v-slot:item.imageUrl="{item}"  >
             <div style="width: 100%;" class="d-flex justify-center">
@@ -155,14 +157,9 @@
               <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
             </div>
           </template>
-          <template v-slot:item.userform_name="{item}">
-            <div style="width: 100%;" class="d-flex flex-column align-center">
-              <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
-            </div>
-          </template>
           <template v-slot:item.actions="{ item }" class="d-flex">
-            <v-btn color="primary" block class="my-2" >Accept</v-btn>
-            <v-btn color="primary" block class="my-2" >Deny</v-btn>
+            <v-btn color="primary" block class="my-2" @click="acceptPreApp(item)">Accept</v-btn>
+            <v-btn color="primary" block class="my-2" @click="denyPreApp(item)">Deny</v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -176,6 +173,7 @@
     layout: "app",
     data() {
       return {
+        loadRequestingApprovedApplications: true,
         search: '',
         searchVal: '',
         showVideo: false,
@@ -199,10 +197,8 @@
         ],
         requestingApprovedApplications: [],
         providerApprovedHeaders: [
-          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
-          { text: 'Company', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Application', value: 'userform_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applicationRequestsModal: true,
@@ -234,6 +230,18 @@
       async preApprovedRequestsModalOpen() {
         this.applicationRequestsModal = false
         this.preApprovedRequestsModal = true
+        this.getPreApprovedRequests();
+      },
+      async getPreApprovedRequests() {
+        await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data)
+            this.requestingApprovedApplications = response.data.filter(app => app.approval_status === 0)
+            this.loadRequestingApprovedApplications = false
+          })
+          .catch(err => {
+            console.log(err)
+          })
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
@@ -248,6 +256,40 @@
           this.showVideo = false
         }
       },
+      async acceptPreApp(item) {
+        await this.$http.put('https://www.sowerkbackend.com/api/preapprovedRequest/' + item.id, {
+          approval_status: 1
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+            this.requestingApprovedApplications = this.requestingApprovedApplications.filter(request => request !== item)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        await this.$http.post('https://www.sowerkbackend.com/api/approvedproviderconnections/', {
+          propertymanager_id: item.pmcompanies_id,
+          serviceprovider_id: item.spcompanies_id
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      async denyPreApp(item) {
+        await this.$http.put('https://www.sowerkbackend.com/api/preapprovedRequest/' + item.id, {
+          approval_status: 2
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+            this.requestingApprovedApplications = this.requestingApprovedApplications.filter(request => request !== item)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     }
   }
 </script>

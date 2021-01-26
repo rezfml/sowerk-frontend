@@ -103,15 +103,15 @@
           </transition>
 
           <transition name="slide-fade">
-          <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
+            <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
           </transition>
 <!--          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
           <transition name="slide-fade">
-          <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
+            <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
           </transition>
 
           <transition name="slide-fade">
-          <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags" :originalLocationTags="originalLocationTags" :getLocationTags="getLocationTags"></ProfileEditCard>
+            <ProfileEditCard :location="location" v-if="editLocationDetails === true" v-on:selectFileUrl="selectLocationImageUrl" :editLocation="editLocation" v-on:cancel="cancelEditing" :locationTags="locationTags" :sowerkTags="sowerkTags" :originalLocationTags="originalLocationTags" :getLocationTags="getLocationTags"></ProfileEditCard>
           </transition>
         </v-col>
       </v-row>
@@ -604,10 +604,10 @@
                       console.log('response.data', response.data)
                       this.getLocations(response.data[i].spcompanies_id);
                       console.log(this.connections, 'connections');
-                      this.customerConnectionsLoad = true;
                       this.getBusinessLocation(response.data[i].pmlocations_id);
                     }
                   }
+                  this.customerConnectionsLoad = true;
                 })
                 .catch(err => {
                   console.log(err, 'err');

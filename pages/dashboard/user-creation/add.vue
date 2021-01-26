@@ -1,9 +1,9 @@
 <template>
 
-
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div style="width: 100%;" class="d-flex align-center" v-if="$vuetify.breakpoint.xl">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
         <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
         <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
           <v-skeleton-loader
@@ -32,7 +32,7 @@
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
                 <v-col cols="12">
-                  <v-select
+                  <v-autocomplete
                     :items="locations"
                     item-value="name"
                     v-model="locationsChosen"
@@ -41,12 +41,12 @@
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
-                  </v-select>
+                  </v-autocomplete>
 <!--                  <v-checkbox-->
 <!--                    label="Select this to assign ALL channels to this user"-->
 <!--                    v-model="locationsChosenCheck"-->
@@ -101,7 +101,7 @@
                   style="width: 40%; font-size: 18px;"
                 ></v-select>
                 <v-col cols="12">
-                  <v-select
+                  <v-autocomplete
                     :items="locations"
                     v-model="locationsChosen"
                     multiple
@@ -109,12 +109,12 @@
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
-                  </v-select>
+                  </v-autocomplete>
 <!--                  <v-checkbox-->
 <!--                    label="Select this to assign ALL channels to this user"-->
 <!--                    v-model="locationsChosenCheck"-->
@@ -140,7 +140,8 @@
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
   <div v-else-if="$vuetify.breakpoint.lg">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -169,7 +170,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -177,12 +178,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -237,7 +238,7 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -245,12 +246,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -276,7 +277,8 @@
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.md">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -305,7 +307,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -313,12 +315,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -373,7 +375,7 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -381,12 +383,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -412,7 +414,8 @@
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.sm">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -444,7 +447,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -452,12 +455,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -514,7 +517,7 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
@@ -522,12 +525,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -553,7 +556,8 @@
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.xs">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -586,7 +590,7 @@
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   item-text="name"
                   v-model="locationsChosen"
@@ -595,12 +599,12 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->
@@ -657,20 +661,20 @@
                 style="width: 40%; font-size: 18px;"
               ></v-select>
               <v-col cols="12">
-                <v-select
+                <v-autocomplete
                   :items="locations"
                   v-model="locationsChosen"
                   multiple
-                  label="TSelect All of the Channels that you want to assign this user to"
+                  label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
-                </v-select>
+                </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
 <!--                  v-model="locationsChosenCheck"-->

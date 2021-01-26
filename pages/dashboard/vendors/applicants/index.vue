@@ -88,6 +88,7 @@
               :bizAndVendorData="bizAndVendorData"
               :company="company"
               :viewAll="false"
+              :loadingRequests="loading"
               slug="/dashboard/vendors/applicants"
             ></ActiveApplicationsCard>
           </template>
@@ -110,6 +111,7 @@
     },
     data() {
       return {
+        expanded: [],
         loading: false,
         filters: [
           {
@@ -302,8 +304,9 @@
               }
             }))
 
-            
+
             let allDataForEachRow = {
+              businessChannelId: this.company.locations[i].id,
               businessChannelName: this.company.locations[i].name,
               vendorAppsForThisChannel: tempArray,
               appCat: appCatData,
@@ -316,7 +319,7 @@
 
 
         }
-      },      
+      },
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
@@ -332,7 +335,7 @@
             }
             console.log(this.company, "---------------------------------------------------------")
             console.log(this.company.locations[0].id)
-            this.businessChannelsList = this.company.locations 
+            this.businessChannelsList = this.company.locations
           })
           .catch(err => {
             console.log(err)

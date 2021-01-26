@@ -75,7 +75,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -253,7 +253,7 @@
                 </v-chip>
               </template>
               <template v-slot:item="data">
-                <p>{{data.item.name}}</p>
+                <p style="width: 100%;">{{data.item.name}}</p>
               </template>
             </v-combobox>
 
@@ -266,10 +266,10 @@
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -358,7 +358,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -558,10 +558,10 @@
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -650,7 +650,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -843,10 +843,10 @@
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -1048,7 +1048,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -1132,10 +1132,10 @@
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -1337,7 +1337,7 @@
 
                 <v-slider
                   class="mt-10"
-                  label="Choose your Channel service radius"
+                  label="Choose your Channel service/supplier radius (miles)"
                   thumb-label="always"
                   max="1005"
                   min="5"
@@ -1422,10 +1422,10 @@
               style="width: 90%;font-size:.7rem"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
