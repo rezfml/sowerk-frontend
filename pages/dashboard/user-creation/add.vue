@@ -1,9 +1,9 @@
 <template>
 
-
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div style="width: 100%;" class="d-flex align-center" v-if="$vuetify.breakpoint.xl">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
         <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
         <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
           <v-skeleton-loader
@@ -41,10 +41,10 @@
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                   </v-select>
 <!--                  <v-checkbox-->
@@ -109,10 +109,10 @@
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                     </template>
                   </v-select>
 <!--                  <v-checkbox-->
@@ -140,7 +140,8 @@
 
   <!-- BREAKPOINT - LARGE - BREAK @ 1904-1264 pixels (1264 sidebar vanishes) -------------------------------------->
   <div v-else-if="$vuetify.breakpoint.lg">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -177,10 +178,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -245,10 +246,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -276,7 +277,8 @@
 
   <!-- BREAKPOINT - MEDIUM - BREAK @ 1264-960 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.md">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -313,10 +315,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -381,10 +383,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -412,7 +414,8 @@
 
   <!-- BREAKPOINT - SMALL - BREAK @ 960-600 pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.sm">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -452,10 +455,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -522,10 +525,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -553,7 +556,8 @@
 
   <!-- BREAKPOINT - EXTRA-SMALL - BREAK @ 600- pixels ------------------------------------------------------------>
   <div v-else-if="$vuetify.breakpoint.xs">
-
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="primary" v-if="company.company_type === 'true'">< Back To Users</v-btn>
+    <v-btn to="/dashboard/user-creation/" style="position: absolute; top: 10px; left: 10px;" color="white;" v-else>< Back To Users</v-btn>
       <!-- THIS RENDERS IF COMPANY_TYPE = TRUE -->
       <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
         <v-skeleton-loader
@@ -595,10 +599,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->
@@ -665,10 +669,10 @@
                   clearable
                 >
                   <template slot="selection" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                   <template slot="item" slot-scope="data">
-                    <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                   </template>
                 </v-select>
 <!--                <v-checkbox-->

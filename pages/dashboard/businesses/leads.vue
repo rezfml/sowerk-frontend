@@ -158,8 +158,8 @@
             </div>
           </template>
           <template v-slot:item.actions="{ item }" class="d-flex">
-            <v-btn color="primary" block class="my-2" >Accept</v-btn>
-            <v-btn color="primary" block class="my-2" >Deny</v-btn>
+            <v-btn color="primary" block class="my-2" @click="acceptPreApp(item)">Accept</v-btn>
+            <v-btn color="primary" block class="my-2" @click="denyPreApp(item)">Deny</v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -197,9 +197,8 @@
         ],
         requestingApprovedApplications: [],
         providerApprovedHeaders: [
-          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
-          { text: 'Company', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applicationRequestsModal: true,
@@ -237,7 +236,7 @@
         await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response.data)
-            this.requestingApprovedApplications = response.data
+            this.requestingApprovedApplications = response.data.filter(app => app.approval_status === 0)
             this.loadRequestingApprovedApplications = false
           })
           .catch(err => {
@@ -257,6 +256,40 @@
           this.showVideo = false
         }
       },
+      async acceptPreApp(item) {
+        await this.$http.put('https://www.sowerkbackend.com/api/preapprovedRequest/' + item.id, {
+          approval_status: 1
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+            this.requestingApprovedApplications = this.requestingApprovedApplications.filter(request => request !== item)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        await this.$http.post('https://www.sowerkbackend.com/api/approvedproviderconnections/', {
+          propertymanager_id: item.pmcompanies_id,
+          serviceprovider_id: item.spcompanies_id
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      async denyPreApp(item) {
+        await this.$http.put('https://www.sowerkbackend.com/api/preapprovedRequest/' + item.id, {
+          approval_status: 2
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+            this.requestingApprovedApplications = this.requestingApprovedApplications.filter(request => request !== item)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     }
   }
 </script>
