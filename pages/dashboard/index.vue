@@ -2001,20 +2001,20 @@
 
   <!-- First Time Login Popup -->
   <div v-else-if="firstTimeLogin">
-    <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'">
+    <v-card class="d-flex flex-column align-center" v-if="company.company_type === 'true'" style="height: 100%;">
       <v-card-title class="my-2" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
       <v-card-subtitle>Hello, seeing as this is the first time you have logged in, before you begin, we recommend watching the video down below as your quick start guide to SOWerk!</v-card-subtitle>
-      <iframe src="https://player.vimeo.com/video/500079903" allowfullscreen frameborder="0" style="width:75vw;height:75vh;border-radius:3%;margin-left:5%;">
+      <iframe src="https://player.vimeo.com/video/500079903" allowfullscreen frameborder="0" style="width:75vw; height: 800px;border-radius:3%;">
       </iframe>
       <v-btn text @click="removeFirstTimeLogin" style="font-size: 24px; position: absolute; top: 10px; right: 10px;">X</v-btn>
     </v-card>
-    <v-card class="d-flex flex-column align-center" v-else-if="company.company_type === 'false'">
+    <v-card class="d-flex flex-column align-center" v-else-if="company.company_type === 'false'" style="height: 100%;">
       <v-card-title v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="my-2" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
       <v-card-title v-else class="my-2 mt-4" style="color: #A61c00; text-align: center">WELCOME TO SOWERK!</v-card-title>
       <v-card-subtitle>Hello, seeing as this is the first time you have logged in, before you begin, we recommend watching the video down below as your quick start guide to SOWerk!</v-card-subtitle>
-      <iframe v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="margin-top: 12.5vh;width:75vw;height:75vh;border-radius:3%;margin-left:5%;">
+      <iframe v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="width:75vw; height: 800px; border-radius:3%;">
       </iframe>
-      <iframe v-else src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="margin-top: 1vh;width:75vw;border-radius:3%;">
+      <iframe v-else src="https://player.vimeo.com/video/500079958" allowfullscreen frameborder="0" style="width:75vw; height: 75vh;border-radius:3%;">
       </iframe>
       <v-btn text @click="removeFirstTimeLogin" style="font-size: 24px; position: absolute; top: 10px; right: 10px;">X</v-btn>
     </v-card>
@@ -2037,7 +2037,7 @@
     },
     data() {
       return {
-        firstTimeLogin: null,
+        firstTimeLogin: true,
         openUploadModelLoad: false,
         loadModal: false,
         loading: false,
@@ -2378,7 +2378,7 @@
         if (this.$error(status, data.message, data.errors)) return;
         this.$nextTick(function() {
           this.user = data;
-          this.firstTimeLogin = data.firstTimeLogin
+          // this.firstTimeLogin = data.firstTimeLogin
           if(this.user.temporaryPasswordBoolean) {
             this.changePasswordPopup = true;
           }
