@@ -15,10 +15,15 @@
       </div>
     </section>
 
+    <section>
+      <div style="width:100%;height:100%;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+        <img style="width:100%;margin-bottom:-10px;margin-left:-1px;" src="/biz-VRM-landingPage-Image.png" alt="vrm-photo">
+      </div>
+    </section>
 
 <!-- NEW SECTION POWERFUL BUSINESS TOOLS -->
-<PFPowerfulTools/>
-
+<!-- <PFPowerfulTools/> -->
+    
 
     <!-- <section v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class="joinproducttraits">
       <div>
@@ -152,8 +157,8 @@
 
 <!-- NEW SECTION BUILT BY -->
     <section class="joinproductdescription pt-13 pb-3">
-      <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2>
-      <h2 v-else class="text-h4 ml-3 text-center">Built By Property & Facility Managers</h2>
+      <!-- <h2 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs" class="text-h4 ">Built By Property & Facility Managers</h2> -->
+      <!-- <h2 v-else class="text-h4 ml-3 text-center">Built By Property & Facility Managers</h2> -->
       <p></p>
       <p>
         SOWerk is built from the ground up as a software for businesses that
@@ -161,10 +166,13 @@
       </p>
       <p>
         We specifically designed our platform to help you identify, qualify,
-        and manage just about any type of product provider, local or national.
+        and manage just about any type of service provider, local or national.
         If you oversee one facility or own thousands of properties, SOWerk
         empowers you to easily establish approved vendors at each of your
         locations, request quotes from approved providers, and much more.
+      </p>
+      <p>
+        A team at your headquarters or designated local manager can use a computer to access SOWerk or the SOWerk mobile app.
       </p>
        <v-btn
               class="text-uppercase primary mx-auto text-sm-body-1"
@@ -177,11 +185,11 @@
     </section>
 
 
-<!-- NEW SECTION JOIN STEPS -->
+        <!-- NEW SECTION JOIN STEPS -->
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
 
-<!--
+          <!--
         <div class="joinproductstepcontainerstep step-right">
           <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
           <div class="getStarted">
@@ -259,261 +267,269 @@
           <img  class="containerImg second-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
         </div>
         -->
+
+        <!-- ALL 3 STEPS, TEXT AND IMAGES -->
         <div>
+          <!-- STEP 1 -->
+          <v-flex class="" style="width:100%;">
+            <v-container style="width:100%;">
+              <v-row style="width:100%; margin-left: -10%;margin-right: 5%;">
+                <v-col cols="12" md="6">
+                  <div class="joinproductstepcontainerstep step-right">
+                    <!-- <v-img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" id="stepTwo" alt="application mockup"/> -->
+                    <v-img class="containerImg" src="/biz-Step1.png" id="stepTwo" alt="application mockup"/>
+                  </div>
+                </v-col>
 
+                <v-col cols="12" md="6">
+                  <v-flex class="" style="width:100%;">
+                    <v-container style="width:100%;">
+                      <v-row class="mx-4" style="width:120%;">
+                        <v-col cols="12 " class="d-flex flex-column">
+                          <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 1 <span style="color: #a61c00;">-Company Account & Channels</span></h1>
+                          <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 1 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>-Company Account & Channels</span></h1>
+                          <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+                          A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.
+                          </p>
+                          <p style="font-size: 18px;" v-else>
+                          A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.
+                          </p>
+                          <!-- <v-list
+                            :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'"
+                            class="d-flex-column"
+                            style=""
+                          > -->
+                          <!-- <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"  >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> Manage One Or Thousands of Locations</p>
+                                <p  v-else class=" mx-n3 px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070"> Manage One Or Thousands of Locations</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"  >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Add Staff Accounts For One Location Or Multiple</p>
+                                <p  v-else class=" mx-n3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">Add Staff Accounts For One Location Or Multiple</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">  Invite Existing Vendors To Connect For Free</p>
+                                <p  v-else class=" mx-n3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  Invite Existing Vendors To Connect For Free</p>
+                              </v-col>
+                          </v-row> -->
 
+                          <!-- </v-list> -->
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-flex>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-flex>
 
+          <!-- STEP 2 -->
+          <v-flex class="" style="width:100%;">
+            <v-container style="width:100%;">
+              <v-row style="width:100%; margin-right: -10%;margin-left: 5%;">
+                
+                <v-col cols="12" md="6" v-show="$vuetify.breakpoint.xs">
+                  <div class="joinproductstepcontainerstep step-right">
+                    <!-- <v-img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup"/> -->
+                    <v-img  class="containerImg second-img" src="/biz-Step2.png" id="stepTwo" alt="application mockup"/>
+                  </div>
+                </v-col>
 
-    <v-flex class="" style="width:100%;">
-      <v-container style="width:100%;">
-        <v-row style="width:100%; margin-left: -10%;margin-right: 5%;">
-        <v-col cols="12" md="6">
-        <div class="joinproductstepcontainerstep step-right">
-         <v-img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" id="stepTwo" alt="application mockup"/>
-         </div>
-         </v-col>
-            <v-col cols="12" md="6">
-            <v-flex class="" style="width:100%;">
-              <v-container style="width:100%;">
-                <v-row class="mx-4" style="width:120%;">
-                  <v-col cols="12 " class="d-flex flex-column">
-                    <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 1 <span style="color: #a61c00;">-Register Company Account & Locations</span></h1>
-                    <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 1 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>-Register Company Account & Locations</span></h1>
-                    <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                    After setting up your account and locations, SOWerk makes it easy
-                    to filter approved product providers quickly and easily for any
-                    location across the country.
-                    </p>
-                    <p style="font-size: 18px;" v-else>
-                    After setting up your account and locations, SOWerk makes it easy
-                    to filter approved product providers quickly and easily for any
-                    location across the country.
-                    </p>
-                    <v-list
-                      :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'"
-                      class="d-flex-column"
-                      style=""
-                    >
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"  >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> Manage One Or Thousands of Locations</p>
-                          <p  v-else class=" mx-n3 px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070"> Manage One Or Thousands of Locations</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"  >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Add Staff Accounts For One Location Or Multiple</p>
-                          <p  v-else class=" mx-n3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">Add Staff Accounts For One Location Or Multiple</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">  Invite Existing Vendors To Connect For Free</p>
-                          <p  v-else class=" mx-n3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  Invite Existing Vendors To Connect For Free</p>
-                        </v-col>
-                    </v-row>
+                <v-col cols="12" md="6" >
+                  <v-flex class="" style="width:100%;">
+                    <v-container style="width:100%;">
+                      <v-row style="width:100%;">
+                        
+                        <v-col cols="12 " class="d-flex flex-column">
+                          
+                          <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+                          <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 <span style="color: #a61c00;">- Vendor Vetting Criteria</span></h1>
+                          <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 2 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Vendor Vetting Criteria</span></h1>
+                          <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+                            SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                          </p>
+                          <p style="font-size: 18px;margin:auto;width:100%;" v-else>
+                            SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                          </p>
+                          </v-row>
+                          <v-row v-else style="margin:unset !important;padding:unset;width:100%;margin-left:24px !important; margin-right:24px !important;">
+                          <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 2 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Vendor Vetting Criteria</span></h1>
+                          <p style="font-size: 18px;margin:auto;width:100%;" >
+                            SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                          </p>
+                          </v-row>
+                          <!-- <v-list
+                            :width="$vuetify.breakpoint.mdAndUp ? '150%' : '150%'&& $vuetify.breakpoint.smAndDown ? '100%' : '100%'"
+                            class="d-flex-column"
+                            style=""
+                          > -->
+                          <!-- <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Customize Vendor Application By Location</p>
+                                <p v-else class=" mx-2 px-0" style="font-size: 15px; line-height: 1.6em;width:135% " color="#707070">Customize Vendor Application By Location</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11">
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Manage Applications By Service Category</p>
+                                <p v-else class="mx-2 px-0 " style="font-size: 15px; line-height: 1.6em; width:135%" color="#707070">Manage Applications By Service Category</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em;width:100% " color="#707070">Easily Toggle Application Status On or Off</p>
+                                <p v-else class="mx-2 pr-4  " style="font-size: 15px; line-height: 1.6em; width:135%" color="#707070">Easily Toggle Application Status On or Off</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Location Staff Account or Headquarters Can Review Applicants Quickly</p>
+                                <p v-else  class="mx-2 px-0  " style="font-size: 15px; line-height: 1.6em; width:135%" color="#707070">Location Staff Account or Headquarters Can Review Applicants Quickly</p>
+                              </v-col>
+                          </v-row> -->
 
-                    </v-list>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-flex>
-            </v-col>
-        </v-row>
-      </v-container>
-    </v-flex>
+                          <!-- </v-list> -->
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-flex>
+                </v-col>
 
+                <v-col cols="12" md="6" v-show=!$vuetify.breakpoint.xs >
+                  <div class="joinproductstepcontainerstep step-right last-container" >
+                  <v-img  class="containerImg second-img" src="/biz-Step2.png" id="stepTwo" alt="application mockup"/>
+                  </div>
+                </v-col>
 
-<v-flex class="" style="width:100%;">
-      <v-container style="width:100%;">
-        <v-row style="width:100%;">
-        <v-col cols="12" md="6" v-show="$vuetify.breakpoint.xs">
-        <div class="joinproductstepcontainerstep step-right">
-         <v-img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup"/>
-         </div>
-         </v-col>
-            <v-col cols="12" md="6" >
-            <v-flex class="" style="width:100%;">
-              <v-container style="width:100%;">
-                <v-row style="width:100%;">
-                  
-                  <v-col cols="12 " class="d-flex flex-column">
-                    
-                    <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                    <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 <span style="color: #a61c00;">- Find Or Invite Service Providers</span></h1>
-                    <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 2 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Find Or Invite Service Providers</span></h1>
-                    <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                       Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
-                    </p>
-                    <p style="font-size: 18px;margin:auto;width:100%;" v-else>
-                       Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
-                    </p>
-                    </v-row>
-                    <v-row v-else style="margin:unset !important;padding:unset;width:100%;margin-left:24px !important; margin-right:24px !important;">
-                    <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 2 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Find Or Invite Service Providers</span></h1>
-                    <p style="font-size: 18px;margin:auto;width:100%;" >
-                       Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.
-                    </p>
-                    </v-row>
-                    <v-list
-                      :width="$vuetify.breakpoint.mdAndUp ? '150%' : '150%'&& $vuetify.breakpoint.smAndDown ? '100%' : '100%'"
-                      class="d-flex-column"
-                      style=""
-                    >
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Customize Vendor Application By Location</p>
-                          <p v-else class=" mx-2 px-0" style="font-size: 15px; line-height: 1.6em;width:135% " color="#707070">Customize Vendor Application By Location</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11">
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Manage Applications By Service Category</p>
-                          <p v-else class="mx-2 px-0 " style="font-size: 15px; line-height: 1.6em; width:135%" color="#707070">Manage Applications By Service Category</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em;width:100% " color="#707070">Easily Toggle Application Status On or Off</p>
-                          <p v-else class="mx-2 pr-4  " style="font-size: 15px; line-height: 1.6em; width:135%" color="#707070">Easily Toggle Application Status On or Off</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Location Staff Account or Headquarters Can Review Applicants Quickly</p>
-                          <p v-else  class="mx-2 px-0  " style="font-size: 15px; line-height: 1.6em; width:135%" color="#707070">Location Staff Account or Headquarters Can Review Applicants Quickly</p>
-                        </v-col>
-                    </v-row>
+              </v-row>
+            </v-container>
+          </v-flex>
 
-                    </v-list>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-flex>
-            </v-col>
-        <v-col cols="12" md="6" v-show=!$vuetify.breakpoint.xs >
-        <div class="joinproductstepcontainerstep step-right last-container" >
-         <v-img  class="containerImg second-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup"/>
-         </div>
-         </v-col>
-        </v-row>
-      </v-container>
-  </v-flex>
-  <v-flex class="" style="width:100%;">
-      <v-container style="width:100%;">
-        <v-row style="width:100%;">
-        <v-col cols="12" md="6">
-        <div class="joinproductstepcontainerstep step-right last-container" >
-         <!--<img class="containerImg third-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>-->
-         <v-img v-if="!$vuetify.breakpoint.xs" class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardandPhone.png" id="profileDash" alt="properties mockup"/>
-         <v-img v-else class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardandPhone.png" id="stepTwo" alt="properties mockup"/>
-         <!--<img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
-         <v-img  height="400" contain src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup"/>-->
-         </div>
-         </v-col>
-            <v-col cols="12" md="6">
-            <v-flex class="" style="width:100%;">
-              <v-container style="width:100%;">
-                <v-row style="width:100%;">
-                  <v-col cols="12" class="d-flex flex-column">
+          <!-- STEP 3 -->
+          <v-flex class="" style="width:100%;">
+            <v-container style="width:100%;">
+              <v-row style="width:100%;margin-left: -10%;margin-right: 5%;">
+                <v-col cols="12" md="6">
+                  <div class="joinproductstepcontainerstep step-right last-container">
+                    <v-img class="containerImg" src="/biz-Step3.png" id="stepTwo" alt="application mockup" style=""/>
+                    <!-- <v-img v-if="!$vuetify.breakpoint.xs" class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardandPhone.png" id="profileDash" alt="properties mockup"/> -->
+                    <!-- <v-img v-else class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashboardandPhone.png" id="stepTwo" alt="properties mockup"/> -->
+                    <!--<img class="containerImg third-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/propertiesMockUp.png" id="profileDash" alt="properties mockup"/>-->
+                    <!--<img  class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup">
+                    <v-img  height="400" contain src="https://sowerk-images.s3.us-east-2.amazonaws.com/Iphone+Mockup@3x.png" id="iphoneMock" alt="iphone mockup"/>-->
+                  </div>
+                </v-col>
 
-                    <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                    <h1 style="font-size: 32px;padding-bottom: 15px;" >Step 3 <span style="color: #a61c00;">- Super Simple Management</span></h1>
-                    <p style="font-size: 20px;" >
-                      What’s the point of great power if you can’t manage it? SOWerk’s
-                      simple-to-use interface allows you to stay up-to-date and manage
-                      all of your properties quickly and efficiently from a desktop or
-                      mobile platform. Manage staff, vet vendors, or even be one click
-                      away from your approved product providers - that’s the power of
-                      SOWerk.
-                    </p>
-                    </v-row>
-                    <v-row v-else style="margin:unset !important;padding:unset;width:100%;margin-left:24px !important; margin-right:24px !important;">
-                    <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 3 <span class="pr-2" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Super Simple Management</span></h1>
-                    <p style="font-size: 18px;margin:auto;width:100%;" >
-                        What’s the point of great power if you can’t manage it? SOWerk’s
-                      simple-to-use interface allows you to stay up-to-date and manage
-                      all of your properties quickly and efficiently from a desktop or
-                      mobile platform. Manage staff, vet vendors, or even be one click
-                      away from your approved product providers - that’s the power of
-                      SOWerk.
-                    </p>
-                    </v-row>
-                    <v-list
-                      :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'"
-                      class="d-flex-column"
-                      style=""
-                    >
+                <v-col cols="12" md="6">
+                  <v-flex class="" style="width:100%;">
+                    <v-container style="width:100%;">
+                      <v-row class="mx-4" style="width:120%;">
+                        <v-col cols="12" class="d-flex flex-column">
+                          <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+                            <h1 style="font-size: 32px;padding-bottom: 15px;" >Step 3 <span style="color: #a61c00;">- Super Simple Management</span></h1>
+                            <p style="font-size: 20px;" >
+                              What’s the point of great power if you can’t manage it? SOWerk’s
+                              simple-to-use interface allows you to stay up-to-date and manage
+                              all of your properties quickly and efficiently from a desktop or
+                              mobile platform. Manage staff, vet vendors, or even be one click
+                              away from your approved vendors - that’s the power of
+                              SOWerk.
+                            </p>
+                          </v-row>
 
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"  >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> Request Service or Bids From Approved Vendors Quickly</p>
-                          <p  v-else class=" mx-3 px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070"> Request Service or Bids From Approved Vendors Quickly</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"  >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">SOWerk Empowers Staff To Up Your Facility Management Game</p>
-                          <p  v-else class=" mx-3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">SOWerk Empowers Staff To Up Your Facility Management Game</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">  Filter & Find New Service Providers</p>
-                          <p  v-else class=" mx-3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  Filter & Find New Service Providers</p>
-                        </v-col>
-                    </v-row>
-                    <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                        <v-col cols="0" sm="1"   >
-                          <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                        </v-col>
-                        <v-col cols="12" sm="11" >
-                          <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> SOWerk Makes Annual Vendor Requalifying Easy & Automated</p>
-                          <p  v-else class=" mx-3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  SOWerk Makes Annual Vendor Requalifying Easy & Automated</p>
-                        </v-col>
-                    </v-row>
+                          <v-row v-else style="margin:unset !important;padding:unset;width:100%;margin-left:24px !important; margin-right:24px !important;">
+                            <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 3 <span class="pr-2" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Super Simple Management</span></h1>
+                            <p style="font-size: 18px;margin:auto;width:100%;" >
+                                What’s the point of great power if you can’t manage it? SOWerk’s
+                              simple-to-use interface allows you to stay up-to-date and manage
+                              all of your properties quickly and efficiently from a desktop or
+                              mobile platform. Manage staff, vet vendors, or even be one click
+                              away from your approved vendors - that’s the power of
+                              SOWerk.
+                            </p>
+                          </v-row>
 
-                    </v-list>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-flex>
-            </v-col>
-        </v-row>
-      </v-container>
-    </v-flex>
-          </div>
+                          <!-- <v-list
+                            :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'"
+                            class="d-flex-column"
+                            style=""
+                          > -->
+
+                          <!-- <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"  >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> Request Service or Bids From Approved Vendors Quickly</p>
+                                <p  v-else class=" mx-3 px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070"> Request Service or Bids From Approved Vendors Quickly</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"  >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">SOWerk Empowers Staff To Up Your Facility Management Game</p>
+                                <p  v-else class=" mx-3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">SOWerk Empowers Staff To Up Your Facility Management Game</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">  Filter & Find New Service Providers</p>
+                                <p  v-else class=" mx-3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  Filter & Find New Service Providers</p>
+                              </v-col>
+                          </v-row>
+                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
+                              <v-col cols="0" sm="1"   >
+                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
+                              </v-col>
+                              <v-col cols="12" sm="11" >
+                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> SOWerk Makes Annual Vendor Requalifying Easy & Automated</p>
+                                <p  v-else class=" mx-3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  SOWerk Makes Annual Vendor Requalifying Easy & Automated</p>
+                              </v-col>
+                          </v-row> -->
+
+                          <!-- </v-list> -->
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-flex>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-flex>
+        </div>
       </div>
+
       <v-btn
               class="text-uppercase primary mx-auto text-sm-body-1"
               x-large
@@ -525,17 +541,17 @@
     </section>
 
 <!-- NEW SECTION - JOIN TRAITS -->
-    <v-container
+    <!-- <v-container
       fluid
       grid-list-md
       text-center
       pb-16
       class="joinproducttraits"
       style="background:#a61c00; display: flex; justify-content: center; align-items:center; flex-direction: column"
-    >
-      <v-layout row style="max-width: 1280px; flex-wrap: wrap; margin-top:-120px">
+    > -->
+      <!-- <v-layout row style="max-width: 1280px; flex-wrap: wrap; margin-top:-120px"> -->
         <!-- CARD 1 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!-- <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -561,10 +577,10 @@
               We make it easy and powerful for you to vet any product provider, and re-qualify them annually. SOWerk's prebuilt vendor applications are easy and powerful, or customize your own to better fit.
             </div>
           </v-card>
-        </v-col>
+        </v-col> -->
 
         <!-- CARD 2 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!-- <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -590,10 +606,10 @@
               One facility or 1,000’s of properties, SOWerk has you covered. Assign staff and set approved vendors by location. Manage bids and completed jobs all in one clean powerful interface.
             </div>
           </v-card>
-        </v-col>
+        </v-col> -->
 
         <!-- CARD 3 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!-- <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -619,10 +635,10 @@
               With your SOWerk account, you have the perfect place to direct any salesman calling to become your approved vendor.
             </div>
           </v-card>
-        </v-col>
+        </v-col> -->
 
         <!-- CARD 4 -->
-        <v-col cols="12" lg="3" sm="6" class="d-flex">
+        <!-- <v-col cols="12" lg="3" sm="6" class="d-flex">
           <v-card
             align="center"
             class="mx-1 py-3 flex-grow-1"
@@ -648,9 +664,9 @@
               For the facility manager in the middle of the night that needs to contact all your approved plumbers for help or a local product provider that powers his business through a smartphone, SOWerk is designed to be convenient.
             </div>
           </v-card>
-        </v-col>
-      </v-layout>
-    </v-container>
+        </v-col> -->
+      <!-- </v-layout> -->
+    <!-- </v-container> -->
 
 <!-- PROPERTY FACILITY QUESTIONS SECTION -->
     <OftenAskPF/>
