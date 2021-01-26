@@ -26,11 +26,9 @@
       </v-row>
     </v-container>
 
-    <v-container>
-      <div>
-        <img src="/CRM-homePage.png" alt="">
+      <div style="width:100%;height:100%;">
+        <img style="width:100%;height:100%;" src="/vendor-CRM-LP-image.png" alt="">
       </div>
-    </v-container>
 
     <!-- VENDOR TOOLBOXES SECTION -->
     <VendorToolBoxes />
@@ -42,7 +40,7 @@
             class="text-center text-md-h3 font-weight-bold"
             style="color: #A61C00; font-size: 35px; line-height: 1.25em"
           >
-            Service Provider Pricing&nbsp;Levels
+            SOWerk Pricing
           </p>
         </v-col>
       </v-row>
@@ -52,8 +50,8 @@
     <v-container fluid class="py-10" style="background: #151515; height: 40vh">
       <v-row class="py-5 px-0">
         <v-col cols="12" class="text-center px-0">
-          <p class="white--text text-h4 text-md-h3 font-weight-bold px-1">
-            Getting Started Is FREE And&nbsp;Easy!
+          <p class="white--text font-weight-bold px-1" style="margin-left:15%;margin-right:15%;">
+            SOWerk makes it possible for service providers like you to connect with property & facility managers, become an approved vendor, and streamline work opportunities & connections. For those times when you need to promote your track-record and qualifications to a buyer not on SOWerk, well, we make that easy too. Your time is money, so it's time you use SOWerk.
           </p>
           <v-btn
             class="text-uppercase primary text-sm-body-2 mt-5"
@@ -65,8 +63,8 @@
               font-size: 12px;
               min-width: 280px;
             "
-            @click="$router.push('/landingpage/PricingPage')"
-            >LEARN MORE ABOUT SOWERK PRICING</v-btn
+            @click="$router.push('/register/provider')"
+            >REGISTER NOW</v-btn
           >
         </v-col>
       </v-row>
@@ -79,14 +77,14 @@
           <img
             v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
             class="containerImg"
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png"
+            src="/vendor-LP-step1-image.png"
             alt="Profile dashboard Mockup"
           />
           <img
             v-else
             class="containerImg"
             style="margin: auto; margin-bottom: 20px"
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profileDash2.png"
+            src="/vendor-LP-step1-image.png"
             alt="Profile dashboard Mockup"
           />
           <div>
@@ -115,31 +113,28 @@
             <h1 v-else>
               Step 2 <span><br />- Apply With Buyers</span>
             </h1>
-            <p>Apply For Businesses Looking For You With One Click.</p>
+            <p>Apply For Businesses Looking For Your Products or Services.</p>
             <p>
-              With the click of one button, your company can apply to work for
-              large businesses located in your area. This process makes it easy
-              for you and the Buyer to connect and review each others profiles
-              hassle free.
+              With just a few clicks your company is applying to become the next approved Vendor for a company. Additionally, your profile is also listed in the search directory so Businesses can find you and request your application.
             </p>
           </div>
           <img
             v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
             class="containerImg"
             id="profileDash"
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png"
+            src="/vendor-LP-step2-image.png"
             alt="Buyer dashboard mockup"
           />
           <img
             v-else
             class="containerImg"
             style="margin: auto; margin-bottom: 20px"
-            src="https://sowerk-images.s3.us-east-2.amazonaws.com/profiledashboardmockup2.png"
+            src="/vendor-LP-step2-image.png"
             alt="Profile Buyer dashboard mockup"
           />
         </div>
         <div class="joinservicestepcontainerstep">
-          <img
+          <!-- <img
             class="containerImg"
             v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/leadMockup2.png"
@@ -157,8 +152,8 @@
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/notification2.png"
             id="notificationMock"
             alt="iphoneMockup"
-          />
-          <div>
+          /> -->
+          <!-- <div>
             <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
               Step 3 <span>- Generate Leads</span>
             </h1>
@@ -174,7 +169,7 @@
               Easily share in one click with anyone outside of the platform via
               email or text.
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
       <button

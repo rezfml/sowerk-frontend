@@ -16,8 +16,11 @@
               <v-card-text
                 class="text-body-1 white--text font-weight-bold text-uppercase pa-0"
                 style="margin-top:-40px;"
-                >Sowerk Starter</v-card-text
+                >Package 1</v-card-text
               >
+              <v-card-text style="font-weight:700;font-size:1.2rem;color:black;">
+                SOWERK STARTER
+              </v-card-text>                  
               <p
                 class="text-md-h3 font-weight-normal pt-8 mb-0"
                 style="color: #a61c00; line-height:.4em; font-size: 40px"
@@ -25,7 +28,7 @@
                 $8.33<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $100.00 Per Year</p>
-              <p class="text-caption" style="color:darkred;font-weight:500;">$25 Annual Fee</p>
+              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">$25 Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -38,7 +41,7 @@
                   <li><span style="color: #a61c00">3</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">5</span> Business Connections
-                    <p class="text-caption">($20.00 Per Connection Annually)</p>
+                    <p class="text-caption" style="color:darkred;">($20.00 Per Connection Annually)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$1.50</span> Per Additional
@@ -63,8 +66,11 @@
               <v-card-text
                 class="text-body-1 white--text font-weight-bold text-uppercase pa-0"
                 style="margin-top:-40px;"
-                >Sowerk Advanced</v-card-text
+                >Package 2</v-card-text
               >
+              <v-card-text style="font-weight:700;font-size:1.2rem;color:black;">
+                SOWERK ADVANCED
+              </v-card-text>                  
               <p
                 class="text-md-h3 font-weight-normal pt-8 mb-0"
                 style="color: #a61c00; line-height:.4em; font-size: 40px"
@@ -72,7 +78,7 @@
                 $20.83<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $250.00 Per Year</p>
-              <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p>
+              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -85,7 +91,7 @@
                   <li><span style="color: #a61c00">5</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">20</span> Business Connections
-                    <p class="text-caption">($12.50 Per Connection Annually)</p>
+                    <p class="text-caption" style="color:darkred">($12.50 Per Connection Annually)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$1.00</span> Per Additional
@@ -110,8 +116,11 @@
               <v-card-text
                 class="text-body-1 white--text font-weight-bold text-uppercase pa-0"
                 style="margin-top:-40px;"
-                >Sowerk PRO</v-card-text
+                >Package 3</v-card-text
               >
+              <v-card-text style="font-weight:700;font-size:1.2rem;color:black;">
+                SOWERK PRO
+              </v-card-text>                  
               <p
                 class="text-md-h3 font-weight-normal pt-8 mb-0"
                 style="color: #a61c00; line-height:.4em;font-size: 40px"
@@ -119,7 +128,7 @@
                 $41.67<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $500.00 Per Year</p>
-              <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p>
+              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -132,7 +141,7 @@
                   <li><span style="color: #a61c00">10</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">50</span> Business Connections
-                    <p class="text-caption">($10.00 Per Connection Annually)</p>
+                    <p class="text-caption" style="color:darkred">($10.00 Per Connection Annually)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$0.75</span> Per Additional
@@ -163,8 +172,11 @@
               <v-card-text
                 class="text-body-1 white--text font-weight-bold text-uppercase pa-0"
                 style="margin-top:-40px;"
-                >Sowerk National</v-card-text
+                >Package 4</v-card-text
               >
+              <v-card-text style="font-weight:700;font-size:1.2rem;color:black;">
+                SOWERK NATIONAL
+              </v-card-text>              
               <p
                 class="text-md-h3 font-weight-normal pt-8 mb-0"
                 style="color: #a61c00; line-height:.4em; font-size: 40px"
@@ -172,7 +184,7 @@
                 $125.00<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $1,500.00 Per Year</p>
-              <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p>
+              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -185,7 +197,7 @@
                   <li><span style="color: #a61c00">15</span> User Licenses</li>
                   <li>
                     <span style="color: #a61c00">250</span> Business Connections
-                    <p class="text-caption">($6.00 Per Connection Annually)</p>
+                    <p class="text-caption" style="color:darkred">($6.00 Per Connection Annually)</p>
                   </li>
                   <li>
                     <span style="color: #a61c00">$0.50</span> Per Additional
@@ -201,6 +213,7 @@
             </v-card>
           </v-col>
         </v-row>
+
         <!-- SOWERK ENTERPRISE -->
         <v-row>
           <v-col cols="12" class="pa-0 my-6">
@@ -211,8 +224,11 @@
               <v-card-text
                 class="text-body-1 white--text font-weight-bold text-uppercase"
                 style="margin-top:-48px;"
-                >Sowerk Enterprise</v-card-text
+                >Package 5</v-card-text
               >
+              <v-card-text style="font-weight:800;font-size:1.8rem;color:black;">
+                SOWERK ENTERPRISE
+              </v-card-text>
               <p class="text-md-h3 pt-6" style="color: #a61c00; font-size: 35px; font-weight: 500">
                 CUSTOM RATE
               </p>
