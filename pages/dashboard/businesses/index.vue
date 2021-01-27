@@ -352,7 +352,7 @@
             .catch(err => {
               console.log(err)
             })
-          console.log(this.connections, 'CONNECTIONS');
+          console.log(this.connections, 'CONNECTIONSS');
           await this.getConnectedCompaniesLocations();
           this.loading = false;
         }
