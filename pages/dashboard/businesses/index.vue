@@ -340,7 +340,19 @@
           let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id).catch(e => e);
           console.log(data);
           this.connections = data.filter(connection => connection.approval_status === 1);
-          console.log(this.connections);
+          await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+            .then(response => {
+              console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
+              for(let i=0; i<response.data.length; i++) {
+                if(response.data[i].approval_status === 1) {
+                  this.connections.push(response.data[i])
+                }
+              }
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          console.log(this.connections, 'CONNECTIONSS');
           await this.getConnectedCompaniesLocations();
           this.loading = false;
         }

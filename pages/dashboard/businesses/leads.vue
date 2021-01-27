@@ -85,21 +85,42 @@
           </v-row>
         </v-card-actions>
         <v-data-table
-          :items="requestingApplications"
+          :items="requestingApplicationsList"
           :headers="providerHeaders"
           :items-per-page="10"
           :search="search"
+          :expanded.sync="expanded"
+          show-expand
+          single-expand
         >
-          <template v-slot:item.imageUrl="{item}"  >
-            <div style="width: 100%;" class="d-flex justify-center">
-              <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
-              <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
-            </div>
-          </template>
-          <template v-slot:item.account_name="{item}">
-            <div style="width: 100%;" class="d-flex flex-column align-center">
-              <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
-            </div>
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              <v-data-table
+                :items="item.ChannelsInviting"
+                :headers="providerChannelHeaders"
+                :items-per-page="10"
+                :search="search"
+                :expanded.sync="expandedChannel"
+                show-expand
+                single-expand
+              >
+                <template v-slot:expanded-item="{ headers, item }">
+                  <td :colspan="headers.length">
+                    <v-data-table
+                      :items="item.userforms"
+                      :headers="providerApplicationHeaders"
+                      :items-per-page="10"
+                      :search="search"
+                    >
+                      <template v-slot:item.actions="{ item }">
+                        <v-btn block color="primary" :to="'/dashboard/businesses/applications/' + item.id">Apply</v-btn>
+                        <v-btn block color="primary">Deny</v-btn>
+                      </template>
+                    </v-data-table>
+                  </td>
+                </template>
+              </v-data-table>
+            </td>
           </template>
         </v-data-table>
       </v-card>
@@ -173,6 +194,8 @@
     layout: "app",
     data() {
       return {
+        expanded: [],
+        expandedChannel: [],
         loadRequestingApprovedApplications: true,
         search: '',
         searchVal: '',
@@ -180,19 +203,17 @@
         company: {},
         loading: false,
         requestingApplications: [],
+        requestingApplicationsList: [],
         providerHeaders: [
-          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
-          { text: 'Company', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: '# Channels Inviting', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: '# Channels Inviting', value: 'ChannelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         providerChannelHeaders: [
-          { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: '# Applications Requested', value: 'userform_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: '# Applications Requested', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         providerApplicationHeaders: [
-          { text: 'Application', value: 'userform_name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: '# Questions', value: 'userform_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         requestingApprovedApplications: [],
@@ -221,11 +242,57 @@
     },
     async mounted() {
       await this.getCompany();
+      await this.getApplicationRequests();
     },
     methods: {
       async applicationRequestsModalOpen() {
         this.applicationRequestsModal = true
         this.preApprovedRequestsModal = false
+        await this.getApplicationRequests();
+      },
+      async getApplicationRequests() {
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySPId/' + this.currentUser.companies_id)
+          .then(response => {
+            this.requestingApplications = response.data.filter(app => app.approval_status === 3);
+            console.log(this.requestingApplications, 'HEY')
+            this.loading = true;
+            if(this.requestingApplications.length > 0) {
+              for(let i=0; i<this.requestingApplications.length; i++) {
+                let companyObj = {
+                  companyId: this.requestingApplications[i].pmcompanies_id,
+                  companyName: '',
+                  ChannelsInviting: [],
+                }
+                this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + companyObj.companyId)
+                  .then(response => {
+                    companyObj.companyName = response.data.account_name
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
+                for(let j=0; j<this.requestingApplications.length; j++) {
+                  if(this.requestingApplications[i].pmcompanies_id === this.requestingApplications[j].pmcompanies_id) {
+                    this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.requestingApplications[j].pmlocations_id)
+                      .then(response => {
+                        console.log(response.data, 'LOCATIONS')
+                        if(!(companyObj.ChannelsInviting.includes(response.data))) {
+                          companyObj.ChannelsInviting.push(response.data)
+                        }
+                        companyObj.ChannelsInviting = companyObj.ChannelsInviting.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+                      })
+                      .catch(err => {
+                        console.log(err)
+                      })
+                  }
+                }
+                this.requestingApplicationsList.push(companyObj);
+              }
+              this.requestingApplicationsList = this.requestingApplicationsList.filter((v,i,a)=>a.findIndex(t=>(t.companyId === v.companyId))===i)
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
       },
       async preApprovedRequestsModalOpen() {
         this.applicationRequestsModal = false
@@ -247,7 +314,6 @@
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         console.log('company from business/index: ', data.company_type);
         this.company = data;
-        this.loading = true;
       },
       showVideoCard(){
         if(this.showVideo === false){
