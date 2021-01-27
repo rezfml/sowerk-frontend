@@ -1,68 +1,73 @@
 <template>
   <v-app dark width="auto" class="d-flex flex-column" style="min-height: 100vh;">
-    <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
-    <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;z-index:6"  >
-    <v-container class="fill-height" >
-      <v-row align="center" justify="center">
-        <v-btn text color="white" @click.stop="drawer = !drawer">
-          <v-icon >
-            menu
-          </v-icon>
-        </v-btn>
-      </v-row>
-    </v-container>
-    <v-navigation-drawer v-model="drawer" absolute temporary style="height:400px;max-width:none; background:black">
-      <v-list-item>
-        <v-list-item-content style="overflow: visible;color:white;">
-          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px;" alt="SOWerkHome"></v-img></v-btn>
-          <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/"></a></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          path
 
-        >
-          <!-- if we want icons this will allow for icons we will need to find the icons needed.
-            <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          -->
-          <v-list-item-content>
-              <a :href=item.path style="color:white;text-decoration:none; font-size:16px;cursor:pointer"><v-list-item-title>{{ item.title }}</v-list-item-title></a>
+    <v-app-bar :clipped-left="clipped" fixed app color="rgba(0,0,0,0)" flat v-if="$vuetify.breakpoint.mobile">
+      <v-sheet  style="position: relative; background-color:rgba(0,0,0,0.5);margin:auto 0;padding: 0;z-index:6"  >
+      <v-container class="fill-height" >
+        <v-row align="center" justify="center">
+          <v-btn text color="white" @click.stop="drawer = !drawer">
+            <v-icon >
+              menu
+            </v-icon>
+          </v-btn>
+        </v-row>
+      </v-container>
+      <v-navigation-drawer v-model="drawer" absolute temporary style="height:400px;max-width:none; background:black">
+        <v-list-item>
+          <v-list-item-content style="overflow: visible;color:white;">
+            <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;margin-top:15px;" alt="SOWerkHome"></v-img></v-btn>
+            <v-list-item-title text><a style="color:white;text-decoration:none; font-size:16px;cursor:pointer" href="/"></a></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-  </v-sheet>
-  </v-app-bar>
+        <v-list dense>
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            path
+
+          >
+            <!-- if we want icons this will allow for icons we will need to find the icons needed.
+              <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+            -->
+            <v-list-item-content>
+                <a :href=item.path style="color:white;text-decoration:none; font-size:16px;cursor:pointer"><v-list-item-title>{{ item.title }}</v-list-item-title></a>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+      </v-sheet>
+    </v-app-bar>
 
     <v-app-bar :clipped-left="clipped"
- app color="rgba(0,0,0,0.5)" flat v-else :class="{change_color: scrollPosition > 50}" class="desktop-navbar" style="z-index: 5000">
-    <v-container style="padding-top:35px;">
-        <v-row >
-          <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;" alt="SOWerk"></v-img></v-btn>
-          <v-spacer></v-spacer>
-        <v-btn :href=item.path
-          v-for="item in items"
-          :key="item.title"
-          path
-          text color="white"
-          style="text-transform: capitalize; letter-spacing: 1px; font-size: 16px; font-weight: 500;"
-        >
-        {{ item.title }}
-        </v-btn>
-          <!-- if we want icons this will allow for icons we will need to find the icons needed.
-            <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          -->
-      </v-row>
-    </v-container>
+ app color="black" flat v-else :class="{change_color: scrollPosition > 50}" class="desktop-navbar" style="z-index: 5000">
+      <v-container style="padding-top:35px;">
+          <v-row >
+            <v-btn :href="'../../'" style="width: 15vw;" text><v-img :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'" style="width: 16vw;" alt="SOWerk"></v-img></v-btn>
 
+            <v-spacer></v-spacer>
+
+            <v-btn :href=item.path
+              v-for="item in items"
+              :key="item.title"
+              path
+              text color="primary"
+              style="text-transform: capitalize; letter-spacing: 1px; font-size: 1.2rem; font-weight: 900; border-color: red !important;"
+            >
+            {{ item.title }}
+            </v-btn>
+
+            <!-- if we want icons this will allow for icons we will need to find the icons needed.
+              <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+            -->
+            
+        </v-row>
+      </v-container>
     </v-app-bar>
+
     <v-content class="py-0 flex-grow-1">
       <nuxt />
     </v-content>
@@ -208,7 +213,7 @@ header {
 
 .desktop-navbar:before {
   background: rgb(34,34,34);
-  background: linear-gradient(180deg, rgba(255,255,255,0.3) 15%, rgba(0,0,0,0.15) 50%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 15%, rgba(0,0,0,0.15) 100%);
   position: absolute;
   content: "";
   height: 125%;
@@ -222,7 +227,7 @@ header {
 }
 
 .change_color {
-    background-color:white;
+    background-color:rgb(255, 255, 255);
 }
 
   @media(max-width: 375px) {

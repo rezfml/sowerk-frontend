@@ -38,29 +38,29 @@
         </v-col>
         
         <v-col cols="4" style="text-align:left;padding-top:10%" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.lg || $vuetify.breakpoint.xl">
-          <p style="word-break: break-word; font-size: 1rem; font-weight:500;">
+          <p style="word-break: break-word; font-size: 1.2rem; font-weight:500;">
             We Are
           </p>
 
-          <p style="word-break: break-word; font-size: 1.5rem; font-weight:700;">
+          <p style="word-break: break-word; font-size: 1.7rem; font-weight:700;">
             A Solution for Businesses and Vendors
           </p>
 
-          <p style=" font-size: .9rem;">
+          <p style=" font-size: 1.1rem;">
             Our mission is to establish a set of business-to-business communication tools designed to foster the link between businesses and vendors
           </p>
         </v-col>
 
         <v-col cols="12" style="text-align:center;padding-top:10%" v-else-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
-          <p style="word-break: break-word; font-size: 1rem; font-weight:500;">
+          <p style="word-break: break-word; font-size: 1.2rem; font-weight:500;">
             We Are
           </p>
 
-          <p style="word-break: break-word; font-size: 1.5rem; font-weight:700;">
+          <p style="word-break: break-word; font-size: 1.7rem; font-weight:700;">
             A Solution for Businesses and Vendors
           </p>
 
-          <p style=" font-size: .9rem;">
+          <p style=" font-size: 1.1rem;">
             Our mission is to establish a set of business-to-business communication tools designed to foster the link between businesses and vendors
           </p>
         </v-col>

@@ -80,8 +80,11 @@
     <!-- Business & Vendor Account Join Connection Section -->
     <PFandVJoinConnection />
     <!-- BUSINESS & VENDOR COMMON QUESTIONS ASKED  -->
-    <PFandVQuestionsAsked/>
- 
+    <!-- <PFandVQuestionsAsked/> -->
+    <OftenAskPF />
+    <OftenAskSP />
+
+
     <!-- CAROSEL REVIEWS hidden for now per colin -->
     <!-- <section class="joincaroselreview">
       <AllReviews v-bind:allReviews="allReviews"></AllReviews>
@@ -119,6 +122,8 @@ import SowerkWinsBig from '../components/landing/general/SowerkWinsBig'
 import PFandVJoinConnection from '../components/landing/general/PFandVJoinConnection'
 import PFandVQuestionsAsked from '../components/landing/general/PFandVQuestionsAsked'
 import ToTopButton from '../components/landing/general/ToTopButton'
+import OftenAskPF from '~/components/landing/property-manager/OftenAskPF';
+import OftenAskSP from '~/components/landing/service-provider/OftenAskSP';
 
 export default {
   layout: 'fullwidth',
@@ -135,7 +140,9 @@ export default {
     SowerkWinsBig,
     PFandVJoinConnection,
     PFandVQuestionsAsked,
-    ToTopButton
+    ToTopButton,
+    OftenAskPF,
+    OftenAskSP
   },
   mounted() {
     this.getReviews()
