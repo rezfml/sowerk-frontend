@@ -1411,6 +1411,31 @@
           spLocationId: this.$route.params.id,
           spLocationName: this.location.name
         }
+        const applicationRequest = {
+          subData: '',
+          approval_status: 3,
+          pmlocations_id: this.messageLocation.id,
+          pmcompanies_id: this.$store.state.user.user.user.companies_id,
+          spuserprofiles_id: '',
+          splocations_id: this.location.id,
+          spcompanies_id: this.location.companies_id,
+          pmuserprofiles_id: this.$store.state.user.user.user.id,
+        }
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/'+this.location.email)
+          .then(response=> {
+            console.log(response.data.users[0])
+            applicationRequest.spuserprofiles_id = response.data.users[0].id
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserFormId/' + this.messageUserForm.id, applicationRequest)
+          .then(response=> {
+            console.log(response, 'REQUEST MADE!')
+          })
+          .catch(err => {
+            console.log(err)
+          })
         console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
         await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.location.companies_id, messageVal)
           .then(response => {
