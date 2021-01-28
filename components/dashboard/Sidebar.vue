@@ -683,7 +683,7 @@
                 to: '/dashboard/vendor-documents',
                 slug: 'vendor-documents',
                 icon: 'mdi-file',
-                text: 'Requested Documents'
+                text: 'Documents'
               },
             ]
           },
