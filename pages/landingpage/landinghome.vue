@@ -97,7 +97,8 @@
       </div>
       <button v-if="!$vuetify.breakpoint.mobile" @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY LEARN MORE</button>
       <button v-else @click="$router.push('/landingpage/property-manager')">PROPERTY & FACILITY<br/> LEARN MORE</button>
-      <h1>Service Providers Generally Ask</h1>
+      
+      <h1>VEDNORAS</h1>
       <div class="landinghomefaqflex">
         <div>
           <h4>
@@ -147,6 +148,8 @@
 import Reviews from '../../components/landing/general/Reviews';
 import PreviewSliderSectionPF from '~/components/landing/property-manager/PreviewSliderSectionPF';
 import PreviewSliderSectionSP from '~/components/landing/service-provider/PreviewSliderSectionSP';
+
+
 export default {
   layout: 'fullwidth',
   data: () => ({

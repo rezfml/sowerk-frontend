@@ -124,7 +124,7 @@
           </v-row>
           </transition> -->
 
-          <transition name="slide-fade">
+          <!-- <transition name="slide-fade">
             <FacilitiesCard
               v-if="loading != false"
               :title="'My Approved Vendors'"
@@ -135,7 +135,7 @@
               action="ViewApproved"
               :company="company"
             ></FacilitiesCard>
-          </transition>
+          </transition> -->
         </v-col>
       </v-row>
 
@@ -164,18 +164,32 @@
             min-width="40vw"
           ></v-skeleton-loader>
 
-          <transition name="slide-fade">
-          <FacilitiesCard
-            v-if="loading"
-            :title="'My Approved Vendors'"
-            :items="applications"
-            :tableProperties="headers"
-            :viewAll="false"
-            slug="/dashboard/vendors/approved/"
-            action="ViewApproved"
-            :company="company"
-          ></FacilitiesCard>
+          <transition>
+            <AcceptedApplicationCard
+              v-if="loading"
+              :title="'My Approved Vendors'"
+              :items="applications"
+              :tableProperties="headers"
+              :viewAll="false"
+              slug="/dashboard/vendors/approved/"
+              action="ViewApproved"
+              :company="company"
+            ></AcceptedApplicationCard>
           </transition>
+
+          <!-- <transition name="slide-fade">
+            <FacilitiesCard
+              v-if="loading"
+              :title="'My Approved Vendors'"
+              :items="applications"
+              :outerApprVenHeaders:="outerApprVenHeaders"
+              :tableProperties="headers"
+              :viewAll="false"
+              slug="/dashboard/vendors/approved/"
+              action="ViewApproved"
+              :company="company"
+            ></FacilitiesCard>
+          </transition> -->
         </v-col>
       </v-row>
 
@@ -186,13 +200,15 @@
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'
   import FacilitiesCard from '~/components/dashboard/FacilitiesCard'
+  import AcceptedApplicationCard from '~/components/dashboard/AcceptedApplicationCard.vue'
 
   export default {
     name: 'approvedVendors',
     layout: 'app',
     components: {
       FilterCard,
-      FacilitiesCard
+      FacilitiesCard,
+      AcceptedApplicationCard
     },
     data() {
       return {
@@ -342,9 +358,6 @@
           { text: 'Contact', value: 'contact', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          // { text: 'Co. History', value: 'yearFounded', class: 'primary--text font-weight-bold text-h6 text-center' },
-          // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-center' },
-          // { text: 'Application Completed', value: 'applicationCompleted', class: 'primary--text font-weight-bold text-h6 text-center' },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applications: [],

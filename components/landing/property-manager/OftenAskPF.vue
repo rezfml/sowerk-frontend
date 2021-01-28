@@ -7,7 +7,7 @@
               style="font-size: 30px"
               class="text-sm-h4 text-md-h3 font-weight-bold primary--text text-center"
             >
-              Property and Facility Managers Often Ask
+              Businesses Often Ask
             </p>
             <v-list
               max-width="950px"
@@ -25,11 +25,11 @@
                   <p style="line-height: 1.25em; font-size: 19px;"
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Is this going to create more work for
                     me?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Actually, we designed SOWerk to be less work for you. Think
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Actually, we designed SOWerk to be less work for you and suppliers. Think
                     of SOWerk like connecting with vendors on social
                     media, except they have to meet your approved provider
-                    requirements. From here, you can easily manage and
-                    communicate with your approved product providers.</p>
+                    requirements. After vetting, you can easily manage and
+                    communicate with your approved Vendors.</p>
                 </v-col>
             </v-row>
 
@@ -42,7 +42,7 @@
                 <v-col cols="11" class="pa-0">
                   <p  style="line-height: 1.25em; font-size: 19px;"
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Save Us Money? Will It Protect Our Investments?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">If time is money and quality is everything, then yes, SOWerk can help. SOWerk makes it efficient for any staff member to vet & manage local/national product providers, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted providers then it might just save you both time and money. Additionally, we make product providers re-qualify annually on things like insurance coverage and licenses so you don’t have to.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">If time is money and quality is everything, then yes, SOWerk can help. SOWerk makes it efficient for any staff member to vet & manage local/national Vendors, such as getting bids for projects and communicating details. If it’s easy to get bids from multiple vetted Vendors then it might just save you both time and money. Additionally, businesses use SOWerk to log all interactions and documents, which might come in handy if you need to file a warranty claim or protect your business in court.</p>
                 </v-col>
             </v-row>
 
@@ -55,7 +55,7 @@
                 <v-col cols="11" class="pa-0">
                   <p  style="line-height: 1.25em; font-size: 19px;"
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will SOWerk Help Shield Me From Cold Calls?</p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Sales is part of any business but sometimes, you just need a place to send the salesman where they can apply for your approved product program. SOWerk is your solution. </p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Sales is part of any business but sometimes, you just need a place to send the salesman where they can apply for with your business. Find us on SOWerk to become an approved Vendor. </p>
                 </v-col>
             </v-row>
             </v-list>
