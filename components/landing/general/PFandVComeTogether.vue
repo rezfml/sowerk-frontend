@@ -97,6 +97,7 @@
                 BUSINESSES - LEARN MORE
           </v-btn>
       </v-row>
+
       <v-row
         v-else
         class="primary"
@@ -148,7 +149,8 @@
               to="/landingpage/join-service-landing/">
                 VENDORS - LEARN MORE
           </v-btn>
-      </v-row>      
+      </v-row> 
+           
       <v-row
         v-else
         class="primary"
@@ -197,7 +199,7 @@ export default {
   content: '';
   background: linear-gradient(
     180deg,
-    rgb(255, 238, 254) 0%,
+    rgb(255, 255, 255) 0%,
     white 100%
   );
   top: 0;
