@@ -165,7 +165,7 @@
               ></v-select>
               <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
               <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
-              <v-card-text style="text-align: center; font-size: 48px; color: #A61C00">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 48px; color: #A61C00; line-height: 1.25rem; word-break: break-word; white-space: pre-wrap;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
               <div class="d-flex justify-center" style="width: 100%;">
                 <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
                 <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
