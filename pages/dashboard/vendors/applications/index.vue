@@ -241,7 +241,7 @@
                           <td v-if="app !== 'There are no userforms'">
                               <v-select
                               v-model="app.applicationStatus"
-                              :placeholder="app.applicationStatus"
+                              :placeholder="test(app.applicationStatus)"
                               :items="applicationOptions"
                               @change="userformEditActive(app)"
                               >
@@ -1803,7 +1803,8 @@ const naics = require("naics");
         }
     },
     async mounted() {
-      await this.getCompany(this.currentUser.companies_id);
+      await this.getDataForApprovedVendorTable(this.currentUser.companies_id);
+      // await this.getCompany(this.currentUser.companies_id);
       await this.getSowerkTags();
       await this.getNaicsList();
       await this.getVendorsList();
@@ -1830,7 +1831,6 @@ const naics = require("naics");
       // }
       //
       // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-      await this.getDataForApprovedVendorTable(this.currentUser.companies_id)
       // await this.getLocations(this.currentUser.companies_id);
       this.videosLinks.vendorApplications = true
     },
@@ -1840,14 +1840,24 @@ const naics = require("naics");
       },
     },
     methods: {
+      test(appStatus) {
+        if(appStatus === 0) {
+          return 'Unpublished'
+        } else if (appStatus === 1) {
+          return 'Published - Public'
+        } else {
+          return 'Published - Private'
+        }
+      },
       async getDataForApprovedVendorTable(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/ChannelForms/byCompanyId/' + id)
           .then((response) => {
-            console.log(response.data, "-----------------------------------------------------------------")
-            // this.listOfUserChannels = response.data
-            console.log(response.data.name, "NAME")
-            console.log(response.data.userforms, "USERFORMS")
-
+            console.log(response.data.location, "-----------------------------------------------------------------")
+            this.listOfUserChannels = response.data.location
+            console.log(this.listOfUserChannels, "YOUR VENDOR APPLICATIONS TABLE DATA SET")
+            this.addLocations = response.data.location
+            console.log(this.addLocations, "ADD LOCATION DATA SET, LIST OF CHANNELS")
+            this.loading = true
           })
           .catch(err => console.log(err))
       },
@@ -2099,193 +2109,200 @@ const naics = require("naics");
           this.industryLevel3.push(category);
         }
       },
-      async getCompany(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
-          .then(async(response) => {
-            //console.log(response.data, "RESPONCE DOT DATA")
-            this.listOfUserChannels = response.data.locations;
-            //console.log(this.listOfUserChannels, "----------------------HEY THIS IS THE LIST OF USER CHANNELS")
+      
+      // ALL FOUR PREVIOUS METHOD NOT CURRENTLY USED!
+      // async getCompany(id) {
+      //   await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+      //     .then(async(response) => {
+      //       //console.log(response.data, "RESPONCE DOT DATA")
+      //       // this.listOfUserChannels = response.data.locations;
+      //       //console.log(this.listOfUserChannels, "----------------------HEY THIS IS THE LIST OF USER CHANNELS")
 
-            this.listOfUserChannels.forEach((channel, index) => {
-              this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + channel.id)
-                .then(res => {
-                  console.log(res.data,'HEY!!!!')
-                  if(res.data[0] !== 'There are no userforms') {
+      //       this.listOfUserChannels.forEach((channel, index) => {
+      //         this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + channel.id)
+      //           .then(res => {
+      //             console.log(res.data,'HEY!!!!')
+      //             if(res.data[0] !== 'There are no userforms') {
 
-                    for(let i=0; i<res.data.length; i++) {
-                      let userForm = {
-                        applicationStatus: res.data[i].applicationStatus,
-                        id: res.data[i].id,
-                        name: res.data[i].name,
-                        service: res.data[i].service,
-                        vendorType: res.data[i].vendorType,
-                        locations_id: res.data[i].locations_id,
-                        formfields: []
-                      };
-                      if(userForm.applicationStatus === 0) {
-                        userForm.applicationStatus = 'Unpublished'
-                      } else if (userForm.applicationStatus === 1) {
-                        userForm.applicationStatus = 'Published - Public'
-                      } else {
-                        userForm.applicationStatus = 'Published - Private'
-                      }
-                      res.data[i] = userForm
-                    }
-                  }
+      //               for(let i=0; i<res.data.length; i++) {
+      //                 let userForm = {
+      //                   applicationStatus: res.data[i].applicationStatus,
+      //                   id: res.data[i].id,
+      //                   name: res.data[i].name,
+      //                   service: res.data[i].service,
+      //                   vendorType: res.data[i].vendorType,
+      //                   locations_id: res.data[i].locations_id,
+      //                   formfields: []
+      //                 };
+      //                 if(userForm.applicationStatus === 0) {
+      //                   userForm.applicationStatus = 'Unpublished'
+      //                 } else if (userForm.applicationStatus === 1) {
+      //                   userForm.applicationStatus = 'Published - Public'
+      //                 } else {
+      //                   userForm.applicationStatus = 'Published - Private'
+      //                 }
+      //                 res.data[i] = userForm
+      //               }
+      //             }
 
-                  channel.userforms = res.data
-                })
-                .catch(err => {
-                  console.log(err, "error in the getting of locations userforms")
-                })
-            })
-
-
-            console.log(this.listOfUserChannels, "----------------------AUGMENTED LIST")
-
-          })
-          .catch(err => {
-            console.log('err in getting company list of channels', err)
-          })
-        setTimeout(() => {
-          console.log('this.locations', this.locations)
-          this.loading = true;
-        }, 2000)
-      },
-      async getLocations(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
-          .then(async response => {
-            // console.log(response.data, 'locations RESPONSE DATA LOCATION');
-            response.data.location.forEach(async (location, index) => {
-              // console.log("DOES THIS EVEN RUN TWICE")
-
-              if(this.currentUser.is_superuser) {
-                this.locations = response.data.location
-              } else {
-                this.locations = response.data.location.filter(location => {
-                  if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
-                    return location
-                  }
-                })
-              }
-
-              // console.log(this.locations, 'locations THIS DOT LOCATIONS');
-
-              this.addLocations = response.data.location;
-              this.locations.forEach(async (location, index) => {
-
-                // console.log(this.valueServices, ' bef valueServices');
-                await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
-
-              })
-            })
-          })
-          .catch(err => {
-            console.log('err get locations', err);
-          })
-      },
-      async getServices(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
-          .then(async (response) => {
-            console.log(response.data, 'services!!!! WOW');
-            for(let i=0; i<response.data.length; i++) {
-              let service = {
-                id: response.data[i].id,
-                name: response.data[i].name,
-                userforms: []
-              }
-              await this.services.push(service)
-              this.locations[this.valueServices].services[i] = service;
-              this.addLocations[this.valueServices].services[i] = service;
-              // console.log(this.services, 'this.services', this.locations, 'this.locations');
-              // console.log(this.valueUserForms, 'valueUserForms');
-              setTimeout(async () => {
-                await this.getUserforms(response.data[i].id)
-                this.valueUserForms++
-              }, 125)
-            }
-          })
-          .catch(err => {
-            console.log('err get services', err);
-          })
-      },
-      async getUserforms(id, valueUserForms, valueServices) {
-          //console.log(id, valueUserForms, valueServices, "HEYYYYYYYYYYYYYYYYYYYYYY")
-
-          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
-            .then(async (response) => {
-              // this.totalLength += response.data.length;
-              // console.log(this.totalLength, 'totalLength!!!!!!!!!!!!');
-              // console.log(response.data, 'userforms response.data');
-              // console.log(valueServices, 'valueServices', valueUserForms, 'valueUserForms');
-              // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
-              // this.locations[valueServices].services[valueUserForms].userforms = response.data;
-              console.log(response.data, 'USERFORMS FOR LOCATION')
-                for(let i=0; i<response.data.length; i++) {
-
-                  let userForm = {
-                    applicationStatus: response.data[i].applicationStatus,
-                    id: response.data[i].id,
-                    name: response.data[i].name,
-                    service: response.data[i].service,
-                    vendorType: response.data[i].vendorType,
-                    locations_id: response.data[i].locations_id,
-                    formfields: []
-                  };
-                  // console.log(this.locations[this.valueServices], 'this.locations individual')
-                  let userForm2 = {
-                    applicationStatus: response.data[i].applicationStatus,
-                    id: response.data[i].id,
-                    name: response.data[i].name,
-                    service: response.data[i].service,
-                    vendorType: response.data[i].vendorType,
-                    locations_id: response.data[i].locations_id,
-                    formfields: [],
-                    locationName: this.locations[this.valueServices].name,
-                    locationAddress: this.locations[this.valueServices].address + " " + this.locations[this.valueServices].city + ", " + this.locations[this.valueServices].state + " " + this.locations[this.valueServices].zipcode,
-                  };
+      //             channel.userforms = res.data
+      //           })
+      //           .catch(err => {
+      //             console.log(err, "error in the getting of locations userforms")
+      //           })
+      //       })
 
 
-                  //console.log(userForm2, "----------------- USERFORM2")
-                  //console.log(this.locations, "----------------- this dot locations")
-                  //console.log(this.valueServices, "----------------- valueServices")
-                  //console.log(this.valueUserForms, "----------------- valueUserForms")
+      //       console.log(this.listOfUserChannels, "----------------------AUGMENTED LIST")
 
-                  if(i === (response.data.length - 1)){
-                    console.log(response.data.length, "LENGTH! should be 1,2 then 1,2 again")
-                    console.log("TEST OF IF STATEMENT")
-                    this.valueServices++
-                    this.valueUserForms++
-                  }
+      //     })
+      //     .catch(err => {
+      //       console.log('err in getting company list of channels', err)
+      //     })
+      //   setTimeout(() => {
+      //     console.log('this.locations', this.locations)
+      //     this.loading = true;
+      //   }, 2000)
+      // },
 
-                  if(userForm.applicationStatus === 0) {
-                    userForm.applicationStatus = 'Unpublished'
-                    userForm2.applicationStatus = 'Unpublished'
-                  } else if (userForm.applicationStatus === 1) {
-                    userForm.applicationStatus = 'Published - Public'
-                    userForm2.applicationStatus = 'Published - Public'
-                  } else {
-                    userForm.applicationStatus = 'Published - Private'
-                    userForm2.applicationStatus = 'Published - Private'
-                  }
-                  this.userForms.push(userForm);
-                  this.applicationTemplateVal.push(userForm2);
-                  //console.log(this.applicationTemplateVal, "----------------------------------")
+      // async getLocations(id) {
+      //   await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
+      //     .then(async response => {
+      //       // console.log(response.data, 'locations RESPONSE DATA LOCATION');
+      //       response.data.location.forEach(async (location, index) => {
+      //         // console.log("DOES THIS EVEN RUN TWICE")
 
-                  // setTimeout(() => {
-                  //   console.log("set time out")
-                  // }, 4000)
+      //         if(this.currentUser.is_superuser) {
+      //           this.locations = response.data.location
+      //         } else {
+      //           this.locations = response.data.location.filter(location => {
+      //             if(this.currentUser.first_name === location.contact_first_name && this.currentUser.last_name === location.contact_last_name && this.currentUser.email === location.email) {
+      //               return location
+      //             }
+      //           })
+      //         }
 
-                  await this.getFormFields(response.data[i].id);
-                }
+      //         // console.log(this.locations, 'locations THIS DOT LOCATIONS');
 
-                this.finishedFormFields = true;
-              // console.log(this.userForms, 'userForms with formfields');
-            })
-            .catch(err => {
-              console.log('err get userforms', err);
-            })
-      },
+      //         this.addLocations = response.data.location;
+      //         this.locations.forEach(async (location, index) => {
+
+      //           // console.log(this.valueServices, ' bef valueServices');
+      //           await this.getUserforms(location.id, this.valueUserForms, this.valueServices)
+
+      //         })
+      //       })
+      //     })
+      //     .catch(err => {
+      //       console.log('err get locations', err);
+      //     })
+      // },
+
+      // async getServices(id) {
+      //   await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
+      //     .then(async (response) => {
+      //       console.log(response.data, 'services!!!! WOW');
+      //       for(let i=0; i<response.data.length; i++) {
+      //         let service = {
+      //           id: response.data[i].id,
+      //           name: response.data[i].name,
+      //           userforms: []
+      //         }
+      //         await this.services.push(service)
+      //         this.locations[this.valueServices].services[i] = service;
+      //         this.addLocations[this.valueServices].services[i] = service;
+      //         // console.log(this.services, 'this.services', this.locations, 'this.locations');
+      //         // console.log(this.valueUserForms, 'valueUserForms');
+      //         setTimeout(async () => {
+      //           await this.getUserforms(response.data[i].id)
+      //           this.valueUserForms++
+      //         }, 125)
+      //       }
+      //     })
+      //     .catch(err => {
+      //       console.log('err get services', err);
+      //     })
+      // },
+
+      // async getUserforms(id, valueUserForms, valueServices) {
+      //     //console.log(id, valueUserForms, valueServices, "HEYYYYYYYYYYYYYYYYYYYYYY")
+
+      //     await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
+      //       .then(async (response) => {
+      //         // this.totalLength += response.data.length;
+      //         // console.log(this.totalLength, 'totalLength!!!!!!!!!!!!');
+      //         // console.log(response.data, 'userforms response.data');
+      //         // console.log(valueServices, 'valueServices', valueUserForms, 'valueUserForms');
+      //         // console.log(this.locations[valueServices], 'locationsValueServices', this.locations[valueServices].services[valueUserForms])
+      //         // this.locations[valueServices].services[valueUserForms].userforms = response.data;
+      //         console.log(response.data, 'USERFORMS FOR LOCATION')
+      //           for(let i=0; i<response.data.length; i++) {
+
+      //             let userForm = {
+      //               applicationStatus: response.data[i].applicationStatus,
+      //               id: response.data[i].id,
+      //               name: response.data[i].name,
+      //               service: response.data[i].service,
+      //               vendorType: response.data[i].vendorType,
+      //               locations_id: response.data[i].locations_id,
+      //               formfields: []
+      //             };
+      //             // console.log(this.locations[this.valueServices], 'this.locations individual')
+      //             let userForm2 = {
+      //               applicationStatus: response.data[i].applicationStatus,
+      //               id: response.data[i].id,
+      //               name: response.data[i].name,
+      //               service: response.data[i].service,
+      //               vendorType: response.data[i].vendorType,
+      //               locations_id: response.data[i].locations_id,
+      //               formfields: [],
+      //               locationName: this.locations[this.valueServices].name,
+      //               locationAddress: this.locations[this.valueServices].address + " " + this.locations[this.valueServices].city + ", " + this.locations[this.valueServices].state + " " + this.locations[this.valueServices].zipcode,
+      //             };
+
+
+      //             //console.log(userForm2, "----------------- USERFORM2")
+      //             //console.log(this.locations, "----------------- this dot locations")
+      //             //console.log(this.valueServices, "----------------- valueServices")
+      //             //console.log(this.valueUserForms, "----------------- valueUserForms")
+
+      //             if(i === (response.data.length - 1)){
+      //               console.log(response.data.length, "LENGTH! should be 1,2 then 1,2 again")
+      //               console.log("TEST OF IF STATEMENT")
+      //               this.valueServices++
+      //               this.valueUserForms++
+      //             }
+
+      //             if(userForm.applicationStatus === 0) {
+      //               userForm.applicationStatus = 'Unpublished'
+      //               userForm2.applicationStatus = 'Unpublished'
+      //             } else if (userForm.applicationStatus === 1) {
+      //               userForm.applicationStatus = 'Published - Public'
+      //               userForm2.applicationStatus = 'Published - Public'
+      //             } else {
+      //               userForm.applicationStatus = 'Published - Private'
+      //               userForm2.applicationStatus = 'Published - Private'
+      //             }
+      //             this.userForms.push(userForm);
+      //             this.applicationTemplateVal.push(userForm2);
+      //             //console.log(this.applicationTemplateVal, "----------------------------------")
+
+      //             // setTimeout(() => {
+      //             //   console.log("set time out")
+      //             // }, 4000)
+
+      //             await this.getFormFields(response.data[i].id);
+      //           }
+
+      //           this.finishedFormFields = true;
+      //         // console.log(this.userForms, 'userForms with formfields');
+      //       })
+      //       .catch(err => {
+      //         console.log('err get userforms', err);
+      //       })
+      // },
+      
+
       async getFormFields(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
           .then(async (response) => {
