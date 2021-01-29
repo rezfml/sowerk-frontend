@@ -23,6 +23,12 @@
       <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
         <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
         <v-btn :href="'../../vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Exit</v-btn>
+        <v-progress-circular
+          v-if="saveLoad === false"
+          indeterminate
+          color="primary"
+          :size="30"
+        ></v-progress-circular>
       </v-row>
     </transition>
 
@@ -152,12 +158,6 @@
           </v-card>
           <!--          </draggable>-->
           <!--          <rawDisplayer title="List 2" :value="formTypes" />-->
-          <v-progress-circular
-            v-if="saveLoad === false"
-            indeterminate
-            color="primary"
-            :size="20"
-          ></v-progress-circular>
 
           <transition name="slide-fade">
             <v-container class="" overflow-y-auto>
