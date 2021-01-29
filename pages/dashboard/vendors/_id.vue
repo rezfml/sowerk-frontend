@@ -860,6 +860,7 @@
           locations_id: Number,
           userprofiles_id: Number,
           spLocationsId: Number,
+          spcompaniesId: Number,
           companies_id: Number,
         },
         chosenLocation: {},
@@ -1054,7 +1055,8 @@
         this.note.userprofiles_id = this.currentUser.id
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
-        this.note.spLocationsId = Number(this.$route.params.id)
+        this.note.spLocationsId = this.location.id
+        this.note.spcompaniesId = this.companyForVendor.id
         console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
@@ -1074,12 +1076,14 @@
               console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
               this.notes.push(response.data.note)
+              this.getLocationNotes();
               this.note = {
                 note: '',
                 fileUrl: null,
                 locations_id: Number,
                 userprofiles_id: Number,
                 spLocationsId: Number,
+                spcompaniesId: Number,
                 companies_id: Number,
               }
               this.chosenLocation = {}
@@ -1513,7 +1517,7 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.companyForVendor.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.notes = response.data;
@@ -1523,7 +1527,7 @@
           })
       },
       async getLocationNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byLocationId/' + this.location.id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.locationNotes = response.data;
