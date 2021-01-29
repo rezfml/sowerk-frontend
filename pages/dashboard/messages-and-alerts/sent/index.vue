@@ -70,9 +70,9 @@
 
         },
         headers: [
-          { text: 'Channel', value: 'spLocationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Message', value: 'message', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Viewed', value: 'pmMessageRead', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Channel', value: 'spLocationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Message', value: 'message', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Viewed', value: 'pmMessageRead', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           // { text: 'Company', value: 'company', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           // { text: 'Primary Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           // { text: 'Channel', value: 'location', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },

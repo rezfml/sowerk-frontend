@@ -205,21 +205,21 @@
         requestingApplications: [],
         requestingApplicationsList: [],
         providerHeaders: [
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: '# Channels Inviting', value: 'ChannelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: '# Channels Inviting', value: 'ChannelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         ],
         providerChannelHeaders: [
-          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: '# Applications Requested', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: '# Applications Requested', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         ],
         providerApplicationHeaders: [
-          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         requestingApprovedApplications: [],
         providerApprovedHeaders: [
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         applicationRequestsModal: true,

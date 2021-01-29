@@ -8,6 +8,15 @@
 <!--      ></v-progress-circular>-->
 <!--    </div>-->
 
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadingSubmitVendorDocs">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="80"
+        v-if="loadingSubmitVendorDocs"
+      ></v-progress-circular>
+    </div>
+
 <!--    TOP INFO BANNER WITH LINK TO YOUTUBE VIDEO    -->
     <transition name="slide-fade">
       <v-card class="my-4 flex-row justify-space-between align-center mx-0">
@@ -283,7 +292,14 @@
         v-if="assignChannel"
       ></v-progress-circular>
     </div>
-
+    <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadDeleteCompanyTemplateSpinner">
+      <v-progress-circular
+        indeterminate
+        color="#7C7C7C"
+        :size="80"
+        v-if="loadDeleteCompanyTemplateSpinner"
+      ></v-progress-circular>
+    </div>
     <transition name="slide-fade">
       <v-card class="mt-16" v-if="loadApplicationTemplates" style="width: 100%;">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">SOWerk Application Templates</v-card-title>
@@ -473,12 +489,7 @@
         </v-autocomplete>
         <v-btn style="position: absolute; bottom: 15px; left: 20px; width: 20%;" class="py-6 px-16" color="primary" @click="backToCompanyDocuments">< BACK</v-btn>
         <v-btn style="width: 40%;" class="my-2" color="primary" @click="sendToVendorDocs">Send To Vendor(s)</v-btn>
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          :size="20"
-          v-if="loadingSubmitVendorDocs"
-        ></v-progress-circular>
+        <v-card-text class="my-2" style="text-align: center; color: #A61C00;" v-if="loadingSubmitVendorDocsSuccess">Success in sending document to vendor!</v-card-text>
       </v-card>
     </transition>
 
@@ -859,7 +870,7 @@
             <v-card-title v-else-if="step2 && !$vuetify.breakpoint.lg && !$vuetify.breakpoint.xl " class="mt-10" style="text-align: center; width: 100%; font-size: 20px;">Step 2 - Select Channel</v-card-title>
           </transition>
           <transition name="slide-fade">
-            <p v-if="step2" class="ml-4" style="width: 80%; font-size: 18px;">Every Vendor application is specifically tied to a Channel in your account. Besides keeping your account organized this also provides you the flexibility to create custom Vendor requirements for each channel (i.e. Facility Location, Department, etc.). You can use Company Templates in SOWerk to help in replicating similar Vendor applications across multiple channels.</p>
+            <p v-if="step2" class="ml-4" style="width: 80%; font-size: 18px;">Every Vendor application is specifically tied to a Channel in your account. Besides keeping your account organized this also provides you the flexibility to create custom Vendor requirements for each channel (i.e. Facility Location, Department, etc.).<br /> <span style="color: #A61C00">* <span style="text-decoration: underline;">Stop</span></span>: If you are planning to use the same Vendor vetting questions across multiple channels (locations, departments, major projects) you may want to start with building a Company Template. A company template can be created once and then assigned to multiple channels. This saves you time. What’s even better is that after you assign a template to channels you can always go back to any one specific channel and edit that application without affecting the original company template or other channels. Tip #2, a quick way to start a company template is to first go to SOWerk Templates, pick one that is most relevant or has most of your desired questions already, add to your company templates and then start editing that new company template.</p>
           </transition>
           <transition name="slide-fade">
             <v-card-title v-if="step3" class="mt-10" style="text-align: center; width: 80%;">Step 3 - Choose A Vendor Type</v-card-title>
@@ -1484,28 +1495,28 @@ const naics = require("naics");
         applicationTemplates: [],
         companyTemplates: [],
         headersChannelVendorApplicationsVal: [
-          { text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Total Applications', value: 'userforms', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Total Applications', value: 'userforms', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
         ],
         headers: [
-          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         applicationDragNDropHeaders: [
-          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
         ],
         tableHeaders: [
-          { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Channel', value: 'location', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Category', value: 'service', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Channel', value: 'location', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         companyDocumentsHeaders: [
-          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         addLocations: [
@@ -1609,6 +1620,8 @@ const naics = require("naics");
         itemrequired: Number,
         itemtype: '',
         itemvalue: '',
+        loadDeleteCompanyTemplateSpinner: false,
+        loadingSubmitVendorDocsSuccess: false,
         }
     },
     async mounted() {
@@ -1715,8 +1728,9 @@ const naics = require("naics");
       async sendToVendorDocs() {
         if(this.channelsList.length <= 0) {
           console.log(this.vendorChannels[0], 'hey')
+          this.loadingSubmitVendorDocsSuccess = true;
           this.loadingSubmitVendorDocs = true;
-          this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
+          await this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
             // companies_id: this.currentUser.companies_id,
             documentName: this.documentToSend.documentName,
             documentUrl: this.documentToSend.documentUrl,
@@ -1732,6 +1746,7 @@ const naics = require("naics");
             })
           this.loadingSubmitVendorDocs = false;
         } else {
+          this.loadingSubmitVendorDocsSuccess = true;
           this.loadingSubmitVendorDocs = true;
          for(let i=0; i<this.channelsList.length; i++) {
            // console.log({
@@ -1803,6 +1818,7 @@ const naics = require("naics");
         console.log(document, 'document');
         this.documentToSend = document
         this.addToVendorLoad = true;
+        this.loadingSubmitVendorDocsSuccess = false;
       },
       async backToCompanyDocuments() {
         this.addToVendorLoad = false;
@@ -2361,6 +2377,7 @@ const naics = require("naics");
           })
       },
       async deleteCompanyTemplates(template) {
+        this.loadDeleteCompanyTemplateSpinner = true;
         console.log(template, 'template for delete company')
         await this.$http.get('https://www.sowerkbackend.com/api/companytemplatetags/byCompanyTemplateId/' + template.id)
           .then(response => {
@@ -2406,6 +2423,7 @@ const naics = require("naics");
             this.step3finishedFormFields = false;
             this.expanded = [];
             this.singleExpand = true;
+            this.loadDeleteCompanyTemplateSpinner = false;
           })
           .catch(err => {
             console.log(err, 'err in deleting this company template')

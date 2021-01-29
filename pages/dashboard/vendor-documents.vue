@@ -63,10 +63,11 @@
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px; word-break: break-word; white-space: pre-wrap;">Manage Requesting Documents</v-card-title>
             <v-card-text style="font-size: 18px; word-break: break-word; white-space: pre-wrap;">Vendors can utilize the Requesting Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
-            <v-row>
-              <v-btn>Requesting Documents</v-btn>
-              <v-btn>All Documents</v-btn>
-              <v-btn>Upload + Share</v-btn>
+            <v-row class="d-flex flex-wrap justify-center align-center">
+              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined>Requesting Documents</v-btn>
+              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
+              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
+              <v-btn style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -118,8 +119,8 @@
       return {
         vendorDocuments: [],
         vendorHeaders: [
-          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         chosenUploadFirstDocument: {},

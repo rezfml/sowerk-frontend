@@ -19,7 +19,7 @@
                   <!--        </transition>-->
 
                   <transition name="slide-fade">
-                    <v-btn color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+                    <v-btn v-if="HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/'" color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
                   </transition>
 
                   <transition name="slide-fade">
@@ -165,9 +165,9 @@
 
                     <v-btn class="my-1" v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 
-                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
+<!--                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>-->
 
-                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
+<!--                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>-->
 
                     <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
                   </v-card-actions>
@@ -328,9 +328,9 @@
                   <v-card-actions class="d-flex flex-wrap justify-center py-6">
                     <v-btn class="my-1" v-if="user && loadCompany" style="color:white;" color="#802525" @click="logout">Logout</v-btn>
 
-                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>
+<!--                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="color:white;" color="#7C7C7C" @click="uploadCard">Upload Document</v-btn>-->
 
-                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>
+<!--                    <v-btn class="my-1" v-if="user && loadCompany && currentUser.is_superuser === true" style="" color="primary" @click="editCompany">Edit Company</v-btn>-->
 
                     <v-btn class="mt-4" small color="primary" @click="deleteLocation(location)" v-if="location && currentUser.is_superuser === true">DELETE CHANNEL</v-btn>
                   </v-card-actions>
@@ -368,6 +368,7 @@
     ],
     data() {
       return {
+        HREFLocation: window.location.href,
         companyDocumentImageUrl: null,
         companyDocumentImageFile: null,
         companyDocuments: [],
@@ -377,14 +378,16 @@
         loadCompany: false,
         loadCompanyLocation: false,
         companyDocumentsHeaders: [
-          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
-          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'},
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         vendorTypes: [],
       }
     },
     mounted() {
+      console.log(window.location.href)
+      this.HREFLocation = window.location.href
       console.log(this.user, "ggggggggggggggggggg")
       console.log(this.location, 'location this!!!!!!!!!!!!!', 'this.locationApproved', this.locationApproved, 'this.pendingApplicants', this.pendingApplicants, this.editVendorRequirements, this.editLocationDetails);
       console.log(this.locationImageUrl, 'locationImgUrl')

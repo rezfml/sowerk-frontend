@@ -1604,11 +1604,11 @@
             value: 'id',
             class: 'primary--text font-weight-bold text-h6 text-left text-justify-start'
           },
-          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Facility', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Primary Contact', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         adminOptions: [

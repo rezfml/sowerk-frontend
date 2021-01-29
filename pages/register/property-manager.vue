@@ -491,6 +491,7 @@ export default {
       let { data, status } = await this.$http.post('https://www.sowerkbackend.com/api/companies', this.company).catch((e) => e);
       console.log('post company: ', data)
       this.user.companies_id = data.companies.id
+      await this.registerCompanyDocument(data);
       await this.registerUser(data)
       // await this.postLocations(data.user.id);
       // await this.$router.push('/login');
@@ -498,6 +499,19 @@ export default {
       //   .then(response => {
       //     console.log(response);
       //   })
+    },
+    async registerCompanyDocument(company) {
+      await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + company.companies.id, {
+        documentName: 'W9 Template.pdf',
+        documentUrl: 'https://sowerk-uploads.s3.us-east-2.amazonaws.com/sowerk-2fbfbcc9-5f86-4d5a-bee4-35d2cb6a0754-unique-W9%20Template.pdf',
+        required: true
+      })
+        .then(response => {
+          console.log('success in posting company document')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     async registerUser(company) {
       let { data, status } = await this.$http

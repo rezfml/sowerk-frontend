@@ -45,7 +45,7 @@
             <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
               <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
               <v-text-field style="width: 95%;" v-model="userForms.name" clearable></v-text-field>
-              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Account Channel:</span><span style="color: #7C7C7C">(Select the Channel that you want to assign this application to)</span></v-card-title>
+              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Account Channel:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select the Channel that you want to assign this application to)</span></v-card-title>
               <v-select
                 :items="locationsList"
                 item-text="name"
@@ -63,7 +63,7 @@
                   <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
                 </template>
               </v-select>
-              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Type:</span><span style="color: #7C7C7C">(Select A Type That Describes What This Application Provides)</span></v-card-title>
+              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Type:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Type That Describes What This Application Provides)</span></v-card-title>
               <v-select
                 style="width: 95%;"
                 v-model="userForms.vendorType"
@@ -72,7 +72,7 @@
                 outlined
                 clearable
               ></v-select>
-              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Category:</span><span style="color: #7C7C7C">(Select A Category That Describes What This Application Provides)</span></v-card-title>
+              <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Category:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Category That Describes What This Application Provides)</span></v-card-title>
               <v-autocomplete
                 style="width: 95%;"
                 v-model="userForms.service"
@@ -568,8 +568,8 @@
         applicationTemplates: [],
         companyTemplates: [],
         applicationDragNDropHeaders: [
-          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+          { text: 'Application Name', value: 'form_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: '#Questions', value: 'questions', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Category', value: 'service_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         expanded: [],

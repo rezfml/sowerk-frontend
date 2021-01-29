@@ -201,10 +201,10 @@ export default {
         }
       ],
       headers: [
-        { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-        { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
-        { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
-        { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center' },
+        { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+        { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+        { text: 'Channel Address', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+        { text: 'Contact', value: 'full_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         // { text: 'Proximity', value: 'radius', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ],
