@@ -472,16 +472,16 @@
             outlined
             v-model="note.note"
           ></v-text-field>
+          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <v-img
             :src="note.fileUrl"
             :aspect-ratio="1"
             class="my-8 rounded-circle flex-grow-1"
             style="width: 100%; max-width: 300px;"
-            v-if="note.fileUrl && notesFileFile.type === 'image/jpeg'"
+            v-else-if="note.fileUrl"
           ></v-img>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
           <img
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
@@ -499,6 +499,15 @@
             id="companyImage"
             style="visibility: hidden; height: 0; max-height: 0;"
           ></v-file-input>
+          <v-btn
+            v-if="note.fileUrl"
+            @click="clearNotesFile"
+            color="#7C7C7C"
+            rounded
+            class="flex-grow-0 px-10 py-6 my-4"
+            style="color: white;"
+          >Clear File</v-btn
+          >
           <v-btn
             @click="clickNotesFileUpload"
             color="primary"
@@ -1086,6 +1095,9 @@
         // console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('companyImage').click()
+      },
+      clearNotesFile() {
+        this.note.fileUrl = null;
       },
       selectNotesFile(e) {
         this.notesFileFile = e.target.files[0]
