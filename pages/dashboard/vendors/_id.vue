@@ -165,7 +165,7 @@
               ></v-select>
               <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
               <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
-              <v-card-text style="text-align: center; font-size: 48px; color: #A61C00">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 48px; color: #A61C00; line-height: 1.25rem; word-break: break-word; white-space: pre-wrap;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
               <div class="d-flex justify-center" style="width: 100%;">
                 <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
                 <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
@@ -472,16 +472,16 @@
             outlined
             v-model="note.note"
           ></v-text-field>
+          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <v-img
             :src="note.fileUrl"
             :aspect-ratio="1"
             class="my-8 rounded-circle flex-grow-1"
             style="width: 100%; max-width: 300px;"
-            v-if="note.fileUrl && notesFileFile.type === 'image/jpeg'"
+            v-else-if="note.fileUrl"
           ></v-img>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
           <img
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
@@ -499,6 +499,15 @@
             id="companyImage"
             style="visibility: hidden; height: 0; max-height: 0;"
           ></v-file-input>
+          <v-btn
+            v-if="note.fileUrl"
+            @click="clearNotesFile"
+            color="#7C7C7C"
+            rounded
+            class="flex-grow-0 px-10 py-6 my-4"
+            style="color: white;"
+          >Clear File</v-btn
+          >
           <v-btn
             @click="clickNotesFileUpload"
             color="primary"
@@ -851,6 +860,7 @@
           locations_id: Number,
           userprofiles_id: Number,
           spLocationsId: Number,
+          spcompaniesId: Number,
           companies_id: Number,
         },
         chosenLocation: {},
@@ -1045,7 +1055,8 @@
         this.note.userprofiles_id = this.currentUser.id
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
-        this.note.spLocationsId = Number(this.$route.params.id)
+        this.note.spLocationsId = this.location.id
+        this.note.spcompaniesId = this.companyForVendor.id
         console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
@@ -1065,12 +1076,14 @@
               console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
               this.notes.push(response.data.note)
+              this.getLocationNotes();
               this.note = {
                 note: '',
                 fileUrl: null,
                 locations_id: Number,
                 userprofiles_id: Number,
                 spLocationsId: Number,
+                spcompaniesId: Number,
                 companies_id: Number,
               }
               this.chosenLocation = {}
@@ -1086,6 +1099,9 @@
         // console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('companyImage').click()
+      },
+      clearNotesFile() {
+        this.note.fileUrl = null;
       },
       selectNotesFile(e) {
         this.notesFileFile = e.target.files[0]
@@ -1501,7 +1517,7 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.companyForVendor.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.notes = response.data;
@@ -1511,7 +1527,7 @@
           })
       },
       async getLocationNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byLocationId/' + this.location.id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.locationNotes = response.data;
