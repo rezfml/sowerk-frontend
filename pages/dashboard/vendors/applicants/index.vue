@@ -219,8 +219,8 @@
           }
         ],
         headers: [
-          { text: 'Your Channels', value: 'businessChannelName', class: 'primary--text font-weight-bold text-h6 text-left' },
-          { text: 'Pending Applications', value: 'vendorAppsForThisChannel.length', class: 'primary--text font-weight-bold text-h6 text-left' },
+          { text: 'Your Channels', value: 'businessChannelName', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: 'Pending Applications', value: 'vendorAppsForThisChannel.length', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
         ],
         applicationsArray: [],
         applicationsCount: 0,

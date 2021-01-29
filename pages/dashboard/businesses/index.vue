@@ -269,12 +269,12 @@
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         providerHeaders: [
-          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center'},
-          { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center' },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
+          { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         // connectionsHeaders: [
