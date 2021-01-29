@@ -1798,12 +1798,8 @@ const naics = require("naics");
         itemrequired: Number,
         itemtype: '',
         itemvalue: '',
-<<<<<<< HEAD
-        tableData: [],
-=======
         loadDeleteCompanyTemplateSpinner: false,
         loadingSubmitVendorDocsSuccess: false,
->>>>>>> f9c5b16a9b6c1ddd453048d79cef78f82776f440
         }
     },
     async mounted() {
