@@ -1609,6 +1609,7 @@ const naics = require("naics");
         itemrequired: Number,
         itemtype: '',
         itemvalue: '',
+        tableData: [],
         }
     },
     async mounted() {
@@ -1639,7 +1640,8 @@ const naics = require("naics");
       // }
       //
       // console.log(this.sectors, 'sectors', manufacturingSector, retailSector, transportationSector, 'other added sectors');
-      await this.getLocations(this.currentUser.companies_id);
+      await this.getDataForApprovedVendorTable(this.currentUser.companies_id)
+      // await this.getLocations(this.currentUser.companies_id);
       this.videosLinks.vendorApplications = true
     },
     computed: {
@@ -1648,6 +1650,17 @@ const naics = require("naics");
       },
     },
     methods: {
+      async getDataForApprovedVendorTable(id) {
+        await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
+          .then((response) => {
+            console.log(response.data, "-----------------------------------------------------------------")
+            // this.listOfUserChannels = response.data
+            console.log(response.data.name, "NAME")
+            console.log(response.data.userforms, "USERFORMS")
+
+          })
+          .catch(err => console.log(err))
+      },
       watchClickedVendorApplications() {
         if(this.clickedLinks.vendorApplications === true){
           this.clickedLinks.vendorApplications = false
