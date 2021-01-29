@@ -260,7 +260,9 @@
 
               <v-row>
                 <v-col cols="12" class="mt-8">
+                  <v-card-title style="align-self: center; color: #A61C00; text-align: center">Current Channel Tags</v-card-title>
                   <v-combobox
+                    label="Choose your tags here"
                     v-model="locationTagsNew"
                     :items="sowerkTags"
                     item-text="name"
