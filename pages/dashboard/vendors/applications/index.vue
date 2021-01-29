@@ -1072,11 +1072,29 @@
                       <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
                       <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
                         <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
-                        <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field>
+                        <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="assignUserform.name">{{assignUserform.name}}</v-text-field>
+                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Account Channel:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select the Channel that you want to assign this application to)</span></v-card-title>
+                        <v-select
+                          :items="locations"
+                          item-text="id name"
+                          item-value="id name"
+                          v-model="locationVal"
+                          label=""
+                          clearable
+                          style="width: 95%;"
+                          outlined
+                        >
+                          <template slot="selection" slot-scope="data">
+                            <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                          </template>
+                          <template slot="item" slot-scope="data">
+                            <v-card-text style="" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                          </template>
+                        </v-select>
                         <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Type:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Type That Describes What This Application Provides)</span></v-card-title>
                         <v-select
                           style="width: 95%;"
-                          v-model="newAssignUserForm.vendorType"
+                          v-model="assignUserform.vendorType"
                           :items="vendorType"
                           label=""
                           outlined
@@ -1093,7 +1111,7 @@
                           item-text="name"
                           item-value="name"
                           style="width: 95%;"
-                          v-model="newAssignUserForm.service_name"
+                          v-model="assignUserform.service"
                         >
                           <template slot="selection" slot-scope="data">
                             <p style="width: 100%;">{{ data.item.name }}</p>
@@ -3015,7 +3033,23 @@ const naics = require("naics");
         console.log('this.userForms', this.newAssignUserForm);
         console.log('this.originaluserForms', this.originalUserForms);
         const userformEdit = {
-          name: this.newAssignUserForm.name
+          name: this.assignUserform.name,
+          service: this.assignUserform.service,
+          vendorType: this.assignUserform.vendorType,
+          locations_id: this.locationVal.id
+        }
+        if(this.newAssignUserFormTagsNew.length > 0) {
+          for(let i=0; i<this.newAssignUserFormTagsNew.length; i++) {
+            this.$http.post('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + this.newAssignUserForm.id, {
+              name: this.newAssignUserFormTagsNew[i].name
+            })
+              .then(responseVal => {
+                console.log(responseVal, 'success in posting company template tags')
+              })
+              .catch(err => {
+                console.log(err, 'err in posting companytemplatetags')
+              })
+          }
         }
         this.newAssignUserForm.formfields.forEach(async (formfield, index) => {
           formfield["userform_id"] = this.newAssignUserForm.id
@@ -3070,7 +3104,7 @@ const naics = require("naics");
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
-        }, 1500)
+        }, 2000)
       },
       async saveCompanyTemplate() {
         this.saveLoad = false;
