@@ -599,35 +599,81 @@
         <transition name="slide-fade">
           <v-container class="py-16 mt-16" overflow-y-auto v-if="addNewCompanyTemplateLoad">
             <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
-              <v-btn @click="saveCompanyTemplate" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+              <v-btn v-if="saveLoad" @click="saveCompanyTemplate" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+              <v-progress-circular
+                v-if="saveLoad === false"
+                indeterminate
+                color="primary"
+                :size="30"
+              ></v-progress-circular>
               <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
             </v-row>
+
             <v-row class="d-flex justify-center" style="width: 100%;">
 
               <v-col cols="6" class="d-flex flex-column align-center">
-                <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
-                <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
                 <v-card class="d-flex flex-column align-center" style="width: 100%;">
-                  <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
-                  <v-card-title style="width: 95%;"><v-text-field label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
-                  <v-autocomplete
-                    label="Select A Category That Describes What This Application Provides"
-                    solo
-                    clearable
-                    hint="This is generated from the NAICS directory."
-                    :items="naicsList"
-                    item-text="name"
-                    item-value="name"
-                    style="width: 95%;"
-                    v-model="newAssignUserForm.service_name"
-                  >
-                    <template slot="selection" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                  </v-autocomplete>
+                  <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
+                  <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
+                  <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
+                    <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
+                    <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field>
+                    <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Type:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Type That Describes What This Application Provides)</span></v-card-title>
+                    <v-select
+                      style="width: 95%;"
+                      v-model="newAssignUserForm.vendorType"
+                      :items="vendorType"
+                      label=""
+                      outlined
+                      clearable
+                    ></v-select>
+                    <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Category:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Category That Describes What This Application Provides)</span></v-card-title>
+                    <v-autocomplete
+                      label=""
+                      solo
+                      clearable
+                      hint="This is generated from the NAICS directory."
+                      outlined
+                      :items="naicsList"
+                      item-text="name"
+                      item-value="name"
+                      style="width: 95%;"
+                      v-model="newAssignUserForm.service_name"
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <p style="width: 100%;">{{ data.item.name }}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p style="width: 100%;">{{ data.item.name }}</p>
+                      </template>
+                    </v-autocomplete>
+                    <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Tags:</span><span style="color: #7C7C7C">(Choose your tags here)</span></v-card-title>
+                    <v-combobox
+                      style="width: 95%;"
+                      v-model="newAssignUserFormTagsNew"
+                      :items="sowerkTags"
+                      item-text="name"
+                      item-value="name"
+                      chips
+                      multiple
+                      label=""
+                      clearable
+                    >
+                      <template v-slot:selection="data">
+                        <v-chip
+                          class="v-chip--select-multi"
+                          style="width: auto;"
+                        >
+                          <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                          <v-card-text v-else>{{data.item}}</v-card-text>
+                          <v-btn @click="removeTagCompanyTemplate(data.item)" text class="ml-n6">X</v-btn>
+                        </v-chip>
+                      </template>
+                      <template v-slot:item="data">
+                        <p>{{data.item.name}}</p>
+                      </template>
+                    </v-combobox>
+                  </v-row>
                   <v-row style="width: 98%; border-bottom: 1px dashed #A61C00; border-top: 1px dashed #A61C00" class="d-flex flex-column align-center my-4">
                     <v-row style="width: 100%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center my-4">
                       <v-card-title style="color: #A61C00;">SOWerk Standard Questions</v-card-title>
@@ -703,20 +749,19 @@
                   </v-card>
                 </draggable>
                 <rawDisplayer title="List 2" :value="formTypes" />
-                <v-progress-circular
-                  v-if="saveLoad === false"
-                  indeterminate
-                  color="primary"
-                  :size="20"
-                ></v-progress-circular>
-
                 <section class="d-flex flex-column align-center" style="border-top: 1px dashed #A61C00;">
                   <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
                   <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
-                  <v-row class="mb-n8">
-                    <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
-                    <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
-                  </v-row>
+                  <v-col cols="12" class="d-flex flex-column align-center">
+                    <v-row class="mb-n8" v-if="$vuetify.breakpoint.xl">
+                      <v-btn @click="sowerkDragNDrop&& (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                      <v-btn @click="companyDragNDrop && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                    </v-row>
+                    <v-row style="width: 100%;" class="mb-n8 d-flex flex-column align-center" v-else>
+                      <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded style="width: 90%; z-index: 1" class="mx-2 my-1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                      <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded style="width: 90%; z-index: 1" class="mx-2 my-1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                    </v-row>
+                  </v-col>
                   <transition name="slide-fade">
                     <v-data-table
                       :headers="applicationDragNDropHeaders"
@@ -830,6 +875,17 @@
               </div>
               <v-btn text style="font-size: 30px; position: absolute; right: 10px; top: 10px;" @click="closeEditFormField">X</v-btn>
             </v-card>
+
+            <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
+              <v-btn v-if="saveLoad" @click="saveCompanyTemplate" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+              <v-progress-circular
+                v-if="saveLoad === false"
+                indeterminate
+                color="primary"
+                :size="30"
+              ></v-progress-circular>
+              <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+            </v-row>
           </v-container>
         </transition>
       </v-card>
@@ -998,175 +1054,282 @@
             <v-container class="py-16" overflow-y-auto v-if="addNewVendorFormLoad && step5">
               <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
-                  <v-btn @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
-                  <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
-                </v-row>
-                <v-col cols="4" class="d-flex flex-column align-center">
-                  <v-card-title style="color: #A61C00">Your Application</v-card-title>
-                  <v-card-subtitle>This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
-                  <v-card class="d-flex flex-column align-center" style="width: 100%;">
-                    <v-card-title style="width: 95%;"><v-text-field v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field></v-card-title>
-                    <draggable
-                      class="dragArea list-group"
-                      group="formName"
-                      :list="newAssignUserForm.formfields"
-                      v-model="newAssignUserForm.formfields"
-                      @change="reorderFormField"
-                      style="width: 95%;"
-                    >
-                      <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in {...newAssignUserForm.formfields}">
-                        <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px;">
-                          <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                          <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word">{{Number(index) + 1}} - {{form.name}}</p>
-                          <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-                          <div class="d-flex justify-end" style="width: 100%;">
-                            <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
-                          </div>
-                        </v-card-title>
-                      </v-card>
-                    </draggable>
-                  </v-card>
-                  <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
-                </v-col>
-
-                <v-col cols="5" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00; border-right: 1px dashed #A61C00;">
-                  <v-card-title style="color: #A61C00">Question Library</v-card-title>
-                  <v-card-subtitle>In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
-                  <v-row class="mb-n8">
-                    <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
-                    <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
-                  </v-row>
-                  <transition name="slide-fade">
-                    <v-data-table
-                      :headers="applicationDragNDropHeaders"
-                      :items="applicationTemplates"
-                      :items-per-page="10"
-                      class="pt-16"
-                      :expanded.sync="expanded"
-                      show-expand
-                      single-expand
-                      style="width: 100%;"
-                      v-if="sowerkDragNDrop"
-                    >
-                      <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
-                        <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;" fixed-header
-                                          height="450px">
-                            <template v-slot:default>
-                              <!--                            <thead>-->
-                              <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
-                              <!--                              <th style="width: 30%;">Question</th>-->
-                              <!--                              <th style="width: 60%;">Name</th>-->
-                              <!--                            </tr>-->
-                              <!--                            </thead>-->
-                              <tbody style="width: 95%;">
-                              <draggable
-                                style="width: 100% !important;"
-                                class="dragArea list-group"
-                                :list="item.applicationtemplatesformfields"
-                                :group="{ name: 'formName', pull: 'clone', put: false }"
-                              >
-                                <tr v-for="app in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
-                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                    <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
-                                    <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
-                                  </v-card>
-                                </tr>
-                              </draggable>
-                              <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </td>
-                      </template>
-                      <template v-slot:item.questions="{item}">
-                        <p v-if="item.applicationtemplatesformfields">{{item.applicationtemplatesformfields.length}}</p>
-                      </template>
-                    </v-data-table>
-                  </transition>
-                  <transition name="slide-fade">
-                    <v-data-table
-                      :headers="applicationDragNDropHeaders"
-                      :items="companyTemplates"
-                      :items-per-page="10"
-                      class="pt-16"
-                      :expanded.sync="expanded"
-                      show-expand
-                      single-expand
-                      style="width: 100%;"
-                      v-if="companyDragNDrop"
-                    >
-                      <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
-                        <td :colspan="headers.length" style="width: 100%;">
-                          <v-simple-table style="width: 100%;" fixed-header
-                                          height="450px">
-                            <template v-slot:default>
-                              <!--                            <thead>-->
-                              <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
-                              <!--                              <th style="width: 30%;">Question</th>-->
-                              <!--                              <th style="width: 60%;">Name</th>-->
-                              <!--                            </tr>-->
-                              <!--                            </thead>-->
-                              <tbody style="width: 95%;">
-                              <draggable
-                                style="width: 100% !important;"
-                                class="dragArea list-group"
-                                :list="item.companytemplatesformfields"
-                                :group="{ name: 'formName', pull: 'clone', put: false }"
-                              >
-                                <tr v-for="app in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
-                                  <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
-                                    <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(app.order + 1)}}</v-card-text>
-                                    <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
-                                  </v-card>
-                                </tr>
-                              </draggable>
-                              <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
-                              </tbody>
-                            </template>
-                          </v-simple-table>
-                        </td>
-                      </template>
-                      <template v-slot:item.questions="{item}">
-                        <p v-if="item.companytemplatesformfields">{{item.companytemplatesformfields.length}}</p>
-                      </template>
-                    </v-data-table>
-                  </transition>
-                </v-col>
-
-                <v-col cols="3" class="d-flex flex-column align-center">
-                  <v-card-title style="color: #A61C00">New Questions</v-card-title>
-
-                  <v-card-subtitle>Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
-
-                  <draggable
-                    style="width: 100%;"
-                    class="dragArea list-group"
-                    :list="formTypes"
-                    :group="{ name: 'formName', pull: 'clone', put: false }"
-                  >
-                    <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
-                      <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
-                        <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                        <p style="width: 70%; text-align: center">{{form.name}}</p>
-                        <!-- <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">(The last question you wrote)</p>
-                        <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">{{formTypes[0].name}}</p> -->
-                        <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
-                      </v-card-title>
-                    </v-card>
-                  </draggable>
-
-                  <rawDisplayer title="List 2" :value="formTypes" />
-
+                  <v-btn v-if="saveLoad" @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
                   <v-progress-circular
                     v-if="saveLoad === false"
                     indeterminate
                     color="primary"
-                    :size="20"
+                    :size="30"
                   ></v-progress-circular>
-                </v-col>
+                  <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+                </v-row>
+
+                <v-row class="d-flex justify-center" style="width: 100%;">
+
+                  <v-col cols="6" class="d-flex flex-column align-center">
+                    <v-card class="d-flex flex-column align-center" style="width: 100%;">
+                      <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
+                      <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
+                      <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
+                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
+                        <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field>
+                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Type:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Type That Describes What This Application Provides)</span></v-card-title>
+                        <v-select
+                          style="width: 95%;"
+                          v-model="newAssignUserForm.vendorType"
+                          :items="vendorType"
+                          label=""
+                          outlined
+                          clearable
+                        ></v-select>
+                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Category:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Category That Describes What This Application Provides)</span></v-card-title>
+                        <v-autocomplete
+                          label=""
+                          solo
+                          clearable
+                          hint="This is generated from the NAICS directory."
+                          outlined
+                          :items="naicsList"
+                          item-text="name"
+                          item-value="name"
+                          style="width: 95%;"
+                          v-model="newAssignUserForm.service_name"
+                        >
+                          <template slot="selection" slot-scope="data">
+                            <p style="width: 100%;">{{ data.item.name }}</p>
+                          </template>
+                          <template slot="item" slot-scope="data">
+                            <p style="width: 100%;">{{ data.item.name }}</p>
+                          </template>
+                        </v-autocomplete>
+                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Tags:</span><span style="color: #7C7C7C">(Choose your tags here)</span></v-card-title>
+                        <v-combobox
+                          style="width: 95%;"
+                          v-model="newAssignUserFormTagsNew"
+                          :items="sowerkTags"
+                          item-text="name"
+                          item-value="name"
+                          chips
+                          multiple
+                          label=""
+                          clearable
+                        >
+                          <template v-slot:selection="data">
+                            <v-chip
+                              class="v-chip--select-multi"
+                              style="width: auto;"
+                            >
+                              <v-card-text v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                              <v-card-text v-else>{{data.item}}</v-card-text>
+                              <v-btn @click="removeTagCompanyTemplate(data.item)" text class="ml-n6">X</v-btn>
+                            </v-chip>
+                          </template>
+                          <template v-slot:item="data">
+                            <p>{{data.item.name}}</p>
+                          </template>
+                        </v-combobox>
+                      </v-row>
+                      <v-row style="width: 98%; border-bottom: 1px dashed #A61C00; border-top: 1px dashed #A61C00" class="d-flex flex-column align-center my-4">
+                        <v-row style="width: 100%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center my-4">
+                          <v-card-title style="color: #A61C00;">SOWerk Standard Questions</v-card-title>
+                          <v-card-subtitle>Add your custom questions below</v-card-subtitle>
+                          <div class="d-flex flex-wrap justify-center" style="width: 100% !important; font-size: 16px;">
+                            <p v-for="(form, index) in defaultFormFields" style="width: 33%; text-align: center"><span style="color: #A61C00;">#{{ (Number(index) + 1)}}</span> - {{form.name}}</p>
+                          </div>
+                        </v-row>
+                      </v-row>
+                      <v-row style="width: 98%;" class="d-flex flex-column align-center">
+                        <v-card-title class="d-flex justify-center" style="color: #A61C00;">Custom Application Questions</v-card-title>
+                        <v-card-subtitle class="d-flex justify-center" style="width: 80%;">Use the following area to add, edit, or rearrange your approved vendor questions. Drag and drop questions from the library to the right or add completely new questions. </v-card-subtitle>
+                        <draggable
+                          class="dragArea list-group"
+                          group="formName"
+                          :list="newAssignUserForm.formfields"
+                          v-model="newAssignUserForm.formfields"
+                          @change="reorderFormField"
+                          style="width: 95%;"
+                        >
+                          <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in newAssignUserForm.formfields">
+                            <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px; ">
+                              <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                              <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word">{{Number(index) + 1}} - {{form.name}}</p>
+                              <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                              <div class="d-flex justify-end" style="width: 100%;">
+                                <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
+                              </div>
+                            </v-card-title>
+                            <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
+                              <v-btn style="background: #707070; color: white;" @click.prevent="addOption(form, index)">Add Another Option</v-btn>
+                              <!--                          <template v-if="form.options !== String">-->
+                              <!--                            <v-card-title v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center">-->
+                              <!--                              <v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field>-->
+                              <!--                              <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn>-->
+                              <!--                            </v-card-title>-->
+                              <!--                          </template>-->
+                              <template>
+                                <v-card-title v-for="(option,iVal) in form.options.split(', ')" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center">
+                                  <v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options.split(', ')[iVal]">{{option}}</v-text-field>
+                                  <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn>
+                                </v-card-title>
+                              </template>
+                            </template>
+                          </v-card>
+                        </draggable>
+                      </v-row>
+                    </v-card>
+                    <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                  </v-col>
+
+                  <v-col cols="6" class="d-flex flex-column align-center" style="border-left: 1px dashed #A61C00;">
+                    <v-card-title style="color: #A61C00; text-align: center">New Questions</v-card-title>
+                    <v-card-subtitle style="text-align: center">Need to add a new/different question? You can drag and drop a new question field over to your application column, then customize it.</v-card-subtitle>
+                    <draggable
+                      style="width: 100%;"
+                      class="dragArea list-group"
+                      :list="formTypes"
+                      :group="{ name: 'formName', pull: 'clone', put: false }"
+                    >
+                      <v-card style="border:2px outset lightgrey; width: 100%;" class="my-2 d-flex flex-column align-center" v-for="(form, index) in formTypes" >
+                        <v-card-title style="font-size: 16px; width: 100% !important;" class="d-flex justify-space-between">
+                          <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
+                          <p style="width: 70%; text-align: center">{{form.name}}</p>
+                          <!-- <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">(The last question you wrote)</p>
+                          <p style="width: 70%; text-align: center" v-if="newAssignUserForm.formfields && newAssignUserForm.formfields.length > 1">{{formTypes[1].name}}</p> -->
+                          <v-btn style="color: #A61c00; width: 10%;" text><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
+                        </v-card-title>
+                        <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
+                          <v-btn style="background: #707070; color: white;" @click.prevent="addOptionInput(form, index)">Add Another Option</v-btn>
+                          <v-card-text v-for="(option,iVal) in formTypes[1].options" style="width: 100%;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" label="Selection Name" v-model="formTypes[1].options[iVal]" clearable>{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOptionSelect(option, iVal, form, index)" text>X</v-btn></v-card-text>
+                        </template>
+                      </v-card>
+                    </draggable>
+                    <rawDisplayer title="List 2" :value="formTypes" />
+                    <section class="d-flex flex-column align-center" style="border-top: 1px dashed #A61C00;">
+                      <v-card-title style="color: #A61C00; text-align: center">Question Library</v-card-title>
+                      <v-card-subtitle style="text-align: center">In this column you can quickly find questions from any existing template in your library. Drag and drop ones you like to your application column, then customize it.</v-card-subtitle>
+                      <v-col cols="12" class="d-flex flex-column align-center">
+                        <v-row class="mb-n8" v-if="$vuetify.breakpoint.xl">
+                          <v-btn @click="sowerkDragNDrop&& (companyDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                          <v-btn @click="companyDragNDrop && (sowerkDragNDrop=false)" color="primary" rounded class="mx-2" style="z-index: 1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                        </v-row>
+                        <v-row style="width: 100%;" class="mb-n8 d-flex flex-column align-center" v-else>
+                          <v-btn @click="(sowerkDragNDrop = true) && (companyDragNDrop=false)" color="primary" rounded style="width: 90%; z-index: 1" class="mx-2 my-1">Sowerk Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                          <v-btn @click="(companyDragNDrop = true) && (sowerkDragNDrop=false)" color="primary" rounded style="width: 90%; z-index: 1" class="mx-2 my-1">Company Application Templates <v-icon>mdi-arrow-down</v-icon></v-btn>
+                        </v-row>
+                      </v-col>
+                      <transition name="slide-fade">
+                        <v-data-table
+                          :headers="applicationDragNDropHeaders"
+                          :items="applicationTemplates"
+                          :items-per-page="10"
+                          class="pt-16"
+                          :expanded.sync="expanded"
+                          show-expand
+                          single-expand
+                          style="width: 100%;font-size:1rem"
+                          v-if="sowerkDragNDrop"
+                        >
+                          <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                            <td :colspan="headers.length" style="width: 100%;">
+                              <v-simple-table style="width: 100%;" fixed-header
+                                              height="450px">
+                                <template v-slot:default>
+                                  <!--                            <thead>-->
+                                  <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                                  <!--                              <th style="width: 30%;">Question</th>-->
+                                  <!--                              <th style="width: 60%;">Name</th>-->
+                                  <!--                            </tr>-->
+                                  <!--                            </thead>-->
+                                  <tbody style="width: 95%;">
+                                  <draggable
+                                    style="width: 100% !important;"
+                                    class="dragArea list-group"
+                                    :list="item.applicationtemplatesformfields"
+                                    :group="{ name: 'formName', pull: 'clone', put: false }"
+                                  >
+                                    <tr v-for="(app, index) in item.applicationtemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                      <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                        <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{index + 1}}</v-card-text>
+                                        <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                      </v-card>
+                                    </tr>
+                                  </draggable>
+                                  <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                            </td>
+                          </template>
+                          <template v-slot:item.questions="{item}">
+                            <p v-if="item.applicationtemplatesformfields">{{item.applicationtemplatesformfields.length}}</p>
+                          </template>
+                        </v-data-table>
+                      </transition>
+                      <transition name="slide-fade">
+                        <v-data-table
+                          :headers="applicationDragNDropHeaders"
+                          :items="companyTemplates"
+                          :items-per-page="10"
+                          class="pt-16"
+                          :expanded.sync="expanded"
+                          show-expand
+                          single-expand
+                          style="width: 100%;"
+                          v-if="companyDragNDrop"
+                        >
+                          <template v-slot:expanded-item="{ headers, item }" style="width: 100%;">
+                            <td :colspan="headers.length" style="width: 100%;">
+                              <v-simple-table style="width: 100%;" fixed-header
+                                              height="450px">
+                                <template v-slot:default>
+                                  <!--                            <thead>-->
+                                  <!--                            <tr class="d-flex justify-space-evenly" style="width: 100%;">-->
+                                  <!--                              <th style="width: 30%;">Question</th>-->
+                                  <!--                              <th style="width: 60%;">Name</th>-->
+                                  <!--                            </tr>-->
+                                  <!--                            </thead>-->
+                                  <tbody style="width: 95%;">
+                                  <draggable
+                                    style="width: 100% !important;"
+                                    class="dragArea list-group"
+                                    :list="item.companytemplatesformfields"
+                                    :group="{ name: 'formName', pull: 'clone', put: false }"
+                                  >
+                                    <tr v-for="(app, index) in item.companytemplatesformfields" :key="app.name" style="width: 100%;" class="d-flex justify-center">
+                                      <v-card style="width: 95%; border:2px outset lightgrey;" class="d-flex justify-start">
+                                        <v-card-text style="width: 30%;" class="d-flex flex-column align-center"><v-icon style="color: #707070;">mdi-cursor-move</v-icon>Question# {{(index + 1)}}</v-card-text>
+                                        <v-card-text style="width: 70%;">{{app.name}}</v-card-text>
+                                      </v-card>
+                                    </tr>
+                                  </draggable>
+                                  <rawDisplayer :value="newAssignUserForm.formfields" title="List 1" />
+                                  </tbody>
+                                </template>
+                              </v-simple-table>
+                            </td>
+                          </template>
+                          <template v-slot:item.questions="{item}">
+                            <p v-if="item.companytemplatesformfields">{{item.companytemplatesformfields.length}}</p>
+                          </template>
+                        </v-data-table>
+                      </transition>
+                    </section>
+                  </v-col>
+                </v-row>
+
+                <v-row v-if="loading" class="d-flex justify-center wrap-row" style="width: 100%;">
+                  <v-btn v-if="saveLoad" @click="saveUserForm" style="width: 45%;" color="primary" rounded class="mt-n6 mb-2 mx-2 py-8">Save</v-btn>
+                  <v-progress-circular
+                    v-if="saveLoad === false"
+                    indeterminate
+                    color="primary"
+                    :size="30"
+                  ></v-progress-circular>
+                  <v-btn :href="'https://www.sowerk.com/dashboard/vendors/applications'" style="width: 45%;" color="#707070" rounded outlined class="mt-n6 mb-2 mx-2 py-8">Go Back To All Applications</v-btn>
+                </v-row>
 
               </v-row>
+
               <v-card v-if="openEditFormFieldLoad" class="d-flex flex-column align-center justify-center" style="width: 70vw; height: 50vh; position: fixed; left: 25vw; top: 25vh; z-index: 1000;">
                 <v-card-text>Edit Question #{{openEditFormFieldVal.order}} For Form - {{openEditFormFieldVal.name}}</v-card-text>
                 <v-form style="width: 90%;" class="d-flex flex-wrap justify-center">
@@ -1284,6 +1447,7 @@ const naics = require("naics");
     },
     data () {
       return {
+        newAssignUserFormTagsNew: [],
         defaultFormFields: [
           {
             name: "Vendor Name",
@@ -1842,6 +2006,18 @@ const naics = require("naics");
           }
         })
         console.log(this.applicationtemplateTagsNew, 'after removal')
+      },
+      async removeTagCompanyTemplate(item) {
+        newAssignUserFormTagsNew
+        console.log(this.newAssignUserFormTagsNew, 'before removal', item)
+        this.newAssignUserFormTagsNew = this.newAssignUserFormTagsNew.filter(locationTag => {
+          if(typeof locationTag === 'object' && locationTag.name !== item.name) {
+            return locationTag
+          } else if (typeof locationTag === 'string' && locationTag !== item) {
+            return locationTag
+          }
+        })
+        console.log(this.newAssignUserFormTagsNew, 'after removal')
       },
       async getNaicsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist/')
@@ -2904,13 +3080,30 @@ const naics = require("naics");
         const companyTemplate = {
           form_name: this.newAssignUserForm.name,
           active: true,
-          service_name: this.newAssignUserForm.service_name
+          service_name: this.newAssignUserForm.service_name,
+          vendorType: this.newAssignUserForm.vendorType,
         }
         await this.$http.post('https://www.sowerkbackend.com/api/companytemplates/byCompanyId/' + this.currentUser.companies_id, companyTemplate)
           .then(response => {
             console.log(response.data, 'company template')
             this.newAssignUserForm.id = response.data.companytemplate.id
           })
+          .catch(err => {
+            console.log(err)
+          })
+        if(this.newAssignUserFormTagsNew.length > 0) {
+          for(let i=0; i<this.newAssignUserFormTagsNew.length; i++) {
+            this.$http.post('https://www.sowerkbackend.com/api/companytemplatetags/byCompanyTemplateId/' + this.newAssignUserForm.id, {
+              name: this.newAssignUserFormTagsNew[i].name
+            })
+              .then(responseVal => {
+                console.log(responseVal, 'success in posting company template tags')
+              })
+              .catch(err => {
+                console.log(err, 'err in posting companytemplatetags')
+              })
+          }
+        }
         await this.newAssignUserForm.formfields.forEach(async (formfield, index) => {
           formfield["companytemplates_id"] = this.newAssignUserForm.id
           formfield.order = index;
@@ -2961,7 +3154,7 @@ const naics = require("naics");
         setTimeout(() => {
           this.saveLoad = true;
           this.$router.go();
-        }, 1500)
+        }, 2000)
       },
       async reorderFormField({moved}) {
         console.log(moved, 'moved information for formfield')
