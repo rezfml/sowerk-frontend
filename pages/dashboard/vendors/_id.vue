@@ -629,12 +629,15 @@
               <p>{{item.channel}}</p>
             </template>
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
-              <p v-else>{{item.note}}</p>
+<!--              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>-->
+              <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
               <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
               <p v-else>No File Present</p>
+            </template>
+            <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
+              <p v-if="item.created">{{item.created.slice(0, 10)}}</p>
             </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
@@ -1697,6 +1700,7 @@
         await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
           .then(response => {
             console.log('success in deleting this note', response)
+            this.notes = this.notes.filter(singleNote => singleNote !== note)
           })
           .catch(err => {
             console.log('err in deleting this note', err);
