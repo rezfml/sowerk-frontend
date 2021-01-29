@@ -198,69 +198,86 @@
               </v-row>
 
               <v-row v-if="services">
+<!--                <v-col cols="12" class="mt-8">-->
+<!--                  <v-card>-->
+<!--                    <v-card-title style="align-self: center; color: #A61C00; text-align: center">Current Channel Categories</v-card-title>-->
+<!--                    <div class="d-flex justify-center">-->
+<!--                      <v-card-text v-for="(service) in services">{{service.name}}</v-card-text>-->
+<!--                    </div>-->
+<!--                  </v-card>-->
+<!--                </v-col>-->
+
                 <v-col cols="12" class="mt-8">
-                  <v-card>
-                    <v-card-title style="align-self: center; color: #A61C00; text-align: center">Current Channel Categories</v-card-title>
-                    <div class="d-flex justify-center">
-                      <v-card-text v-for="(service) in services">{{service.name}}</v-card-text>
-                    </div>
+                  <v-card style="width: 100%; background-color: lightgrey;" class="d-flex flex-column mt-4">
+                    <h2 class="ml-4 my-4" style="width: 100%;">List Primary Category <span style="color: #A61c00">*</span></h2>
+                    <v-autocomplete
+                      style="width: 95%; margin: 0 auto;"
+                      v-model="servicesVal"
+                      :items="naicsList"
+                      item-text="name"
+                      item-value="name"
+                      hint="(Select the primary NAICS category that best defines this channel.)"
+                      persistent-hint
+                      outlined
+                      background-color="white"
+                      color=""
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <p style="width: 100%;">{{ data.item.name }}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p style="width: 100%;">{{ data.item.name }}</p>
+                      </template>
+                    </v-autocomplete>
+                    <h2 class="ml-4 my-4" style="width: 100%;">Additional Channel Category</h2>
+                    <v-autocomplete
+                      style="width: 95%; margin: 0 auto;"
+                      v-model="servicesAdditional1"
+                      :items="naicsList"
+                      item-text="name"
+                      item-value="name"
+                      hint="This is generated from the NAICS directory."
+                      persistent-hint
+                      outlined
+                      background-color="white"
+                      color=""
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <p style="width: 100%;">{{ data.item.name }}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p style="width: 100%;">{{ data.item.name }}</p>
+                      </template>
+                    </v-autocomplete>
+                    <h2 class="ml-4 my-4" style="width: 100%;">Additional Channel Category</h2>
+                    <v-autocomplete
+                      style="width: 95%; margin: 0 auto;"
+                      v-model="servicesAdditional2"
+                      :items="naicsList"
+                      item-text="name"
+                      item-value="name"
+                      hint="This is generated from the NAICS directory."
+                      persistent-hint
+                      outlined
+                      background-color="white"
+                      color=""
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <p style="width: 100%:">{{ data.item.name }}</p>
+                      </template>
+                      <template slot="item" slot-scope="data">
+                        <p style="width: 100%:">{{ data.item.name }}</p>
+                      </template>
+                    </v-autocomplete>
                   </v-card>
-                </v-col>
-                <v-col cols="12" class="mt-8">
-                  <v-autocomplete
-                    v-model="servicesVal"
-                    :items="naicsList"
-                    item-text="name"
-                    item-value="name"
-                    label="Choose your Primary Channel Category here"
-                    hint="This is generated from the NAICS directory."
-                  >
-                    <template slot="selection" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                  </v-autocomplete>
-                </v-col>
-                <v-col cols="12" class="mt-8">
-                  <v-autocomplete
-                    v-model="servicesAdditional1"
-                    :items="naicsList"
-                    item-text="name"
-                    item-value="name"
-                    label="Choose your Additional Channel Category here"
-                    hint="This is generated from the NAICS directory."
-                  >
-                    <template slot="selection" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                  </v-autocomplete>
-                </v-col>
-                <v-col cols="12" class="mt-8">
-                  <v-autocomplete
-                    v-model="servicesAdditional2"
-                    :items="naicsList"
-                    item-text="name"
-                    label="Choose your Additional Channel Category here"
-                    hint="This is generated from the NAICS directory."
-                  >
-                    <template slot="selection" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <p>{{ data.item.name }}</p>
-                    </template>
-                  </v-autocomplete>
                 </v-col>
               </v-row>
 
               <v-row>
                 <v-col cols="12" class="mt-8">
+                  <v-card-title style="align-self: center; color: #A61C00; text-align: center">Current Channel Tags</v-card-title>
                   <v-combobox
+                    label="Choose your tags here"
                     v-model="locationTagsNew"
                     :items="sowerkTags"
                     item-text="name"
@@ -779,6 +796,9 @@
         this.locationTagsNew = this.locationTags;
         if(this.location.services[0] !== 'There are no services') {
           this.services = this.location.services;
+          this.servicesVal = this.location.services[0].name
+          this.servicesAdditional1 = this.location.services[1].name
+          this.servicesAdditional2 = this.location.services[2].name
           this.originalServices = this.location.services;
         }
         this.getUsers(this.location.companies_id)
@@ -824,6 +844,9 @@
           .then(response => {
             console.log('services!!!!!!', response)
             this.services = response.data;
+            this.servicesVal = response.data[0].name
+            this.servicesAdditional1 = response.data[1].name
+            this.servicesAdditional2 = response.data[2].name
             this.originalServices = response.data;
           })
           .catch(err => {
