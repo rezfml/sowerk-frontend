@@ -86,10 +86,10 @@
                 outlined
               >
                 <template slot="selection" slot-scope="data">
-                  <p>{{ data.item.name }}</p>
+                  <p style="width: 100%;">{{ data.item.name }}</p>
                 </template>
                 <template slot="item" slot-scope="data">
-                  <p>{{ data.item.name }}</p>
+                  <p style="width: 100%;">{{ data.item.name }}</p>
                 </template>
               </v-autocomplete>
               <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Tags:</span><span style="color: #7C7C7C">(Choose your tags here)</span></v-card-title>
