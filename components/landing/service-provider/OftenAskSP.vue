@@ -65,7 +65,7 @@
               class="text-uppercase primary mx-auto text-sm-body-2"
               x-large
               :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
-              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+              style="border-radius: 20px; font-weight: bold; font-size: 15px;margin-bottom:-2%;"
               @click='$router.push("/register/provider")'
               >REGISTER NOW</v-btn
             >
