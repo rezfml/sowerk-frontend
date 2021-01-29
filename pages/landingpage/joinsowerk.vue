@@ -368,7 +368,9 @@
     <!-- REVIEWS SECTION -->
     <Reviews v-bind:reviews="reviews"></Reviews>
     <!-- BUSINESS & VENDORS QUESTIONS -->
-    <PFandVQuestionsAsked/>
+    <!-- <PFandVQuestionsAsked/> -->
+    <OftenAskPF />
+    <OftenAskSP />
    
   </div>
 </template>
@@ -377,7 +379,9 @@
 import Reviews from '../../components/landing/general/Reviews'
 import AllReviews from '../../components/landing/general/AllReviews'
 import PFandVJoinConnection from '../../components/landing/general/PFandVJoinConnection'
-import PFandVQuestionsAsked from '../../components/landing/general/PFandVQuestionsAsked'
+// import PFandVQuestionsAsked from '../../components/landing/general/PFandVQuestionsAsked'
+import OftenAskPF from '~/components/landing/property-manager/OftenAskPF';
+import OftenAskSP from '~/components/landing/service-provider/OftenAskSP';
 
 
 export default {
@@ -389,8 +393,9 @@ export default {
   components: {
     Reviews,
     AllReviews,
-    PFandVQuestionsAsked,
-    PFandVJoinConnection
+    PFandVJoinConnection,
+    OftenAskSP,
+    OftenAskPF
   },
   mounted() {
     this.getReviews()

@@ -13,9 +13,9 @@
             <div class="joinconnectiontext">
               <h3>1. Create Account and Vet Vendors</h3>
               <p>
-                In less than 15 minutes, you can have multiple locations set up
+                In less than 15 minutes, you can have multiple locations/channels set up
                 with dedicated staff accounts and live questionnaires vetting
-                local & national service providers.
+                local & national Vendors.
               </p>
             </div>
           </div>
@@ -42,9 +42,9 @@
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
             />
             <div class="joinconnectiontext">
-              <h3>2. Vendor Management & RFP</h3>
+              <h3>2. Vendor Management</h3>
               <p>
-                When you need a service at one of your properties, SOWerk makes it easy to communicate in one click to your approved vendors the request for a bid.
+                Communicate with ease while maintaining internal notes, documents and other Vendor interaction records. Empower staff to work with approved vendors and maintain liability protections.
               </p>
             </div>
           </div>
@@ -82,8 +82,8 @@
             <div class="joinconnectiontext">
               <h3>1. Build A Profile</h3>
               <p>
-                SOWerk makes it easy & quick for you to show off your brand,
-                company background, and we help promote all companies where you are an approved vendor.
+                SOWerk makes it easy & quick for you to show off your brand and
+                company background. SOWerk also promotes all the companies where you are an approved vendor.
                  Your SOWerk profile is both easy and powerful.
               </p>
             </div>
@@ -113,7 +113,7 @@
             <div class="joinconnectiontext">
               <h3>2. Approved Vendor Status</h3>
               <p>
-                Use your profile to qualify for approved vendor status in as little as one click
+                Use your SOWerk account to qualify for approved Vendor status in minutes.
               </p>
             </div>
           </div>
@@ -142,7 +142,7 @@
             <div class="joinconnectiontext">
               <h3>3. Get The Job</h3>
               <p>
-                We make it easy and powerful for businesses to communicate their needs to approved vendors. We also make it easy for you to react quickly with a bid.
+                We make it easy and powerful for businesses to communicate their needs to approved Vendors. We also make it easy for you to react quickly.
               </p>
             </div>
           </div>
