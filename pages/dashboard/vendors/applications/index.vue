@@ -241,7 +241,7 @@
                           <td v-if="app !== 'There are no userforms'">
                               <v-select
                               v-model="app.applicationStatus"
-                              :placeholder="item.applicationStatus"
+                              :placeholder="app.applicationStatus"
                               :items="applicationOptions"
                               @change="userformEditActive(app)"
                               >
@@ -259,11 +259,7 @@
             </template>
 
             <template v-slot:item.userforms="{ item }">
-              <p style="color:red;">{{ item.userforms[0].name }}</p>
-            </template>
-
-            <template v-slot:item.userforms="{ item }">
-              <p v-if='item.userforms[0] === "There are no userforms" '>0</p>
+              <p v-if='item.userforms[0] === "There are no userforms"'>0</p>
               <p v-else-if='item.userforms[0] !== "There are no userforms" '>{{item.userforms.length}}</p>
             </template>
 
@@ -2094,13 +2090,37 @@ const naics = require("naics");
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(async(response) => {
-            console.log(response.data, "RESPONCE DOT DATA")
+            //console.log(response.data, "RESPONCE DOT DATA")
             this.listOfUserChannels = response.data.locations;
-            console.log(this.listOfUserChannels, "----------------------HEY THIS IS THE LIST OF USER CHANNELS")
+            //console.log(this.listOfUserChannels, "----------------------HEY THIS IS THE LIST OF USER CHANNELS")
 
             this.listOfUserChannels.forEach((channel, index) => {
               this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + channel.id)
                 .then(res => {
+                  console.log(res.data,'HEY!!!!')
+                  if(res.data[0] !== 'There are no userforms') {
+
+                    for(let i=0; i<res.data.length; i++) {
+                      let userForm = {
+                        applicationStatus: res.data[i].applicationStatus,
+                        id: res.data[i].id,
+                        name: res.data[i].name,
+                        service: res.data[i].service,
+                        vendorType: res.data[i].vendorType,
+                        locations_id: res.data[i].locations_id,
+                        formfields: []
+                      };
+                      if(userForm.applicationStatus === 0) {
+                        userForm.applicationStatus = 'Unpublished'
+                      } else if (userForm.applicationStatus === 1) {
+                        userForm.applicationStatus = 'Published - Public'
+                      } else {
+                        userForm.applicationStatus = 'Published - Private'
+                      }
+                      res.data[i] = userForm
+                    }
+                  }
+
                   channel.userforms = res.data
                 })
                 .catch(err => {
@@ -2178,7 +2198,7 @@ const naics = require("naics");
           })
       },
       async getUserforms(id, valueUserForms, valueServices) {
-          console.log(id, valueUserForms, valueServices, "HEYYYYYYYYYYYYYYYYYYYYYY")
+          //console.log(id, valueUserForms, valueServices, "HEYYYYYYYYYYYYYYYYYYYYYY")
 
           await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
             .then(async (response) => {
@@ -2214,10 +2234,10 @@ const naics = require("naics");
                   };
 
 
-                  console.log(userForm2, "----------------- USERFORM2")
-                  console.log(this.locations, "----------------- this dot locations")
-                  console.log(this.valueServices, "----------------- valueServices")
-                  console.log(this.valueUserForms, "----------------- valueUserForms")
+                  //console.log(userForm2, "----------------- USERFORM2")
+                  //console.log(this.locations, "----------------- this dot locations")
+                  //console.log(this.valueServices, "----------------- valueServices")
+                  //console.log(this.valueUserForms, "----------------- valueUserForms")
 
                   if(i === (response.data.length - 1)){
                     console.log(response.data.length, "LENGTH! should be 1,2 then 1,2 again")
@@ -2238,7 +2258,7 @@ const naics = require("naics");
                   }
                   this.userForms.push(userForm);
                   this.applicationTemplateVal.push(userForm2);
-                  console.log(this.applicationTemplateVal, "----------------------------------")
+                  //console.log(this.applicationTemplateVal, "----------------------------------")
 
                   // setTimeout(() => {
                   //   console.log("set time out")
@@ -2645,7 +2665,7 @@ const naics = require("naics");
               .catch(err => {
                 console.log(err, 'err in getting template tags for this company')
               })
-            console.log("THIS IS THE END OF THE TRY BLOCK -------------------")
+            //console.log("THIS IS THE END OF THE TRY BLOCK -------------------")
             throw 'myException';
           } catch {
             await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + userform.id)
@@ -2665,7 +2685,7 @@ const naics = require("naics");
               .catch(err => {
                 console.log(err, 'err in getting template tags for this company')
               })
-            console.log("THIS IS THE END OF THE CATCH BLOCK -------------------")
+            //console.log("THIS IS THE END OF THE CATCH BLOCK -------------------")
 
           } finally {
             await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
@@ -2676,7 +2696,7 @@ const naics = require("naics");
               .catch(err => {
                 console.log(err, 'err in deleting userform');
               })
-            console.log("THIS IS THE END OF THE FINALLY BLOCK -------------------")
+            //console.log("THIS IS THE END OF THE FINALLY BLOCK -------------------")
           }
         } else {
           console.log("Did not confirm!")
