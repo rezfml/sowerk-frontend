@@ -2691,12 +2691,12 @@ const naics = require("naics");
             await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
               .then(response => {
                 console.log(response, 'success in deleting userform')
-                this.$router.go();
               })
               .catch(err => {
                 console.log(err, 'err in deleting userform');
               })
             //console.log("THIS IS THE END OF THE FINALLY BLOCK -------------------")
+            this.$router.go();
           }
         } else {
           console.log("Did not confirm!")
