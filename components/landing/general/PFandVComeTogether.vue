@@ -5,6 +5,22 @@
       style="background-color:#2B2B2B;display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box;position:relative;z-index:0;"
       class="skew-top">
       
+      <v-row v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
+        <v-col cols="12" style="text-align:center;padding-top:10%;">
+          <!-- <p style="word-break: break-word; font-size: 1.2rem; font-weight:500;">
+            We Are
+          </p> -->
+
+          <p style="word-break: break-word; font-size: 1.3rem; font-weight:700;">
+            Business and Vendor Solutions
+          </p>
+
+          <p style=" font-size: .9rem;width: 80%;margin-left: 10%;">
+            Our mission is to establish a set of business-to-business communication tools designed to foster the link between businesses and vendors
+          </p>
+        </v-col>        
+      </v-row>
+
       <!-- VIDEOS AT DIFFERENT SCREEN SIZES -->
       <v-row class="d-flex">
         <v-col v-if="$vuetify.breakpoint.xl" cols="8">
@@ -51,28 +67,37 @@
           </p>
         </v-col>
 
-        <v-col cols="12" style="text-align:center;padding-top:10%" v-else-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
-          <p style="word-break: break-word; font-size: 1.2rem; font-weight:500;">
+        <!-- <v-col cols="12" style="text-align:center;padding-top:10%" v-else-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"> -->
+          <!-- <p style="word-break: break-word; font-size: 1.2rem; font-weight:500;">
             We Are
+          </p> -->
+
+          <!-- <p style="word-break: break-word; font-size: 1.3rem; font-weight:700;">
+            Business and Vendor Solutions
           </p>
 
-          <p style="word-break: break-word; font-size: 1.7rem; font-weight:700;">
-            A Solution for Businesses and Vendors
-          </p>
-
-          <p style=" font-size: 1.1rem;">
+          <p style=" font-size: .9rem;">
             Our mission is to establish a set of business-to-business communication tools designed to foster the link between businesses and vendors
           </p>
-        </v-col>
+        </v-col> -->
 
       </v-row>
 
       <!-- VRM HOME-PAGE IMAGE -->
       <v-row
+        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         class="justify-space-around"
         style="width: 100%; max-width: 100%;">
 
-        <v-img style="width:100%" src="/VRM-homePage.png"></v-img>
+        <v-img style="width:90%" src="/VRM-bubble-image-Mobile.png"></v-img>
+      </v-row>    
+
+      <v-row
+        v-else
+        class="justify-space-around"
+        style="width: 100%; max-width: 100%;">
+
+        <v-img style="width:100%" src="/VRM-image-New.png"></v-img>
       </v-row>
 
       <!-- BUTTONS UNDER VRM IMAGE FOR BUSINESSES -->
@@ -122,10 +147,19 @@
 
       <!-- CRM HOME-PAGE IMAGE -->
       <v-row
+        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         class="justify-space-around"
         style="width: 100%; max-width: 100%;">
 
-        <v-img style="width:100%" src="/CRM-homePage.png"></v-img>
+        <v-img style="width:90%" src="/CRM-bubble-image-Mobile.png"></v-img>
+      </v-row>
+
+      <v-row
+        v-else
+        class="justify-space-around"
+        style="width: 100%; max-width: 100%;">
+
+        <v-img style="width:100%" src="/CRM-image-New.png"></v-img>
       </v-row>
       
       <!-- BUTTONS UNDER CRM IMAGE FOR VENDORS -->
@@ -173,7 +207,16 @@
           </v-btn>
       </v-row>
 
+      <!-- OTHER -->
       <v-row
+        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        class="justify-space-around"
+        style="width: 100%; max-width: 100%;margin-bottom: 5%">
+
+        <v-img style="width:100%" src="/homePageBubble-image-Mobile.png"></v-img>        
+      </v-row>
+      <v-row
+        v-else
         class="justify-space-around"
         style="width: 100%; max-width: 100%;margin-bottom: 5%">
 
