@@ -937,7 +937,7 @@
             console.log(this.addUserForm);
             this.successAddUserForm = true;
             setTimeout(() => {
-              this.$router.push('../user-creation')
+              this.$router.push('../users')
             }, 500)
           }, 2000)
         }

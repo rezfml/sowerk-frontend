@@ -46,7 +46,7 @@
     <!-- VENDOR USER -->
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
-        <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
+        <iframe src="https://player.vimeo.com/video/505426676" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
       </v-card>
     </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->

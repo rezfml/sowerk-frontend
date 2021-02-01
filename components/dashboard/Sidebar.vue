@@ -448,13 +448,13 @@
                 class: 'fixed-bottom',
               },
               {
-                to: '/dashboard/user-creation',
+                to: '/dashboard/users',
                 slug: 'user-creation',
                 icon: 'mdi-account',
                 text: 'Manage Users',
               },
               {
-                to: '/dashboard/user-creation/add',
+                to: '/dashboard/users/add',
                 slug: 'add_user',
                 icon: 'mdi-account',
                 text: 'Add Users'
@@ -582,7 +582,7 @@
               //   class: 'fixed-bottom',
               // },
               {
-                to: '/dashboard/user-creation',
+                to: '/dashboard/users',
                 slug: 'user-creation',
                 icon: 'mdi-account',
                 text: 'Manage Users'
@@ -731,13 +731,13 @@
                 class: 'fixed-bottom',
               },
               {
-                to: '/dashboard/user-creation',
+                to: '/dashboard/users',
                 slug: 'user-creation',
                 icon: 'mdi-account',
                 text: 'Manage Users',
               },
               {
-                to: '/dashboard/user-creation/add',
+                to: '/dashboard/users/add',
                 slug: 'add_user',
                 icon: 'mdi-account',
                 text: 'Add Users'
