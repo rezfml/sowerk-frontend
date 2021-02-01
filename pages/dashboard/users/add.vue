@@ -30,21 +30,20 @@
                 <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-                <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
+                <v-select outlined v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
                 <v-col cols="12">
                   <v-autocomplete
                     :items="locations"
-                    item-value="name"
+                    item-text="name"
+                    return-object
                     v-model="locationsChosen"
                     multiple
-                    label="Select Channels Where User Is POC For Channel Approved Vendors"
+                    outlined
+                    label="Select All of the Channels that you want to assign this user to"
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{data.item.id}} {{ data.item.name }}</v-card-text>
                     </template>
                   </v-autocomplete>
 <!--                  <v-checkbox-->
@@ -57,13 +56,22 @@
                 <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
                 <transition name="slide-fade">
                   <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                  <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
                 </transition>
+                <transition name="slide-fade">
+                  <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+                </transition>
+                <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
               </v-form>
             </transition>
             <!--    <transition name="slide-fade">-->
             <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-            <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+            <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+           -->
             <!--    </transition>-->
           </template>
         </v-card>
@@ -95,6 +103,7 @@
                 <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
                 <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
                 <v-select
+                  outlined
                   :items="selectOptions"
                   v-model="addUserForm.is_superuser"
                   label="Select the type of Account you want this User assigned to be"
@@ -103,16 +112,16 @@
                 <v-col cols="12">
                   <v-autocomplete
                     :items="locations"
+                    item-text="name"
+                    return-object
                     v-model="locationsChosen"
                     multiple
+                    outlined
                     label="Select All of the Channels that you want to assign this user to"
                     clearable
                   >
                     <template slot="selection" slot-scope="data">
-                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                    </template>
-                    <template slot="item" slot-scope="data">
-                      <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      <v-card-text style="width: 100%;" v-if="data.item.name">{{data.item.id}} {{ data.item.name }}</v-card-text>
                     </template>
                   </v-autocomplete>
 <!--                  <v-checkbox-->
@@ -125,13 +134,22 @@
                 <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
                 <transition name="slide-fade">
                   <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                  <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
                 </transition>
+                <transition name="slide-fade">
+                  <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+                </transition>
+                <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
               </v-form>
             </transition>
             <!--    <transition name="slide-fade">-->
             <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-            <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+            <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+           -->
             <!--    </transition>-->
           </template>
         </section>
@@ -168,21 +186,18 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
+              <v-select outlined v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
-                  label="Select Channels Where User Is POC For Channel Approved Vendors"
+                  outlined
+                  label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -194,13 +209,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -232,6 +256,7 @@
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
               <v-select
+                outlined
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
@@ -240,17 +265,14 @@
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
+                  outlined
                   label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -262,13 +284,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -305,21 +336,18 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
+              <v-select outlined v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
-                  label="Select Channels Where User Is POC For Channel Approved Vendors"
+                  outlined
+                  label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -331,13 +359,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -369,6 +406,7 @@
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
               <v-select
+                outlined
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
@@ -377,17 +415,14 @@
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
+                  outlined
                   label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -399,13 +434,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -445,21 +489,18 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 18px;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
+              <v-select outlined v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
-                  label="Select Channels Where User Is POC For Channel Approved Vendors"
+                  outlined
+                  label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -471,13 +512,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -511,6 +561,7 @@
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
               <v-select
+                outlined
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
@@ -519,17 +570,14 @@
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
+                  outlined
                   label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -541,13 +589,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -588,22 +645,18 @@
               <v-text-field v-model="addUserForm.first_name" :label="'First Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.requiredRules" class="mx-2" style="width: 40%; font-size: 1rem;"></v-text-field>
-              <v-select v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2" style="width: 40%; font-size: 18px;"></v-select>
+              <v-select outlined v-model="addUserForm.is_superuser" :label="'Account Level'" :items="selectOptions" class="mx-2" style="width: 40%; font-size: 18px;"></v-select>
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
                   item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
-                  label="Select Channels Where User Is POC For Channel Approved Vendors"
+                  outlined
+                  label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -615,13 +668,22 @@
               <v-card-text><span style="font-weight: bold;">SOWerk Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one property location or you may select a few locations where this person can find, vet, & manage vendors for only that location.</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -655,6 +717,7 @@
               <v-text-field v-model="addUserForm.last_name" :label="'Last Name'" class="mx-2" style="width: 40%; font-size: 18px; color: white;" :rules="rules.requiredLastNameRules"></v-text-field>
               <v-text-field type="tel" v-model="addUserForm.phone" :label="'Phone'" maxlength="14" @input="enforcePhoneFormat()" :rules="rules.phoneRules" class="mx-2" style="width: 40%; font-size: 18px; color: white;"></v-text-field>
               <v-select
+                outlined
                 :items="selectOptions"
                 v-model="addUserForm.is_superuser"
                 label="Select the type of Account you want this User assigned to be"
@@ -663,17 +726,14 @@
               <v-col cols="12">
                 <v-autocomplete
                   :items="locations"
+                  item-text="name"
+                  return-object
                   v-model="locationsChosen"
                   multiple
+                  outlined
                   label="Select All of the Channels that you want to assign this user to"
                   clearable
                 >
-                  <template slot="selection" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
-                  </template>
                 </v-autocomplete>
 <!--                <v-checkbox-->
 <!--                  label="Select this to assign ALL channels to this user"-->
@@ -685,13 +745,22 @@
               <v-card-text><span style="font-weight: bold;">Staff Accounts</span> offer you the tools to create structure within your company. A Staff Account can be limited to one Channel or as many Channels as you like. A Staff Account, in a number of ways, is similar to a Super Administrator Account but limited to a specific Channel(s).</v-card-text>
               <transition name="slide-fade">
                 <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>
-                <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
               </transition>
+              <transition name="slide-fade">
+                <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+              </transition>
+              <v-progress-circular
+                  indeterminate
+                  color="#7C7C7C"
+                  :size="80"
+                  v-if="!successAddUserForm && successAddUserForm !== null"
+                ></v-progress-circular>
             </v-form>
           </transition>
           <!--    <transition name="slide-fade">-->
           <!--      <v-btn v-if="companyLoad" @click="submitAddUser" style="width: 50%;" class="my-4" large color="primary" rounded>Submit</v-btn>-->
-          <!--      <v-card-title style="color: #a61c00" class="mb-6 mt-n2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>-->
+          <!--      <v-card-title style="color: #a61c00" class="my-2" v-if="successAddUserForm === true">SUCCESS! You have added a new user, please let them know to check their email and verify their account so they can login and start using SOWerk!</v-card-title>
+         -->
           <!--    </transition>-->
         </template>
       </v-card>
@@ -727,7 +796,7 @@
           senderLastName: "",
           temporaryPasswordBoolean: true,
         },
-        successAddUserForm: false,
+        successAddUserForm: null,
         selectOptions: [
           'Super Admin',
           'Staff Account'
@@ -815,6 +884,7 @@
         this.companyLoad = true;
       },
       async submitAddUser() {
+        this.successAddUserForm = false;
         if (this.addUserForm.email === '' || this.addUserForm.first_name === '' || this.addUserForm.last_name === ''||  this.addUserForm.phone === '' || this.addUserForm.is_superuser === '') {
           if(this.locationsChosenCheck === true) {
             this.locationsChosen = this.locations;
@@ -866,7 +936,9 @@
               })
             console.log(this.addUserForm);
             this.successAddUserForm = true;
-            this.$router.push('../user-creation')
+            setTimeout(() => {
+              this.$router.push('../users')
+            }, 500)
           }, 2000)
         }
       },

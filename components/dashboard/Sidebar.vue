@@ -404,34 +404,34 @@
               },
             ]
           },
-          // {
-          //   to: '/dashboard/assets/',
-          //   slug: 'assets',
-          //   icon: 'mdi-file-account',
-          //   text: 'Assets',
-          //   id: 'assets',
-          //   children: [
-          //     {
-          //       to: '/dashboard/insurances/',
-          //       slug: 'insurances',
-          //       icon: 'safe-square',
-          //       text: 'Insurances',
-          //       class: 'fixed-bottom',
-          //     },
-          //     {
-          //       to: '/dashboard/licenses',
-          //       slug: 'licenses',
-          //       icon: 'license',
-          //       text: 'Licenses & Certificates',
-          //     },
-          //     {
-          //       to: '/dashboard/vendor-documents',
-          //       slug: 'vendor-documents',
-          //       icon: 'mdi-file',
-          //       text: 'Documents'
-          //     },
-          //   ]
-          // },
+          {
+            to: '/dashboard/assets/',
+            slug: 'assets',
+            icon: 'mdi-file-account',
+            text: 'Assets',
+            id: 'assets',
+            children: [
+              {
+                to: '/dashboard/insurances/',
+                slug: 'insurances',
+                icon: 'safe-square',
+                text: 'Insurances',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/licenses',
+                slug: 'licenses',
+                icon: 'license',
+                text: 'Licenses & Certificates',
+              },
+              {
+                to: '/dashboard/vendor-documents',
+                slug: 'vendor-documents',
+                icon: 'mdi-file',
+                text: 'Documents'
+              },
+            ]
+          },
           {
             to: '/dashboard/profile/',
             slug: 'profile',
@@ -448,13 +448,13 @@
                 class: 'fixed-bottom',
               },
               {
-                to: '/dashboard/user-creation',
+                to: '/dashboard/users',
                 slug: 'user-creation',
                 icon: 'mdi-account',
                 text: 'Manage Users',
               },
               {
-                to: '/dashboard/user-creation/add',
+                to: '/dashboard/users/add',
                 slug: 'add_user',
                 icon: 'mdi-account',
                 text: 'Add Users'
@@ -582,7 +582,7 @@
               //   class: 'fixed-bottom',
               // },
               {
-                to: '/dashboard/user-creation',
+                to: '/dashboard/users',
                 slug: 'user-creation',
                 icon: 'mdi-account',
                 text: 'Manage Users'
@@ -731,13 +731,13 @@
                 class: 'fixed-bottom',
               },
               {
-                to: '/dashboard/user-creation',
+                to: '/dashboard/users',
                 slug: 'user-creation',
                 icon: 'mdi-account',
                 text: 'Manage Users',
               },
               {
-                to: '/dashboard/user-creation/add',
+                to: '/dashboard/users/add',
                 slug: 'add_user',
                 icon: 'mdi-account',
                 text: 'Add Users'

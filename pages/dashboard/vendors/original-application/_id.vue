@@ -4,53 +4,53 @@
       <v-row style="height: 100%;" v-if="success === false && failure === false">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
-            <v-row>
-              <v-col cols="12" align="center">
-                <v-avatar size="100" class="text-center mx-auto mt-n16 rounded-circle elevation-5" color="white">
-                  <v-img :src="location.imageUrl" v-if="location.imageUrl && location.imageUrl !== '{}'"></v-img>
-                  <v-icon v-else size="60">person</v-icon>
-                </v-avatar>
-              </v-col>
+            <v-img class="my-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; background-color: white" :src="spcompany.imgUrl"></v-img>
+            <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.25em; word-break: break-word; white-space: pre-wrap;">{{spcompany.account_name}}</v-card-title>
+            <v-card-text style="text-align: center; font-size: 18px;">{{location.description}}</v-card-text>
+            <v-card-text style="color:#A61C00; text-align: center; font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
+            <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
+              <v-row class="d-flex justify-center" style="width: 100%;">
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-if="connections.length > 0">{{connections.length}}</v-card-title>
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+                <div class="d-flex flex-column align-center" style="width: 60%;">
+                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Approved Connections</v-card-title>
+                </div>
+              </v-row>
             </v-row>
-            <!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
-            <v-card-title style="color:#A61C00;">{{spcompany.account_name}}</v-card-title>
-            <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
-            <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
-            <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
-            <v-row>
-              <v-col cols="6" align="center">
-                <v-btn :to="'/dashboard/vendors/' + location.id" outlined color="primary" rounded md>View Profile</v-btn>
-              </v-col>
-              <v-col cols="6" align="center">
-                <v-btn outlined color="primary" rounded md>Download Application</v-btn>
-              </v-col>
+            <v-row class="py-8 d-flex justify-center" style="width: 90%;">
+              <v-card-title style="font-size: 24px; text-align: left;">SOWerk Channels</v-card-title>
+              <v-card-title style="color: #A61C00; font-size: 108px;" v-if="spcompany.locations">{{spcompany.locations.length}}</v-card-title>
+              <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
             </v-row>
+            <v-btn :to="'/dashboard/vendors/' + location.id" outlined color="primary" rounded md class="">View Profile</v-btn>
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">About</v-card-title>
-            <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-            <v-card-text>Founded: {{location.year_founded}}</v-card-text>
-            <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
+            <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Headquarters</v-card-title>
+            <v-card-text style="font-size: 24px; text-align: left;">{{spcompany.address}}</v-card-text>
+            <v-card-text style="font-size: 24px; text-align: left;">{{spcompany.city}}, {{spcompany.state}} {{spcompany.zipcode}}</v-card-text>
+            <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
+            <v-card-text style="font-size: 24px; text-align: left;" v-if="spcompany.creationDate">{{spcompany.creationDate.slice(0,4)}}</v-card-text>
+            <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
+            <v-card-text style="font-size: 24px; text-align: left;">{{spcompany.year_founded}}</v-card-text>
+            <a :href="'https://' + spcompany.website" target="_blank" class="my-8 py-6" style="text-decoration: none; text-align: center; width: 90%; font-size: 24px; border-radius: 50px; border: 1px solid #A61C00;">Company Website</a>
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
-            <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-            <v-card-text>{{location.email}}</v-card-text>
-            <v-card-text>{{location.phone}}</v-card-text>
-            <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Insurances</v-card-title>
+            <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
             <template v-for="(insurance, index) in insurances">
-              <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
-              <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-else>0</v-card-title>
+              <v-card-text style="color: #A61c00; font-size: 78px;" v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
             </template>
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Licenses</v-card-title>
+            <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
             <template v-for="(license, index) in licenses">
-              <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
-              <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
+              <v-card-title style="color: #A61c00; font-size: 78px;" v-else>0</v-card-title>
+              <v-card-text style="color: #A61c00; font-size: 78px;" v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
             </template>
           </v-card>
         </v-col>
         <v-col cols="8">
           <v-card class="flex-column d-flex mt-16">
+            <v-btn @click="generateReport" style="position: absolute; top: 10px; right: 10px;" outlined color="primary" rounded md>Download Application</v-btn>
             <div class="d-flex justify-center align-center" style="background: #A61C00; width: 5%; height: 50px; position: absolute; left: 10px; top: -20px;">
               <v-icon color="white">mdi-account</v-icon>
             </div>
@@ -58,10 +58,12 @@
               <v-col cols="6">
                 <v-card-text style="width: 100%; font-size: 14px;">Application Name: <span style="color: #A61C00;">{{ userform.name }}</span></v-card-text>
                 <v-card-text style="width: 100%; font-size: 14px;">Associated Channel: <span style="color: #A61C00;">{{ pmlocation.name }}</span></v-card-text>
+                <v-card-text style="width: 100%; font-size: 14px;">Application Submitted: <span v-if="application.created" style="color: #A61C00;">{{application.created}}</span></v-card-text>
               </v-col>
               <v-col cols="6">
                 <v-card-text style="width: 100%; font-size: 14px;">Applicant Name: <span style="color: #A61C00;">{{spcompany.account_name}}</span></v-card-text>
                 <v-card-text style="width: 100%; font-size: 14px;">Applicant Channel: <span style="color: #A61C00;">{{location.name}}</span></v-card-text>
+                <v-card-text style="width: 100%; font-size: 14px;">Application Approved: <span v-if="application.modified" style="color: #A61C00;">{{application.modified}}</span></v-card-text>
               </v-col>
             </v-row>
             <v-row class="px-12">
@@ -97,33 +99,65 @@
                 ></v-select>
               </v-col>
             </v-row>
-<!--            <v-row class="d-flex justify-space-between my-10" style="width: 90%; margin: auto;" v-if="!isDenying">-->
-<!--              <v-btn @click="Deny" large>Deny</v-btn>-->
-<!--              <v-btn @click="Approve" color="primary" large>Approve</v-btn>-->
-<!--            </v-row>-->
-            <v-row v-if="isDenying" class="px-12 mt-8">
-              <v-col cols="12">
-                <p class="text-h5 mb-2">Reason For Denial</p>
-                <v-divider></v-divider>
-              </v-col>
-              <v-col cols="12">
-                <v-row class="px-3 my-6">
-                  <v-select
-                    :items="denialOptions"
-                    placeholder="Select Denial Reason"
-                    v-model="denial_reason"
-                    :rules="rules.requiredRules"
-                    ref="denialSelect"
-                    required
-                  ></v-select>
+            <vue-html2pdf
+              :show-layout="false"
+              :float-layout="true"
+              :enable-download="true"
+              :preview-modal="false"
+              :paginate-elements-by-height="2000"
+              :filename="controlValue.filename"
+              :pdf-quality="2"
+              :manual-pagination="false"
+              pdf-format="a4"
+              pdf-orientation="landscape"
+              pdf-content-width="1000px"
+              ref="html2Pdf"
+            >
+                <v-row style="width: 100%;" slot="pdf-content">
+                  <v-col cols="6">
+                    <v-card-text style="width: 100%; font-size: 14px;">Application Name: <span style="color: #A61C00;">{{ userform.name }}</span></v-card-text>
+                    <v-card-text style="width: 100%; font-size: 14px;">Associated Channel: <span style="color: #A61C00;">{{ pmlocation.name }}</span></v-card-text>
+                    <v-card-text style="width: 100%; font-size: 14px;">Application Submitted: <span v-if="application.created" style="color: #A61C00;">{{application.created}}</span></v-card-text>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-card-text style="width: 100%; font-size: 14px;">Applicant Name: <span style="color: #A61C00;">{{spcompany.account_name}}</span></v-card-text>
+                    <v-card-text style="width: 100%; font-size: 14px;">Applicant Channel: <span style="color: #A61C00;">{{location.name}}</span></v-card-text>
+                    <v-card-text style="width: 100%; font-size: 14px;">Application Approved: <span v-if="application.modified" style="color: #A61C00;">{{application.modified}}</span></v-card-text>
+                  </v-col>
+                  <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="">
+                    <p style="color: #151515; font-size: 14px; padding-bottom: 20px;" class="mb-4 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
+                    <v-text-field
+                      placeholder=" "
+                      class="mt-4"
+                      :value="application.subData[index].value"
+                      :name="formfield.name"
+                      v-if="formfield.type ==='text' && application.subData[index]"
+                      outlined
+                      readonly
+                    >
+                    </v-text-field>
+                    <v-checkbox
+                      placeholder=" "
+                      class="mt-4"
+                      v-model="application.subData[index].value"
+                      :name="formfield.name"
+                      v-if="formfield.type ==='checkbox' && application.subData[index]"
+                      readonly
+                    >
+                    </v-checkbox>
+                    <v-select
+                      placeholder=""
+                      class="mt-4"
+                      v-model="application.subData[index].value"
+                      :items="formfield.options.split(', ')"
+                      v-if="formfield.type ==='select' && application.subData[index]"
+                      outlined
+                      readonly
+                    ></v-select>
+                  </v-col>
                 </v-row>
-                <v-row class="px-3 mb-4">
-                  <v-btn @click="cancelDeny" large>Cancel</v-btn>
-                  <v-spacer></v-spacer>
-                  <v-btn @click="submitDenial" color="primary" large>Submit</v-btn>
-                </v-row>
-              </v-col>
-            </v-row>
+              </section>
+            </vue-html2pdf>
           </v-card>
         </v-col>
       </v-row>
@@ -140,11 +174,13 @@
 
 <script>
   import * as moment from 'moment'
+  import VueHtml2pdf from 'vue-html2pdf'
 
   export default {
     name: 'activeapplicant',
     layout: 'app',
     components: {
+      VueHtml2pdf,
     },
     data() {
       return {
@@ -160,6 +196,9 @@
         service: {},
         success: false,
         failure: false,
+        controlValue: {
+          filename: '',
+        }
       }
     },
     async mounted() {
@@ -172,10 +211,13 @@
       },
     },
     methods: {
+      generateReport () {
+        this.$refs.html2Pdf.generatePdf()
+      },
       async selectVendor(document) {
         console.log(document, 'document');
         this.documentToSend = document
-        this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
+        await this.$http.post('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id, {
           // companies_id: this.currentUser.companies_id,
           documentName: this.documentToSend.documentName,
           documentUrl: this.documentToSend.documentUrl,
@@ -197,6 +239,7 @@
             console.log(response.data, 'response application');
             this.application = response.data;
             this.application.created = moment(response.data).format('lll');
+            this.application.modified = moment(response.data).format('lll');
             this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
             if (this.application.required === 'required') {
@@ -206,7 +249,7 @@
             this.getSPLocation(response.data.splocations_id);
             this.getPMLocation(response.data.pmlocations_id);
             this.getPMUserForm(response.data.pmuserforms_id);
-            this.getPMService(response.data.pmservices_id);
+            //this.getPMService(response.data.pmservices_id);
             this.getPMCompany(response.data.pmcompanies_id);
             this.getSPCompany(response.data.spcompanies_id);
           })
@@ -230,7 +273,7 @@
       async getPMLocation(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
           .then(async (response) => {
-            console.log(response.data, 'response pm location');
+            await console.log(response.data, 'response pm location');
             this.pmlocation = response.data;
             console.log(this.pmlocation, 'pm location');
             this.messageForm.location = `${response.data.name} - ${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`
@@ -266,6 +309,7 @@
           .then(async (response) => {
             console.log(response.data, 'response pm userform');
             this.userform = response.data;
+            this.controlValue.filename = response.data.name;
           })
           .catch(err => {
             console.log('err', err);

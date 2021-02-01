@@ -30,6 +30,7 @@
     "stripe": "^8.127.0",
     "v-mask": "^2.2.3",
     "vue-google-autocomplete": "^1.1.0",
+    "vue-html2pdf": "^1.8.0",
     "vue-image-upload-croppie": "^1.0.6",
     "vue-moment": "^4.1.0",
     "vue-paginate": "^3.6.0",
