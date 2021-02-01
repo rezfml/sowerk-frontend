@@ -126,23 +126,6 @@
       <v-card class="mt-8" v-if="loading && requestingDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
-        <v-data-table
-          :items="vendorDocuments"
-          :headers="vendorHeaders"
-          :items-per-page="5"
-          class="mt-12"
-        >
-          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-            <p>{{item.documentName}}</p>
-          </template>
-          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-            <p>{{item.created.slice(0,4)}}</P>
-          </template>
-          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
-            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
-          </template>
-        </v-data-table>
       </v-card>
     </transition>
 
@@ -150,23 +133,15 @@
       <v-card class="mt-8" v-if="loading && uploadDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
-        <v-data-table
-          :items="vendorDocuments"
-          :headers="vendorHeaders"
-          :items-per-page="5"
-          class="mt-12"
-        >
-          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-            <p>{{item.documentName}}</p>
-          </template>
-          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-            <p>{{item.created.slice(0,4)}}</P>
-          </template>
-          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
-            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
-          </template>
-        </v-data-table>
+        <v-row class="mt-8">
+          <v-col cols="12">
+              <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+              <v-btn @click="clickUploadCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+              <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyUploadDocument.documentUrl}" v-model="companyUploadDocument.documentUrl" v-on:change.native="selectUploadCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
+          </v-col>
+        </v-row>
+        <v-title v-if="successuploaddocument !== null && successuploaddocument === false">Error with adding this document. Please retry.</v-title>
+        <v-title v-if="successuploaddocument">Successfully added this document!</v-title>
       </v-card>
     </transition>
 
@@ -192,6 +167,10 @@
     layout: "app",
     data() {
       return {
+        companyUploadDocument: {
+
+        },
+        successuploaddocument: null,
         requestDocumentsModalLoading: true,
         allDocumentsModalLoading: false,
         requestingDocumentsModalLoading: false,
@@ -212,6 +191,8 @@
         company: {},
         loading: false,
         companyDocuments: [],
+        companyUploadDocumentImageUrl: null,
+        companyUploadDocumentImageFile: null,
       }
     },
     watch: {
@@ -256,6 +237,7 @@
         this.openUploadModelLoad = false;
       },
       async uploadDocumentsModalLoad() {
+        this.successuploaddocument = null;
         this.requestDocumentsModalLoading = false
         this.allDocumentsModalLoading = false
         this.requestingDocumentsModalLoading = false
@@ -371,7 +353,46 @@
           .catch(err => {
             console.log(err, 'err in deleting doc')
           })
-      }
+      },
+      async clickUploadCompanyDocumentsImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyDocumentImage').click();
+      },
+      async selectUploadCompanyDocumentsImage(e) {
+        this.companyUploadDocument.documentUrl = e.target.files[0];
+        this.companyUploadDocument.documentName = e.target.files[0].name;
+        this.companyUploadDocument.required = true;
+        console.log(this.companyUploadDocumentImageFile);
+        this.companyUploadDocumentImageUrl = URL.createObjectURL(this.companyUploadDocument.documentUrl);
+        console.log(this.companyUploadDocumentImageUrl);
+        setTimeout(() => {
+          let formData = new FormData();
+          formData.append('file', this.companyUploadDocument.documentUrl);
+          console.log(formData, 'formdata');
+          this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+            .then(async (response) => {
+              console.log(response, 'response.data for company document upload')
+              this.companyUploadDocument.documentUrl = response.data.data.Location;
+              this.companyUploadDocument.companies_id = this.currentUser.companies_id;
+              console.log(this.companyDocument, 'THIS.COMPANY DOCUMENT')
+              await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id, this.companyUploadDocument)
+                .then(response => {
+                  console.log('response.data for on submitcompanydocumentimage')
+                  this.successuploaddocument = true;
+                })
+                .catch(err => {
+                  console.log('err in posting new company document')
+                  this.successuploaddocument = false;
+                })
+            })
+            .catch(err => {
+              console.log('error in uploading location image', err)
+            })
+        }, 250)
+      },
     }
   }
 </script>
