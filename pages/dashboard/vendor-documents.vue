@@ -226,6 +226,7 @@
         this.allDocumentsModalLoading = true
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = false
+        this.companyDocuments = [];
         await this.getDocuments();
         this.openUploadModelLoad = false;
       },
