@@ -74,6 +74,30 @@
       </v-row>
     </v-container> -->
 
+    <v-btn
+      class="text-uppercase primary mx-auto text-sm-body-2"
+      x-large
+      :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+      style="border-radius: 20px; font-weight: bold; font-size: 15px;margin-bottom:-2%;"
+      @click='showFormFunc()' >
+        CLICK HERE TO CONTACT US
+    </v-btn>
+
+    <section v-if="this.showForm === true" style="margin-top:5%;">
+      <v-row>
+        <v-col cols="9" style="margin-left:10%;">
+          <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/shell.js"></script>
+          
+          <script>
+            hbspt.forms.create({
+              portalId: "8815350",
+              formId: "406e3eb3-71d8-46fc-8e3e-d50a79abe882"
+          });
+          </script>
+        </v-col>
+      </v-row>
+    </section>
+
     <!-- NEW SECTION - JOIN STEPS -->
     <section class="joinservicesteps">
       <div class="joinservicestepscontainer" style="margin-top:15%">
@@ -232,6 +256,20 @@ import PricingLevels from '~/components/landing/general/PricingLevels'
       OftenAskSP,
       VendorToolBoxes,
       PricingLevels
+    },
+    data() {
+      return {
+        showForm: false
+      }
+    },
+    methods: {
+      showFormFunc() {
+        if(this.showForm === false) {
+          this.showForm = true
+        } else {
+          this.showForm = false
+        }
+      }
     }
   }
 </script>
