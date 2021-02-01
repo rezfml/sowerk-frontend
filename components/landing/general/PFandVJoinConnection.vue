@@ -42,9 +42,9 @@
               src="https://sowerk-images.s3.us-east-2.amazonaws.com/sharecopy.png"
             />
             <div class="joinconnectiontext">
-              <h3>2. Vendor Management</h3>
+              <h3>2. Vendor Management & Procurement</h3>
               <p>
-                Communicate with ease while maintaining internal notes, documents and other Vendor interaction records. Empower staff to work with approved vendors and maintain liability protections.
+                Communicate or supply with ease while maintaining internal notes, documents and other Vendor interaction records. Empower staff to work with approved Vendors and maintain liability protections.
               </p>
             </div>
           </div>
@@ -83,7 +83,7 @@
               <h3>1. Build A Profile</h3>
               <p>
                 SOWerk makes it easy & quick for you to show off your brand and
-                company background. SOWerk also promotes all the companies where you are an approved vendor.
+                company background. SOWerk also promotes all the companies where you are an approved Vendor.
                  Your SOWerk profile is both easy and powerful.
               </p>
             </div>
