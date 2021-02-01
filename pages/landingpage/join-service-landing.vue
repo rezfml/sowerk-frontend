@@ -26,7 +26,11 @@
       </v-row>
     </v-container>
 
-      <div style="width:100%;height:100%;">
+      <div style="width:100%;height:100%;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+        <img style="width:100%;height:100%;" src="/venWhyUseSowerk-image.png" alt="">
+      </div>
+
+      <div style="width:100%;height:100%;" v-else>
         <img style="width:100%;height:100%;" src="/vendor-CRM-LP-image.png" alt="">
       </div>
 
@@ -47,7 +51,7 @@
     </v-container>
     <PricingLevels class="pricing-levels" />
     <!-- GETTING STARTED IS FREE AND EASY -->
-    <v-container fluid class="py-10" style="background: #151515; height: 40vh" >
+    <!-- <v-container fluid class="py-10" style="background: #151515; height: 40vh" >
       <v-row class="py-5 px-0">
         <v-col cols="12" class="text-center px-0">
           <p class="white--text font-weight-bold px-1" style="margin-left:15%;margin-right:15%;">
@@ -68,31 +72,26 @@
           >
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
 
     <!-- NEW SECTION - JOIN STEPS -->
     <section class="joinservicesteps">
       <div class="joinservicestepscontainer" style="margin-top:15%">
-        <div class="joinservicestepcontainerstep">
+
+        <h1 style="text-align:center; font-size:2.5rem; margin-top:2%; letter-spacing:2px;" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">Getting Started Is Easy</h1>
+        <h1 style="text-align:center; font-size:2rem; margin-top:2%; letter-spacing:1px;" v-else>Getting Started Is Easy</h1>
+
+
+        <!-- STEP 1 - NOT RENDERED SMALL OR EXTRA SMALL SCREEN SIZE! -->
+        <div class="joinservicestepcontainerstep" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
           <img
-            v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
             class="containerImg"
-            src="/vendor-LP-step1-image.png"
-            alt="Profile dashboard Mockup"
-          />
-          <img
-            v-else
-            class="containerImg"
-            style="margin: auto; margin-bottom: 20px"
             src="/vendor-LP-step1-image.png"
             alt="Profile dashboard Mockup"
           />
           <div>
-            <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-              Step 1 <span>- Build a Profile</span>
-            </h1>
-            <h1 v-else>
-              Step 1 <span><br />- Build a Profile</span>
+            <h1>
+              Step 1 <span><br/> Build a Profile</span>
             </h1>
             <p>
               Your SOWerk Profile is Your New Calling Card. Designed To Make You
@@ -105,13 +104,37 @@
             </p>
           </div>
         </div>
-        <div class="joinservicestepcontainerstep">
+
+        <!-- STEP 1 - RENDERED ON SMALL OR EXTRA SMALL SCREEN SIZE! -->
+        <div class="joinservicestepcontainerstep" v-else>
+          <div>
+            <h1>
+              Step 1 <span><br/> Build a Profile</span>
+            </h1>
+            <p>
+              Your SOWerk Profile is Your New Calling Card. Designed To Make You
+              Look Good!
+            </p>
+            <p>
+              Your company dashboard displays recent users that you have been in
+              contact with along with a chart of your pending application
+              requests.
+            </p>
+            <img
+              class="containerImg"
+              style="margin: auto; margin-bottom: 20px"
+              src="/vendor-LP-step1-image.png"
+              alt="Profile dashboard Mockup"
+            />
+          </div>
+        </div>
+
+
+        <!-- STEP 2 - NOT RENDERED ON SMALL OR EXTRA SMALL SCREEN SIZE! -->
+        <div class="joinservicestepcontainerstep" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
           <div class="stepTwo">
             <h1 v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
-              Step 2 <span>- Apply With Buyers</span>
-            </h1>
-            <h1 v-else>
-              Step 2 <span><br />- Apply With Buyers</span>
+              Step 2 <span><br/> Apply With Buyers</span>
             </h1>
             <p>Apply For Businesses Looking For Your Products or Services.</p>
             <p>
@@ -125,14 +148,28 @@
             src="/vendor-LP-step2-image.png"
             alt="Buyer dashboard mockup"
           />
-          <img
-            v-else
-            class="containerImg"
-            style="margin: auto; margin-bottom: 20px"
-            src="/vendor-LP-step2-image.png"
-            alt="Profile Buyer dashboard mockup"
-          />
         </div>
+
+        <!-- STEP 2 - RENDERED ON SMALL OR EXTRA SMALL SCREEN SIZE! -->
+        <div class="joinservicestepcontainerstep" v-else>
+          <div class="stepTwo">
+            <h1>
+              Step 2 <span><br/> Apply With Buyers</span>
+            </h1>
+            <p>Apply For Businesses Looking For Your Products or Services.</p>
+            <p>
+              With just a few clicks your company is applying to become the next approved Vendor for a company. Additionally, your profile is also listed in the search directory so Businesses can find you and request your application.
+            </p>
+            <img
+              class="containerImg"
+              style="margin: auto; margin-bottom: 20px"
+              src="/vendor-LP-step2-image.png"
+              alt="Profile Buyer dashboard mockup"
+            />
+          </div>
+        </div>
+
+
         <div class="joinservicestepcontainerstep">
           <!-- <img
             class="containerImg"
