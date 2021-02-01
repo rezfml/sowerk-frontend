@@ -73,7 +73,9 @@
 
               <a href="https://www.sowerk.com/register" class="mb-4" style="text-decoration: none; color: #707070; word-break: break-word; white-space: pre-wrap;" >Not On SOWerk? Set Up Your Business Here</a>
               <!--<v-btn text type="submit" value="Reset" style="color: #a61c00; text-align: center;" class="py-10 mx-auto center" v-on:click="sendReset" >Forgot Password?</v-btn>-->
-              <p style="font-weight: 700">Already registered? Check your email for verification!</p>
+              <p style="font-weight: 700; text-align: center;" v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">Already registered? Check your email for verification!</p>
+
+              <p style="font-weight: 700" v-else>Already registered? Check your email for verification!</p>
             </v-form>
           </v-card-text>
         </v-card>

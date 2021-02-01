@@ -273,7 +273,8 @@
           <!-- STEP 1 -->
           <v-flex class="" style="width:100%;">
             <v-container style="width:100%;">
-              <v-row style="width:100%; margin-left: -10%;margin-right: 5%;">
+              <!-- RENDERED IF NOT SMALL OR EXTRA SMALL -->
+              <v-row style="width:100%; margin-left: -10%;margin-right: 5%;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
                 <v-col cols="12" md="6">
                   <div class="joinproductstepcontainerstep step-right">
                     <!-- <v-img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" id="stepTwo" alt="application mockup"/> -->
@@ -286,52 +287,43 @@
                     <v-container style="width:100%;">
                       <v-row class="mx-4" style="width:120%;">
                         <v-col cols="12 " class="d-flex flex-column">
-                          <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 1 <span style="color: #a61c00;">-Company Account & Channels</span></h1>
-                          <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 1 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>-Company Account & Channels</span></h1>
-                          <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                          A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.
-                          </p>
-                          <p style="font-size: 18px;" v-else>
-                          A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.
-                          </p>
-                          <!-- <v-list
-                            :width="$vuetify.breakpoint.mdAndUp ? '100%' : '100%'"
-                            class="d-flex-column"
-                            style=""
-                          > -->
-                          <!-- <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                              <v-col cols="0" sm="1"  >
-                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                              </v-col>
-                              <v-col cols="12" sm="11" >
-                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070"> Manage One Or Thousands of Locations</p>
-                                <p  v-else class=" mx-n3 px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070"> Manage One Or Thousands of Locations</p>
-                              </v-col>
-                          </v-row>
-                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                              <v-col cols="0" sm="1"  >
-                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                              </v-col>
-                              <v-col cols="12" sm="11" >
-                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">Add Staff Accounts For One Location Or Multiple</p>
-                                <p  v-else class=" mx-n3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">Add Staff Accounts For One Location Or Multiple</p>
-                              </v-col>
-                          </v-row>
-                          <v-row class="d-flex justify-center justfy mx-auto my-n4" cols="12" style="width:100%" >
-                              <v-col cols="0" sm="1"   >
-                                <v-img  width="20" v-show="!$vuetify.breakpoint.xs" min-width="20" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon-157.png"/>
-                              </v-col>
-                              <v-col cols="12" sm="11" >
-                                <p v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" class=" " style="font-size: 17px; line-height: 1.6em; " color="#707070">  Invite Existing Vendors To Connect For Free</p>
-                                <p  v-else class=" mx-n3  px-0" style="font-size: 15px; line-height: 1.6em;width:100% " color="#707070">  Invite Existing Vendors To Connect For Free</p>
-                              </v-col>
-                          </v-row> -->
+                          <h1 style="font-size: 32px;padding-bottom: 15px;">Step 1 
+                            <span style="color: #a61c00;"><br/>Company Account & Channels</span>
+                          </h1>
 
-                          <!-- </v-list> -->
+                          <p style="font-size: 20px;">
+                          A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.
+                          </p>
                         </v-col>
                       </v-row>
                     </v-container>
                   </v-flex>
+                </v-col>
+              </v-row>
+
+              <!-- RENDERED IF SMALL OR EXTRA SMALL -->
+              <v-row style="width:90%;margin-right: 5%;" v-else>
+                <v-col cols="12" md="6">
+                  <v-flex class="" style="width:100%;">
+                    <v-container style="width:100%;">
+                      <v-row class="mx-4" style="width:120%;">
+                        <v-col cols="12 " class="d-flex flex-column">
+                          <h1 style="font-size: 28px;padding-bottom: 15px;">Step 1 
+                            <span style="color: #a61c00;font-size: 22px;"><br/>Company Account & Channels</span>
+                          </h1>
+                          <p style="font-size: 18px;width: 100%;">
+                          A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.
+                          </p>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-flex>
+                </v-col>
+
+                <v-col cols="12" md="6">
+                  <div class="joinproductstepcontainerstep step-right">
+                    <v-img class="containerImg" style="border-radius:2%;" src="/biz-Step1.png" id="stepTwo" alt="application mockup"/>
+                  </div>
                 </v-col>
               </v-row>
             </v-container>
@@ -340,7 +332,9 @@
           <!-- STEP 2 -->
           <v-flex class="" style="width:100%;">
             <v-container style="width:100%;">
-              <v-row style="width:100%; margin-right: -10%;margin-left: 5%;">
+
+              <!-- RENDERED IF NOT SMALL OR EXTRA SMALL -->
+              <v-row style="width:100%; margin-right: -10%;margin-left: 5%;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
                 
                 <v-col cols="12" md="6" v-show="$vuetify.breakpoint.xs">
                   <div class="joinproductstepcontainerstep step-right">
@@ -357,20 +351,31 @@
                         <v-col cols="12 " class="d-flex flex-column">
                           
                           <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                          <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 <span style="color: #a61c00;">- Vendor Vetting Criteria</span></h1>
-                          <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 2 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Vendor Vetting Criteria</span></h1>
-                          <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                            SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
-                          </p>
-                          <p style="font-size: 18px;margin:auto;width:100%;" v-else>
-                            SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
-                          </p>
+                            <h1 style="font-size: 32px;padding-bottom: 15px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 
+                              <span style="color: #a61c00;"><br/> Vendor Vetting Criteria</span>
+                            </h1>
+
+                            <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" v-else>Step 2 
+                              <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/> Vendor Vetting Criteria</span>
+                            </h1>
+
+                            <p style="font-size: 20px;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
+                              SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                            </p>
+
+                            <p style="font-size: 18px;margin:auto;width:100%;" v-else>
+                              SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                            </p>
+                            
                           </v-row>
+
                           <v-row v-else style="margin:unset !important;padding:unset;width:100%;margin-left:24px !important; margin-right:24px !important;">
-                          <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 2 <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Vendor Vetting Criteria</span></h1>
-                          <p style="font-size: 18px;margin:auto;width:100%;" >
-                            SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
-                          </p>
+                            <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 2 
+                              <span class="mx-auto d-flex-row justify-center" style="width:100%;font-size:25px;color: #a61c00;"><br/> Vendor Vetting Criteria</span>
+                            </h1>
+                            <p style="font-size: 18px;margin:auto;width:80%;" >
+                              SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                            </p>
                           </v-row>
                           <!-- <v-list
                             :width="$vuetify.breakpoint.mdAndUp ? '150%' : '150%'&& $vuetify.breakpoint.smAndDown ? '100%' : '100%'"
@@ -428,13 +433,51 @@
                 </v-col>
 
               </v-row>
+
+              <!-- RENDERED IF SMALL OR EXTRA SMALL -->
+              <v-row style="width:90%;margin-left: 5%;" v-else>
+                <v-col cols="12" md="6" >
+                  <v-flex class="" style="width:100%;">
+                    <v-container style="width:100%;">
+                      <v-row style="width:100%;">
+                        <v-col cols="12 " class="d-flex flex-column">
+                          <v-row>
+                            <h1 style="font-size: 28px;padding-bottom: 15px;">Step 2 
+                              <span style="color: #a61c00;font-size: 22px;"><br/> Vendor Vetting Criteria</span>
+                            </h1>
+
+                            <p style="font-size: 18px;margin:auto;width:100%;">
+                              SOWerk gives you the tools to build robust Vendor vetting criteria. Businesses can utilize the SOWerk library of templates and questions or custom build your own application. We make it easy and quick to build applications.
+                            </p>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-flex>
+                </v-col>
+
+                <v-col cols="12">
+                  <div>
+                    <v-img src="/biz-Step2.png" alt="application mockup"/>
+                  </div>
+                </v-col>
+                <!-- <v-col cols="12" md="6" v-show="$vuetify.breakpoint.xs" >
+                  <div class="joinproductstepcontainerstep step-right last-container" >
+                    <v-img  class="containerImg second-img" src="/biz-Step2.png" id="stepTwo" alt="application mockup"/>
+                  </div>
+                </v-col> -->
+
+              </v-row>
+
             </v-container>
           </v-flex>
 
           <!-- STEP 3 -->
           <v-flex class="" style="width:100%;">
             <v-container style="width:100%;">
-              <v-row style="width:100%;margin-left: -10%;margin-right: 5%;">
+
+              <!-- RENDERED IF NOT SMALL OR EXTRA SMALL -->
+              <v-row style="width:100%;margin-left: -10%;margin-right: 5%;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
                 <v-col cols="12" md="6">
                   <div class="joinproductstepcontainerstep step-right last-container">
                     <v-img class="containerImg" src="/biz-Step3.png" id="stepTwo" alt="application mockup" style=""/>
@@ -452,7 +495,9 @@
                       <v-row class="mx-4" style="width:120%;">
                         <v-col cols="12" class="d-flex flex-column">
                           <v-row v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-                            <h1 style="font-size: 32px;padding-bottom: 15px;" >Step 3 <span style="color: #a61c00;">- Super Simple Management</span></h1>
+                            <h1 style="font-size: 32px;padding-bottom: 15px;" >Step 3 
+                              <span class="pr-2" style="color: #a61c00;"><br/>Power Vendor Management</span>
+                            </h1>
                             <p style="font-size: 20px;" >
                               What’s the point of great power if you can’t manage it? SOWerk’s
                               simple-to-use interface allows you to stay up-to-date and manage
@@ -464,8 +509,10 @@
                           </v-row>
 
                           <v-row v-else style="margin:unset !important;padding:unset;width:100%;margin-left:24px !important; margin-right:24px !important;">
-                            <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 3 <span class="pr-2" style="width:100%;font-size:25px;color: #a61c00;"><br/>- Super Simple Management</span></h1>
-                            <p style="font-size: 18px;margin:auto;width:100%;" >
+                            <h1 class="mx-auto d-flex-row justify-center" style="font-size: 25px;padding-bottom: 15px;" >Step 3 
+                              <span class="pr-2" style="width:100%;font-size:25px;color: #a61c00;"><br/>Power Vendor Management</span>
+                            </h1>
+                            <p style="font-size: 18px;margin:auto;width:80%;" >
                                 What’s the point of great power if you can’t manage it? SOWerk’s
                               simple-to-use interface allows you to stay up-to-date and manage
                               all of your properties quickly and efficiently from a desktop or
@@ -525,19 +572,52 @@
                   </v-flex>
                 </v-col>
               </v-row>
+
+              <!-- RENDERED IF SMALL OR EXTRA SMALL -->
+              <v-row style="width:90%;margin-right: 5%;" v-else>
+                <v-col cols="12" md="6">
+                  <v-flex class="" style="width:100%;">
+                    <v-container style="width:100%;">
+                      <v-row class="mx-4" style="width:100%;">
+                        <v-col cols="12" class="d-flex flex-column">
+                          <v-row>
+                            <h1 style="font-size: 28px;padding-bottom: 15px;" >Step 3 
+                              <span style="color: #a61c00;font-size: 22px;"><br/>Power Vendor Management</span>
+                            </h1>
+                            <p style="font-size: 18px;margin:auto;width:100%;" >
+                                What’s the point of great power if you can’t manage it? SOWerk’s
+                              simple-to-use interface allows you to stay up-to-date and manage
+                              all of your properties quickly and efficiently from a desktop or
+                              mobile platform. Manage staff, vet vendors, or even be one click
+                              away from your approved vendors - that’s the power of
+                              SOWerk.
+                            </p>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-flex>
+                </v-col>
+
+                <v-col cols="12" md="6">
+                  <div>
+                    <v-img style="border-radius:2%;margin-left:8%;" src="/biz-Step3.png" alt="application mockup"/>
+                  </div>
+                </v-col>
+              </v-row>              
             </v-container>
           </v-flex>
         </div>
       </div>
 
       <v-btn
-              class="text-uppercase primary mx-auto text-sm-body-1"
-              x-large
-              :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
-              style="border-radius: 20px; font-weight: bold; font-size: 15px;"
-              @click='$router.push("/register/property-manager")'
-              >Register Now</v-btn
-            >
+        class="text-uppercase primary mx-auto text-sm-body-1"
+        x-large
+        :width="$vuetify.breakpoint.mdAndUp ? '40%' : '90%'"
+        style="border-radius: 20px; font-weight: bold; font-size: 15px;"
+        @click='$router.push("/register/property-manager")'
+        >Register Now
+      </v-btn>
     </section>
 
 <!-- NEW SECTION - JOIN TRAITS -->
