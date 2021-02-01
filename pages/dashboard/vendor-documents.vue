@@ -76,10 +76,13 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loading && requestDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
+          class="mt-12"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -97,10 +100,13 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loading && allDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
         <v-data-table
-          :items="vendorDocuments"
+          :items="companyDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
+          class="mt-12"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -110,7 +116,7 @@
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
             <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
-            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -118,10 +124,13 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loading && requestingDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
+          class="mt-12"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -139,10 +148,13 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loading && uploadDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
+          class="mt-12"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -199,6 +211,7 @@
         showVideo: false,
         company: {},
         loading: false,
+        companyDocuments: [],
       }
     },
     watch: {
@@ -225,24 +238,29 @@
         this.allDocumentsModalLoading = false
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = false
+        this.openUploadModelLoad = false;
       },
       async allDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
         this.allDocumentsModalLoading = true
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = false
+        await this.getDocuments();
+        this.openUploadModelLoad = false;
       },
       async requestingDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
         this.allDocumentsModalLoading = false
         this.requestingDocumentsModalLoading = true
         this.uploadDocumentsModalLoading = false
+        this.openUploadModelLoad = false;
       },
       async uploadDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
         this.allDocumentsModalLoading = false
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = true
+        this.openUploadModelLoad = false;
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
@@ -255,6 +273,31 @@
         } else {
           this.showVideo = false
         }
+      },
+      async getDocuments() {
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byVendorCompanyId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'response for vendor docs')
+            this.companyDocuments = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err in getting list')
+          })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'response for company docs')
+            if(response.data.length > 0 && response.data[0] !== 'There are no company documents') {
+              for(let i=0; i<response.data.length; i++) {
+                this.companyDocuments.push(response.data[i])
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err in getting list')
+          })
+
+        this.loading = true;
       },
       async getVendorProvidedDocuments() {
         await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byVendorVendorId/' + this.currentUser.companies_id)
@@ -318,10 +361,33 @@
       async closeUploadModel() {
         this.openUploadModelLoad = false;
       },
+      async deleteDocument(doc) {
+        console.log(doc);
+        await this.$http.delete('https://www.sowerkbackend.com/api/companydocuments/' + doc.id)
+          .then(response => {
+            console.log(response, 'success in deleting doc')
+            this.companyDocuments = this.companyDocuments.filter(item => item !== doc);
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting doc')
+          })
+      }
     }
   }
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
