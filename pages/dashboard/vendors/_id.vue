@@ -706,11 +706,11 @@
       </transition>
       <!--      </v-overlay>-->
 
-      <!--      <v-overlay-->
-      <!--        :absolute="absolute"-->
-      <!--        :opacity="opacity"-->
-      <!--        :value="overlayMessage"-->
-      <!--      >-->
+<!--            <v-overlay-->
+<!--              :absolute="absolute"-->
+<!--              :opacity="opacity"-->
+<!--              :value="overlayMessage"-->
+<!--            >-->
       <transition name="slide-fade">
         <v-card v-if="messageModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Account Name: <span style="color: #A61c00">{{companyForVendor.account_name}}</span></v-card-title>
