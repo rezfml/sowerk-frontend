@@ -56,7 +56,7 @@
                     class="text-capitalize text-sm-h5 font-weight-bold mb-3 wrap-text">Will I Get Charged All The Time & Get Junk
                     Leads?</p>
                   <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Unlike other websites, SOWerk Vendors receive communications from their approved vendor programs, direct leads, or new businesses inviting them to apply for approved vendor program. </p>
-                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Being on SOWerk and promoting your business is inexpensive, and we prefer it that way. If you wish to apply for an approved vendor program or utilize other SOWerk features, we offer a few different packages. Priving details can be found by clicking the button below to go to our Approved Provider page.</p>
+                  <p  class="wrap-text pl-0 pl-sm-10" style="font-size: 15px; line-height: 1.6em" color="#707070">Being on SOWerk and promoting your business is inexpensive, and we prefer it that way. If you wish to apply for an approved vendor program or utilize other SOWerk features, we offer a few different packages.</p>
                 </v-col>
             </v-row>
             </v-list>

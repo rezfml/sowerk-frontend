@@ -85,10 +85,19 @@
 
       <!-- VRM HOME-PAGE IMAGE -->
       <v-row
+        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         class="justify-space-around"
         style="width: 100%; max-width: 100%;">
 
-        <v-img style="width:100%" src="/VRM-homePage.png"></v-img>
+        <v-img style="width:90%" src="/VRM-bubble-image-Mobile.png"></v-img>
+      </v-row>    
+
+      <v-row
+        v-else
+        class="justify-space-around"
+        style="width: 100%; max-width: 100%;">
+
+        <v-img style="width:100%" src="/VRM-image-New.png"></v-img>
       </v-row>
 
       <!-- BUTTONS UNDER VRM IMAGE FOR BUSINESSES -->
@@ -138,10 +147,19 @@
 
       <!-- CRM HOME-PAGE IMAGE -->
       <v-row
+        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
         class="justify-space-around"
         style="width: 100%; max-width: 100%;">
 
-        <v-img style="width:100%" src="/CRM-homePage.png"></v-img>
+        <v-img style="width:90%" src="/CRM-bubble-image-Mobile.png"></v-img>
+      </v-row>
+
+      <v-row
+        v-else
+        class="justify-space-around"
+        style="width: 100%; max-width: 100%;">
+
+        <v-img style="width:100%" src="/CRM-image-New.png"></v-img>
       </v-row>
       
       <!-- BUTTONS UNDER CRM IMAGE FOR VENDORS -->
@@ -189,7 +207,16 @@
           </v-btn>
       </v-row>
 
+      <!-- OTHER -->
       <v-row
+        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm"
+        class="justify-space-around"
+        style="width: 100%; max-width: 100%;margin-bottom: 5%">
+
+        <v-img style="width:100%" src="/homePageBubble-image-Mobile.png"></v-img>        
+      </v-row>
+      <v-row
+        v-else
         class="justify-space-around"
         style="width: 100%; max-width: 100%;margin-bottom: 5%">
 
