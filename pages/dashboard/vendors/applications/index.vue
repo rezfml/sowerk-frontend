@@ -280,6 +280,7 @@
         v-if="addCompanyLoader"
       ></v-progress-circular>
     </div>
+
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="assignChannel">
       <v-progress-circular
         indeterminate
@@ -288,6 +289,7 @@
         v-if="assignChannel"
       ></v-progress-circular>
     </div>
+
     <div style="position: fixed; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loadDeleteCompanyTemplateSpinner">
       <v-progress-circular
         indeterminate
@@ -296,6 +298,7 @@
         v-if="loadDeleteCompanyTemplateSpinner"
       ></v-progress-circular>
     </div>
+
     <transition name="slide-fade">
       <v-card class="mt-16" v-if="loadApplicationTemplates" style="width: 100%;">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">SOWerk Application Templates</v-card-title>

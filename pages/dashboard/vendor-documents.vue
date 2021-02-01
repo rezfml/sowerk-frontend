@@ -64,10 +64,10 @@
             <v-card-title style="color:darkred; font-size: 24px; word-break: break-word; white-space: pre-wrap;">Manage Requesting Documents</v-card-title>
             <v-card-text style="font-size: 18px; word-break: break-word; white-space: pre-wrap;">Vendors can utilize the Requesting Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
             <v-row class="d-flex flex-wrap justify-center align-center">
-              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined>Requesting Documents</v-btn>
-              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
-              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
-              <v-btn style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
+              <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined>Requesting Documents</v-btn>
+              <v-btn @click="allDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
+              <v-btn @click="requestingDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
+              <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -75,7 +75,70 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loading">
+      <v-card class="mt-8" v-if="loading && requestDocumentsModalLoading">
+        <v-data-table
+          :items="vendorDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,4)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading && allDocumentsModalLoading">
+        <v-data-table
+          :items="vendorDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,4)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading && requestingDocumentsModalLoading">
+        <v-data-table
+          :items="vendorDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,4)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading && uploadDocumentsModalLoading">
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorHeaders"
@@ -117,6 +180,10 @@
     layout: "app",
     data() {
       return {
+        requestDocumentsModalLoading: true,
+        allDocumentsModalLoading: false,
+        requestingDocumentsModalLoading: false,
+        uploadDocumentsModalLoading: false,
         vendorDocuments: [],
         vendorHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
@@ -153,6 +220,30 @@
       await this.getVendorProvidedDocuments();
     },
     methods: {
+      async requestDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = true
+        this.allDocumentsModalLoading = false
+        this.requestingDocumentsModalLoading = false
+        this.uploadDocumentsModalLoading = false
+      },
+      async allDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = false
+        this.allDocumentsModalLoading = true
+        this.requestingDocumentsModalLoading = false
+        this.uploadDocumentsModalLoading = false
+      },
+      async requestingDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = false
+        this.allDocumentsModalLoading = false
+        this.requestingDocumentsModalLoading = true
+        this.uploadDocumentsModalLoading = false
+      },
+      async uploadDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = false
+        this.allDocumentsModalLoading = false
+        this.requestingDocumentsModalLoading = false
+        this.uploadDocumentsModalLoading = true
+      },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         console.log('company from business/index: ', data.company_type);
