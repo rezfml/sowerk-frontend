@@ -161,18 +161,14 @@
       <!-- <h2 v-else class="text-h4 ml-3 text-center">Built By Property & Facility Managers</h2> -->
       <p></p>
       <p>
-        SOWerk is built from the ground up as a software for businesses that
-        own/manage properties & facilites.
+        SOWerk was built from the ground up by people who manage thousands of vendors across two countries. We set out to establish software for any size business that needs to vet and manage service vendors or suppliers.
       </p>
       <p>
         We specifically designed our platform to help you identify, qualify,
-        and manage just about any type of service provider, local or national.
+        and manage just about any type of service provider or supplier, local or national.
         If you oversee one facility or own thousands of properties, SOWerk
         empowers you to easily establish approved vendors at each of your
         locations, request quotes from approved providers, and much more.
-      </p>
-      <p>
-        A team at your headquarters or designated local manager can use a computer to access SOWerk or the SOWerk mobile app.
       </p>
        <v-btn
               class="text-uppercase primary mx-auto text-sm-body-1"
@@ -188,88 +184,12 @@
         <!-- NEW SECTION JOIN STEPS -->
     <section class="joinproductsteps">
       <div class="joinproductstepscontainer">
-
-          <!--
-        <div class="joinproductstepcontainerstep step-right">
-          <img class="containerImg" src="https://sowerk-images.s3.us-east-2.amazonaws.com/dashBoardMockup.png" alt="Dashboard Mockup"/>
-          <div class="getStarted">
-            <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 1 <span>-Register Company Account & Locations</span></h1>
-            <h1 v-else >Step 1<br /> <span class="pr-2" style="width:90%;font-size:7vw">-Register Company Account & Locations</span></h1>
-            <p>
-              After setting up your account and locations, SOWerk makes it easy
-              to filter approved product providers quickly and easily for any
-              location across the country.</p>
-              <p class="innerList d-flex-row"  style="">
-                <span>
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon d-flex-row align-center" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-                </span>
-               Manage One Or Thousands of Locations
-              </p>
-              <p class="innerList d-flex-row">
-                <span>
-
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-                </span>
-                Add Staff Accounts For One Location Or Multiple
-              </p>
-              <p class="innerList d-flex-row">
-                <span>
-
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-
-                </span>
-                Invite Existing Vendors To Connect For Free
-              </p>
-            </p>
-          </div>
-        </div>
-
-        <div class="joinproductstepcontainerstep step-left" style="padding-left:3%">
-          <div class="getStarted">
-            <h1 v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Step 2 <span>- Find Or Invite Service Providers</span></h1>
-            <h1 v-else>Step 2 <span class="pr-2" style="width:90%;font-size:7vw"><br/>- Find Or Invite Service Providers</span></h1>
-            <p>
-              Property & Facility Managers can invite Service Providers within the platform to join SOWerk and apply, or Service Providers can be invited as Pre-Approved Vendors. Additionally, Service Providers already on SOWerk can be found using the detailed search tool. Use one of SOWerk’s pre-made vendor applications or customize your own questions. This allows you to acquire adequate information from them during the application process to ensure they will represent your brand well, no matter how close or far away.</p>
-              <p class="innerList">
-                <span>
-
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-
-                </span>
-                Customize Vendor Application By Location
-              </p>
-              <p class="innerList">
-                <span>
-
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-
-                </span>
-                Manage Applications By Service Category
-              </p>
-              <p class="innerList">
-                <span>
-
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-
-                </span>
-                Easily Toggle Application Status On or Off
-              </p>
-              <p class="innerList">
-                <span>
-
-                  <img v-show="!$vuetify.breakpoint.xs" class="wrenchIcon" src="https://sowerk-images.s3.us-east-2.amazonaws.com/SOWerkIcon.png" alt="sowerk icon">
-
-                </span>
-                Location Staff Account or Headquarters Can Review Applicants Quickly
-              </p>
-            </p>
-          </div>
-          <img  class="containerImg second-img" src="https://sowerk-images.s3.us-east-2.amazonaws.com/applicationMockup.png" id="stepTwo" alt="application mockup" />
-        </div>
-        -->
-
         <!-- ALL 3 STEPS, TEXT AND IMAGES -->
         <div>
+          <!-- TITLE -->
+          <h1 style="text-align:center; font-size:2.8rem;letter-spacing:1px;margin-top:2%;" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">Getting Started Is Easy</h1>
+          <h1 style="text-align:center; font-size:2rem;letter-spacing:1px;" v-else>Getting Started Is Easy</h1>
+          
           <!-- STEP 1 -->
           <v-flex class="" style="width:100%;">
             <v-container style="width:100%;">
@@ -288,7 +208,7 @@
                       <v-row class="mx-4" style="width:120%;">
                         <v-col cols="12 " class="d-flex flex-column">
                           <h1 style="font-size: 32px;padding-bottom: 15px;">Step 1 
-                            <span style="color: #a61c00;"><br/>Company Account & Channels</span>
+                            <span style="color: #a61c00;"><br/>Company Channels</span>
                           </h1>
 
                           <p style="font-size: 20px;">
@@ -309,7 +229,7 @@
                       <v-row class="mx-4" style="width:120%;">
                         <v-col cols="12 " class="d-flex flex-column">
                           <h1 style="font-size: 28px;padding-bottom: 15px;">Step 1 
-                            <span style="color: #a61c00;font-size: 22px;"><br/>Company Account & Channels</span>
+                            <span style="color: #a61c00;font-size: 22px;"><br/>Company Channels</span>
                           </h1>
                           <p style="font-size: 18px;width: 100%;">
                           A channel can represent any facility, department, or even major project where you will want to find, vet, and manage vendors.

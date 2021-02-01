@@ -164,7 +164,7 @@
             min-width="40vw"
           ></v-skeleton-loader>
 
-          <transition>
+          <!-- <transition>
             <AcceptedApplicationCard
               v-if="loading"
               :title="'My Approved Vendors'"
@@ -175,9 +175,9 @@
               action="ViewApproved"
               :company="company"
             ></AcceptedApplicationCard>
-          </transition>
+          </transition> -->
 
-          <!-- <transition name="slide-fade">
+          <transition name="slide-fade">
             <FacilitiesCard
               v-if="loading"
               :title="'My Approved Vendors'"
@@ -189,7 +189,7 @@
               action="ViewApproved"
               :company="company"
             ></FacilitiesCard>
-          </transition> -->
+          </transition>
         </v-col>
       </v-row>
 
