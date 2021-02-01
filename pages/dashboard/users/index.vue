@@ -9,6 +9,32 @@
     <!--      ></v-progress-circular>-->
     <!--    </div>-->
     <!-- BANNER CARD -->
+
+    <transition name="slide-fade">
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loading">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
+          <v-col cols="3" style="color:white;width:100%;text-align:center;">
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+          </v-col>
+          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+            <p style="font-size:1.1rem">Watch our short video to learn how to utilize Users on SOWerk.</p>
+          </v-col>
+          <!-- VENDOR CHANNELS VIDEO -->
+          <v-col cols="4" style="width:100%;text-align:center;">
+            <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">WATCH NOW</span>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
+        <iframe src="https://player.vimeo.com/video/505426900" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
+      </v-card>
+    </transition>
+
     <transition name="slide-fade">
       <v-card class="mb-4" style="width: 100%;background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
         <v-row style="width:100%;height:auto" class="d-flex flex justify-center align-center">
@@ -84,6 +110,7 @@
     },
     data() {
       return {
+        showVideo: false,
         loading: false,
         users: [],
         locations: [],
@@ -116,6 +143,13 @@
       },
     },
     methods: {
+      showVideoCard(){
+        if(this.showVideo === false){
+          this.showVideo = true
+        } else {
+          this.showVideo = false
+        }
+      },
       async getLocations() {
         this.locations = [];
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id).catch(e => e);

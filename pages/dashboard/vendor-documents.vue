@@ -47,7 +47,7 @@
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
         <div style="position:relative;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          <iframe src="https://player.vimeo.com/video/505426973" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
           </iframe>
         </div>
       </v-card>
@@ -64,10 +64,10 @@
             <v-card-title style="color:darkred; font-size: 24px; word-break: break-word; white-space: pre-wrap;">Manage Requesting Documents</v-card-title>
             <v-card-text style="font-size: 18px; word-break: break-word; white-space: pre-wrap;">Vendors can utilize the Requesting Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
             <v-row class="d-flex flex-wrap justify-center align-center">
-              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined>Requesting Documents</v-btn>
-              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
-              <v-btn style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
-              <v-btn style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
+              <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined>Requesting Documents</v-btn>
+              <v-btn @click="allDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
+              <v-btn @click="requestingDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
+              <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -75,11 +75,14 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loading">
+      <v-card class="mt-8" v-if="loading && requestDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
+          class="mt-12"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -92,6 +95,53 @@
             <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
           </template>
         </v-data-table>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading && allDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
+        <v-data-table
+          :items="companyDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+          class="mt-12"
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,4)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading && requestingDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
+      </v-card>
+    </transition>
+
+    <transition name="slide-fade">
+      <v-card class="mt-8" v-if="loading && uploadDocumentsModalLoading">
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
+        <v-row class="mt-8">
+          <v-col cols="12">
+              <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+              <v-btn @click="clickUploadCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+              <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyUploadDocument.documentUrl}" v-model="companyUploadDocument.documentUrl" v-on:change.native="selectUploadCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
+          </v-col>
+        </v-row>
+        <v-title v-if="successuploaddocument !== null && successuploaddocument === false">Error with adding this document. Please retry.</v-title>
+        <v-title v-if="successuploaddocument">Successfully added this document!</v-title>
       </v-card>
     </transition>
 
@@ -117,6 +167,14 @@
     layout: "app",
     data() {
       return {
+        companyUploadDocument: {
+
+        },
+        successuploaddocument: null,
+        requestDocumentsModalLoading: true,
+        allDocumentsModalLoading: false,
+        requestingDocumentsModalLoading: false,
+        uploadDocumentsModalLoading: false,
         vendorDocuments: [],
         vendorHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
@@ -132,6 +190,9 @@
         showVideo: false,
         company: {},
         loading: false,
+        companyDocuments: [],
+        companyUploadDocumentImageUrl: null,
+        companyUploadDocumentImageFile: null,
       }
     },
     watch: {
@@ -153,6 +214,37 @@
       await this.getVendorProvidedDocuments();
     },
     methods: {
+      async requestDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = true
+        this.allDocumentsModalLoading = false
+        this.requestingDocumentsModalLoading = false
+        this.uploadDocumentsModalLoading = false
+        this.openUploadModelLoad = false;
+      },
+      async allDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = false
+        this.allDocumentsModalLoading = true
+        this.requestingDocumentsModalLoading = false
+        this.uploadDocumentsModalLoading = false
+        this.companyDocuments = [];
+        await this.getDocuments();
+        this.openUploadModelLoad = false;
+      },
+      async requestingDocumentsModalLoad() {
+        this.requestDocumentsModalLoading = false
+        this.allDocumentsModalLoading = false
+        this.requestingDocumentsModalLoading = true
+        this.uploadDocumentsModalLoading = false
+        this.openUploadModelLoad = false;
+      },
+      async uploadDocumentsModalLoad() {
+        this.successuploaddocument = null;
+        this.requestDocumentsModalLoading = false
+        this.allDocumentsModalLoading = false
+        this.requestingDocumentsModalLoading = false
+        this.uploadDocumentsModalLoading = true
+        this.openUploadModelLoad = false;
+      },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
         console.log('company from business/index: ', data.company_type);
@@ -164,6 +256,31 @@
         } else {
           this.showVideo = false
         }
+      },
+      async getDocuments() {
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byVendorCompanyId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'response for vendor docs')
+            this.companyDocuments = response.data
+          })
+          .catch(err => {
+            console.log(err, 'err in getting list')
+          })
+
+        await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data, 'response for company docs')
+            if(response.data.length > 0 && response.data[0] !== 'There are no company documents') {
+              for(let i=0; i<response.data.length; i++) {
+                this.companyDocuments.push(response.data[i])
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err in getting list')
+          })
+
+        this.loading = true;
       },
       async getVendorProvidedDocuments() {
         await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byVendorVendorId/' + this.currentUser.companies_id)
@@ -227,10 +344,72 @@
       async closeUploadModel() {
         this.openUploadModelLoad = false;
       },
+      async deleteDocument(doc) {
+        console.log(doc);
+        await this.$http.delete('https://www.sowerkbackend.com/api/companydocuments/' + doc.id)
+          .then(response => {
+            console.log(response, 'success in deleting doc')
+            this.companyDocuments = this.companyDocuments.filter(item => item !== doc);
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting doc')
+          })
+      },
+      async clickUploadCompanyDocumentsImageUpload() {
+        console.log(this);
+        // let imageInput = this.$refs.companyImage;
+        // console.log(imageInput);
+        // imageInput.$el.click();
+        document.getElementById('companyDocumentImage').click();
+      },
+      async selectUploadCompanyDocumentsImage(e) {
+        this.companyUploadDocument.documentUrl = e.target.files[0];
+        this.companyUploadDocument.documentName = e.target.files[0].name;
+        this.companyUploadDocument.required = true;
+        console.log(this.companyUploadDocumentImageFile);
+        this.companyUploadDocumentImageUrl = URL.createObjectURL(this.companyUploadDocument.documentUrl);
+        console.log(this.companyUploadDocumentImageUrl);
+        setTimeout(() => {
+          let formData = new FormData();
+          formData.append('file', this.companyUploadDocument.documentUrl);
+          console.log(formData, 'formdata');
+          this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+            .then(async (response) => {
+              console.log(response, 'response.data for company document upload')
+              this.companyUploadDocument.documentUrl = response.data.data.Location;
+              this.companyUploadDocument.companies_id = this.currentUser.companies_id;
+              console.log(this.companyDocument, 'THIS.COMPANY DOCUMENT')
+              await this.$http.post('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id, this.companyUploadDocument)
+                .then(response => {
+                  console.log('response.data for on submitcompanydocumentimage')
+                  this.successuploaddocument = true;
+                })
+                .catch(err => {
+                  console.log('err in posting new company document')
+                  this.successuploaddocument = false;
+                })
+            })
+            .catch(err => {
+              console.log('error in uploading location image', err)
+            })
+        }, 250)
+      },
     }
   }
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
