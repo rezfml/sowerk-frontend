@@ -244,12 +244,6 @@
             <v-btn class="white--text py-6" style="width: 80%; background-color: #A61C00; border-radius: 20px;">GET STARTED NOW</v-btn>
           </v-col> -->
         </v-row>
-
-        <v-row>
-          <v-btn>
-            Button
-          </v-btn>
-        </v-row>
       </v-row>
     </v-container>
 </template>
