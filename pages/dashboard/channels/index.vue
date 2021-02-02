@@ -1,4 +1,4 @@
-<template>
+ <template>
 
   <!-- BREAKPOINT - EXTRA-LARGE - BREAK @ 1904+ pixels ------------------------------------------------------------>
   <div v-if="$vuetify.breakpoint.xl" style="width:100%">
@@ -9,21 +9,21 @@
         <transition name="slide-fade">
           <!-- VENDOR USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
-            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
+            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
-              <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
-                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:#404040">SOWERK 101</h1>
+              <v-col cols="4" style="color:white;width:100%;text-align:center;">
+                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
 
-              <v-col cols="5" style="color:#404040;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <v-col cols="4" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
               <!-- VENDOR CHANNELS VIDEO -->
               <v-col cols="4" style="width:100%;text-align:center;">
-                <v-btn @click="showVideoCard" style="display:block;border: 1px solid #404040;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:white">
-                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:#404040;text-align:center;">
-                    WATCH NOW -Account Channelsh-
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;" class="text-no-wrap">
+                    WATCH NOW <br/> -Account Channels-
                   </span>
                 </v-btn>
               </v-col>
@@ -32,21 +32,21 @@
 
           <!-- BUSINESS USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
-            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
               <v-col cols="3" style="color:white;width:100%;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
 
-              <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+              <v-col cols="3" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
               <!-- BUSINESS CHANNELS VIDEO -->
-              <v-col cols="4" style="width:100%;text-align:center;">
-                <v-btn @click="showVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
+              <v-col cols="6" style="width:100%;text-align:center;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
                   <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
-                    WATCH NOW -Account Channelsg-
+                    WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
               </v-col>
@@ -285,21 +285,21 @@
         <transition name="slide-fade">
           <!-- VENDOR USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
-            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
+            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
-              <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
-                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.3rem;padding-left:2%;color:#404040">SOWERK 101</h1>
+              <v-col cols="4" style="color:white;width:100%;text-align:center;">
+                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
 
-              <v-col cols="3" style="color:#404040;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-                <p style="font-size:1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+              <v-col cols="4" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+                <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
               <!-- VENDOR CHANNELS VIDEO -->
-              <v-col cols="6" style="width:100%;text-align:center;">
-                <v-btn @click="showVideoCard" style="display:block;border: 1px solid #404040;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:white">
-                  <span style="font-size:1rem;letter-spacing:2px;font-weight:400;color:#404040;text-align:center;">
-                    WATCH NOW -Account Channels-
+              <v-col cols="4" style="width:100%;text-align:center;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;" class="text-no-wrap">
+                    WATCH NOW <br/> -Account Channels-
                   </span>
                 </v-btn>
               </v-col>
@@ -308,20 +308,20 @@
 
           <!-- BUSINESS USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
-            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
               <v-col cols="3" style="color:white;width:100%;text-align:center;">
-                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.3rem;padding-left:2%;color:white">SOWERK 101</h1>
+                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
 
               <v-col cols="3" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-                <p style="font-size:1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+                <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
               <!-- BUSINESS CHANNELS VIDEO -->
               <v-col cols="6" style="width:100%;text-align:center;">
-                <v-btn @click="showVideoCard" style="display:block;border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-                  <span style="font-size:1rem;letter-spacing:2px;font-weight:400;color:white;text-align:center;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
@@ -332,9 +332,10 @@
 
         <!-- VENDOR USER -->
         <transition name="slide-fade">
-          <v-card class="mb-4" style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && company.company_type === 'false'">
-            <div style="border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;">
+          <v-card class="mb-4" style="height:460px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && company.company_type === 'false'">
+            <div style="border-radius:1%;display:flex; flex-direction:row;">
+              <v-btn @click="showVideoCard" style="margin-left:2%;margin-top:2%;background-color:darkred;color:white;">X</v-btn>
+              <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;margin-top:5px;">
               </iframe>
             </div>
           </v-card>
@@ -342,9 +343,9 @@
 
         <!-- BUSINESS USER -->
         <transition name="slide-fade">
-          <v-card class="mb-4" style="height:450px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
+          <v-card class="mb-4" style="height:460px;width:100%;background-color:#404040;border-radius:1%;" v-if="showVideo === true && company.company_type === 'true'">
             <div style="border-radius:1%;">
-              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;">
+              <iframe src="https://player.vimeo.com/video/488987561" allowfullscreen frameborder="0" style="width:75vw;height:450px;border-radius:3%;margin-top:5px;">
               </iframe>
             </div>
           </v-card>
@@ -540,43 +541,43 @@
         <transition name="slide-fade">
           <!-- VENDOR USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'false'">
-            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:white">
+            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
-              <v-col cols="3" style="color:#404040;width:100%;text-align:center;">
-                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;color:#404040">SOWERK 101</h1>
+              <v-col cols="4" style="color:white;width:100%;text-align:center;">
+                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
 
-              <v-col cols="5" style="color:#404040;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-                <p style="font-size:.8rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+              <v-col cols="4" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+                <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
               <!-- VENDOR CHANNELS VIDEO -->
-              <v-col cols="4" style="text-align:center;">
-                <v-btn @click="showVideoCard" style="border: 1px solid #404040;padding:10% 5% 10% 5%;text-decoration:none;color:inherit;background-color:white">
-                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:#404040;text-align:center;">
-                    WATCH NOW -Account Channels-
+              <v-col cols="4" style="width:100%;text-align:center;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;" class="text-no-wrap">
+                    WATCH NOW <br/> -Account Channels-
                   </span>
                 </v-btn>
               </v-col>
             </v-row>
           </v-card>
 
-          <!-- SUPER USER -->
+          <!-- BUSINESS USER -->
           <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
-            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+            <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
               <v-col cols="3" style="color:white;width:100%;text-align:center;">
-                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+                <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
 
-              <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
-                <p style="font-size:.8rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
+              <v-col cols="3" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+                <p style="font-size:1.1rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
 
-              <!-- VENDOR CHANNELS VIDEO -->
-              <v-col cols="4" style="text-align:center;">
-                <v-btn @click="showVideoCard" style="border: 1px solid white;padding:10% 5% 10% 5%;text-decoration:none;color:inherit;background-color:#404040">
-                  <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
+              <!-- BUSINESS CHANNELS VIDEO -->
+              <v-col cols="6" style="width:100%;text-align:center;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
