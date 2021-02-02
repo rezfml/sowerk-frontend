@@ -647,32 +647,35 @@
             <v-col cols="12" class="d-flex justify-center mt-n8">
 
               <v-col cols="8" class="mt-8 d-flex flex-wrap justify-center">
-                <v-col cols="6" style="height: 50vh;">
-                  <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
+
+                <!-- ACCOUNT CHANNELS CARD ON VENDOR DASHBOARD PAGE -->
+                <v-col cols="6" style="height: 75vh;">
+                  <v-card style="width: 100%; height: 75vh;" class="d-flex flex-column align-center justify-center">
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
-                      <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
-                        <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
-                        <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Locations</h2>
+                      <v-col cols="4" class="d-flex flex-column align-center text-no-wrap" style="text-align:center;">
+                        <v-img src="/building.svg" style="max-width:50px;max-height:50px;"></v-img>
+                        <h2 style="width: 100%; text-align: center; font-weight:900; font-size:.8rem;">Locations</h2>
+                      </v-col>
+                      <v-col cols="4" class="d-flex flex-column align-center text-no-wrap" style="text-align:center">
+                        <v-img src="/connection.svg" style="max-width:50px;max-height:50px;"></v-img>
+                        <h2 style="width: 100%; text-align: center; font-weight:900; font-size:.8rem;">Departments</h2>
                       </v-col>
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center">
-                        <v-img src="/connection.svg" style="max-width:75px;max-height:75px;"></v-img>
-                        <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Departments</h2>
-                      </v-col>
-                      <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center">
-                        <v-img src="/business-and-finance.svg" style="max-width:75px;max-height:75px;"></v-img>
-                        <h2 style="width: 100%; text-align: center; font-weight:900;font-size:1.1rem;">Revenue Streams</h2>
+                        <v-img src="/business-and-finance.svg" style="max-width:50px;max-height:50px;"></v-img>
+                        <h2 style="width: 100%; text-align: center; font-weight:900; font-size:.8rem;">Revenue Streams</h2>
                       </v-col>
                     </v-row>
                     <v-btn color="primary" to="/dashboard/channels" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View Channels</v-btn>
                   </v-card>
                 </v-col>
 
-                <v-col cols="6" style="height: 50vh;">
-                  <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
+                <!-- CUSTOMER CONNECTIONS CARD ON VENDOR DASHBOARD PAGE -->
+                <v-col cols="6" style="height: 75vh;">
+                  <v-card style="width: 100%; height: 75vh;" class="d-flex flex-column align-center justify-center">
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
@@ -681,14 +684,16 @@
                   </v-card>
                 </v-col>
 
-                <v-col cols="12" class="my-4 mt-8">
-                  <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
+                <!-- SOWERK 101 CARD ON VENDOR DASHBOARD PAGE -->
+                <v-col cols="12" class="my-4 mt-8" style="height: 40vh;">
+                  <v-card style="width: 100%; height: 40vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
                     <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
                   </v-card>
                 </v-col>
 
+                <!-- CUSTOMER LEADS CARD ON VENDOR DASHBOARD PAGE -->
                 <v-col cols="6" style="height: 50vh;">
                   <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                     <v-row style="width: 100%;" class="mt-16">
@@ -699,6 +704,7 @@
                   </v-card>
                 </v-col>
 
+                <!-- REQUESTING DOCUMENTS CARD ON VENDOR DASHBOARD PAGE -->
                 <v-col cols="6" style="height: 50vh;">
                   <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                     <v-row style="width: 100%;" class="mt-16">
@@ -709,6 +715,7 @@
                   </v-card>
                 </v-col>
 
+                <!-- NEW CUSTOMER SEARCH CARD ON VENDOR DASHBOARD PAGE -->
                 <v-col cols="6" class="mt-8" style="height: 50vh;">
                   <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                     <v-row style="width: 100%;" class="mt-16">
@@ -719,9 +726,10 @@
                   </v-card>
                 </v-col>
 
+                <!-- MANAGE SOWERK ACOUNT CARD ON VENDOR DASHBOARD PAGE -->
                 <v-col cols="6" style="height: 50vh;" class="mt-8">
                   <v-card style="width: 100%; background-color: white; height: 50vh;" class="d-flex flex-column align-center justify-center">
-                    <v-card-title class="" style="font-size: 50px; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.4em">MANAGE SOWERK ACCOUNT</v-card-title>
+                    <v-card-title class="" style="font-size: 2rem; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1em">MANAGE SOWERK ACCOUNT</v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 100%;">
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
@@ -730,6 +738,7 @@
                 </v-col>
               </v-col>
 
+              <!-- SOWERK SIDE CARD WITH INFO AND BUTTONS CARD ON VENDOR DASHBOARD PAGE -->
               <v-col cols="4" class="mt-10">
                 <v-card class="d-flex flex-column align-center">
                   <v-img class="mb-4" aspect-ratio="1" style="border: 1px solid #7C7C7C; box-shadow: 1px 1px 1px 1px #7C7C7C; width: 175px; height: 175px; border-radius: 200px; margin-top: -80px;background-color: white" :src="company.imgUrl"></v-img>
@@ -739,8 +748,8 @@
                     <v-row class="d-flex justify-center" style="width: 100%;">
                       <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
-                        <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-card-title class="text-no-wrap" style="font-size: 18px; margin-left:-5%">Companies Approved</v-card-title>
+                        <v-btn to="/dashboard/businesses" style="width: 90%; font-size:.8rem" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -756,19 +765,19 @@
                   <v-card-text style="font-size: 24px; text-align: left;">{{company.creationDate.slice(0, 4)}}</v-card-text>
                   <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
                   <v-card-text style="font-size: 24px; text-align: left;">{{company.year_founded}}</v-card-text>
-                  <v-btn :to="company.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 24px;" color="primary" outlined rounded>Company Website</v-btn>
+                  <v-btn :to="company.website" target="_blank" class="my-8 py-6" style="width: 90%; font-size: 18px;" color="primary" outlined rounded>Company Website</v-btn>
                   <v-row class="py-8 d-flex justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C;width: 90%;">
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
                     <v-row class="d-flex flex-column align-end">
                       <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
-                      <v-btn to="/dashboard/insurances" class="py-6 mr-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/insurances" class="py-6 mr-12" style="width: 60%;" color="primary" rounded>View Details</v-btn>
                     </v-row>
                   </v-row>
                   <v-row class="py-8 d-flex justify-center" style="width: 90%;">
                     <v-row class="d-flex flex-column align-left">
                       <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
-                      <v-btn to="/dashboard/licenses" class="py-6 ml-8" style="width: 60%;" color="primary" rounded>View Details</v-btn>
+                      <v-btn to="/dashboard/licenses" class="py-6 ml-12" style="width: 60%;margin-bottom:5%" color="primary" rounded>View Details</v-btn>
                     </v-row>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
                     <v-card-title style="color: #A61c00; font-size: 108px;" v-else>0</v-card-title>
