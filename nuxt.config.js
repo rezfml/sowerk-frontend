@@ -77,17 +77,13 @@ export default {
     hostname: 'https://sowerk.com',
     gzip: true,
     exclude: [
+      '/dashboard/**',
+      '/dashboard'
     ],
     routes: [
       '/',
       '/landingpage/join-service-landing/',
       '/landingpage/join-product-landing/',
-      {
-        url: '/page/3',
-        changefreq: 'daily',
-        priority: 1,
-        lastmod: '2017-06-30T13:30:00.000Z'
-      }
     ]
   },
   auth: {
