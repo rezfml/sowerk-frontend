@@ -437,7 +437,7 @@ export default {
         } else {
         }
       }
-      await this.getServices()
+      // await this.getServices()
     },
     async inviteProviders() {
       this.$refs.form.validate();
@@ -479,57 +479,55 @@ export default {
                       console.log(err)
                     })
                 }
-              } else {
-                this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + this.vendors[i].email)
-                  .then(responseUser => {
-                    console.log(responseUser.data.users[0], 'user is here!')
-                    if(responseUser.data.users.length > 0) {
-                      for (let j = 0; i < this.vendors[i].property.length; j++) {
-                        this.$http.post('https://www.sowerkbackend.com/api/preapprovedRequest', {
-                          pmcompanies_id: this.$store.state.user.user.user.companies_id,
-                          spcompanies_id: responseUser.data.users[0].companies_id,
-                          locations_id: this.vendors[i].property[j].id,
-                          companyName: this.company.account_name,
-                          channelName: this.vendors[i].property[j].name,
-                          approval_status: 0,
-                        })
-                          .then(success => {
-                            console.log('pre approval sent')
-                          })
-                          .catch(err => {
-                            console.log(err)
-                          })
-                      }
-                    }
-                  })
-                  .catch(errUser => {
-                    console.log(errUser)
-                    providersObject.companyName.push(this.vendors[i].companyName)
-                    providersObject.first_name.push(this.vendors[i].firstName)
-                    providersObject.last_name.push(this.vendors[i].lastName)
-                    providersObject.phone.push(this.vendors[i].phone)
-                    providersObject.toEmail.push(this.vendors[i].email)
-                    providersObject.pre_approved.push(this.vendors[i].preapproved)
-                    providersObject.property.push(this.vendors[i].property)
-                    providersObject.application.push(this.vendors[i].application)
-                  })
               }
             })
             .catch(err => {
               console.log(err)
             })
+          this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + this.vendors[i].email)
+            .then(responseUser => {
+              console.log(responseUser.data.users[0], 'user is here!')
+              if(responseUser.data.users.length > 0) {
+                for (let j = 0; i < this.vendors[i].property.length; j++) {
+                  this.$http.post('https://www.sowerkbackend.com/api/preapprovedRequest', {
+                    pmcompanies_id: this.$store.state.user.user.user.companies_id,
+                    spcompanies_id: responseUser.data.users[0].companies_id,
+                    locations_id: this.vendors[i].property[j].id,
+                    companyName: this.company.account_name,
+                    channelName: this.vendors[i].property[j].name,
+                    approval_status: 0,
+                  })
+                    .then(success => {
+                      console.log('pre approval sent')
+                    })
+                    .catch(err => {
+                      console.log(err, 'YO YO YO')
+                    })
+                }
+              }
+            })
+            .catch(errUser => {
+              console.log(errUser, "YE YE YE")
+            })
+          providersObject.companyName.push(this.vendors[i].companyName)
+          providersObject.first_name.push(this.vendors[i].firstName)
+          providersObject.last_name.push(this.vendors[i].lastName)
+          providersObject.phone.push(this.vendors[i].phone)
+          providersObject.toEmail.push(this.vendors[i].email)
+          providersObject.pre_approved.push(this.vendors[i].preapproved)
+          providersObject.property.push(this.vendors[i].property)
+          providersObject.application.push(this.vendors[i].application)
         }
         console.log(providersObject, 'yay', this.vendors, 'vendors')
-        // await this.$http
-        //   .post('https://www.sowerkbackend.com/api/invite', providersObject)
-        //   .then((response) => {
-        //     console.log(response, 'success')
-        //     this.success = true
-        //   })
-        //   .catch((err) => {
-        //     console.log('err', err)
-        //     alert('error in inviting service providers to our platform')
-        //   })
+        await this.$http.post('https://www.sowerkbackend.com/api/invite', providersObject)
+          .then((response) => {
+            console.log(response, 'success')
+            this.success = true
+          })
+          .catch((err) => {
+            console.log('err', err)
+            alert('error in inviting service providers to our platform')
+          })
       }
     },
     async getServices() {
