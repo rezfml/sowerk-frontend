@@ -22,11 +22,12 @@
     </transition>
     <!-- VENDOR USER -->
     <transition name="slide-fade">
-      <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.company.company_type === 'false'">
+      <v-card style="height:460px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.company.company_type === 'false'">
         <div style="position:relative;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          <v-btn @click="showVideoCard" style="margin-left:2%;margin-top:2%;background-color:darkred;color:white;">X</v-btn>
+          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:12%;border-radius:3%;margin-top:5px;">
           </iframe>
-        </div>
+        </div>        
       </v-card>
     </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
