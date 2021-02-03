@@ -425,8 +425,8 @@
                 text: 'Licenses & Certificates',
               },
               {
-                to: '/dashboard/vendor-documents',
-                slug: 'vendor-documents',
+                to: '/dashboard/documents',
+                slug: 'documents',
                 icon: 'mdi-file',
                 text: 'Documents'
               },
@@ -708,8 +708,8 @@
                 text: 'Licenses & Certificates',
               },
               {
-                to: '/dashboard/vendor-documents',
-                slug: 'vendor-documents',
+                to: '/dashboard/documents',
+                slug: 'documents',
                 icon: 'mdi-file',
                 text: 'Documents'
               },

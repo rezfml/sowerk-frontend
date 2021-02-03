@@ -305,7 +305,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -705,7 +705,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1105,7 +1105,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1505,7 +1505,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1905,7 +1905,7 @@
                       <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
-                    <v-btn color="primary" to="/dashboard/vendor-documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
+                    <v-btn color="primary" to="/dashboard/documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
