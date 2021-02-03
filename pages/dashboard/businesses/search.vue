@@ -24,7 +24,7 @@
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
         <div style="position:relative;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+          <iframe src="https://player.vimeo.com/video/505839152" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
           </iframe>
         </div>
       </v-card>
