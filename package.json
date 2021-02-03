@@ -19,6 +19,7 @@
     "@nuxtjs/axios": "5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/toast": "^3.3.1",
     "autoprefixer": "^9.8.0",
     "btoa": "^1.2.1",
