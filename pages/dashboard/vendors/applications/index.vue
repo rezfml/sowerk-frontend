@@ -501,25 +501,41 @@
           <v-card-title v-if="!loadChannelList && loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose your Type, Category, and Tags</v-card-title>
         </transition>
         <template v-if="loading">
+          <v-row class="pt-16">
+            <v-spacer></v-spacer>
+            <v-col cols="12" class="pt-8">
+              <v-text-field label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
+            </v-col>
+          </v-row>
           <transition name="slide-fade">
-            <v-simple-table v-if="loadChannelList && !loadAssignTagCategoryType" class="pt-16 mb-4" style="width: 100%; max-height: 500px;" fixed-header height="450px">
-            <thead style="min-width: 100%;">
-              <tr style="min-width: 100%;">
-                <th style="color: #a61c00; width: 30%; text-align: center">Channel Name</th>
-                <th style="color: #a61c00; width: 30%; text-align: center">Channel Address</th>
-                <th style="color: #a61c00; width: 40%;">Actions</th>
-              </tr>
-            </thead>
-            <tbody style="min-width: 100%;">
-            <tr  v-for="(location, index) in addLocations" style="background: none !important; min-width: 100%;">
-                  <td style="width: 30%; text-align: center" class="py-1">{{location.name}}</td>
-                  <td style="width: 30%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                  <td style="width: 40%;">
-                    <v-btn @click="assignToService(location.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Template</v-btn>
-                  </td>
-            </tr>
-            </tbody>
-          </v-simple-table>
+            <v-data-table
+              class="mt-8"
+              :headers="channelHeaders"
+              :items="addLocations"
+              :search="searchChannel"
+              :items-per-page="10"
+              v-if="loadChannelList && !loadAssignTagCategoryType"
+            >
+              <template v-slot:item.name="{item}">
+                <p>{{item.name}}</p>
+              </template>
+              <template v-slot:item.address="{item}">
+                <p>{{item.address}}</p>
+                <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              </template>
+              <template v-slot:item.primary_contact_first_name="{item}">
+                <p>{{item.primary_contact_first_name}} {{item.primary_contact_last_name}}</p>
+              </template>
+              <template v-slot:item.email="{item}">
+                <p>{{item.email}}</p>
+              </template>
+              <template v-slot:item.phone="{item}">
+                <p>{{item.phone}}</p>
+              </template>
+              <template v-slot:item.actions="{item}">
+                <v-btn @click="assignToService(item.id)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Template</v-btn>
+              </template>
+            </v-data-table>
           </transition>
           <transition name="slide-fade">
             <v-row v-if="!loadChannelList && loadAssignTagCategoryType" class="mt-12 d-flex flex-column align-center">
@@ -560,6 +576,7 @@
                 style="width: 95%;"
                 v-model="applicationtemplateTagsNew"
                 :items="sowerkTags"
+                :placeholder="addLocation.locationtags"
                 item-text="name"
                 item-value="name"
                 chips
@@ -580,7 +597,15 @@
                   <p>{{data.item.name}}</p>
                 </template>
               </v-combobox>
-              <v-btn @click="submitTagCategoryType" class="my-4 py-6 mr-8" color="#7C7C7C" style="color:white; width: 40%; align-self: flex-end">Submit</v-btn>
+              <v-select
+                style="width: 95%;"
+                label="Application Status"
+                v-model="applicationStatus"
+                :placeholder="'Unpublished'"
+                :items="applicationOptions"
+              >
+              </v-select>
+              <v-btn @click="submitTagCategoryType(item)" class="my-4 py-6 mr-8" color="#7C7C7C" style="color:white; width: 40%; align-self: flex-end">Submit</v-btn>
             </v-row>
           </transition>
         </template>
@@ -964,34 +989,40 @@
             </v-form>
           </transition>
           <transition name="slide-fade">
-              <v-simple-table class="py-8" v-if="addNewVendorFormLoad && step2" style="width: 100%;" fixed-header height="450px">
-              <thead >
-              <tr class="d-flex justify-center" style="width: 100%; margin: 0 auto;">
-                <th style="color: #a61c00; width: 40%; text-align: center">Channel Name</th>
-                <th style="color: #a61c00; width: 40%; text-align: center">Channel Address</th>
-                <th style="color: #a61c00; width: 20%;">Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="(location, index) in addLocations" style="background: none !important;" class="d-flex justify-center">
-                <td style="width: 40%; text-align: center" class="py-1">{{location.name}}</td>
-                <td style="width: 40%; text-align: center" class="py-1">{{location.city}}, {{location.state}}</td>
-                <td style="width: 33%; margin: 0 auto;" class="d-flex flex-column align-center" v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs && !$vuetify.breakpoint.md">
-                  <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
-                </td>
-                <td style="width: 40%; margin: 0 auto;" class="d-flex flex-column align-center" v-else>
-                  <v-btn @click="getServiceForVendor(location)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
-                </td>
-                </div>
-              </tr>
-              <tr v-if="addLocations.length === 0">
-                <td style="width: 70%; text-align: center" class="py-1">No Channels Currently Exist, Please First Create A Channel</td>
-                <td style="width: 30%; text-align: center" class="py-1">
-                  <v-btn class="my-1" color="#707070" style="color: white; width: 100%;" to="https://www.sowerk.com/dashboard/channels/add">+ Add Channel</v-btn>
-                </td>
-              </tr>
-              </tbody>
-            </v-simple-table>
+            <v-row class="pt-16">
+              <v-spacer></v-spacer>
+              <v-col cols="12" class="pt-8">
+                <v-text-field label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
+              </v-col>
+            </v-row>
+            <v-data-table
+              class="mt-8"
+              :headers="channelHeaders"
+              :items="addLocations"
+              :search="searchChannel"
+              :items-per-page="10"
+              v-if="addNewVendorFormLoad && step2"
+            >
+              <template v-slot:item.name="{item}">
+                <p>{{item.name}}</p>
+              </template>
+              <template v-slot:item.address="{item}">
+                <p>{{item.address}}</p>
+                <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+              </template>
+              <template v-slot:item.primary_contact_first_name="{item}">
+                <p>{{item.primary_contact_first_name}} {{item.primary_contact_last_name}}</p>
+              </template>
+              <template v-slot:item.email="{item}">
+                <p>{{item.email}}</p>
+              </template>
+              <template v-slot:item.phone="{item}">
+                <p>{{item.phone}}</p>
+              </template>
+              <template v-slot:item.actions="{item}">
+                <v-btn @click="getServiceForVendor(item)" class="my-1" color="#707070" style="color: white; width: 100%;">Assign Channel</v-btn>
+              </template>
+            </v-data-table>
           </transition>
           <transition name="slide-fade">
             <div class="d-flex justify-space-between" v-if="addNewVendorFormLoad && step2">
@@ -1464,6 +1495,8 @@ const naics = require("naics");
     },
     data () {
       return {
+        applicationStatus: '',
+        searchChannel: '',
         newAssignUserFormTagsNew: [],
         defaultFormFields: [
           {
@@ -1671,6 +1704,15 @@ const naics = require("naics");
           locations_id: Number,
           applicationStatus: 1,
         },
+        channelHeaders: [
+          { text: 'ID', value: 'id', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Primary Contact', value: 'primary_contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
         newAssignUserForm: {},
         addLocation: {},
         applicationTemplates: [],
@@ -2727,18 +2769,26 @@ const naics = require("naics");
         this.loadChannelList = false;
         this.loadAssignTagCategoryType = true;
         console.log(this.addLocation, 'addLocationChoice!!!!!')
+        this.applicationtemplateTagsNew = this.addLocation.locationtags
       },
       async backAssignTagCategoryType() {
         this.loadChannelList = true;
         this.loadAssignTagCategoryType = false;
       },
-      async submitTagCategoryType() {
+      async submitTagCategoryType(item) {
         const userform = {
           locations_id: this.locationIdChoice,
           applicationStatus: 0,
           name: this.addLocation.form_name,
           service: this.addLocation.service_name,
           vendorType: this.addLocation.vendorType,
+        }
+        if(this.applicationStatus === 'Unpublished') {
+          userform.applicationStatus = 0
+        } else if (this.applicationStatus === 'Published - Public') {
+          userform.applicationStatus = 1
+        } else {
+          userform.applicationStatus = 2
         }
         console.log(userform, 'woah!', this.applicationtemplateTagsNew)
         await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + this.locationIdChoice, userform)
