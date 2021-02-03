@@ -32,7 +32,7 @@
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.address}}</v-card-text>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.city}} {{companyForVendor.state}}, {{companyForVendor.zipcode}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
-            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
+            <v-card-text style="font-size: 24px; text-align: left;" v-if="companyForVendor.creationDate">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
             <a :href="'https://' + companyForVendor.website" target="_blank" class="my-8 py-6" style="text-decoration: none; text-align: center; width: 90%; font-size: 24px; border-radius: 50px; border: 1px solid #A61C00;">Company Website</a>
@@ -706,11 +706,11 @@
       </transition>
       <!--      </v-overlay>-->
 
-      <!--      <v-overlay-->
-      <!--        :absolute="absolute"-->
-      <!--        :opacity="opacity"-->
-      <!--        :value="overlayMessage"-->
-      <!--      >-->
+      <!--            <v-overlay-->
+      <!--              :absolute="absolute"-->
+      <!--              :opacity="opacity"-->
+      <!--              :value="overlayMessage"-->
+      <!--            >-->
       <transition name="slide-fade">
         <v-card v-if="messageModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Account Name: <span style="color: #A61c00">{{companyForVendor.account_name}}</span></v-card-title>
@@ -991,9 +991,9 @@
         ],
         singleCompanyConnectionRelationshipsHeaders: [
           { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Vendor Company', value: 'vendorCompany', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Vendor Channel', value: 'vendorChannel', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Connected To', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Application', value: 'userformName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
@@ -1076,12 +1076,23 @@
         for(let i=0; i<this.singleCompanyRelationshipConnections.length; i++) {
           let newSingleCompanyConnectionRelationships = {
             imgUrl: '',
+            vendorCompany: '',
+            vendorChannel: '',
             companyName: '',
             locationName: '',
             locationAddress: '',
             userformName: '',
             id: this.singleCompanyRelationshipConnections[i].id
           }
+          this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].splocations_id)
+            .then(response => {
+              newSingleCompanyConnectionRelationships.imgUrl = response.data.imageUrl
+              newSingleCompanyConnectionRelationships.vendorChannel = response.data.name
+            })
+            .catch(err => {
+              console.log('err in getting company')
+            })
+
           this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
             .then(response => {
               newSingleCompanyConnectionRelationships.locationName = response.data.name
@@ -1099,9 +1110,16 @@
               console.log('err in getting company')
             })
 
+          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].spcompanies_id)
+            .then(response => {
+              newSingleCompanyConnectionRelationships.vendorCompany = response.data.account_name
+            })
+            .catch(err => {
+              console.log('err in getting company')
+            })
+
           this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
             .then(response => {
-              newSingleCompanyConnectionRelationships.imgUrl = response.data.imgUrl
               newSingleCompanyConnectionRelationships.companyName = response.data.account_name
               this.singleCompanyConnectionRelationships.push(newSingleCompanyConnectionRelationships)
               this.loadshowRelationshipApprovedModal = false;

@@ -46,7 +46,7 @@
     <!-- VENDOR USER -->
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
-        <iframe src="https://player.vimeo.com/video/505426676" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
+        <iframe src="https://player.vimeo.com/video/505839084" allowfullscreen frameborder="0" style="width:100%;height:450px;"></iframe>
       </v-card>
     </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
@@ -59,8 +59,10 @@
 
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">Manage Licenses and Certificates</v-card-title>
-            <v-card-text style="font-size: 18px;">Besides demonstrating that you have other companies who trust you as their approved vendor (SOWerk connections) the next best way to earn new business is your licenses and certifications. Show your credentials by uploading them here. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
-            <v-card-text style="font-size: 18px;">Therefore, we give you the option to make any license/certification document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
+            <v-card-text v-if="company.company_type === 'false'" style="font-size: 18px;">Besides demonstrating that you have other companies who trust you as their approved vendor (SOWerk connections) the next best way to earn new business is your licenses and certifications. Show your credentials by uploading them here. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
+            <v-card-text v-if="company.company_type === 'false'" style="font-size: 18px;">Therefore, we give you the option to make any license/certification document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
+            <v-card-text v-if="company.company_type === 'true'" style="font-size: 18px;">Besides demonstrating that you have other companies who trust you as their approved vendor (SOWerk connections) the next best way to earn new business is your licenses and certifications. Show your credentials by uploading them here. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
+            <v-card-text v-if="company.company_type === 'true'" style="font-size: 18px;">Therefore, we give you the option to make any license/certification document uploaded Public (visible to any vendor reviewing your profile) or Unpublished where only vendors that you are connected to (Approved Vendor) as well as the vendors applying to be approved can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
           </v-col>
         </v-row>
       </v-card>
@@ -124,14 +126,14 @@
             outlined
             v-model="license.licenseLocation"
           ></v-text-field>
-          <v-row style="width: 100%;" class="d-flex justify-center mb-4">
-            <v-card-title class="my-2" style="text-align: center; width: 20%;">Expiration Date</v-card-title>
+            <v-card-title class="my-2" style="text-align: center;">Expiration Date</v-card-title>
             <v-date-picker
+              style="width: 80%;"
+              width="80%"
               label="Expiration Date"
               outlined
               v-model="license.expirationDate"
             ></v-date-picker>
-          </v-row>
           <v-img
             :src="license.documentUrl"
             :aspect-ratio="1"

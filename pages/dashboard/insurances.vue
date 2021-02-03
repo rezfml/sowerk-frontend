@@ -130,14 +130,14 @@
             outlined
             v-model="insurance.policyNumber"
           ></v-text-field>
-          <v-row style="width: 100%;" class="d-flex justify-center mb-4">
-            <v-card-title class="my-2" style="text-align: center; width: 20%;">Expiration Date</v-card-title>
-            <v-date-picker
+          <v-card-title class="my-2" style="text-align: center;">Expiration Date</v-card-title>
+          <v-date-picker
+            style="width: 80%;"
+            width="80%"
               label="Expiration Date"
               outlined
               v-model="insurance.expirationDateVal"
-            ></v-date-picker>
-          </v-row>
+          ></v-date-picker>
           <v-img
             :src="insurance.documentUrl"
             :aspect-ratio="1"
