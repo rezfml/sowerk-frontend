@@ -61,8 +61,7 @@
             <v-card-title style="color:darkred; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">Manage Licenses and Certificates</v-card-title>
             <v-card-text v-if="company.company_type === 'false'" style="font-size: 18px;">Besides demonstrating that you have other companies who trust you as their approved vendor (SOWerk connections) the next best way to earn new business is your licenses and certifications. Show your credentials by uploading them here. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
             <v-card-text v-if="company.company_type === 'false'" style="font-size: 18px;">Therefore, we give you the option to make any license/certification document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
-            <v-card-text v-if="company.company_type === 'true'" style="font-size: 18px;">Besides demonstrating that you have other companies who trust you as their approved vendor (SOWerk connections) the next best way to earn new business is your licenses and certifications. Show your credentials by uploading them here. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
-            <v-card-text v-if="company.company_type === 'true'" style="font-size: 18px;">Therefore, we give you the option to make any license/certification document uploaded Public (visible to any vendor reviewing your profile) or Unpublished where only vendors that you are connected to (Approved Vendor) as well as the vendors applying to be approved can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
+            <v-card-text v-if="company.company_type === 'true'" style="font-size: 18px;">It’s optional but sometimes it’s important to show off your credentials. You can do so on SOWerk by uploading them here. Similar to business insurance we give you the option to make any license/certification document uploaded Public (visible to any vendor reviewing your profile) or Unpublished where only vendors that you are connected to (Approved Vendor) as well as the vendors applying to be approved can view your licenses and certifications. Please note, when you select Unpublished SOWerk will still indicate that a license/certification exists on your profile. We will also provide the license/certificate name publicly to users on SOWerk, but no other details will be shared unless you approve.</v-card-text>
           </v-col>
         </v-row>
       </v-card>
@@ -70,12 +69,13 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8 d-flex flex-column align-center" v-if="loading">
-        <v-btn @click="openUploadModel(item)" color="primary" class="my-1 py-6" style="width: 50%; color: white;">Add License Or Certificate</v-btn>
+        <v-btn @click="openUploadModel()" color="primary" class="my-4 py-6" style="width: 40%; color: white;">Add Certificates</v-btn>
         <v-data-table
           :items="licenseDocuments"
           :headers="licenseHeaders"
           :items-per-page="5"
           style="width: 100%;"
+          class="mt-10"
         >
           <template v-slot:item.documentVisible="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <v-select
@@ -128,12 +128,15 @@
           ></v-text-field>
             <v-card-title class="my-2" style="text-align: center;">Expiration Date</v-card-title>
             <v-date-picker
-              style="width: 80%;"
+              header-color="primary"
+              class="mb-6"
+              style="width: 80%; border: 1px solid #7C7C7C; border-radius: 25px;"
               width="80%"
               label="Expiration Date"
               outlined
               v-model="license.expirationDate"
             ></v-date-picker>
+          <v-card-title class="my-2" style="text-align: center;">Upload File</v-card-title>
           <v-img
             :src="license.documentUrl"
             :aspect-ratio="1"
@@ -413,4 +416,17 @@
 </script>
 
 <style scoped>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
