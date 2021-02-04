@@ -31,7 +31,7 @@
       </div>
 
       <div style="width:100%;height:100%;" v-else>
-        <img style="width:100%;height:100%;" src="/vendor-CRM-LP-image.png" alt="">
+        <img style="width:100%;height:100%;" src="/ven-CRM-image-mobile.png" alt="">
       </div>
 
     <!-- VENDOR TOOLBOXES SECTION -->
