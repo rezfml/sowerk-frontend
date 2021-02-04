@@ -120,8 +120,8 @@
     })(window,document,'script','dataLayer','GTM-M32VKDB');</script>
 
     <!-- GOOGLE TAG MANAGER(NO SCRIPT) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M32VKDB"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M32VKDB"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
 
     <!-- FACEBOOK PIXEL CODE -->
     <script>
