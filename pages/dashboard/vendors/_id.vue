@@ -1056,6 +1056,7 @@
     methods: {
       async showCompaniesApprovedModalLoad() {
         this.showCompaniesApprovedModal = true;
+        this.singleCompanyConnectionValues = [];
         await this.getActualSingleCompanyConnections();
         this.$vuetify.goTo(0);
       },
