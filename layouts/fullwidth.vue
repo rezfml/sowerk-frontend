@@ -52,7 +52,7 @@
               v-for="item in items"
               :key="item.title"
               path
-              text color="primary"
+              text color="white"
               style="text-transform: capitalize; letter-spacing: 1px; font-size: 1.2rem; font-weight: 900; border-color: red !important;"
             >
             {{ item.title }}
