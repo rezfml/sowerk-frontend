@@ -392,7 +392,7 @@
 
       <transition name="slide-fade">
         <v-card v-if="showCompaniesApprovedModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
-          <v-card-title style="color: #A61c00;">Companies Approved with {{companyForVendor.account_name}}</v-card-title>
+          <v-card-title style="color: #A61c00;">Companies Approved with {{company.account_name}}</v-card-title>
           <v-data-table
             :headers="singleCompanyConnectionsHeaders"
             :items="singleCompanyConnectionValues"
