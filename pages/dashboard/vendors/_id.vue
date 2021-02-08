@@ -850,7 +850,8 @@
 
       <transition name="slide-fade">
         <v-card v-if="licenseModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center" >
-          <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
+          <v-card-title style="color: #A61c00;">Provided Licenses & Certificates</v-card-title>
+          <v-card-subtitle style="color:black;">{{companyForVendor.account_name}}</v-card-subtitle>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="licenseHeaders"
@@ -871,7 +872,8 @@
 
       <transition name="slide-fade">
         <v-card v-if="insuranceModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
-          <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
+          <v-card-title style="color: #A61c00;">Provided Business Insurance</v-card-title>
+          <v-card-subtitle style="color:black;">{{companyForVendor.account_name}}</v-card-subtitle>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="insuranceHeaders"
