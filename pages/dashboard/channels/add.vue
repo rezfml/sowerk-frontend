@@ -175,10 +175,10 @@
                     class="ml-4"
                   >
                     <template slot="selection" slot-scope="data">
-                      <p style="color: #151515">{{ data.item.name }}</p>
+                      <p style="color: #151515;width:100%">{{ data.item.name }}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p style="color: #151515">{{ data.item.name }}</p>
+                      <p style="color: #151515;width:100%">{{ data.item.name }}</p>
                     </template>
                   </v-autocomplete>
                   <h2 class="ml-4 my-4" style="width: 100%;">Additional Channel Category</h2>
@@ -197,10 +197,10 @@
                     class="ml-4"
                   >
                     <template slot="selection" slot-scope="data">
-                      <p style="color: #151515">{{ data.item.name }}</p>
+                      <p style="color: #151515;width:100%">{{ data.item.name }}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p style="color: #151515">{{ data.item.name }}</p>
+                      <p style="color: #151515;width:100%">{{ data.item.name }}</p>
                     </template>
                   </v-autocomplete>
                   <h2 class="ml-4 my-4" style="width: 100%;">Additional Channel Category</h2>
@@ -219,10 +219,10 @@
                     class="ml-4"
                   >
                     <template slot="selection" slot-scope="data">
-                      <p style="color: #151515">{{ data.item.name }}</p>
+                      <p style="color: #151515;width:100%">{{ data.item.name }}</p>
                     </template>
                     <template slot="item" slot-scope="data">
-                      <p style="color: #151515">{{ data.item.name }}</p>
+                      <p style="color: #151515;width:100%;">{{ data.item.name }}</p>
                     </template>
                   </v-autocomplete>
                 </v-card>
@@ -262,14 +262,16 @@
               hint="(Choose from your list of users who will manage this channel)"
               persistent-hint
               :items="users"
+              v-model="chosenUser"
+              return-object
               outlined
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -554,14 +556,16 @@
               hint="(Choose from your list of users who will manage this channel)"
               persistent-hint
               :items="users"
+              v-model="chosenUser"
+              return-object
               outlined
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -839,14 +843,16 @@
               hint="(Choose from your list of users who will manage this channel)"
               persistent-hint
               :items="users"
+              v-model="chosenUser"
+              return-object              
               outlined
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -1127,15 +1133,17 @@
             <v-autocomplete
               hint="(Choose from your list of users who will manage this channel)"
               persistent-hint
+              v-model="chosenUser"
+              return-object
               :items="users"
               outlined
               style="width: 90%;"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -1417,15 +1425,17 @@
             <v-autocomplete
               hint="(Choose from your list of users who will manage this channel)"
               persistent-hint
+              v-model="chosenUser"
+              return-object
               :items="users"
               outlined
               style="width: 90%;font-size:.7rem"
             >
               <template slot="selection" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
               <template slot="item" slot-scope="data">
-                <p @click="getUserValue(data.item)" style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
+                <p style="width: 100%;">Name: {{ data.item.first_name }} {{ data.item.last_name }} Email: {{ data.item.email}} Phone: {{data.item.phone}}</p>
               </template>
             </v-autocomplete>
 
@@ -1455,6 +1465,7 @@
     },
     data() {
       return {
+        chosenUser: {},
         managerIsUser: false,
         form: {
           name: null,
@@ -1738,6 +1749,8 @@
         } else {
           this.form.adminLevel = this.adminOptions[1].value
         }
+        
+
         console.log(this.form, 'FORM VALUE!');
       },
       setManagerToUser() {
@@ -1774,6 +1787,18 @@
         this.fullAddress = this.form.address + ', ' + this.form.city + ', ' + this.form.state + ' ' + this.form.zipcode;
       },
       async submit() {
+        console.log(this.chosenUser, "THIS DOT CHOSEN USER------------")
+        
+        this.form.contact_first_name = this.chosenUser.first_name;
+        this.form.contact_last_name = this.chosenUser.last_name;
+        this.form.phone = this.chosenUser.phone;
+        this.form.email = this.chosenUser.email;
+        if(this.chosenUser.is_superuser) {
+          this.form.adminLevel = this.adminOptions[0].value
+        } else {
+          this.form.adminLevel = this.adminOptions[1].value
+        }
+
         this.loadSubmit = false;
         await this.uploadLocationImage();
         console.log(this.currentUser);

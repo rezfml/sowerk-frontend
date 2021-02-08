@@ -29,6 +29,7 @@
       show-expand
       single-expand
       >
+      
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <v-simple-table
