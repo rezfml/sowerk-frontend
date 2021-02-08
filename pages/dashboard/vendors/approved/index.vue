@@ -164,20 +164,17 @@
             min-width="40vw"
           ></v-skeleton-loader>
 
-          <!-- <transition>
+          <transition>
             <AcceptedApplicationCard
               v-if="loading"
               :title="'My Approved Vendors'"
-              :items="applications"
-              :tableProperties="headers"
               :viewAll="false"
               slug="/dashboard/vendors/approved/"
               action="ViewApproved"
-              :company="company"
             ></AcceptedApplicationCard>
-          </transition> -->
+          </transition>
 
-          <transition name="slide-fade">
+          <!-- <transition name="slide-fade">
             <FacilitiesCard
               v-if="loading"
               :title="'My Approved Vendors'"
@@ -188,7 +185,7 @@
               slug="/dashboard/vendors/approved/"
               action="ViewApproved"
               :company="company"
-            ></FacilitiesCard>
+            ></FacilitiesCard> -->
           </transition>
         </v-col>
       </v-row>
@@ -375,7 +372,7 @@
     async mounted() {
       console.log();
       await this.getCompany(this.currentUser.companies_id);
-      await this.getApplications(this.currentUser.companies_id)
+      await this.getApplications(this.currentUser.companies_id);
     },
     computed: {
       currentUser() {
@@ -567,6 +564,7 @@
                 // this.serviceId = response.data[i].pmservices_id;
                 this.companyId = response.data[i].spcompanies_id;
                 this.locationId = response.data[i].splocations_id;
+                console.log(this.companyId, "-----------")
                 //await this.getPMService(this.serviceId);
                 await this.getSPCompany(this.companyId);
                 await this.getSPLocation(this.locationId);
