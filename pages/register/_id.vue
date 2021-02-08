@@ -27,14 +27,14 @@
             class="pt-12 mt-12"
           >
             <v-card class="elevation-12 card--has-floating" light>
-              <v-card-title 
+              <v-card-title
                 class="justify-center headline font-weight-bold"
                 xl-10
                 lg-10
                 md-10
                 sm-10
                 xs-10
-                style=""                                
+                style=""
                 ><img
                   class="serviceProviderIcon"
                   style="height:10vh; margin-right: 10px;"
@@ -43,7 +43,7 @@
                 />
                 <span class="primary--text ml-2 py-6">Vendor Information</span>
               </v-card-title>
-              
+
               <!-- NAVIGATION TABS -->
               <v-tabs
                 v-model="tab"
@@ -521,7 +521,7 @@
                   </v-container>
                 </v-tab-item>
 
-                <!-- REVIEW INFORMATION TAB - READ ONLY --> 
+                <!-- REVIEW INFORMATION TAB - READ ONLY -->
                 <v-tab-item eager>
                   <v-container style="max-width: 80%;" mx-auto>
                     <v-card-text class="pa-0">
@@ -932,7 +932,7 @@
     methods: {
       needToCheckTermsBox() {
         alert("Please accept SOWerk Terms")
-      },      
+      },
       focusAddressField() {
         console.log('focus');
       },
@@ -1233,6 +1233,7 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
+        this.user.email = this.user.email.toLowerCase()
         let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/auth/register', this.user)
         .catch(e => e);
         // await this.postLocations(data.user.companies_id);
@@ -1344,7 +1345,7 @@
               serviceObject
             )
             .catch((e) => e)
-          console.log(data)          
+          console.log(data)
         }
         this.loading = false;
         await this.$router.push('/register/verify');

@@ -1290,6 +1290,7 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id
+        this.user.email = this.user.email.toLowerCase()
         let { data, status } = await this.$http
           .post('https://www.sowerkbackend.com/api/auth/register', this.user)
           .catch((e) => e)

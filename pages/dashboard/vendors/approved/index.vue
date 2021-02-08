@@ -588,8 +588,9 @@
         console.log(this.applications, 'wow so done')
         this.loading=true;
       },
+
       async getSPCompany(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + id)
           .then(async (response) => {
             console.log('response.data for company', response.data)
             this.applications[this.applicationsCount].img = response.data.imgUrl;
@@ -600,7 +601,7 @@
           })
       },
       async getSPLocation(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + id)
           .then(async (response) => {
             console.log('response.data for location', response.data)
             this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;

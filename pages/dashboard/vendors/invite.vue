@@ -513,7 +513,7 @@ export default {
           providersObject.first_name.push(this.vendors[i].firstName)
           providersObject.last_name.push(this.vendors[i].lastName)
           providersObject.phone.push(this.vendors[i].phone)
-          providersObject.toEmail.push(this.vendors[i].email)
+          providersObject.toEmail.push(this.vendors[i].email.toLowerCase())
           providersObject.pre_approved.push(this.vendors[i].preapproved)
           providersObject.property.push(this.vendors[i].property)
           providersObject.application.push(this.vendors[i].application)

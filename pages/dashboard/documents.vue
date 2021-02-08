@@ -85,9 +85,10 @@
         <v-card-title v-else-if="company.company_type==='true'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
         <v-data-table
           :items="vendorDocuments"
-          :headers="vendorHeaders"
+          :headers="vendorBusinessHeaders"
           :items-per-page="5"
           class="mt-12"
+          v-if="company.company_type === 'true'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -102,7 +103,24 @@
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
             <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
             <v-btn @click="resend(item)" color="white" outlined class="my-1" style="width: 80%; background-color: #7C7C7C;">Resend</v-btn>
-            <v-btn v-if="company.company_type==='false'" @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+          </template>
+        </v-data-table>
+        <v-data-table
+          :items="vendorDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+          class="mt-12"
+          v-else
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,10)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -272,6 +290,12 @@
         uploadDocumentsModalLoading: false,
         vendorDocuments: [],
         vendorHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Sent Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Recipient', value: 'vendorCompanyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        vendorBusinessHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Sent Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Recipient', value: 'vendorCompanyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
