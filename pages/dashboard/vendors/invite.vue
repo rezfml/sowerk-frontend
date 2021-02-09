@@ -152,10 +152,10 @@
                         v-if="item.preapproved === false"
                       >
                         <template slot="selection" slot-scope="data">
-                          {{ data.item.id }} - {{ data.item.name }}
+                          {{ data.item.name }}
                         </template>
                         <template slot="item" slot-scope="data">
-                          {{ data.item.id }} - {{ data.item.name }}
+                          {{ data.item.name }}
                         </template>
                       </v-select>
                     </template>

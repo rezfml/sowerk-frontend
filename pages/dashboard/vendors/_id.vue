@@ -18,7 +18,7 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyConnections.length > 0">{{singleCompanyConnections.length}}</v-card-title>
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
                 <div class="d-flex flex-column align-center" style="width: 60%;">
-                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Companies Approved</v-card-title>
+                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Approved By</v-card-title>
                   <v-btn @click="showCompaniesApprovedModalLoad" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                 </div>
               </v-row>
@@ -393,7 +393,9 @@
 
       <transition name="slide-fade">
         <v-card v-if="showCompaniesApprovedModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
-          <v-card-title style="color: #A61c00;">Companies Approved with {{company.account_name}}</v-card-title>
+          <v-card-title style="color: #A61c00;">{{company.account_name}}</v-card-title>
+          <v-card-subtitle style="color: #151515;">Actively An Approved Vendor For These Companies</v-card-subtitle>
+          <p style="color: #7C7C7C; width: 60%;">If this account has applied for, been approved, and maintains currently approved Vendor status with another company that company who trusts them will be listed here. These are only current/active approved Vendor connections.</p>
           <v-data-table
             :headers="singleCompanyConnectionsHeaders"
             :items="singleCompanyConnectionValues"
@@ -401,7 +403,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.imgUrl="{ item }" class="d-flex flex-column align-center">
-              <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
+              <v-avatar size="100" class="text-center my-4 rounded-circle elevation-5" color="white">
                 <v-img :src="item.imgUrl" v-if="item.imgUrl !== ''"></v-img>
                 <v-icon v-else size="60">person</v-icon>
               </v-avatar>
@@ -433,7 +435,7 @@
             v-else
           >
             <template v-slot:item.imgUrl="{ item }" class="d-flex flex-column align-center">
-              <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
+              <v-avatar size="100" class="text-center my-4 rounded-circle elevation-5" color="white">
                 <v-img :src="item.imgUrl" v-if="item.imgUrl !== ''"></v-img>
                 <v-icon v-else size="60">person</v-icon>
               </v-avatar>
@@ -1087,7 +1089,7 @@
             userformName: '',
             id: this.singleCompanyRelationshipConnections[i].id
           }
-          this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].splocations_id)
+          this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.singleCompanyRelationshipConnections[i].splocations_id)
             .then(response => {
               newSingleCompanyConnectionRelationships.imgUrl = response.data.imageUrl
               newSingleCompanyConnectionRelationships.vendorChannel = response.data.name
@@ -1096,7 +1098,7 @@
               console.log('err in getting company')
             })
 
-          this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
+          this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
             .then(response => {
               newSingleCompanyConnectionRelationships.locationName = response.data.name
               newSingleCompanyConnectionRelationships.locationAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`
@@ -1113,7 +1115,7 @@
               console.log('err in getting company')
             })
 
-          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].spcompanies_id)
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.singleCompanyRelationshipConnections[i].spcompanies_id)
             .then(response => {
               newSingleCompanyConnectionRelationships.vendorCompany = response.data.account_name
             })
@@ -1121,7 +1123,7 @@
               console.log('err in getting company')
             })
 
-          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
             .then(response => {
               newSingleCompanyConnectionRelationships.companyName = response.data.account_name
               this.singleCompanyConnectionRelationships.push(newSingleCompanyConnectionRelationships)

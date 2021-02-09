@@ -3,8 +3,9 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row>
         <v-col class="mt-16 d-flex flex-column align-center;" style="font-weight:bold;font-size:1.2rem">
-          <p v-if="this.verification" >Thanks for verifying your invite status! You can now continue with registering below. To help speed things up, we have pre-filled some data points using the information provided to us when you were invited!</p>
-          <p v-else >This confirmation link has expired or the user doesn't exist. Please click here to resend a confirmation email.</p>
+          <p v-if="verification && verification !== null" >Thanks for verifying your invite status! You can now continue with registering below. To help speed things up, we have pre-filled some data points using the information provided to us when you were invited!</p>
+          <p v-else-if="verification === false" >This confirmation link has expired or the user doesn't exist. Please click here to resend a confirmation email.</p>
+          <p v-else-if="verification === null" >Checking your verification, please wait.</p>
         </v-col>
       </v-row>
       <template v-if="this.verification">
@@ -954,6 +955,7 @@
         })
         .catch(err => {
           console.log(err, 'error in getting invitee based on this id')
+          this.verification = false;
         })
       },
       selectInsuranceFile(file, index) {
