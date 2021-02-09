@@ -3,8 +3,9 @@
     <v-container class="px-0 fill-height" style="max-width: 95%;">
       <v-row>
         <v-col class="mt-16 d-flex flex-column align-center;" style="font-weight:bold;font-size:1.2rem">
-          <p v-if="this.verification" >Thanks for verifying your invite status! You can now continue with registering below. To help speed things up, we have pre-filled some data points using the information provided to us when you were invited!</p>
-          <p v-else >This confirmation link has expired or the user doesn't exist. Please click here to resend a confirmation email.</p>
+          <p v-if="verification && verification !== null" >Thanks for verifying your invite status! You can now continue with registering below. To help speed things up, we have pre-filled some data points using the information provided to us when you were invited!</p>
+          <p v-else-if="verification === false" >This confirmation link has expired or the user doesn't exist. Please click here to resend a confirmation email.</p>
+          <p v-else-if="verification === null" >Checking your verification, please wait.</p>
         </v-col>
       </v-row>
       <template v-if="this.verification">
@@ -27,14 +28,14 @@
             class="pt-12 mt-12"
           >
             <v-card class="elevation-12 card--has-floating" light>
-              <v-card-title 
+              <v-card-title
                 class="justify-center headline font-weight-bold"
                 xl-10
                 lg-10
                 md-10
                 sm-10
                 xs-10
-                style=""                                
+                style=""
                 ><img
                   class="serviceProviderIcon"
                   style="height:10vh; margin-right: 10px;"
@@ -43,7 +44,7 @@
                 />
                 <span class="primary--text ml-2 py-6">Vendor Information</span>
               </v-card-title>
-              
+
               <!-- NAVIGATION TABS -->
               <v-tabs
                 v-model="tab"
@@ -521,7 +522,7 @@
                   </v-container>
                 </v-tab-item>
 
-                <!-- REVIEW INFORMATION TAB - READ ONLY --> 
+                <!-- REVIEW INFORMATION TAB - READ ONLY -->
                 <v-tab-item eager>
                   <v-container style="max-width: 80%;" mx-auto>
                     <v-card-text class="pa-0">
@@ -932,7 +933,7 @@
     methods: {
       needToCheckTermsBox() {
         alert("Please accept SOWerk Terms")
-      },      
+      },
       focusAddressField() {
         console.log('focus');
       },
@@ -954,6 +955,7 @@
         })
         .catch(err => {
           console.log(err, 'error in getting invitee based on this id')
+          this.verification = false;
         })
       },
       selectInsuranceFile(file, index) {
@@ -1233,6 +1235,7 @@
       },
       async registerUser(company_id) {
         this.user.companies_id = company_id;
+        this.user.email = this.user.email.toLowerCase()
         let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/auth/register', this.user)
         .catch(e => e);
         // await this.postLocations(data.user.companies_id);
@@ -1344,7 +1347,7 @@
               serviceObject
             )
             .catch((e) => e)
-          console.log(data)          
+          console.log(data)
         }
         this.loading = false;
         await this.$router.push('/register/verify');
