@@ -11,7 +11,7 @@
         class="primary white--text font-weight-regular red-gradient"
       >{{ title }}</v-card-title>
       <v-btn :to="'../../dashboard/users/add'" outlined color="primary" large rounded class="px-16" style="position: absolute; top: 10px; right: 10px;">+ New User</v-btn>
-      <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="search" light></v-text-field>
+      <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Name, Email, or Phone" v-model="search" light></v-text-field>
       <v-card-text class="pt-0 pb-2" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
         <v-data-table
           :headers="tableProperties"
