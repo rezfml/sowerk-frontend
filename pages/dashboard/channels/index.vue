@@ -534,7 +534,6 @@
                 slug="/dashboard/channels/"
                 v-if="locationApproved && loading"
                 :locationFilterTags="locationFilterTags"
-                :filterItems="filterItems"
               ></BusinessChannelsCard>
             </transition>
 

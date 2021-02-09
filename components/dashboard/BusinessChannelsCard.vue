@@ -7,36 +7,79 @@
       :size="20" >
     </v-progress-circular>
     
-    <!-- OUTER MOST DATA TABLE -->
-    <v-data-table
-      v-if="this.loading"
-      :items="company.locations"
-      :headers="headers"
-      :items-per-page="10"
-      >
+		<v-row>
+			<v-col cols="4">
+				<FilterCard
+					:title="'Filter Channels'"
+					:filters="filters"
+					:locationApproved="viewLocation"
+					:locationFilterTags="locationFilterTags"
+				></FilterCard>
+			</v-col>
 
-			<template v-slot:item.locations="{item}">
-				<v-row class="d-flex" cols="12" md="6">
-					<v-col>
-						<p>{{item.address}}</p>
-						<p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
-					</v-col>
-				</v-row>
-			</template>
+			<v-col cols="8">
+				<v-data-table
+					v-if="this.loading && this.channels"
+					:items="channels"
+					:headers="headers"
+					:items-per-page="10"
+					>
 
-    <!-- <template v-slot:item.approvedVendors="{ item }">
-        <p v-if='item.approvedVendors[0] === "There are no approved vendors"'>0</p>
-        <p v-else-if='item.approvedVendors[0] !== "There are no approved vendors" '>{{item.approvedVendors.length}}</p>
-    </template> -->
-    </v-data-table>
+
+					<template v-slot:item.imageUrl="{ item }">
+						<v-row class="d-flex">
+							<v-col>
+								<p>{{ item.imageUrl }}</p>
+							</v-col>
+						</v-row>
+					</template>
+
+					<template v-slot:item.name="{ item }">
+						<v-row class="d-flex">
+							<v-col>
+								<p>{{ item.channelName }}</p>
+							</v-col>
+						</v-row>
+					</template>
+
+					<template v-slot:item.address="{ item }">
+						<v-row class="d-flex">
+							<v-col>
+								<p>{{item.address}}</p>
+								<p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
+							</v-col>
+						</v-row>
+					</template>
+
+					<template v-slot:item.fullname="{ item }">
+						<v-row class="d-flex">
+							<v-col>
+							<p>{{ item.channelManagerFirstName }}</p>
+							<p>{{ item.channelManagerLastName }}</p>
+							</v-col>
+						</v-row>
+					</template>
+
+					<template v-slot:item.actions="{ item }">
+						<v-btn block color="primary" :to="slug + item.channelId">
+							View
+						</v-btn>
+					</template>
+
+				</v-data-table>
+			</v-col>
+		</v-row>
+
+
   </v-container>
 </template>
 
 <script>
-  import FilterCard from '~/components/dashboard/FilterCard'
+import FilterCard from '~/components/dashboard/FilterCard'
+
 export default {
   name: 'BusinessChannels',
-  props: ['title', 'viewAll', 'viewLocation', 'locationFilterTags', 'filterItems'],
+  props: ['title', 'viewAll', 'viewLocation', 'locationFilterTags', 'slug'],
   components: {
     FilterCard
   },
@@ -44,27 +87,127 @@ export default {
     return {
     loading: false,
     headers: [
-			{ text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
 			{ text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 			{ text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-			{ text: 'Channel Manager', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+			{ text: 'Channel Manager', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 			{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 			{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-    ],  
-
-		company: {},
-		companyTwo: {},
-		approvedVendors: 0,
+		],
+		channels: [],  
+		approvedVendorsList: {},
     locationCondition: false,
     locationApproved: false,
-    connections: [],
-    vendors: [],
-
+		filters: [
+			{
+				name: 'Proximity',
+				items: [
+					'State',
+					'National',
+					'Under 10 Miles',
+					'Under 25 Miles',
+					'Under 50 Miles',
+					'Under 100 Miles',
+					'Under 150 Miles',
+					'Under 200 Miles',
+					'200+ Miles',
+				]
+			},
+			{
+				name: 'State',
+				items: [
+					"Alaska",
+					"Alabama",
+					"Arkansas",
+					"American Samoa",
+					"Arizona",
+					"California",
+					"Colorado",
+					"Connecticut",
+					"District of Columbia",
+					"Delaware",
+					"Florida",
+					"Georgia",
+					"Guam",
+					"Hawaii",
+					"Iowa",
+					"Idaho",
+					"Illinois",
+					"Indiana",
+					"Kansas",
+					"Kentucky",
+					"Louisiana",
+					"Massachusetts",
+					"Maryland",
+					"Maine",
+					"Michigan",
+					"Minnesota",
+					"Missouri",
+					"Mississippi",
+					"Montana",
+					"North Carolina",
+					" North Dakota",
+					"Nebraska",
+					"New Hampshire",
+					"New Jersey",
+					"New Mexico",
+					"Nevada",
+					"New York",
+					"Ohio",
+					"Oklahoma",
+					"Oregon",
+					"Pennsylvania",
+					"Puerto Rico",
+					"Rhode Island",
+					"South Carolina",
+					"South Dakota",
+					"Tennessee",
+					"Texas",
+					"Utah",
+					"Virginia",
+					"Virgin Islands",
+					"Vermont",
+					"Washington",
+					"Wisconsin",
+					"West Virginia",
+					"Wyoming"
+				]
+			},
+			{
+				name: 'Vendor Category',
+				items: [
+					'HVAC',
+					'Electrical',
+					'Plumbing',
+					'Cleaning',
+					'Landscaping'
+				]
+			},
+			{
+				name: 'Years in Business',
+				items: [
+					'Less Than 1 Year',
+					'1 - 3 Years',
+					'3 - 5 Years',
+					'5 - 10 Years',
+					'10+ Years',
+				]
+			},
+			{
+				name: 'Approved Applications',
+				items: [
+					'Less than 5',
+					'6 - 15',
+					'16 - 24',
+					'25+',
+				]
+			}
+		],		
     }
   },
   async created() {
 		console.log(this.$store.state.user.user.user, "user from BusinessChannelsCard")
 		this.getCompany(this.currentUser.companies_id)
+		this.getCompanyApprovedVendors(this.currentUser.companies_id)
 	},
   computed: {
 		currentUser() {
@@ -76,10 +219,45 @@ export default {
 			await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
 				.then(async (response) => {
 					console.log(response.data, "HEYYYYY")
-					this.company = response.data;
 
-					this.getCompanyApprovedVendors(this.currentUser.companies_id)
+					for(let i=0; i<response.data.locations.length; i++) {
 
+						if(this.approvedVendorsList[i].approvedVendors[0] === "There are no approved vendors"){
+							let numberOfVendors = 0
+
+							let company = {
+								channelId: response.data.locations[i].id,
+								channelName: response.data.locations[i].name,
+								address: response.data.locations[i].address,
+								city: response.data.locations[i].city,
+								state: response.data.locations[i].state,
+								zipcode: response.data.locations[i].zipcode,
+								channelManagerFirstName: response.data.locations[i].contact_first_name,
+								channelManagerLastName: response.data.locations[i].contact_last_name,
+								approvedVendors: numberOfVendors,
+							}
+							this.channels.push(company) 
+
+						} else {
+							let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
+
+							let company = {
+								channelId: response.data.locations[i].id,
+								channelName: response.data.locations[i].name,
+								address: response.data.locations[i].address,
+								city: response.data.locations[i].city,
+								state: response.data.locations[i].state,
+								zipcode: response.data.locations[i].zipcode,
+								channelManagerFirstName: response.data.locations[i].contact_first_name,
+								channelManagerLastName: response.data.locations[i].contact_last_name,
+								approvedVendors: numberOfVendors,
+							}
+							this.channels.push(company)
+
+						}
+						console.log(this.channels)
+						this.loading = true
+					}
 				})
 				.catch(err => {
 					console.log('error in getting company', err)
@@ -88,50 +266,8 @@ export default {
     async getCompanyApprovedVendors(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
         .then(async (response) => {
-          console.log(response.data, "get companies location approvedVendors")
-          this.companyTwo = response.data
-
-          // for(let i=0; i<this.company.locations.length; i++) {
-          //   if(this.company.locations[i].approvedVendors[0] !== 'There are no approved vendors') {
-          //     for(let j=0; j<this.company.locations[i].approvedVendors.length; j++) {
-          //       this.company.locations[i].approvedVendors[j] = {
-          //         id: this.company.locations[i].approvedVendors[j].id,
-          //         approval_status: this.company.locations[i].approvedVendors[j].approval_status,
-          //         spcompanies_id: this.company.locations[i].approvedVendors[j].spcompanies_id,
-          //         splocations_id: this.company.locations[i].approvedVendors[j].splocations_id,
-          //         spCompanyName: '',
-          //         spChannelName: '',
-          //         spChannelAddress: '',
-          //         spChannelContact: '',
-          //         spChannelEmail: '',
-          //         spChannelPhone: '',
-          //       }
-          //       this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
-          //         .then(async (response) => {
-          //           console.log('response.data for company', response.data)
-          //           this.company.locations[i].approvedVendors[j].spCompanyName = response.data.account_name;
-          //         })
-          //         .catch(err => {
-          //           console.log('err in getting sp company ', err);
-          //         })
-          //       this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.company.locations[i].approvedVendors[j].splocations_id)
-          //         .then(async (response) => {
-          //           console.log('response.data for location', response.data)
-          //           this.company.locations[i].approvedVendors[j].spChannelContact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
-          //           this.company.locations[i].approvedVendors[j].spChannelName = `${response.data.name}`
-          //           this.company.locations[i].approvedVendors[j].spChannelAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`;
-          //           this.company.locations[i].approvedVendors[j].spChannelEmail = `${response.data.email}`;
-          //           this.company.locations[i].approvedVendors[j].spChannelPhone = `${response.data.phone}`;
-          //         })
-          //         .catch(err => {
-          //           console.log('err in getting sp location', err);
-          //         })
-          //     }
-          //   }
-          // }
-          setTimeout(() => {
-            this.loading = true
-          }, 2000)
+					// console.log(response.data.locations, "get companies location approvedVendors")
+					this.approvedVendorsList = response.data.locations
         })
         .catch(err => {
           console.log('error in getting company', err)
