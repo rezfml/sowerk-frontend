@@ -206,15 +206,16 @@
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
       <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
-
+        <v-text-field clearable outlined class="pt-16" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchApplications" light></v-text-field>
         <v-data-table
             :headers="headersChannelVendorApplicationsVal"
             :items="listOfUserChannels"
             :items-per-page="10"
-            class="pt-16"
+            class=""
             :expanded.sync="expanded"
             show-expand
             single-expand
+            :search="searchApplications"
         >
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
@@ -502,13 +503,11 @@
         </transition>
         <template v-if="loading">
           <transition name="slide-fade">
-            <v-row class="pt-8" v-if="loadChannelList && !loadAssignTagCategoryType">
-              <v-text-field style="width: 90%;" label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
-            </v-row>
+            <v-text-field class="pt-16" v-if="loadChannelList && !loadAssignTagCategoryType" clearable outlined style="width: 80%; margin-left: 10%;" label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
           </transition>
           <transition name="slide-fade">
             <v-data-table
-              class="mt-8"
+              class=""
               :headers="channelHeaders"
               :items="addLocations"
               :search="searchChannel"
@@ -989,7 +988,7 @@
           </transition>
           <transition name="slide-fade">
             <v-row class="pt-8" v-if="addNewVendorFormLoad && step2" style="width: 90%; margin-left: 5%;">
-              <v-text-field style="width: 90%;" label="Search By Channel Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
+              <v-text-field clearable outlined style="width: 90%;" label="Search By Channel Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
             </v-row>
           </transition>
           <transition name="slide-fade">
@@ -1494,6 +1493,7 @@ const naics = require("naics");
     },
     data () {
       return {
+        searchApplications: '',
         applicationStatus: '',
         searchChannel: '',
         newAssignUserFormTagsNew: [],
@@ -2768,7 +2768,9 @@ const naics = require("naics");
                 console.log(err, 'err in deleting userform');
               })
             //console.log("THIS IS THE END OF THE FINALLY BLOCK -------------------")
-            this.$router.go();
+            setTimeout(() => {
+              this.$router.go();
+            }, 1500)
           }
         } else {
           console.log("Did not confirm!")

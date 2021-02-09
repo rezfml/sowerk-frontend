@@ -10,26 +10,21 @@
         <!--          :size="50"-->
         <!--        ></v-progress-circular>-->
         <!--      </v-col>-->
-    <v-card-actions class="d-flex justify-end px-4 py-0">
-      <v-row class="py-0">
-        <v-spacer></v-spacer>
-        <v-col cols="4" class="py-0">
-          <v-text-field label="Search" light></v-text-field>
-        </v-col>
-      </v-row>
-    </v-card-actions>
+
+    <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannels" light></v-text-field>
 
     <v-data-table
+      :search="searchChannels"
       :headers="tableProperties"
       :items="bizAndVendorData"
       :items-per-page="5"
       item-key="businessChannelId"
-      class="pt-16"
+      class=""
       :expanded.sync="expanded"
       show-expand
       single-expand
       >
-      
+
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <v-simple-table
@@ -98,6 +93,7 @@
     props: ['bizAndVendorData', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
     data() {
       return {
+        searchChannels: '',
         denialMessage: {
           service: '',
           company: '',
