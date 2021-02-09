@@ -501,12 +501,11 @@
           <v-card-title v-if="!loadChannelList && loadAssignTagCategoryType" class="mb-8" style="color: white; background-color: #a61c00; width: 70%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Choose your Type, Category, and Tags</v-card-title>
         </transition>
         <template v-if="loading">
-          <v-row class="pt-16">
-            <v-spacer></v-spacer>
-            <v-col cols="12" class="pt-8">
-              <v-text-field label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
-            </v-col>
-          </v-row>
+          <transition name="slide-fade">
+            <v-row class="pt-8" v-if="loadChannelList && !loadAssignTagCategoryType">
+              <v-text-field style="width: 90%;" label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
+            </v-row>
+          </transition>
           <transition name="slide-fade">
             <v-data-table
               class="mt-8"
@@ -523,8 +522,8 @@
                 <p>{{item.address}}</p>
                 <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
               </template>
-              <template v-slot:item.primary_contact_first_name="{item}">
-                <p>{{item.primary_contact_first_name}} {{item.primary_contact_last_name}}</p>
+              <template v-slot:item.contact_first_name="{item}">
+                <p>{{item.contact_first_name}} {{item.contact_last_name}}</p>
               </template>
               <template v-slot:item.email="{item}">
                 <p>{{item.email}}</p>
@@ -968,7 +967,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card class="mt-12 d-flex flex-column" v-if="addNewVendorFormLoad && !step5" style="width: 58%;">
+        <v-card class="mt-12 d-flex flex-column align-center" v-if="addNewVendorFormLoad && !step5" style="width: 58%;">
           <!--        // ACTUAL STEPS-->
           <transition name="slide-fade">
             <v-form class="py-16 mt-16 d-flex flex-column align-end" style="width: 80%; margin: 0 auto;" v-if="addNewVendorFormLoad && step1">
@@ -989,14 +988,14 @@
             </v-form>
           </transition>
           <transition name="slide-fade">
-            <v-row class="pt-16">
-              <v-spacer></v-spacer>
-              <v-col cols="12" class="pt-8">
-                <v-text-field label="Search By Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
-              </v-col>
+            <v-row class="pt-8" v-if="addNewVendorFormLoad && step2" style="width: 90%; margin-left: 5%;">
+              <v-text-field style="width: 90%;" label="Search By Channel Name, Email, or Phone" v-model="searchChannel" light></v-text-field>
             </v-row>
+          </transition>
+          <transition name="slide-fade">
             <v-data-table
-              class="mt-8"
+              style="width: 98%;"
+              class=""
               :headers="channelHeaders"
               :items="addLocations"
               :search="searchChannel"
@@ -1010,8 +1009,8 @@
                 <p>{{item.address}}</p>
                 <p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
               </template>
-              <template v-slot:item.primary_contact_first_name="{item}">
-                <p>{{item.primary_contact_first_name}} {{item.primary_contact_last_name}}</p>
+              <template v-slot:item.contact_first_name="{item}">
+                <p>{{item.contact_first_name}} {{item.contact_last_name}}</p>
               </template>
               <template v-slot:item.email="{item}">
                 <p>{{item.email}}</p>
@@ -1105,7 +1104,7 @@
                         <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="assignUserform.name">{{assignUserform.name}}</v-text-field>
                         <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Account Channel:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select the Channel that you want to assign this application to)</span></v-card-title>
                         <v-select
-                          :items="locations"
+                          :items="addLocations"
                           item-text="id name"
                           item-value="id name"
                           v-model="locationVal"
@@ -1705,10 +1704,9 @@ const naics = require("naics");
           applicationStatus: 1,
         },
         channelHeaders: [
-          { text: 'ID', value: 'id', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Primary Contact', value: 'primary_contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
@@ -2154,7 +2152,7 @@ const naics = require("naics");
           this.industryLevel3.push(category);
         }
       },
-      
+
       // ALL FOUR PREVIOUS METHOD NOT CURRENTLY USED!
       // async getCompany(id) {
       //   await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
@@ -2346,7 +2344,7 @@ const naics = require("naics");
       //         console.log('err get userforms', err);
       //       })
       // },
-      
+
 
       async getFormFields(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + id)
