@@ -83,11 +83,13 @@
         <v-card-title v-else-if="company.company_type==='false'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
         <v-card-title v-else-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && company.company_type==='true'" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
         <v-card-title v-else-if="company.company_type==='true'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorBusinessHeaders"
           :items-per-page="5"
           class="mt-12"
+          :search="searchDocument"
           v-if="company.company_type === 'true'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
@@ -110,6 +112,7 @@
           :headers="vendorHeaders"
           :items-per-page="5"
           class="mt-12"
+          :search="searchDocument"
           v-else
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
@@ -130,7 +133,9 @@
       <v-card class="mt-8" v-if="loading && allDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>
         <v-data-table
+          :search="searchDocument"
           :items="companyDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
@@ -167,9 +172,11 @@
             <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
           </template>
         </v-select>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>
         <v-data-table
           :items="approvedCompanyDocuments"
           :headers="vendorApprovedHeaders"
+          :search="searchDocument"
           :items-per-page="5"
           class="mt-12"
           style="width: 80%;"
@@ -270,6 +277,7 @@
     layout: "app",
     data() {
       return {
+        searchDocument: '',
         successrequestdoc: null,
         messageVendorLocations: [],
         messageVendorLocationChosen: {},
@@ -385,11 +393,13 @@
       },
       async closeRequestDocLoad() {
         this.openRequestDocLoad = false
+        this.searchDocument = '';
       },
       async requestDocument(item) {
         console.log(item, 'hey!')
         this.chosenDoc = item
         this.openRequestDocLoad = true
+        this.searchDocument = '';
         this.successrequestdoc = null;
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + item.companies_id)
           .then(response => {
@@ -403,6 +413,7 @@
       async seeListOfCompanyDocuments(item) {
         console.log(item, "HEY")
         this.approvedCompanyDocuments = [];
+        this.searchDocument = '';
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + item.id)
           .then(response => {
             console.log(response.data, 'response for company docs')
@@ -451,6 +462,7 @@
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = false
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async allDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
@@ -460,6 +472,7 @@
         this.companyDocuments = [];
         await this.getDocuments();
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async requestingDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
@@ -467,6 +480,7 @@
         this.requestingDocumentsModalLoading = true
         this.uploadDocumentsModalLoading = false
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async uploadDocumentsModalLoad() {
         this.successuploaddocument = null;
@@ -475,6 +489,7 @@
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = true
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
