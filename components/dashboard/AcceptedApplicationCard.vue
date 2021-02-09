@@ -1,201 +1,99 @@
 <template>
+  <v-container>
+    <v-progress-circular
+      v-if="loading != true"
+      indeterminate
+      color="primary"
+      :size="20" >
+    </v-progress-circular>
+    
+    <!-- OUTER MOST DATA TABLE -->
+    <v-data-table
+      v-if="this.loading"
+      :items="company.locations"
+      :headers="outerTableHeaders"
+      :items-per-page="10"
+      :search="search"
+      :expanded.sync="expanded"
+      show-expand
+      single-expand
+      >
 
-	<!-- OUTER MOST DATA TABLE -->
-	<v-data-table
-		:items="items"
-		:headers="outerTableHeaders"
-		:items-per-page="10"
-		:search="search"
-		:expanded.sync="expanded"
-		show-expand
-		single-expand
-		>
+        <!-- ONCE NESTED DATA TABLE -->
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">
+            <v-data-table
+              v-if="item.approvedVendors[0] !== 'There are no approved vendors'"
+              :items="item.approvedVendors"
+              :headers="onceNestTableHeaders"
+              :items-per-page="10"
+              :search="search"
+            >
 
-			<!-- ONCE NESTED DATA TABLE -->
-			<template v-slot:expanded-item="{ headers, item }">
-				<td :colspan="headers.length">
-					<v-data-table
-						:items="item.ChannelsInviting"
-						:headers="onceNestTableHeaders"
-						:items-per-page="10"
-						:search="search"
-						:expanded.sync="expandedChannel"
-						show-expand
-						single-expand
-					>
+              <template
+                v-slot:item.actions="{ item }"
+              >
+                <v-btn
+                  block
+                  color="primary"
+                  :to="slug + item.splocations_id" 
+                >
+                  View
+                </v-btn>
+              </template>
 
-						<!-- TWICE NESTED DATA TABLE -->
-						<!-- <template v-slot:expanded-item="{ headers, item }">
-							<td :colspan="headers.length">
-								<v-data-table
-								:items="item.userforms"
-								:headers="providerApplicationHeaders"
-								:items-per-page="10"
-								:search="search"
-								>
-									<template v-slot:item.actions="{ item }">
-										<v-btn block color="primary" :to="'/dashboard/businesses/applications/' + item.id">Apply</v-btn>
-										<v-btn block color="primary">Deny</v-btn>
-									</template>
-								</v-data-table>
-							</td>
-						</template> -->
-					</v-data-table>
-				</td>
-			</template>
-	</v-data-table>
+            </v-data-table>
+          </td>
+        </template>
+
+        <template v-slot:item.approvedVendors="{ item }">
+          <p v-if='item.approvedVendors[0] === "There are no approved vendors"'>0</p>
+          <p v-else-if='item.approvedVendors[0] !== "There are no approved vendors" '>{{item.approvedVendors.length}}</p>
+        </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'
 export default {
   name: 'HomeCard',
-  props: ['filterItems', 'removeTag', 'locationFilterTags', 'sowerkTags', 'items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', 'viewLocation', 'locationAssignUser', 'assignUserToLocation', 'massAssignUserToLocation', 'locationApproved', 'submitMassAssignUserToLocation', 'viewLocation'],
+  props: ['title', 'viewAll', 'slug', 'action'],
   components: {
     FilterCard
   },
   data() {
     return {
 			loading: false,
-			expanded: [],
 			outerTableHeaders: [
-				{ text: 'Your Channel', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Approved Vendors', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },				
+        { text: 'Your Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-center' },				
 			],
 			onceNestTableHeaders: [
-				{ text: 'Application Category', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Company', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Contact', value: 'contact', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Company', value: 'spCompanyName', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Channel', value: 'spChannelName', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Channel Address', value: 'spChannelAddress', class: 'primary--text font-weight-bold text-h6 text-center' },
+        { text: 'Contact', value: 'spChannelContact', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Email', value: 'spChannelEmail', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+				{ text: 'Phone', value: 'spChannelPhone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
 				{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
-			],
-
-
-
+      ],
+      
+      company: {},
+      expanded: [],
+      expandedChannel: [],
+      singleExpand: true,
 
       search: '',
       locations: null,
       users: [
 
       ],
-      filters: [
-        {
-          name: 'Proximity',
-          items: [
-            'State',
-            'National',
-            'Under 10 Miles',
-            'Under 25 Miles',
-            'Under 50 Miles',
-            'Under 100 Miles',
-            'Under 150 Miles',
-            'Under 200 Miles',
-            '200+ Miles',
-          ]
-        },
-        {
-          name: 'State',
-          items: [
-            "Alaska",
-            "Alabama",
-            "Arkansas",
-            "American Samoa",
-            "Arizona",
-            "California",
-            "Colorado",
-            "Connecticut",
-            "District of Columbia",
-            "Delaware",
-            "Florida",
-            "Georgia",
-            "Guam",
-            "Hawaii",
-            "Iowa",
-            "Idaho",
-            "Illinois",
-            "Indiana",
-            "Kansas",
-            "Kentucky",
-            "Louisiana",
-            "Massachusetts",
-            "Maryland",
-            "Maine",
-            "Michigan",
-            "Minnesota",
-            "Missouri",
-            "Mississippi",
-            "Montana",
-            "North Carolina",
-            " North Dakota",
-            "Nebraska",
-            "New Hampshire",
-            "New Jersey",
-            "New Mexico",
-            "Nevada",
-            "New York",
-            "Ohio",
-            "Oklahoma",
-            "Oregon",
-            "Pennsylvania",
-            "Puerto Rico",
-            "Rhode Island",
-            "South Carolina",
-            "South Dakota",
-            "Tennessee",
-            "Texas",
-            "Utah",
-            "Virginia",
-            "Virgin Islands",
-            "Vermont",
-            "Washington",
-            "Wisconsin",
-            "West Virginia",
-            "Wyoming"
-          ]
-        },
-        {
-          name: 'Service Needs',
-          items: [
-            'HVAC',
-            'Electrical',
-            'Plumbing',
-            'Cleaning',
-            'Landscaping'
-          ]
-        },
-        {
-          name: 'Years in Business',
-          items: [
-            'Less Than 1 Year',
-            '1 - 3 Years',
-            '3 - 5 Years',
-            '5 - 10 Years',
-            '10+ Years',
-          ]
-        },
-        {
-          name: 'Approved Applications',
-          items: [
-            'Less than 5',
-            '6 - 15',
-            '16 - 24',
-            '25+',
-          ]
-        }
-      ],
-      loadModal: false,
-      successAssign: false,
-      bkClass: 'bk',
-      blurClass: 'blur',
     }
   },
   async created() {
-		console.log(this.$store.state.user.user.user, "ksjdhfljsdhfksdjfhs")
-    console.log(this.items, 'yayyy FACILITIES CARD');
-    //console.log(this.locationAssignUser, 'user for location assign')
-    this.loadingFunc(this.items);
-    console.log(this.outerApprVenHeaders, "-------------------------------")
+		console.log(this.$store.state.user.user.user, "user from AcceptedApplicationCard")
+    await this.getCompany(this.currentUser.companies_id);
 	},
 	computed: {
 		currentUser() {
@@ -203,44 +101,58 @@ export default {
 		},
 	},	
   methods: {
-    async loadingFunc(val) {
-      if(val) {
-        this.loading = true
-      }
-    },
-    async submit(businessId, location) {
-      this.loadModal = true;
-      this.idForMessage = businessId;
-      this.locationForMessage = location;
-    },
-    async message(businessId, location) {
-      this.sendToId = businessId;
-      console.log(this.messageForm)
-      console.log(businessId, location, 'messageVals', location.services.join(', '));
-      // get company for message
-      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.$store.state.user.user.user.companies_id)
+    async getCompany(id) {
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
         .then(async (response) => {
-          console.log('get company message', response.data)
-          this.messageForm.company = response.data.account_name;
-          this.messageForm.service = location.services.join(', ');
-          this.messageForm.location = `${location.name} - ${location.address} ${location.city}, ${location.state} ${location.zipcode}`
-          await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.sendToId, this.messageForm)
-            .then(res => {
-              console.log('SUCCESS', res)
-              this.successText = 'Successfully sent message to ' + res.data.messageVal.location
-              this.successMessage = true;
-            })
-            .catch(err => {
-              console.log(err);
-            })
+          console.log(response, "sdjhfkjshdkfjhsdkfjhskfjsdhfk")
+          this.company = response.data
+
+          for(let i=0; i<this.company.locations.length; i++) {
+            if(this.company.locations[i].approvedVendors[0] !== 'There are no approved vendors') {
+              for(let j=0; j<this.company.locations[i].approvedVendors.length; j++) {
+                this.company.locations[i].approvedVendors[j] = {
+                  id: this.company.locations[i].approvedVendors[j].id,
+                  approval_status: this.company.locations[i].approvedVendors[j].approval_status,
+                  spcompanies_id: this.company.locations[i].approvedVendors[j].spcompanies_id,
+                  splocations_id: this.company.locations[i].approvedVendors[j].splocations_id,
+                  spCompanyName: '',
+                  spChannelName: '',
+                  spChannelAddress: '',
+                  spChannelContact: '',
+                  spChannelEmail: '',
+                  spChannelPhone: '',
+                }
+                this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
+                  .then(async (response) => {
+                    console.log('response.data for company', response.data)
+                    this.company.locations[i].approvedVendors[j].spCompanyName = response.data.account_name;
+                  })
+                  .catch(err => {
+                    console.log('err in getting sp company ', err);
+                  })
+                this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.company.locations[i].approvedVendors[j].splocations_id)
+                  .then(async (response) => {
+                    console.log('response.data for location', response.data)
+                    this.company.locations[i].approvedVendors[j].spChannelContact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
+                    this.company.locations[i].approvedVendors[j].spChannelName = `${response.data.name}`
+                    this.company.locations[i].approvedVendors[j].spChannelAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`;
+                    this.company.locations[i].approvedVendors[j].spChannelEmail = `${response.data.email}`;
+                    this.company.locations[i].approvedVendors[j].spChannelPhone = `${response.data.phone}`;
+                  })
+                  .catch(err => {
+                    console.log('err in getting sp location', err);
+                  })
+              }
+            }
+          }
+          setTimeout(() => {
+            this.loading = true
+          }, 2000)
         })
-      await setTimeout(() => {
-        this.loadModal = false;
-      }, 3500)
-    },
-    async closeModal() {
-      this.loadModal = false;
-    },
+        .catch(err => {
+          console.log('error in getting company', err)
+        })
+    }    
   }
 }
 </script>

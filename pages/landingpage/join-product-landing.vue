@@ -20,7 +20,7 @@
         <img style="width:100%;margin-bottom:-10px;margin-left:-1px;" src="/whyBizSoWerk-image.png" alt="vrm-photo">
       </div>
       <div style="width:100%;height:100%;" v-else>
-        <img style="width:100%;margin-bottom:-10px;margin-left:-1px;" src="/whyBizSoWerk-image-mobile.png" alt="vrm-photo">
+        <img style="width:100%;margin-bottom:-10px;margin-left:-1px;" src="/biz-VRM-image-mobile.png" alt="vrm-photo">
       </div>
     </section>
 

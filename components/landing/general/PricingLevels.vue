@@ -4,11 +4,25 @@
       class="d-flex align-center justify-center skew-topleft change-bcg"
       style="background: #EDEDED; padding-top: 280px; margin-top: -250px; padding-bottom: 150px;"
     >
-      <v-row style="max-width: 95%;">
-        <v-row class="justify-center flex-wrap: wrap">
+      <v-row>
+        <v-col v-if="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs">
+          <div style="width:100%;height:100%;" >
+            <img style="width:100%;height:100%;" src="/ven-pricing-image-visual.png" alt="">
+          </div>
+        </v-col>
+
+        <v-col v-else>
+          <div style="width:100%;height:100%;" >
+            <img style="width:100%;height:100%;" src="/ven-pricing-image-visual-mobile.png" alt="">
+          </div>
+        </v-col>
+      </v-row>
+      
+      <!-- <v-row style="max-width: 95%;">
+        <v-row class="justify-center flex-wrap: wrap"> -->
 
           <!-- SOWERK STARTER CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
+          <!-- <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
             <v-card
               class="text-center pa-2 my-2 mx-1 mx-lg-0 flex-grow-1"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -28,7 +42,6 @@
                 $8.33<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $100.00 Per Year</p>
-              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">$25 Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -55,10 +68,10 @@
                 </ul>
               </v-col>
             </v-card>
-          </v-col>
+          </v-col> -->
 
           <!-- SOWERK ADVANCED CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
+          <!-- <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
             <v-card
               class="text-center pa-2 my-2 mx-1 mx-lg-0 flex-grow-1"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -78,7 +91,6 @@
                 $20.83<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $250.00 Per Year</p>
-              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -105,10 +117,10 @@
                 </ul>
               </v-col>
             </v-card>
-          </v-col>
+          </v-col> -->
 
           <!-- SOWERK PRO CARD -->
-          <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
+          <!-- <v-col cols="12" lg="2" md="3" class="pa-0 mx-auto d-flex">
             <v-card
               class="text-center pa-2 my-2 mx-1 mx-lg-0 flex-grow-1"
               style="border-radius: 24px; border-top: 45px solid #a61c00; border-left: 4px solid #a61c00; border-right: 4px solid #a61c00; border-bottom: 4px solid #a61c00;"
@@ -128,7 +140,6 @@
                 $41.67<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $500.00 Per Year</p>
-              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -155,10 +166,10 @@
                 </ul>
               </v-col>
             </v-card>
-          </v-col>
+          </v-col> -->
 
           <!-- SOWERK NATIONAL CARD -->
-          <v-col
+          <!-- <v-col
             cols="12"
             lg="2"
             md="3"
@@ -184,7 +195,6 @@
                 $125.00<span style="font-size: 12px;">/monthly</span>
               </p>
               <p class="text-caption">Or $1,500.00 Per Year</p>
-              <!-- <p class="text-caption" style="color:darkred;font-weight:500;">No Annual Fee</p> -->
               <v-divider></v-divider>
               <v-card-subtitle
                 class="black--text font-weight-bold text-uppercase"
@@ -211,11 +221,11 @@
                 </ul>
               </v-col>
             </v-card>
-          </v-col>
-        </v-row>
+          </v-col> -->
+        <!-- </v-row> -->
 
         <!-- SOWERK ENTERPRISE -->
-        <v-row>
+        <!-- <v-row>
           <v-col cols="12" class="pa-0 my-6">
             <v-card
               class="text-center"
@@ -240,11 +250,8 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <!-- <v-col cols="12" class="text-center pb-16">
-            <v-btn class="white--text py-6" style="width: 80%; background-color: #A61C00; border-radius: 20px;">GET STARTED NOW</v-btn>
-          </v-col> -->
-        </v-row>
-      </v-row>
+        </v-row> -->
+      <!-- </v-row> -->
     </v-container>
 </template>
 

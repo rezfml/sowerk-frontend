@@ -31,13 +31,13 @@
       </div>
 
       <div style="width:100%;height:100%;" v-else>
-        <img style="width:100%;height:100%;" src="/vendor-CRM-LP-image.png" alt="">
+        <img style="width:100%;height:100%;" src="/ven-CRM-image-mobile.png" alt="">
       </div>
 
     <!-- VENDOR TOOLBOXES SECTION -->
     <VendorToolBoxes />
     <!-- PRICING LEVELS -->
-    <v-container fluid style="background: #EDEDED">
+    <!-- <v-container fluid style="background: #EDEDED">
       <v-row class="pa-0">
         <v-col cols="12" class="pa-0">
           <p
@@ -48,7 +48,7 @@
           </p>
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
     <PricingLevels class="pricing-levels" />
     <!-- GETTING STARTED IS FREE AND EASY -->
     <!-- <v-container fluid class="py-10" style="background: #151515; height: 40vh" >

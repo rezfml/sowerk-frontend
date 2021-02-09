@@ -71,7 +71,21 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/auth',
     '@nuxtjs/toast',
+    '@nuxtjs/sitemap'
   ],
+  sitemap: {
+    hostname: 'https://sowerk.com',
+    gzip: true,
+    exclude: [
+      '/dashboard/**',
+      '/dashboard'
+    ],
+    routes: [
+      '/',
+      '/landingpage/join-service-landing/',
+      '/landingpage/join-product-landing/',
+    ]
+  },
   auth: {
     strategies: {
       local: {
