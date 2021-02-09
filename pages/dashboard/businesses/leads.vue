@@ -142,7 +142,7 @@
       <v-card class="mt-8 mb-4" color="white" v-if="loading && preApprovedRequestsModal">
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingApprovedApplications.length > 0 && loading">Pre Approved Requests - {{requestingApprovedApplications.length}}</v-card-title>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingApprovedApplications.length === 0 && loading">Pre Approved Requests - 0</v-card-title>
-        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchVal" light></v-text-field>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="searchVal" light></v-text-field>
         <v-data-table
           :items="requestingApprovedApplications"
           :headers="providerApprovedHeaders"
