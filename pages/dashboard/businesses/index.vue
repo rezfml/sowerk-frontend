@@ -85,7 +85,7 @@
               <v-card class="white">
                 <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="connections.length > 0">Customer Connections - {{connections.length}}</v-card-title>
                 <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
-                <v-text-field clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Customer, Address, Name, Email, or Phone" v-model="search" light></v-text-field>
+                <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer, Address, Name, Email, or Phone" v-model="search" light></v-text-field>
                 <v-data-table
                   :items="businesses"
                   :headers="providerHeaders"
