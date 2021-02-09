@@ -11,20 +11,7 @@
         class="primary white--text font-weight-regular red-gradient"
       >{{ title }}</v-card-title>
       <v-btn :to="'../../dashboard/users/add'" outlined color="primary" large rounded class="px-16" style="position: absolute; top: 10px; right: 10px;">+ New User</v-btn>
-      <v-card-actions class="d-flex justify-end px-4 py-0">
-        <v-row class="py-0" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
-          <v-spacer></v-spacer>
-          <v-col cols="4" class="pt-8">
-            <v-text-field label="Search By Name, Email, or Phone" v-model="search" light></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row class="pt-16" v-else>
-          <v-spacer></v-spacer>
-          <v-col cols="12" class="pt-8">
-            <v-text-field label="Search By Name, Email, or Phone" v-model="search" light></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+      <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="search" light></v-text-field>
       <v-card-text class="pt-0 pb-2" v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm">
         <v-data-table
           :headers="tableProperties"
