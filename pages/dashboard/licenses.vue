@@ -70,12 +70,14 @@
     <transition name="slide-fade">
       <v-card class="mt-8 d-flex flex-column align-center" v-if="loading">
         <v-btn @click="openUploadModel()" color="primary" class="my-4 py-6" style="width: 40%; color: white;">Add Certificates</v-btn>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name, License Number, License Location, Expiration Date, or Document Visibility" v-model="searchLicense" light></v-text-field>
         <v-data-table
           :items="licenseDocuments"
           :headers="licenseHeaders"
           :items-per-page="5"
           style="width: 100%;"
           class="mt-10"
+          :search="searchLicense"
         >
           <template v-slot:item.documentVisible="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <v-select
@@ -168,6 +170,7 @@
     layout: "app",
     data() {
       return {
+        searchLicense: '',
         documentVisibleOptions: [
           'Published',
           'Unpublished'

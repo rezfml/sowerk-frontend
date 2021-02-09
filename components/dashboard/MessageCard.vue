@@ -6,18 +6,12 @@
         style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
         class="primary white--text font-weight-regular red-gradient"
       >{{ title }}</v-card-title>
-      <v-card-actions class="d-flex justify-end px-4 py-0">
-        <v-row class="py-0">
-          <v-spacer></v-spacer>
-          <v-col cols="4" class="py-0">
-            <v-text-field label="Search" light></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Read, From, Sender, Associate Channel, or Message" v-model="searchVal" light></v-text-field>
       <v-card-text class="pt-0 pb-2">
         <v-data-table
           :headers="tableProperties"
           :items="items"
+          :search="searchVal"
           :items-per-page="5"
         >
           <template slot="no-data">
@@ -71,18 +65,12 @@
           style="position: absolute; top: -30px; left: 25px; width: 30%; border-radius: 3px; font-size: 18px;"
           class="primary white--text font-weight-regular red-gradient"
         >{{ title }}</v-card-title>
-        <v-card-actions class="d-flex justify-end px-4 py-0">
-          <v-row class="py-0">
-            <v-spacer></v-spacer>
-            <v-col cols="4" class="py-0">
-              <v-text-field label="Search" light></v-text-field>
-            </v-col>
-          </v-row>
-        </v-card-actions>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Read, From, Sender, Associate Channel, or Message" v-model="searchVal" light></v-text-field>
         <v-card-text class="pt-0 pb-2">
           <v-data-table
             :headers="tableProperties"
             :items="sent"
+            :search="searchVal"
             :items-per-page="5"
           >
             <template v-slot:item.full_name="{ item }">
@@ -146,6 +134,7 @@ export default {
   props: ['items', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'sent', 'company'],
   data() {
     return {
+      searchVal: '',
       messages: null,
       message: {},
       user: {},

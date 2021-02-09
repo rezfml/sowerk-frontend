@@ -127,6 +127,7 @@ export default {
                   spChannelContact: '',
                   spChannelEmail: '',
                   spChannelPhone: '',
+                  spType: ''
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
                   .then(async (response) => {
