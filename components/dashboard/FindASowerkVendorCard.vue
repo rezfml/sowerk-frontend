@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-app class="" overflow-y-auto>
     <v-progress-circular
       v-if="loading != true"
       indeterminate
@@ -7,76 +7,75 @@
       :size="20" >
     </v-progress-circular>
     
+		<v-card-title
+			v-if="loading === true"
+			style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word;"
+			class="primary white--text font-weight-regular red-gradient"
+		>{{ title }}</v-card-title>
+
+    <v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top: 3%;" label="Search By Company Name" v-model="searchCompanies" light></v-text-field>
+
     <!-- OUTER MOST DATA TABLE -->
     <v-data-table
-      v-if="this.loading"
-      :items="vendors"
+      :search="searchCompanies"
+      v-if="loading"
+      :items="vendorChannels"
       :headers="outerTableHeaders"
       :items-per-page="10"
-      :search="search"
       :expanded.sync="expanded"
       show-expand
       single-expand
+			style="width: 100%;"
       >
 
-			<template v-slot:item.imageUrl="{ item }">
-				<v-row class="d-flex">
-					<v-col>
-						<p>{{ item.imageUrl }}</p>
-					</v-col>
-				</v-row>
-			</template>
-
-			<template v-slot:item.name="{ item }">
-				<v-row class="d-flex">
-					<v-col>
-						<p>{{ item.channelName }}</p>
-					</v-col>
-				</v-row>
-			</template>
-
-			<template v-slot:item.address="{ item }">
-				<v-row class="d-flex">
-					<v-col>
-						<p>{{item.address}}</p>
-						<p>{{item.city}}, {{item.state}} {{item.zipcode}}</p>
-					</v-col>
-				</v-row>
-			</template>
-
-			<template v-slot:item.fullname="{ item }">
-				<v-row class="d-flex">
-					<v-col>
-					<p>{{ item.channelManagerFirstName }}</p>
-					<p>{{ item.channelManagerLastName }}</p>
-					</v-col>
-				</v-row>
-			</template>
-
-			<template v-slot:item.actions="{ item }">
-				<v-btn block color="primary" :to="slug + item.channelId">
-					View
-				</v-btn>
-			</template>
-
         <!-- ONCE NESTED DATA TABLE -->
-        <!-- <template v-slot:expanded-item="{ headers, item }">
+        <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-data-table
-              v-if="item.approvedVendors[0] !== 'There are no approved vendors'"
-              :items="item.approvedVendors"
+							v-if="item.companyChannels.fulfillmentValue !== 'There are no locations'"
+              :items="item.companyChannels.fulfillmentValue"
               :headers="onceNestTableHeaders"
               :items-per-page="10"
-              :search="search"
             >
 
-              <template
-                v-slot:item.actions="{ item }"
-              >
+							<template v-slot:item.name="{ item }">
+								<v-row class="d-flex">
+									<v-col>
+										<p>{{ item.name }}</p>
+									</v-col>
+								</v-row>
+							</template>
+
+							<template v-slot:item.address="{ item }">
+								<v-row class="d-flex">
+									<v-col>
+										<p style="text-align:center;">{{ item.address }}</p>
+										<p style="text-align:center;">{{ item.city }} {{ item.state }} {{ item.zipcode }}</p>
+									</v-col>
+								</v-row>
+							</template>
+
+							<template v-slot:item.connections="{ item }">
+								<v-row class="d-flex">
+									<v-col>
+										<p>{{ item.connections }}</p>
+									</v-col>
+								</v-row>
+							</template>
+
+							<template v-slot:item.category="{ item }">
+								<v-row class="d-flex">
+									<v-col>
+										<p>{{ item.category }}</p>
+									</v-col>
+								</v-row>
+							</template>
+
+              <template v-slot:item.actions="{ item }">
                 <v-btn
                   block
                   color="primary"
-                  :to="slug + item.splocations_id" 
+                  :to="slug + item.id" 
                 >
                   View
                 </v-btn>
@@ -84,14 +83,43 @@
 
             </v-data-table>
           </td>
-        </template> -->
+        </template>
 
-        <!-- <template v-slot:item.approvedVendors="{ item }">
-          <p v-if='item.approvedVendors[0] === "There are no approved vendors"'>0</p>
-          <p v-else-if='item.approvedVendors[0] !== "There are no approved vendors" '>{{item.approvedVendors.length}}</p>
-        </template> -->
+			<template v-slot:item.companyAccountName="{ item }">
+				<v-row class="d-flex">
+					<v-col>
+						<p>{{ item.companyAccountName }}</p>
+					</v-col>
+				</v-row>
+			</template>
+
+			<template v-slot:item.companyApprovedConnections="{ item }">
+				<v-row class="d-flex">
+					<v-col>
+						<p style="text-align:center">{{ item.companyApprovedConnections.fulfillmentValue }}</p>
+					</v-col>
+				</v-row>
+			</template>
+
+			<template v-slot:item.companyYearFounded="{ item }">
+				<v-row class="d-flex">
+					<v-col>
+						<p style="text-align:center;">{{item.companyYearFounded}}</p>
+					</v-col>
+				</v-row>
+			</template>
+
+			<template v-slot:item.companyChannels="{ item }">
+				<v-row class="d-flex">
+					<v-col>
+						<p style="text-align:center;" v-if="item.companyChannels.fulfillmentValue === 'There are no locations'">0</p>
+						<p style="text-align:center;" v-else>{{ item.companyChannels.fulfillmentValue.length }}</p>
+					</v-col>
+				</v-row>
+			</template>
+
     </v-data-table>
-  </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -104,21 +132,21 @@ export default {
   },
 	data() {
 		return {
-			search: '',
+			searchCompanies: '',
 			loading: false,
 			expanded: [],
+			singeExpand: true,
 			outerTableHeaders: [
-				{ text: 'Company', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Primary Category', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Approved Connections', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Years In Business', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: '# of Channels', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Company', value: 'companyAccountName', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Approved Connections', value: 'companyApprovedConnections', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Years In Business', value: 'companyYearFounded', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: '# of Channels', value: 'companyChannels', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
 			],
 			onceNestTableHeaders: [
-				{ text: 'Channel', value: 'vendorNale', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Address', value: 'vendorAddress', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Approved Connections', value: 'vendorContact', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Category', value: 'vendorCategory', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Approved Connections', value: 'connections', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Category', value: 'category', class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
 			],
 
@@ -126,8 +154,7 @@ export default {
 		}
 	},
 	async created() {
-		await this.getBusinesses();
-		this.test();
+		this.getVendorInfo();
 	},
 	computed: {
 			currentUser() {
@@ -135,10 +162,12 @@ export default {
 			},
 	},
 	methods: {
-		test() {
+		getVendorInfo() {
 			this.$http.get('https://www.sowerkbackend.com/api/companies/vendors/channels')
 				.then(res => {
-					console.log(res, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
+					console.log(res.data, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
+					this.vendorChannels = res.data
+					this.loading = true
 				})
 				.catch(err => {
 					console.log(err)

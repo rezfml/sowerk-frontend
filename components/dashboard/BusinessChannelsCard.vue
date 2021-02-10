@@ -9,12 +9,12 @@
     
 		<v-row>
 			<v-col cols="4">
-				<FilterCard
+				<!-- <FilterCard
 					:title="'Filter Channels'"
 					:filters="filters"
 					:locationApproved="viewLocation"
 					:locationFilterTags="locationFilterTags"
-				></FilterCard>
+				></FilterCard> -->
 			</v-col>
 
 			<v-col cols="8">
