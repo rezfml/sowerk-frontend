@@ -125,7 +125,7 @@
           <!--            :filters="filters"-->
           <!--          ></FilterCard>-->
           <!--        </v-col>-->
-          <v-col cols="12" class="d-flex flex-column justify-space-between">
+          <!-- <v-col cols="12" class="d-flex flex-column justify-space-between">
             <FacilitiesCard
               v-if="vendors && loading === true"
               :title="'Find A SOWerk Vendor'"
@@ -135,6 +135,18 @@
               action="View"
               slug="/dashboard/vendors/"
             ></FacilitiesCard>
+          </v-col> -->
+        </v-row>
+
+        <v-row>
+
+          <v-col cols="12" class="d-flex flex-column justify-space-between">
+            <FindASowerkVendorCard
+              :title="'Find A SOWerk Vendor'"
+              :viewAll="false"
+              action="View"
+              slug="/dashboard/vendors/"
+            ></FindASowerkVendorCard>
           </v-col>
         </v-row>
       </v-container>
@@ -145,13 +157,15 @@
 <script>
   import FilterCard from '~/components/dashboard/FilterCard'
   import FacilitiesCard from '@/components/dashboard/FacilitiesCard'
+  import FindASowerkVendorCard from '@/components/dashboard/FindASowerkVendorCard'
 
   export default {
     name: 'facilities',
     layout: 'app',
     components: {
       FacilitiesCard,
-      FilterCard
+      FilterCard,
+      FindASowerkVendorCard
     },
     data() {
       return {
@@ -306,13 +320,6 @@
           }
         ],
         headers: [
-          // {
-          //   text: 'ID',
-          //   align: 'start',
-          //   sortable: false,
-          //   value: 'id',
-          //   class: 'primary--text font-weight-regular'
-          // },
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Address', value: 'addressCityState_vendor', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Category', value: 'services', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
@@ -333,7 +340,8 @@
     //   }
     // },
     async mounted() {
-      await this.getBusinesses();
+      // await this.getBusinesses();
+      this.loading = true
     },
     methods: {
       renderVideoCard() {
@@ -369,7 +377,7 @@
                   console.log('err', err);
                 })
             })
-            console.log('this.vendors', 'vendors');
+            console.log(this.vendors, 'vendors');
           })
           .catch(err => {
             console.log('err', err);
