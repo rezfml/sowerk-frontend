@@ -23,12 +23,9 @@
               style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word"
               class="primary white--text font-weight-regular red-gradient"
             >{{ title }}</v-card-title>
-            <v-card-actions class="d-flex justify-end px-4 py-0">
+            <v-card-actions class="d-flex justify-center py-0">
               <v-row class="py-0 mt-8">
-                <v-spacer></v-spacer>
-                <v-col cols="4" class="py-0">
-                  <v-text-field v-model="search" label="Search By Channel, Name, Email, or Phone" light></v-text-field>
-                </v-col>
+                <v-text-field v-model="search" clearable outlined class="pt-4" style="width: 80%;"label="Search By Channel, Name, Email, or Phone" light></v-text-field>
                   <!--                <v-col cols="4" class="py-0">-->
                   <!--                  <v-combobox-->
                   <!--                    v-model="locationFilterTags"-->
@@ -205,10 +202,7 @@
         >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-0">
           <v-row class="py-0 mt-8">
-            <v-spacer></v-spacer>
-            <v-col cols="4" class="py-0">
-              <v-text-field v-model="search" label="Search By Channel, Name, Email, or Phone" light></v-text-field>
-            </v-col>
+            <v-text-field v-model="search" clearable outlined class="pt-4" style="width: 80%;"label="Search By Channel, Name, Email, or Phone" light></v-text-field>
               <!--            <v-col cols="4" class="py-0">-->
               <!--              <v-combobox-->
               <!--                v-model="locationFilterTags"-->
@@ -430,10 +424,7 @@
         >{{ title }}</v-card-title>
         <v-card-actions class="d-flex justify-end px-4 py-8">
           <v-row class="py-0 mt-8">
-            <v-spacer></v-spacer>
-            <v-col cols="4" class="py-0">
-              <v-text-field v-model="search" label="Search By Channel, Name, Email, or Phone" light></v-text-field>
-            </v-col>
+            <v-text-field v-model="search" clearable outlined class="pt-4" style="width: 80%;"label="Search By Channel, Name, Email, or Phone" light></v-text-field>
               <!--            <v-col cols="4" class="py-0">-->
               <!--              <v-combobox-->
               <!--                v-model="locationFilterTags"-->

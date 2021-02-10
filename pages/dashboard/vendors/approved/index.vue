@@ -90,105 +90,105 @@
         </v-card>
       </transition>
 
-      <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">
+      <v-skeleton-loader
+        v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"
+        type="card-avatar, card-avatar, article, article, actions"
+        min-height="50vh"
+        min-width="40vw"
+      ></v-skeleton-loader>
 
-        <v-col cols="12">
+      <transition name="slide-fade">
+        <AcceptedApplicationCard
+          v-if="loading"
+          :title="'My Approved Vendors'"
+          :viewAll="false"
+          slug="/dashboard/vendors/approved/"
+          action="ViewApproved"
+        ></AcceptedApplicationCard>
+      </transition>
 
-          <!-- <transition name="slide-fade">
-          <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">
-            <p style="color: white; font-size: 24px;" class="pt-4">Looking For A New Vendor? Search The SOWerk Directory.</p>
-            <v-btn
-              style=""
-              class="px-16 mb-4"
-              large
-              outlined
-              rounded
-              color="white"
-              href="/dashboard/vendors/"
-            >Search Directory</v-btn>
-          </v-row>
-          </transition>
+<!--      <v-row v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs">-->
 
-          <transition name="slide-fade">
-            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">
-            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Already Know Vendors To Invite? Use The SOWerk Invite Tool.</p>
-            <v-btn
-              style=""
-              class="px-16 mb-4"
-              large
-              outlined
-              rounded
-              color="primary"
-              href="/dashboard/vendors/invite"
-            >Invite Them Now</v-btn>
-          </v-row>
-          </transition> -->
+<!--        <v-col cols="12">-->
 
-          <!-- <transition name="slide-fade">
-            <FacilitiesCard
-              v-if="loading != false"
-              :title="'My Approved Vendors'"
-              :items="applications"
-              :tableProperties="headers"
-              :viewAll="false"
-              slug="/dashboard/vendors/approved/"
-              action="ViewApproved"
-              :company="company"
-            ></FacilitiesCard>
-          </transition> -->
-        </v-col>
-      </v-row>
-
-      <v-row v-else>
-<!--        <v-col cols="3">-->
-<!--          <v-skeleton-loader-->
-<!--            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"-->
-<!--            type="card-avatar, article, article, actions"-->
-<!--            min-height="50vh"-->
-<!--            min-width="15vw"-->
-<!--          ></v-skeleton-loader>-->
-<!--          <transition name="slide-fade">-->
-<!--            <FilterCard-->
-<!--              title="Filter"-->
-<!--              :filters="filters"-->
-<!--              :locationApproved="locationApproved"-->
-<!--              v-if="loading"-->
-<!--            ></FilterCard>-->
+<!--          &lt;!&ndash; <transition name="slide-fade">-->
+<!--          <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-6"style="background: linear-gradient(to right, #A61C00, #741502);">-->
+<!--            <p style="color: white; font-size: 24px;" class="pt-4">Looking For A New Vendor? Search The SOWerk Directory.</p>-->
+<!--            <v-btn-->
+<!--              style=""-->
+<!--              class="px-16 mb-4"-->
+<!--              large-->
+<!--              outlined-->
+<!--              rounded-->
+<!--              color="white"-->
+<!--              href="/dashboard/vendors/"-->
+<!--            >Search Directory</v-btn>-->
+<!--          </v-row>-->
 <!--          </transition>-->
+
+<!--          <transition name="slide-fade">-->
+<!--            <v-row v-if="loading" class="d-flex flex-column justify-space-between align-center mt-10"style="background: white;">-->
+<!--            <p style="font-size: 24px; text-align: center; width: 50%;" class="pt-4">Already Know Vendors To Invite? Use The SOWerk Invite Tool.</p>-->
+<!--            <v-btn-->
+<!--              style=""-->
+<!--              class="px-16 mb-4"-->
+<!--              large-->
+<!--              outlined-->
+<!--              rounded-->
+<!--              color="primary"-->
+<!--              href="/dashboard/vendors/invite"-->
+<!--            >Invite Them Now</v-btn>-->
+<!--          </v-row>-->
+<!--          </transition> &ndash;&gt;-->
+
+<!--          &lt;!&ndash; <transition name="slide-fade">-->
+<!--            <FacilitiesCard-->
+<!--              v-if="loading != false"-->
+<!--              :title="'My Approved Vendors'"-->
+<!--              :items="applications"-->
+<!--              :tableProperties="headers"-->
+<!--              :viewAll="false"-->
+<!--              slug="/dashboard/vendors/approved/"-->
+<!--              action="ViewApproved"-->
+<!--              :company="company"-->
+<!--            ></FacilitiesCard>-->
+<!--          </transition> &ndash;&gt;-->
 <!--        </v-col>-->
-        <v-col cols="12">
-          <v-skeleton-loader
-            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"
-            type="card-avatar, card-avatar, article, article, actions"
-            min-height="50vh"
-            min-width="40vw"
-          ></v-skeleton-loader>
+<!--      </v-row>-->
 
-          <transition>
-            <AcceptedApplicationCard
-              v-if="loading"
-              :title="'My Approved Vendors'"
-              :viewAll="false"
-              slug="/dashboard/vendors/approved/"
-              action="ViewApproved"
-            ></AcceptedApplicationCard>
-          </transition>
-
-          <!-- <transition name="slide-fade">
-            <FacilitiesCard
-              v-if="loading"
-              :title="'My Approved Vendors'"
-              :items="applications"
-              :outerApprVenHeaders:="outerApprVenHeaders"
-              :tableProperties="headers"
-              :viewAll="false"
-              slug="/dashboard/vendors/approved/"
-              action="ViewApproved"
-              :company="company"
-            ></FacilitiesCard> -->
-          </transition>
-        </v-col>
-      </v-row>
+<!--      <v-row v-else style="width: 100%;">-->
+<!--&lt;!&ndash;        <v-col cols="3">&ndash;&gt;-->
+<!--&lt;!&ndash;          <v-skeleton-loader&ndash;&gt;-->
+<!--&lt;!&ndash;            v-if="!loading && (!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs)"&ndash;&gt;-->
+<!--&lt;!&ndash;            type="card-avatar, article, article, actions"&ndash;&gt;-->
+<!--&lt;!&ndash;            min-height="50vh"&ndash;&gt;-->
+<!--&lt;!&ndash;            min-width="15vw"&ndash;&gt;-->
+<!--&lt;!&ndash;          ></v-skeleton-loader>&ndash;&gt;-->
+<!--&lt;!&ndash;          <transition name="slide-fade">&ndash;&gt;-->
+<!--&lt;!&ndash;            <FilterCard&ndash;&gt;-->
+<!--&lt;!&ndash;              title="Filter"&ndash;&gt;-->
+<!--&lt;!&ndash;              :filters="filters"&ndash;&gt;-->
+<!--&lt;!&ndash;              :locationApproved="locationApproved"&ndash;&gt;-->
+<!--&lt;!&ndash;              v-if="loading"&ndash;&gt;-->
+<!--&lt;!&ndash;            ></FilterCard>&ndash;&gt;-->
+<!--&lt;!&ndash;          </transition>&ndash;&gt;-->
+<!--&lt;!&ndash;        </v-col>&ndash;&gt;-->
+<!--        <v-col cols="12">-->
+<!--          &lt;!&ndash; <transition name="slide-fade">-->
+<!--            <FacilitiesCard-->
+<!--              v-if="loading"-->
+<!--              :title="'My Approved Vendors'"-->
+<!--              :items="applications"-->
+<!--              :outerApprVenHeaders:="outerApprVenHeaders"-->
+<!--              :tableProperties="headers"-->
+<!--              :viewAll="false"-->
+<!--              slug="/dashboard/vendors/approved/"-->
+<!--              action="ViewApproved"-->
+<!--              :company="company"-->
+<!--            ></FacilitiesCard> &ndash;&gt;-->
+<!--&lt;!&ndash;          </transition>&ndash;&gt;-->
+<!--        </v-col>-->
+<!--      </v-row>-->
 
     </v-container>
   </v-app>
@@ -586,8 +586,9 @@
         console.log(this.applications, 'wow so done')
         this.loading=true;
       },
+
       async getSPCompany(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + id)
           .then(async (response) => {
             console.log('response.data for company', response.data)
             this.applications[this.applicationsCount].img = response.data.imgUrl;
@@ -598,7 +599,7 @@
           })
       },
       async getSPLocation(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/locations/' + id)
+        await this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + id)
           .then(async (response) => {
             console.log('response.data for location', response.data)
             this.applications[this.applicationsCount].contact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;

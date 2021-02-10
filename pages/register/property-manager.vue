@@ -514,6 +514,7 @@ export default {
         })
     },
     async registerUser(company) {
+      this.user.email = this.user.email.toLowerCase()
       let { data, status } = await this.$http
         .post(
           'https://www.sowerkbackend.com/api/auth/register',

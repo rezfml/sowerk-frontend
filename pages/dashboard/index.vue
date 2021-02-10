@@ -252,7 +252,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -276,7 +276,8 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center; position: absolute; top: 30%;">See all your approved Vendor connections and dive into any one Customer where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account.</v-card-text>
+                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -654,7 +655,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center text-no-wrap" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:50px;max-height:50px;"></v-img>
@@ -679,7 +680,8 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center; position: absolute; top: 30%;">See all your approved Vendor connections and dive into any one Customer where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account.</v-card-text>
+                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -1061,7 +1063,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -1085,7 +1087,8 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center; position: absolute; top: 30%;">See all your approved Vendor connections and dive into any one Customer where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account.</v-card-text>
+                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -1461,7 +1464,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -1485,7 +1488,8 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center; position: absolute; top: 30%;">See all your approved Vendor connections and dive into any one Customer where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account.</v-card-text>
+                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -1861,7 +1865,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels are any facility, company division or department, or even a large project where you will want to specifically find, vet, and manage Vendors.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -1885,7 +1889,8 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-170.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 50%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center; position: absolute; top: 30%;">See all your approved Vendor connections and dive into any one Customer where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account.</v-card-text>
+                    <v-card-text class="" style="font-size: 108px; color: #A61C00; text-align: center; position: absolute; top: 60%;"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>

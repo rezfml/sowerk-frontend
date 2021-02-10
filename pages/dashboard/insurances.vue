@@ -59,8 +59,9 @@
 
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px">Manage Insurance Documents</v-card-title>
-            <v-card-text style="font-size: 18px;">Customers want to know you have insurance and can be trusted, and at SOWerk we want to make that easy for you to demonstrate and/or provide. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
-            <v-card-text style="font-size: 18px;">Therefore, we give you the option to make any insurance document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your insurance documents. Please note, when you select Unpublished SOWerk will still indicate that an insurance document exists on your profile and the insurance coverage type, but no other details will be provided.</v-card-text>
+            <v-card-text v-if="company.company_type==='false'" style="font-size: 18px;">Customers want to know you have insurance and can be trusted, and at SOWerk we want to make that easy for you to demonstrate and/or provide. We also understand that some information should remain limited to what others can view through SOWerk. </v-card-text>
+            <v-card-text v-if="company.company_type==='false'" style="font-size: 18px;">Therefore, we give you the option to make any insurance document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your insurance documents. Please note, when you select Unpublished SOWerk will still indicate that an insurance document exists on your profile and the insurance coverage type, but no other details will be provided.</v-card-text>
+            <v-card-text v-else style="font-size: 18px;">Uploading any insurance information is optional. Furthermore, we give you the option to make any insurance document uploaded Public (visible to any business reviewing your profile) or Unpublished where only businesses that you are connected to (Approved Vendor) as well as the businesses you are applying for can view your insurance documents. Please note, when you select Unpublished SOWerk will still indicate that an insurance document exists on your profile and the insurance coverage type, but no other details will be provided.</v-card-text>
           </v-col>
         </v-row>
       </v-card>
@@ -68,12 +69,15 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8 d-flex flex-column align-center" v-if="loading">
-        <v-btn @click="openUploadModel(item)" color="primary" class="my-1 py-6" style="width: 50%; color: white;">Add Insurance</v-btn>
+        <v-btn @click="openUploadModel()" color="primary" class="my-4 py-6" style="width: 40%; color: white;">Add Insurance</v-btn>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name, Insurance Company, Insurance Type, Policy Number, Expiration Date, or Document Visibility" v-model="searchInsurance" light></v-text-field>
         <v-data-table
           :items="insuranceDocuments"
           :headers="insuranceHeaders"
           :items-per-page="5"
           style="width: 100%;"
+          class="mt-10"
+          :search="searchInsurance"
         >
           <template v-slot:item.documentVisible="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <v-select
@@ -107,7 +111,7 @@
           <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Insurance Documents</v-card-title>
           <v-card-text class="pt-16 ml-4" style="text-align: center">Upload any insurance document or template that you have, or is required of you here.</v-card-text>
           <v-text-field
-            label="Insurance Name"
+            label="Insurance Name (Commercial Auto Policy)"
             style="width: 80%;"
             outlined
             v-model="insurance.name"
@@ -132,12 +136,15 @@
           ></v-text-field>
           <v-card-title class="my-2" style="text-align: center;">Expiration Date</v-card-title>
           <v-date-picker
-            style="width: 80%;"
+            header-color="primary"
+            class="mb-6"
+            style="width: 80%; border: 1px solid #7C7C7C; border-radius: 25px;"
             width="80%"
-              label="Expiration Date"
-              outlined
-              v-model="insurance.expirationDateVal"
+            label="Expiration Date"
+            outlined
+            v-model="insurance.expirationDateVal"
           ></v-date-picker>
+          <v-card-title class="my-2" style="text-align: center;">Upload File</v-card-title>
           <v-img
             :src="insurance.documentUrl"
             :aspect-ratio="1"
@@ -169,6 +176,7 @@
     layout: "app",
     data() {
       return {
+        searchInsurance: '',
         documentVisibleOptions: [
           'Published',
           'Unpublished'
@@ -421,4 +429,17 @@
 </script>
 
 <style scoped>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

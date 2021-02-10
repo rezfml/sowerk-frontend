@@ -1,33 +1,37 @@
 <template>
-  <v-container>
+  <v-app class="" overflow-y-auto>
     <v-progress-circular
-      v-if="loading != true"
+      v-if="!loading"
       indeterminate
       color="primary"
       :size="20" >
     </v-progress-circular>
-    
+
+    <v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannels" light></v-text-field>
+
     <!-- OUTER MOST DATA TABLE -->
     <v-data-table
-      v-if="this.loading"
+      :search="searchChannels"
+      v-if="loading"
       :items="company.locations"
       :headers="outerTableHeaders"
       :items-per-page="10"
-      :search="search"
       :expanded.sync="expanded"
       show-expand
       single-expand
+      style="width: 100%;"
       >
 
         <!-- ONCE NESTED DATA TABLE -->
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
+            <v-text-field clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Vendor Company or Channel" v-model="searchVendors" light></v-text-field>
             <v-data-table
               v-if="item.approvedVendors[0] !== 'There are no approved vendors'"
               :items="item.approvedVendors"
               :headers="onceNestTableHeaders"
               :items-per-page="10"
-              :search="search"
+              :search="searchVendors"
             >
 
               <template
@@ -36,7 +40,7 @@
                 <v-btn
                   block
                   color="primary"
-                  :to="slug + item.splocations_id" 
+                  :to="slug + item.splocations_id"
                 >
                   View
                 </v-btn>
@@ -51,7 +55,7 @@
           <p v-else-if='item.approvedVendors[0] !== "There are no approved vendors" '>{{item.approvedVendors.length}}</p>
         </template>
     </v-data-table>
-  </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -64,21 +68,23 @@ export default {
   },
   data() {
     return {
+      searchChannels: '',
+      searchVendors: '',
 			loading: false,
 			outerTableHeaders: [
-        { text: 'Your Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-center' },				
+        { text: 'Your Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+				{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
 			],
 			onceNestTableHeaders: [
-        { text: 'Company', value: 'spCompanyName', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Channel', value: 'spChannelName', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Channel Address', value: 'spChannelAddress', class: 'primary--text font-weight-bold text-h6 text-center' },
-        { text: 'Contact', value: 'spChannelContact', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Email', value: 'spChannelEmail', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-				{ text: 'Phone', value: 'spChannelPhone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        { text: 'Company', value: 'spCompanyName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+				{ text: 'Channel', value: 'spChannelName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+				{ text: 'Channel Address', value: 'spChannelAddress', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+        { text: 'Contact', value: 'spChannelContact', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+				{ text: 'Email', value: 'spChannelEmail', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+				{ text: 'Phone', value: 'spChannelPhone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 				{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
       ],
-      
+
       company: {},
       expanded: [],
       expandedChannel: [],
@@ -99,7 +105,7 @@ export default {
 		currentUser() {
 			return this.$store.state.user.user.user;
 		},
-	},	
+	},
   methods: {
     async getCompany(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
@@ -121,6 +127,7 @@ export default {
                   spChannelContact: '',
                   spChannelEmail: '',
                   spChannelPhone: '',
+                  spType: ''
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
                   .then(async (response) => {
@@ -152,7 +159,7 @@ export default {
         .catch(err => {
           console.log('error in getting company', err)
         })
-    }    
+    }
   }
 }
 </script>

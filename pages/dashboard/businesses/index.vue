@@ -24,10 +24,10 @@
     <transition name="slide-fade">
       <v-card style="height:460px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true && this.company.company_type === 'false'">
         <div style="position:relative;border-radius:1%;">
-          <v-btn @click="showVideoCard" style="margin-left:2%;margin-top:2%;background-color:darkred;color:white;">X</v-btn>
-          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:12%;border-radius:3%;margin-top:5px;">
-          </iframe>
-        </div>        
+<!--          <iframe src="https://player.vimeo.com/video/495537837" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">-->
+<!--          </iframe>-->
+          <p style="text-align: center; width: 100%;">Coming Soon!</p>
+        </div>
       </v-card>
     </transition>
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
@@ -85,14 +85,7 @@
               <v-card class="white">
                 <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="connections.length > 0">Customer Connections - {{connections.length}}</v-card-title>
                 <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
-                <v-card-actions class="d-flex justify-end px-4 py-0">
-                  <v-row class="py-0 mt-8">
-                    <v-spacer></v-spacer>
-                    <v-col cols="4" class="py-0">
-                      <v-text-field v-model="search" label="Search By Customer, Address, Name, Email, or Phone" light></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-card-actions>
+                <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer, Address, Name, Email, or Phone" v-model="search" light></v-text-field>
                 <v-data-table
                   :items="businesses"
                   :headers="providerHeaders"
@@ -276,6 +269,7 @@
           { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Total Connections', value: 'Total Connections', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         // connectionsHeaders: [
@@ -369,6 +363,7 @@
         let filters = [];
         this.connections.forEach(function(connection) {
           filters.push(connection.pmlocations_id);
+          filters.push(connection.locations_id);
         });
 
         let uniqueFilters = [...new Set(filters)];
@@ -388,7 +383,14 @@
         })
 
         this.businesses = businesses;
-        console.log(this.businesses)
+        for(let i=0; i<this.businesses.length; i++) {
+          this.businesses[i]['Total Connections'] = this.connections.filter(connection => {
+            if(this.businesses[i].id === connection.pmlocations_id || this.businesses[i].id === connection.locations_id) {
+              return connection
+            }
+          }).length;
+        }
+        console.log(this.businesses, 'HELLO')
 
       },
       async getLocations(companies) {

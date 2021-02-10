@@ -67,7 +67,7 @@
             <v-card-text style="font-size: 18px; word-break: break-word; white-space: pre-wrap;" v-else>Businesses can utilize the Requested Documents page for uploading specific forms that businesses require in order to do business with vendors. By uploading your Requested Documents to SOWerk, this allows business to already have what they need to start vetting you for their jobs and projects moving forward.</v-card-text>
             <v-row class="d-flex flex-wrap justify-center align-center">
               <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined v-if="company.company_type === 'false'">Requesting Documents</v-btn>
-              <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined v-else>Requested Documents</v-btn>
+              <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined v-else>Pending Documents</v-btn>
               <v-btn @click="allDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
               <v-btn @click="requestingDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
               <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
@@ -81,23 +81,49 @@
       <v-card class="mt-8" v-if="loading && requestDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && company.company_type==='false'" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
         <v-card-title v-else-if="company.company_type==='false'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Requesting Documents</v-card-title>
-        <v-card-title v-else-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && company.company_type==='true'" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Requested Documents</v-card-title>
-        <v-card-title v-else-if="company.company_type==='true'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Requested Documents</v-card-title>
+        <v-card-title v-else-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && company.company_type==='true'" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
+        <v-card-title v-else-if="company.company_type==='true'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>
         <v-data-table
           :items="vendorDocuments"
-          :headers="vendorHeaders"
+          :headers="vendorBusinessHeaders"
           :items-per-page="5"
           class="mt-12"
+          :search="searchDocument"
+          v-if="company.company_type === 'true'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
           </template>
           <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
-            <p>{{item.created.slice(0,4)}}</P>
+            <p>{{item.created.slice(0,10)}}</P>
+          </template>
+          <template v-slot:item.vendorCompanyName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.vendorCompanyName}}</p>
+            <p>{{item.vendorChannelName}}</p>
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
             <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
-            <v-btn v-if="company.company_type==='false'" @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
+            <v-btn @click="resend(item)" color="white" outlined class="my-1" style="width: 80%; background-color: #7C7C7C;">Resend</v-btn>
+          </template>
+        </v-data-table>
+        <v-data-table
+          :items="vendorDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+          class="mt-12"
+          :search="searchDocument"
+          v-else
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,10)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <v-btn @click="openUploadModel(item)" color="primary" class="my-1" style="width: 80%; color: white;">Send Back To Business</v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -107,7 +133,9 @@
       <v-card class="mt-8" v-if="loading && allDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">All Documents</v-card-title>
+        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>
         <v-data-table
+          :search="searchDocument"
           :items="companyDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
@@ -128,28 +156,14 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="mt-8 d-flex flex-column align-center" v-if="loading && requestingDocumentsModalLoading">
+      <v-card class="mt-8" v-if="loading && requestingDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Request A Document</v-card-title>
-        <v-select
-          class="mt-12"
-          label="Please Select A Vendor From Your Approved Vendors List To Request One of Their Documents"
-          :items="approvedVendors"
-          style="width: 80%;"
-        >
-          <template slot="selection" slot-scope="data">
-            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
-          </template>
-          <template slot="item" slot-scope="data">
-            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>
-          </template>
-        </v-select>
         <v-data-table
-          :items="approvedCompanyDocuments"
-          :headers="vendorApprovedHeaders"
           :items-per-page="5"
           class="mt-12"
-          style="width: 80%;"
+          :items="companyTemplateDocuments"
+          :headers="vendorApprovedHeaders"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -158,9 +172,44 @@
             <p>{{item.created.slice(0,4)}}</P>
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-            <v-btn @click="requestDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Request Document</v-btn>
+            <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;" v-if="currentUser.is_superuser">Remove</v-btn>
+            <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
+            <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
           </template>
         </v-data-table>
+<!--        THIS WAS THE ORIGINAL FEATURE FOR A BUSINESS TO REQUEST A DOCUMENT FROM A VENDOR AND THE VENDORS LIST OF DOCUMENTS. NEW FEATURE IS BUSINESS SENDING THEIR DOCUMENT TO A VENDOR-->
+<!--        <v-select-->
+<!--          class="mt-12"-->
+<!--          label="Please Select A Vendor From Your Approved Vendors List To Request One of Their Documents"-->
+<!--          :items="approvedVendors"-->
+<!--          style="width: 80%;"-->
+<!--        >-->
+<!--          <template slot="selection" slot-scope="data">-->
+<!--            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>-->
+<!--          </template>-->
+<!--          <template slot="item" slot-scope="data">-->
+<!--            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>-->
+<!--          </template>-->
+<!--        </v-select>-->
+<!--        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>-->
+<!--        <v-data-table-->
+<!--          :items="approvedCompanyDocuments"-->
+<!--          :headers="vendorApprovedHeaders"-->
+<!--          :search="searchDocument"-->
+<!--          :items-per-page="5"-->
+<!--          class="mt-12"-->
+<!--          style="width: 80%;"-->
+<!--        >-->
+<!--          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">-->
+<!--            <p>{{item.documentName}}</p>-->
+<!--          </template>-->
+<!--          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">-->
+<!--            <p>{{item.created.slice(0,4)}}</P>-->
+<!--          </template>-->
+<!--          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">-->
+<!--            <v-btn @click="requestDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Request Document</v-btn>-->
+<!--          </template>-->
+<!--        </v-data-table>-->
       </v-card>
     </transition>
 
@@ -247,6 +296,7 @@
     layout: "app",
     data() {
       return {
+        searchDocument: '',
         successrequestdoc: null,
         messageVendorLocations: [],
         messageVendorLocationChosen: {},
@@ -260,6 +310,7 @@
         companyUploadDocument: {
 
         },
+        companyTemplateDocuments: [],
         successuploaddocument: null,
         requestDocumentsModalLoading: true,
         allDocumentsModalLoading: false,
@@ -268,7 +319,14 @@
         vendorDocuments: [],
         vendorHeaders: [
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
-          { text: 'Upload Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Sent Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Recipient', value: 'vendorCompanyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        vendorBusinessHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Sent Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Recipient', value: 'vendorCompanyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         vendorApprovedHeaders: [
@@ -355,11 +413,13 @@
       },
       async closeRequestDocLoad() {
         this.openRequestDocLoad = false
+        this.searchDocument = '';
       },
       async requestDocument(item) {
         console.log(item, 'hey!')
         this.chosenDoc = item
         this.openRequestDocLoad = true
+        this.searchDocument = '';
         this.successrequestdoc = null;
         await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + item.companies_id)
           .then(response => {
@@ -373,6 +433,7 @@
       async seeListOfCompanyDocuments(item) {
         console.log(item, "HEY")
         this.approvedCompanyDocuments = [];
+        this.searchDocument = '';
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + item.id)
           .then(response => {
             console.log(response.data, 'response for company docs')
@@ -421,6 +482,7 @@
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = false
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async allDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
@@ -429,7 +491,9 @@
         this.uploadDocumentsModalLoading = false
         this.companyDocuments = [];
         await this.getDocuments();
+        await this.getVendorProvidedDocuments();
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async requestingDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
@@ -437,6 +501,9 @@
         this.requestingDocumentsModalLoading = true
         this.uploadDocumentsModalLoading = false
         this.openUploadModelLoad = false;
+        this.companyTemplateDocuments = [];
+        this.searchDocument = '';
+        await this.getDocuments();
       },
       async uploadDocumentsModalLoad() {
         this.successuploaddocument = null;
@@ -445,6 +512,7 @@
         this.requestingDocumentsModalLoading = false
         this.uploadDocumentsModalLoading = true
         this.openUploadModelLoad = false;
+        this.searchDocument = '';
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
@@ -469,7 +537,6 @@
               console.log(err, 'err in getting list')
             })
         }
-
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response.data, 'response for company docs')
@@ -478,6 +545,8 @@
                 if(this.company.company_type === 'false') {
                   this.companyDocuments.push(response.data[i])
                 } else if (this.company.company_type === 'true' && response.data[i].vendor_companiesId === null) {
+                  this.companyTemplateDocuments.push(response.data[i])
+                } else if (this.company.company_type === 'true' && response.data[i].vendor_companiesId !== null) {
                   this.companyDocuments.push(response.data[i])
                 }
               }
@@ -500,13 +569,27 @@
               console.log(err, 'err in getting list')
             })
         } else {
-          await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompaniesId/' + this.currentUser.companies_id)
+          await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id)
             .then(response => {
               console.log(response.data, 'response for company docs')
               if(response.data.length > 0 && response.data[0] !== 'There are no company documents') {
                 for(let i=0; i<response.data.length; i++) {
                   if (this.company.company_type === 'true' && response.data[i].vendor_companiesId !== null) {
-                    this.vendorDocuments.push(response.data[i])
+                    let vendorDoc = {
+                      companies_id: response.data[i].companies_id,
+                      created: response.data[i].created,
+                      documentName: response.data[i].documentName,
+                      documentUrl: response.data[i].documentUrl,
+                      id: response.data[i].id,
+                      modified: response.data[i].modified,
+                      required: response.data[i].required,
+                      vendor_channelsId: response.data[i].vendor_channelsId,
+                      vendor_companiesId: response.data[i].vendor_companiesId,
+                      vendorCompanyName: null,
+                      vendorChannelName: null,
+                    }
+                    this.vendorDocuments.push(vendorDoc)
+                    this.companyDocuments.push(vendorDoc)
                   }
                 }
               }
@@ -515,8 +598,34 @@
               console.log(err, 'err in getting list')
             })
         }
-
+        if(this.company.company_type === "true") {
+          await this.getVendorDocumentChannelCompany();
+        }
         this.loading = true;
+      },
+      async getVendorDocumentChannelCompany() {
+        for(let i=0; i<this.vendorDocuments.length; i++) {
+          this.$http.get('https://www.sowerkbackend.com/api/locations-name/' + this.vendorDocuments[i].vendor_channelsId)
+            .then(response => {
+              console.log(response.data, 'LOCATION VENDOR DOC')
+              this.vendorDocuments[i].vendorChannelName = response.data.name;
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.vendorDocuments[i].vendor_companiesId)
+            .then(response => {
+              console.log(response.data, 'LOCATION VENDOR DOC')
+              this.vendorDocuments[i].vendorCompanyName = response.data.account_name;
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
+      },
+      async resend(item) {
+        let resendObj = {...item}
+        console.log(resendObj, 'hey')
       },
       async clickCompanyDocumentsImageUpload() {
         console.log(this);

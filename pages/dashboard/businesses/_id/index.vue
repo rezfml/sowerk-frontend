@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
-    <v-container class="px-0 fill-height" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad && !showCompaniesApprovedModal && !showRelationshipApprovedModal">
+    <v-container class="px-0" style="max-width: 95%; height: auto;">
+      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoadLocation && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad && !showCompaniesApprovedModal && !showRelationshipApprovedModal">
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -32,7 +32,7 @@
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.address}}</v-card-text>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.city}} {{companyForVendor.state}}, {{companyForVendor.zipcode}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Joined SOWerk</v-card-title>
-            <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
+            <v-card-text style="font-size: 24px; text-align: left;" v-if="companyForVendor.creationDate">{{companyForVendor.creationDate.slice(0,4)}}</v-card-text>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Founded</v-card-title>
             <v-card-text style="font-size: 24px; text-align: left;">{{companyForVendor.year_founded}}</v-card-text>
             <a :href="'https://' + companyForVendor.website" target="_blank" class="my-8 py-6" style="text-decoration: none; text-align: center; width: 90%; font-size: 24px; border-radius: 50px; border: 1px solid #A61C00;">Company Website</a>
@@ -65,14 +65,14 @@
           ></v-skeleton-loader>
           <transition name="slide-fade">
             <div v-if="loading" class="d-flex justify-center align-center mt-16">
-              <div style="width: 30%;" class="d-flex justify-center">
-                <v-card-title style="width: 100%;color: #A61C00; font-size: 3rem;" v-if="companyForVendor.locations.length > 0">{{companyForVendor.locations.length}}</v-card-title>
-                <v-card-title style="width: 100%;color: #A61C00; font-size: 3rem;" v-else>0</v-card-title>
+              <div style="width: 30%; word-break: break-word; white-space: pre-wrap;" class="d-flex justify-center">
+                <v-card-title style="color: white; font-size: 72px;" v-if="companyForVendor.locations.length > 0">{{companyForVendor.locations.length}}</v-card-title>
+                <v-card-title style="color: white; font-size: 108px;" v-else>0</v-card-title>
               </div>
               <div style="width: 70%; word-break: break-word; white-space: pre-wrap;">
                 <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
                 <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-else>{{companyForVendor.brand_name}}</v-card-title>-->
-                <v-card-title style="font-size: 2.5rem; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.75em;">Channels On SOWerk</v-card-title>
+                <v-card-title style="color: white; font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.75em;">Channels On SOWerk</v-card-title>
               </div>
             </div>
           </transition>
@@ -109,6 +109,7 @@
               <v-card-title style="color:#A61C00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap;">{{location.name}}</v-card-title>
               <v-card-text style="font-size: 18px; text-align: center;">{{location.address}}</v-card-text>
               <v-card-text style="font-size: 18px; text-align: center;">{{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;">Radius Provider ({{location.radius}}mi)</v-card-text>
               <v-card-text style=" font-size: 18px; text-align: center;">{{location.description}}</v-card-text>
               <div style="width: 100%;" class="d-flex justify-center">
                 <v-card-text style="text-align: center; font-size: 18px;">Founded: <span style="color: #A61C00">{{companyForVendor.year_founded}}</span></v-card-text>
@@ -164,20 +165,21 @@
               ></v-select>
               <v-card-text style="text-align: center; font-size: 18px;" v-if="location.locationtags[0] === 'There are no location tags'">There are no location tags for this channel</v-card-text>
               <v-divider class="mx-auto my-4" style="width: 90%;"></v-divider>
+              <v-card-text style="text-align: center; font-size: 48px; color: #A61C00; line-height: 1.25rem; word-break: break-word; white-space: pre-wrap;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+              <div class="d-flex justify-center" style="width: 100%;">
+                <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
+                <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
+              </div>
+              <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
               <v-row style="width: 100%;" class="d-flex nowrap mt-6">
                 <v-card-text style="width: 50%; font-size: 24px; text-align: center" >Internal Channel Notes</v-card-text>
                 <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="locationNotes.length > 0">{{locationNotes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               </v-row>
               <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">
                 <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">Read Notes</v-btn>
-                <v-btn class="mx-auto" @click="addNotesModal" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
+                <v-btn class="mx-auto" @click="addNotesModalCompany" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
-              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-card-text style="text-align: center; font-size: 48px; color: #A61C00">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-              <div class="d-flex justify-center mb-4" style="width: 100%;">
-                <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">phone</v-icon>{{location.phone}}</v-card-text>
-                <v-card-text style="text-align: center; font-size: 18px;" v-if="connections.length > 0"><v-icon class="mr-2" style="color: #A61C00">mail</v-icon>{{location.email}}</v-card-text>
-              </div>
               <!--              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>-->
               <!--              <v-row style="width: 100%;" class="d-flex nowrap mt-6">-->
               <!--                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="connections.length > 0">{{connections.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
@@ -318,7 +320,6 @@
             min-height="50vh"
             min-width="25vw"
           ></v-skeleton-loader>
-          <v-btn v-if="loading" color="primary" rounded class="mt-16" style="width: 100%;" @click="openRequestModal">REQUEST TO APPLY</v-btn>
           <v-btn v-if="loading" color="#7C7C7C" rounded class="mt-2" style="color: white; width: 100%;" @click="openMessageModal">SEND MESSAGE</v-btn>
           <transition name="slide-fade">
             <v-card v-if="loading" class="d-flex flex-column align-center mt-4" style="width: 100%;">
@@ -335,7 +336,7 @@
                 </v-avatar>
               </v-row>
               <v-divider class="mt-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-card-text style="text-align: center; font-size: 18px;"><span style="color: #A61c00" v-if="connections.length > 0">Approved Customer</span><span style="color: #A61c00" v-else>Non-Approved Customer</span></v-card-text>
+              <v-card-text style="text-align: center; font-size: 18px;"><span style="color: #A61c00" v-if="connections.length > 0">Approved Vendor</span><span style="color: #A61c00" v-else>Non-Approved Vendor</span></v-card-text>
               <div class="d-flex justify-center mb-4">
                 <v-card-title style="color: #A61C00; font-size: 108px;">{{singleCompanyRelationshipConnections.length}}</v-card-title>
                 <div class="d-flex flex-column align-center">
@@ -390,7 +391,7 @@
       </v-row>
 
       <transition name="slide-fade">
-        <v-card v-if="showCompaniesApprovedModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="showCompaniesApprovedModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Companies Approved with {{companyForVendor.account_name}}</v-card-title>
           <v-data-table
             :headers="singleCompanyConnectionsHeaders"
@@ -399,7 +400,7 @@
             :items-per-page="10"
           >
             <template v-slot:item.imgUrl="{ item }" class="d-flex flex-column align-center">
-              <v-avatar size="100" class="text-center mr-6 mt-4 rounded-circle elevation-5" color="white">
+              <v-avatar size="100" class="text-center my-4 rounded-circle elevation-5" color="white">
                 <v-img :src="item.imgUrl" v-if="item.imgUrl !== ''"></v-img>
                 <v-icon v-else size="60">person</v-icon>
               </v-avatar>
@@ -410,7 +411,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="showRelationshipApprovedModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="showRelationshipApprovedModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Relationships with {{companyForVendor.account_name}}</v-card-title>
           <v-data-table
             :headers="singleCompanyConnectionRelationshipsHeaders"
@@ -446,7 +447,100 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="addNotesModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="addNotesModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}}</v-card-title>
+          <v-select
+            label="Select the Vendor's Channel that goes with your note"
+            style="width: 80%;"
+            :items="companyForVendor.locations"
+            solo
+            v-model="note.spLocationsId"
+            outlined
+            item-text="name"
+            item-value="id"
+          >
+            <template slot="selection" slot-scope="data">
+              <p>{{ data.item.name }}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p>{{ data.item.name }}</p>
+            </template>
+          </v-select>
+          <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
+          <v-select
+            label="Select the Channel that goes with your note"
+            style="width: 80%;"
+            :items="company.locations"
+            solo
+            v-model="chosenLocation"
+            outlined
+          >
+            <template slot="selection" slot-scope="data">
+              <p>{{ data.item.name }}</p>
+            </template>
+            <template slot="item" slot-scope="data">
+              <p>{{ data.item.name }}</p>
+            </template>
+          </v-select>
+          <v-text-field
+            label="Your note goes here"
+            style="width: 80%;"
+            outlined
+            v-model="note.note"
+          ></v-text-field>
+          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
+          <v-img
+            :src="note.fileUrl"
+            :aspect-ratio="1"
+            class="my-8 rounded-circle flex-grow-1"
+            style="width: 100%; max-width: 300px;"
+            v-else-if="note.fileUrl"
+          ></v-img>
+          <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
+          <img
+            src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
+            alt="SoWerk rounded icon"
+            style="width: 150px;"
+            v-else
+          />
+          <v-file-input
+            class="company-image-upload ma-0 pa-0"
+            :class="{
+                        'company-image-upload--selected': notesFileFile
+                      }"
+            v-model="notesFileFile"
+            v-on:change.native="selectNotesFile"
+            id="companyImage"
+            style="visibility: hidden; height: 0; max-height: 0;"
+          ></v-file-input>
+          <v-btn
+            v-if="note.fileUrl"
+            @click="clearNotesFile"
+            color="#7C7C7C"
+            rounded
+            class="flex-grow-0 px-10 py-6 my-4"
+            style="color: white;"
+          >Clear File</v-btn
+          >
+          <v-btn
+            @click="clickNotesFileUpload"
+            color="primary"
+            outlined
+            rounded
+            class="flex-grow-0 px-10 py-6 my-4"
+          >Upload File</v-btn
+          >
+          <v-btn @click="submitNoteCompany" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
+          <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
+          <v-btn v-if="this.$vuetify.breakpoint.width > 1500" color="primary" style="font-size: 1rem; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
+          <v-btn v-else-if="this.$vuetify.breakpoint.width < 1500" color="primary" style="font-size: 1rem;margin-bottom:2%" @click="exitAddNotesModalLoad">< Back</v-btn>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="addNotesModalLoadLocation" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}} - {{location.name}}</v-card-title>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
@@ -470,16 +564,16 @@
             outlined
             v-model="note.note"
           ></v-text-field>
+          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <v-img
             :src="note.fileUrl"
             :aspect-ratio="1"
             class="my-8 rounded-circle flex-grow-1"
             style="width: 100%; max-width: 300px;"
-            v-if="note.fileUrl && notesFileFile.type === 'image/jpeg'"
+            v-else-if="note.fileUrl"
           ></v-img>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
           <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
           <img
             src="https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png"
@@ -498,6 +592,15 @@
             style="visibility: hidden; height: 0; max-height: 0;"
           ></v-file-input>
           <v-btn
+            v-if="note.fileUrl"
+            @click="clearNotesFile"
+            color="#7C7C7C"
+            rounded
+            class="flex-grow-0 px-10 py-6 my-4"
+            style="color: white;"
+          >Clear File</v-btn
+          >
+          <v-btn
             @click="clickNotesFileUpload"
             color="primary"
             outlined
@@ -507,13 +610,13 @@
           >
           <v-btn @click="submitNote" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Internal Note</v-btn>
           <v-card-title style="color: #A61c00; text-align: center; font-size: 24px;" v-if="addNotesSuccess">Successfully Added Note!</v-card-title>
-          <v-btn v-if="this.$vuetify.breakpoint.width > 1500" color="primary" style="font-size: 1rem; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoad">< Back</v-btn>
-          <v-btn v-else-if="this.$vuetify.breakpoint.width < 1500" color="primary" style="font-size: 1rem;margin-bottom:2%" @click="exitAddNotesModalLoad">< Back</v-btn>
+          <v-btn v-if="this.$vuetify.breakpoint.width > 1500" color="primary" style="font-size: 1rem; position: absolute; top: 10px; right: 10px;" @click="exitAddNotesModalLoadLocation">< Back</v-btn>
+          <v-btn v-else-if="this.$vuetify.breakpoint.width < 1500" color="primary" style="font-size: 1rem;margin-bottom:2%" @click="exitAddNotesModalLoadLocation">< Back</v-btn>
         </v-card>
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="notesModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center">
+        <v-card v-if="notesModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor</v-card-title>
           <v-data-table
             :headers="notesHeaders"
@@ -521,16 +624,21 @@
             style="width: 90%;"
             :items-per-page="10"
           >
+            <template v-slot:item.channel="{ item }" class="d-flex flex-column align-center">
+              <p>{{item.channel}}</p>
+            </template>
             <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
-              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>
-              <p v-else>{{item.note}}</p>
+              <!--              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>-->
+              <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
+            <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
+              <p v-if="item.created">{{item.created.slice(0, 10)}}</p>
+            </template>
             <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
-              <v-btn>View</v-btn>
               <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
             </template>
           </v-data-table>
@@ -545,7 +653,7 @@
       <!--      >-->
 
       <transition name="slide-fade">
-        <v-card v-if="requestModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto;" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="requestModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center justify-center">
           <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
@@ -597,13 +705,13 @@
       </transition>
       <!--      </v-overlay>-->
 
-      <!--      <v-overlay-->
-      <!--        :absolute="absolute"-->
-      <!--        :opacity="opacity"-->
-      <!--        :value="overlayMessage"-->
-      <!--      >-->
+      <!--            <v-overlay-->
+      <!--              :absolute="absolute"-->
+      <!--              :opacity="opacity"-->
+      <!--              :value="overlayMessage"-->
+      <!--            >-->
       <transition name="slide-fade">
-        <v-card v-if="messageModalLoad" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="messageModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Account Name: <span style="color: #A61c00">{{companyForVendor.account_name}}</span></v-card-title>
           <v-card-title style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Channel Name: <span style="color: #A61c00">{{location.name}}</span></v-card-title>
           <v-form class="mx-4 my-2" style="width: 80%;">
@@ -657,7 +765,7 @@
       <!--      </v-overlay>-->
 
       <transition name="slide-fade">
-        <v-card v-if="openCompanyLocationsModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="openCompanyLocationsModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
           <v-data-table
             :items="companyForVendor.locations"
             v-if="companyForVendor.locations[0] != 'There are no locations'"
@@ -687,7 +795,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="approvedChannelsModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
+        <v-card v-if="approvedChannelsModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Approved Connections To Current Vendor</v-card-title>
           <v-data-table
             :items="approvedChannelsList"
@@ -714,7 +822,7 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="recentlyApprovedChannelsModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center" >
+        <v-card v-if="recentlyApprovedChannelsModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center" >
           <v-card-title style="color: white; background-color: #A61C00; text-align: center; width: 100%;">Your Company Recently Approved Connections To Current Vendor</v-card-title>
           <v-data-table
             :items="recentlyApprovedChannelsList"
@@ -740,8 +848,9 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="licenseModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center" >
-          <v-card-title style="color: #A61c00;">Current Vendor Public Licenses</v-card-title>
+        <v-card v-if="licenseModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center" >
+          <v-card-title style="color: #A61c00;">Provided Licenses & Certificates</v-card-title>
+          <v-card-subtitle style="color:black;">{{companyForVendor.account_name}}</v-card-subtitle>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="licenseHeaders"
@@ -761,8 +870,9 @@
       </transition>
 
       <transition name="slide-fade">
-        <v-card v-if="insuranceModal" style="position: absolute; top: 10vh; width: 90%; left: 5%; right: 5%; height: auto" class="d-flex flex-column align-center justify-center">
-          <v-card-title style="color: #A61c00;">Current Vendor Public Insurances</v-card-title>
+        <v-card v-if="insuranceModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto" class="d-flex flex-column align-center justify-center">
+          <v-card-title style="color: #A61c00;">Provided Business Insurance</v-card-title>
+          <v-card-subtitle style="color:black;">{{companyForVendor.account_name}}</v-card-subtitle>
           <p style="font-size:.8rem;color:gray;">User Provided & Not Verified By SOWerk</p>
           <v-data-table
             :headers="insuranceHeaders"
@@ -849,6 +959,7 @@
           locations_id: Number,
           userprofiles_id: Number,
           spLocationsId: Number,
+          spcompaniesId: Number,
           companies_id: Number,
         },
         chosenLocation: {},
@@ -856,8 +967,8 @@
         notesModalLoad: false,
         loadLeaveReviewModal: false,
         notesHeaders: [
-          { text: 'User', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Channel', value: 'addressCityState', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'User', value: 'username', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Channel', value: 'channel', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Note', value: 'note', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'File', value: 'file', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Created', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
@@ -881,9 +992,9 @@
         ],
         singleCompanyConnectionRelationshipsHeaders: [
           { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Channel Name', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Channel Address', value: 'locationAddress', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Vendor Company', value: 'vendorCompany', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Vendor Channel', value: 'vendorChannel', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Connected To', value: 'locationName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Application', value: 'userformName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
@@ -920,6 +1031,8 @@
         singleCompanyConnectionValues: [],
         singleCompanyConnectionRelationships: [],
         loadshowRelationshipApprovedModal: true,
+        addNotesModalLoadLocation: false,
+        addNotesSuccessLocation: false,
       }
     },
     computed: {
@@ -944,6 +1057,7 @@
     methods: {
       async showCompaniesApprovedModalLoad() {
         this.showCompaniesApprovedModal = true;
+        this.singleCompanyConnectionValues = [];
         await this.getActualSingleCompanyConnections();
         this.$vuetify.goTo(0);
       },
@@ -964,13 +1078,24 @@
         for(let i=0; i<this.singleCompanyRelationshipConnections.length; i++) {
           let newSingleCompanyConnectionRelationships = {
             imgUrl: '',
+            vendorCompany: '',
+            vendorChannel: '',
             companyName: '',
             locationName: '',
             locationAddress: '',
             userformName: '',
             id: this.singleCompanyRelationshipConnections[i].id
           }
-          this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
+          this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.singleCompanyRelationshipConnections[i].splocations_id)
+            .then(response => {
+              newSingleCompanyConnectionRelationships.imgUrl = response.data.imageUrl
+              newSingleCompanyConnectionRelationships.vendorChannel = response.data.name
+            })
+            .catch(err => {
+              console.log('err in getting company')
+            })
+
+          this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
             .then(response => {
               newSingleCompanyConnectionRelationships.locationName = response.data.name
               newSingleCompanyConnectionRelationships.locationAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`
@@ -987,9 +1112,16 @@
               console.log('err in getting company')
             })
 
-          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.singleCompanyRelationshipConnections[i].spcompanies_id)
             .then(response => {
-              newSingleCompanyConnectionRelationships.imgUrl = response.data.imgUrl
+              newSingleCompanyConnectionRelationships.vendorCompany = response.data.account_name
+            })
+            .catch(err => {
+              console.log('err in getting company')
+            })
+
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
+            .then(response => {
               newSingleCompanyConnectionRelationships.companyName = response.data.account_name
               this.singleCompanyConnectionRelationships.push(newSingleCompanyConnectionRelationships)
               this.loadshowRelationshipApprovedModal = false;
@@ -1002,7 +1134,7 @@
       },
       async getActualSingleCompanyConnections() {
         for(let i=0; i<this.singleCompanyConnections.length; i++) {
-          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyConnections[i].pmcompanies_id)
+          this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyConnections[i].spcompanies_id)
             .then(response => {
               this.singleCompanyConnectionValues.push(response.data)
             })
@@ -1039,11 +1171,11 @@
         this.chosenLocation = location;
         console.log(this.chosenLocation, 'chosenLocation!!!!!')
       },
-      async submitNote() {
+      async submitNoteCompany() {
         this.note.userprofiles_id = this.currentUser.id
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
-        this.note.spLocationsId = Number(this.$route.params.id)
+        this.note.spcompaniesId = this.companyForVendor.id
         console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
@@ -1063,12 +1195,58 @@
               console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
               this.notes.push(response.data.note)
+              this.getNotes();
+              this.getLocationNotes();
               this.note = {
                 note: '',
                 fileUrl: null,
                 locations_id: Number,
                 userprofiles_id: Number,
                 spLocationsId: Number,
+                spcompaniesId: Number,
+                companies_id: Number,
+              }
+              this.chosenLocation = {}
+            })
+            .catch(err => {
+              console.log(err, 'err in submitting note', this.note)
+            })
+        }, 1000)
+      },
+      async submitNote() {
+        this.note.userprofiles_id = this.currentUser.id
+        this.note.locations_id = this.chosenLocation.id
+        this.note.companies_id = this.currentUser.companies_id
+        this.note.spLocationsId = this.location.id
+        this.note.spcompaniesId = this.companyForVendor.id
+        console.log(this.chosenLocation, 'hello')
+        let formData = new FormData();
+        let file = this.notesFileFile;
+        formData.append('file', file);
+        console.log(formData, 'formdata');
+        this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
+          .then((response) => {
+            console.log(response, 'response.data for company document upload')
+            this.note.fileUrl = response.data.data.Location;
+          })
+          .catch(err => {
+            console.log('error in uploading location image', err)
+          })
+        setTimeout(() => {
+          this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
+            .then(response => {
+              console.log(response.data, 'note submission success!!!!')
+              this.addNotesSuccess = true;
+              this.notes.push(response.data.note)
+              this.getNotes();
+              this.getLocationNotes();
+              this.note = {
+                note: '',
+                fileUrl: null,
+                locations_id: Number,
+                userprofiles_id: Number,
+                spLocationsId: Number,
+                spcompaniesId: Number,
                 companies_id: Number,
               }
               this.chosenLocation = {}
@@ -1084,6 +1262,9 @@
         // console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('companyImage').click()
+      },
+      clearNotesFile() {
+        this.note.fileUrl = null;
       },
       selectNotesFile(e) {
         this.notesFileFile = e.target.files[0]
@@ -1219,13 +1400,13 @@
       },
       async getConnections(location) {
         this.connections = [];
-        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections!!!!!!!!!!!');
             if (response.data.length !== 0) {
               for (let i = 0; i < response.data.length; i++) {
                 console.log(location.id, 'LOCATION ID FOR SP LOCATION');
-                if (location.id === response.data[i].splocations_id && response.data[i].approval_status === 1) {
+                if (location.id === response.data[i].pmlocations_id && response.data[i].approval_status === 1) {
                   console.log(response.data[i], 'if matched splocation')
                   this.connections.push(response.data[i]);
                   this.userformsIdForRequest.push(response.data[i].pmuserforms_id);
@@ -1236,17 +1417,17 @@
               }
               let duplicateResponse = response.data;
               this.singleCompanyRelationshipConnections = response.data.filter(connection => {
-                if(connection.pmcompanies_id === this.$store.state.user.user.user.companies_id && connection.spcompanies_id === this.location.companies_id && connection.approval_status === 1) {
+                if(connection.spcompanies_id === this.$store.state.user.user.user.companies_id && connection.pmcompanies_id === this.location.companies_id && connection.approval_status === 1) {
                   return connection
                 }
               })
               this.singleCompanyConnections = response.data.filter(connection => {
-                if(connection.pmcompanies_id === this.$store.state.user.user.user.companies_id && connection.spcompanies_id === this.location.companies_id && connection.approval_status === 1) {
+                if(connection.spcompanies_id === this.$store.state.user.user.user.companies_id && connection.pmcompanies_id === this.location.companies_id && connection.approval_status === 1) {
                   return connection
                 }
               })
               // remove duplicate company values
-              this.singleCompanyConnections = this.singleCompanyConnections.filter((v,i,a)=>a.findIndex(t=>(t.pmcompanies_id === v.pmcompanies_id))===i)
+              this.singleCompanyConnections = this.singleCompanyConnections.filter((v,i,a)=>a.findIndex(t=>(t.spcompanies_id === v.spcompanies_id))===i)
               console.log(this.singleCompanyConnections, 'single company connections', this.singleCompanyRelationshipConnections)
             }
           })
@@ -1409,6 +1590,31 @@
           spLocationId: this.$route.params.id,
           spLocationName: this.location.name
         }
+        const applicationRequest = {
+          subData: '',
+          approval_status: 3,
+          pmlocations_id: this.messageLocation.id,
+          pmcompanies_id: this.$store.state.user.user.user.companies_id,
+          spuserprofiles_id: '',
+          splocations_id: this.location.id,
+          spcompanies_id: this.location.companies_id,
+          pmuserprofiles_id: this.$store.state.user.user.user.id,
+        }
+        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/'+this.location.email)
+          .then(response=> {
+            console.log(response.data.users[0])
+            applicationRequest.spuserprofiles_id = response.data.users[0].id
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserFormId/' + this.messageUserForm.id, applicationRequest)
+          .then(response=> {
+            console.log(response, 'REQUEST MADE!')
+          })
+          .catch(err => {
+            console.log(err)
+          })
         console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
         await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.location.companies_id, messageVal)
           .then(response => {
@@ -1474,9 +1680,26 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.companyForVendor.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
+            for(let i=0; i<response.data.length; i++) {
+              this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].spLocationsId)
+                .then(responseLoc => {
+                  console.log(responseLoc, "LOC RESPONSE")
+                  response.data[i]['channel'] = responseLoc.data.name
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+              this.$http.get('https:/www.sowerkbackend.com/api/auth/users/' + response.data[i].userprofiles_id)
+                .then(responseUser => {
+                  response.data[i]['username'] = responseUser.data.first_name + ' ' + responseUser.data.last_name
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            }
             this.notes = response.data;
           })
           .catch(err => {
@@ -1484,7 +1707,7 @@
           })
       },
       async getLocationNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byLocationId/' + this.location.id + '/bySPLocationId/' + this.$route.params.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             this.locationNotes = response.data;
@@ -1497,10 +1720,17 @@
         await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
           .then(response => {
             console.log('success in deleting this note', response)
+            this.notes = this.notes.filter(singleNote => singleNote !== note)
           })
           .catch(err => {
             console.log('err in deleting this note', err);
           })
+      },
+      async addNotesModalCompany() {
+        this.addNotesModalLoadLocation = true;
+        this.addNotesSuccessLocation = false;
+        console.log(this.addNotesModalLoadLocation)
+        this.$vuetify.goTo(0);
       },
       async addNotesModal() {
         this.addNotesModalLoad = true;
@@ -1508,9 +1738,31 @@
         console.log(this.addNotesModalLoad)
         this.$vuetify.goTo(0);
       },
+      async exitAddNotesModalLoadLocation() {
+        this.addNotesModalLoadLocation = false;
+        this.addNotesSuccessLocation = false;
+        this.note = {
+          note: '',
+          fileUrl: null,
+          locations_id: Number,
+          userprofiles_id: Number,
+          spLocationsId: Number,
+          spcompaniesId: Number,
+          companies_id: Number,
+        }
+      },
       async exitAddNotesModalLoad() {
         this.addNotesModalLoad = false;
         this.addNotesSuccess = false;
+        this.note = {
+          note: '',
+          fileUrl: null,
+          locations_id: Number,
+          userprofiles_id: Number,
+          spLocationsId: Number,
+          spcompaniesId: Number,
+          companies_id: Number,
+        }
       },
       async listNotesModal() {
         this.notesModalLoad = true;
@@ -1595,803 +1847,3 @@
     opacity: 0;
   }
 </style>
-
-<!--<template>-->
-<!--  <v-app class="grey lighten-3">-->
-<!--    <template v-if="loading || !company">-->
-<!--      <v-container class="px-0 fill-height" style="max-width: 95%;">-->
-<!--        <v-row style="height: 100%;">-->
-<!--          <v-col cols="4" class="py-12">-->
-<!--            <v-card height="300" class="d-flex justify-center align-center">-->
-<!--              <v-progress-circular-->
-<!--                indeterminate-->
-<!--                color="primary"-->
-<!--                :size="50"-->
-<!--              ></v-progress-circular>-->
-<!--            </v-card>-->
-<!--          </v-col>-->
-<!--          <v-col cols="8" class="py-12 d-flex flex-column justify-space-between">-->
-<!--            <v-card height="300" class="d-flex justify-center align-center">-->
-<!--              <v-progress-circular-->
-<!--                indeterminate-->
-<!--                color="primary"-->
-<!--                :size="50"-->
-<!--              ></v-progress-circular>-->
-<!--            </v-card>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-<!--      </v-container>-->
-<!--    </template>-->
-<!--    <template v-else>-->
-<!--      <v-container class="px-0 fill-height" style="max-width: 95%;" v-if="company && company.company_type === 'true'">-->
-<!--        <v-row style="height: 100%;">-->
-<!--          <v-col cols="4" class="py-12">-->
-<!--            <ProfileCard :location="location" v-if="location"></ProfileCard>-->
-<!--          </v-col>-->
-<!--          <v-col cols="8" class="pb-12 d-flex flex-column justify-space-between">-->
-<!--            <ProfileEditCard :location="location" v-if="location"></ProfileEditCard>-->
-<!--            <CustomFormCard></CustomFormCard>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-<!--      </v-container>-->
-<!--      <v-container class="px-0 fill-height" style="max-width: 95%;" v-else-if="company && company.company_type === 'false'">-->
-<!--        <v-row style="height: 100%;">-->
-<!--          <v-col cols="4" class="py-12">-->
-<!--            <v-card width="100%" height="100%">-->
-<!--              <v-img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
-<!--              <v-row>-->
-<!--                <v-col cols="12" align="center">-->
-<!--                  <v-avatar size="100" class="text-center mx-auto mt-n16 rounded-circle elevation-5" color="white">-->
-<!--                    <v-img :src="location.imageUrl" v-if="location.imageUrl !== '{}'"></v-img>-->
-<!--                    <v-icon v-else size="60">person</v-icon>-->
-<!--                  </v-avatar>-->
-<!--                </v-col>-->
-<!--                <v-col cols="12" class="px-10">-->
-<!--                  <p class="text-center primary&#45;&#45;text font-weight-bold text-h6">{{location.name}}</p>-->
-<!--                  <v-divider style="width: 90%" class="mx-auto mb-6"></v-divider>-->
-<!--                  <p class="text-center primary&#45;&#45;text font-weight-bold">About</p>-->
-<!--                  <p>Address: {{ location.address }} {{ location.city }}, {{ location.state }} {{ location.zipcode }}</p>-->
-<!--                  <p>Founded: {{ location.year_founded }}</p>-->
-<!--                  <p>Joined SOWerk: {{ year_joined }}</p>-->
-<!--                  <v-divider style="width: 90%" class="mx-auto mb-6"></v-divider>-->
-<!--                  <p class="text-center primary&#45;&#45;text font-weight-bold">Main Contact</p>-->
-<!--                  <p>Name: {{ location.contact_first_name }} {{ location.contact_last_name }}</p>-->
-<!--                  <p>Phone: {{ location.phone }}</p>-->
-<!--                  <p>Email: {{ location.email }}</p>-->
-<!--                </v-col>-->
-<!--              </v-row>-->
-<!--            </v-card>-->
-<!--          </v-col>-->
-
-<!--          <v-col cols="8" class="py-12 d-flex flex-column justify-space-between">-->
-<!--            &lt;!&ndash;      Show Application is isApplying      &ndash;&gt;-->
-<!--            <template v-if="isApplying">-->
-<!--              <v-card class="pa-6">-->
-<!--                <v-card-title class="mb-2">-->
-<!--                  <p class="mb-0 primary&#45;&#45;text" v-if="currentApplication">{{ currentApplication.name }} Application</p>-->
-<!--                  <p class="mb-0 primary&#45;&#45;text" v-else>Service Provider Application</p>-->
-<!--                </v-card-title>-->
-<!--                <v-card-subtitle>-->
-<!--                  <p class="mb-0 text-body-1">Application Facility: <span class="primary&#45;&#45;text">{{ location.name }}</span></p>-->
-<!--                </v-card-subtitle>-->
-<!--                <v-card-text class="mt-8">-->
-<!--                  <v-form v-if="currentApplication" ref="applicationForm">-->
-<!--                    <template v-for="(formfield, index) in currentApplication.formfields">-->
-<!--                      &lt;!&ndash; START OF DEFAULT FORM FIELDS - x12 &ndash;&gt;-->
-
-<!--                      &lt;!&ndash; VENDOR'S NAME 1 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="vendorName"-->
-<!--                        v-if="formfield.name === 'Vendor Name' "-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; VENDOR'S TYPE 2 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="vendorType"-->
-<!--                        v-if="formfield.name === 'Vendor Type'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; VENDOR CATEGORY 3 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="vendorCategory"-->
-<!--                        v-if="formfield.name === 'Vendor Category'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; VENDORS ADDRESS OF APPLICATION 4 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="vendorAppAddress"-->
-<!--                        v-if="formfield.name === addressOfApp"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; COMPANY FOUNDED 5 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="companyFounded"-->
-<!--                        v-if="formfield.name === 'Company Founded'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; CONTACT PERSON PHONE 6 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="contactPersonPhone"-->
-<!--                        v-if="formfield.name === 'Contact Person Phone'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; CONTACT PERSON EMAIL 7 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="contactPersonEmail"-->
-<!--                        v-if="formfield.name === 'Contact Person Email'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; CONTACT PERSON NAME 8 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="contactPersonName"-->
-<!--                        v-if="formfield.name === 'Contact Person Name'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; CONTACT WEBSITE 9 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        readonly-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="contactWebsite"-->
-<!--                        v-if="formfield.name === 'Company Website'"-->
-<!--                        outlined >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; SOWERK CONNECTIONS 11 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="sowerkConnections"-->
-<!--                        v-if="formfield.name === 'SOWerk Connections'"-->
-<!--                        outlined-->
-<!--                        readonly-->
-<!--                      >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      &lt;!&ndash; APPLICANTS SERVICE RANGE 12 &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        :value="applicantServiceRange"-->
-<!--                        v-if="formfield.name === 'Applicants Service Radius'"-->
-<!--                        outlined-->
-<!--                        readonly-->
-<!--                      >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-<!--                    </template>-->
-<!--                    <template v-for="(formfield, index) in currentApplication.formfields">-->
-<!--                      &lt;!&ndash; START OF CUSTOM FORM FIELDS &ndash;&gt;-->
-<!--                      <v-text-field-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        v-model="formfield.value"-->
-<!--                        v-if="formfield.type === 'text' && formfield.name !== 'Vendor Name' && formfield.name !== 'Vendor Type' && formfield.name !== 'Vendor Category' && formfield.name !== 'Company Founded' && formfield.name !== 'Contact Person Phone' && formfield.name !== 'Contact Person Email' && formfield.name !== 'Contact Person Name' && formfield.name !== 'Contact Website' && formfield.name !== 'Number of Employees' && formfield.name !== 'SOWerk Connections' && formfield.name !== 'Applicants Service Radius' && formfield.name !== addressOfApp"-->
-<!--                        outlined-->
-<!--                      >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-text-field>-->
-
-<!--                      <v-checkbox-->
-<!--                        placeholder=" "-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        v-model="formfield.value"-->
-<!--                        v-if="formfield.type ==='checkbox'"-->
-<!--                      >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-checkbox>-->
-
-<!--                      <v-select-->
-<!--                        placeholder=""-->
-<!--                        class="my-2"-->
-<!--                        :rules="rules.requiredRules"-->
-<!--                        v-model="formfield.value"-->
-<!--                        :items="formfield.options.split(', ')"-->
-<!--                        v-if="formfield.type ==='select'"-->
-<!--                        outlined-->
-<!--                      >-->
-<!--                        <template v-slot:label>-->
-<!--                          <p class="font-weight-bold text-body-1 black&#45;&#45;text">{{ formfield.name }}</p>-->
-<!--                        </template>-->
-<!--                      </v-select>-->
-
-<!--                    </template>-->
-<!--                  </v-form>-->
-<!--                </v-card-text>-->
-
-<!--                <v-card-actions>-->
-<!--                  <v-spacer></v-spacer>-->
-<!--                  <v-btn @click="cancelApply" color="primary" outlined class="px-8">Cancel</v-btn>-->
-<!--                  <v-btn @click="submit" color="primary" class="px-8">Submit</v-btn>-->
-<!--                </v-card-actions>-->
-<!--                <v-btn absolute top right text class="px-0 rounded-circle" min-width="32px" @click="cancelApply">x</v-btn>-->
-<!--              </v-card>-->
-<!--            </template>-->
-<!--            &lt;!&ndash;      Else show other cards      &ndash;&gt;-->
-<!--            <template v-else>-->
-<!--              <v-card>-->
-<!--                <v-card-title class="text-center mb-4">-->
-<!--                  <p class="text-center mx-auto mb-0 primary&#45;&#45;text">Accepting Applications</p>-->
-<!--                </v-card-title>-->
-<!--                <v-card-subtitle>-->
-<!--                  <p class="mb-0 text-center" v-if="myActiveUserforms.length === 0">This business location is accepting applications for <span class="primary&#45;&#45;text font-weight-bold">0</span> categories:</p>-->
-<!--                  <p class="mb-0 text-center" v-else>This business location is accepting applications for <span class="primary&#45;&#45;text font-weight-bold">{{ myActiveUserforms.length }}</span> categories:</p>-->
-<!--                </v-card-subtitle>-->
-<!--                <v-card-text>-->
-<!--                  <v-data-table-->
-<!--                    :items="myActiveUserforms"-->
-<!--                    :headers="applicationHeaders"-->
-<!--                    hide-default-footer-->
-<!--                    hide-default-header-->
-<!--                  >-->
-<!--                    <template v-slot:item.actions="{ item }" class="text-right">-->
-<!--                      <div style="width: 100%;" class="d-flex justify-end">-->
-<!--                        <v-btn color="primary" @click="apply(item.id)">Apply</v-btn>-->
-<!--                      </div>-->
-<!--                    </template>-->
-<!--                  </v-data-table>-->
-<!--                </v-card-text>-->
-<!--              </v-card>-->
-
-<!--            </template>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-<!--      </v-container>-->
-<!--    </template>-->
-<!--  </v-app>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--  import HomeCard from '~/components/dashboard/HomeCard'-->
-<!--  import FilterCard from '~/components/dashboard/FilterCard'-->
-<!--  import ProfileCard from "~/components/dashboard/ProfileCard";-->
-<!--  import ProfileEditCard from "~/components/dashboard/ProfileEditCard";-->
-<!--  import CustomFormCard from "~/components/dashboard/CustomFormCard";-->
-
-<!--  export default {-->
-<!--    name: 'business',-->
-<!--    layout: 'app',-->
-<!--    components: {-->
-<!--      HomeCard,-->
-<!--      FilterCard,-->
-<!--      ProfileCard,-->
-<!--      ProfileEditCard,-->
-<!--      CustomFormCard-->
-<!--    },-->
-<!--    data() {-->
-<!--      return {-->
-<!--        addressOfApp: "Vendor's Address of Application",-->
-<!--        loading: false,-->
-<!--        locations: [-->
-<!--          {-->
-<!--            id: 1,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 2,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 3,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 4,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 5,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 6,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 7,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 8,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 9,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 10,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 11,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 12,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 13,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 14,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 15,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 16,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          },-->
-<!--          {-->
-<!--            id: 17,-->
-<!--            companyName: 'Bass Pro Shops (Springfield, MO)',-->
-<!--            name: 'Lorem ipsum',-->
-<!--            phone: '1234567890',-->
-<!--            email: 'lorem@ipsum.com',-->
-<!--            city: 'Springfield',-->
-<!--            state: 'MO',-->
-<!--            address: 'Springfield, MO'-->
-<!--          }-->
-<!--        ],-->
-<!--        locationId: null,-->
-<!--        location: null,-->
-<!--        company: null,-->
-<!--        company_type: null,-->
-<!--        year_joined: '...',-->
-<!--        myActiveUserforms: [],-->
-<!--        applicationHeaders: [-->
-<!--          { text: '', value: 'name' },-->
-<!--          { text: '', value: 'actions', align: 'end' },-->
-<!--        ],-->
-<!--        isApplying: false,-->
-<!--        currentApplication: null,-->
-<!--        applicationLocationPropertyManager: null,-->
-<!--        rules: {-->
-<!--          requiredRules: [-->
-<!--            v => !!v || v === 0 || 'Field is required',-->
-<!--          ],-->
-<!--        },-->
-<!--        applicationFormData: {},-->
-<!--        vendorName: null,-->
-<!--        vendorType: null,-->
-<!--        vendorCategory: null,-->
-<!--        vendorAppAddress: null,-->
-<!--        companyFounded: null,-->
-<!--        contactPersonPhone: null,-->
-<!--        contactPersonEmail: null,-->
-<!--        contactPersonName: null,-->
-<!--        contactWebsite: null,-->
-<!--        sowerkConnections: null,-->
-<!--        applicantServiceRange: null,-->
-<!--      }-->
-<!--    },-->
-<!--    watch: {-->
-<!--      loading: function() {-->
-<!--        if(this.loading){-->
-<!--          return-->
-<!--        }-->
-<!--        document.documentElement.style.overflow = 'auto'-->
-<!--      }-->
-<!--    },-->
-<!--    mounted() {-->
-<!--      this.locationId = this.$route.params.id;-->
-<!--      this.getMyCompany();-->
-<!--      this.getLocation();-->
-<!--      this.getVendorInfo();-->
-<!--    },-->
-<!--    computed: {-->
-<!--      currentUser() {-->
-<!--        return this.$store.state.user.user.user;-->
-<!--      },-->
-<!--    },-->
-<!--    methods: {-->
-<!--      async getVendorInfo() {-->
-<!--        await this.$http.get('https://www.sowerkbackend.com/api/auth/users/company/' + this.company.id)-->
-<!--        .then(response => {-->
-<!--          console.log(response.data.user[0], "GWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWGWG!!!");-->
-
-<!--          this.contactPersonPhone = response.data.user[0].phone,-->
-<!--          this.contactPersonEmail = response.data.user[0].email,-->
-<!--          this.contactPersonName = response.data.user[0].first_name-->
-
-<!--        })-->
-<!--        .catch(e => e);-->
-<!--      },-->
-<!--      async getMyCompany() {-->
-<!--        this.loading = true;-->
-<!--        await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id)-->
-<!--          .then(response => {-->
-<!--            console.log(response.data, "THIS DOT COMPANY!!!")-->
-
-<!--            this.company = response.data;-->
-
-<!--            this.company_type = this.company.company_type;-->
-
-<!--            this.vendorName = response.data.account_name,-->
-<!--            this.vendorAppAddress = response.data.address,-->
-<!--            this.companyFounded = response.data.year_founded,-->
-
-<!--            this.sowerkConnections = response.data.currentConnections-->
-<!--            this.contactWebsite = response.data.website,-->
-
-<!--            this.getVendorInfo();-->
-<!--            this.getLocation();-->
-
-<!--            // //  If Property Manager-->
-<!--            // if(this.company_type === 'true') {-->
-<!--            //   this.getLocation();-->
-<!--            // } else if(this.company_type === 'false') {-->
-<!--            //   console.log('hello');-->
-<!--            // }-->
-<!--          })-->
-<!--          .catch(err => {-->
-<!--            console.log('err company', err)-->
-<!--          })-->
-<!--      },-->
-<!--      async getLocation() {-->
-<!--        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.locationId).catch(e => e);-->
-<!--        if (this.$error(status, data.message, data.errors)) return;-->
-<!--        console.log(data, "Data of BUSINESS Location information!!!");-->
-
-<!--        this.applicantServiceRange = data.radius-->
-
-
-
-<!--        this.$nextTick(function() {-->
-<!--          this.location = data;-->
-<!--          console.log(this.location, 'location value')-->
-<!--          this.year_joined = this.getYearFromCreated(this.location.created);-->
-<!--            this.getActiveUserforms(this.location);-->
-<!--            this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/' + this.location.email)-->
-<!--            .then(response => {-->
-<!--              console.log(response.data, 'user for location!!!!!!!!')-->
-<!--              this.applicationFormData.pmuserprofiles_id = response.data.users[0].id-->
-<!--            })-->
-<!--            .catch(err => {-->
-<!--              console.log(err, 'err for user for location')-->
-<!--            })-->
-<!--        })-->
-<!--        this.loading = false;-->
-<!--      },-->
-<!--      getYearFromCreated(dateJoined) {-->
-<!--        let date = new Date(dateJoined);-->
-<!--        return date.getFullYear();-->
-<!--      },-->
-<!--      async getActiveUserforms(location) {-->
-<!--        await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + location.id)-->
-<!--          .then(response => {-->
-<!--            let activeUserforms = response.data;-->
-<!--            this.myActiveUserforms = [];-->
-<!--            activeUserforms.forEach(userform => {-->
-<!--              this.getWholeForm(userform.id);-->
-<!--            })-->
-<!--            console.log(response.data, 'activeuserforms!!!!!!!!!')-->
-<!--          })-->
-<!--          .catch(err => {-->
-<!--            console.log('err company', err)-->
-<!--          })-->
-<!--        console.log(this.myActiveUserforms, 'my active userforms!!!!!!');-->
-<!--      },-->
-<!--      async apply(id) {-->
-<!--        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)-->
-<!--          .then(response => {-->
-<!--            this.isApplying = true;-->
-<!--            console.log(response.data);-->
-<!--            if(!response.data.formfields) return;-->
-<!--            this.currentApplication = response.data;-->
-<!--            console.log(this.currentApplication.formfields, "FORM FIELDS DATA!!!")-->
-
-
-
-<!--            // this.getServiceForUserform(response.data);-->
-<!--          })-->
-<!--          .catch(err => {-->
-<!--            console.log('err company', err)-->
-<!--          })-->
-<!--      },-->
-<!--      cancelApply() {-->
-<!--        this.isApplying = false;-->
-<!--        this.currentApplication = null;-->
-<!--      },-->
-<!--      async submit() {-->
-<!--        if(!this.validate()) return;-->
-<!--        let currentApplication = this.currentApplication;-->
-<!--        console.log(currentApplication.formfields, 'HELLOOOOOO');-->
-<!--        for(let i =0; i<this.currentApplication.formfields.length; i++) {-->
-<!--          if(this.currentApplication.formfields[i].name === 'Vendor Name') {-->
-<!--            this.currentApplication.formfields[i].value = this.vendorName ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Vendor Type') {-->
-<!--            this.currentApplication.formfields[i].value = this.vendorType ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Vendor Category') {-->
-<!--            this.currentApplication.formfields[i].value = this.vendorCategory ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Company Founded') {-->
-<!--            this.currentApplication.formfields[i].value = this.companyFounded ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Contact Person Phone') {-->
-<!--            this.currentApplication.formfields[i].value = this.contactPersonPhone ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Contact Person Email') {-->
-<!--            this.currentApplication.formfields[i].value = this.contactPersonEmail ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Contact Person Name') {-->
-<!--            this.currentApplication.formfields[i].value = this.contactPersonName ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Contact Website') {-->
-<!--            this.currentApplication.formfields[i].value = this.contactWebsite ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'SOWerk Connections') {-->
-<!--            this.currentApplication.formfields[i].value = this.sowerkConnections ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === 'Applicants Service Radius') {-->
-<!--            this.currentApplication.formfields[i].value = this.applicantServiceRange ;-->
-<!--          } else if (this.currentApplication.formfields[i].name === this.addressOfApp) {-->
-<!--            this.currentApplication.formfields[i].value = this.vendorAppAddress;-->
-<!--          }-->
-<!--        }-->
-
-<!--        let arrayString = JSON.stringify(currentApplication.formfields);-->
-<!--        console.log(arrayString);-->
-<!--        this.applicationFormData.pmuserforms_id = currentApplication.id;-->
-<!--        this.applicationFormData.pmlocations_id = this.location.id;-->
-<!--        this.applicationFormData.pmcompanies_id = this.location.companies_id;-->
-<!--        this.applicationFormData.spuserprofiles_id = this.currentUser.id;-->
-<!--        this.applicationFormData.splocations_id = this.company.locations[0].id;-->
-<!--        this.applicationFormData.spcompanies_id = this.company.id;-->
-<!--        this.applicationFormData.subData = arrayString;-->
-
-<!--        console.log(this.applicationFormData, 'applicationFormData!!!!');-->
-
-<!--        console.log(arrayString);-->
-
-<!--        await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + this.currentApplication.id, this.applicationFormData)-->
-<!--          .then(response => {-->
-<!--            console.log(response.data);-->
-<!--            this.$router.go();-->
-<!--          })-->
-<!--          .catch(err => {-->
-<!--            console.log('err company', err)-->
-<!--            alert('Error in submitting this application')-->
-<!--          })-->
-<!--      },-->
-<!--      // async submit() {-->
-<!--      //   let arrayString = JSON.stringify(this.formfields);-->
-<!--      //   this.application.userforms_id = this.form_id;-->
-<!--      //   this.application.userprofiles_id = this.currentUser.id;-->
-<!--      //   this.application.subData = arrayString;-->
-<!--      //   let {data, status} = await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformid/' + this.form_id, this.application).catch(e => e);-->
-<!--      // }-->
-<!--      // active: true-->
-<!--      // applications: Array(1)-->
-<!--      // formfields: Array(15)-->
-<!--      // id: 95-->
-<!--      // name: "Landscaping"-->
-<!--      // service_id: 85-->
-<!--      validate() {-->
-<!--        if (!this.$refs.applicationForm.validate()) {-->
-<!--          this.$nextTick(() => {-->
-<!--            this.$vuetify.goTo('.error&#45;&#45;text');-->
-<!--          });-->
-<!--          return false;-->
-<!--        }-->
-<!--        return true;-->
-<!--      },-->
-<!--      async getWholeForm(id) {-->
-<!--        await this.$http.get('https://www.sowerkbackend.com/api/userforms/' + id)-->
-<!--          .then(response => {-->
-<!--            if(response.data.formfields[0] === 'There are no formfields') {-->
-<!--              return;-->
-<!--            } else {-->
-<!--              console.log(response.data, 'userforms response!!!!!!!!!!!!!!!!');-->
-<!--              this.myActiveUserforms.push(response.data);-->
-
-<!--              this.vendorType = response.data.vendorType-->
-<!--              this.vendorCategory = response.data.service-->
-
-<!--            }-->
-<!--          })-->
-<!--          .catch(err => {-->
-<!--            console.log('err company', err)-->
-<!--          })-->
-<!--      }-->
-<!--      // async getServiceForUserform(userform) {-->
-<!--      //   await this.$http.get('https://www.sowerkbackend.com/api/services/' + userform.service_id)-->
-<!--      //     .then(response => {-->
-<!--      //       console.log(response.data);-->
-<!--      //       this.getPMLocationForService(response.data);-->
-<!--      //     })-->
-<!--      //     .catch(err => {-->
-<!--      //       console.log('err company', err)-->
-<!--      //     })-->
-<!--      // },-->
-<!--      // async getPMLocationForService(service) {-->
-<!--      //   await this.$http.get('https://www.sowerkbackend.com/api/services/' + service.locations_id)-->
-<!--      //     .then(response => {-->
-<!--      //-->
-<!--      //     })-->
-<!--      //     .catch(err => {-->
-<!--      //       console.log('err company', err)-->
-<!--      //     })-->
-<!--      // }-->
-<!--    }-->
-<!--  }-->
-<!--</script>-->
-
-<!--<style scoped>-->
-
-<!--</style>-->
