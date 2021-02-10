@@ -106,9 +106,6 @@ export default {
 		return {
 			search: '',
 			loading: false,
-			vendors: [
-
-			],
 			expanded: [],
 			outerTableHeaders: [
 				{ text: 'Company', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
@@ -129,7 +126,8 @@ export default {
 		}
 	},
 	async created() {
-    await this.getBusinesses();
+		await this.getBusinesses();
+		this.test();
 	},
 	computed: {
 			currentUser() {
@@ -137,97 +135,15 @@ export default {
 			},
 	},
 	methods: {
-		async getBusinesses() {
-			await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
-				.then(vendors => {
-					console.log(vendors.data, "VENDORS DOT DATA")
-
-					for(let i=0; i< vendors.data.length; i++) {
-						this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + vendors.data[i].id)
-							.then(vendorLocations => {
-								console.log(vendorLocations.data, "VENDORLOCATIONS DOT DATA")
-
-
-
-								vendorLocations.data.location.forEach((location) => {
-									this.$http.get('https://www.sowerkbackend.com/api/locations/' + location.id)
-										.then(locationData => {
-											console.log(locationData.data, "LOCATIONDATA DOT DATA")
-										
-											let ven = {
-												companyAddress: vendors.data[i].address,
-												companyCity: vendors.data[i].city,
-												companyState: vendors.data[i].state,
-												companyZipcode: vendors.data[i].zipcode,
-												companyCurrentConnections: vendors.data[i].currentConnections,
-												companyYearFounded: vendors.data[i].year_founded,
-												companyAccountName: vendors.data[i].account_name,
-												companyCategories: vendors.data[i].servicesOffered,
-												companyChannels: vendorLocations.data.location.length,
-												companyApprovedConnections: 0,
-
-												channelName: locationData.data.name,
-												channelAddress: locationData.data.address,
-												channelCity: locationData.data.city,
-												channelState: locationData.data.state,
-												channelZipcode: locationData.data.zipcode,
-												channelApprovedConnections: locationData.data.,
-												channelCategory: locationData.locationTags.data[0],
-											}
-
-										})
-										.catch(error => {
-											console.log(error, "This is the get location INFO, by location ID")
-										})
-								})
-							})
-							.catch(error => {
-								console.log(error, "This is the get vendor locations by company ID error")
-							})
-					}
-					this.loading = true;
+		test() {
+			this.$http.get('https://www.sowerkbackend.com/api/companies/vendors/channels')
+				.then(res => {
+					console.log(res, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
 				})
-				.catch(error => console.log(error, 'This is the get vendor companies by type/false'));
+				.catch(err => {
+					console.log(err)
+				})
 		},
-
-
-
-
-
-
-
-		// async getBusinesses() {
-		// 	await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false')
-		// 		.then(response => {
-		// 			console.log(response.data.length, 'length!!!!!');
-		// 			for(let i=0; i< response.data.length; i++) {
-		// 				this.getLocations(response.data[i].id, response.data[i].account_name);
-		// 			}
-		// 			this.loading = true;
-		// 			console.log("YAY", this.loading)
-		// 		})
-		// 		.catch(e => console.log(e, 'error'));
-		// },
-		// async getLocations(id, account_name) {
-		// 	this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + id)
-		// 		.then(response => {
-		// 			console.log(response.data.location, 'locations');
-		// 			response.data.location.forEach((location) => {
-		// 				this.$http.get('https://www.sowerkbackend.com/api/locations/' + location.id)
-		// 					.then(res => {
-
-		// 						this.vendors.push(res.data);
-		// 					})
-		// 					.catch(err => {
-		// 						console.log('err', err);
-		// 					})
-		// 			})
-		// 			console.log(this.vendors, 'vendors');
-		// 		})
-		// 		.catch(err => {
-		// 			console.log('err', err);
-		// 		})
-		// }
 	}
 }
 </script>
