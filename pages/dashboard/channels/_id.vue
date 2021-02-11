@@ -105,7 +105,7 @@
           <transition name="slide-fade">
             <LocationActiveApplications v-if="pendingApplicants === true"></LocationActiveApplications>
           </transition>
-<!--          <ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
+          <!--<ApplicationAcceptCard v-if="editVendorRequirements === true"></ApplicationAcceptCard>-->
           <transition name="slide-fade">
             <CustomFormCard v-if="editVendorRequirements === true"></CustomFormCard>
           </transition>

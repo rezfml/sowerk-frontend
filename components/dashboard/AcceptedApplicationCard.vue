@@ -7,7 +7,13 @@
       :size="20" >
     </v-progress-circular>
 
-    <v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannels" light></v-text-field>
+		<v-card-title
+			v-if="loading === true"
+			style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word;"
+			class="primary white--text font-weight-regular red-gradient"
+		>{{ title }}</v-card-title>
+
+    <v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top:3%;" label="Search By Channel Name" v-model="searchChannels" light></v-text-field>
 
     <!-- OUTER MOST DATA TABLE -->
     <v-data-table

@@ -254,7 +254,7 @@
               type="card-avatar, article, article, article, actions"
               min-height="50vh"
             ></v-skeleton-loader>
-            <transition name="slide-fade">
+            <!-- <transition name="slide-fade">
               <FacilitiesCard
                 :title="'Your Channels - ' + locations.length"
                 :items="locations"
@@ -269,6 +269,16 @@
                 :removeTag="removeTag"
                 :filterItems="filterItems"
               ></FacilitiesCard>
+            </transition> -->
+            <transition name="slide-fade">
+              <BusinessChannelsCard
+                :title="'Your Channels - ' + locations.length"
+                :viewAll="false"
+                :viewLocation="viewLocation"
+                slug="/dashboard/channels/"
+                v-if="locationApproved && loading"
+                :locationFilterTags="locationFilterTags"
+              ></BusinessChannelsCard>
             </transition>
           </v-col>
         </v-row>
@@ -510,7 +520,7 @@
               type="card-avatar, article, article, article, actions"
               min-height="50vh"
             ></v-skeleton-loader>
-            <transition name="slide-fade">
+            <!-- <transition name="slide-fade">
               <FacilitiesCard
                 :title="'Your Channels - ' + locations.length"
                 :items="locations"
@@ -525,7 +535,18 @@
                 :removeTag="removeTag"
                 :filterItems="filterItems"
               ></FacilitiesCard>
+            </transition> -->
+            <transition name="slide-fade">
+              <BusinessChannelsCard
+                :title="'Your Channels - ' + locations.length"
+                :viewAll="false"
+                :viewLocation="viewLocation"
+                slug="/dashboard/channels/"
+                v-if="locationApproved && loading"
+                :locationFilterTags="locationFilterTags"
+              ></BusinessChannelsCard>
             </transition>
+
           </v-col>
         </v-row>
       </v-container>
@@ -728,7 +749,7 @@
               cols
             ></v-skeleton-loader>
 
-            <transition name="slide-fade">
+            <!-- <transition name="slide-fade">
               <FacilitiesCard
                 :title="'Your Channels - ' + locations.length"
                 :items="locations"
@@ -742,6 +763,16 @@
                 :removeTag="removeTag"
                 :filterItems="filterItems"
               ></FacilitiesCard>
+            </transition> -->
+            <transition name="slide-fade">
+              <BusinessChannelsCard
+                :title="'Your Channels - ' + locations.length"
+                :viewAll="false"
+                :viewLocation="viewLocation"
+                slug="/dashboard/channels/"
+                v-if="locationApproved && loading"
+                :locationFilterTags="locationFilterTags"
+              ></BusinessChannelsCard>
             </transition>
 
             <!--          <transition name="slide-fade">-->
@@ -767,7 +798,7 @@
               min-width="80vw"
               cols
             ></v-skeleton-loader>
-            <transition name="slide-fade">
+            <!-- <transition name="slide-fade">
               <FacilitiesCard
                 :title="'Your Channels - ' + locations.length"
                 :items="locations"
@@ -782,6 +813,16 @@
                 :removeTag="removeTag"
                 :filterItems="filterItems"
               ></FacilitiesCard>
+            </transition> -->
+            <transition name="slide-fade">
+              <BusinessChannelsCard
+                :title="'Your Channels - ' + locations.length"
+                :viewAll="false"
+                :viewLocation="viewLocation"
+                slug="/dashboard/channels/"
+                v-if="locationApproved && loading"
+                :locationFilterTags="locationFilterTags"
+              ></BusinessChannelsCard>
             </transition>
             <!--          <transition name="slide-fade">-->
             <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
@@ -1102,7 +1143,7 @@
               cols
             ></v-skeleton-loader>
 
-            <transition name="slide-fade">
+            <!-- <transition name="slide-fade">
               <FacilitiesCard
                 :title="'Your Channels - ' + locations.length"
                 :items="locations"
@@ -1117,7 +1158,17 @@
                 :removeTag="removeTag"
                 :filterItems="filterItems"
               ></FacilitiesCard>
-            </transition>
+            </transition> -->
+            <transition name="slide-fade">
+              <BusinessChannelsCard
+                :title="'Your Channels - ' + locations.length"
+                :viewAll="false"
+                :viewLocation="viewLocation"
+                slug="/dashboard/channels/"
+                v-if="locationApproved && loading"
+                :locationFilterTags="locationFilterTags"
+              ></BusinessChannelsCard>
+            </transition>            
             <!--          <transition name="slide-fade">-->
             <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
             <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
@@ -1391,7 +1442,7 @@
               cols
             ></v-skeleton-loader>
 
-            <transition name="slide-fade">
+            <!-- <transition name="slide-fade">
               <FacilitiesCard
                 :title="'Your Channels - ' + locations.length"
                 :items="locations"
@@ -1406,7 +1457,19 @@
                 :removeTag="removeTag"
                 :filterItems="filterItems"
               ></FacilitiesCard>
+            </transition> -->
+
+            <transition name="slide-fade">
+              <BusinessChannelsCard
+                :title="'Your Channels - ' + locations.length"
+                :viewAll="false"
+                :viewLocation="viewLocation"
+                slug="/dashboard/channels/"
+                v-if="locationApproved && loading"
+                :locationFilterTags="locationFilterTags"
+              ></BusinessChannelsCard>
             </transition>
+
             <!--          <transition name="slide-fade">-->
             <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
             <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
@@ -1478,13 +1541,15 @@
   import HomeCard from '~/components/dashboard/HomeCard'
   import FilterCard from '~/components/dashboard/FilterCard'
   import FacilitiesCard from '@/components/dashboard/FacilitiesCard'
+  import BusinessChannelsCard from '@/components/dashboard/BusinessChannelsCard'
 
   export default {
     name: 'facilities',
     layout: 'app',
     components: {
       FacilitiesCard,
-      FilterCard
+      FilterCard,
+      BusinessChannelsCard
     },
     data() {
       return {
@@ -1600,11 +1665,10 @@
         ],
         headers: [
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
-          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-          { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Channel Manager', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Approved Vendors', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         locationApproved: false,
@@ -1643,19 +1707,19 @@
       },
       async getCompany() {
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
-        console.log(data, "oooooooooo")
+        // console.log(data, "oooooooooo")
         if (data.company_type === "false"){
           this.companyType = false
         } else if (data.company_type === "true"){
           this.companyType = true
         }
-        console.log(this.companyType, "hey")
+        // console.log(this.companyType, "hey")
         if (this.$error(status, data.message, data.errors)) return;
         this.company = data;
         if(this.currentUser.is_superuser === false && this.company.locations[0] !== 'There are no locations') {
           for(let i=0; i<this.company.locations.length; i++){
             if(this.company.locations[i].email === this.currentUser.email && this.company.locations[i].phone === this.currentUser.phone) {
-              console.log(this.company.locations[i], "this.company.location")
+              // console.log(this.company.locations[i], "this.company.location")
               this.locations.push(this.company.locations[i]);
               this.originalLocations.push(this.company.locations[i]);
             }
@@ -1667,7 +1731,7 @@
           this.originalLocations = this.company.locations;
           this.locationApproved = true;
           this.loading = true;
-          console.log(this.locations, 'this.locations!!!!!!!', data)
+          // console.log(this.locations, 'this.locations!!!!!!!', data)
         } else {
           this.locationApproved = true;
           this.loading = true;
@@ -1677,7 +1741,7 @@
         let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/bycompaniesid/' + this.currentUser.companies_id)
           .catch(e => e);
         if (this.$error(status, data.message, data.errors)) {
-          console.log(this.$error(status, data.message, data.errors), 'ERROR')
+          // console.log(this.$error(status, data.message, data.errors), 'ERROR')
           this.locationApproved = true;
           this.loading = true;
           return;
@@ -1695,14 +1759,14 @@
             this.originalLocations = data.location;
             this.locationApproved = true;
             this.loading = true;
-            console.log(this.locations, 'this.locations!!!!!!!')
+            // console.log(this.locations, 'this.locations!!!!!!!')
           }
         })
       },
       async getSowerkTags() {
         await this.$http.get('https://www.sowerkbackend.com/api/sowerktags')
           .then(response => {
-            console.log(response, 'sowerktags')
+            // console.log(response, 'sowerktags')
             this.sowerkTags = response.data;
           })
           .catch(err => {
@@ -1710,7 +1774,7 @@
           })
       },
       async removeTag(item) {
-        console.log(this.locationFilterTags, 'before removal', item)
+        // console.log(this.locationFilterTags, 'before removal', item)
         this.locationFilterTags = this.locationFilterTags.filter(locationTag => {
           if(typeof locationTag === 'object' && locationTag.name !== item.name) {
             return locationTag
@@ -1718,19 +1782,19 @@
             return locationTag
           }
         })
-        console.log(this.locationFilterTags, 'after removal')
+        // console.log(this.locationFilterTags, 'after removal')
       },
       async filterItems() {
-        console.log(this.locationFilterTags, 'dataItems', this.locations)
+        // console.log(this.locationFilterTags, 'dataItems', this.locations)
         this.locations = this.locations.filter(location => {
           for(let i=0; i<this.locationFilterTags.length; i++) {
             if(location.locationtags.length > 0 && location.locationtags.includes(this.locationFilterTags[i].name)) {
-              console.log(location, 'location match')
+              // console.log(location, 'location match')
               return location
             }
           }
         })
-        console.log(this.locations, 'after filter')
+        // console.log(this.locations, 'after filter')
       }
     },
   }

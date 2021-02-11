@@ -109,7 +109,7 @@
           <v-btn
               class="text-uppercase white mx-auto text-sm-body-2"
               x-large
-              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:50%;"
+              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:40%;"
               to="/register/property-manager">
                 REGISTER NOW
           </v-btn>
@@ -117,7 +117,7 @@
           <v-btn
               class="text-uppercase white mx-auto text-sm-body-2"
               x-large
-              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:50%;"
+              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:40%;"
               to="/landingpage/join-product-landing/">
                 BUSINESSES - LEARN MORE
           </v-btn>
@@ -171,7 +171,7 @@
           <v-btn
               class="text-uppercase white mx-auto text-sm-body-2"
               x-large
-              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:50%;"
+              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:40%;"
               to="/register/provider">
                 REGISTER NOW
           </v-btn>
@@ -179,7 +179,7 @@
           <v-btn
               class="text-uppercase white mx-auto text-sm-body-2"
               x-large
-              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:50%;"
+              style="border-radius: 20px; font-weight: bold; font-size: .5rem; width:40%;"
               to="/landingpage/join-service-landing/">
                 VENDORS - LEARN MORE
           </v-btn>
