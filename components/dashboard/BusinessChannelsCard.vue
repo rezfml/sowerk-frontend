@@ -9,12 +9,13 @@
     
 		<v-row>
 			<v-col cols="4">
-				<!-- <FilterCard
+				<FilterCard
 					:title="'Filter Channels'"
 					:filters="filters"
 					:locationApproved="viewLocation"
 					:locationFilterTags="locationFilterTags"
-				></FilterCard> -->
+					:loadModal=""
+				></FilterCard>
 			</v-col>
 
 			<v-col cols="8">
@@ -87,182 +88,182 @@ export default {
     return {
     loading: false,
     headers: [
-			{ text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-			{ text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-			{ text: 'Channel Manager', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-			{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-			{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-		],
-		channels: [],  
-		approvedVendorsList: {},
+		{ text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+		{ text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+		{ text: 'Channel Manager', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+		{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+		{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+	],
+	channels: [],  
+	approvedVendorsList: {},
     locationCondition: false,
     locationApproved: false,
-		filters: [
-			{
-				name: 'Proximity',
-				items: [
-					'State',
-					'National',
-					'Under 10 Miles',
-					'Under 25 Miles',
-					'Under 50 Miles',
-					'Under 100 Miles',
-					'Under 150 Miles',
-					'Under 200 Miles',
-					'200+ Miles',
-				]
-			},
-			{
-				name: 'State',
-				items: [
-					"Alaska",
-					"Alabama",
-					"Arkansas",
-					"American Samoa",
-					"Arizona",
-					"California",
-					"Colorado",
-					"Connecticut",
-					"District of Columbia",
-					"Delaware",
-					"Florida",
-					"Georgia",
-					"Guam",
-					"Hawaii",
-					"Iowa",
-					"Idaho",
-					"Illinois",
-					"Indiana",
-					"Kansas",
-					"Kentucky",
-					"Louisiana",
-					"Massachusetts",
-					"Maryland",
-					"Maine",
-					"Michigan",
-					"Minnesota",
-					"Missouri",
-					"Mississippi",
-					"Montana",
-					"North Carolina",
-					" North Dakota",
-					"Nebraska",
-					"New Hampshire",
-					"New Jersey",
-					"New Mexico",
-					"Nevada",
-					"New York",
-					"Ohio",
-					"Oklahoma",
-					"Oregon",
-					"Pennsylvania",
-					"Puerto Rico",
-					"Rhode Island",
-					"South Carolina",
-					"South Dakota",
-					"Tennessee",
-					"Texas",
-					"Utah",
-					"Virginia",
-					"Virgin Islands",
-					"Vermont",
-					"Washington",
-					"Wisconsin",
-					"West Virginia",
-					"Wyoming"
-				]
-			},
-			{
-				name: 'Vendor Category',
-				items: [
-					'HVAC',
-					'Electrical',
-					'Plumbing',
-					'Cleaning',
-					'Landscaping'
-				]
-			},
-			{
-				name: 'Years in Business',
-				items: [
-					'Less Than 1 Year',
-					'1 - 3 Years',
-					'3 - 5 Years',
-					'5 - 10 Years',
-					'10+ Years',
-				]
-			},
-			{
-				name: 'Approved Applications',
-				items: [
-					'Less than 5',
-					'6 - 15',
-					'16 - 24',
-					'25+',
-				]
-			}
-		],		
+	filters: [
+		{
+			name: 'Proximity',
+			items: [
+				'State',
+				'National',
+				'Under 10 Miles',
+				'Under 25 Miles',
+				'Under 50 Miles',
+				'Under 100 Miles',
+				'Under 150 Miles',
+				'Under 200 Miles',
+				'200+ Miles',
+			]
+		},
+		{
+			name: 'State',
+			items: [
+				"Alaska",
+				"Alabama",
+				"Arkansas",
+				"American Samoa",
+				"Arizona",
+				"California",
+				"Colorado",
+				"Connecticut",
+				"District of Columbia",
+				"Delaware",
+				"Florida",
+				"Georgia",
+				"Guam",
+				"Hawaii",
+				"Iowa",
+				"Idaho",
+				"Illinois",
+				"Indiana",
+				"Kansas",
+				"Kentucky",
+				"Louisiana",
+				"Massachusetts",
+				"Maryland",
+				"Maine",
+				"Michigan",
+				"Minnesota",
+				"Missouri",
+				"Mississippi",
+				"Montana",
+				"North Carolina",
+				" North Dakota",
+				"Nebraska",
+				"New Hampshire",
+				"New Jersey",
+				"New Mexico",
+				"Nevada",
+				"New York",
+				"Ohio",
+				"Oklahoma",
+				"Oregon",
+				"Pennsylvania",
+				"Puerto Rico",
+				"Rhode Island",
+				"South Carolina",
+				"South Dakota",
+				"Tennessee",
+				"Texas",
+				"Utah",
+				"Virginia",
+				"Virgin Islands",
+				"Vermont",
+				"Washington",
+				"Wisconsin",
+				"West Virginia",
+				"Wyoming"
+			]
+		},
+		{
+			name: 'Vendor Category',
+			items: [
+				'HVAC',
+				'Electrical',
+				'Plumbing',
+				'Cleaning',
+				'Landscaping'
+			]
+		},
+		{
+			name: 'Years in Business',
+			items: [
+				'Less Than 1 Year',
+				'1 - 3 Years',
+				'3 - 5 Years',
+				'5 - 10 Years',
+				'10+ Years',
+			]
+		},
+		{
+			name: 'Approved Applications',
+			items: [
+				'Less than 5',
+				'6 - 15',
+				'16 - 24',
+				'25+',
+			]
+		}
+	],		
     }
   },
   async created() {
-		console.log(this.$store.state.user.user.user, "user from BusinessChannelsCard")
-		this.getCompany(this.currentUser.companies_id)
-		this.getCompanyApprovedVendors(this.currentUser.companies_id)
+	console.log(this.$store.state.user.user.user, "user from BusinessChannelsCard")
+	this.getCompany(this.currentUser.companies_id)
+	this.getCompanyApprovedVendors(this.currentUser.companies_id)
 	},
   computed: {
-		currentUser() {
-				return this.$store.state.user.user.user;
-		},
+	currentUser() {
+			return this.$store.state.user.user.user;
+	},
   },	
   methods: {
-		async getCompany(id) {
-			await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
-				.then(async (response) => {
-					console.log(response.data, "HEYYYYY")
+	async getCompany(id) {
+		await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+			.then(async (response) => {
+				console.log(response.data, "HEYYYYY")
 
-					for(let i=0; i<response.data.locations.length; i++) {
+				for(let i=0; i<response.data.locations.length; i++) {
 
-						if(this.approvedVendorsList[i].approvedVendors[0] === "There are no approved vendors"){
-							let numberOfVendors = 0
+					if(this.approvedVendorsList[i].approvedVendors[0] === "There are no approved vendors"){
+						let numberOfVendors = 0
 
-							let company = {
-								channelId: response.data.locations[i].id,
-								channelName: response.data.locations[i].name,
-								address: response.data.locations[i].address,
-								city: response.data.locations[i].city,
-								state: response.data.locations[i].state,
-								zipcode: response.data.locations[i].zipcode,
-								channelManagerFirstName: response.data.locations[i].contact_first_name,
-								channelManagerLastName: response.data.locations[i].contact_last_name,
-								approvedVendors: numberOfVendors,
-							}
-							this.channels.push(company) 
-
-						} else {
-							let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
-
-							let company = {
-								channelId: response.data.locations[i].id,
-								channelName: response.data.locations[i].name,
-								address: response.data.locations[i].address,
-								city: response.data.locations[i].city,
-								state: response.data.locations[i].state,
-								zipcode: response.data.locations[i].zipcode,
-								channelManagerFirstName: response.data.locations[i].contact_first_name,
-								channelManagerLastName: response.data.locations[i].contact_last_name,
-								approvedVendors: numberOfVendors,
-							}
-							this.channels.push(company)
-
+						let company = {
+							channelId: response.data.locations[i].id,
+							channelName: response.data.locations[i].name,
+							address: response.data.locations[i].address,
+							city: response.data.locations[i].city,
+							state: response.data.locations[i].state,
+							zipcode: response.data.locations[i].zipcode,
+							channelManagerFirstName: response.data.locations[i].contact_first_name,
+							channelManagerLastName: response.data.locations[i].contact_last_name,
+							approvedVendors: numberOfVendors,
 						}
-						console.log(this.channels)
-						this.loading = true
+						this.channels.push(company) 
+
+					} else {
+						let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
+
+						let company = {
+							channelId: response.data.locations[i].id,
+							channelName: response.data.locations[i].name,
+							address: response.data.locations[i].address,
+							city: response.data.locations[i].city,
+							state: response.data.locations[i].state,
+							zipcode: response.data.locations[i].zipcode,
+							channelManagerFirstName: response.data.locations[i].contact_first_name,
+							channelManagerLastName: response.data.locations[i].contact_last_name,
+							approvedVendors: numberOfVendors,
+						}
+						this.channels.push(company)
+
 					}
-				})
-				.catch(err => {
-					console.log('error in getting company', err)
-				})
-		},
+					console.log(this.channels)
+					this.loading = true
+				}
+			})
+			.catch(err => {
+				console.log('error in getting company', err)
+			})
+	},
     async getCompanyApprovedVendors(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
         .then(async (response) => {

@@ -65,10 +65,10 @@
 								</v-row>
 							</template>
 
-							<template v-slot:item.category="{ item }">
+							<template v-slot:item.services[0].name="{ item }">
 								<v-row class="d-flex">
 									<v-col>
-										<p>{{ item.category }}</p>
+										<p>{{ item.services[0].name }}</p>
 									</v-col>
 								</v-row>
 							</template>
@@ -148,7 +148,7 @@ export default {
 				{ text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Approved Connections', value: 'connections', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Category', value: 'category', class: 'primary--text font-weight-bold text-h6 text-center' },
+				{ text: 'Category', value: 'services', class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
 			],
 
@@ -175,14 +175,40 @@ export default {
 		getVendorInfo() {
 			this.$http.get('https://www.sowerkbackend.com/api/companies/vendors/channels')
 				.then(res => {
-					console.log(res.data, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
+					// console.log(res.data, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
 					this.vendorChannels = res.data
 					this.loading = true
+					// setTimeout(() => {
+					// 	this.findLocationServices()
+					// 	this.loading = true
+					// 	console.log(this.vendorChannels, "FINISHED LIST")
+					// }, 3000)
+
 				})
 				.catch(err => {
 					console.log(err)
 				})
 		},
+		findLocationServices() {
+			for(let j=0; j<this.vendorChannels.length; j++) {
+				if(this.vendorChannels[j].companyChannels.fulfillmentValue === "There are no locations") {
+					return
+				} else {
+					for(let i=0; i<this.vendorChannels[j].companyChannels.fulfillmentValue.length; i++) {
+						// console.log(this.vendorChannels[j].companyChannels.fulfillmentValue[i].id, "----------")
+						this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + this.vendorChannels[j].companyChannels.fulfillmentValue[i].id)
+							.then(services => {
+								// console.log(services.data, "THIS IS SERVICES SHOULD BE A LIST OF OBJECTS")
+								this.vendorChannels[j].companyChannels.fulfillmentValue[i]["services"] = services.data
+							})
+							.catch(error => {
+								return
+							})
+					}
+				}
+			}
+			// console.log(this.vendorChannels[0].companyChannels.fulfillmentValue[0].id, "THIS SHOULD BE 431 THE CHANNEL ID")
+		}
 	}
 }
 </script>
