@@ -10,6 +10,7 @@
 		<v-row>
 			<!-- <v-col cols="4">
 				<FilterCard
+					v-if="this.loading && this.channels"
 					:title="'Filter Channels'"
 					:filters="filters"
 					:locationApproved="viewLocation"
@@ -101,99 +102,40 @@ export default {
 		{
 			name: 'Name',
 			items: [
-				'State',
-				'National',
-				'Under 10 Miles',
-				'Under 25 Miles',
-				'Under 50 Miles',
-				'Under 100 Miles',
-				'Under 150 Miles',
-				'Under 200 Miles',
-				'200+ Miles',
 			]
 		},
 		{
-			name: 'Address',
+			name: 'State',
 			items: [
-				"Alaska",
-				"Alabama",
-				"Arkansas",
-				"American Samoa",
-				"Arizona",
-				"California",
-				"Colorado",
-				"Connecticut",
-				"District of Columbia",
-				"Delaware",
-				"Florida",
-				"Georgia",
-				"Guam",
-				"Hawaii",
-				"Iowa",
-				"Idaho",
-				"Illinois",
-				"Indiana",
-				"Kansas",
-				"Kentucky",
-				"Louisiana",
-				"Massachusetts",
-				"Maryland",
-				"Maine",
-				"Michigan",
-				"Minnesota",
-				"Missouri",
-				"Mississippi",
-				"Montana",
-				"North Carolina",
-				" North Dakota",
-				"Nebraska",
-				"New Hampshire",
-				"New Jersey",
-				"New Mexico",
-				"Nevada",
-				"New York",
-				"Ohio",
-				"Oklahoma",
-				"Oregon",
-				"Pennsylvania",
-				"Puerto Rico",
-				"Rhode Island",
-				"South Carolina",
-				"South Dakota",
-				"Tennessee",
-				"Texas",
-				"Utah",
-				"Virginia",
-				"Virgin Islands",
-				"Vermont",
-				"Washington",
-				"Wisconsin",
-				"West Virginia",
-				"Wyoming"
+			]
+		},
+		{
+			name: 'City',
+			items: [
 			]
 		},
 		{
 			name: 'Approved Vendors',
 			items: [
-				'HVAC',
-				'Electrical',
-				'Plumbing',
-				'Cleaning',
-				'Landscaping'
+				'0',
+				'1-5',
+				'5-10',
+				'10+',
 			]
 		}
 	],		
     }
   },
   async created() {
-	console.log(this.$store.state.user.user.user, "user from BusinessChannelsCard")
+	// console.log(this.$store.state.user.user.user, "user from BusinessChannelsCard")
 	this.getCompany(this.currentUser.companies_id)
 	this.getCompanyApprovedVendors(this.currentUser.companies_id)
 	},
   computed: {
 	currentUser() {
-			return this.$store.state.user.user.user;
+		return this.$store.state.user.user.user;
 	},
+
   },	
   methods: {
 	async getCompany(id) {
@@ -217,6 +159,9 @@ export default {
 							channelManagerLastName: response.data.locations[i].contact_last_name,
 							approvedVendors: numberOfVendors,
 						}
+						this.filters[2].items.push(response.data.locations[i].city)
+						this.filters[1].items.push(response.data.locations[i].state)
+						this.filters[0].items.push(response.data.locations[i].name)
 						this.channels.push(company) 
 
 					} else {
@@ -233,12 +178,16 @@ export default {
 							channelManagerLastName: response.data.locations[i].contact_last_name,
 							approvedVendors: numberOfVendors,
 						}
+						this.filters[2].items.push(response.data.locations[i].city)
+						this.filters[1].items.push(response.data.locations[i].state)
+						this.filters[0].items.push(response.data.locations[i].name)
 						this.channels.push(company)
 
 					}
-					console.log(this.channels)
-					this.loading = true
 				}
+					console.log(this.channels)
+					console.log(this.filters[0].items)
+					this.loading = true
 			})
 			.catch(err => {
 				console.log('error in getting company', err)
