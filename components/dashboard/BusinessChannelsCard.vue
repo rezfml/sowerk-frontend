@@ -8,17 +8,16 @@
     </v-progress-circular>
     
 		<v-row>
-			<v-col cols="4">
+			<!-- <v-col cols="4">
 				<FilterCard
 					:title="'Filter Channels'"
 					:filters="filters"
 					:locationApproved="viewLocation"
 					:locationFilterTags="locationFilterTags"
-					:loadModal=""
 				></FilterCard>
-			</v-col>
+			</v-col> -->
 
-			<v-col cols="8">
+			<v-col cols="12">
 				<v-data-table
 					v-if="this.loading && this.channels"
 					:items="channels"
@@ -100,7 +99,7 @@ export default {
     locationApproved: false,
 	filters: [
 		{
-			name: 'Proximity',
+			name: 'Name',
 			items: [
 				'State',
 				'National',
@@ -114,7 +113,7 @@ export default {
 			]
 		},
 		{
-			name: 'State',
+			name: 'Address',
 			items: [
 				"Alaska",
 				"Alabama",
@@ -174,32 +173,13 @@ export default {
 			]
 		},
 		{
-			name: 'Vendor Category',
+			name: 'Approved Vendors',
 			items: [
 				'HVAC',
 				'Electrical',
 				'Plumbing',
 				'Cleaning',
 				'Landscaping'
-			]
-		},
-		{
-			name: 'Years in Business',
-			items: [
-				'Less Than 1 Year',
-				'1 - 3 Years',
-				'3 - 5 Years',
-				'5 - 10 Years',
-				'10+ Years',
-			]
-		},
-		{
-			name: 'Approved Applications',
-			items: [
-				'Less than 5',
-				'6 - 15',
-				'16 - 24',
-				'25+',
 			]
 		}
 	],		

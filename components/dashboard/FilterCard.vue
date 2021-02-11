@@ -44,10 +44,10 @@
         type: Boolean,
         default: false,
       },
-      loadModal: {
-        type: Boolean,
-        required: true
-      }
+      // loadModal: {
+      //   type: Boolean,
+      //   required: true
+      // }
     },
     data() {
       return {
