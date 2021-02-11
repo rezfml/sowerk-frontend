@@ -17,14 +17,16 @@
 
     <!-- OUTER MOST DATA TABLE -->
     <v-data-table
-      :search="searchCompanies"
       v-if="loading"
-      :items="vendorChannels"
+      :search="searchCompanies"
       :headers="outerTableHeaders"
+      :items="vendorChannels"
       :items-per-page="10"
-      :expanded.sync="expanded"
+			item-key="companyAccountName"
       show-expand
       single-expand
+      :expanded="expanded"
+			@click:row="clickedRow"
 			style="width: 100%;"
       >
 
@@ -135,7 +137,7 @@ export default {
 			searchCompanies: '',
 			loading: false,
 			expanded: [],
-			singeExpand: true,
+			singleExpand: false,
 			outerTableHeaders: [
 				{ text: 'Company', value: 'companyAccountName', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Approved Connections', value: 'companyApprovedConnections', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
@@ -162,6 +164,14 @@ export default {
 			},
 	},
 	methods: {
+    clickedRow(value) {
+      if (this.expanded.length && this.expanded[0].id == value.id) {
+        this.expanded = [];
+      } else {
+        this.expanded = [];
+        this.expanded.push(value);
+      }
+    },
 		getVendorInfo() {
 			this.$http.get('https://www.sowerkbackend.com/api/companies/vendors/channels')
 				.then(res => {
