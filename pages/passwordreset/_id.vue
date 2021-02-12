@@ -69,6 +69,8 @@ export default {
   },
   async mounted() {
     this.uuid = this.$route.params.id
+    console.log(this.uuid, "USER ID")
+    console.log(this.userForm, "USERFORM")
     await this.getUser(this.uuid)
   },
   methods: {
