@@ -16,7 +16,7 @@
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
-            <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn>
+            <!-- <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn> -->
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
             <v-card-title style="color:#A61C00;">About</v-card-title>
             <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
