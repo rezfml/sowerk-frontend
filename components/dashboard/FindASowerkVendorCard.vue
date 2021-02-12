@@ -165,8 +165,8 @@ export default {
 			onceNestTableHeaders: [
 				{ text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Approved Connections', value: 'connections', class: 'primary--text font-weight-bold text-h6 text-center' },
-				{ text: 'Category', value: 'services', class: 'primary--text font-weight-bold text-h6 text-center' },
+				// { text: 'Approved Connections', value: 'connections', class: 'primary--text font-weight-bold text-h6 text-center' },
+				// { text: 'Category', value: 'services', class: 'primary--text font-weight-bold text-h6 text-center' },
 				{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
 			],
 			filters: [
