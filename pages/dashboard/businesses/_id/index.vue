@@ -450,7 +450,7 @@
         <v-card v-if="addNotesModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}}</v-card-title>
           <v-select
-            label="Select the Vendor's Channel that goes with your note"
+            label="Select the Businesses Channel that goes with your note"
             style="width: 80%;"
             :items="companyForVendor.locations"
             solo
@@ -468,7 +468,7 @@
           </v-select>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
-            label="Select the Channel that goes with your note"
+            label="Select your Channel that goes with your note"
             style="width: 80%;"
             :items="company.locations"
             solo
@@ -488,9 +488,10 @@
             outlined
             v-model="note.note"
           ></v-text-field>
-          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
+          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success! - {{notesFileFile.name}}</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success! - {{notesFileFile.name}}</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.ms-excel'" style="text-align: center;">CSV Doc Success! - {{notesFileFile.name}}</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success! - {{notesFileFile.name}}</v-card-text>
           <v-img
             :src="note.fileUrl"
             :aspect-ratio="1"

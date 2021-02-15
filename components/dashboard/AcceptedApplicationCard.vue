@@ -158,6 +158,7 @@ export default {
         })
         .catch(err => {
           console.log('error in getting company', err)
+          this.loading = true
         })
     }
   }
