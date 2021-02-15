@@ -76,7 +76,7 @@ export default {
   methods: {
     async getUser(id) {
       await this.$http
-        .get('https://www.sowerkbackend.com/api/auth/users/' + id)
+        .get('https://www.sowerkbackend.com/api/auth/users/ui/' + id)
         .then((response) => {
           this.user = response.data.users[0]
         })
