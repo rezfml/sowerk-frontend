@@ -1,13 +1,20 @@
 <template>
-  <v-container>
+  <v-app>
     <v-progress-circular
       v-if="loading != true"
       indeterminate
       color="primary"
       :size="20" >
     </v-progress-circular>
-    
-		<v-row>
+
+		<v-card-title
+			v-if="loading === true"
+			style="position: absolute; top: -20px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word;"
+			class="primary white--text font-weight-regular red-gradient"
+		>{{ title }}</v-card-title>
+
+		<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top:4%;" label="Search by Address" v-model="searchChannels" light></v-text-field>
+
 			<!-- <v-col cols="4">
 				<FilterCard
 					v-if="this.loading && this.channels"
@@ -17,10 +24,12 @@
 					:locationFilterTags="locationFilterTags"
 				></FilterCard>
 			</v-col> -->
+		<v-row>
 
 			<v-col cols="12">
 				<v-data-table
 					v-if="this.loading && this.channels"
+  				    :search="searchChannels"
 					:items="channels"
 					:headers="headers"
 					:items-per-page="10"
@@ -72,7 +81,7 @@
 		</v-row>
 
 
-  </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -94,7 +103,8 @@ export default {
 		{ text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 		{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
 	],
-	channels: [],  
+	channels: [],
+	searchChannels: '',
 	approvedVendorsList: {},
     locationCondition: false,
     locationApproved: false,

@@ -34,7 +34,7 @@
             <template v-slot:default>
                 <thead>
                   <tr>
-                    <th style="color:darkred">Approved Category</th>
+                    <th style="color:darkred">Application Category</th>
                     <th style="color:darkred">Application Type</th>
                     <th style="color:darkred">Company</th>
                     <th style="color:darkred">Channel</th>

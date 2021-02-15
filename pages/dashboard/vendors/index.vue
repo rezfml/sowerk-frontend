@@ -93,6 +93,12 @@
       </v-card>
     </transition>
 
+    <v-row>
+      <v-col cols="12">
+        <v-img width="100%" height="100%" style="" src="/banner-business-recruit.png"></v-img>
+      </v-col>
+    </v-row>
+
     <transition name="slide-fade">
       <v-container class="px-0" style="max-width: 95%;margin-bottom:10%" v-if="loading">
         <!--      <v-row class="d-flex align-center" style="width: 100%">-->

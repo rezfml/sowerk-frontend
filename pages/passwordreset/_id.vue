@@ -69,12 +69,14 @@ export default {
   },
   async mounted() {
     this.uuid = this.$route.params.id
+    console.log(this.uuid, "USER ID")
+    console.log(this.userForm, "USERFORM")
     await this.getUser(this.uuid)
   },
   methods: {
     async getUser(id) {
       await this.$http
-        .get('https://www.sowerkbackend.com/api/auth/users/' + id)
+        .get('https://www.sowerkbackend.com/api/auth/users/ui/' + id)
         .then((response) => {
           this.user = response.data.users[0]
         })

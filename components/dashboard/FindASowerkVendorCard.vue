@@ -7,136 +7,138 @@
       :size="20" >
     </v-progress-circular>
 
-		<v-row>
-			<!-- <v-col cols="3">
-				<FilterCard
-					v-if="loading === true"
-					:title="'Filter Vendors'"
-					:filters="filters"
-					:locationApproved="viewLocation"
-					:locationFilterTags="locationFilterTags"
-				></FilterCard>
-			</v-col> -->
 
-			<v-col cols="12">
+	<v-row>
+		<!-- <v-col cols="3">
+			<FilterCard
+				v-if="loading === true"
+				:title="'Filter Vendors'"
+				:filters="filters"
+				:locationApproved="viewLocation"
+				:locationFilterTags="locationFilterTags"
+			></FilterCard>
+		</v-col> -->
 
-				<v-card-title
-					v-if="loading === true"
-					style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word;"
-					class="primary white--text font-weight-regular red-gradient"
-				>{{ title }}</v-card-title>
 
-				<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top: 3%;" label="Search By Company Name" v-model="searchCompanies" light></v-text-field>
+		<v-col cols="12">
 
-				<!-- OUTER MOST DATA TABLE -->
-				<v-data-table
-					v-if="loading"
-					:search="searchCompanies"
-					:headers="outerTableHeaders"
-					:items="vendorChannels"
-					:items-per-page="10"
-					item-key="companyAccountName"
-					show-expand
-					single-expand
-					:expanded="expanded"
-					@click:row="clickedRow"
-					style="width: 100%;"
-					>
+			<v-card-title
+				v-if="loading === true"
+				style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px; text-align: center; white-space: pre-wrap; word-break: break-word;"
+				class="primary white--text font-weight-regular red-gradient"
+			>{{ title }}</v-card-title>
 
-						<!-- ONCE NESTED DATA TABLE -->
-						<template v-slot:expanded-item="{ headers, item }">
-							<td :colspan="headers.length">
-								<v-data-table
-									v-if="item.companyChannels.fulfillmentValue !== 'There are no locations'"
-									:items="item.companyChannels.fulfillmentValue"
-									:headers="onceNestTableHeaders"
-									:items-per-page="10"
-								>
+			<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top: 3%;" label="Search By Company Name" v-model="searchCompanies" light></v-text-field>
 
-									<template v-slot:item.name="{ item }">
-										<v-row class="d-flex">
-											<v-col>
-												<p>{{ item.name }}</p>
-											</v-col>
-										</v-row>
-									</template>
+			<!-- OUTER MOST DATA TABLE -->
+			<v-data-table
+				v-if="loading"
+				:search="searchCompanies"
+				:headers="outerTableHeaders"
+				:items="vendorChannels"
+				:items-per-page="10"
+				item-key="companyAccountName"
+				show-expand
+				single-expand
+				:expanded="expanded"
+				@click:row="clickedRow"
+				style="width: 100%;"
+				>
 
-									<template v-slot:item.address="{ item }">
-										<v-row class="d-flex">
-											<v-col>
-												<p style="text-align:center;">{{ item.address }}</p>
-												<p style="text-align:center;">{{ item.city }} {{ item.state }} {{ item.zipcode }}</p>
-											</v-col>
-										</v-row>
-									</template>
+					<!-- ONCE NESTED DATA TABLE -->
+					<template v-slot:expanded-item="{ headers, item }">
+						<td :colspan="headers.length">
+							<v-data-table
+								v-if="item.companyChannels.fulfillmentValue !== 'There are no locations'"
+								:items="item.companyChannels.fulfillmentValue"
+								:headers="onceNestTableHeaders"
+								:items-per-page="10"
+							>
 
-									<template v-slot:item.connections="{ item }">
-										<v-row class="d-flex">
-											<v-col>
-												<p>{{ item.connections }}</p>
-											</v-col>
-										</v-row>
-									</template>
+								<template v-slot:item.name="{ item }">
+									<v-row class="d-flex">
+										<v-col>
+											<p>{{ item.name }}</p>
+										</v-col>
+									</v-row>
+								</template>
 
-									<template v-slot:item.services[0].name="{ item }">
-										<v-row class="d-flex">
-											<v-col>
-												<p>{{ item.services[0].name }}</p>
-											</v-col>
-										</v-row>
-									</template>
+								<template v-slot:item.address="{ item }">
+									<v-row class="d-flex">
+										<v-col>
+											<p style="text-align:center;">{{ item.address }}</p>
+											<p style="text-align:center;">{{ item.city }} {{ item.state }} {{ item.zipcode }}</p>
+										</v-col>
+									</v-row>
+								</template>
 
-									<template v-slot:item.actions="{ item }">
-										<v-btn
-											block
-											color="primary"
-											:to="slug + item.id" 
-										>
-											View
-										</v-btn>
-									</template>
+								<template v-slot:item.connections="{ item }">
+									<v-row class="d-flex">
+										<v-col>
+											<p>{{ item.connections }}</p>
+										</v-col>
+									</v-row>
+								</template>
 
-								</v-data-table>
-							</td>
-						</template>
+								<template v-slot:item.services[0].name="{ item }">
+									<v-row class="d-flex">
+										<v-col>
+											<p>{{ item.services[0].name }}</p>
+										</v-col>
+									</v-row>
+								</template>
 
-					<template v-slot:item.companyAccountName="{ item }">
-						<v-row class="d-flex">
-							<v-col>
-								<p>{{ item.companyAccountName }}</p>
-							</v-col>
-						</v-row>
+								<template v-slot:item.actions="{ item }">
+									<v-btn
+										block
+										color="primary"
+										:to="slug + item.id" 
+									>
+										View
+									</v-btn>
+								</template>
+
+							</v-data-table>
+						</td>
 					</template>
 
-					<template v-slot:item.companyApprovedConnections="{ item }">
-						<v-row class="d-flex">
-							<v-col>
-								<p style="text-align:center">{{ item.companyApprovedConnections.fulfillmentValue }}</p>
-							</v-col>
-						</v-row>
-					</template>
+				<template v-slot:item.companyAccountName="{ item }">
+					<v-row class="d-flex">
+						<v-col>
+							<p>{{ item.companyAccountName }}</p>
+						</v-col>
+					</v-row>
+				</template>
 
-					<template v-slot:item.companyYearFounded="{ item }">
-						<v-row class="d-flex">
-							<v-col>
-								<p style="text-align:center;">{{item.companyYearFounded}}</p>
-							</v-col>
-						</v-row>
-					</template>
+				<template v-slot:item.companyApprovedConnections="{ item }">
+					<v-row class="d-flex">
+						<v-col>
+							<p style="text-align:center">{{ item.companyApprovedConnections.fulfillmentValue }}</p>
+						</v-col>
+					</v-row>
+				</template>
 
-					<template v-slot:item.companyChannels="{ item }">
-						<v-row class="d-flex">
-							<v-col>
-								<p style="text-align:center;" v-if="item.companyChannels.fulfillmentValue === 'There are no locations'">0</p>
-								<p style="text-align:center;" v-else>{{ item.companyChannels.fulfillmentValue.length }}</p>
-							</v-col>
-						</v-row>
-					</template>
+				<template v-slot:item.companyYearFounded="{ item }">
+					<v-row class="d-flex">
+						<v-col>
+							<p style="text-align:center;">{{item.companyYearFounded}}</p>
+						</v-col>
+					</v-row>
+				</template>
 
-				</v-data-table>
+				<template v-slot:item.companyChannels="{ item }">
+					<v-row class="d-flex">
+						<v-col>
+							<p style="text-align:center;" v-if="item.companyChannels.fulfillmentValue === 'There are no locations'">0</p>
+							<p style="text-align:center;" v-else>{{ item.companyChannels.fulfillmentValue.length }}</p>
+						</v-col>
+					</v-row>
+				</template>
 
-			</v-col>
-		</v-row>
+			</v-data-table>
+
+		</v-col>
+	</v-row>
 
   </v-app>
 </template>

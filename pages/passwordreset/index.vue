@@ -33,7 +33,7 @@
               >
               <v-card-subtitle
                 class="d-flex justify-center"
-                style="margin:auto;"
+                style="margin:auto; font-size:1.1grem;"
                 >Please enter your email account, and we will send an email to
                 the address you entered with instructions to reset your
                 password!</v-card-subtitle
