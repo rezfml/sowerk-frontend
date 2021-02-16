@@ -10,23 +10,22 @@
 
     <!-- NOT SUPER USER -->
     <transition name="slide-fade">
-      <!-- SUPER USER -->
-      <v-card class="my-4 flex-row justify-space-between align-center" style="position: relative; margin-left:3%;margin-right:4%;">
-        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+      <v-card class="my-4 flex-row justify-space-between align-center mx-0">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
-            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;color:white">SOWERK 101</h1>
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
           </v-col>
 
-          <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
+          <v-col cols="3" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
             <p style="font-size:1.1rem">Watch our short video to learn about Finding A SOWerk Vendor.</p>
           </v-col>
 
-          <!-- VENDOR CHANNELS VIDEO -->
-          <v-col cols="4" style="width:100%;text-align:center;">
-
-            <v-btn class="py-12" @click="renderVideoCard" style="width: 100%; border: 1px solid white;text-decoration:none;color:inherit;background-color:#404040; font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+          <v-col cols="6" style="width:100%;text-align:center;">
+            <v-btn @click="renderVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                 WATCH NOW <br/>-Find A SOWerk Vendor-
+              </span>
             </v-btn>
           </v-col>
         </v-row>

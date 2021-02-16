@@ -17,51 +17,52 @@
       ></v-progress-circular>
     </div>
 
-<!--    TOP INFO BANNER WITH LINK TO YOUTUBE VIDEO    -->
+<!--    TOP INFO BANNER WITH LINK TO VIMEO VIDEO    -->
     <transition name="slide-fade">
       <v-card class="my-4 flex-row justify-space-between align-center mx-0">
-        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto;background-color:#404040">
+        <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
 
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
-            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;">SOWERK 101</h1>
+            <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
           </v-col>
 
           <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
             <p style="font-size:1.1rem">Watch our short video to learn about Vendor Requirements and why they are important to your SOWerk Account.</p>
           </v-col>
 
+
           <!-- VENDOR APPLICATIONS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.vendorApplications === true">
-            <v-btn @click="watchClickedVendorApplications" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW -Vendor Applications-
+            <v-btn @click="watchClickedVendorApplications" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW <br/> -Vendor Applications-
               </span>
             </v-btn>
           </v-col>
 
           <!-- COMPANY DOCUMENTS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyDocuments === true">
-            <v-btn @click="watchClickedCompanyDocuments" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW -Company Documents-
+            <v-btn @click="watchClickedCompanyDocuments" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW <br/> -Company Documents-
               </span>
             </v-btn>
           </v-col>
 
           <!-- COMPANY TEMPLATES VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.companyTemplates === true">
-            <v-btn @click="watchClickedCompanyTemplates" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW -Company Templates-
+            <v-btn @click="watchClickedCompanyTemplates" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW <br/> -Company Templates-
               </span>
             </v-btn>
           </v-col>
 
           <!-- SOWERK TEMPLATES VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;" v-if="videosLinks.sowerkTemplates === true">
-            <v-btn @click="watchClickedSowerkTemplates" style="display:block;border: 1px solid white;padding:8% 5% 12% 5%;text-decoration:none;color:inherit;background-color:#404040">
-              <span style="font-size:.8rem;letter-spacing:1px;font-weight:400;color:white;text-align:center;">
-                WATCH NOW -SOWERK Templates-
+            <v-btn @click="watchClickedSowerkTemplates" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+              <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
+                WATCH NOW <br/> -SOWERK Templates-
               </span>
             </v-btn>
           </v-col>
@@ -69,32 +70,33 @@
       </v-card>
     </transition>
 
+    <!-- ACTUAL VIDEO CONTAINERS -->
     <transition name="slide-fade">
 
-      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.vendorApplications === true">
-        <div style="border-radius:1%;">
-          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:10px;" v-if="clickedLinks.vendorApplications === true">
+        <div style="border-radius:10px;">
+          <iframe src="https://vimeo.com/showcase/7955326/embed" allowfullscreen frameborder="0" style="width:100%;height:550px;border-radius:10px;">
           </iframe>
         </div>
       </v-card>
 
-      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyDocuments === true">
-        <div style="border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
+      <!-- <v-card style="height:550px;width:100%;background-color:#404040;border-radius:10px;" v-if="clickedLinks.companyDocuments === true">
+        <div style="border-radius:10px;">
+          <iframe src="https://player.vimeo.com/video/495537823" allowfullscreen frameborder="0" style="width:100%;height:550px;border-radius:10px;">
+          </iframe>
+        </div>
+      </v-card> -->
+
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:10px;" v-if="clickedLinks.companyTemplates === true">
+        <div style="border-radius:10px;">
+          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="width:100%;height:550px;border-radius:10px;">
           </iframe>
         </div>
       </v-card>
 
-      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.companyTemplates === true">
-        <div style="border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537809" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
-          </iframe>
-        </div>
-      </v-card>
-
-      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:1%;" v-if="clickedLinks.sowerkTemplates === true">
-        <div style="border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="width:72vw;height:550px;border-radius:3%;margin-left:.5%;">
+      <v-card style="height:550px;width:100%;background-color:#404040;border-radius:10px;" v-if="clickedLinks.sowerkTemplates === true">
+        <div style="border-radius:10px;">
+          <iframe src="https://player.vimeo.com/video/495537767" allowfullscreen frameborder="0" style="width:100%;height:550px;border-radius:10px;">
           </iframe>
         </div>
       </v-card>
