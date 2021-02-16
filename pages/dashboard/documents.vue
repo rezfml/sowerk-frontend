@@ -46,6 +46,7 @@
         </v-row>
       </v-card>
     </transition>
+    
     <!-- VIMEO VIDEO -->
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:#404040;border-radius:10px;" v-if="showVideo === true">
