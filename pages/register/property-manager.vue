@@ -147,6 +147,24 @@
     <v-card v-if="successPopup" style="position: fixed; width: 100%; height: 100%;" class="d-flex flex-column align-center justify-center">
       <v-card-title style="color: #A61C00; width: 80%;">Thank you for your registration. Please check your email for a verification email from SOWerk! You will be redirected to the login portal momentarily.</v-card-title>
     </v-card>
+
+    <!-- FACEBOOK PIXEL CODE -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '296647381768376');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=296647381768376&ev=PageView&noscript=1"
+    /></noscript>
+
   </v-container>
 </template>
 

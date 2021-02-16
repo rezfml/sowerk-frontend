@@ -117,32 +117,38 @@
     },
     methods: {
       async Approve(itemVal) {
-        console.log(itemVal, 'itemVal');
-        const approvalChanges = {
-          approval_status: 1
-        };
-        const approvedproviderconnection = {
-          propertymanager_id: itemVal.pmcompanies_id,
-          serviceprovider_id: itemVal.spcompanies_id
-        }
-        await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, approvalChanges)
-          .then(response => {
-            console.log('success in changes', response)
-            this.success = true
-          })
-          .catch(err => {
-            console.log('err', err);
-          })
-        await this.$http.post('https://www.sowerkbackend.com/api/approvedproviderconnection', approvedproviderconnection)
-          .then(response => {
-            console.log('success', response);
-            this.$router.go();
-          })
-          .catch(err => {
-            console.log('err', err)
-          })
+        if(confirm("You are about to approve this Vendor's application. Feel free to send them any pertinent documents at this time.")){
 
-        await this.messageVendorAboutApproval();
+          console.log(itemVal, 'itemVal');
+          const approvalChanges = {
+            approval_status: 1
+          };
+          const approvedproviderconnection = {
+            propertymanager_id: itemVal.pmcompanies_id,
+            serviceprovider_id: itemVal.spcompanies_id
+          }
+          await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, approvalChanges)
+            .then(response => {
+              console.log('success in changes', response)
+              this.success = true
+            })
+            .catch(err => {
+              console.log('err', err);
+            })
+          await this.$http.post('https://www.sowerkbackend.com/api/approvedproviderconnection', approvedproviderconnection)
+            .then(response => {
+              console.log('success', response);
+              this.$router.go();
+            })
+            .catch(err => {
+              console.log('err', err)
+            })
+
+          await this.messageVendorAboutApproval();
+
+        } else {
+          console.log("did not confirm")
+        }
       },
       async messageVendorAboutApproval() {
         console.log(this.application);
