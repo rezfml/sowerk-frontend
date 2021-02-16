@@ -28,12 +28,15 @@
       <!-- VENDOR USER -->
       <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loading">
         <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
+          
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
             <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
           </v-col>
+
           <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
             <p style="font-size:1.1rem">Watch our short video to learn how to utilize the Requesting Documents function on SOWerk.</p>
           </v-col>
+
           <!-- VENDOR CHANNELS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;">
             <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
@@ -43,15 +46,16 @@
         </v-row>
       </v-card>
     </transition>
-    <!-- VENDOR USER -->
+    <!-- VIMEO VIDEO -->
     <transition name="slide-fade">
-      <v-card style="height:450px;width:100%;background-color:white;border-radius:1%;" v-if="showVideo === true">
-        <div style="position:relative;border-radius:1%;">
-          <iframe src="https://player.vimeo.com/video/505426973" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:900px;height:450px;margin-left:22%;border-radius:3%;">
+      <v-card style="height:450px;width:100%;background-color:#404040;border-radius:10px;" v-if="showVideo === true">
+        <div style="border-radius:10px;">
+          <iframe src="https://player.vimeo.com/video/505426973" allowfullscreen frameborder="0" style="width:100%;height:450px;border-radius:10px;">
           </iframe>
         </div>
       </v-card>
     </transition>
+
     <!--VENDOR'S BUSINESS SEARCH BANNER -->
     <transition name="slide-fade">
       <v-card class="my-4" style="width: 99%; height: auto; background-image: url('/tools-texture.png'); background-size: cover; background-position: bottom;" v-if="loading">
