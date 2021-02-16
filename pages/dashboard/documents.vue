@@ -555,7 +555,9 @@
           .catch(err => {
             console.log(err, 'err in getting list')
           })
-
+        if(this.company.company_type === "true") {
+          await this.getDocumentChannelCompany();
+        }
         this.loading = true;
       },
       async getVendorProvidedDocuments() {
@@ -602,6 +604,26 @@
           await this.getVendorDocumentChannelCompany();
         }
         this.loading = true;
+      },
+      async getDocumentChannelCompany() {
+        for(let i=0; i<this.companyTemplateDocuments.length; i++) {
+          this.$http.get('https://www.sowerkbackend.com/api/locations-name/' + this.companyTemplateDocuments[i].vendor_channelsId)
+            .then(response => {
+              console.log(response.data, 'LOCATION VENDOR DOC')
+              this.companyTemplateDocuments[i].vendorChannelName = response.data.name;
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.companyTemplateDocuments[i].vendor_companiesId)
+            .then(response => {
+              console.log(response.data, 'LOCATION VENDOR DOC')
+              this.companyTemplateDocuments[i].vendorCompanyName = response.data.account_name;
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
       },
       async getVendorDocumentChannelCompany() {
         for(let i=0; i<this.vendorDocuments.length; i++) {

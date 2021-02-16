@@ -205,7 +205,7 @@
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loadApplicationLocations && loading">
       <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 50%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Your Vendor Applications</v-card-title>
-      <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
+      <v-btn @click="addNewVendorFormLoading" class="py-6 mb-2" color="primary" style="position: absolute; right: 10px; top: -20px; width: 30%; z-index: 1;" ><v-icon>mdi-plus</v-icon>Add New Vendor Form</v-btn>
       <template v-if="loading">
         <v-text-field clearable outlined class="pt-16" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchApplications" light></v-text-field>
         <v-data-table
