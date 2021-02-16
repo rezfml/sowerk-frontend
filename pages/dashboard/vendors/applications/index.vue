@@ -1844,6 +1844,7 @@ const naics = require("naics");
         itemvalue: '',
         loadDeleteCompanyTemplateSpinner: false,
         loadingSubmitVendorDocsSuccess: false,
+        applicationsInformation: []
         }
     },
     async mounted() {
@@ -2044,6 +2045,8 @@ const naics = require("naics");
             this.vendorsList = this.vendorsList.filter(item => item.approval_status !== 0)
             this.vendorsList = [...new Map(this.vendorsList.map(item => [item['spcompanies_id'], item])).values()]
             console.log(response, 'hello!!!!!')
+            this.applicationsInformation = response.data
+            console.log(this.vendorsList)
             if(this.vendorsList.length > 0) {
               for(let i=0; i<this.vendorsList.length; i++) {
                 this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.vendorsList[i].spcompanies_id)
@@ -2052,6 +2055,8 @@ const naics = require("naics");
                     this.approvedVendorsList.push(response.data)
                   })
               }
+            } else {
+              console.log("NO ELSE THIS IS THE ONE L;AKSDfjFL;KAJDF;LKASDJF;LASDKFJASDLFKJSDL;FKJSDL")
             }
           })
           .catch(err => {

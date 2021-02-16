@@ -84,6 +84,8 @@
         <v-card-title v-else-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm && company.company_type==='true'" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
         <v-card-title v-else-if="company.company_type==='true'" style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Pending Documents</v-card-title>
         <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>
+        <p style="font-size:.8rem;text-align:center;width:100%;margin-top:-15px;">A list of documents a Business account has requested of their approved Vendor(s) that are open and not returned.</p>
+        <p style="font-size:.8rem;text-align:center;width:100%;margin-top:-12px;">Upon being returned items once listed here are removed automatically and will appear in All Documents</p>
         <v-data-table
           :items="vendorDocuments"
           :headers="vendorBusinessHeaders"
