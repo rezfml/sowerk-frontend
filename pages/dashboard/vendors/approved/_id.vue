@@ -1724,6 +1724,7 @@
           .then(response => {
             console.log('success in deleting this note', response)
             this.notes = this.notes.filter(singleNote => singleNote !== note)
+            this.locationNotes = this.locationNotes.filter(singleNote => singleNote !== note)
           })
           .catch(err => {
             console.log('err in deleting this note', err);

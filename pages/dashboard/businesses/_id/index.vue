@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%; height: auto;">
-      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoadLocation && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad && !showCompaniesApprovedModal && !showRelationshipApprovedModal">
+      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoadLocation && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad && !showCompaniesApprovedModal && !showRelationshipApprovedModal && !locationNotesModalLoad">
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -177,7 +177,7 @@
                 <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="locationNotes.length > 0">{{locationNotes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
               </v-row>
               <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">
-                <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">Read Notes</v-btn>
+                <v-btn class="mx-auto" @click="listLocationNotesModal" rounded outlined color="primary" style="width: 40%;">Read Notes</v-btn>
                 <v-btn class="mx-auto" @click="addNotesModalCompany" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
               <!--              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>-->
@@ -454,7 +454,7 @@
             style="width: 80%;"
             :items="companyForVendor.locations"
             solo
-            v-model="note.spLocationsId"
+            v-model="note.pmLocationsId"
             outlined
             item-text="name"
             item-value="id"
@@ -495,8 +495,8 @@
           <v-img
             :src="note.fileUrl"
             :aspect-ratio="1"
-            class="my-8 rounded-circle flex-grow-1"
-            style="width: 100%; max-width: 300px;"
+            class="my-8 flex-grow-1"
+            style="width: 100%; max-width: 370px;"
             v-else-if="note.fileUrl"
           ></v-img>
           <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
@@ -545,7 +545,7 @@
           <v-card-title style="color: #A61c00;">Log Internal Note For {{companyForVendor.account_name}} - {{location.name}}</v-card-title>
           <v-divider style="width: 80%; height: 5px; background-color: #151515;" class="mb-4"></v-divider>
           <v-select
-            label="Select the Channel that goes with your note"
+            label="Select your Channel that goes with your note"
             style="width: 80%;"
             :items="company.locations"
             solo
@@ -565,14 +565,15 @@
             outlined
             v-model="note.note"
           ></v-text-field>
-          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success!</v-card-text>
-          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success!</v-card-text>
+          <v-card-text v-if="note.fileUrl && notesFileFile.type === 'application/pdf'" style="text-align: center;">PDF Success! - {{notesFileFile.name}}</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'" style="text-align: center;">Excel Doc Success! - {{notesFileFile.name}}</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.ms-excel'" style="text-align: center;">CSV Doc Success! - {{notesFileFile.name}}</v-card-text>
+          <v-card-text v-else-if="note.fileUrl && notesFileFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" style="text-align: center;">Word Doc Success! - {{notesFileFile.name}}</v-card-text>
           <v-img
             :src="note.fileUrl"
             :aspect-ratio="1"
-            class="my-8 rounded-circle flex-grow-1"
-            style="width: 100%; max-width: 300px;"
+            class="my-8 flex-grow-1"
+            style="width: 100%; max-width: 370px;"
             v-else-if="note.fileUrl"
           ></v-img>
           <!-- <v-icon v-else :size="100" class="flex-grow-1">person</v-icon> -->
@@ -644,6 +645,37 @@
             </template>
           </v-data-table>
           <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitNotesModalLoad">< Back</v-btn>
+        </v-card>
+      </transition>
+
+      <transition name="slide-fade">
+        <v-card v-if="locationNotesModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Your Company Internal Notes On Current Vendor Channel - {{location.name}}</v-card-title>
+          <v-data-table
+            :headers="notesHeaders"
+            :items="locationNotes"
+            style="width: 90%;"
+            :items-per-page="10"
+          >
+            <template v-slot:item.channel="{ item }" class="d-flex flex-column align-center">
+              <p>{{item.channel}}</p>
+            </template>
+            <template v-slot:item.note="{ item }" class="d-flex flex-column align-center">
+              <!--              <p v-if="item.note.length > 10">{{item.note.slice(0, 10)}}...</p>-->
+              <p>{{item.note}}</p>
+            </template>
+            <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <p v-else>No File Present</p>
+            </template>
+            <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
+              <p v-if="item.created">{{item.created.slice(0, 10)}}</p>
+            </template>
+            <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
+              <v-btn @click="deleteNote(item)" v-if="currentUser.is_superuser || (currentUser.email === item.email && currentUser.phone === item.phone && currentUser.first_name === item.contact_first_name)">Delete</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitLocationNotesModalLoad">< Back</v-btn>
         </v-card>
       </transition>
 
@@ -959,8 +991,8 @@
           fileUrl: null,
           locations_id: Number,
           userprofiles_id: Number,
-          spLocationsId: Number,
-          spcompaniesId: Number,
+          pmLocationsId: Number,
+          pmCompaniesId: Number,
           companies_id: Number,
         },
         chosenLocation: {},
@@ -1034,6 +1066,7 @@
         loadshowRelationshipApprovedModal: true,
         addNotesModalLoadLocation: false,
         addNotesSuccessLocation: false,
+        locationNotesModalLoad: false,
       }
     },
     computed: {
@@ -1176,7 +1209,7 @@
         this.note.userprofiles_id = this.currentUser.id
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
-        this.note.spcompaniesId = this.companyForVendor.id
+        this.note.pmCompaniesId = this.companyForVendor.id
         console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
@@ -1191,7 +1224,7 @@
             console.log('error in uploading location image', err)
           })
         setTimeout(() => {
-          this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
+          this.$http.post('https://www.sowerkbackend.com/api/vendornotes', this.note)
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
@@ -1203,8 +1236,8 @@
                 fileUrl: null,
                 locations_id: Number,
                 userprofiles_id: Number,
-                spLocationsId: Number,
-                spcompaniesId: Number,
+                pmLocationsId: Number,
+                pmCompaniesId: Number,
                 companies_id: Number,
               }
               this.chosenLocation = {}
@@ -1218,8 +1251,8 @@
         this.note.userprofiles_id = this.currentUser.id
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
-        this.note.spLocationsId = this.location.id
-        this.note.spcompaniesId = this.companyForVendor.id
+        this.note.pmLocationsId = this.location.id
+        this.note.pmCompaniesId = this.companyForVendor.id
         console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
@@ -1234,7 +1267,7 @@
             console.log('error in uploading location image', err)
           })
         setTimeout(() => {
-          this.$http.post('https://www.sowerkbackend.com/api/notes', this.note)
+          this.$http.post('https://www.sowerkbackend.com/api/vendornotes', this.note)
             .then(response => {
               console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
@@ -1246,8 +1279,8 @@
                 fileUrl: null,
                 locations_id: Number,
                 userprofiles_id: Number,
-                spLocationsId: Number,
-                spcompaniesId: Number,
+                pmLocationsId: Number,
+                pmCompaniesId: Number,
                 companies_id: Number,
               }
               this.chosenLocation = {}
@@ -1287,7 +1320,7 @@
       },
       selectNotesUrl(url) {
         this.note.fileUrl = url;
-        console.log(this.note.fileUrl);
+        console.log(this.note.fileUrl, 'FILE URL SELECT NOTES');
       },
       async closeRequestModal() {
         this.requestModalLoad = false;
@@ -1681,11 +1714,11 @@
           })
       },
       async getNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPCompanyId/' + this.companyForVendor.id)
+        await this.$http.get('https://www.sowerkbackend.com/api/vendornotes/byCompanyId/' + this.currentUser.companies_id + '/byPMCompanyId/' + this.companyForVendor.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
             for(let i=0; i<response.data.length; i++) {
-              this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].spLocationsId)
+              this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].pmLocationsId)
                 .then(responseLoc => {
                   console.log(responseLoc, "LOC RESPONSE")
                   response.data[i]['channel'] = responseLoc.data.name
@@ -1708,9 +1741,10 @@
           })
       },
       async getLocationNotes() {
-        await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.location.id)
+        this.locationNotes = [];
+        await this.$http.get('https://www.sowerkbackend.com/api/vendornotes/byCompanyId/' + this.currentUser.companies_id + '/byPMLocationId/' + this.location.id)
           .then(response => {
-            console.log(response.data, 'notes!!!!');
+            console.log(response.data, 'location notes!!!!');
             this.locationNotes = response.data;
           })
           .catch(err => {
@@ -1718,10 +1752,11 @@
           })
       },
       async deleteNote(note) {
-        await this.$http.delete('https://www.sowerkbackend.com/api/notes/' + note.id)
+        await this.$http.delete('https://www.sowerkbackend.com/api/vendornotes/' + note.id)
           .then(response => {
             console.log('success in deleting this note', response)
             this.notes = this.notes.filter(singleNote => singleNote !== note)
+            this.locationNotes = this.locationNotes.filter(singleNote => singleNote !== note)
           })
           .catch(err => {
             console.log('err in deleting this note', err);
@@ -1747,8 +1782,8 @@
           fileUrl: null,
           locations_id: Number,
           userprofiles_id: Number,
-          spLocationsId: Number,
-          spcompaniesId: Number,
+          pmLocationsId: Number,
+          pmCompaniesId: Number,
           companies_id: Number,
         }
       },
@@ -1760,8 +1795,8 @@
           fileUrl: null,
           locations_id: Number,
           userprofiles_id: Number,
-          spLocationsId: Number,
-          spcompaniesId: Number,
+          pmLocationsId: Number,
+          pmCompaniesId: Number,
           companies_id: Number,
         }
       },
@@ -1769,8 +1804,15 @@
         this.notesModalLoad = true;
         this.$vuetify.goTo(0);
       },
+      async listLocationNotesModal() {
+        this.locationNotesModalLoad = true;
+        this.$vuetify.goTo(0);
+      },
       async exitNotesModalLoad() {
         this.notesModalLoad = false;
+      },
+      async exitLocationNotesModalLoad() {
+        this.locationNotesModalLoad = false;
       },
       async openLicenseModal() {
         this.licenseModal = true;
