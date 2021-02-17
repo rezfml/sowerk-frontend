@@ -1,5 +1,5 @@
 <template>
-  <app id="joincontainer">
+  <div id="joincontainer">
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8815350.js"></script>
 
     <!-- HERO SECTION-->
@@ -142,7 +142,7 @@
     src="https://www.facebook.com/tr?id=296647381768376&ev=PageView&noscript=1"
     /></noscript>
 
-  </app>
+  </div>
 </template>
 
 <script>
