@@ -78,7 +78,7 @@ export default {
       await this.$http
         .get('https://www.sowerkbackend.com/api/auth/users/ui/' + id)
         .then((response) => {
-          this.user = response.data.users[0]
+          this.user = response.data.user
         })
         .catch((err) => {
           console.log(err, 'err in getting user')

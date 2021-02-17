@@ -973,23 +973,23 @@
           <!-- SUPER USER -->
           <v-card class="my-4 flex-column justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
 
-            <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
+            <v-row class="justify-space-between align-center mx-0" style=" background-color: #707070">
               <v-col cols="12" style="color:white;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.2rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
             </v-row>
 
-            <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
+            <v-row class="justify-space-between align-center mx-0" style=" background-color: #707070">
               <v-col cols="12" style="color:white;text-align:center;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.4rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
             </v-row>
 
-            <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
+            <v-row class="justify-space-between align-center mx-0" style=" background-color: #707070">
               <!-- VENDOR CHANNELS VIDEO -->
               <v-col cols="12" style="text-align:center;">
-                <v-btn @click="showVideoCard" style="border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-                  <span style="font-size:1.2rem;letter-spacing:1px;font-weight:800;color:white;text-align:center;margin-top:5%;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:1rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>
@@ -1272,23 +1272,23 @@
           <!-- SUPER USER -->
           <v-card class="my-4 flex-column justify-space-between align-center mx-0" v-if="company.company_type === 'true'">
 
-            <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
+            <v-row class="justify-space-between align-center mx-0" style=" background-color: #707070">
               <v-col cols="12" style="color:white;text-align:center;">
                 <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:1.8rem;padding-left:2%;color:white">SOWERK 101</h1>
               </v-col>
             </v-row>
 
-            <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
+            <v-row class="justify-space-between align-center mx-0" style=" background-color: #707070">
               <v-col cols="12" style="color:white;text-align:center;padding-left:2%;padding-top:2%">
                 <p style="font-size:1.2rem">Watch our short video to learn about Account Channels and why they are important to your SOWerk Account.</p>
               </v-col>
             </v-row>
 
-            <v-row class="justify-space-between align-center mx-0" style="background-color:#404040">
+            <v-row class="justify-space-between align-center mx-0" style=" background-color: #707070">
               <!-- VENDOR CHANNELS VIDEO -->
               <v-col cols="12" style="text-align:center;">
-                <v-btn @click="showVideoCard" style="border: 1px solid white;padding:8% 10% 10% 12%;text-decoration:none;color:inherit;background-color:#404040">
-                  <span style="font-size:.7rem;letter-spacing:1px;font-weight:800;color:white;text-align:center;">
+                <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
+                  <span style="font-size:.7rem;letter-spacing:3px;font-weight:400;color:white;text-align:center;">
                     WATCH NOW -Account Channels-
                   </span>
                 </v-btn>

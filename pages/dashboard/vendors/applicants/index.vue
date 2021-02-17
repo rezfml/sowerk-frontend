@@ -59,6 +59,7 @@
           </v-row>
         </v-card>
       </transition>
+      
 
       <transition name="slide-fade">
         <template v-if="loading" class="d-flex flex-column align-center">
@@ -281,15 +282,15 @@
 
           } finally {
 
-            console.log(this.userforms, "list of forms for this business channel!")
-            console.log(this.applicationsArray, "list of vendor info for applications currently pending under this business channel")
+            // console.log(this.userforms, "list of forms for this business channel!")
+            // console.log(this.applicationsArray, "list of vendor info for applications currently pending under this business channel")
 
 
 
             this.applicationsArray.forEach((app => {
               if(app.pmlocations_id === this.company.locations[i].id) {
-                console.log(app.pmlocations_id, "-----")
-                console.log(this.company.locations[i].id, "-----")
+                // console.log(app.pmlocations_id, "-----")
+                // console.log(this.company.locations[i].id, "-----")
 
                 this.userforms.forEach((form => {
                   if(app.pmuserforms_id === form.id) {
@@ -314,7 +315,7 @@
             }
 
             this.bizAndVendorData.push(allDataForEachRow)
-            console.log(this.bizAndVendorData, "ALL DATA!!!!!!!!!!!!")
+            // console.log(this.bizAndVendorData, "ALL DATA!!!!!!!!!!!!")
           }
 
 
@@ -334,7 +335,7 @@
               })
             }
             console.log(this.company, "---------------------------------------------------------")
-            console.log(this.company.locations[0].id)
+            // console.log(this.company.locations[0].id)
             this.businessChannelsList = this.company.locations
           })
           .catch(err => {
