@@ -4,41 +4,66 @@
       <v-row style="height: 100%;" v-if="success === false && failure === false">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
+            
             <v-row>
               <v-col cols="12" align="center">
-                <v-avatar size="100" class="text-center mx-auto mt-n16 rounded-circle elevation-5" color="white">
+                <v-avatar size="100" class="text-center mx-auto rounded-circle elevation-5" color="white">
                   <v-img :src="location.imageUrl" v-if="location.imageUrl && location.imageUrl !== '{}'"></v-img>
                   <v-icon v-else size="60">person</v-icon>
                 </v-avatar>
               </v-col>
             </v-row>
+
 <!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
+
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
+            
             <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
+            
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
             <!-- <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn> -->
+            
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
+            
             <v-card-title style="color:#A61C00;">About</v-card-title>
+            
+            <v-card-text style="text-align:center;" v-if="location.description.length > 300">{{location.description.slice(0, 299)}}...</v-card-text>
+            <v-card-text style="text-align:center;" v-else>{{location.description}}</v-card-text>
+
             <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
+            
             <v-card-text>Founded: {{location.year_founded}}</v-card-text>
+            
             <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
+            
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            <v-card-title style="color:#A61C00;">Main Contact</v-card-title>
-            <v-card-text>{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-            <v-card-text>{{location.email}}</v-card-text>
-            <v-card-text>{{location.phone}}</v-card-text>
+            
+            <p class="title text-center primary--text">Current Profile Contact</p>
+            
+            <v-card-text style="text-align:center;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
+            
+            <v-card-text style="text-align:center;">{{location.email}}</v-card-text>
+            
+            <v-card-text style="text-align:center;">{{location.phone}}</v-card-text>
+            
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+            
             <v-card-title style="color:#A61C00;">Insurances</v-card-title>
+            
             <template v-for="(insurance, index) in insurances">
               <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
               <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
             </template>
+            
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
+            
             <v-card-title style="color:#A61C00;">Licenses</v-card-title>
+            
             <template v-for="(license, index) in licenses">
               <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
               <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
             </template>
+          
           </v-card>
         </v-col>
         <v-col cols="8">
