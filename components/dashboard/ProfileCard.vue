@@ -150,8 +150,8 @@
                       <template v-if="user">
                         <p class="title text-center primary--text">Current Profile Contact</p>
                         <p class="body-2" style="text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">{{user.first_name}} {{user.last_name}}</p>
-                        <p class="body-2">{{user.email}}</p>
-                        <p class="body-2">{{user.phone}}</p>
+                        <p class="body-2" style="text-align:center;">{{user.email}}</p>
+                        <p class="body-2" style="text-align:center;">{{user.phone}}</p>
                       </template>
                     </v-card-text>
                   </transition>
