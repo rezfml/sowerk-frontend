@@ -688,8 +688,10 @@
 
       <transition name="slide-fade">
         <v-card v-if="requestModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center justify-center">
-          <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
-          <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
+          <v-card-title>Vendor Account You Are Requesting To Apply:</v-card-title>
+          <v-card-title style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</v-card-title>
+          <v-card-title>The Vendor’s Channel You Are Requesting On The Application:</v-card-title>
+          <v-card-title style="color: #A61c00" class="ml-2">{{location.name}}</v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
             <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
               <v-form class="mx-4" style="width: 60%;">
@@ -1891,4 +1893,3 @@
     opacity: 0;
   }
 </style>
-                                                                                               
