@@ -564,7 +564,7 @@
               <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== '' && item.fileUrl !== null">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
@@ -595,7 +595,7 @@
               <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== '' && item.fileUrl !== null">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
@@ -1762,7 +1762,24 @@
         this.locationNotes = [];
         await this.$http.get('https://www.sowerkbackend.com/api/vendornotes/byCompanyId/' + this.currentUser.companies_id + '/byPMLocationId/' + this.location.id)
           .then(response => {
-            //console.log(response.data, 'location notes!!!!');
+            console.log(response.data, 'location notes!!!!');
+            for(let i=0; i<response.data.length; i++) {
+              this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].pmLocationsId)
+                .then(responseLoc => {
+                  //console.log(responseLoc, "LOC RESPONSE")
+                  response.data[i]['channel'] = responseLoc.data.name
+                })
+                .catch(err => {
+                  //console.log(err)
+                })
+              this.$http.get('https:/www.sowerkbackend.com/api/auth/users/' + response.data[i].userprofiles_id)
+                .then(responseUser => {
+                  response.data[i]['username'] = responseUser.data.first_name + ' ' + responseUser.data.last_name
+                })
+                .catch(err => {
+                  //console.log(err)
+                })
+            }
             this.locationNotes = response.data;
           })
           .catch(err => {
