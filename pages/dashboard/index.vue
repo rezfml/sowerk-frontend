@@ -286,7 +286,7 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
+                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -691,7 +691,7 @@
                   <v-card style="width: 100%; height: 40vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
+                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1097,7 +1097,7 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
+                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1498,7 +1498,7 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
+                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1899,7 +1899,7 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined rounded color="#7C7C7C" class="py-8 my-2 mb-4" style="width: 30%;" href="https://www.youtube.com/watch?v=ypTRBCA-BOY&list=PL6ZPXKB2cXYEZ-jblteV6zBNr7wDCzqPz&index=1" target="_blank">View All</v-btn>
+                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 

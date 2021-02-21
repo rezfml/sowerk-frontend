@@ -222,12 +222,6 @@
                           <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created}}</span></v-card-text>
                         </v-row>
 
-                        <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
-
-                        <v-card-text class="mb-n6 mx-auto text-center" style="font-size: 16px !important; text-align: center;word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
-
-                        <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
-
                         <v-select
                           style="text-align: center;"
                           readonly
