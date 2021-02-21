@@ -635,7 +635,7 @@
               <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== '' && item.fileUrl !== null">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
@@ -666,7 +666,7 @@
               <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== '' && item.fileUrl !== null">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
@@ -688,8 +688,10 @@
 
       <transition name="slide-fade">
         <v-card v-if="requestModalLoad" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center justify-center">
-          <v-card-title>Vendor Account: <span style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</span></v-card-title>
-          <v-card-title>Vendor Channel: <span style="color: #A61c00" class="ml-2">{{location.name}}</span></v-card-title>
+          <v-card-title>Vendor Account You Are Requesting To Apply:</v-card-title>
+          <v-card-title style="color: #A61c00" class="ml-2">{{companyForVendor.account_name}}</v-card-title>
+          <v-card-title>The Vendor’s Channel You Are Requesting On The Application:</v-card-title>
+          <v-card-title style="color: #A61c00" class="ml-2">{{location.name}}</v-card-title>
           <template style="text-align: center; width: 100%;" class="d-flex flex-column align-center">
             <v-card-title class="d-flex flex-wrap justify-center align-center" style="width: 100%;">You will request this Vendor for
               <v-form class="mx-4" style="width: 60%;">
@@ -1746,6 +1748,23 @@
         await this.$http.get('https://www.sowerkbackend.com/api/notes/byCompanyId/' + this.currentUser.companies_id + '/bySPLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'notes!!!!');
+            for(let i=0; i<response.data.length; i++) {
+              this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].spLocationsId)
+                .then(responseLoc => {
+                  console.log(responseLoc, "LOC RESPONSE")
+                  response.data[i]['channel'] = responseLoc.data.name
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+              this.$http.get('https:/www.sowerkbackend.com/api/auth/users/' + response.data[i].userprofiles_id)
+                .then(responseUser => {
+                  response.data[i]['username'] = responseUser.data.first_name + ' ' + responseUser.data.last_name
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            }
             this.locationNotes = response.data;
           })
           .catch(err => {

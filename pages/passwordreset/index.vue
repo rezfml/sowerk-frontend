@@ -95,6 +95,14 @@
         <!--          <p v-else>This confirmation link has expired or the user doesn't exist. Please click here to resend a confirmation email.</p>-->
         <!--        </v-col>-->
       </v-row>
+
+      <transition name="slide-fade">
+        <v-card class="d-flex flex-column align-center justify-center" v-if="noAccount" style="position: fixed; left: 10%; top: 10%; width: 80%; height: 80%;">
+          <v-card-title style="font-size: 30px;">The email you entered is not associated with any account we have on record.</v-card-title>
+          <v-card-title style="font-size: 30px; color: #A61c00;">Please try again!</v-card-title>
+          <v-btn text style="font-size: 30px; position: absolute; top: 10px; right: 10px;" @click="accountTryAgain">X</v-btn>
+        </v-card>
+      </transition>
     </v-container>
   </div>
 </template>
@@ -114,7 +122,8 @@ export default {
     return {
       user: {
         email: ''
-      }
+      },
+      noAccount: false,
     }
   },
   mounted() {},
@@ -145,13 +154,28 @@ export default {
         })
         .catch((err) => {
           console.log(err, 'err for user email')
-          alert(
-            'The email you entered is not associated with any account we have on record. Please try again!'
-          )
+          this.noAccount = true;
         })
+    },
+    async accountTryAgain() {
+      this.noAccount = false;
     }
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all 0.05s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+</style>

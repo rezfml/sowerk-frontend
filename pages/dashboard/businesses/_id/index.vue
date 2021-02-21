@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%; height: auto;">
-      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoadLocation && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad && !showCompaniesApprovedModal && !showRelationshipApprovedModal && !locationNotesModalLoad">
+      <v-row style="height: 100%;" v-if="!licenseModal && !insuranceModal && !addNotesModalLoadLocation && !addNotesModalLoad && !notesModalLoad &&!openCompanyLocationsModal && !approvedChannelsModal && !recentlyApprovedChannelsModal && !requestModalLoad && !messageModalLoad && !showCompaniesApprovedModal && !showRelationshipApprovedModal && !locationNotesModalLoad && !showCompaniesApplicationsModal">
         <v-col cols="4" class="mt-10">
           <v-skeleton-loader
             v-if="!loading"
@@ -14,6 +14,16 @@
             <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; line-height: 1.25em; word-break: break-word; white-space: pre-wrap;">{{companyForVendor.account_name}}</v-card-title>
             <v-card-text style="text-align: center; font-size: 18px;">{{companyForVendor.description}}</v-card-text>
             <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
+              <v-row class="d-flex justify-center" style="width: 100%;">
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyApplicationsValues.length > 0">{{singleCompanyApplicationsValues.length}}</v-card-title>
+                <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+                <div class="d-flex flex-column align-center" style="width: 60%;">
+                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Open Applications</v-card-title>
+                  <v-btn @click="showCompaniesApplicationsModalLoad" style="width: 90%;" class="py-6" color="primary" outlined rounded>Apply Now</v-btn>
+                </div>
+              </v-row>
+            </v-row>
+            <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-bottom: 1px solid #7C7C7C; width: 90%;">
               <v-row class="d-flex justify-center" style="width: 100%;">
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyConnections.length > 0">{{singleCompanyConnections.length}}</v-card-title>
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
@@ -216,103 +226,6 @@
             </v-card>
           </transition>
         </v-col>
-        <!--        <v-col cols="3">-->
-        <!--          <v-skeleton-loader-->
-        <!--            v-if="!loading"-->
-        <!--            type="card-avatar, article, article, actions"-->
-        <!--            min-height="50vh"-->
-        <!--            min-width="20vw"-->
-        <!--          ></v-skeleton-loader>-->
-        <!--          <transition name="slide-fade">-->
-        <!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-16" style="width: 100%;" @click="openApprovedChannelsList">-->
-        <!--              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Approved Channels</v-card-title>-->
-        <!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;" v-if="connections.length > 0">{{connections.length}}</v-card-title>-->
-        <!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;" v-else>0</v-card-title>-->
-        <!--            </v-card>-->
-        <!--          </transition>-->
-        <!--          <transition name="slide-fade">-->
-        <!--            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;" @click="openRecentlyApprovedChannelsList">-->
-        <!--              <v-card-title color="primary" style="color: #A61C00; font-size: 24px;">Recently Approved Channels</v-card-title>-->
-        <!--              <v-card-subtitle style=" font-size: 18px;">Past 30 days</v-card-subtitle>-->
-        <!--              <v-card-title class="my-6" color="primary" style="color: #A61C00; font-size: 105px;">{{connectionsPast30Days.length}}</v-card-title>-->
-        <!--            </v-card>-->
-        <!--          </transition>-->
-        <!--&lt;!&ndash;          <transition name="slide-fade">&ndash;&gt;-->
-        <!--&lt;!&ndash;            <v-card v-if="loading" class="d-flex flex-column align-center mt-8" style="width: 100%;">&ndash;&gt;-->
-        <!--&lt;!&ndash;              <v-card-title style="color: #A61c00">Reviews on SOWerk</v-card-title>&ndash;&gt;-->
-        <!--&lt;!&ndash;              <v-card-title class="my-8" style="color: #A61C00; text-align: center; font-size: 105px;">{{reviews.length}}</v-card-title>&ndash;&gt;-->
-        <!--&lt;!&ndash;              <v-btn @click="loadLeaveReview" outlined color="primary" rounded width="90%" class="mb-4">Leave Review</v-btn>&ndash;&gt;-->
-        <!--&lt;!&ndash;              <v-slide-group&ndash;&gt;-->
-        <!--&lt;!&ndash;                multiple&ndash;&gt;-->
-        <!--&lt;!&ndash;                show-arrows&ndash;&gt;-->
-        <!--&lt;!&ndash;              >&ndash;&gt;-->
-        <!--&lt;!&ndash;                <v-slide-item v-for="(review, index) in reviews">&ndash;&gt;-->
-        <!--&lt;!&ndash;                  <v-divider></v-divider>&ndash;&gt;-->
-        <!--&lt;!&ndash;                  <v-rating&ndash;&gt;-->
-        <!--&lt;!&ndash;                    empty-icon="$mdiStarOutline"&ndash;&gt;-->
-        <!--&lt;!&ndash;                    full-icon="$mdiStar"&ndash;&gt;-->
-        <!--&lt;!&ndash;                    half-icon="$mdiStarHalfFull"&ndash;&gt;-->
-        <!--&lt;!&ndash;                    half-increments&ndash;&gt;-->
-        <!--&lt;!&ndash;                    hover&ndash;&gt;-->
-        <!--&lt;!&ndash;                    length="5"&ndash;&gt;-->
-        <!--&lt;!&ndash;                    size="64"&ndash;&gt;-->
-        <!--&lt;!&ndash;                    :value="review.stars"&ndash;&gt;-->
-        <!--&lt;!&ndash;                  ></v-rating>&ndash;&gt;-->
-        <!--&lt;!&ndash;                  <v-card-subtitle>{{review.reviewTitle}}</v-card-subtitle>&ndash;&gt;-->
-        <!--&lt;!&ndash;                  <v-card-text>"{{review.reviewDescription}}" - {{review.reviewerName}}, {{review.reviewerAccountType}}</v-card-text>&ndash;&gt;-->
-        <!--&lt;!&ndash;                </v-slide-item>&ndash;&gt;-->
-        <!--&lt;!&ndash;              </v-slide-group>&ndash;&gt;-->
-        <!--&lt;!&ndash;            </v-card>&ndash;&gt;-->
-        <!--&lt;!&ndash;          </transition>&ndash;&gt;-->
-        <!--          &lt;!&ndash;          <v-card class="d-flex flex-column align-center mt-10">&ndash;&gt;-->
-        <!--          &lt;!&ndash;            <v-card-title style="color: #A61C00; font-size: 24px;">Businesses Portfolio</v-card-title>&ndash;&gt;-->
-        <!--          &lt;!&ndash;            <v-card-subtitle>Other businesses who have accepted this Service Provider</v-card-subtitle>&ndash;&gt;-->
-        <!--          &lt;!&ndash;            <VendorSlider :companies="companies" :connections="connections"></VendorSlider>&ndash;&gt;-->
-        <!--          &lt;!&ndash;          </v-card>&ndash;&gt;-->
-        <!--          <v-overlay-->
-        <!--            :absolute="absolute"-->
-        <!--            :opacity="opacity"-->
-        <!--            :value="overlay"-->
-        <!--          >-->
-        <!--            <transition name="slide-fade">-->
-        <!--              <v-card color="white" v-if="loadLeaveReviewModal" style="position: fixed; top: 20vh; width: 77vw; left: 20vw;" class="d-flex flex-column align-center">-->
-        <!--                <v-card-title style="color: #A61C00">Leave a review for this vendor!</v-card-title>-->
-        <!--                <v-row style="width: 100%;" class="d-flex nowrap justify-center align-center">-->
-        <!--                  <v-rating-->
-        <!--                    color="primary"-->
-        <!--                    half-increments-->
-        <!--                    hover-->
-        <!--                    length="5"-->
-        <!--                    size="40"-->
-        <!--                    value="5"-->
-        <!--                    v-model="leaveReview.stars"-->
-        <!--                    style="width: 30%;"-->
-        <!--                  ></v-rating>-->
-        <!--                  <v-card-text style="color: #A61C00; width: 10%;">{{leaveReview.stars}}/5</v-card-text>-->
-        <!--                </v-row>-->
-        <!--                <v-text-field-->
-        <!--                  class="mt-2"-->
-        <!--                  label="Title Your Review*"-->
-        <!--                  v-model="leaveReview.reviewTitle"-->
-        <!--                  style="color: white; opacity: 0.65; width: 80%;"-->
-        <!--                  outlined-->
-        <!--                  single-line-->
-        <!--                  background-color="#4a4a4a"-->
-        <!--                ></v-text-field>-->
-        <!--                <v-textarea-->
-        <!--                  label="Review Details Here*"-->
-        <!--                  v-model="leaveReview.reviewerDescription"-->
-        <!--                  style="color: white; opacity: 0.65; width: 80%;"-->
-        <!--                  outlined-->
-        <!--                  single-line-->
-        <!--                  background-color="#4a4a4a"-->
-        <!--                ></v-textarea>-->
-        <!--                <v-btn @click="submitReview" color="primary" class="mb-4" style="width: 40%;">Submit Review</v-btn>-->
-        <!--                <v-btn style="position: absolute; top: 10px; right: 10px; font-size: 25px; color: #151515;" text @click="exitLoadLeaveReview">X</v-btn>-->
-        <!--              </v-card>-->
-        <!--            </transition>-->
-        <!--          </v-overlay>-->
-        <!--        </v-col>-->
         <v-col cols="4" class="d-flex flex-column align-center mt-10" >
           <v-skeleton-loader
             v-if="!loading"
@@ -389,6 +302,23 @@
           </transition>
         </v-col>
       </v-row>
+
+      <transition name="slide-fade">
+        <v-card v-if="showCompaniesApplicationsModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
+          <v-card-title style="color: #A61c00;">Open Applications with {{companyForVendor.account_name}}</v-card-title>
+          <v-data-table
+            :headers="singleCompanyApplicationsHeaders"
+            :items="singleCompanyApplicationsValues"
+            style="width: 90%;"
+            :items-per-page="10"
+          >
+            <template v-slot:item.actions="{ item }" class="d-flex flex-column align-center">
+              <v-btn :to="'/dashboard/businesses/' + item.locationId + '/application-form/' + item.userformId">Apply</v-btn>
+            </template>
+          </v-data-table>
+          <v-btn color="primary" style="font-size: 25px; position: absolute; top: 10px; right: 10px;" @click="exitShowCompaniesApplicationsModalLoad">< Back</v-btn>
+        </v-card>
+      </transition>
 
       <transition name="slide-fade">
         <v-card v-if="showCompaniesApprovedModal" style="width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 10vh; height: auto;" class="d-flex flex-column align-center">
@@ -634,7 +564,7 @@
               <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== '' && item.fileUrl !== null">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
@@ -665,7 +595,7 @@
               <p>{{item.note}}</p>
             </template>
             <template v-slot:item.file="{ item }" class="d-flex flex-column align-center">
-              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== ''">Download + View File</a>
+              <a :href="item.fileUrl" target="_blank" download v-if="item.fileUrl !== '' && item.fileUrl !== null">Download + View File</a>
               <p v-else>No File Present</p>
             </template>
             <template v-slot:item.created="{ item }" class="d-flex flex-column align-center">
@@ -938,9 +868,11 @@
     },
     data() {
       return {
+        businessId: Number,
         successMessageSent: false,
         showRelationshipApprovedModal: false,
         showCompaniesApprovedModal: false,
+        showCompaniesApplicationsModal: false,
         addNotesSuccess: false,
         notesFileFile: null,
         approvedChannelsModal: false,
@@ -983,6 +915,7 @@
           userprofiles_id: this.$store.state.user.user.user.id,
         },
         singleCompanyConnections: [],
+        singleCompanyApplications: [],
         vendorMessages: [],
         userformsIdForRequest: [],
         notes: [],
@@ -1023,6 +956,11 @@
           { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Company', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
         ],
+        singleCompanyApplicationsHeaders: [
+          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
         singleCompanyConnectionRelationshipsHeaders: [
           { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Vendor Company', value: 'vendorCompany', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
@@ -1062,6 +1000,7 @@
         insuranceModal: false,
         singleCompanyRelationshipConnections: [],
         singleCompanyConnectionValues: [],
+        singleCompanyApplicationsValues: [],
         singleCompanyConnectionRelationships: [],
         loadshowRelationshipApprovedModal: true,
         addNotesModalLoadLocation: false,
@@ -1075,7 +1014,8 @@
       },
     },
     async mounted() {
-      console.log(this.$route.params.id, 'hey')
+      //console.log(this.$route.params.id, 'hey')
+      this.businessId = this.$route.params.id
       await this.getNaicsList();
       await this.getLocation();
       await this.getInsurances();
@@ -1095,8 +1035,15 @@
         await this.getActualSingleCompanyConnections();
         this.$vuetify.goTo(0);
       },
+      async showCompaniesApplicationsModalLoad() {
+        this.showCompaniesApplicationsModal = true;
+        this.$vuetify.goTo(0);
+      },
       async exitShowCompaniesApprovedModalLoad() {
         this.showCompaniesApprovedModal = false;
+      },
+      async exitShowCompaniesApplicationsModalLoad() {
+        this.showCompaniesApplicationsModal = false;
       },
       async showRelationshipApprovedModalLoad() {
         this.loadshowRelationshipApprovedModal = true;
@@ -1126,7 +1073,7 @@
               newSingleCompanyConnectionRelationships.vendorChannel = response.data.name
             })
             .catch(err => {
-              console.log('err in getting company')
+              //console.log('err in getting company')
             })
 
           this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.singleCompanyRelationshipConnections[i].pmlocations_id)
@@ -1135,7 +1082,7 @@
               newSingleCompanyConnectionRelationships.locationAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`
             })
             .catch(err => {
-              console.log('err in getting company')
+              //console.log('err in getting company')
             })
 
           this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.singleCompanyRelationshipConnections[i].pmuserforms_id)
@@ -1143,7 +1090,7 @@
               newSingleCompanyConnectionRelationships.userformName = response.data.name
             })
             .catch(err => {
-              console.log('err in getting company')
+              //console.log('err in getting company')
             })
 
           this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.singleCompanyRelationshipConnections[i].spcompanies_id)
@@ -1151,7 +1098,7 @@
               newSingleCompanyConnectionRelationships.vendorCompany = response.data.account_name
             })
             .catch(err => {
-              console.log('err in getting company')
+              //console.log('err in getting company')
             })
 
           this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.singleCompanyRelationshipConnections[i].pmcompanies_id)
@@ -1161,7 +1108,7 @@
               this.loadshowRelationshipApprovedModal = false;
             })
             .catch(err => {
-              console.log('err in getting company')
+              //console.log('err in getting company')
             })
 
         }
@@ -1173,12 +1120,12 @@
               this.singleCompanyConnectionValues.push(response.data)
             })
             .catch(err => {
-              console.log('err in getting company')
+              //console.log('err in getting company')
             })
         }
       },
       async changeUrl(location) {
-        console.log(location, 'changeUrl', window.location.href);
+        //console.log(location, 'changeUrl', window.location.href);
         this.loading = false;
         this.$route.params.id = location.id
         // window.location.href = "https://www.sowerk.com/dashboard/vendors/" + location.id.toString()
@@ -1189,44 +1136,45 @@
         await this.getNotes();
         await this.getVendorProvidedDocuments();
         await this.getLocationNotes();
+        await this.getOpenApplicationsForCompany(this.companyForVendor)
         this.loading = true;
       },
       async getVendorProvidedDocuments() {
         await this.$http.get('https://www.sowerkbackend.com/api/companydocuments/byCompanyId/' + this.currentUser.companies_id + '/byVendorCompanyId/' + this.companyForVendor.id)
           .then(response => {
-            console.log(response.data, 'response for vendor docs')
+            //console.log(response.data, 'response for vendor docs')
             this.vendorDocuments = response.data
           })
           .catch(err => {
-            console.log(err, 'err in getting list')
+            //console.log(err, 'err in getting list')
           })
       },
       async getChosenLocation(location) {
         this.chosenLocation = location;
-        console.log(this.chosenLocation, 'chosenLocation!!!!!')
+        //console.log(this.chosenLocation, 'chosenLocation!!!!!')
       },
       async submitNoteCompany() {
         this.note.userprofiles_id = this.currentUser.id
         this.note.locations_id = this.chosenLocation.id
         this.note.companies_id = this.currentUser.companies_id
         this.note.pmCompaniesId = this.companyForVendor.id
-        console.log(this.chosenLocation, 'hello')
+        //console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
         formData.append('file', file);
-        console.log(formData, 'formdata');
+        //console.log(formData, 'formdata');
         this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
           .then((response) => {
-            console.log(response, 'response.data for company document upload')
+            //console.log(response, 'response.data for company document upload')
             this.note.fileUrl = response.data.data.Location;
           })
           .catch(err => {
-            console.log('error in uploading location image', err)
+            //console.log('error in uploading location image', err)
           })
         setTimeout(() => {
           this.$http.post('https://www.sowerkbackend.com/api/vendornotes', this.note)
             .then(response => {
-              console.log(response.data, 'note submission success!!!!')
+              //console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
               this.notes.push(response.data.note)
               this.getNotes();
@@ -1243,7 +1191,7 @@
               this.chosenLocation = {}
             })
             .catch(err => {
-              console.log(err, 'err in submitting note', this.note)
+              //console.log(err, 'err in submitting note', this.note)
             })
         }, 1000)
       },
@@ -1253,23 +1201,23 @@
         this.note.companies_id = this.currentUser.companies_id
         this.note.pmLocationsId = this.location.id
         this.note.pmCompaniesId = this.companyForVendor.id
-        console.log(this.chosenLocation, 'hello')
+        //console.log(this.chosenLocation, 'hello')
         let formData = new FormData();
         let file = this.notesFileFile;
         formData.append('file', file);
-        console.log(formData, 'formdata');
+        //console.log(formData, 'formdata');
         this.$http.post('https://www.sowerkbackend.com/api/upload', formData)
           .then((response) => {
-            console.log(response, 'response.data for company document upload')
+            //console.log(response, 'response.data for company document upload')
             this.note.fileUrl = response.data.data.Location;
           })
           .catch(err => {
-            console.log('error in uploading location image', err)
+            //console.log('error in uploading location image', err)
           })
         setTimeout(() => {
           this.$http.post('https://www.sowerkbackend.com/api/vendornotes', this.note)
             .then(response => {
-              console.log(response.data, 'note submission success!!!!')
+              //console.log(response.data, 'note submission success!!!!')
               this.addNotesSuccess = true;
               this.notes.push(response.data.note)
               this.getNotes();
@@ -1286,14 +1234,14 @@
               this.chosenLocation = {}
             })
             .catch(err => {
-              console.log(err, 'err in submitting note', this.note)
+              //console.log(err, 'err in submitting note', this.note)
             })
         }, 1000)
       },
       clickNotesFileUpload() {
-        console.log(this)
+        //console.log(this)
         // let imageInput = this.$refs.companyImage;
-        // console.log(imageInput);
+        // //console.log(imageInput);
         // imageInput.$el.click();
         document.getElementById('companyImage').click()
       },
@@ -1302,25 +1250,25 @@
       },
       selectNotesFile(e) {
         this.notesFileFile = e.target.files[0]
-        console.log(this.notesFileFile)
+        //console.log(this.notesFileFile)
         this.note.fileUrl = URL.createObjectURL(e.target.files[0])
-        console.log(this.note.fileUrl, 'fileUrl')
+        //console.log(this.note.fileUrl, 'fileUrl')
         // this.selectFile(this.notesFileFile);
         // this.selectNotesUrl( this.note.fileUrl);
       },
       readFile(e) {
         this.selectedFile = e.target.files[0]
         this.url = URL.createObjectURL(this.selectedFile)
-        console.log(this.url, 'this.url')
+        //console.log(this.url, 'this.url')
         //this.selectFile(this.selectedFile)
       },
       selectFile(file) {
         this.notesFileFile = file;
-        console.log(this.notesFileFile);
+        //console.log(this.notesFileFile);
       },
       selectNotesUrl(url) {
         this.note.fileUrl = url;
-        console.log(this.note.fileUrl, 'FILE URL SELECT NOTES');
+        //console.log(this.note.fileUrl, 'FILE URL SELECT NOTES');
       },
       async closeRequestModal() {
         this.requestModalLoad = false;
@@ -1372,23 +1320,23 @@
         }
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'response for company approval!!!!!!!!!')
+            //console.log(response.data, 'response for company approval!!!!!!!!!')
             approvedObj.companyName = response.data.account_name
             approvedObj.companyImg = response.data.imgUrl
             this.$http.get('https://www.sowerkbackend.com/api/locations/' + locId)
               .then(response => {
-                console.log(response.data, 'response for location approval!!!!!!!!!')
+                //console.log(response.data, 'response for location approval!!!!!!!!!')
                 approvedObj.locationName = response.data.name;
                 approvedObj.locationImg = response.data.imageUrl;
                 approvedObj.locationAddress = response.data.address + ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode
                 this.approvedChannelsList.push(approvedObj)
               })
               .catch(err => {
-                console.log(err, 'err in location approval')
+                //console.log(err, 'err in location approval')
               })
           })
           .catch(err => {
-            console.log(err, 'err for company approval')
+            //console.log(err, 'err for company approval')
           })
       },
       async getCompanyLocationForRecentlyApproved(id, locId) {
@@ -1401,47 +1349,47 @@
         }
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'response for company approval!!!!!!!!!')
+            //console.log(response.data, 'response for company approval!!!!!!!!!')
             approvedObj.companyName = response.data.account_name
             approvedObj.companyImg = response.data.imgUrl
             this.$http.get('https://www.sowerkbackend.com/api/locations/' + locId)
               .then(response => {
-                console.log(response.data, 'response for location approval!!!!!!!!!')
+                //console.log(response.data, 'response for location approval!!!!!!!!!')
                 approvedObj.locationName = response.data.name;
                 approvedObj.locationImg = response.data.imageUrl;
                 approvedObj.locationAddress = response.data.address + ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode
                 this.recentlyApprovedChannelsList.push(approvedObj)
               })
               .catch(err => {
-                console.log(err, 'err in location approval')
+                //console.log(err, 'err in location approval')
               })
           })
           .catch(err => {
-            console.log(err, 'err in company approval')
+            //console.log(err, 'err in company approval')
           })
       },
       async getNaicsList() {
         await this.$http.get('https://www.sowerkbackend.com/api/naicslist')
           .then(response => {
-            console.log('naicslist', response)
+            //console.log('naicslist', response)
             this.naicsList = response.data.sort((a,b) => {
               return b.timesUsed-a.timesUsed;
             })
           })
           .catch(err => {
-            console.log(err, 'err on getting naicslist')
+            //console.log(err, 'err on getting naicslist')
           })
       },
       async getConnections(location) {
         this.connections = [];
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + location.companies_id)
           .then(response => {
-            console.log(response.data, 'connections!!!!!!!!!!!');
+            //console.log(response.data, 'connections!!!!!!!!!!!');
             if (response.data.length !== 0) {
               for (let i = 0; i < response.data.length; i++) {
-                console.log(location.id, 'LOCATION ID FOR SP LOCATION');
+                //console.log(location.id, 'LOCATION ID FOR SP LOCATION');
                 if (location.id === response.data[i].pmlocations_id && response.data[i].approval_status === 1) {
-                  console.log(response.data[i], 'if matched splocation')
+                  //console.log(response.data[i], 'if matched splocation')
                   this.connections.push(response.data[i]);
                   this.userformsIdForRequest.push(response.data[i].pmuserforms_id);
                   if (moment(response.data[i].created).format('L') > moment().subtract(30, 'days').calendar()) {
@@ -1462,67 +1410,67 @@
               })
               // remove duplicate company values
               this.singleCompanyConnections = this.singleCompanyConnections.filter((v,i,a)=>a.findIndex(t=>(t.spcompanies_id === v.spcompanies_id))===i)
-              console.log(this.singleCompanyConnections, 'single company connections', this.singleCompanyRelationshipConnections)
+              //console.log(this.singleCompanyConnections, 'single company connections', this.singleCompanyRelationshipConnections)
             }
           })
           .catch(err => {
-            console.log(err, 'err in connections');
+            //console.log(err, 'err in connections');
           })
-        console.log(this.connections, 'this.connections')
+        //console.log(this.connections, 'this.connections')
         await this.getCompanies();
       },
       async getLocation() {
         await this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.$route.params.id)
           .then(response => {
-            console.log(response.data, 'response.data location');
+            //console.log(response.data, 'response.data location');
             this.location = response.data;
             this.getLocationType(response.data.id)
             this.getCompanyForVendor(response.data.companies_id)
           })
           .catch(err => {
-            console.log('err', err);
+            //console.log('err', err);
           })
       },
       async getLocationType(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/vendortypes/byLocationId/' + id)
           .then(response => {
-            console.log(response.data, 'vendor types!!!!!!!')
+            //console.log(response.data, 'vendor types!!!!!!!')
             if(response.data[0] !== 'There are no vendor types') {
               this.vendorTypes = response.data
             }
           })
           .catch(err => {
-            console.log(err, 'err in getting location type')
+            //console.log(err, 'err in getting location type')
           })
       },
       async getInsurances() {
         await this.$http.get('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + this.location.companies_id)
           .then(response => {
-            console.log(response.data, 'response.data insurances');
+            //console.log(response.data, 'response.data insurances');
             for (let i = 0; i < response.data.length; i++) {
               if(response.data[i].documentVisible === true) {
                 this.insurances.push(response.data[0]);
               }
             }
-            console.log(this.insurances, 'this.insurances')
+            //console.log(this.insurances, 'this.insurances')
           })
           .catch(err => {
-            console.log('err', err);
+            //console.log('err', err);
           })
       },
       async getLicenses() {
         await this.$http.get('https://www.sowerkbackend.com/api/license/byCompanyId/' + this.location.companies_id)
           .then(response => {
-            console.log(response.data, 'response.data licenses');
+            //console.log(response.data, 'response.data licenses');
             for (let i = 0; i < response.data.length; i++) {
               if(response.data[i].documentVisible === true) {
                 this.licenses.push(response.data[0]);
               }
             }
-            console.log(this.licenses, 'this.licenses')
+            //console.log(this.licenses, 'this.licenses')
           })
           .catch(err => {
-            console.log('err', err);
+            //console.log('err', err);
           })
       },
       async getCompanies() {
@@ -1533,30 +1481,100 @@
       async getCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'companies!!!!!!!!!!!!!!!')
+            //console.log(response.data, 'companies!!!!!!!!!!!!!!!')
             this.companies.push(response.data);
-            console.log('this.companies val!!!!!!!!', this.companies)
+            //console.log('this.companies val!!!!!!!!', this.companies)
           })
           .catch(err => {
-            console.log(err, 'err');
+            //console.log(err, 'err');
           })
       },
       async getCompanyForVendor(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'companies!!!!!!!!!!!!!!!')
+            //console.log(response.data, 'companies!!!!!!!!!!!!!!!')
             this.companyForVendor = response.data
             this.companyForVendor.website = this.companyForVendor.website.replace('https://', '')
-            console.log('this.companies val!!!!!!!!', this.companyForVendor)
+            //console.log('this.companies val!!!!!!!!', this.companyForVendor)
           })
           .catch(err => {
-            console.log(err, 'err');
+            //console.log(err, 'err');
           })
+
+        await this.getOpenApplicationsForCompany(this.companyForVendor)
+      },
+      async getOpenApplicationsForCompany(company) {
+        this.singleCompanyApplicationsValues = [];
+        for(let i=0; i<company.locations.length; i++) {
+          this.$http.get('https://www.sowerkbackend.com/api/userforms-name/byLocationId/' + company.locations[i].id)
+            .then(response => {
+              console.log(response.data, 'USERFORM FOR LOCATION')
+              for(let j=0; j<response.data.length; j++) {
+                let openApplicationsObj = {
+                  locationId: company.locations[i].id,
+                  userformId: response.data[j].id,
+                  name: response.data[j].name,
+                  channelName: company.locations[i].name
+                }
+                if(response.data[j].applicationStatus === 1 || response.data[j].applicationStatus === 2) {
+                  this.singleCompanyApplicationsValues.push(openApplicationsObj)
+                }
+              }
+            })
+            .catch(err => {
+              console.log(err, 'err')
+            })
+          // if(company.locations[i].userforms[0] !== 'There are no userforms') {
+          //   console.log(company.locations[i], 'LOCATION THAT HAS USERFORMS')
+          //   for(let j=0; j<company.locations[i].userforms.length; j++) {
+          //     let openApplicationsObj = {
+          //       locationId: company.locations[i].id,
+          //       userformId: Number,
+          //       name: '',
+          //       channelName: company.locations[i].name
+          //     }
+          //     openApplicationsObj.userformId = company.locations[i].userforms[j].id
+          //     openApplicationsObj.name = company.locations[i].userforms[j].name
+          //     if(company.locations[i].userforms[j].applicationStatus === 1 || company.locations[i].userforms[j].applicationStatus === 2) {
+          //       this.singleCompanyApplicationsValues.push(openApplicationsObj)
+          //     }
+          //   }
+          // }
+        }
+        console.log(this.singleCompanyApplicationsValues, 'YO')
+        // await this.$http.get('https://www.sowerkbackend.com/api/applications/byPMId/' + id)
+        //   .then(response => {
+        //     this.singleCompanyApplicationsValues = response.data.filter(item => item.approval_status === 0)
+        //     if(this.singleCompanyApplicationsValues.length > 0) {
+        //       for(let i=0; i<this.singleCompanyApplicationsValues.length; i++) {
+        //         this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.singleCompanyApplicationsValues[i].pmuserforms_id)
+        //           .then(application => {
+        //             this.singleCompanyApplicationsValues[i]["name"] = application.data.name
+        //             console.log(application, 'HELLO APPLICATION!')
+        //           })
+        //           .catch(applicationErr => {
+        //             //console.log(applicationErr)
+        //           })
+        //         this.$http.get('https://www.sowerkbackend.com/api/locations-name/' + this.singleCompanyApplicationsValues[i].pmlocations_id)
+        //           .then(location => {
+        //             this.singleCompanyApplicationsValues[i]["channelName"] = location.data.name
+        //             console.log(location, 'HELLO LOCATION!')
+        //           })
+        //           .catch(locationErr => {
+        //             //console.log(locationErr)
+        //           })
+        //       }
+        //     }
+        //     console.log(this.singleCompanyApplicationsValues, 'open applications')
+        //   })
+        //   .catch(err => {
+        //     //console.log(err, 'err');
+        //   })
       },
       async getUserCompany(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
           .then(response => {
-            console.log(response.data, 'THIS COMPANY!!!!!!!!!!!!!')
+            //console.log(response.data, 'THIS COMPANY!!!!!!!!!!!!!')
             this.company = response.data;
             if(this.currentUser.is_superuser) {
               this.company.locations = response.data.locations
@@ -1570,12 +1588,12 @@
             this.loading = true;
           })
           .catch(err => {
-            console.log(err, 'err');
+            //console.log(err, 'err');
           })
-        console.log(this.userforms, 'userforms for company')
+        //console.log(this.userforms, 'userforms for company')
       },
       async getUserFormsForLocation(item) {
-        console.log(item, 'getmessagelocation!!!!!!!!!!!!!')
+        //console.log(item, 'getmessagelocation!!!!!!!!!!!!!')
         this.messageLocation = item
         this.userforms = [];
         // if (item.services[0] !== 'There are no services') {
@@ -1593,20 +1611,20 @@
         if(this.requestModalLoad === true) {
           await this.getUserFormsSingleLocation(item.id)
         }
-        console.log(this.userforms, 'userforms');
+        //console.log(this.userforms, 'userforms');
       },
       async getUserFormsSingleLocation(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' + id)
           .then(response => {
-            console.log(response.data, 'userforms for single location!')
+            //console.log(response.data, 'userforms for single location!')
             this.userforms = response.data;
           })
           .catch(err => {
-            console.log(err, 'err in getting userforms for single location')
+            //console.log(err, 'err in getting userforms for single location')
           })
       },
       async getUserForms(item) {
-        console.log(item, 'getuserforms');
+        //console.log(item, 'getuserforms');
         this.messageUserForm = item;
       },
       async sendMessage() {
@@ -1636,27 +1654,27 @@
         }
         await this.$http.get('https://www.sowerkbackend.com/api/auth/users/email/'+this.location.email)
           .then(response=> {
-            console.log(response.data.users[0])
+            //console.log(response.data.users[0])
             applicationRequest.spuserprofiles_id = response.data.users[0].id
           })
           .catch(err => {
-            console.log(err)
+            //console.log(err)
           })
         await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserFormId/' + this.messageUserForm.id, applicationRequest)
           .then(response=> {
-            console.log(response, 'REQUEST MADE!')
+            //console.log(response, 'REQUEST MADE!')
           })
           .catch(err => {
-            console.log(err)
+            //console.log(err)
           })
-        console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
+        //console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
         await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.location.companies_id, messageVal)
           .then(response => {
-            console.log(response, 'success in sending message')
+            //console.log(response, 'success in sending message')
             this.messageSendLoad = true;
           })
           .catch(err => {
-            console.log(err, 'err in sending message')
+            //console.log(err, 'err in sending message')
           })
       },
       async sendMessageNonApplication() {
@@ -1673,36 +1691,36 @@
           spLocationId: this.$route.params.id,
           spLocationName: this.location.name
         }
-        console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
+        //console.log(this.messageLocation, 'messageLocation', this.messageUserForm, 'messageUserForm')
         await this.$http.post('https://www.sowerkbackend.com/api/messages/byCompanyId/' + this.location.companies_id, messageVal)
           .then(response => {
-            console.log(response, 'success in sending message')
+            //console.log(response, 'success in sending message')
             this.messageSendLoad = true;
             this.successMessageSent = true;
           })
           .catch(err => {
-            console.log(err, 'err in sending message')
+            //console.log(err, 'err in sending message')
           })
       },
       async getReviews() {
         await this.$http.get('https://www.sowerkbackend.com/api/locationreviews/byLocationId/' + this.$route.params.id)
           .then(response => {
-            console.log(response.data, 'response.data for location reviews')
+            //console.log(response.data, 'response.data for location reviews')
             this.reviews = response.data
           })
           .catch(err => {
-            console.log(err, 'err in location reviews')
+            //console.log(err, 'err in location reviews')
           })
       },
       async getMessages() {
         await this.$http.get('https://www.sowerkbackend.com/api/messages/byUserId/' + this.$store.state.user.user.user.id)
           .then(response => {
-            console.log(response.data, 'message by user response.data')
-            console.log(response.data.filter(message => {
-              if (message.spLocationId.toString() === this.$route.params.id.toString()) {
-                return message;
-              }
-            }))
+            //console.log(response.data, 'message by user response.data')
+            //console.log(response.data.filter(message => {
+            //   if (message.spLocationId.toString() === this.$route.params.id.toString()) {
+            //     return message;
+            //   }
+            // }))
             this.vendorMessages = response.data.filter(message => {
               if (message.spLocationId.toString() === this.$route.params.id.toString()) {
                 return message;
@@ -1710,34 +1728,34 @@
             })
           })
           .catch(err => {
-            console.log(err, 'err in getting messages by response.data')
+            //console.log(err, 'err in getting messages by response.data')
           })
       },
       async getNotes() {
         await this.$http.get('https://www.sowerkbackend.com/api/vendornotes/byCompanyId/' + this.currentUser.companies_id + '/byPMCompanyId/' + this.companyForVendor.id)
           .then(response => {
-            console.log(response.data, 'notes!!!!');
+            //console.log(response.data, 'notes!!!!');
             for(let i=0; i<response.data.length; i++) {
               this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].pmLocationsId)
                 .then(responseLoc => {
-                  console.log(responseLoc, "LOC RESPONSE")
+                  //console.log(responseLoc, "LOC RESPONSE")
                   response.data[i]['channel'] = responseLoc.data.name
                 })
                 .catch(err => {
-                  console.log(err)
+                  //console.log(err)
                 })
               this.$http.get('https:/www.sowerkbackend.com/api/auth/users/' + response.data[i].userprofiles_id)
                 .then(responseUser => {
                   response.data[i]['username'] = responseUser.data.first_name + ' ' + responseUser.data.last_name
                 })
                 .catch(err => {
-                  console.log(err)
+                  //console.log(err)
                 })
             }
             this.notes = response.data;
           })
           .catch(err => {
-            console.log(err, 'err in getting notes for this location by this company', this.note)
+            //console.log(err, 'err in getting notes for this location by this company', this.note)
           })
       },
       async getLocationNotes() {
@@ -1745,33 +1763,50 @@
         await this.$http.get('https://www.sowerkbackend.com/api/vendornotes/byCompanyId/' + this.currentUser.companies_id + '/byPMLocationId/' + this.location.id)
           .then(response => {
             console.log(response.data, 'location notes!!!!');
+            for(let i=0; i<response.data.length; i++) {
+              this.$http.get('https:/www.sowerkbackend.com/api/locations-name/' + response.data[i].pmLocationsId)
+                .then(responseLoc => {
+                  //console.log(responseLoc, "LOC RESPONSE")
+                  response.data[i]['channel'] = responseLoc.data.name
+                })
+                .catch(err => {
+                  //console.log(err)
+                })
+              this.$http.get('https:/www.sowerkbackend.com/api/auth/users/' + response.data[i].userprofiles_id)
+                .then(responseUser => {
+                  response.data[i]['username'] = responseUser.data.first_name + ' ' + responseUser.data.last_name
+                })
+                .catch(err => {
+                  //console.log(err)
+                })
+            }
             this.locationNotes = response.data;
           })
           .catch(err => {
-            console.log(err, 'err in getting notes for this location by this company', this.note)
+            //console.log(err, 'err in getting notes for this location by this company', this.note)
           })
       },
       async deleteNote(note) {
         await this.$http.delete('https://www.sowerkbackend.com/api/vendornotes/' + note.id)
           .then(response => {
-            console.log('success in deleting this note', response)
+            //console.log('success in deleting this note', response)
             this.notes = this.notes.filter(singleNote => singleNote !== note)
             this.locationNotes = this.locationNotes.filter(singleNote => singleNote !== note)
           })
           .catch(err => {
-            console.log('err in deleting this note', err);
+            //console.log('err in deleting this note', err);
           })
       },
       async addNotesModalCompany() {
         this.addNotesModalLoadLocation = true;
         this.addNotesSuccessLocation = false;
-        console.log(this.addNotesModalLoadLocation)
+        //console.log(this.addNotesModalLoadLocation)
         this.$vuetify.goTo(0);
       },
       async addNotesModal() {
         this.addNotesModalLoad = true;
         this.addNotesSuccess = false;
-        console.log(this.addNotesModalLoad)
+        //console.log(this.addNotesModalLoad)
         this.$vuetify.goTo(0);
       },
       async exitAddNotesModalLoadLocation() {
@@ -1844,12 +1879,12 @@
         }
         await this.$http.post('https://www.sowerkbackend.com/api/locationreviews', this.leaveReview)
           .then(response => {
-            console.log(response, 'success in adding location review')
+            //console.log(response, 'success in adding location review')
             this.reviews.push(response)
             this.exitLoadLeaveReview();
           })
           .catch(err => {
-            console.log(err, 'err in adding location review')
+            //console.log(err, 'err in adding location review')
           })
       },
       async startConnectionRemovalProcess(item) {
@@ -1858,7 +1893,7 @@
             approval_status: 2,
           })
             .then(response => {
-              console.log(response.data, 'success in changing application approval')
+              //console.log(response.data, 'success in changing application approval')
               this.getConnections(this.location);
               setTimeout(() => {
                 this.getActualSingleRelationshipConnections();
@@ -1867,7 +1902,7 @@
               }, 500)
             })
             .catch(err => {
-              console.log(err, 'err in changing application approval')
+              //console.log(err, 'err in changing application approval')
             })
         }
       }
