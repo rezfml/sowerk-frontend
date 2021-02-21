@@ -36,7 +36,8 @@
                 sm-10
                 xs-10
                 style=""
-                ><img
+                >
+                <img
                   class="serviceProviderIcon"
                   style="height:10vh; margin-right: 10px;"
                   src="https://sowerk-images.s3.us-east-2.amazonaws.com/workercopy1.png"

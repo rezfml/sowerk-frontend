@@ -19,7 +19,7 @@
                   <!--        </transition>-->
 
                   <transition name="slide-fade">
-                    <v-btn v-if="HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/'" color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+                    <v-btn v-if="loadCompanyLocation && location && (HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/')" color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
                   </transition>
 
                   <transition name="slide-fade">
@@ -185,6 +185,10 @@
                   <!--        <transition name="slide-fade">-->
                   <!--        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
                   <!--        </transition>-->
+
+              <transition name="slide-fade">
+                <v-btn v-if="loadCompanyLocation && location && (HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/')" color="primary" style="position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+              </transition>
 
                   <transition name="slide-fade">
                     <div style="" class="d-flex justify-center" v-if="loadCompanyLocation && location">
