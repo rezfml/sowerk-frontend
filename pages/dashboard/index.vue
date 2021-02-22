@@ -338,7 +338,7 @@
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
-                      <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
+                      <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
                         <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
@@ -710,7 +710,8 @@
                 <v-col cols="6" style="height: 50vh;">
                   <v-card style="width: 100%; height: 50vh;" class="d-flex flex-column align-center justify-center">
                     <v-row style="width: 100%;" class="mt-16">
-                      <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img>
+                      <v-img width="400px" height="75px" src="/files-documents-SoWork-Logo-174.png"></v-img>
+                      <!-- <v-img width="400px" height="75px" src="/SoWork Logo-174-174.png"></v-img> -->
                     </v-row>
                     <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/documents" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
@@ -1149,7 +1150,7 @@
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
-                      <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
+                      <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
                         <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
@@ -1550,7 +1551,7 @@
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
-                      <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
+                      <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
                         <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
@@ -1951,7 +1952,7 @@
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
-                      <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
+                      <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
                         <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
