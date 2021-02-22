@@ -52,7 +52,7 @@
                       <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >
                         View/Edit
                       </v-btn>
-                      <v-btn class="my-1" style="width: 100%;"  color="primary">
+                      <v-btn @click="deleteChannel(form.id)" class="my-1" style="width: 100%;"  color="primary">
                         Delete
                       </v-btn>
                     </td>
@@ -130,6 +130,23 @@
       await this.getUserforms(this.locationId);
     },
     methods: {
+      deleteChannel(channelId) {
+        // Want to delete a location
+          // delete location by location_id 
+          // ex 747(id) 279(companies_id) channelName(Bran) under brianpetergriffiths91@gmail.com
+          // 
+        
+        // Need to delete services
+          // get services by
+        // Need to delete vendorTypes
+          // get vendorTypes by 
+        // Need to delete locationTags
+          // get locationTags by
+
+        // THEN try to delete location
+        // try catch finally block? 
+
+      },
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(response => {
