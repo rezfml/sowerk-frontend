@@ -45,7 +45,7 @@
 
             <v-row style="width: 98%; border-bottom: 1px dashed #A61C00">
               <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">Application Name:</span></v-card-title>
-              <v-text-field style="width: 70%;" v-model="companyTemplate.form_name" clearable></v-text-field>
+              <v-text-field label="A Good Name Helps You & Vendors - i.e. Commercial Cleaning - Dexter IA" style="width: 70%;" v-model="companyTemplate.form_name" clearable></v-text-field>
               <v-card-title class="d-flex justify-center" style="width: 100%;"><span class="mr-2" style="color:#a61c00;">SOWerk Type:</span></v-card-title>
               <v-select
                 style="width: 95%;"
@@ -278,7 +278,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-divider v-if="loading" style="width: 100%; border: 1px solid #707070"></v-divider>
+      <v-divider v-if="loading" class="mt-8" style="width: 100%; border: 1px solid #707070"></v-divider>
     </transition>
 
     <transition name="slide-fade">

@@ -19,7 +19,7 @@
                   <!--        </transition>-->
 
                   <transition name="slide-fade">
-                    <v-btn v-if="HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/'" color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+                    <v-btn v-if="loadCompanyLocation && location && (HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/')" color="primary" outlined style="border: none; position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
                   </transition>
 
                   <transition name="slide-fade">
@@ -186,6 +186,10 @@
                   <!--        <v-img v-if="loadCompany || location" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9" max-height="150px"></v-img>-->
                   <!--        </transition>-->
 
+              <transition name="slide-fade">
+                <v-btn v-if="loadCompanyLocation && location && (HREFLocation !== 'https://www.sowwerk.com/dashboard/profile/' || HREFLocation !== 'http://localhost:3000/dashboard/profile/')" color="primary" style="position: absolute; top: -40px; left: 0px;" to="../channels"><< ALL CHANNELS</v-btn>
+              </transition>
+
                   <transition name="slide-fade">
                     <div style="" class="d-flex justify-center" v-if="loadCompanyLocation && location">
                       <v-avatar style=" border: 3px solid #212121;" size="150" class="text-center mx-auto elevation-10 rounded-circle">
@@ -217,12 +221,6 @@
                           <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Founded: <span style="color: #A61C00">{{location.year_founded}}</span></v-card-text>
                           <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created}}</span></v-card-text>
                         </v-row>
-
-                        <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
-
-                        <v-card-text class="mb-n6 mx-auto text-center" style="font-size: 16px !important; text-align: center;word-break: break-word!important;"><span class="primary--text">{{approvedProviders}}</span> Approved SOWerk Vendors At This Channel</v-card-text>
-
-                        <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
 
                         <v-select
                           style="text-align: center;"

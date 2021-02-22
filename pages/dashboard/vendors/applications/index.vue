@@ -128,29 +128,11 @@
               </v-row>
 
               <v-row>
-                <v-col cols="6" class="d-flex flex-column">
-                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
-                    <span>
-                      <span><v-img src="/profile-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
-                    </span>
-                    <span style="padding-top:5%;padding-left:5%">
-                      <p style="font-size:.8rem">COMPANY</p>
-                      <v-spacer></v-spacer>
-                      <p style="font-size:.8rem">TEMPLATES</p>
-                    </span>
-                  </v-btn>
-                </v-col>
 
-                <v-col cols="6" class="d-flex flex-column">
-                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
-                    <span>
-                      <span><v-img src="/resume-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
-                    </span>
-                    <span style="padding-top:5%;padding-left:5%;">
-                      <p style="font-size:.8rem">ALL VENDOR</p>
-                      <v-spacer></v-spacer>
-                      <p style="font-size:.8rem">APPLICATIONS</p>
-                    </span>
+                <v-col cols="12" class="d-flex flex-column">
+                  <v-btn @click="loadApplicationLocationsFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;">
+                    <v-img src="/resume-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img>
+                    <p class="ml-4 pt-4" style="">ALL VENDOR APPLICATIONS</p>
                   </v-btn>
                 </v-col>
 
@@ -169,6 +151,18 @@
               </v-row>
 
               <v-row>
+                <v-col cols="6" class="d-flex flex-column">
+                  <v-btn @click="loadYourCompanyTemplatesFunction" class="py-4 mb-3" color="primary" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
+                    <span>
+                      <span><v-img src="/profile-icon.svg" style="max-height:50px;max-width:50px;padding:5%;"></v-img></span>
+                    </span>
+                    <span style="padding-top:5%;padding-left:5%">
+                      <p style="font-size:.8rem">COMPANY</p>
+                      <v-spacer></v-spacer>
+                      <p style="font-size:.8rem">TEMPLATES</p>
+                    </span>
+                  </v-btn>
+                </v-col>
 
                 <v-col cols="6" class="d-flex flex-column">
                   <v-btn @click="loadApplicationTemplatesFunction" class="py-4 mb-3" color="#707070" style="width:100%;height:70px;border-radius:5px;justify-content:space-around;">
@@ -641,7 +635,7 @@
                   <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
                   <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
                   <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
-                    <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
+                    <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(A Good Name Helps You & Vendors - i.e. Commercial Cleaning - Dexter IA)</span></v-card-title>
                     <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="newAssignUserForm.name">{{newAssignUserForm.name}}</v-text-field>
                     <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">SOWerk Type:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select A Type That Describes What This Application Provides)</span></v-card-title>
                     <v-select
@@ -720,9 +714,9 @@
                       style="width: 95%;"
                     >
                       <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in newAssignUserForm.formfields">
-                        <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px; ">
+                        <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px; word-break: break-word; white-space: pre-wrap; ">
                           <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                          <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word">{{Number(index) + 1}} - {{form.name}}</p>
+                          <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word; white-space: pre-wrap;">{{Number(index) + 1}} - {{form.name}}</p>
                           <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                           <div class="d-flex justify-end" style="width: 100%;">
                             <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>
@@ -1102,7 +1096,7 @@
                       <v-card-title style="color: #A61C00; text-align: center">Your Application</v-card-title>
                       <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
                       <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
-                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
+                        <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(A Good Name Helps You & Vendors - i.e. Commercial Cleaning - Dexter IA)</span></v-card-title>
                         <v-text-field style="width: 95%;" clearable label="Enter Form Name Here" v-model="assignUserform.name">{{assignUserform.name}}</v-text-field>
                         <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Account Channel:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select the Channel that you want to assign this application to)</span></v-card-title>
                         <v-select
@@ -1198,10 +1192,10 @@
                           @change="reorderFormField"
                           style="width: 95%;"
                         >
-                          <v-card style="width: 100%; border:2px outset lightgrey;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in newAssignUserForm.formfields">
+                          <v-card style="width: 100%; border:2px outset lightgrey; word-break: break-word; white-space: pre-wrap;" class="my-4 d-flex flex-column align-center" v-for="(form, index) in newAssignUserForm.formfields">
                             <v-card-title class="d-flex justify-start align-center flex-wrap" style="width: 100% !important; font-size: 16px; ">
                               <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                              <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word">{{Number(index) + 1}} - {{form.name}}</p>
+                              <p class="mx-2 pt-10" style="width: 70%; text-align: center; word-break: break-word; white-space: pre-wrap;">{{Number(index) + 1}} - {{form.name}}</p>
                               <v-btn class="mr-2" style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                               <div class="d-flex justify-end" style="width: 100%;">
                                 <v-btn class="mr-4" style="color: #A61c00; text-align: right; font-size: 30px;" text @click="removeItem(index)">X</v-btn>

@@ -302,6 +302,7 @@ export default {
       if(confirmDelete === true) {
         this.$http.delete('https://www.sowerkbackend.com/api/auth/users/' + id)
           .then(response => {
+            console.log(response)
             alert('Account successfully deleted');
             this.$router.go()
           })

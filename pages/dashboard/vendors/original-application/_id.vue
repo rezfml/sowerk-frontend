@@ -22,7 +22,7 @@
               <v-card-title style="color: #A61C00; font-size: 108px;" v-if="spcompany.locations">{{spcompany.locations.length}}</v-card-title>
               <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
             </v-row>
-            <v-btn :to="'/dashboard/vendors/' + location.id" outlined color="primary" rounded md class="">View Profile</v-btn>
+            <v-btn v-if="currentUser.companies_id === pmcompany.id" :to="'/dashboard/vendors/' + location.id" outlined color="primary" rounded md class="">View Profile</v-btn>
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
             <v-card-title style="font-size: 24px; text-align: left; align-self: flex-start">Headquarters</v-card-title>
             <v-card-text style="font-size: 24px; text-align: left;">{{spcompany.address}}</v-card-text>
@@ -35,16 +35,16 @@
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-img width="350px" height="70px" src="\SoWork Logo-175.png"></v-img>
             <template v-for="(insurance, index) in insurances">
-              <v-card-title style="color: #A61c00; font-size: 78px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
-              <v-card-title style="color: #A61c00; font-size: 78px;" v-else>0</v-card-title>
-              <v-card-text style="color: #A61c00; font-size: 78px;" v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
+              <v-card-title class="my-1" style="color: #A61c00; font-size: 48px;" v-if="insurances.length > 0">{{insurances.length}}</v-card-title>
+              <v-card-title class="my-1" style="color: #A61c00; font-size: 48px;" v-else>0</v-card-title>
+              <v-card-text class="my-1" style="color: #A61c00; font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap;" v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
             </template>
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
             <v-img width="350px" height="70px" src="\SoWork Logo-176.png"></v-img>
             <template v-for="(license, index) in licenses">
-              <v-card-title style="color: #A61c00; font-size: 78px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
-              <v-card-title style="color: #A61c00; font-size: 78px;" v-else>0</v-card-title>
-              <v-card-text style="color: #A61c00; font-size: 78px;" v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
+              <v-card-title class="my-1" style="color: #A61c00; font-size: 48px;" v-if="licenses.length > 0">{{licenses.length}}</v-card-title>
+              <v-card-title class="my-1" style="color: #A61c00; font-size: 48px;" v-else>0</v-card-title>
+              <v-card-text class="my-1" style="color: #A61c00; font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap;" v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
             </template>
           </v-card>
         </v-col>

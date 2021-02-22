@@ -27,15 +27,15 @@
     <transition name="slide-fade">
       <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loading">
         <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
-          
+
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
             <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
           </v-col>
-          
+
           <v-col cols="5" style="color:white;width:100%;text-align:left;padding-left:2%;padding-top:2%">
             <p style="font-size:1.1rem">Watch our short video to learn how to utilize Insurances on SOWerk.</p>
           </v-col>
-          
+
           <!-- VENDOR CHANNELS VIDEO -->
           <v-col cols="4" style="width:100%;text-align:center;">
             <v-btn @click="showVideoCard" color="white" outlined style="width: 80%; border-radius: 20px;" class="py-8">
@@ -151,7 +151,7 @@
           <v-img
             :src="insurance.documentUrl"
             :aspect-ratio="1"
-            class="my-8 rounded-circle flex-grow-1"
+            class="my-8 flex-grow-1"
             style="width: 100%; max-width: 300px;"
             v-if="insurance.documentUrl"
           ></v-img>
@@ -164,8 +164,12 @@
           <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : insuranceFileFile}" v-model="insuranceFileFile" v-on:change.native="selectInsuranceFile" id="companyDocumentImage" style="display: none;"></v-file-input>
           <v-btn @click="clickInsuranceFileUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4 mt-8">Upload <v-icon>mdi-plus</v-icon></v-btn>
           <v-btn @click="submitInsurance" style="width: 40%; color: white; border-radius: 10px;" class="py-8 mb-4" color="#707070">Submit Insurance</v-btn>
-          <v-card-title v-if="successuploaddoc !== null && successuploaddoc === false">Error with adding this document. Please retry.</v-card-title>
-          <v-card-title v-if="successuploaddoc">Successfully added this document!</v-card-title>
+          <transition name="slide-fade">
+            <v-card-title v-if="successuploaddoc !== null && successuploaddoc === false">Error with adding this document. Please retry.</v-card-title>
+          </transition>
+          <transition name="slide-fade">
+            <v-card-title v-if="successuploaddoc">Successfully added this document!</v-card-title>
+          </transition>
           <v-btn @click="closeUploadModel" style="position: absolute; top: 10px; right: 10px; font-size: 25px;" color="primary">X</v-btn>
         </v-card>
       </v-row>
@@ -372,6 +376,9 @@
                 expirationDateVal: '',
                 type: '',
               }
+              setTimeout(() => {
+                this.successuploaddoc = false;
+              }, 3000)
             })
             .catch(err => {
               console.log(err, 'err in submitting insurance', this.insurance)

@@ -66,8 +66,8 @@
           <v-col cols="5" class="d-flex flex-column justify-center">
             <v-card-title style="color:darkred; font-size: 24px">What Are Customer Leads?</v-card-title>
             <v-card-text style="font-size: 18px;">Businesses every day are using SOWerk to find their next approved vendor. When they identify your account as a potential solution to their needs they can choose to request your application. To make things easier on you the Vendor any of these requests will all be shown here so that you can quickly review and apply.</v-card-text>
-            <v-btn @click="applicationRequestsModalOpen" class="my-2 py-6 mx-auto" style="width: 80%" rounded color="primary">Application Requests</v-btn>
-            <v-btn @click="preApprovedRequestsModalOpen" class="my-2 py-6 mx-auto" style="width: 80%" rounded color="primary">Pre Approved Requests</v-btn>
+            <v-btn @click="applicationRequestsModalOpen" class="my-2 py-6 mx-auto my-auto" style="width: 80%" rounded color="primary">Application Requests</v-btn>
+            <v-btn @click="preApprovedRequestsModalOpen" class="my-2 py-6 mx-auto my-auto" style="width: 80%" rounded color="primary">Pre Approved Requests</v-btn>
           </v-col>
         </v-row>
       </v-card>
@@ -78,6 +78,8 @@
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingApplications.length > 0 && loading">Application Requests - {{requestingApplications.length}}</v-card-title>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingApplications.length === 0 && loading">Application Requests - 0</v-card-title>
         <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility Name" v-model="search" light></v-text-field>
+        <v-text-field clearable background-color="white" outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannel" light></v-text-field>
+        <v-text-field clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchChannelApp" light></v-text-field>
         <v-data-table
           :items="requestingApplicationsList"
           :headers="providerHeaders"
@@ -88,20 +90,19 @@
           single-expand
         >
           <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              <v-text-field clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannel" light></v-text-field>
+            <td :colspan="headers.length" style="background-color: #7C7C7C">
               <v-data-table
                 :items="item.ChannelsInviting"
                 :headers="providerChannelHeaders"
                 :items-per-page="10"
-                :search="search"
+                :search="searchChannel"
                 :expanded.sync="expandedChannel"
                 show-expand
                 single-expand
+                style="background-color: #7C7C7C"
               >
                 <template v-slot:expanded-item="{ headers, item }">
                   <td :colspan="headers.length">
-                    <v-text-field clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchChannelApp" light></v-text-field>
                     <v-data-table
                       :items="item.userforms"
                       :headers="providerApplicationHeaders"
@@ -109,8 +110,8 @@
                       :search="searchChannelApp"
                     >
                       <template v-slot:item.actions="{ item }">
-                        <v-btn block color="primary" :to="'/dashboard/businesses/applications/' + item.id">Apply</v-btn>
-                        <v-btn block color="primary">Deny</v-btn>
+                        <v-btn class="my-1" block color="primary" :to="'/dashboard/businesses/applications/' + item.id">Apply</v-btn>
+                        <v-btn class="my-1" block color="primary">Deny</v-btn>
                       </template>
                     </v-data-table>
                   </td>
@@ -196,25 +197,26 @@
         requestingApplications: [],
         requestingApplicationsList: [],
         providerHeaders: [
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: '# Channels Inviting', value: 'ChannelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: '# Channels Inviting', value: 'ChannelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
         ],
         providerChannelHeaders: [
-          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: '# Applications Requested', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: '# Applications Requested', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
         ],
         providerApplicationHeaders: [
-          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left' },
         ],
         requestingApprovedApplications: [],
         providerApprovedHeaders: [
-          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+          { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: 'Channel', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left' },
         ],
         applicationRequestsModal: true,
         preApprovedRequestsModal: false,
+        singleExpand: true,
       }
     },
     watch: {

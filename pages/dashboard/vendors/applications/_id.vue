@@ -44,7 +44,7 @@
             <v-card-subtitle style="text-align: center">This column represents your questions being asked of a Vendor. You can reorder and edit any question. </v-card-subtitle>
             <v-row style="width: 98%; border: 1px solid #151515; box-shadow: 4px 4px 4px #7C7C7C; border-radius: 5px;" class="d-flex flex-column align-center">
               <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Application Name:</span></v-card-title>
-              <v-text-field style="width: 95%;" v-model="userForms.name" clearable></v-text-field>
+              <v-text-field label="A Good Name Helps You & Vendors - i.e. Commercial Cleaning - Dexter IA" style="width: 95%;" v-model="userForms.name" clearable></v-text-field>
               <v-card-title class="d-flex justify-left" style="width: 100%;"><span class="mr-2" style="">Account Channel:</span><span style="color: #7C7C7C; white-space: pre-wrap; word-break: break-word;">(Select the Channel that you want to assign this application to)</span></v-card-title>
               <v-select
                 :items="locationsList"
@@ -300,7 +300,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-divider v-if="loading" style="width: 100%; border: 1px solid #707070"></v-divider>
+      <v-divider v-if="loading" class="mt-8" style="width: 100%; border: 1px solid #707070"></v-divider>
     </transition>
 
     <transition name="slide-fade">
@@ -686,9 +686,13 @@
             this.userForms.formfields = this.userForms.formfields.sort((a,b) => {
               return a.order - b.order
             })
-            for(let i=0; i<this.userForms.formfields.length; i++) {
-              this.userForms.formfields[i].options = this.userForms.formfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
-              console.log(this.userForms.formfields[i].options, 'option #', i)
+            if(this.userForms.formfields[0] !== 'There are no formfields') {
+              for(let i=0; i<this.userForms.formfields.length; i++) {
+                if(this.userForms.formfields[i].options.includes('{') ||this.userForms.formfields[i].options.includes('}') ||this.userForms.formfields[i].options.includes('"')) {
+                  this.userForms.formfields[i].options = this.userForms.formfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
+                }
+                console.log(this.userForms.formfields[i].options, 'option #', i)
+              }
             }
             console.log(this.userForms, 'this.userForms sort')
             this.getLocation(response.data.locations_id)
