@@ -146,8 +146,8 @@
         
         <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
         <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Your SOWerk Application Has Been Approved!</v-card-title>
-        <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Would You Like To Send A Company Document?</v-card-title>
-        <v-card-subtext>Choose from the list of company documents below to send to the Vendor for them to download, complete and upload back to SOWerk for your records.</v-card-subtext>
+        <v-card-title class="mt-2" style="text-align: center;">Would You Like To Send A Company Document?</v-card-title>
+        <v-card-subtext style="text-align:center;padding-left:20px;padding-right:20px;">Choose from the list of company documents below to send to the Vendor for them to download, complete and upload back to SOWerk for your records.</v-card-subtext>
         
         <v-card class="mt-8">
           <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
@@ -163,8 +163,8 @@
           </v-data-table>
         </v-card>
 
-        <v-btn to='/dashboard/vendors/applications' color="primary" style="width: 30%;"  class="my-4" rounded outlined>Add Company Document</v-btn>
-        <v-btn :href="'../../../dashboard/vendors/applicants'" color="primary" style="width: 30%;"  class="my-4" rounded>Return To SOWerk Request Dashboard</v-btn>
+        <v-btn to='/dashboard/documents' color="primary" style="width: 40%;"  class="my-4" rounded outlined>Add Company Document</v-btn>
+        <v-btn :href="'../../../dashboard'" color="primary" style="width: 40%;"  class="my-4" rounded>Return To SOWerk Request Dashboard</v-btn>
       </v-card>
 
       <v-progress-circular
@@ -206,7 +206,7 @@ import * as moment from 'moment'
         connections: [],
         userform: {},
         service: {},
-        success: false,
+        success: true,
         failure: false,
         messageForm: {
           service: '',

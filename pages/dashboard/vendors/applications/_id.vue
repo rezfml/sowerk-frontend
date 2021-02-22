@@ -703,6 +703,7 @@
             console.log('err get services', err);
           })
         console.log('this.userForms', this.userForms)
+        this.loading = true;
       },
       async getUserformTags(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + id)
@@ -737,7 +738,6 @@
             this.originalUserForms = response.data;
             console.log('ORIGINAL USER FORMS RESPONSE DATA', this.originalUserForms);
             this.totalLength += response.data.length;
-            this.loading=true;
           })
           .catch(err => {
             console.log('err get services', err);
