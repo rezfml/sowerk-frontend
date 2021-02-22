@@ -89,10 +89,10 @@
           single-expand
         >
           <template v-slot:item.companyName="{item}">
-            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; font-size: 24px; letter-spacing: 0.25rem;">{{item.companyName}}</v-card-text>
+            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;">{{item.companyName}}</v-card-text>
           </template>
           <template v-slot:item.channelsInviting.length="{item}">
-            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; font-size: 24px; letter-spacing: 0.25rem;">{{item.channelsInviting.length}}</v-card-text>
+            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;">{{item.channelsInviting.length}}</v-card-text>
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length" style="background-color: #7C7C7C">
@@ -110,10 +110,10 @@
                 class="hover-dark-text"
               >
                 <template v-slot:item.name="{item}">
-                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00; font-size: 24px; letter-spacing: 0.25rem; font-weight: bold;">{{item.name}}</v-card-text>
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00;">{{item.name}}</v-card-text>
                 </template>
                 <template v-slot:item.userforms.length="{item}" >
-                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00; font-size: 24px; letter-spacing: 0.25rem; font-weight: bold;">{{item.userforms.length}}</v-card-text>
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00;">{{item.userforms.length}}</v-card-text>
                 </template>
                 <template v-slot:expanded-item="{ headers, item }">
                   <td :colspan="headers.length" style="background-color: #7C7C7C">
@@ -126,7 +126,7 @@
                       style="background-color: #7C7C7C"
                     >
                       <template v-slot:item.name="{item}" >
-                        <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00; font-size: 24px; letter-spacing: 0.25rem; font-weight: bold;">{{item.name}}</v-card-text>
+                        <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00;">{{item.name}}</v-card-text>
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn class="my-1" block color="primary" :to="'/dashboard/businesses/' + item.locations_id + '/applications/' + item.id">Apply</v-btn>
