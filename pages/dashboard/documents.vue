@@ -28,7 +28,7 @@
       <!-- VENDOR USER -->
       <v-card class="my-4 flex-row justify-space-between align-center mx-0" v-if="loading">
         <v-row class="d-flex flex-row justify-space-between align-center mx-0" style="width:100%;height:auto; background-color: #707070">
-          
+
           <v-col cols="3" style="color:white;width:100%;text-align:center;">
             <h1 style="letter-spacing:5px;font-weight:450;font-style:italic;font-size:2.8rem;padding-left:2%;color:white">SOWERK 101</h1>
           </v-col>
@@ -46,7 +46,7 @@
         </v-row>
       </v-card>
     </transition>
-    
+
     <!-- VIMEO VIDEO -->
     <transition name="slide-fade">
       <v-card style="height:450px;width:100%;background-color:#404040;border-radius:10px;" v-if="showVideo === true">
@@ -75,7 +75,7 @@
               <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined v-else>Pending Documents</v-btn>
               <v-btn @click="allDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
               <v-btn @click="requestingDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
-              <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload + Share</v-btn>
+              <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload</v-btn>
             </v-row>
           </v-col>
         </v-row>
@@ -222,8 +222,8 @@
 
     <transition name="slide-fade">
       <v-card class="mt-8" v-if="loading && uploadDocumentsModalLoading">
-        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
-        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload & Share</v-card-title>
+        <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">UploaD</v-card-title>
+        <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload</v-card-title>
         <v-row class="mt-8">
           <v-col cols="12">
               <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>

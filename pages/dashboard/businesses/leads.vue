@@ -78,39 +78,58 @@
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingApplications.length > 0 && loading">Application Requests - {{requestingApplications.length}}</v-card-title>
         <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingApplications.length === 0 && loading">Application Requests - 0</v-card-title>
         <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility Name" v-model="search" light></v-text-field>
-        <v-text-field clearable background-color="white" outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannel" light></v-text-field>
-        <v-text-field clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchChannelApp" light></v-text-field>
         <v-data-table
           :items="requestingApplicationsList"
           :headers="providerHeaders"
           :items-per-page="10"
+          item-key="companyId"
           :search="search"
           :expanded.sync="expanded"
           show-expand
           single-expand
         >
+          <template v-slot:item.companyName="{item}">
+            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; font-size: 24px; letter-spacing: 0.25rem;">{{item.companyName}}</v-card-text>
+          </template>
+          <template v-slot:item.channelsInviting.length="{item}">
+            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; font-size: 24px; letter-spacing: 0.25rem;">{{item.channelsInviting.length}}</v-card-text>
+          </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length" style="background-color: #7C7C7C">
+              <v-text-field clearable background-color="white" outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Channel Name" v-model="searchChannel" light></v-text-field>
               <v-data-table
-                :items="item.ChannelsInviting"
+                :items="item.channelsInviting"
                 :headers="providerChannelHeaders"
                 :items-per-page="10"
-                :search="searchChannel"
+                item-key="id"
+                :search="search"
                 :expanded.sync="expandedChannel"
                 show-expand
                 single-expand
                 style="background-color: #7C7C7C"
+                class="hover-dark-text"
               >
+                <template v-slot:item.name="{item}">
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00; font-size: 24px; letter-spacing: 0.25rem; font-weight: bold;">{{item.name}}</v-card-text>
+                </template>
+                <template v-slot:item.userforms.length="{item}" >
+                    <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00; font-size: 24px; letter-spacing: 0.25rem; font-weight: bold;">{{item.userforms.length}}</v-card-text>
+                </template>
                 <template v-slot:expanded-item="{ headers, item }">
-                  <td :colspan="headers.length">
+                  <td :colspan="headers.length" style="background-color: #7C7C7C">
+                    <v-text-field clearable background-color="white" outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchChannelApp" light></v-text-field>
                     <v-data-table
                       :items="item.userforms"
                       :headers="providerApplicationHeaders"
                       :items-per-page="10"
-                      :search="searchChannelApp"
+                      :search="search"
+                      style="background-color: #7C7C7C"
                     >
+                      <template v-slot:item.name="{item}" >
+                        <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00; font-size: 24px; letter-spacing: 0.25rem; font-weight: bold;">{{item.name}}</v-card-text>
+                      </template>
                       <template v-slot:item.actions="{ item }">
-                        <v-btn class="my-1" block color="primary" :to="'/dashboard/businesses/applications/' + item.id">Apply</v-btn>
+                        <v-btn class="my-1" block color="primary" :to="'/dashboard/businesses/' + item.locations_id + '/applications/' + item.id">Apply</v-btn>
                         <v-btn class="my-1" block color="primary">Deny</v-btn>
                       </template>
                     </v-data-table>
@@ -198,7 +217,7 @@
         requestingApplicationsList: [],
         providerHeaders: [
           { text: 'Company', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
-          { text: '# Channels Inviting', value: 'ChannelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: '# Channels Inviting', value: 'channelsInviting.length', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
         ],
         providerChannelHeaders: [
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
@@ -254,7 +273,7 @@
                 let companyObj = {
                   companyId: this.requestingApplications[i].pmcompanies_id,
                   companyName: '',
-                  ChannelsInviting: [],
+                  channelsInviting: [],
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + companyObj.companyId)
                   .then(response => {
@@ -268,10 +287,10 @@
                     this.$http.get('https://www.sowerkbackend.com/api/locations/' + this.requestingApplications[j].pmlocations_id)
                       .then(response => {
                         console.log(response.data, 'LOCATIONS')
-                        if(!(companyObj.ChannelsInviting.includes(response.data))) {
-                          companyObj.ChannelsInviting.push(response.data)
+                        if(!(companyObj.channelsInviting.includes(response.data))) {
+                          companyObj.channelsInviting.push(response.data)
                         }
-                        companyObj.ChannelsInviting = companyObj.ChannelsInviting.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+                        companyObj.channelsInviting = companyObj.channelsInviting.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
                       })
                       .catch(err => {
                         console.log(err)
@@ -281,6 +300,7 @@
                 this.requestingApplicationsList.push(companyObj);
               }
               this.requestingApplicationsList = this.requestingApplicationsList.filter((v,i,a)=>a.findIndex(t=>(t.companyId === v.companyId))===i)
+              console.log(this.requestingApplicationsList, 'REQUESTED APPLICATIONS')
             }
           })
           .catch(err => {
