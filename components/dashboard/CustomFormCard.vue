@@ -52,11 +52,7 @@
                       <v-btn :to="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >
                         View/Edit
                       </v-btn>
-<<<<<<< HEAD
-                      <v-btn @click="deleteChannel(form.id)" class="my-1" style="width: 100%;"  color="primary">
-=======
                       <v-btn @click="deleteUserForm(form)" class="my-1" style="width: 100%;"  color="primary">
->>>>>>> a8a298ae52cf266ca9d843b3d6c358798e367bde
                         Delete
                       </v-btn>
                     </td>
