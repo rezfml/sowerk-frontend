@@ -117,7 +117,7 @@
                       </v-select>
                     </template>
                     <template v-slot:item.property="{ item }">
-                      <v-select
+                      <v-autocomplete
                         :items="properties"
                         item-text="id name"
                         item-value="id name"
@@ -128,36 +128,33 @@
                         :rules="rules.requiredRules"
                       >
                         <template slot="selection" slot-scope="data">
-                          <p @click="selectUserforms(data.item.id)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }}
+                          <v-card-text @click="selectUserforms(data.item.id)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }}
                             {{ data.item.city }}, {{ data.item.state }}
-                            {{ data.item.zipcode }}</p>
+                            {{ data.item.zipcode }}</v-card-text>
                         </template>
                         <template slot="item" slot-scope="data">
-                          <p @click="selectUserforms(data.item.id)" style="width: 100%;">{{ data.item.name }} - {{ data.item.address }}
-                            {{ data.item.city }}, {{ data.item.state }}
-                            {{ data.item.zipcode }}</p>
+                          <v-checkbox :label="data.item.name + ' - ' + data.item.address + ' ' + data.item.city + ', ' + data.item.state + ' ' + data.item.zipcode" @click="selectUserforms(data.item.id)" style="width: 100%;"></v-checkbox>
                         </template>
-                      </v-select>
+                      </v-autocomplete>
                     </template>
                     <template v-slot:item.application="{ item }">
-                      <v-select
+                      <v-autocomplete
                         :items="userforms"
                         item-text="name"
                         item-value="name"
                         v-model="item.application"
                         class="text-caption"
                         multiple
-                        chips
                         :rules="rules.requiredRules"
                         v-if="item.preapproved === false"
                       >
                         <template slot="selection" slot-scope="data">
-                          {{ data.item.name }}
+                          <v-card-text style="width: 100%;">{{ data.item.name }}</v-card-text>
                         </template>
                         <template slot="item" slot-scope="data">
-                          {{ data.item.name }}
+                          <v-checkbox :label="data.item.name" style="width: 100%;"></v-checkbox>
                         </template>
-                      </v-select>
+                      </v-autocomplete>
                     </template>
                   </v-data-table>
                 </v-form>

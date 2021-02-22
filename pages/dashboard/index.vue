@@ -325,7 +325,7 @@
                     <v-card-title class="" style="font-size: 50px; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.4em">MANAGE SOWERK ACCOUNT</v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 100%;">
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
-                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
+<!--                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>-->
                     </div>
                   </v-card>
                 </v-col>
@@ -734,7 +734,7 @@
                     <v-card-title class="" style="font-size: 2rem; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1em">MANAGE SOWERK ACCOUNT</v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 100%;">
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
-                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
+<!--                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>-->
                     </div>
                   </v-card>
                 </v-col>
@@ -1136,7 +1136,7 @@
                     <v-card-title class="" style="font-size: 50px; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.4em">MANAGE SOWERK ACCOUNT</v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 100%;">
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
-                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
+<!--                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>-->
                     </div>
                   </v-card>
                 </v-col>
@@ -1537,7 +1537,7 @@
                     <v-card-title class="" style="font-size: 50px; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.4em">MANAGE SOWERK ACCOUNT</v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 100%;">
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
-                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
+<!--                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>-->
                     </div>
                   </v-card>
                 </v-col>
@@ -1938,7 +1938,7 @@
                     <v-card-title class="" style="font-size: 50px; width: 90%; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.4em">MANAGE SOWERK ACCOUNT</v-card-title>
                     <div class="d-flex flex-column align-center" style="width: 100%;">
                       <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%; " to="/dashboard/profile">ACCOUNT SETTINGS</v-btn>
-                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>
+<!--                      <v-btn rounded outlined color="primary" class="py-8 my-2 mb-4" style="width: 90%;" to='/dashboard/pricing'>SOWERK PLAN</v-btn>-->
                     </div>
                   </v-card>
                 </v-col>

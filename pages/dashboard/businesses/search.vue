@@ -53,7 +53,7 @@
         <v-card class="white" color="mt-8">
           <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingLocations.length > 0 && !loading">New Customers - {{requestingLocations.length}}</v-card-title>
           <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingLocations.length === 0 && !loading">New Customers - 0</v-card-title>
-          <v-text-field v-if="!loading" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="search" light></v-text-field>
+          <v-text-field v-if="!loading" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer Name" v-model="search" light></v-text-field>
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
               indeterminate
@@ -62,37 +62,56 @@
             ></v-progress-circular>
           </div>
           <v-data-table
-            :items="requestingLocations"
-            :headers="providerHeaders"
-            :items-per-page="10"
+            :items="allCompanies"
+            :headers="allCompaniesHeaders"
+            :expanded.sync="expanded"
             :search="search"
-            v-else
+            show-expand
+            single-expand
           >
-            <template v-slot:item.imageUrl="{item}"  >
+            <template v-slot:item.imgUrl="{item}"  >
               <div style="width: 100%;" class="d-flex justify-center">
-                <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
-                <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                <v-img v-if="item.imgUrl !== ''" :src="item.imgUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
+                <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
               </div>
             </template>
-            <template v-slot:item.name="{item}">
-              <div style="width: 100%;" class="d-flex flex-column align-center">
-                <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
-              </div>
-            </template>
-            <template v-slot:item.address="{item}">
-              <div style="width: 100%;" class="d-flex flex-column align-center">
-                <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
-                <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
-              </div>
-            </template>
-            <template v-slot:item.contact_first_name="{item}">
-              <div style="width: 100%;" class="d-flex flex-column align-center">
-                <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
-                <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
-              </div>
-            </template>
-            <template v-slot:item.actions="{ item }" class="d-flex">
-              <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length" style="background-color: #7C7C7C">
+                <v-text-field v-if="!loading" background-color="white" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="searchChannel" light></v-text-field>
+                <v-data-table
+                  :items="item.locations"
+                  :headers="providerHeaders"
+                  :items-per-page="10"
+                  :search="searchChannel"
+                >
+                  <template v-slot:item.imageUrl="{item}"  >
+                    <div style="width: 100%;" class="d-flex justify-center">
+                      <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
+                      <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
+                    </div>
+                  </template>
+                  <template v-slot:item.name="{item}">
+                    <div style="width: 100%;" class="d-flex flex-column align-center">
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.name}}</v-card-text>
+                    </div>
+                  </template>
+                  <template v-slot:item.address="{item}">
+                    <div style="width: 100%;" class="d-flex flex-column align-center">
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
+                    </div>
+                  </template>
+                  <template v-slot:item.contact_first_name="{item}">
+                    <div style="width: 100%;" class="d-flex flex-column align-center">
+                      <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
+                    </div>
+                  </template>
+                  <template v-slot:item.actions="{ item }" class="d-flex">
+                    <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                  </template>
+                </v-data-table>
+              </td>
             </template>
           </v-data-table>
 
@@ -141,7 +160,9 @@ export default {
   layout: "app",
   data() {
     return {
+      expanded: [],
       search: '',
+      searchChannel: '',
       businesses: [],
       services: [],
       requestingBusinesses: [],
@@ -154,10 +175,15 @@ export default {
         { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
       ],
+      allCompaniesHeaders: [
+        { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
+        { text: 'Customer', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+      ],
       loading: false,
       showVideo: false,
       company: {},
       loadingInit: false,
+      allCompanies: [],
     }
   },
   computed: {
@@ -167,7 +193,7 @@ export default {
   },
   mounted() {
     this.getCompany();
-    this.getActiveUserforms();
+    // this.getActiveUserforms();
     this.getAllCompanies();
   },
   methods: {
@@ -197,6 +223,7 @@ export default {
           for(let i = 0; i < response.data.length; i++) {
             this.getWholeCompanyObject(response.data[i].id);
           }
+          this.loadingInit = true;
         })
         .catch(err => {
           console.log('err', err)
@@ -241,10 +268,10 @@ export default {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/' +  business_id)
         .then(response => {
           console.log(response, 'COMPANY RESPONSE')
-
-          if(response.data.locations[0] !== 'There are no locations') {
-            this.getLocations(response.data);
-          }
+          this.allCompanies.push(response.data)
+          // if(response.data.locations[0] !== 'There are no locations') {
+          //   this.getLocations(response.data);
+          // }
         })
         .catch(err => {
           console.log('err', err)
