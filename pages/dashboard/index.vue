@@ -748,7 +748,7 @@
                   <v-card-text style="text-align: center; font-size: 18px;">{{company.description}}</v-card-text>
                   <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
                     <v-row class="d-flex justify-center" style="width: 100%;">
-                      <v-card-title style="width: 40%; font-size: 108px; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
+                      <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title class="text-no-wrap" style="font-size: 18px; margin-left:-5%">Companies Approved</v-card-title>
                         <v-btn to="/dashboard/businesses" style="width: 90%; font-size:.8rem" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
