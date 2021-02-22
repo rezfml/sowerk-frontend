@@ -49,10 +49,10 @@
 <!--                      ></v-checkbox>-->
                     </td>
                     <td class="d-flex flex-column" style="width: 100%; height: auto;">
-                      <v-btn :href="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >
+                      <v-btn :to="'../../dashboard/vendors/applications/' + form.id" class="my-1" style="width: 100%; color: white;" color="#707070" >
                         View/Edit
                       </v-btn>
-                      <v-btn class="my-1" style="width: 100%;"  color="primary">
+                      <v-btn @click="deleteUserForm(form)" class="my-1" style="width: 100%;"  color="primary">
                         Delete
                       </v-btn>
                     </td>
@@ -130,6 +130,67 @@
       await this.getUserforms(this.locationId);
     },
     methods: {
+      async deleteUserForm(userform) {
+        console.log(userform, 'userform');
+
+        if (confirm("Are you sure you want to delete this?")){
+          try {
+            await this.$http.get('https://www.sowerkbackend.com/api/userformtags/byUserformId/' + userform.id)
+              .then(response => {
+                if(response.data.length > 0) {
+                  for (let i=0; i<response.data.length; i++) {
+                    this.$http.delete('https://www.sowerkbackend.com/api/userformtags/' + response.data[i].id)
+                      .then(async (response) => {
+                        console.log('success in deleting userform Tag')
+                      })
+                      .catch(err => {
+                        console.log('err in deleting userform Tag', err)
+                      })
+                  }
+                }
+              })
+              .catch(err => {
+                console.log(err, 'err in getting template tags for this company')
+              })
+            //console.log("THIS IS THE END OF THE TRY BLOCK -------------------")
+            throw 'myException';
+          } catch {
+            await this.$http.get('https://www.sowerkbackend.com/api/formfields/byUserFormId/' + userform.id)
+              .then(response => {
+                if(response.data.length > 0) {
+                  for (let i=0; i<response.data.length; i++) {
+                    this.$http.delete('https://www.sowerkbackend.com/api/formfields/' + response.data[i].id)
+                      .then(async (response) => {
+                        console.log('success in deleting formfield from userform')
+                      })
+                      .catch(err => {
+                        console.log(err, 'err in deleting formfields')
+                      })
+                  }
+                }
+              })
+              .catch(err => {
+                console.log(err, 'err in getting template tags for this company')
+              })
+            //console.log("THIS IS THE END OF THE CATCH BLOCK -------------------")
+
+          } finally {
+            await this.$http.delete('https://www.sowerkbackend.com/api/userforms/' + userform.id)
+              .then(response => {
+                console.log(response, 'success in deleting userform')
+              })
+              .catch(err => {
+                console.log(err, 'err in deleting userform');
+              })
+            //console.log("THIS IS THE END OF THE FINALLY BLOCK -------------------")
+            setTimeout(() => {
+              this.$router.go();
+            }, 1500)
+          }
+        } else {
+          console.log("Did not confirm!")
+        }
+      },
       async getServices(id) {
         await this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + id)
           .then(response => {
