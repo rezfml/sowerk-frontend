@@ -76,8 +76,9 @@
           <transition name="slide-fade">
             <div v-if="loading" class="d-flex justify-center align-center mt-16">
               <div style="width: 30%; word-break: break-word; white-space: pre-wrap;" class="d-flex justify-center">
-                <v-card-title style="color: white; font-size: 72px;" v-if="companyForVendor.locations.length > 0">{{companyForVendor.locations.length}}</v-card-title>
-                <v-card-title style="color: white; font-size: 108px;" v-else>0</v-card-title>
+                <v-card-title style="color: white; font-size: 3rem;" v-if="companyForVendor.locations.length > 100">{{companyForVendor.locations.length}}</v-card-title>
+                <v-card-title style="color: white; font-size: 4rem;" v-else-if="companyForVendor.locations.length > 10">{{companyForVendor.locations.length}}</v-card-title>
+                <v-card-title style="color: white; font-size: 4rem;" v-else>0</v-card-title>
               </div>
               <div style="width: 70%; word-break: break-word; white-space: pre-wrap;">
                 <!--                <v-card-title style="font-size: 48px; color: #A61C00" v-if="companyForVendor.account_name != ''">{{companyForVendor.account_name}}</v-card-title>-->
