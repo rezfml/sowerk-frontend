@@ -51,8 +51,8 @@
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
         <v-card class="white" color="mt-8">
-          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingLocations.length > 0 && !loading">New Customers - {{requestingLocations.length}}</v-card-title>
-          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingLocations.length === 0 && !loading">New Customers - 0</v-card-title>
+          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingLocations.length > 0 && !loading">Business Directory - {{requestingLocations.length}}</v-card-title>
+          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingLocations.length === 0 && !loading">Business Directory - 0</v-card-title>
           <v-text-field v-if="!loading" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer Name" v-model="search" light></v-text-field>
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
