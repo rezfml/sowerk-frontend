@@ -76,7 +76,7 @@
               </div>
             </template>
             <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length" style="background-color: #7C7C7C">
+              <td :colspan="headers.length" style="">
                 <v-text-field v-if="!loading" background-color="white" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="searchChannel" light></v-text-field>
                 <v-data-table
                   :items="item.locations"
@@ -310,5 +310,17 @@ export default {
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
