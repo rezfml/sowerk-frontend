@@ -101,9 +101,23 @@
               </v-col>
               <v-col cols="6">
                 <v-card-text style="width: 100%; font-size: 14px;">Applicant Name: <span style="color: #A61C00;">{{company.account_name}}</span></v-card-text>
-                <v-card-text style="width: 100%; font-size: 14px;">Applicant Channel: <span style="color: #A61C00;"></span></v-card-text>
+                <v-card-text style="width: 100%; font-size: 14px;">
+                  Applicant Channel:
+                  <v-autocomplete
+                    return-object
+                    :items="userLocations"
+                    v-model="chosenLocation"
+                    outlined
+                    item-text="name"
+                    label="Choose your channel associated with application"
+                    clearable
+                    class="mt-1"
+                  >
+                  </v-autocomplete>
+                </v-card-text>
               </v-col>
-              <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
+              <v-form v-if="userform" ref="applicationForm" style="width: 100%;">
+                <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
                 <!-- VENDOR'S NAME 1 -->
                 <v-text-field
                   placeholder=" "
@@ -300,6 +314,7 @@
                   </template>
                 </v-select>
               </v-col>
+              </v-form>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn @click="cancelApply" color="primary" outlined class="px-8">Cancel</v-btn>
@@ -327,7 +342,22 @@
                 </v-col>
                 <v-col cols="6">
                   <v-card-text style="width: 100%; font-size: 14px;">Applicant Name: <span style="color: #A61C00;">{{company.account_name}}</span></v-card-text>
-                  <v-card-text style="width: 100%; font-size: 14px;">Applicant Channel: <span style="color: #A61C00;"></span></v-card-text>
+                  <v-card-text style="width: 100%; font-size: 14px;">
+                    Applicant Channel:
+                    <v-autocomplete
+                      return-object
+                      :items="userLocations"
+                      v-model="chosenLocation"
+                      outlined
+                      item-text="name"
+                      label="Choose your channel associated with application"
+                      clearable
+                    >
+                      <template slot="selection" slot-scope="data">
+                        <v-card-text style="width: 100%;" v-if="data.item.name">{{ data.item.name }}</v-card-text>
+                      </template>
+                    </v-autocomplete>
+                  </v-card-text>
                 </v-col>
                 <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
                   <!-- VENDOR'S NAME 1 -->
@@ -537,6 +567,21 @@
         </v-col>
       </v-row>
     </template>
+    <v-overlay
+      :absolute="absolute"
+      :value="overlay"
+    >
+      <template v-if="confirmModal">
+        <v-card light style="width: 80%;" class="d-flex flex-column align-center justify-center mx-auto">
+          <v-card-title style="color: #A61c00; font-size: 48px;" class="my-8">Please Confirm</v-card-title>
+          <v-card-text style="width: 80%; word-break: break-word; white-space: pre-wrap;">You are submitting an application for approved Vendor status. If approved by the Business a SOWerk Connection will be made. Depending on your account level this may or may not impact the fees you are charged. Upon approval by the Business you will have 48 hours to remove/manage this SOWerk Connection before any fees are incurred.  </v-card-text>
+          <v-row style="width: 95%;" class="mx-auto d-flex justify-space-between my-8">
+            <v-btn @click="backToApplicationEdit" style="width: 25%;" outlined color="primary">Not Yet</v-btn>
+            <v-btn @click="confirmedSubmit" style="width: 25%;" color='#7c7c7c'>Confirm</v-btn>
+          </v-row>
+        </v-card>
+      </template>
+    </v-overlay>
   </v-app>
 </template>
 
@@ -559,7 +604,11 @@
             v => !!v || v === 0 || 'Field is required',
           ],
         },
+        absolute: true,
+        overlay: false,
         company: {},
+        userLocations: [],
+        chosenLocation: {},
         location: {},
         vendorTypes: [],
         userform: {},
@@ -583,6 +632,7 @@
         numberOfEmployees: null,
         sowerkConnections: null,
         applicantServiceRange: null,
+        confirmModal: false,
       }
     },
     async mounted() {
@@ -608,6 +658,7 @@
           .then(response => {
             console.log(response.data, 'COMPANY')
             this.company = response.data;
+            this.userLocations = response.data.locations;
             this.vendorName = response.data.account_name
             this.vendorType = response.data.company_type
             this.vendorAppAddress = response.data.address
@@ -653,9 +704,19 @@
           })
       },
       cancelApply() {
+        // go back by one record, the same as history.back()
+        this.$router.go(-1)
       },
-      async submit() {
-        // if(!this.validate()) return;
+      validate() {
+        if (!this.$refs.applicationForm.validate()) {
+          this.$nextTick(() => {
+            this.$vuetify.goTo('.error--text');
+          });
+          return false;
+        }
+        return true;
+      },
+      async confirmedSubmit() {
         // let currentApplication = this.currentApplication;
         // console.log(currentApplication.formfields, 'HELLOOOOOO');
         // let arrayString = JSON.stringify(currentApplication.formfields);
@@ -678,6 +739,36 @@
         //     console.log('err company', err)
         //     alert('Error in submitting this application')
         //   })
+      },
+      async backToApplicationEdit() {
+        this.confirmModal = false;
+        this.overlay = !this.overlay
+      },
+      async submit() {
+        if(!this.validate()) return;
+        // let currentApplication = this.currentApplication;
+        // console.log(currentApplication.formfields, 'HELLOOOOOO');
+        // let arrayString = JSON.stringify(currentApplication.formfields);
+        // console.log(arrayString);
+        // this.applicationFormData.pmuserforms_id = currentApplication.id;
+        // this.applicationFormData.pmlocations_id = this.location.id;
+        // this.applicationFormData.pmcompanies_id = this.location.companies_id;
+        // this.applicationFormData.spuserprofiles_id = this.currentUser.id;
+        // this.applicationFormData.splocations_id = this.company.locations[0].id;
+        // this.applicationFormData.spcompanies_id = this.company.id;
+        // this.applicationFormData.subData = arrayString;
+        // console.log(this.applicationFormData, 'applicationFormData!!!!');
+        // console.log(arrayString);
+        // await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + this.currentApplication.id, this.applicationFormData)
+        //   .then(response => {
+        //     console.log(response.data);
+        //     this.$router.go();
+        //   })
+        //   .catch(err => {
+        //     console.log('err company', err)
+        //     alert('Error in submitting this application')
+        //   })
+        console.log(this.chosenLocation, 'HEY LOCATION CHOSEN')
       },
     }
   }
