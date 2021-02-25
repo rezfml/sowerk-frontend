@@ -149,6 +149,7 @@
                   placeholder=" "
                   :items="bestSelection"
                   v-model="company.isFranchise"
+                  @change="changeTest"
                 ></v-select>
               </v-col>
 
@@ -378,6 +379,16 @@ export default {
     },
   },
   methods: {
+    changeTest() {
+      if(this.company.isFranchise === 0) {
+        // "I/We Own The Brand"
+        this.company.brand_name = ''
+        this.company.llcName = ''
+      } else if (this.company.isFranchise === 1) {
+        // "I/We Are A Franchise Of This Brand"
+        this.company.account_name = ''
+      }
+    },
     selectCompanyImage(e) {
       this.companyImageFile = e.target.files[0]
       console.log(this.companyImageFile)
@@ -386,7 +397,6 @@ export default {
       this.$emit('selectFile', this.companyImageFile);
       this.$emit('selectFileUrl', this.companyImageUrl);
     },
-
     readFile(e) {
       this.selectedFile = e.target.files[0]
 
