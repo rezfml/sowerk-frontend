@@ -327,14 +327,14 @@
                         <label class="v-label v-label--active theme--light black--text font-weight-bold" style="left: 0px; right: auto; position: absolute; top: -5px;"><p class="grey--text text--darken-4 font-weight-bold">Channel Address <span style="color: #A61c00">*</span></p></label>
                         <!--                          <client-only>-->
                         <vue-google-autocomplete
+                          v-model="fullAddress"
                           id="company-address"
                           name="company_address"
                           classname="form-control"
-                          v-on:placechanged="getAddressData"
                           placeholder=" "
                           style="width: 100%;"
                           validate-on-blur
-                          v-model="fullAddress"
+                          v-on:placechanged="getAddressData"
                         >
                         </vue-google-autocomplete>
                         <!--                          </client-only>-->
@@ -1606,7 +1606,7 @@
             ]
           }
         ],
-        fullAddress: null,
+        fullAddress: '',
         headers: [
           {
             text: 'ID',
@@ -1648,7 +1648,9 @@
         vendorTypeOptions: [
           'Supplier',
           'Servicer'
-        ]
+        ],
+        tempStreetNumber: null,
+        tempRoute: null
       }
     },
     async mounted() {
@@ -1767,12 +1769,70 @@
           }
         }
       },
-      getAddressData(addressData) {
-        console.log(addressData);
+      async getAddressData(addressData, placeResultData, id) {
+        console.log(addressData, "ADDRESS DATA")
+        console.log(placeResultData.address_components, "PLACE RESULT DATA")
+
         this.form.address = addressData.street_number + ' ' + addressData.route;
         this.form.city = addressData.locality;
         this.form.state = addressData.administrative_area_level_1;
         this.form.zipcode = Number(addressData.postal_code);
+
+
+        // NEEDED! --- STREET NUMBER
+        if(addressData.street_number === "undefined"){
+          console.log("IS THIS RUNNING 1")
+          for(let i=0; i<placeResultData.address_components.length; i++){
+            if(placeResultData.address_components[i].types[0] === "street_number"){
+              this.tempStreetNumber = placeResultData.address_components[i].short_name;
+            }
+          }
+        }
+
+        // NEEDED! --- STREET ADDRESS
+        if(addressData.route === "undefined") {
+          console.log("IS THIS RUNNING 2")
+          for(let i=0; i<placeResultData.address_components.length; i++){
+            if(placeResultData.address_components[i].types[0] === "route"){
+              this.tempRoute = placeResultData.address_components[i].short_name;
+            }            
+          }
+        }
+
+        // NEEDED! --- CITY (locality)
+        if(addressData.locality === "undefined") {
+          console.log("IS THIS RUNNING 3")
+          for(let i=0; i<placeResultData.address_components.length; i++){
+            if(placeResultData.address_components[i].types[0] === "locality"){
+              this.form.city = placeResultData.address_components[i].short_name;
+            }
+          }
+        }
+
+        // NEEDED! --- STATE
+        if(addressData.administrative_area_level_1 === "undefined") {
+          console.log("IS THIS RUNNING 4")
+          for(let i=0; i<placeResultData.address_components.length; i++){
+            if(placeResultData.address_components[i].types[0] === "administrative_area_level_1"){
+              this.form.state = placeResultData.address_components[i].short_name;
+            }
+          }
+        }
+
+        // NEEDED! --- ZIPCODE
+        if(addressData.postal_code === "undefined") {
+          console.log("IS THIS RUNNING 5")
+          for(let i=0; i<placeResultData.address_components.length; i++){
+            if(placeResultData.address_components[i].types[0] === "postal_code"){
+              this.form.zipcode = Number(placeResultData.address_components[i].short_name);          
+            }
+          }
+        }
+
+
+        console.log(this.form, "THIS DOT FORM")
+
+        // BELOW IS DATA WE HAVE NOT HAD TROUBLE GETTING YET
         this.form.latitude = addressData.latitude;
         this.form.longitude = addressData.longitude;
         this.item.lat = addressData.latitude;
@@ -1785,6 +1845,7 @@
       // This method formats the address components into a readable string for display purposes
       formatFullAddress() {
         this.fullAddress = this.form.address + ', ' + this.form.city + ', ' + this.form.state + ' ' + this.form.zipcode;
+        console.log(this.fullAddress, "THIS IS THE FULL ADDRESS YOOOO")
       },
       async submit() {
         console.log(this.chosenUser, "THIS DOT CHOSEN USER------------")
