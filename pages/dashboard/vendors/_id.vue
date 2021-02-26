@@ -380,8 +380,8 @@
               <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-row style="width: 100%;" class="d-flex justify-center my-8">
-                <v-card-title style="font-size: 108px; width: 20%; text-align: center; color: #A61C00">{{vendorMessages.length}}</v-card-title>
-                <div style="width: 80%;" class="d-flex flex-column align-center">
+                <v-card-title style="font-size: 48px; text-align: center; color: #A61C00">{{vendorMessages.length}}</v-card-title>
+                <div class="d-flex flex-column align-center">
                   <v-card-text style="font-size: 24px; text-align: center">All Messages</v-card-text>
                   <v-btn to="../../../dashboard/messages-and-alerts" color="primary" rounded style="width: 80%;">View All</v-btn>
                 </div>
