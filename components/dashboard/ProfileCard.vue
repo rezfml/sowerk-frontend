@@ -50,8 +50,8 @@
                         <v-card-text v-else style="font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.address}}<br/> {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
                         <v-card-text style=" font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.description}}</v-card-text>
                         <v-row class="d-flex justify-center" style="width: 100%;">
-                          <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Founded: <span style="color: #A61C00">{{location.year_founded}}</span></v-card-text>
-                          <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created}}</span></v-card-text>
+                          <v-card-text class="mx-auto text-center" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Founded: <span style="color: #A61C00">{{location.year_founded}}</span></v-card-text>
+                          <v-card-text class="mx-auto text-center" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created.slice(0,10)}}</span></v-card-text>
                         </v-row>
 
                         <hr class="mx-auto my-4" style="width: 90%; color: #A61c00;">
@@ -219,7 +219,7 @@
                         <v-card-text style=" font-size: 18px; text-align: center; word-break: break-word; white-space: pre-wrap">{{location.description}}</v-card-text>
                         <v-row class="d-flex justify-center" style="width: 100%;">
                           <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Founded: <span style="color: #A61C00">{{location.year_founded}}</span></v-card-text>
-                          <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created}}</span></v-card-text>
+                          <v-card-text class="mx-auto text-center mb-n6" style="width: 50%; font-size: 16px !important; text-align: center; word-break: break-word; white-space: pre-wrap">Joined SOWerk: <span style="color: #A61C00">{{location.created.slice(0,10)}}</span></v-card-text>
                         </v-row>
 
                         <v-select
