@@ -2485,6 +2485,18 @@
             .catch(err => {
               console.log('err in getting approved provider connections', err);
             })
+          await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/byPMCompanyId/' + this.currentUser.companies_id)
+            .then(response => {
+              console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
+              for(let i=0; i<response.data.length; i++) {
+                if(response.data[i].approval_status === 1) {
+                  this.stats[0].value++
+                }
+              }
+            })
+            .catch(err => {
+              console.log(err)
+            })
         } else {
           await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id)
             .then(response => {
