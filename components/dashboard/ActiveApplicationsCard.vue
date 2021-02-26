@@ -161,7 +161,7 @@
     async mounted() {
       await this.getCompanyDocuments(this.currentUser.companies_id)
 
-      // console.log(this.bizAndVendorData, 'yayyy');
+      console.log(this.bizAndVendorData, 'yayyy');
     },
     computed: {
       currentUser() {

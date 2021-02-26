@@ -334,7 +334,7 @@
                 }
               })
             }
-            console.log(this.company, "---------------------------------------------------------")
+            // console.log(this.company, "---------------------------------------------------------")
             // console.log(this.company.locations[0].id)
             this.businessChannelsList = this.company.locations
           })
