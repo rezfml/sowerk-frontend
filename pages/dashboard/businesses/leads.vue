@@ -102,7 +102,7 @@
                 :headers="providerChannelHeaders"
                 :items-per-page="10"
                 item-key="id"
-                :search="search"
+                :search="searchChannel"
                 :expanded.sync="expandedChannel"
                 show-expand
                 single-expand
@@ -120,7 +120,7 @@
                       :items="item.userforms"
                       :headers="providerApplicationHeaders"
                       :items-per-page="10"
-                      :search="search"
+                      :search="searchChannelApp"
                     >
                       <template v-slot:item.name="{item}" >
                         <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00;">{{item.name}}</v-card-text>

@@ -55,30 +55,7 @@
       ></v-progress-circular>
     </div>
     <div v-else>
-      <template v-if="company && company.company_type === 'true'">
-        <v-container class="px-0" style="max-width: 95%;">
-          <v-row>
-<!--            <v-col cols="3">-->
-<!--              <FilterCard-->
-<!--                title="Filter"-->
-<!--                :filters="filters"-->
-<!--              ></FilterCard>-->
-<!--            </v-col>-->
-            <v-col cols="12" class="d-flex flex-column justify-space-between">
-              <HomeCard
-                v-if="services"
-                :title="'Businesses'"
-                :items="services"
-                :tableProperties="headers"
-                :viewAll="false"
-                action="Apply"
-                slug="/dashboard/businesses/"
-              ></HomeCard>
-            </v-col>
-          </v-row>
-        </v-container>
-      </template>
-      <template v-else-if="company && company.company_type === 'false'">
+      <template v-if="company && company.company_type === 'false'">
         <v-container class="px-0" style="max-width: 95%;">
           <v-row>
             <v-col cols="12" class="d-flex flex-column justify-space-between">
@@ -93,8 +70,8 @@
                   :search="search"
                 >
                   <template v-slot:item.imageUrl="{item}"  >
-                    <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
-                    <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="50px" max-width="50px" style="border-radius: 50%;" class="my-1"></v-img>
+                    <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
+                    <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
                   </template>
                   <template v-slot:item.address="{item}">
                     <div style="width: 100%;" class="d-flex flex-column align-center">
@@ -107,6 +84,9 @@
                       <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
                       <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
                     </div>
+                  </template>
+                  <template v-slot:item.TotalConnections="{item}">
+                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.TotalConnections}}</v-card-text>
                   </template>
                   <template v-slot:item.actions="{ item }" class="d-flex">
                     <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
@@ -269,7 +249,7 @@
           { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: 'Total Connections', value: 'Total Connections', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Total Connections', value: 'TotalConnections', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
         ],
         // connectionsHeaders: [
@@ -384,7 +364,7 @@
 
         this.businesses = businesses;
         for(let i=0; i<this.businesses.length; i++) {
-          this.businesses[i]['Total Connections'] = this.connections.filter(connection => {
+          this.businesses[i]['TotalConnections'] = this.connections.filter(connection => {
             if(this.businesses[i].id === connection.pmlocations_id || this.businesses[i].id === connection.locations_id) {
               return connection
             }
