@@ -4,7 +4,9 @@
       v-if="!loading"
       indeterminate
       color="primary"
-      :size="20" >
+      :size="50"
+      class="mx-auto"
+    >
     </v-progress-circular>
 
 		<v-card-title
@@ -47,6 +49,7 @@
                   block
                   color="primary"
                   :to="slug + item.splocations_id"
+                  v-if="item.spPreApproval !== 'Yes'"
                 >
                   View
                 </v-btn>
@@ -88,14 +91,13 @@ export default {
         { text: 'Contact', value: 'spChannelContact', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
 				{ text: 'Email', value: 'spChannelEmail', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 				{ text: 'Phone', value: 'spChannelPhone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+        { text: 'Pre Approved', value: 'spPreApproval', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
 				{ text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
       ],
-
       company: {},
       expanded: [],
       expandedChannel: [],
       singleExpand: true,
-
       search: '',
       locations: null,
       users: [
@@ -106,6 +108,9 @@ export default {
   async created() {
 		console.log(this.$store.state.user.user.user, "user from AcceptedApplicationCard")
     await this.getCompany(this.currentUser.companies_id);
+		await this.getPreApprovedVendors();
+
+
 	},
 	computed: {
 		currentUser() {
@@ -133,7 +138,8 @@ export default {
                   spChannelContact: '',
                   spChannelEmail: '',
                   spChannelPhone: '',
-                  spType: ''
+                  spType: '',
+                  spPreApproval: 'No'
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
                   .then(async (response) => {
@@ -158,14 +164,55 @@ export default {
               }
             }
           }
-          setTimeout(() => {
-            this.loading = true
-          }, 2000)
         })
         .catch(err => {
           console.log('error in getting company', err)
           this.loading = true
         })
+    },
+    async getPreApprovedVendors() {
+      await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/byPMCompanyId/' + this.currentUser.companies_id)
+        .then(response => {
+          console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
+          for(let i=0; i<response.data.length; i++) {
+            this.company.locations.forEach(location => {
+              if(location.id === response.data[i].locations_id && response.data[i].approval_status === 1) {
+                let approvedVendorObj = {
+                  id: response.data[i].id,
+                  approval_status: 1,
+                  spcompanies_id: response.data[i].spcompanies_id,
+                  splocations_id: null,
+                  spCompanyName: '',
+                  spChannelName: '',
+                  spChannelAddress: null,
+                  spChannelContact: '',
+                  spChannelEmail: '',
+                  spChannelPhone: '',
+                  spType: '',
+                  spPreApproval: 'Yes'
+                }
+                this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + response.data[i].spcompanies_id)
+                  .then(async (response) => {
+                    console.log('response.data for company', response.data)
+                    approvedVendorObj.spCompanyName = response.data.account_name;
+                    location.approvedVendors.push(approvedVendorObj)
+                  })
+                  .catch(err => {
+                    console.log('err in getting sp company ', err);
+                  })
+              }
+              // REMOVES DUPLICATES OUT WHILE STILL RETAINING LIST OF PRE APPROVED REQUESTS -- REALLY NOT A REFINED ALGORITHM LETS REVISIT THIS WITH TIME
+              location.approvedVendors = location.approvedVendors.filter((v,i,a)=>a.findIndex(t=>(t.spCompanyName === v.spCompanyName))===i)
+              location.approvedVendors = location.approvedVendors.filter((v,i,a)=>a.findIndex(t=>(t.spChannelName === v.spChannelName))===i)
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      setTimeout(() => {
+        this.loading = true
+      }, 2000)
     }
   }
 }
