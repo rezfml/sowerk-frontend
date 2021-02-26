@@ -209,8 +209,8 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left' },
       ],
       allCompaniesHeaders: [
-        { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
-        { text: 'Customer', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+        { text: 'Customer', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
+        { text: '', value: 'account_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
       ],
       loading: false,
       showVideo: false,

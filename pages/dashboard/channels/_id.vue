@@ -161,180 +161,10 @@
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Pre Approved', value: 'preApproved', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
-        locations: [
-          {
-            id: 1,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 2,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 3,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 4,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 5,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 6,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 7,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 8,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 9,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 10,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 11,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 12,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 13,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 14,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 15,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 16,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          },
-          {
-            id: 17,
-            companyName: 'Bass Pro Shops (Springfield, MO)',
-            name: 'Lorem ipsum',
-            phone: '1234567890',
-            email: 'lorem@ipsum.com',
-            city: 'Springfield',
-            state: 'MO',
-            address: 'Springfield, MO'
-          }
-        ],
+        locations: [],
         locationId: null,
         location: {},
         company: {},
@@ -551,6 +381,7 @@
                     email: '',
                     phone: '',
                     name: '',
+                    preApproved: 'No'
                   }
                   for(let i = 0; i<response.data.length; i++) {
                     if(response.data[i].approval_status === 1) {
@@ -561,7 +392,7 @@
                       console.log('response.data', response.data)
                       //await this.getLocations(response.data[i].spcompanies_id);
                       console.log(this.connections, 'connections');
-                      this.$http.get('https://www.sowerkbackend.com/api/companies/' + response.data[i].spcompanies_id)
+                      this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + response.data[i].spcompanies_id)
                         .then(companyVal => {
                           console.log(companyVal.data)
                           newObj.companyAccountName = companyVal.data.account_name;
@@ -569,7 +400,7 @@
                         .catch(err => {
                           console.log(err)
                         })
-                      this.$http.get('https://www.sowerkbackend.com/api/locations/' + response.data[i].splocations_id)
+                      this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + response.data[i].splocations_id)
                         .then(responseVal => {
                           console.log(responseVal.data, 'HEY!')
                           newObj.fullname = responseVal.data.contact_first_name + ' ' + responseVal.data.contact_last_name;
@@ -591,6 +422,46 @@
                 .catch(err => {
                   console.log(err, 'err');
                 })
+
+              await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/byPMCompanyId/' + this.currentUser.companies_id)
+                .then(response => {
+                  console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
+                  let newObj = {
+                    id: Number,
+                    companyAccountName: '',
+                    fullname: '',
+                    email: '',
+                    phone: '',
+                    name: '',
+                    preApproved: 'Yes'
+                  }
+                  for(let i = 0; i<response.data.length; i++) {
+                    if(response.data[i].approval_status === 1 && response.data[i].locations_id === id) {
+                      this.approvedProviders++
+                      console.log('i', i, 'approvedproviders!!!!!', this.approvedProviders)
+                      this.connections.push(response.data[i]);
+                      console.log(response.data[i], 'approved')
+                      console.log('response.data', response.data)
+                      //await this.getLocations(response.data[i].spcompanies_id);
+                      console.log(this.connections, 'connections');
+                      this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + response.data[i].spcompanies_id)
+                        .then(companyVal => {
+                          console.log(companyVal.data)
+                          newObj.companyAccountName = companyVal.data.account_name;
+                        })
+                        .catch(err => {
+                          console.log(err)
+                        })
+                      this.vendors.push(newObj)
+                    }
+                  }
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+
+              // REMOVES DUPLICATES OUT WHILE STILL RETAINING LIST OF PRE APPROVED REQUESTS -- REALLY NOT A REFINED ALGORITHM LETS REVISIT THIS WITH TIME
+              this.vendors = this.vendors.filter((v,i,a)=>a.findIndex(t=>(t.companyAccountName === v.companyAccountName))===i)
             } else {
               console.log('false');
               await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + id)
