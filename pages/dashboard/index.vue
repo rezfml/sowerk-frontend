@@ -341,7 +341,8 @@
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -752,7 +753,8 @@
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title class="text-no-wrap" style="font-size: 18px; margin-left:-5%">Companies Approved</v-card-title>
-                        <v-btn to="/dashboard/businesses" style="width: 90%; font-size:.8rem" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -1153,7 +1155,8 @@
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -1554,7 +1557,8 @@
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -1955,7 +1959,8 @@
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
                         <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
-                        <v-btn to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
+                        <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
                     </v-row>
                   </v-row>
@@ -2481,18 +2486,43 @@
               console.log('err in getting approved provider connections', err);
             })
         } else {
-          await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + this.currentUser.companies_id)
+          await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id)
             .then(response => {
               console.log('response approvedproviderconnections', response.data);
               if(this.currentUser.is_superuser === false) {
                 for(let i=0; i<response.data.length; i++) {
-                  if(response.data[i].pmuserprofiles_id === this.currentUser.id) {
+                  if(response.data[i].pmuserprofiles_id === this.currentUser.id && response.data[i].approval_status === 1) {
                     console.log(response.data[i], 'applications for staff account')
                     this.approvedVendorConnectionCount ++
                   }
                 }
+                this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+                  .then(response => {
+                    console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
+                    for(let i=0; i<response.data.length; i++) {
+                      if(response.data[i].approval_status === 1) {
+                        this.approvedVendorConnectionCount++
+                      }
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
               } else {
-                this.approvedVendorConnectionCount = response.data.length
+                let filteredArr = response.data.filter(connection => connection.approval_status === 1)
+                this.approvedVendorConnectionCount = filteredArr.length
+                this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+                  .then(response => {
+                    console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
+                    for(let i=0; i<response.data.length; i++) {
+                      if(response.data[i].approval_status === 1) {
+                        this.approvedVendorConnectionCount++
+                      }
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
               }
             })
             .catch(err => {

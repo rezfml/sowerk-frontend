@@ -51,8 +51,8 @@
     <v-row style="width: 95%;" class="mx-auto">
       <v-col cols="12" class="d-flex flex-column justify-space-between">
         <v-card class="white" color="mt-8">
-          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="requestingLocations.length > 0 && !loading">New Customers - {{requestingLocations.length}}</v-card-title>
-          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="requestingLocations.length === 0 && !loading">New Customers - 0</v-card-title>
+          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="allCompanies.length > 0 && !loading">New Customers - {{allCompanies.length}}</v-card-title>
+          <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else-if="allCompanies.length === 0 && !loading">New Customers - 0</v-card-title>
           <v-text-field v-if="!loading" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer Name" v-model="search" light></v-text-field>
           <div style="width: 100%; height: 20vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0; left: 0;" v-if="loading">
             <v-progress-circular
@@ -71,23 +71,27 @@
           >
             <template v-slot:item.imgUrl="{item}"  >
               <div style="width: 100%;" class="d-flex justify-center">
-                <v-img v-if="item.imgUrl !== ''" :src="item.imgUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
-                <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
+                <v-img v-if="item.imgUrl !== ''" :src="item.imgUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
+                <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
               </div>
             </template>
             <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length" style="background-color: #7C7C7C">
+              <td :colspan="headers.length" style="">
                 <v-text-field v-if="!loading" background-color="white" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="searchChannel" light></v-text-field>
                 <v-data-table
                   :items="item.locations"
-                  :headers="providerHeaders"
+                  item-key="id"
                   :items-per-page="10"
+                  :headers="providerHeaders"
                   :search="searchChannel"
+                  :expanded.sync="expandedChannel"
+                  show-expand
+                  single-expand
                 >
                   <template v-slot:item.imageUrl="{item}"  >
                     <div style="width: 100%;" class="d-flex justify-center">
-                      <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
-                      <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%;" class="my-1"></v-img>
+                      <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
+                      <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
                     </div>
                   </template>
                   <template v-slot:item.name="{item}">
@@ -109,6 +113,21 @@
                   </template>
                   <template v-slot:item.actions="{ item }" class="d-flex">
                     <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                  </template>
+                  <template v-slot:expanded-item="{ headers, item }">
+                    <td :colspan="headers.length">
+                      <v-text-field clearable background-color="white" outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchChannelApp" light></v-text-field>
+                      <v-data-table
+                        :items="item.userforms"
+                        :headers="providerApplicationHeaders"
+                        :items-per-page="10"
+                        :search="searchChannelApp"
+                      >
+                        <template v-slot:item.actions="{ item }" class="d-flex">
+                          <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.locations_id + '/application-form/' + item.id">View</v-btn>
+                        </template>
+                      </v-data-table>
+                    </td>
                   </template>
                 </v-data-table>
               </td>
@@ -161,8 +180,10 @@ export default {
   data() {
     return {
       expanded: [],
+      expandedChannel: [],
       search: '',
       searchChannel: '',
+      searchChannelApp: '',
       businesses: [],
       services: [],
       requestingBusinesses: [],
@@ -173,7 +194,12 @@ export default {
         { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+        { text: 'Open Applications', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+      ],
+      providerApplicationHeaders: [
+        { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left' },
       ],
       allCompaniesHeaders: [
         { text: '', value: 'imgUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
@@ -220,8 +246,31 @@ export default {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/type/true')
         .then(response => {
           console.log(response.data, 'get ALL COMPANIES');
-          for(let i = 0; i < response.data.length; i++) {
-            this.getWholeCompanyObject(response.data[i].id);
+          response.data.forEach(company => {
+            let companyObj = {
+              id: company.id,
+              account_name: company.account_name,
+              imgUrl: company.imgUrl,
+              locations: [],
+            }
+            this.allCompanies.push(companyObj);
+          })
+          for(let i = 0; i < this.allCompanies.length; i++) {
+            this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + this.allCompanies[i].id)
+              .then(response => {
+                console.log(response.data.location, 'locations for company')
+                response.data.location.forEach(location => {
+                  if(location.userforms[0] === 'There are no userforms') {
+                    location.userforms = [];
+                  } else {
+                    location.userforms = location.userforms.filter(userform => userform.applicationStatus === 1 || userform.applicationStatus === 2)
+                  }
+                })
+                this.allCompanies[i].locations = response.data.location
+              })
+              .catch(err => {
+                console.log(err, 'err locations for company')
+              })
           }
           this.loadingInit = true;
         })
@@ -277,17 +326,6 @@ export default {
           console.log('err', err)
         });
     },
-    async getLocations(business) {
-      await this.$http.get('https://www.sowerkbackend.com/api/locations/byCompaniesId/' + business.id)
-        .then(response => {
-          console.log(response.data.location, 'locations for company')
-          let business = {
-            id: response.data.location.id,
-            locations: response.data.location,
-          }
-          this.createRequestingCompaniesArray(business);
-        })
-    }
     // getAllUserforms(businesses) {
     //   console.log('hello');
     //   console.log(businesses);
@@ -310,5 +348,17 @@ export default {
 </script>
 
 <style scoped>
-
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

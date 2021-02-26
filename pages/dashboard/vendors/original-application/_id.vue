@@ -156,7 +156,6 @@
                     ></v-select>
                   </v-col>
                 </v-row>
-              </section>
             </vue-html2pdf>
           </v-card>
         </v-col>
