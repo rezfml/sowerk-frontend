@@ -37,6 +37,7 @@
                           <v-text-field
                             placeholder=" "
                             v-model="user.first_name"
+                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -50,6 +51,7 @@
                           <v-text-field
                             placeholder=" "
                             v-model="user.last_name"
+                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -63,6 +65,7 @@
                           <v-text-field
                             placeholder=" "
                             v-model="user.email"
+                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -75,6 +78,7 @@
                           <v-text-field
                             placeholder=" "
                             v-model="user.phone"
+                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -100,6 +104,7 @@
                             v-model="company.account_name"
                             placeholder=""
                             label="Company Account Name"
+                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -110,6 +115,7 @@
                             placeholder=""
                             label="Company Year Founded"
                             type="number"
+                            readonly
                           >
                           </v-text-field>
                         </v-col>
@@ -120,6 +126,7 @@
                             label="Company Profile Description*"
                             v-model="company.description"
                             placeholder="Provide SOWerk users and vendors text about your company's business, company history, and relationship with vendors."
+                            readonly
                           ></v-textarea>
 <!--                          <v-divider-->
 <!--                            style="border-width: thin 0 0 0; border-color: rgba(0,0,0,0.5);"-->

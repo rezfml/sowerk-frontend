@@ -75,7 +75,7 @@
               <v-btn @click="requestDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary" outlined v-else>Pending Documents</v-btn>
               <v-btn @click="allDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="primary">All Documents</v-btn>
               <v-btn @click="requestingDocumentsModalLoad" style="width: 45%; border-radius: 5px;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'" outlined>Request A Document</v-btn>
-              <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C">Upload</v-btn>
+              <v-btn @click="uploadDocumentsModalLoad" style="width: 45%; border-radius: 5px; color: white;" class="mx-2 my-2 py-8" color="#7C7C7C" v-if="company.company_type === 'true'">Upload</v-btn>
             </v-row>
           </v-col>
         </v-row>

@@ -42,6 +42,19 @@
               :search="searchVendors"
             >
 
+              <template v-slot:item.spCompanyName="{ item }">
+                <v-row class="d-flex" v-if="item.spChannelIsFranchise === false">
+                  <v-col>
+                    <p>{{ item.spCompanyName }}</p>
+                  </v-col>
+                </v-row>
+                <v-row class="d-flex" v-if="item.spChannelIsFranchise === true">
+                  <v-col>
+                    <p>{{ item.spChannelBrandName }} {{ item.spChannelLlcName }}</p>
+                  </v-col>
+                </v-row>
+              </template>
+
               <template
                 v-slot:item.actions="{ item }"
               >
@@ -106,7 +119,7 @@ export default {
     }
   },
   async created() {
-		console.log(this.$store.state.user.user.user, "user from AcceptedApplicationCard")
+		// console.log(this.$store.state.user.user.user, "user from AcceptedApplicationCard")
     await this.getCompany(this.currentUser.companies_id);
 		await this.getPreApprovedVendors();
 
@@ -121,7 +134,7 @@ export default {
     async getCompany(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
         .then(async (response) => {
-          console.log(response, "sdjhfkjshdkfjhsdkfjhskfjsdhfk")
+          // console.log(response, "sdjhfkjshdkfjhsdkfjhskfjsdhfk")
           this.company = response.data
 
           for(let i=0; i<this.company.locations.length; i++) {
@@ -139,19 +152,25 @@ export default {
                   spChannelEmail: '',
                   spChannelPhone: '',
                   spType: '',
+                  spChannelIsFranchise: '',
+                  spChannelBrandName: '',
+                  spChannelLlcName: '',
                   spPreApproval: 'No'
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
                   .then(async (response) => {
                     console.log('response.data for company', response.data)
                     this.company.locations[i].approvedVendors[j].spCompanyName = response.data.account_name;
+                    this.company.locations[i].approvedVendors[j].spChannelIsFranchise = response.data.isFranchise;
+                    this.company.locations[i].approvedVendors[j].spChannelBrandName = response.data.brand_name;
+                    this.company.locations[i].approvedVendors[j].spChannelLlcName = response.data.llcName;
                   })
                   .catch(err => {
                     console.log('err in getting sp company ', err);
                   })
                 this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.company.locations[i].approvedVendors[j].splocations_id)
                   .then(async (response) => {
-                    console.log('response.data for location', response.data)
+                    // console.log('response.data for location', response.data)
                     this.company.locations[i].approvedVendors[j].spChannelContact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
                     this.company.locations[i].approvedVendors[j].spChannelName = `${response.data.name}`
                     this.company.locations[i].approvedVendors[j].spChannelAddress = `${response.data.address} ${response.data.city}, ${response.data.state} ${response.data.zipcode}`;

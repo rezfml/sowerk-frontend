@@ -600,7 +600,8 @@
                 :items="applicationOptions"
               >
               </v-select>
-              <v-btn @click="submitTagCategoryType(item)" class="my-4 py-6 mr-8" color="#7C7C7C" style="color:white; width: 40%; align-self: flex-end">Submit</v-btn>
+              <v-btn @click="submitTagCategoryType(item)" class="my-4 py-6 mr-8" color="#7C7C7C" style="color:white; width: 40%; align-self: flex-end" v-if="!submittedOnce">Submit</v-btn>
+              <v-card-text class="my-4 py-3 mr-8" color="#707070" style="color:white; width: 30%; margin-left:40%; font-size: 1.1rem; text-align:center; font-weight: 500; border:1px solid white;border-radius:20px; background-color:#707070;" v-if="submittedOnce && submissionSuccess">Your information has been submitted!</v-card-text>
             </v-row>
           </transition>
         </template>
@@ -1490,6 +1491,8 @@ const naics = require("naics");
     },
     data () {
       return {
+        submissionSuccess: false,
+        submittedOnce: false,
         searchApplications: '',
         applicationStatus: '',
         searchChannel: '',
@@ -2807,6 +2810,8 @@ const naics = require("naics");
         this.loadAssignTagCategoryType = false;
       },
       async submitTagCategoryType(item) {
+        this.submittedOnce = true
+
         const userform = {
           locations_id: this.locationIdChoice,
           applicationStatus: 0,
@@ -2824,6 +2829,7 @@ const naics = require("naics");
         console.log(userform, 'woah!', this.applicationtemplateTagsNew)
         await this.$http.post('https://www.sowerkbackend.com/api/userforms/byLocationId/' + this.locationIdChoice, userform)
           .then(async(response) => {
+            this.submissionSuccess = true
             console.log(response, 'success in adding userform from template')
             if(this.applicationtemplateTagsNew.length > 0) {
               for(let i=0; i<this.applicationtemplateTagsNew.length; i++) {

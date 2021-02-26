@@ -75,6 +75,13 @@
                 <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
               </div>
             </template>
+
+            <template v-slot:item.account_name="{item}">
+              <div style="width:100%;" class="d-flex justify-center">
+                <p style="font-size:1rem;font-weight:500">{{ item.account_name }}</p>
+              </div>
+            </template>
+
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length" style="">
                 <v-text-field v-if="!loading" background-color="white" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="searchChannel" light></v-text-field>

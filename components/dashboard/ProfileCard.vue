@@ -112,7 +112,8 @@
 
                       <v-row v-else-if="user">
                         <v-col cols="12" class="py-1 mt-12">
-                          <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px; word-break: break-word; white-space: pre-wrap">{{ company.account_name }}</p>
+                          <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px; word-break: break-word; white-space: pre-wrap" v-if="!company.isFranchise">{{ company.account_name }}</p>
+                          <p class="mx-auto text-center primary--text mb-0 mt-12" style="font-size: 24px; word-break: break-word; white-space: pre-wrap" v-else>{{ company.brand_name }} {{ company.llcName }}</p>
                           <v-card-subtitle><a style="text-decoration: none; color: #1e1e1e" @click="websiteLink">{{company.website}}</a></v-card-subtitle>
                         </v-col>
                         <v-col cols="12" class="py-1 text-body-1">
