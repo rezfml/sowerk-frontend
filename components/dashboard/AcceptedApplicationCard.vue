@@ -152,13 +152,10 @@ export default {
                   spChannelEmail: '',
                   spChannelPhone: '',
                   spType: '',
-<<<<<<< HEAD
                   spChannelIsFranchise: '',
                   spChannelBrandName: '',
-                  spChannelLlcName: ''
-=======
+                  spChannelLlcName: '',
                   spPreApproval: 'No'
->>>>>>> d239eff06eb95777e237ed53a7fe26f8d4c35017
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
                   .then(async (response) => {
@@ -186,13 +183,6 @@ export default {
               }
             }
           }
-<<<<<<< HEAD
-          setTimeout(() => {
-            this.loading = true
-            console.log(this.company.locations)
-          }, 2000)
-=======
->>>>>>> d239eff06eb95777e237ed53a7fe26f8d4c35017
         })
         .catch(err => {
           console.log('error in getting company', err)
