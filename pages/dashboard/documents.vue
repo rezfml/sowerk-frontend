@@ -238,10 +238,10 @@
 
     <transition name="slide-fade">
       <v-row v-if="openUploadModelLoad" class="mt-8">
-        <v-card style="background-color: white; height: 50vh; width: 100%;">
+        <v-card class="d-flex flex-column align-center" style="background-color: white; height: 50vh; width: 100%;">
           <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Add New Documents</v-card-title>
           <v-card-text class="pt-16 ml-4" v-if="company.company_type==='true'">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-          <v-card-text class="pt-16 ml-4" v-else>Upload any company document or template that you will use to share with businesses t download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+          <v-card-text class="pt-16 ml-4" v-else>Upload any company document or template that you will use to share with businesses to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
           <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
           <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           <v-title v-if="successuploaddoc !== null && successuploaddoc === false">Error with adding this document. Please retry.</v-title>

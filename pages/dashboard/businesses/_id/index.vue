@@ -1233,6 +1233,11 @@
                 companies_id: Number,
               }
               this.chosenLocation = {}
+              // Just in case the user adds a second note without leaving the notes addition page directory. Hopefully improves experience and lowers confusion
+              setTimeout(() => {
+                this.addNotesSuccess = false;
+                this.addNotesSuccessLocation = false;
+              }, 2000)
             })
             .catch(err => {
               //console.log(err, 'err in submitting note', this.note)
