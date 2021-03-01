@@ -12,7 +12,10 @@
           :items="filter.items" 
           :placeholder="filter.name" 
           light multiple chips single-line dense 
-          v-model="selectedFilters">
+          :value="selectedFilters"
+          @input="changeFilters"
+
+        >
           <template v-slot:selection="{ filter, index }">
             <v-chip v-if="index < 2">
               <span>{{ selectedFilters[index] }}</span>
@@ -23,6 +26,8 @@
             >(+{{ selectedFilters.length - 1 }} others)</span>
           </template>
         </v-select>
+
+        
       </v-card-text>
     </v-container>
   </v-card>
@@ -44,6 +49,9 @@
         type: Boolean,
         default: false,
       },
+      selectedFilters: {
+        type: Array,
+      }
       // loadModal: {
       //   type: Boolean,
       //   required: true
@@ -51,7 +59,13 @@
     },
     data() {
       return {
-        selectedFilters: []
+        selectedFiltersArr: []
+      }
+    },
+    methods: {
+      changeFilters(event) {
+        this.selectedFiltersArr = event.target.value;
+        this.$emit('changedFilters', this.selectedFiltersArr)
       }
     }
   }

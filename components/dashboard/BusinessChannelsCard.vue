@@ -15,18 +15,22 @@
 
 		<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top:4%;" label="Search by Address" v-model="searchChannels" light></v-text-field>
 
-			<!-- <v-col cols="4">
+		<v-row>
+			<v-col cols="4">
 				<FilterCard
 					v-if="this.loading && this.channels"
 					:title="'Filter Channels'"
 					:filters="filters"
 					:locationApproved="viewLocation"
 					:locationFilterTags="locationFilterTags"
+          :selectedFilters="selectedFilters"
+          @changeFilters="selectedFilters = $event"
 				></FilterCard>
-			</v-col> -->
-		<v-row>
 
-			<v-col cols="12">
+        <p>{{ selectedFilters }}</p>
+			</v-col>
+
+			<v-col cols="8">
 				<v-data-table
 					v-if="this.loading && this.channels && company.company_type === 'true'"
           :search="searchChannels"
@@ -155,7 +159,7 @@ export default {
       locationApproved: false,
       filters: [
         {
-          name: 'Name',
+          name: 'Channel Name',
           items: [
           ]
         },
@@ -179,6 +183,7 @@ export default {
           ]
         }
       ],
+      selectedFilters: []
     }
   },
   async created() {
@@ -187,67 +192,66 @@ export default {
 	this.getCompanyApprovedVendors(this.currentUser.companies_id)
 	},
   computed: {
-	currentUser() {
-		return this.$store.state.user.user.user;
-	},
-
+    currentUser() {
+      return this.$store.state.user.user.user;
+    },
   },
   methods: {
-	async getCompany(id) {
-		await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
-			.then(async (response) => {
-				console.log(response.data, "HEYYYYY")
-        this.company = response.data
-				for(let i=0; i<response.data.locations.length; i++) {
+    async getCompany(id) {
+      await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
+        .then(async (response) => {
+          console.log(response.data, "HEYYYYY")
+          this.company = response.data
+          for(let i=0; i<response.data.locations.length; i++) {
 
-					if(this.approvedVendorsList[i].approvedVendors[0] === "There are no approved vendors"){
-						let numberOfVendors = 0
+            if(this.approvedVendorsList[i].approvedVendors[0] === "There are no approved vendors"){
+              let numberOfVendors = 0
 
-						let company = {
-							channelId: response.data.locations[i].id,
-							channelName: response.data.locations[i].name,
-							address: response.data.locations[i].address,
-							city: response.data.locations[i].city,
-							state: response.data.locations[i].state,
-							zipcode: response.data.locations[i].zipcode,
-							channelManagerFirstName: response.data.locations[i].contact_first_name,
-							channelManagerLastName: response.data.locations[i].contact_last_name,
-							approvedVendors: numberOfVendors,
-						}
-						this.filters[2].items.push(response.data.locations[i].city)
-						this.filters[1].items.push(response.data.locations[i].state)
-						this.filters[0].items.push(response.data.locations[i].name)
-						this.channels.push(company)
+              let company = {
+                channelId: response.data.locations[i].id,
+                channelName: response.data.locations[i].name,
+                address: response.data.locations[i].address,
+                city: response.data.locations[i].city,
+                state: response.data.locations[i].state,
+                zipcode: response.data.locations[i].zipcode,
+                channelManagerFirstName: response.data.locations[i].contact_first_name,
+                channelManagerLastName: response.data.locations[i].contact_last_name,
+                approvedVendors: numberOfVendors,
+              }
+              this.filters[2].items.push(response.data.locations[i].city)
+              this.filters[1].items.push(response.data.locations[i].state)
+              this.filters[0].items.push(response.data.locations[i].name)
+              this.channels.push(company)
 
-					} else {
-						let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
+            } else {
+              let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
 
-						let company = {
-							channelId: response.data.locations[i].id,
-							channelName: response.data.locations[i].name,
-							address: response.data.locations[i].address,
-							city: response.data.locations[i].city,
-							state: response.data.locations[i].state,
-							zipcode: response.data.locations[i].zipcode,
-							channelManagerFirstName: response.data.locations[i].contact_first_name,
-							channelManagerLastName: response.data.locations[i].contact_last_name,
-							approvedVendors: numberOfVendors,
-						}
-						this.filters[2].items.push(response.data.locations[i].city)
-						this.filters[1].items.push(response.data.locations[i].state)
-						this.filters[0].items.push(response.data.locations[i].name)
-						this.channels.push(company)
+              let company = {
+                channelId: response.data.locations[i].id,
+                channelName: response.data.locations[i].name,
+                address: response.data.locations[i].address,
+                city: response.data.locations[i].city,
+                state: response.data.locations[i].state,
+                zipcode: response.data.locations[i].zipcode,
+                channelManagerFirstName: response.data.locations[i].contact_first_name,
+                channelManagerLastName: response.data.locations[i].contact_last_name,
+                approvedVendors: numberOfVendors,
+              }
+              this.filters[2].items.push(response.data.locations[i].city)
+              this.filters[1].items.push(response.data.locations[i].state)
+              this.filters[0].items.push(response.data.locations[i].name)
+              this.channels.push(company)
 
-					}
-				}
-					console.log(this.channels)
-					console.log(this.filters[0].items)
-					this.loading = true
-			})
-			.catch(err => {
-				console.log('error in getting company', err)
-			})
-	},
+            }
+          }
+            console.log(this.channels)
+            console.log(this.filters[0].items)
+            this.loading = true
+        })
+        .catch(err => {
+          console.log('error in getting company', err)
+        })
+    },
     async getCompanyApprovedVendors(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
         .then(async (response) => {
