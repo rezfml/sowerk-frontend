@@ -390,7 +390,7 @@ import * as moment from 'moment'
           })
       },
       async getConnections(location) {
-        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + location.id)
           .then(response => {
             console.log(response.data, 'connections');
             this.connections = response.data.filter(application => application.approval_status === 1)
