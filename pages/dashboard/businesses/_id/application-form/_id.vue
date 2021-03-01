@@ -575,12 +575,19 @@
       <template v-if="confirmModal">
         <transition name="slide-fade">
           <v-card light style="width: 80%;" class="d-flex flex-column align-center justify-center mx-auto">
-            <v-card-title style="color: #A61c00; font-size: 48px;" class="my-8">Please Confirm</v-card-title>
-            <v-card-text style="width: 80%; word-break: break-word; white-space: pre-wrap;">You are submitting an application for approved Vendor status. If approved by the Business a SOWerk Connection will be made. Depending on your account level this may or may not impact the fees you are charged. Upon approval by the Business you will have 48 hours to remove/manage this SOWerk Connection before any fees are incurred.  </v-card-text>
-            <v-row style="width: 95%;" class="mx-auto d-flex justify-space-between my-8">
-              <v-btn @click="backToApplicationEdit" style="width: 25%;" outlined color="primary">Return To Application</v-btn>
-              <v-btn @click="confirmedSubmit" style="width: 25%;" color='#7c7c7c'>Confirm & Apply</v-btn>
-            </v-row>
+            <transition name="slide-fade">
+              <v-card-title style="color: #A61c00; font-size: 48px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 2.75rem;" class="my-8" v-if="successSubmit">Successfully Submitted Application! Please Wait..</v-card-title>
+            </transition>
+            <transition name="slide-fade">
+              <v-row v-if="!successSubmit" style="width: 100%;" class="d-flex flex-column align-center justify-center mx-auto">
+                <v-card-title style="color: #A61c00; font-size: 48px;" class="my-8">Please Confirm</v-card-title>
+                <v-card-text style="width: 80%; word-break: break-word; white-space: pre-wrap;">You are submitting an application for approved Vendor status. If approved by the Business a SOWerk Connection will be made. Depending on your account level this may or may not impact the fees you are charged. Upon approval by the Business you will have 48 hours to remove/manage this SOWerk Connection before any fees are incurred.  </v-card-text>
+                <v-row style="width: 95%;" class="mx-auto d-flex justify-space-between my-8">
+                  <v-btn @click="backToApplicationEdit" style="width: 25%;" outlined color="primary">Return To Application</v-btn>
+                  <v-btn @click="confirmedSubmit" style="width: 25%; color: white;" color='#7c7c7c'>Confirm & Apply</v-btn>
+                </v-row>
+              </v-row>
+            </transition>
           </v-card>
         </transition>
       </template>
@@ -636,6 +643,8 @@
         sowerkConnections: null,
         applicantServiceRange: null,
         confirmModal: false,
+        applicationFormData: {},
+        successSubmit: false,
       }
     },
     async mounted() {
@@ -720,28 +729,31 @@
         return true;
       },
       async confirmedSubmit() {
-        // let currentApplication = this.currentApplication;
-        // console.log(currentApplication.formfields, 'HELLOOOOOO');
-        // let arrayString = JSON.stringify(currentApplication.formfields);
-        // console.log(arrayString);
-        // this.applicationFormData.pmuserforms_id = currentApplication.id;
-        // this.applicationFormData.pmlocations_id = this.location.id;
-        // this.applicationFormData.pmcompanies_id = this.location.companies_id;
-        // this.applicationFormData.spuserprofiles_id = this.currentUser.id;
-        // this.applicationFormData.splocations_id = this.company.locations[0].id;
-        // this.applicationFormData.spcompanies_id = this.company.id;
-        // this.applicationFormData.subData = arrayString;
-        // console.log(this.applicationFormData, 'applicationFormData!!!!');
-        // console.log(arrayString);
-        // await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + this.currentApplication.id, this.applicationFormData)
-        //   .then(response => {
-        //     console.log(response.data);
-        //     this.$router.go();
-        //   })
-        //   .catch(err => {
-        //     console.log('err company', err)
-        //     alert('Error in submitting this application')
-        //   })
+        let currentApplication = this.userform;
+        console.log(currentApplication.formfields, 'HELLOOOOOO');
+        let arrayString = JSON.stringify(currentApplication.formfields);
+        console.log(arrayString);
+        this.applicationFormData.pmuserforms_id = currentApplication.id;
+        this.applicationFormData.pmlocations_id = this.location.id;
+        this.applicationFormData.pmcompanies_id = this.location.companies_id;
+        this.applicationFormData.spuserprofiles_id = this.currentUser.id;
+        this.applicationFormData.splocations_id = this.chosenLocation.id;
+        this.applicationFormData.spcompanies_id = this.company.id;
+        this.applicationFormData.subData = arrayString;
+        console.log(this.applicationFormData, 'applicationFormData!!!!');
+        console.log(arrayString);
+        await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + currentApplication.id, this.applicationFormData)
+          .then(response => {
+            console.log(response.data);
+            this.successSubmit = true;
+            setTimeout(() => {
+              this.$router.go();
+            }, 3000)
+          })
+          .catch(err => {
+            console.log('err company', err)
+            alert('Error in submitting this application')
+          })
       },
       async backToApplicationEdit() {
         this.confirmModal = false;
@@ -751,28 +763,6 @@
         if(!this.validate()) return;
         this.confirmModal = true;
         this.overlay = !this.overlay
-        // let currentApplication = this.currentApplication;
-        // console.log(currentApplication.formfields, 'HELLOOOOOO');
-        // let arrayString = JSON.stringify(currentApplication.formfields);
-        // console.log(arrayString);
-        // this.applicationFormData.pmuserforms_id = currentApplication.id;
-        // this.applicationFormData.pmlocations_id = this.location.id;
-        // this.applicationFormData.pmcompanies_id = this.location.companies_id;
-        // this.applicationFormData.spuserprofiles_id = this.currentUser.id;
-        // this.applicationFormData.splocations_id = this.company.locations[0].id;
-        // this.applicationFormData.spcompanies_id = this.company.id;
-        // this.applicationFormData.subData = arrayString;
-        // console.log(this.applicationFormData, 'applicationFormData!!!!');
-        // console.log(arrayString);
-        // await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + this.currentApplication.id, this.applicationFormData)
-        //   .then(response => {
-        //     console.log(response.data);
-        //     this.$router.go();
-        //   })
-        //   .catch(err => {
-        //     console.log('err company', err)
-        //     alert('Error in submitting this application')
-        //   })
         console.log(this.chosenLocation, 'HEY LOCATION CHOSEN')
       },
     }

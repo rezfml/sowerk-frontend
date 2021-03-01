@@ -303,7 +303,7 @@ import * as moment from 'moment'
           .then(response => {
             console.log(response.data, 'response application');
             this.application = response.data;
-            this.application.created = moment(response.data).format('lll');
+            this.application.created = moment(response.data.created).format('lll');
             this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
             console.log(this.application, 'this.application!!!!!!!!!!!!!!');
