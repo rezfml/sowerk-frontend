@@ -1,10 +1,10 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="success === false && failure === false">
+      <v-row style="height: 100%;" v-if="!success && !failure">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
-            
+
             <v-row>
               <v-col cols="12" align="center">
                 <v-avatar size="100" class="text-center mx-auto rounded-circle elevation-5" color="white">
@@ -17,53 +17,53 @@
 <!--            <v-img :src="location.imageUrl" v-if="location" style="width: 40%; margin-top: -70px; border-radius: 50%; border: 1px solid #707070; box-shadow: 3px 6px 10px #707070;"></v-img>-->
 
             <v-card-title style="color:#A61C00;">{{location.name}}</v-card-title>
-            
-            <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;">{{connections.length}}</span> Properties</v-card-text>
-            
+
+            <v-card-text style="text-align: center">Approved at <span style="color:#A61C00;" v-if="connections.length">{{connections.length}}</span> <span style="color:#A61C00;" v-else>0</span> Properties</v-card-text>
+
             <v-card-text style="color:#A61C00; text-align: center">Radius Provider ({{location.radius}}mi)</v-card-text>
             <!-- <v-btn outlined color="primary" rounded md class="px-16">Share</v-btn> -->
-            
+
             <v-divider class="mx-auto mt-10" style="width: 90%;"></v-divider>
-            
+
             <v-card-title style="color:#A61C00;">About</v-card-title>
-            
-            <v-card-text style="text-align:center;" v-if="location.description.length > 300">{{location.description.slice(0, 299)}}...</v-card-text>
+
+            <v-card-text style="text-align:center;" v-if="location.description.length > 300 && location.description">{{location.description.slice(0, 299)}}...</v-card-text>
             <v-card-text style="text-align:center;" v-else>{{location.description}}</v-card-text>
 
             <v-card-text>Address: {{location.address}} {{location.city}}, {{location.state}} {{location.zipcode}}</v-card-text>
-            
+
             <v-card-text>Founded: {{location.year_founded}}</v-card-text>
-            
+
             <v-card-text v-if="location.created">Joined SOWerk: {{location.created.slice(0,4)}}</v-card-text>
-            
+
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            
+
             <p class="title text-center primary--text">Current Profile Contact</p>
-            
+
             <v-card-text style="text-align:center;">{{location.contact_first_name}} {{location.contact_last_name}}</v-card-text>
-            
+
             <v-card-text style="text-align:center;">{{location.email}}</v-card-text>
-            
+
             <v-card-text style="text-align:center;">{{location.phone}}</v-card-text>
-            
+
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            
+
             <v-card-title style="color:#A61C00;">Insurances</v-card-title>
-            
+
             <template v-for="(insurance, index) in insurances">
               <v-card-text>{{insurance.name}} - {{insurance.insuranceCompany}}</v-card-text>
               <v-card-text v-if="insurance.expirationDateVal">Valid through {{insurance.expirationDateVal.slice(0,4)}}</v-card-text>
             </template>
-            
+
             <v-divider class="mx-auto mt-4" style="width: 90%;"></v-divider>
-            
+
             <v-card-title style="color:#A61C00;">Licenses</v-card-title>
-            
+
             <template v-for="(license, index) in licenses">
               <v-card-text>{{license.name}} - {{license.licenseLocation}}</v-card-text>
               <v-card-text v-if="license.expirationDate">Valid through {{license.expirationDate.slice(0,4)}}</v-card-text>
             </template>
-          
+
           </v-card>
         </v-col>
         <v-col cols="8">
@@ -142,13 +142,13 @@
         </v-col>
       </v-row>
 
-      <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
-        
+      <v-card v-if="success" style="height: auto;" class="d-flex flex-column align-center">
+
         <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
         <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Your SOWerk Application Has Been Approved!</v-card-title>
         <v-card-title class="mt-2" style="text-align: center;">Would You Like To Send A Company Document?</v-card-title>
         <v-card-subtext style="text-align:center;padding-left:20px;padding-right:20px;">Choose from the list of company documents below to send to the Vendor for them to download, complete and upload back to SOWerk for your records.</v-card-subtext>
-        
+
         <v-card class="mt-8">
           <v-card-title class="mb-8" style="color: white; background-color: #a61c00; width: 90%; text-align: center; position: absolute; left: 10px; top: -20px; border-radius: 10px;">Currently Listed Company Documents</v-card-title>
           <v-data-table
@@ -171,7 +171,8 @@
         indeterminate
         color="primary"
         :size="75"
-        v-if="failure === true"
+        v-if="failure"
+        style="margin: 0 auto;"
       ></v-progress-circular>
 <!--      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">-->
 <!--        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>-->
@@ -206,8 +207,8 @@ import * as moment from 'moment'
         connections: [],
         userform: {},
         service: {},
-        success: true,
-        failure: false,
+        success: null,
+        failure: true,
         messageForm: {
           service: '',
           company: '',
@@ -305,14 +306,10 @@ import * as moment from 'moment'
             this.application.created = moment(response.data).format('lll');
             this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
-            if (this.application.required === 'required') {
-              this.application.required = true
-            }
             console.log(this.application, 'this.application!!!!!!!!!!!!!!');
             this.getSPLocation(response.data.splocations_id);
             this.getPMLocation(response.data.pmlocations_id);
             this.getPMUserForm(response.data.pmuserforms_id);
-            this.getPMService(response.data.pmservices_id);
             this.getPMCompany(response.data.pmcompanies_id);
           })
           .catch(err => {
@@ -366,17 +363,6 @@ import * as moment from 'moment'
             console.log('err', err);
           })
       },
-      async getPMService(id) {
-        await this.$http.get('https://www.sowerkbackend.com/api/services/' + id)
-          .then(async (response) => {
-            console.log(response.data.service, 'response pm service');
-            this.service = response.data.service;
-            this.messageForm.service = response.data.service.name
-          })
-          .catch(err => {
-            console.log('err', err);
-          })
-      },
       async getInsurances() {
         await this.$http.get('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + this.location.companies_id)
           .then(response => {
@@ -404,12 +390,12 @@ import * as moment from 'moment'
           })
       },
       async getConnections(location) {
-        await this.$http.get('https://www.sowerkbackend.com/api/approvedproviderconnection/bySpId/' + location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + location.companies_id)
           .then(response => {
             console.log(response.data, 'connections');
-              for(let i=0; i<response.data.length; i++) {
-                this.connections.push(response.data[i]);
-              }
+            this.connections = response.data.filter(application => application.approval_status === 1)
+            this.success = false;
+            this.failure = false;
           })
           .catch(err => {
             console.log('err', err);
@@ -436,9 +422,13 @@ import * as moment from 'moment'
           })
       },
       async Approve() {
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         const approvalChanges = {
-          approval_status: 1
+          approval_status: 1,
+          modified: currentTimeVal,
         };
+
         const approvedproviderconnection = {
           propertymanager_id: this.application.pmcompanies_id,
           serviceprovider_id: this.application.spcompanies_id
