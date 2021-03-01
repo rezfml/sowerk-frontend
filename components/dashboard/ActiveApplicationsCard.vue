@@ -346,8 +346,11 @@
       },
       async Deny(itemVal) {
         // console.log(itemVal, 'itemVal deny');
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         const denialChanges = {
-          approval_status: 2
+          approval_status: 2,
+          modified: currentTimeVal,
         }
         await this.$http.put('https://www.sowerkbackend.com/api/applications/' + itemVal.id, denialChanges)
           .then(async(response) => {

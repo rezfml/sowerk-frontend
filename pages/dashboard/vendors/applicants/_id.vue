@@ -547,11 +547,13 @@ import * as moment from 'moment'
       },
       async submitDenial() {
         if(!this.validate()) return;
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         const denialChanges = {
           approval_status: 2,
-          denial_reason: this.denial_reason
+          denial_reason: this.denial_reason,
+          modified: currentTimeVal,
         }
-
         this.application.approval_status = 2;
         this.application.denial_reason = this.denial_reason;
 
