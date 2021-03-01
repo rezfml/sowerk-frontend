@@ -1,7 +1,7 @@
 <template>
   <v-app class="grey lighten-3" overflow-y-auto>
     <v-container class="px-0" style="max-width: 95%;">
-      <v-row style="height: 100%;" v-if="success === false && failure === false">
+      <v-row style="height: 100%;" v-if="!success && !failure">
         <v-col cols="4">
           <v-card class="mt-16 d-flex flex-column align-center">
 
@@ -142,7 +142,7 @@
         </v-col>
       </v-row>
 
-      <v-card v-if="success === true" style="height: auto;" class="d-flex flex-column align-center">
+      <v-card v-if="success" style="height: auto;" class="d-flex flex-column align-center">
 
         <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>
         <v-card-title class="mt-2" style="text-align: center; color: #A61c00">Your SOWerk Application Has Been Approved!</v-card-title>
@@ -171,7 +171,8 @@
         indeterminate
         color="primary"
         :size="75"
-        v-if="failure === true"
+        v-if="failure"
+        style="margin: 0 auto;"
       ></v-progress-circular>
 <!--      <v-card v-if="failure === true" style="height: auto;" class="d-flex flex-column align-center">-->
 <!--        <v-img style="max-height: 250px;" class="mt-10" :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+Logo-143.png'"></v-img>-->
@@ -421,10 +422,13 @@ import * as moment from 'moment'
           })
       },
       async Approve() {
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         const approvalChanges = {
           approval_status: 1,
-          modified: Date.now().toTimeString(),
+          modified: currentTimeVal,
         };
+
         const approvedproviderconnection = {
           propertymanager_id: this.application.pmcompanies_id,
           serviceprovider_id: this.application.spcompanies_id
