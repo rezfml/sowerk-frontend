@@ -112,6 +112,7 @@
 </template>
 
 <script>
+  import * as moment from 'moment'
   export default {
     name:'activeapplicationscard',
     props: ['bizAndVendorData', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
@@ -181,6 +182,9 @@
           .then(response => {
             console.log(response.data, 'companyDocuments response.data slakdjf;laskdjfl;asdkfj;asldkfjasl;dfkjas;dlfkjasdfl;kajsdfl;kasjdf;lsdkj')
             this.companyDocuments=response.data;
+            this.companyDocuments.forEach(document => {
+              document.created = moment(document.created).format('lll');
+            })
           })
           .catch(err => {
             console.log(err, 'err in getting company documents for this company')
