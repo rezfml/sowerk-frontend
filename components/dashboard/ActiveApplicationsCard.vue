@@ -208,10 +208,11 @@
       async Approve(itemVal) {
           await this.getApplication(itemVal.id)
 
-          // console.log(itemVal, 'itemVal');
+          const currentTimeVal = new Date();
+          console.log(currentTimeVal, currentTimeVal.toTimeString());
           const approvalChanges = {
             approval_status: 1,
-            modified: Date.now().toTimeString(),
+            modified: currentTimeVal,
           };
           const approvedproviderconnection = {
             propertymanager_id: itemVal.pmcompanies_id,
@@ -241,7 +242,7 @@
           .then(response => {
             console.log(response.data, 'response application');
             this.application = response.data;
-            this.application.created = moment(response.data).format('lll');
+            this.application.created = moment(response.data.created).format('lll');
             this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
             if (this.application.required === 'required') {
