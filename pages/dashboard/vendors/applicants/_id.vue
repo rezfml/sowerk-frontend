@@ -303,7 +303,7 @@ import * as moment from 'moment'
           .then(response => {
             console.log(response.data, 'response application');
             this.application = response.data;
-            this.application.created = moment(response.data).format('lll');
+            this.application.created = moment(response.data.created).format('lll');
             this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
             console.log(this.application, 'this.application!!!!!!!!!!!!!!');
@@ -390,7 +390,7 @@ import * as moment from 'moment'
           })
       },
       async getConnections(location) {
-        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + location.companies_id)
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpLocationId/' + location.id)
           .then(response => {
             console.log(response.data, 'connections');
             this.connections = response.data.filter(application => application.approval_status === 1)
@@ -547,11 +547,13 @@ import * as moment from 'moment'
       },
       async submitDenial() {
         if(!this.validate()) return;
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         const denialChanges = {
           approval_status: 2,
-          denial_reason: this.denial_reason
+          denial_reason: this.denial_reason,
+          modified: currentTimeVal,
         }
-
         this.application.approval_status = 2;
         this.application.denial_reason = this.denial_reason;
 
