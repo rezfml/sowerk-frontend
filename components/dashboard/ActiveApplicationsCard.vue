@@ -112,6 +112,7 @@
 </template>
 
 <script>
+  import * as moment from 'moment'
   export default {
     name:'activeapplicationscard',
     props: ['bizAndVendorData', 'title', 'viewAll', 'tableProperties', 'action', 'slug', 'company', "loadingRequests"],
@@ -181,6 +182,9 @@
           .then(response => {
             console.log(response.data, 'companyDocuments response.data slakdjf;laskdjfl;asdkfj;asldkfjasl;dfkjas;dlfkjasdfl;kajsdfl;kasjdf;lsdkj')
             this.companyDocuments=response.data;
+            this.companyDocuments.forEach(document => {
+              document.created = moment(document.created).format('lll');
+            })
           })
           .catch(err => {
             console.log(err, 'err in getting company documents for this company')
@@ -208,10 +212,11 @@
       async Approve(itemVal) {
           await this.getApplication(itemVal.id)
 
-          // console.log(itemVal, 'itemVal');
+          const currentTimeVal = new Date();
+          console.log(currentTimeVal, currentTimeVal.toTimeString());
           const approvalChanges = {
             approval_status: 1,
-            modified: Date.now().toTimeString(),
+            modified: currentTimeVal,
           };
           const approvedproviderconnection = {
             propertymanager_id: itemVal.pmcompanies_id,
@@ -241,7 +246,7 @@
           .then(response => {
             console.log(response.data, 'response application');
             this.application = response.data;
-            this.application.created = moment(response.data).format('lll');
+            this.application.created = moment(response.data.created).format('lll');
             this.application.subData = JSON.parse(response.data.subData);
             this.sendToId = this.application.spcompanies_id;
             if (this.application.required === 'required') {
