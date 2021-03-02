@@ -126,8 +126,8 @@
                         <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word; color: #A61c00;">{{item.name}}</v-card-text>
                       </template>
                       <template v-slot:item.actions="{ item }">
-                        <v-btn class="my-1" block color="primary" :to="'/dashboard/businesses/' + item.locations_id + '/applications/' + item.id">Apply</v-btn>
-                        <v-btn class="my-1" block color="primary">Deny</v-btn>
+                        <v-btn class="my-1" block color="primary" :to="'/dashboard/businesses/' + item.locations_id + '/application-form/' + item.id + '/requested-application/' + item.userformRequestedApplication.id">Apply</v-btn>
+                        <v-btn @click="denyRequestedApplication(item)" class="my-1" block color="primary">Deny</v-btn>
                       </template>
                     </v-data-table>
                   </td>
@@ -288,6 +288,22 @@
                           companyObj.channelsInviting.push(response.data)
                         }
                         companyObj.channelsInviting = companyObj.channelsInviting.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+                        companyObj.channelsInviting.forEach(channel => {
+                          channel.userforms = [];
+                          if(this.requestingApplications[j].pmlocations_id === channel.id) {
+                            this.$http.get('https://www.sowerkbackend.com/api/userforms/' + this.requestingApplications[j].pmuserforms_id)
+                              .then(userformVal => {
+                                let userformWithRequestedApplication = {
+                                  ...userformVal.data,
+                                  userformRequestedApplication: {...this.requestingApplications[j]}
+                                }
+                                channel.userforms.push(userformWithRequestedApplication)
+                              })
+                              .catch(err => {
+                                console.log(err)
+                              })
+                          }
+                        })
                       })
                       .catch(err => {
                         console.log(err)
@@ -297,7 +313,7 @@
                 this.requestingApplicationsList.push(companyObj);
               }
               this.requestingApplicationsList = this.requestingApplicationsList.filter((v,i,a)=>a.findIndex(t=>(t.companyId === v.companyId))===i)
-              console.log(this.requestingApplicationsList, 'REQUESTED APPLICATIONS')
+              console.log(this.requestingApplicationsList, 'REQUESTED APPLICATIONS!!!')
             }
           })
           .catch(err => {
@@ -333,8 +349,11 @@
         }
       },
       async acceptPreApp(item) {
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         await this.$http.put('https://www.sowerkbackend.com/api/preapprovedRequest/' + item.id, {
-          approval_status: 1
+          approval_status: 1,
+          modified: currentTimeVal,
         })
           .then(response => {
             console.log(response, 'hey success')
@@ -355,8 +374,11 @@
           })
       },
       async denyPreApp(item) {
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
         await this.$http.put('https://www.sowerkbackend.com/api/preapprovedRequest/' + item.id, {
-          approval_status: 2
+          approval_status: 2,
+          modified: currentTimeVal,
         })
           .then(response => {
             console.log(response, 'hey success')
@@ -365,7 +387,22 @@
           .catch(err => {
             console.log(err)
           })
-      }
+      },
+      async denyRequestedApplication(item) {
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
+        await this.$http.put('https://www.sowerkbackend.com/api/applications/' + item.userformRequestedApplication.id, {
+          approval_status: 2,
+          modified: currentTimeVal,
+        })
+          .then(response => {
+            console.log(response, 'hey success')
+            this.getApplicationRequests();
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
     }
   }
 </script>
