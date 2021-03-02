@@ -120,202 +120,202 @@
                 </v-col>
                 <v-form v-if="userform" ref="applicationForm" style="width: 100%;">
                   <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
-                  <!-- VENDOR'S NAME 1 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="vendorName"
-                    v-if="formfield.name === 'Vendor Name' "
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- VENDOR'S NAME 1 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="vendorName"
+                      v-if="formfield.name === 'Vendor Name' "
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- VENDOR'S TYPE 2 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="vendorType"
-                    v-if="formfield.name === 'Vendor Type'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- VENDOR'S TYPE 2 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="vendorType"
+                      v-if="formfield.name === 'Vendor Type'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- VENDOR CATEGORY 3 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="vendorCategory"
-                    v-if="formfield.name === 'Vendor Category'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- VENDOR CATEGORY 3 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="vendorCategory"
+                      v-if="formfield.name === 'Vendor Category'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- VENDORS ADDRESS OF APPLICATION 4 -->
-                  <!-- <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="vendorName"
-                    v-if="formfield.name === 'Vendor Name'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field> -->
+                    <!-- VENDORS ADDRESS OF APPLICATION 4 -->
+                    <!-- <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="vendorName"
+                      v-if="formfield.name === 'Vendor Name'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field> -->
 
-                  <!-- COMPANY FOUNDED 5 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="companyFounded"
-                    v-if="formfield.name === 'Company Founded'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- COMPANY FOUNDED 5 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="companyFounded"
+                      v-if="formfield.name === 'Company Founded'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- CONTACT PERSON PHONE 6 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="contactPersonPhone"
-                    v-if="formfield.name === 'Contact Person Phone'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- CONTACT PERSON PHONE 6 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="contactPersonPhone"
+                      v-if="formfield.name === 'Contact Person Phone'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- CONTACT PERSON EMAIL 7 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="contactPersonEmail"
-                    v-if="formfield.name === 'Contact Person Email'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- CONTACT PERSON EMAIL 7 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="contactPersonEmail"
+                      v-if="formfield.name === 'Contact Person Email'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- CONTACT PERSON NAME 8 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="contactPersonName"
-                    v-if="formfield.name === 'Contact Person Name'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- CONTACT PERSON NAME 8 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="contactPersonName"
+                      v-if="formfield.name === 'Contact Person Name'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- CONTACT WEBSITE 9 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="contactWebsite"
-                    v-if="formfield.name === 'Company Website'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- CONTACT WEBSITE 9 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="contactWebsite"
+                      v-if="formfield.name === 'Company Website'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- NUMBER OF EMPLOYEES 10 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="numberOfEmployees"
-                    v-if="formfield.name === 'Number of Employees'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- NUMBER OF EMPLOYEES 10 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="numberOfEmployees"
+                      v-if="formfield.name === 'Number of Employees'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- SOWERK CONNECTIONS 11 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="sowerkConnections"
-                    v-if="formfield.name === 'SOWerk Connections'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- SOWERK CONNECTIONS 11 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="sowerkConnections"
+                      v-if="formfield.name === 'SOWerk Connections'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- APPLICANTS SERVICE RANGE 12 -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    :value="applicantServiceRange"
-                    v-if="formfield.name === 'Applicants Service Radius'"
-                    outlined >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- APPLICANTS SERVICE RANGE 12 -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      :value="applicantServiceRange"
+                      v-if="formfield.name === 'Applicants Service Radius'"
+                      outlined >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <!-- START OF CUSTOM FORM FIELDS -->
-                  <v-text-field
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    v-model="formfield.value"
-                    v-if="formfield.type === 'text' && formfield.name !== 'Vendor Name' && formfield.name !== 'Vendor Type' && formfield.name !== 'Vendor Category' && formfield.name !== 'Company Founded' && formfield.name !== 'Contact Person Phone' && formfield.name !== 'Contact Person Email' && formfield.name !== 'Contact Person Name' && formfield.name !== 'Contact Website' && formfield.name !== 'Number of Employees' && formfield.name !== 'SOWerk Connections' && formfield.name !== 'Applicants Service Radius'"
-                    outlined
-                  >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-text-field>
+                    <!-- START OF CUSTOM FORM FIELDS -->
+                    <v-text-field
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      v-model="formfield.value"
+                      v-if="formfield.type === 'text' && formfield.name !== 'Vendor Name' && formfield.name !== 'Vendor Type' && formfield.name !== 'Vendor Category' && formfield.name !== 'Company Founded' && formfield.name !== 'Contact Person Phone' && formfield.name !== 'Contact Person Email' && formfield.name !== 'Contact Person Name' && formfield.name !== 'Contact Website' && formfield.name !== 'Number of Employees' && formfield.name !== 'SOWerk Connections' && formfield.name !== 'Applicants Service Radius'"
+                      outlined
+                    >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-text-field>
 
-                  <v-checkbox
-                    placeholder=" "
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    v-model="formfield.value"
-                    v-if="formfield.type ==='checkbox'"
-                  >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-checkbox>
+                    <v-checkbox
+                      placeholder=" "
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      v-model="formfield.value"
+                      v-if="formfield.type ==='checkbox'"
+                    >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-checkbox>
 
-                  <v-select
-                    placeholder=""
-                    class="my-2"
-                    :rules="rules.requiredRules"
-                    v-model="formfield.value"
-                    :items="formfield.options.split(', ')"
-                    v-if="formfield.type ==='select'"
-                    outlined
-                  >
-                    <template v-slot:label>
-                      <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
-                    </template>
-                  </v-select>
-                </v-col>
+                    <v-select
+                      placeholder=""
+                      class="my-2"
+                      :rules="rules.requiredRules"
+                      v-model="formfield.value"
+                      :items="formfield.options.split(', ')"
+                      v-if="formfield.type ==='select'"
+                      outlined
+                    >
+                      <template v-slot:label>
+                        <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
+                      </template>
+                    </v-select>
+                  </v-col>
                 </v-form>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -602,7 +602,7 @@
 
   export default {
     layout: 'app',
-    name: 'application',
+    name: 'requested application',
     components: {
       ProfileCard,
       VueHtml2pdf,
