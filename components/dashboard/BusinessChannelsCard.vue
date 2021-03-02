@@ -16,32 +16,24 @@
 		<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top:4%;" label="Search by Address" v-model="searchChannels" light></v-text-field>
 
 		<v-row>
-			<v-col cols="4">
-				<!-- <FilterCard
-					v-if="this.loading && this.channels"
-					:title="'Filter Channels'"
-					:filters="filters"
-					:locationApproved="viewLocation"
-					:locationFilterTags="locationFilterTags"
-          v-on:changeFilters="optionUpdate($event)"
-				></FilterCard> -->
-
+			<v-col cols="4" v-if="loading === true">
         <v-card class="white pt-8 my-3" height="88vh" >
           <v-container>
             <v-card-title v-if="locationApproved" style="text-align: center; color: white; font-size: 18px; position: absolute; top: -25px; left: 0px; width: 100%; min-width: 100px; border-radius: 3px;" class="primary body-2">
-              {{ title }}</v-card-title>
+              Search Your Channels</v-card-title>
             <v-card-title v-else style="color: white; font-size: 18px; position: absolute; top: -25px; left: 25px; width: 30%; min-width: 200px; border-radius: 3px;" class="primary body-2">
-              {{ title }}</v-card-title>
-            <v-card-text class="pt-0">
+              Search Your Channels</v-card-title>
+            <v-card-text class="pt-0" >
               <v-select 
-                v-for="(filter, i) in filters" 
+                v-for="(filter, i) in filters"
                 :key="i" 
                 :items="filter.items" 
                 :placeholder="filter.name" 
                 light multiple chips single-line dense 
                 v-model="selectedFilters"
-
+                return-object
               >
+
                 <template v-slot:selection="{ filter, index }">
                   <v-chip v-if="index < 2">
                     <span>{{ selectedFilters[index] }}</span>
@@ -52,10 +44,31 @@
                   >(+{{ selectedFilters.length - 1 }} others)</span>
                 </template>
               </v-select>
-
-              <v-btn @click="searchByFilters(selectedFilters)">Search</v-btn>
-              <v-btn @click="clearFilters(selectedFilters)">Clear</v-btn>
             </v-card-text>
+
+            <!-- <v-card-text class="pt-0" >
+              <v-select 
+                :items="appVendorFilter.items" 
+                :placeholder="appVendorFilter.name" 
+                light multiple chips single-line dense 
+                v-model="selectedFilters"
+                return-object
+              >
+
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item }}</p>
+                </template>
+
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item }}</p>
+                </template>
+
+              </v-select>
+            </v-card-text> -->
+
+
+            <v-btn @click="searchByFilters(selectedFilters)">Search</v-btn>
+            <v-btn @click="clearFilters(selectedFilters)">Clear</v-btn>
           </v-container>
         </v-card>
 			</v-col>
@@ -75,13 +88,13 @@
 							</v-col>
 						</v-row>
 					</template>
-					<template v-slot:item.name="{ item }">
+					<!-- <template v-slot:item.name="{ item }">
 						<v-row class="d-flex">
 							<v-col>
 								<p>{{ item.channelName }}</p>
 							</v-col>
 						</v-row>
-					</template>
+					</template> -->
 					<template v-slot:item.address="{ item }">
 						<v-row class="d-flex">
 							<v-col>
@@ -119,13 +132,13 @@
               </v-col>
             </v-row>
           </template>
-          <template v-slot:item.name="{ item }">
+          <!-- <template v-slot:item.name="{ item }">
             <v-row class="d-flex">
               <v-col>
                 <p>{{ item.channelName }}</p>
               </v-col>
             </v-row>
-          </template>
+          </template> -->
           <template v-slot:item.address="{ item }">
             <v-row class="d-flex">
               <v-col>
@@ -170,9 +183,9 @@ export default {
       loading: false,
       company: {},
       headers: [
-        { text: 'Channel Name', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+        { text: 'Channel Name', value: 'channelName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
         { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
-        { text: 'Channel Manager', value: 'fullname', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
+        { text: 'Channel Manager', value: 'channelManagerFullName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
         { text: 'Approved Vendors', value: 'approvedVendors', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ],
@@ -183,6 +196,7 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
       ],
       channels: [],
+      originalChannels: [],
       searchChannels: '',
       approvedVendorsList: {},
       locationCondition: false,
@@ -202,18 +216,18 @@ export default {
           name: 'City',
           items: [
           ]
-        },
-        {
-          name: 'Approved Vendors',
-          items: [
-            '0',
-            '1-5',
-            '5-10',
-            '10+',
-          ]
         }
       ],
-      selectedFilters: ''
+      appVendorFilter: {
+        name: 'Approved Vendors',
+        items: [
+          '0',
+          '1-5',
+          '5-10',
+          '10+',
+        ]
+      },
+      selectedFilters: []
     }
   },
   async created() {
@@ -228,13 +242,25 @@ export default {
   },
   methods: {
     searchByFilters(selectedFilters) {
-      this.searchChannels = selectedFilters
-      console.log("HEY YOU OVER THERE! YEAH YOU!")
-      console.log(selectedFilters)
-      // this.channels = this.channels.includes(selectedFilters)
+      // console.log(selectedFilters, "SELECTED FILTERS")
+      // console.log(this.filters, "filters")
+
+      // console.log(this.originalChannels, "OG CHANNELS")
+
+      this.channels = this.originalChannels
+
+      selectedFilters.forEach(filterValue => {
+        this.channels = this.channels.filter(item => {
+          if(item.channelName === filterValue || item.city === filterValue || item.state === filterValue) {
+            return item
+          }
+        })
+      })
     },
     clearFilters() {
-      this.selectedFilters = ''
+      this.selectedFilters = []
+
+      this.channels = this.originalChannels
     },
     async getCompany(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
@@ -253,14 +279,21 @@ export default {
                 city: response.data.locations[i].city,
                 state: response.data.locations[i].state,
                 zipcode: response.data.locations[i].zipcode,
+                channelManagerFullName: response.data.locations[i].contact_first_name + ' ' + response.data.locations[i].contact_last_name,
                 channelManagerFirstName: response.data.locations[i].contact_first_name,
                 channelManagerLastName: response.data.locations[i].contact_last_name,
                 approvedVendors: numberOfVendors,
               }
+              // this.filters[2].items.push({name: response.data.locations[i].city, value: 'city'})
+              // this.filters[1].items.push({name: response.data.locations[i].state, value: 'state'})
+              // this.filters[0].items.push({name: response.data.locations[i].name, value: 'name'})
+
               this.filters[2].items.push(response.data.locations[i].city)
               this.filters[1].items.push(response.data.locations[i].state)
               this.filters[0].items.push(response.data.locations[i].name)
+
               this.channels.push(company)
+              this.originalChannels.push(company)
 
             } else {
               let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
@@ -272,19 +305,26 @@ export default {
                 city: response.data.locations[i].city,
                 state: response.data.locations[i].state,
                 zipcode: response.data.locations[i].zipcode,
+                channelManagerFullName: response.data.locations[i].contact_first_name + ' ' + response.data.locations[i].contact_last_name,
                 channelManagerFirstName: response.data.locations[i].contact_first_name,
                 channelManagerLastName: response.data.locations[i].contact_last_name,
                 approvedVendors: numberOfVendors,
               }
+              // this.filters[2].items.push({name: response.data.locations[i].city, value: 'city'})
+              // this.filters[1].items.push({name: response.data.locations[i].state, value: 'state'})
+              // this.filters[0].items.push({name: response.data.locations[i].name, value: 'name'})
+
               this.filters[2].items.push(response.data.locations[i].city)
               this.filters[1].items.push(response.data.locations[i].state)
               this.filters[0].items.push(response.data.locations[i].name)
+
               this.channels.push(company)
+              this.originalChannels.push(company)
 
             }
           }
-            console.log(this.channels)
-            console.log(this.filters[0].items)
+            // console.log(this.channels)
+            // console.log(this.filters[0].items)
             this.loading = true
         })
         .catch(err => {
