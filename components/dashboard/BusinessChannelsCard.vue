@@ -17,17 +17,47 @@
 
 		<v-row>
 			<v-col cols="4">
-				<FilterCard
+				<!-- <FilterCard
 					v-if="this.loading && this.channels"
 					:title="'Filter Channels'"
 					:filters="filters"
 					:locationApproved="viewLocation"
 					:locationFilterTags="locationFilterTags"
-          :selectedFilters="selectedFilters"
-          @changeFilters="selectedFilters = $event"
-				></FilterCard>
+          v-on:changeFilters="optionUpdate($event)"
+				></FilterCard> -->
 
-        <p>{{ selectedFilters }}</p>
+        <v-card class="white pt-8 my-3" height="88vh" >
+          <v-container>
+            <v-card-title v-if="locationApproved" style="text-align: center; color: white; font-size: 18px; position: absolute; top: -25px; left: 0px; width: 100%; min-width: 100px; border-radius: 3px;" class="primary body-2">
+              {{ title }}</v-card-title>
+            <v-card-title v-else style="color: white; font-size: 18px; position: absolute; top: -25px; left: 25px; width: 30%; min-width: 200px; border-radius: 3px;" class="primary body-2">
+              {{ title }}</v-card-title>
+            <v-card-text class="pt-0">
+              <v-select 
+                v-for="(filter, i) in filters" 
+                :key="i" 
+                :items="filter.items" 
+                :placeholder="filter.name" 
+                light multiple chips single-line dense 
+                v-model="selectedFilters"
+
+              >
+                <template v-slot:selection="{ filter, index }">
+                  <v-chip v-if="index < 2">
+                    <span>{{ selectedFilters[index] }}</span>
+                  </v-chip>
+                  <span
+                    v-if="index === 2"
+                    class="grey--text caption"
+                  >(+{{ selectedFilters.length - 1 }} others)</span>
+                </template>
+              </v-select>
+
+              <v-btn @click="searchByFilters(selectedFilters)">Search</v-btn>
+              <v-btn @click="clearFilters(selectedFilters)">Clear</v-btn>
+            </v-card-text>
+          </v-container>
+        </v-card>
 			</v-col>
 
 			<v-col cols="8">
@@ -183,7 +213,7 @@ export default {
           ]
         }
       ],
-      selectedFilters: []
+      selectedFilters: ''
     }
   },
   async created() {
@@ -197,6 +227,15 @@ export default {
     },
   },
   methods: {
+    searchByFilters(selectedFilters) {
+      this.searchChannels = selectedFilters
+      console.log("HEY YOU OVER THERE! YEAH YOU!")
+      console.log(selectedFilters)
+      // this.channels = this.channels.includes(selectedFilters)
+    },
+    clearFilters() {
+      this.selectedFilters = ''
+    },
     async getCompany(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/' + id)
         .then(async (response) => {
