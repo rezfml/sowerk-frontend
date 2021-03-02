@@ -102,21 +102,21 @@
                   <v-card-text style="width: 100%; font-size: 14px;">Application Name: <span style="color: #A61C00;">{{ userform.name }}</span></v-card-text>
                   <v-card-text style="width: 100%; font-size: 14px;">Associated Channel: <span style="color: #A61C00;">{{ location.name }}</span></v-card-text>
                   <v-card-text style="width: 100%; font-size: 14px;">Applicant Name: <span style="color: #A61C00;">{{company.account_name}}</span></v-card-text>
-                  <v-card-text style="width: 100%; font-size: 14px;">
-                    Applicant Channel:
-                  </v-card-text>
-                  <v-autocomplete
-                    :rules="rules.requiredRules"
-                    return-object
-                    :items="userLocations"
-                    v-model="chosenLocation"
-                    outlined
-                    item-text="name"
-                    label="Choose your channel associated with application"
-                    clearable
-                    class="mt-1"
-                  >
-                  </v-autocomplete>
+<!--                  <v-card-text style="width: 100%; font-size: 14px;">-->
+<!--                    Applicant Channel:-->
+<!--                  </v-card-text>-->
+<!--                  <v-autocomplete-->
+<!--                    :rules="rules.requiredRules"-->
+<!--                    return-object-->
+<!--                    :items="userLocations"-->
+<!--                    v-model="chosenLocation"-->
+<!--                    outlined-->
+<!--                    item-text="name"-->
+<!--                    label="Choose your channel associated with application"-->
+<!--                    clearable-->
+<!--                    class="mt-1"-->
+<!--                  >-->
+<!--                  </v-autocomplete>-->
                 </v-col>
                 <v-form v-if="userform" ref="applicationForm" style="width: 100%;">
                   <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
@@ -624,6 +624,7 @@
         userform: {},
         locationId: 0,
         applicationId: 0,
+        requestedId: 0,
         loading: true,
         success: false,
         failure: false,
@@ -651,6 +652,7 @@
       console.log(window.location.href.split('/'), 'HELLO')
       this.locationId = window.location.href.split('/')[5]
       this.applicationId = window.location.href.split('/')[7]
+      this.requestedId = window.location.href.split('/')[9]
       this.getCompany(this.currentUser.companies_id)
       this.getLocation(this.locationId);
       this.getVendorTypes(this.locationId);
@@ -729,25 +731,23 @@
         return true;
       },
       async confirmedSubmit() {
-        let currentApplication = this.userform;
-        console.log(currentApplication.formfields, 'HELLOOOOOO');
-        let arrayString = JSON.stringify(currentApplication.formfields);
-        console.log(arrayString);
-        this.applicationFormData.pmuserforms_id = currentApplication.id;
-        this.applicationFormData.pmlocations_id = this.location.id;
-        this.applicationFormData.pmcompanies_id = this.location.companies_id;
-        this.applicationFormData.spuserprofiles_id = this.currentUser.id;
-        this.applicationFormData.splocations_id = this.chosenLocation.id;
-        this.applicationFormData.spcompanies_id = this.company.id;
-        this.applicationFormData.subData = arrayString;
+        const currentTimeVal = new Date();
+        console.log(currentTimeVal, currentTimeVal.toTimeString());
+        this.applicationFormData.subData = "[]";
+        if(this.userform.formfields[0] !== 'There are no formfields') {
+          let arrayString = JSON.stringify(this.userform.formfields);
+          console.log(arrayString);
+          this.applicationFormData.subData = arrayString;
+        }
+        this.applicationFormData.modified = currentTimeVal;
+        this.applicationFormData.approval_status = 0;
         console.log(this.applicationFormData, 'applicationFormData!!!!');
-        console.log(arrayString);
-        await this.$http.post('https://www.sowerkbackend.com/api/applications/byUserformId/' + currentApplication.id, this.applicationFormData)
+        await this.$http.put('https://www.sowerkbackend.com/api/applications/' + this.requestedId, this.applicationFormData)
           .then(response => {
             console.log(response.data);
             this.successSubmit = true;
             setTimeout(() => {
-              this.$router.go();
+              this.$router.go(-1);
             }, 3000)
           })
           .catch(err => {
