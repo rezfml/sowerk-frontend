@@ -12,7 +12,8 @@
           :items="filter.items" 
           :placeholder="filter.name" 
           light multiple chips single-line dense 
-          v-model="selectedFilters">
+          v-model="selectedFilters"
+          >
           <template v-slot:selection="{ filter, index }">
             <v-chip v-if="index < 2">
               <span>{{ selectedFilters[index] }}</span>

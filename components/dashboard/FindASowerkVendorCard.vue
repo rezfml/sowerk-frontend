@@ -9,18 +9,54 @@
 
 
 	<v-row>
-		<!-- <v-col cols="3">
-			<FilterCard
-				v-if="loading === true"
-				:title="'Filter Vendors'"
-				:filters="filters"
-				:locationApproved="viewLocation"
-				:locationFilterTags="locationFilterTags"
-			></FilterCard>
-		</v-col> -->
+		<v-col cols="4" v-if="loading === true">
+			<v-card class="white" height="50vh" style="padding-top:12%; margin-top:35%;">
+			<v-container>
+				<v-card-title v-if="loading" style="text-align: center; color: white; font-size: 18px; position: absolute; top: -25px; left: 12px; width: 70%; min-width: 100px; border-radius: 3px;" class="primary body-2">
+				Search For A Vendor</v-card-title>
+				<v-card-title v-else style="color: white; font-size: 18px; position: absolute; top: -25px; left: 25px; width: 30%; min-width: 200px; border-radius: 3px;" class="primary body-2">
+				Search For A Vendor</v-card-title>
+				<v-card-text class="pt-0" >
+					<v-select 
+						v-for="(filter, i) in filters"
+						:key="i" 
+						:items="filter.items" 
+						:placeholder="filter.name" 
+						light multiple chips single-line dense 
+						v-model="selectedFilters"
+					>
+
+						<template slot="selection" slot-scope="data">
+							<p>{{ data.item }}</p>
+						</template>
+
+						<template slot="item" slot-scope="data">
+							<p>{{ data.item }}</p>
+						</template>
+
+						<!-- <template v-slot:selection="{ filter, index }">
+							<v-chip v-if="index < 2">
+								<span>{{ selectedFilters[index] }}</span>
+							</v-chip>
+
+							<span
+								v-if="index === 2"
+								class="grey--text caption"
+							>
+							(+{{ selectedFilters.length - 1 }} others)
+							</span>
+						</template> -->
+					</v-select>
+				</v-card-text>
+
+				<v-btn @click="searchByFilters(selectedFilters)">Search</v-btn>
+				<v-btn @click="clearFilters(selectedFilters)">Clear</v-btn>
+			</v-container>
+			</v-card>
+		</v-col>
 
 
-		<v-col cols="12">
+		<v-col cols="8">
 
 			<v-card-title
 				v-if="loading === true"
@@ -188,22 +224,19 @@ export default {
 					]
 				},
 				{
-					name: 'Years In Business',
+					name: 'Year Founded',
 					items: [
 					]
 				},
 				{
 					name: '# of Channels',
 					items: [
-						'0',
-						'1-5',
-						'5-10',
-						'10+',
 					]
 				}
 			],
-
-			vendorChannels: [],				
+			vendorChannels: [],		
+			selectedFilters: [],
+			originalVendorChannels: []
 		}
 	},
 	async created() {
@@ -215,20 +248,58 @@ export default {
 			},
 	},
 	methods: {
-    clickedRow(value) {
-      if (this.expanded.length && this.expanded[0].id == value.id) {
-        this.expanded = [];
-      } else {
-        this.expanded = [];
-        this.expanded.push(value);
-      }
-    },
+	searchByFilters(selectedFilters) {
+		// console.log(selectedFilters, "SELECTED FILTERS")
+		// console.log(this.filters, "filters")
+
+		// console.log(this.originalVendorChannels, "OG CHANNELS")
+
+		this.vendorChannels = this.originalVendorChannels
+
+		selectedFilters.forEach(filterValue => {
+			this.vendorChannels = this.vendorChannels.filter(item => {
+				if(item.companyAccountName === filterValue || item.companyApprovedConnections.fulfillmentValue === filterValue || item.companyYearFounded === filterValue || item.companyChannels.fulfillmentValue.length === filterValue) {
+					return item
+				}
+			})
+		})
+	},
+	clearFilters() {
+		this.selectedFilters = []
+
+		this.vendorChannels = this.originalVendorChannels
+	},
+	clickedRow(value) {
+		if (this.expanded.length && this.expanded[0].id == value.id) {
+			this.expanded = [];
+		} else {
+			this.expanded = [];
+			this.expanded.push(value);
+		}
+	},
 	getVendorInfo() {
 		this.$http.get('https://www.sowerkbackend.com/api/companies/vendors/channels')
 			.then(res => {
-				console.log(res.data, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
+				// console.log(res.data, "THIS IS THE RESPONSE FROM THE NEW ENDPOINT")
 				this.vendorChannels = res.data
+				this.originalVendorChannels = res.data
 				this.loading = true
+
+
+
+				res.data.forEach(filterItem => {
+					this.filters[0].items.push(filterItem.companyAccountName)
+					if(filterItem.companyApprovedConnections.fulfillmentValue != "No Approved Connections") {
+						this.filters[1].items.push(filterItem.companyApprovedConnections.fulfillmentValue)
+					}
+					if(filterItem.companyYearFounded != null) {
+						this.filters[2].items.push(filterItem.companyYearFounded)
+					}
+					if(filterItem.companyChannels.fulfillmentValue.length != 0) {
+						this.filters[3].items.push(filterItem.companyChannels.fulfillmentValue.length)
+					}
+				})
+
 				// setTimeout(() => {
 				// 	this.findLocationServices()
 				// 	this.loading = true
@@ -246,10 +317,10 @@ export default {
 				return
 			} else {
 				for(let i=0; i<this.vendorChannels[j].companyChannels.fulfillmentValue.length; i++) {
-					console.log(this.vendorChannels[j].companyChannels.fulfillmentValue[i].id, "----------")
+					// console.log(this.vendorChannels[j].companyChannels.fulfillmentValue[i].id, "----------")
 					this.$http.get('https://www.sowerkbackend.com/api/services/byLocationId/' + this.vendorChannels[j].companyChannels.fulfillmentValue[i].id)
 						.then(services => {
-							console.log(services.data, "THIS IS SERVICES SHOULD BE A LIST OF OBJECTS")
+							// console.log(services.data, "THIS IS SERVICES SHOULD BE A LIST OF OBJECTS")
 							this.vendorChannels[j].companyChannels.fulfillmentValue[i]["services"] = services.data
 						})
 						.catch(error => {
