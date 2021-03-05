@@ -13,7 +13,7 @@
 			class="primary white--text font-weight-regular red-gradient"
 		>{{ title }}</v-card-title>
 
-		<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top:4%;" label="Search by Address" v-model="searchChannels" light></v-text-field>
+		<v-text-field v-if="loading" clearable outlined class="pt-4" style="width: 80%; margin-left: 10%;margin-top:4%;" label="Search by Channel Name, Address, Channel Manager, and Approved Vendors" v-model="searchChannels" light></v-text-field>
 
 		<v-row>
 			<v-col cols="4" v-if="loading === true">
