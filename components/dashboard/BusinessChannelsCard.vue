@@ -24,12 +24,12 @@
             <v-card-title v-else style="color: white; font-size: 18px; position: absolute; top: -25px; left: 25px; width: 30%; min-width: 200px; border-radius: 3px;" class="primary body-2">
               Search Your Channels</v-card-title>
             <v-card-text class="pt-0" >
-              <v-select 
+              <v-select
                 v-for="(filter, i) in filters"
-                :key="i" 
-                :items="filter.items" 
-                :placeholder="filter.name" 
-                light multiple chips single-line dense 
+                :key="i"
+                :items="filter.items"
+                :placeholder="filter.name"
+                light multiple chips single-line dense
                 v-model="selectedFilters"
                 return-object
               >
@@ -47,10 +47,10 @@
             </v-card-text>
 
             <!-- <v-card-text class="pt-0" >
-              <v-select 
-                :items="appVendorFilter.items" 
-                :placeholder="appVendorFilter.name" 
-                light multiple chips single-line dense 
+              <v-select
+                :items="appVendorFilter.items"
+                :placeholder="appVendorFilter.name"
+                light multiple chips single-line dense
                 v-model="selectedFilters"
                 return-object
               >
