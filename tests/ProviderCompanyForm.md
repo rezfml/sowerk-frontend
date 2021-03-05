@@ -60,23 +60,23 @@ describe('CompanyForm', () => {
   })
 })
 
-// describe('CompanyForm',  () => {
-//   test('text inputs validate', async () => {
-//     const wrapper = mount(CompanyForm)
-//     let inputs = wrapper.findAll('input[type="text"]')
-//     inputs.trigger('focus')
-//     await Vue.nextTick()
-//     inputs.value = 'test'
-//     await Vue.nextTick()
-//     inputs.trigger('change')
-//     await Vue.nextTick()
-//     inputs.trigger('blur')
-//     await Vue.nextTick()
-//     let messages = wrapper.findAll('.v-messages__message')
-//     expect(messages.exists()).toBe(false)
-//     wrapper.destroy()
-//   })
-// })
+describe('CompanyForm',  () => {
+  test('text inputs validate', async () => {
+    const wrapper = mount(CompanyForm)
+    let inputs = wrapper.findAll('input[type="text"]')
+    inputs.trigger('focus')
+    await Vue.nextTick()
+    inputs.value = 'test'
+    await Vue.nextTick()
+    inputs.trigger('change')
+    await Vue.nextTick()
+    inputs.trigger('blur')
+    await Vue.nextTick()
+    let messages = wrapper.findAll('.v-messages__message')
+    expect(messages.exists()).toBe(false)
+    wrapper.destroy()
+  })
+})
 
 describe('CompanyForm',  () => {
   test('password inputs validate', async () => {
