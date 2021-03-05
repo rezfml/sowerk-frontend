@@ -252,7 +252,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels on SOWerk are designed to help you best represent your business to potential customers. Channels can also help you organize and manage different aspects of your company. Having more than one channel is completely optional.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -656,7 +656,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels on SOWerk are designed to help you best represent your business to potential customers. Channels can also help you organize and manage different aspects of your company. Having more than one channel is completely optional.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center text-no-wrap" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:50px;max-height:50px;"></v-img>
@@ -1066,7 +1066,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels on SOWerk are designed to help you best represent your business to potential customers. Channels can also help you organize and manage different aspects of your company. Having more than one channel is completely optional.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -1468,7 +1468,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels on SOWerk are designed to help you best represent your business to potential customers. Channels can also help you organize and manage different aspects of your company. Having more than one channel is completely optional.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
@@ -1870,7 +1870,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="/SoWork Logos with Icons-162.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels represent different areas, locations or aspects of your business and how you serve your Customers. A Channel also critical to how you apply for approved vendor status with a business. You can have one Channel or multiple.</v-card-text>
+                    <v-card-text class="" style="font-size: 18px; text-align: center">Channels on SOWerk are designed to help you best represent your business to potential customers. Channels can also help you organize and manage different aspects of your company. Having more than one channel is completely optional.</v-card-text>
                     <v-row class="mt-n2 mb-n2" style="width: 100%;">
                       <v-col cols="4" class="d-flex flex-column align-center" style="text-align:center;">
                         <v-img src="/building.svg" style="max-width:75px;max-height:75px;"></v-img>
