@@ -2212,6 +2212,7 @@
         insurances: [],
         licenses: [],
         approvedVendorConnectionCount: 0,
+        approvedVendorCount: 0,
       }
     },
     watch: {
@@ -2506,6 +2507,7 @@
                   if(response.data[i].pmuserprofiles_id === this.currentUser.id && response.data[i].approval_status === 1) {
                     console.log(response.data[i], 'applications for staff account')
                     this.approvedVendorConnectionCount ++
+                    this.approvedVendorCount.push(response.data[i])
                   }
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
@@ -2514,6 +2516,7 @@
                     for(let i=0; i<response.data.length; i++) {
                       if(response.data[i].approval_status === 1) {
                         this.approvedVendorConnectionCount++
+                        this.approvedVendorCount.push(response.data[i])
                       }
                     }
                   })
@@ -2529,6 +2532,7 @@
                     for(let i=0; i<response.data.length; i++) {
                       if(response.data[i].approval_status === 1) {
                         this.approvedVendorConnectionCount++
+                        this.approvedVendorCount.push(response.data[i])
                       }
                     }
                   })
@@ -2540,6 +2544,9 @@
             .catch(err => {
               console.log('err in getting approved provider connections', err);
             })
+
+          //this.approvedVendorCount = this.approvedVendorCount.filter((v,i,a)=>a.findIndex(t=>(t.companyId === v.companyId))===i)
+          console.log(this.approvedVendorCount, 'THIS IS THE LIST OF APPROVED VENDOR COMPANIES TO FILTER DUPLICATES')
         }
       },
       async getMessages(id) {
