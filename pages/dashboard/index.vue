@@ -200,14 +200,16 @@
               <v-card style="width: 100%; height: 40vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" v-else>
               <v-card style="width: 100%; height: 40vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
 
@@ -286,7 +288,8 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -602,14 +605,16 @@
               <v-card style="width: 100%; height: 40vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 1.2rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" v-else>
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
 
@@ -692,7 +697,8 @@
                   <v-card style="width: 100%; height: 40vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1014,14 +1020,16 @@
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" v-else>
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
 
@@ -1100,7 +1108,8 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1416,14 +1425,16 @@
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" v-else>
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
 
@@ -1502,7 +1513,8 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
@@ -1818,14 +1830,16 @@
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
             <v-col cols="12" xl="4" lg="4" md="10" sm="12" v-else>
               <v-card style="width: 100%; height: 30vh; background-color: #7C7C7C; color: white;" class="d-flex flex-column align-center justify-center">
                 <v-card-title class="mt-2" style="text-align: center; font-size: 3rem;">SOWERK 101</v-card-title>
                 <v-card-text class="my-2" style="color: white; text-align: center; font-size: 1.5rem; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
               </v-card>
             </v-col>
 
@@ -1904,7 +1918,8 @@
                   <v-card style="width: 100%; height: 30vh; background-color: white;" class="d-flex flex-column align-center justify-center">
                     <v-card-title class="mt-2" style="text-align: center; font-size: 50px;">SOWERK 101</v-card-title>
                     <v-card-text class="my-2" style="text-align: center; font-size: 25px; line-height: 1.75rem">Check out the SOWerk 101 knowledge center for support</v-card-text>
-                    <v-btn outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-if="company.company_type === 'false'" outlined to="/dashboard/feedback/sowerkInfo/" color="#151515" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
+                    <v-btn v-else outlined to="/dashboard/feedback/sowerkInfo/" color="white" class="py-8 my-2 mb-4" style="width: 90%; border-radius: 10px;">View All</v-btn>
                   </v-card>
                 </v-col>
 
