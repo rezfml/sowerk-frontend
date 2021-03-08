@@ -2265,6 +2265,7 @@
       if(this.company.company_type === 'false') {
         await this.getVendorProvidedDocuments();
         await this.getApplicationRequests();
+        await this.getPreApprovedRequests();
       }
       console.log(this.company.company_type, "Gggggggg")
       this.loadModal = true
@@ -2274,6 +2275,20 @@
         await this.$http.get('https://www.sowerkbackend.com/api/applications/bySPId/' + this.currentUser.companies_id)
           .then(response => {
             this.customerLeads = response.data.filter(app => app.approval_status === 3);
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      async getPreApprovedRequests() {
+        await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+          .then(response => {
+            console.log(response.data)
+            response.data.forEach(requestVal => {
+              if(requestVal.approval_status === 0) {
+                this.customerLeads.push(requestVal)
+              }
+            })
           })
           .catch(err => {
             console.log(err)
