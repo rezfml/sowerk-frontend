@@ -1772,7 +1772,9 @@
                   //console.log(err)
                 })
             }
-            this.notes = response.data;
+            setTimeout(() => {
+              this.notes = response.data;
+            }, 500)
           })
           .catch(err => {
             //console.log(err, 'err in getting notes for this location by this company', this.note)
@@ -1800,7 +1802,9 @@
                   //console.log(err)
                 })
             }
-            this.locationNotes = response.data;
+            setTimeout(() => {
+              this.locationNotes = response.data;
+            }, 500)
           })
           .catch(err => {
             //console.log(err, 'err in getting notes for this location by this company', this.note)
