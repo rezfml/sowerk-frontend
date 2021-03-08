@@ -133,7 +133,7 @@ export default {
   methods: {
     async getCompany(id) {
       await this.$http.get('https://www.sowerkbackend.com/api/companies/location/approvedVendors/' + id)
-        .then(async (response) => {
+        .then(response => {
           // console.log(response, "sdjhfkjshdkfjhsdkfjhskfjsdhfk")
           this.company = response.data
 
@@ -158,7 +158,7 @@ export default {
                   spPreApproval: 'No'
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.company.locations[i].approvedVendors[j].spcompanies_id)
-                  .then(async (response) => {
+                  .then(response => {
                     console.log('response.data for company', response.data)
                     this.company.locations[i].approvedVendors[j].spCompanyName = response.data.account_name;
                     this.company.locations[i].approvedVendors[j].spChannelIsFranchise = response.data.isFranchise;
@@ -166,10 +166,10 @@ export default {
                     this.company.locations[i].approvedVendors[j].spChannelLlcName = response.data.llcName;
                   })
                   .catch(err => {
-                    console.log('err in getting sp company ', err);
+                    console.log('err in getting sp company ', err, this.company.locations[i].approvedVendors[j].spcompanies_id);
                   })
                 this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + this.company.locations[i].approvedVendors[j].splocations_id)
-                  .then(async (response) => {
+                  .then(response => {
                     // console.log('response.data for location', response.data)
                     this.company.locations[i].approvedVendors[j].spChannelContact = `${response.data.contact_first_name} ${response.data.contact_last_name}`;
                     this.company.locations[i].approvedVendors[j].spChannelName = `${response.data.name}`
@@ -208,21 +208,25 @@ export default {
                   spChannelEmail: '',
                   spChannelPhone: '',
                   spType: '',
+                  spChannelIsFranchise: '',
+                  spChannelBrandName: '',
+                  spChannelLlcName: '',
                   spPreApproval: 'Yes'
                 }
                 this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + response.data[i].spcompanies_id)
-                  .then(async (response) => {
-                    console.log('response.data for company', response.data)
-                    approvedVendorObj.spCompanyName = response.data.account_name;
-                    location.approvedVendors.push(approvedVendorObj)
+                  .then(responseCompany => {
+                    console.log('response.data for company', responseCompany.data)
+                    approvedVendorObj.spCompanyName = responseCompany.data.account_name;
+                    approvedVendorObj.spChannelIsFranchise = responseCompany.data.isFranchise;
+                    approvedVendorObj.spChannelBrandName = responseCompany.data.brand_name;
+                    approvedVendorObj.spChannelLlcName = responseCompany.data.llcName;
                   })
                   .catch(err => {
                     console.log('err in getting sp company ', err);
                   })
+                console.log('approvedVendorObj', approvedVendorObj)
+                location.approvedVendors.push(approvedVendorObj)
               }
-              // REMOVES DUPLICATES OUT WHILE STILL RETAINING LIST OF PRE APPROVED REQUESTS -- REALLY NOT A REFINED ALGORITHM LETS REVISIT THIS WITH TIME
-              location.approvedVendors = location.approvedVendors.filter((v,i,a)=>a.findIndex(t=>(t.spCompanyName === v.spCompanyName))===i)
-              location.approvedVendors = location.approvedVendors.filter((v,i,a)=>a.findIndex(t=>(t.spChannelName === v.spChannelName))===i)
             })
           }
         })
@@ -231,7 +235,11 @@ export default {
         })
       setTimeout(() => {
         this.loading = true
-      }, 2000)
+        this.company.locations.forEach(location => {
+          // // REMOVES DUPLICATES OUT WHILE STILL RETAINING LIST OF PRE APPROVED REQUESTS -- REALLY NOT A REFINED ALGORITHM LETS REVISIT THIS WITH TIME
+          location.approvedVendors = location.approvedVendors.filter((v,i,a)=>a.findIndex(t=>(t.spChannelName === v.spChannelName))===i)
+        })
+      }, 3000)
     }
   }
 }

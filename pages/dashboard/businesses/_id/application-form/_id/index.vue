@@ -747,7 +747,7 @@
             console.log(response.data);
             this.successSubmit = true;
             setTimeout(() => {
-              this.$router.go();
+              this.$router.go(-1);
             }, 3000)
           })
           .catch(err => {

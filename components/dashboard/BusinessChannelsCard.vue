@@ -232,8 +232,8 @@ export default {
   },
   async created() {
 	// console.log(this.$store.state.user.user.user, "user from BusinessChannelsCard")
-	this.getCompany(this.currentUser.companies_id)
-	this.getCompanyApprovedVendors(this.currentUser.companies_id)
+	  this.getCompany(this.currentUser.companies_id)
+	  this.getCompanyApprovedVendors(this.currentUser.companies_id)
 	},
   computed: {
     currentUser() {
@@ -296,7 +296,8 @@ export default {
               this.originalChannels.push(company)
 
             } else {
-              let numberOfVendors = this.approvedVendorsList[i].approvedVendors.length
+              console.log(this.approvedVendorsList[i].approvedVendors, 'YO')
+              let numberOfVendors = this.approvedVendorsList[i].approvedVendors.filter((v,i,a)=>a.findIndex(t=>(t.spcompanies_id === v.spcompanies_id))===i).length
 
               let company = {
                 channelId: response.data.locations[i].id,
@@ -341,6 +342,7 @@ export default {
           console.log('error in getting company', err)
         })
     },
+
   }
 }
 </script>
