@@ -319,6 +319,7 @@
           <v-data-table
             :headers="singleCompanyApplicationsHeaders"
             :items="singleCompanyApplicationsValues"
+            :loading="loadingSingleCompanyApplicationsValues"
             style="width: 90%;"
             :items-per-page="10"
           >
@@ -338,6 +339,7 @@
             :items="singleCompanyConnectionValues"
             style="width: 90%;"
             :items-per-page="10"
+            :loading="loadingSingleCompanyConnectionValues"
           >
             <template v-slot:item.imgUrl="{ item }" class="d-flex flex-column align-center">
               <v-avatar size="100" class="text-center my-4 rounded-circle elevation-5" color="white">
@@ -1009,8 +1011,10 @@
         ],
         insuranceModal: false,
         singleCompanyRelationshipConnections: [],
-        singleCompanyConnectionValues: [],
-        singleCompanyApplicationsValues: [],
+        singleCompanyConnectionValues: null,
+        loadingSingleCompanyConnectionValues: true,
+        singleCompanyApplicationsValues: null,
+        loadingSingleCompanyApplicationsValues: true,
         singleCompanyConnectionRelationships: [],
         loadshowRelationshipApprovedModal: true,
         addNotesModalLoadLocation: false,
@@ -1041,7 +1045,6 @@
     methods: {
       async showCompaniesApprovedModalLoad() {
         this.showCompaniesApprovedModal = true;
-        this.singleCompanyConnectionValues = [];
         await this.getActualSingleCompanyConnections();
         this.$vuetify.goTo(0);
       },
@@ -1124,10 +1127,12 @@
         }
       },
       async getActualSingleCompanyConnections() {
+        this.singleCompanyConnectionValues = [];
         for(let i=0; i<this.singleCompanyConnections.length; i++) {
           this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.singleCompanyConnections[i].spcompanies_id)
             .then(response => {
               this.singleCompanyConnectionValues.push(response.data)
+              this.loadingSingleCompanyConnectionValues = false;
             })
             .catch(err => {
               //console.log('err in getting company')
@@ -1540,6 +1545,7 @@
                   this.singleCompanyApplicationsValues.push(openApplicationsObj)
                 }
               }
+        this.loadingSingleCompanyApplicationsValues = false;
             })
             .catch(err => {
               console.log(err, 'err')
