@@ -68,6 +68,7 @@
             :search="search"
             show-expand
             single-expand
+            @click:row="clickedRow"
           >
             <template v-slot:item.imgUrl="{item}"  >
               <div style="width: 100%;" class="d-flex justify-center">
@@ -230,6 +231,14 @@ export default {
     this.getAllCompanies();
   },
   methods: {
+    clickedRow(value) {
+      if (this.expanded.length && this.expanded[0].id == value.id) {
+        this.expanded = [];
+      } else {
+        this.expanded = [];
+        this.expanded.push(value);
+      }
+    },
     async getCompany() {
       let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/' + this.currentUser.companies_id).catch(e => e);
       console.log('company from business/index: ', data.company_type);
