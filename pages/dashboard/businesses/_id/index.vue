@@ -249,29 +249,36 @@
                   <v-icon v-else size="60">person</v-icon>
                 </v-avatar>
               </v-row>
-              <v-divider class="mt-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-card-text style="text-align: center; font-size: 18px;"><span style="color: #A61c00" v-if="connections.length > 0">Approved Vendor</span><span style="color: #A61c00" v-else>Non-Approved Vendor</span></v-card-text>
-              <div class="d-flex justify-center mb-4">
-                <v-card-title style="color: #A61C00; font-size: 108px;">{{singleCompanyRelationshipConnections.length}}</v-card-title>
-                <div class="d-flex flex-column align-center">
-                  <v-card-text style="font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Connections</v-card-text>
-                  <v-btn @click="showRelationshipApprovedModalLoad" style="width: 85%;" color="primary" rounded>Manage Connections</v-btn>
-                </div>
-              </div>
+
+              <v-card-title style="text-align: center; font-size: 24px;"><span style="color: #A61c00" v-if="connections.length > 0">Approved Vendor</span><span style="color: #A61c00" v-else>Non-Approved Vendor</span></v-card-title>
+
+              <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
+                <v-row class="d-flex justify-center" style="width: 100%;">
+                  <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyRelationshipConnections.length > 0">{{singleCompanyRelationshipConnections.length}}</v-card-title>
+                  <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+                  <div class="d-flex flex-column align-center" style="width: 60%;">
+                    <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Relationship Connections</v-card-title>
+                    <v-btn @click="showRelationshipApprovedModalLoad" style="width: 90%;" class="py-6" color="primary" outlined rounded>Manage Connections</v-btn>
+                  </div>
+                </v-row>
+              </v-row>
               <!--            <v-card-text>Recorded Jobs: <span style="color: #A61c00">22</span></v-card-text>-->
               <!--            <v-card-text>SOWerk Requests: <span style="color: #A61c00">72</span></v-card-text>-->
-              <v-divider class="mb-4" style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-row style="width: 100%;" class="d-flex nowrap mt-6">
-                <v-card-text style="width: 50%; font-size: 24px; text-align: center" >All Internal Notes</v-card-text>
-                <v-card-text style="width: 50%; font-size: 108px; text-align: center" ><span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+
+              <v-row class="py-8 d-flex flex-column align-center justify-center" style="width: 90%;">
+                <v-row class="d-flex justify-center align-center" style="width: 100%;">
+                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center; width: 60%;" >All Internal Notes</v-card-title>
+                  <v-card-text style="font-size: 108px; width: 40%;" class="pt-8"><span style="color: #A61c00" v-if="notes.length > 0">{{notes.length}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>
+                </v-row>
               </v-row>
-              <v-row style="width: 100%;" class="d-flex nowrap my-6 justify-center">
+
+              <v-row style="width: 100%;" class="d-flex nowrap mb-6 mt-3 justify-center">
                 <v-btn class="mx-auto" @click="listNotesModal" rounded outlined color="primary" style="width: 40%;">View Notes</v-btn>
                 <v-btn class="mx-auto" @click="addNotesModal" rounded color="primary" style="width: 40%;">+ Internal Note</v-btn>
               </v-row>
               <!--              <v-card-text style=" font-size: 18px;">Your Rating On This Vendor: <span style="color: #A61c00" v-if="reviews.length > 0">{{reviews.reduce((accumulator, currentValue, currentIndex, array) => accumulator + currentValue.stars)}}</span><span style="color: #A61c00" v-else>0</span></v-card-text>-->
               <v-divider style="background: #707070; height: 1px; width: 90%;"></v-divider>
-              <v-card-title style="color: #A61c00; font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Documents</v-card-title>
+              <v-card-title style="font-size: 24px; text-align: center; word-break: break-word; white-space: pre-wrap; line-height: 1.2em;">Relationship Documents</v-card-title>
               <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
               <v-data-table
                 :items-per-page="4"
@@ -290,14 +297,16 @@
                     {{item.documentName}}</v-btn>
                 </template>
               </v-data-table>
-              <v-card-title style="color: #A61c00; font-size: 24px;">Other Details</v-card-title>
-              <v-divider style="background: #707070; height: 1px; width: 80%;"></v-divider>
-              <v-row style="width: 100%;" class="d-flex justify-center my-8">
-                <v-card-title style="font-size: 108px; text-align: center; color: #A61C00">{{vendorMessages.length}}</v-card-title>
-                <div class="d-flex flex-column align-center">
-                  <v-card-text style="font-size: 24px; text-align: center">All Messages</v-card-text>
-                  <v-btn to="../../../dashboard/messages-and-alerts" color="primary" rounded style="width: 80%;">View All</v-btn>
-                </div>
+              <v-card-title style="font-size: 24px;">Other Details</v-card-title>
+              <v-row class="py-8 d-flex flex-column align-center justify-center" style="border-top: 1px solid #7C7C7C; border-bottom: 1px solid #7C7C7C; width: 90%;">
+                <v-row class="d-flex justify-center" style="width: 100%;">
+                  <v-card-title style="color: #A61C00; font-size: 108px;" v-if="vendorMessages.length > 0">{{vendorMessages.length}}</v-card-title>
+                  <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
+                  <div class="d-flex flex-column align-center" style="width: 60%;">
+                    <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">All Messages</v-card-title>
+                    <v-btn to="../../../dashboard/messages-and-alerts" style="width: 90%;" class="py-6" color="primary" outlined rounded>View All</v-btn>
+                  </div>
+                </v-row>
               </v-row>
             </v-card>
           </transition>
