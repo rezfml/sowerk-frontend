@@ -343,7 +343,7 @@
                     <v-row class="d-flex justify-center" style="width: 100%;">
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
-                        <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
+                        <v-card-title style="font-size: 24px;">Approved Vendor Status</v-card-title>
                         <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                         <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
@@ -758,7 +758,7 @@
                     <v-row class="d-flex justify-center" style="width: 100%;">
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
-                        <v-card-title class="text-no-wrap" style="font-size: 18px; margin-left:-5%">Companies Approved</v-card-title>
+                        <v-card-title class="text-no-wrap" style="font-size: 18px; margin-left:-5%">Approved Vendor Status</v-card-title>
                         <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                         <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
@@ -1163,7 +1163,7 @@
                     <v-row class="d-flex justify-center" style="width: 100%;">
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
-                        <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
+                        <v-card-title style="font-size: 24px;">Approved Vendor Status</v-card-title>
                         <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                         <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
@@ -1568,7 +1568,7 @@
                     <v-row class="d-flex justify-center" style="width: 100%;">
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
-                        <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
+                        <v-card-title style="font-size: 24px;">Approved Vendor Status</v-card-title>
                         <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                         <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>
@@ -1973,7 +1973,7 @@
                     <v-row class="d-flex justify-center" style="width: 100%;">
                       <v-card-title style="width: 40%; font-size: 5rem; text-align: right; color: #A61C00"><span v-if="approvedVendorConnectionCount > 0">{{approvedVendorConnectionCount}}</span><span v-else>0</span></v-card-title>
                       <div class="d-flex flex-column align-center" style="width: 60%;">
-                        <v-card-title style="font-size: 24px;">Companies Approved</v-card-title>
+                        <v-card-title style="font-size: 24px;">Approved Vendor Status</v-card-title>
                         <v-btn v-if="company.company_type === 'false'" to="/dashboard/businesses" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                         <v-btn v-else to="/dashboard/vendors/approved" style="width: 60%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                       </div>

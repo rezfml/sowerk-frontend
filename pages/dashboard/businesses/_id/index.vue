@@ -28,7 +28,7 @@
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-if="singleCompanyConnections.length > 0">{{singleCompanyConnections.length}}</v-card-title>
                 <v-card-title style="color: #A61C00; font-size: 108px;" v-else>0</v-card-title>
                 <div class="d-flex flex-column align-center" style="width: 60%;">
-                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Companies Approved</v-card-title>
+                  <v-card-title style="font-size: 24px; word-break: break-word; white-space: pre-wrap; text-align: center">Approved Vendor Status</v-card-title>
                   <v-btn @click="showCompaniesApprovedModalLoad" style="width: 90%;" class="py-6" color="primary" outlined rounded>View Companies</v-btn>
                 </div>
               </v-row>
