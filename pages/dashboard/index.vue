@@ -298,7 +298,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="customerLeads.length > 0">{{customerLeads.length}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -708,7 +708,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="customerLeads.length > 0">{{customerLeads.length}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -1118,7 +1118,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="customerLeads.length > 0">{{customerLeads.length}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -1523,7 +1523,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="customerLeads.length > 0">{{customerLeads.length}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -1928,7 +1928,7 @@
                     <v-row style="width: 100%;" class="mt-16">
                       <v-img width="400px" height="75px" src="\SoWork Logo-180.png"></v-img>
                     </v-row>
-                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="vendorDocuments.length > 0">{{vendorDocuments.length}}</span><span v-else>0</span></v-card-text>
+                    <v-card-text class="" style="font-size: 108px; text-align: center; position: absolute; top: 50%; color: #A61C00"><span v-if="customerLeads.length > 0">{{customerLeads.length}}</span><span v-else>0</span></v-card-text>
                     <v-btn color="primary" to="/dashboard/businesses/leads" class="py-8 mb-4" style="width: 90%; border-radius: 10px; font-size: 18px;">View All</v-btn>
                   </v-card>
                 </v-col>
@@ -2219,6 +2219,7 @@
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         vendorDocuments: [],
+        customerLeads: [],
         chosenUploadFirstDocument: {},
         companyDocument: {},
         companyDocumentImageUrl: null,
@@ -2263,11 +2264,21 @@
       await this.getMessages(this.currentUser.companies_id);
       if(this.company.company_type === 'false') {
         await this.getVendorProvidedDocuments();
+        await this.getApplicationRequests();
       }
       console.log(this.company.company_type, "Gggggggg")
       this.loadModal = true
     },
     methods: {
+      async getApplicationRequests() {
+        await this.$http.get('https://www.sowerkbackend.com/api/applications/bySPId/' + this.currentUser.companies_id)
+          .then(response => {
+            this.customerLeads = response.data.filter(app => app.approval_status === 3);
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
       async getInsurances() {
         await this.$http.get('https://www.sowerkbackend.com/api/insurance/byCompanyId/' + this.currentUser.companies_id)
           .then(response => {
