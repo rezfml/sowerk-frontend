@@ -156,7 +156,7 @@
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
             <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
-            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>
+<!--            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>-->
           </template>
         </v-data-table>
       </v-card>
@@ -179,7 +179,7 @@
             <p>{{item.created.slice(0,4)}}</P>
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
-            <v-btn @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;" v-if="currentUser.is_superuser">Remove</v-btn>
+            <v-btn outlined @click="deleteCompanyDocument(item, index)" color="primary" class="my-1" style="width: 80%;" v-if="currentUser.is_superuser">Remove</v-btn>
             <v-btn :href="item.documentUrl" download color="#707070" class="my-1" style="width: 80%; color: white;">View</v-btn>
             <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
           </template>
@@ -221,7 +221,7 @@
     </transition>
 
     <transition name="slide-fade">
-      <v-card class="mt-8" v-if="loading && uploadDocumentsModalLoading">
+      <v-card class="mt-8 d-flex flex-column align-center" v-if="loading && uploadDocumentsModalLoading">
         <v-card-title v-if="!$vuetify.breakpoint.xs && !$vuetify.breakpoint.sm" style="position: absolute; top: -30px; left: 25px; width: 50%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient">Upload</v-card-title>
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload</v-card-title>
         <v-row class="mt-8">
@@ -231,8 +231,8 @@
               <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyUploadDocument.documentUrl}" v-model="companyUploadDocument.documentUrl" v-on:change.native="selectUploadCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-col>
         </v-row>
-        <v-title v-if="successuploaddocument !== null && successuploaddocument === false">Error with adding this document. Please retry.</v-title>
-        <v-title v-if="successuploaddocument">Successfully added this document!</v-title>
+        <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successuploaddocument !== null && successuploaddocument === false">Error with adding this document. Please retry.</v-title>
+        <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successuploaddocument">Successfully added this document!</v-title>
       </v-card>
     </transition>
 
@@ -244,8 +244,8 @@
           <v-card-text class="pt-16 ml-4" v-else>Upload any company document or template that you will use to share with businesses to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
           <v-btn @click="clickCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
           <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyDocument.documentUrl}" v-model="companyDocument.documentUrl" v-on:change.native="selectCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
-          <v-title v-if="successuploaddoc !== null && successuploaddoc === false">Error with adding this document. Please retry.</v-title>
-          <v-title v-if="successuploaddoc">Successfully added this document!</v-title>
+          <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successuploaddoc !== null && successuploaddoc === false">Error with adding this document. Please retry.</v-title>
+          <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successuploaddoc">Successfully added this document!</v-title>
           <v-btn @click="closeUploadModel" style="position: absolute; top: 10px; right: 10px; font-size: 25px;" color="primary">X</v-btn>
         </v-card>
       </v-row>
@@ -288,8 +288,8 @@
             >
             </v-autocomplete>
             <v-btn @click="requestSend" style="font-size: 25px;" color="primary">Request</v-btn>
-            <v-title v-if="successrequestdoc !== null && successrequestdoc === false">Error with requesting this document. Please retry.</v-title>
-            <v-title v-if="successrequestdoc">Successfully requested this document!</v-title>
+            <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successrequestdoc !== null && successrequestdoc === false">Error with requesting this document. Please retry.</v-title>
+            <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successrequestdoc">Successfully requested this document!</v-title>
             <v-btn @click="closeRequestDocLoad" style="position: absolute; top: 10px; right: 10px; font-size: 25px;" color="primary">X</v-btn>
           </v-card>
       </transition>

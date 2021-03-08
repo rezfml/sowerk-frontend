@@ -21,7 +21,7 @@
       outlined
       class="pt-4"
       style="width: 80%; margin-left: 10%;margin-top:4%;"
-      label="Search by Address"
+      label="Search by Channel Name, Address, Channel Manager, and Approved Vendors"
       v-model="searchChannels"
       light
     ></v-text-field>
@@ -68,6 +68,26 @@
                 </template>
               </v-select>
             </v-card-text>
+
+            <!-- <v-card-text class="pt-0" >
+              <v-select
+                :items="appVendorFilter.items"
+                :placeholder="appVendorFilter.name"
+                light multiple chips single-line dense
+                v-model="selectedFilters"
+                return-object
+              >
+
+                <template slot="selection" slot-scope="data">
+                  <p>{{ data.item }}</p>
+                </template>
+
+                <template slot="item" slot-scope="data">
+                  <p>{{ data.item }}</p>
+                </template>
+
+              </v-select>
+            </v-card-text> -->
 
             <v-btn @click="searchByFilters(selectedFilters)">Search</v-btn>
             <v-btn @click="clearFilters(selectedFilters)">Clear</v-btn>
@@ -308,8 +328,14 @@ export default {
               this.channels.push(company)
               this.originalChannels.push(company)
             } else {
-              let numberOfVendors = this.approvedVendorsList[i].approvedVendors
-                .length
+              console.log(this.approvedVendorsList[i].approvedVendors, 'YO')
+              let numberOfVendors = this.approvedVendorsList[
+                i
+              ].approvedVendors.filter(
+                (v, i, a) =>
+                  a.findIndex((t) => t.spcompanies_id === v.spcompanies_id) ===
+                  i
+              ).length
 
               let company = {
                 channelId: response.data.locations[i].id,

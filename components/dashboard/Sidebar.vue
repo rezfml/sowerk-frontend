@@ -356,6 +356,34 @@
               },
             ]
           },
+          {
+            to: '/dashboard/assets/',
+            slug: 'assets',
+            icon: 'mdi-file-account',
+            text: 'Assets',
+            id: 'assets',
+            children: [
+              {
+                to: '/dashboard/insurances/',
+                slug: 'insurances',
+                icon: 'safe-square',
+                text: 'Insurances',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/licenses',
+                slug: 'licenses',
+                icon: 'license',
+                text: 'Licenses & Certificates',
+              },
+              {
+                to: '/dashboard/documents',
+                slug: 'documents',
+                icon: 'mdi-file',
+                text: 'Documents'
+              },
+            ]
+          },
           // {
           //   to: '/dashboard/requests-for-bids/',
           //   slug: 'requests-for-bids',
@@ -401,34 +429,6 @@
                 icon: 'settings',
                 text: 'SOWERK 101',
                 class: 'fixed-bottom',
-              },
-            ]
-          },
-          {
-            to: '/dashboard/assets/',
-            slug: 'assets',
-            icon: 'mdi-file-account',
-            text: 'Assets',
-            id: 'assets',
-            children: [
-              {
-                to: '/dashboard/insurances/',
-                slug: 'insurances',
-                icon: 'safe-square',
-                text: 'Insurances',
-                class: 'fixed-bottom',
-              },
-              {
-                to: '/dashboard/licenses',
-                slug: 'licenses',
-                icon: 'license',
-                text: 'Licenses & Certificates',
-              },
-              {
-                to: '/dashboard/documents',
-                slug: 'documents',
-                icon: 'mdi-file',
-                text: 'Documents'
               },
             ]
           },
@@ -639,7 +639,36 @@
                 text: 'Search Business Directory'
               }
             ]
-          },/*
+          },
+          {
+            to: '/dashboard/assets/',
+            slug: 'assets',
+            icon: 'mdi-file-account',
+            text: 'Assets',
+            id: 'assets',
+            children: [
+              {
+                to: '/dashboard/insurances/',
+                slug: 'insurances',
+                icon: 'safe-square',
+                text: 'Insurances',
+                class: 'fixed-bottom',
+              },
+              {
+                to: '/dashboard/licenses',
+                slug: 'licenses',
+                icon: 'license',
+                text: 'Licenses & Certificates',
+              },
+              {
+                to: '/dashboard/documents',
+                slug: 'documents',
+                icon: 'mdi-file',
+                text: 'Documents'
+              },
+            ]
+          },
+          /*
           {
             to: '/dashboard/sowerk-leads/',
             slug: 'sowerk-leads',
@@ -684,34 +713,6 @@
                 icon: 'settings',
                 text: 'SOWERK 101',
                 class: 'fixed-bottom',
-              },
-            ]
-          },
-          {
-            to: '/dashboard/assets/',
-            slug: 'assets',
-            icon: 'mdi-file-account',
-            text: 'Assets',
-            id: 'assets',
-            children: [
-              {
-                to: '/dashboard/insurances/',
-                slug: 'insurances',
-                icon: 'safe-square',
-                text: 'Insurances',
-                class: 'fixed-bottom',
-              },
-              {
-                to: '/dashboard/licenses',
-                slug: 'licenses',
-                icon: 'license',
-                text: 'Licenses & Certificates',
-              },
-              {
-                to: '/dashboard/documents',
-                slug: 'documents',
-                icon: 'mdi-file',
-                text: 'Documents'
               },
             ]
           },

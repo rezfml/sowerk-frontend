@@ -1640,6 +1640,20 @@
                 :locationFilterTags="locationFilterTags"
               ></BusinessChannelsCard>
             </transition>
+            <!--          <transition name="slide-fade">-->
+            <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
+            <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
+            <!--              <v-btn-->
+            <!--                style=""-->
+            <!--                class="px-16 mr-16"-->
+            <!--                large-->
+            <!--                outlined-->
+            <!--                rounded-->
+            <!--                color="white"-->
+            <!--                to="/dashboard/facilities/add"-->
+            <!--              >Add Now</v-btn>-->
+            <!--            </v-row>-->
+            <!--          </transition>-->
           </v-col>
         </v-row>
         <!--
