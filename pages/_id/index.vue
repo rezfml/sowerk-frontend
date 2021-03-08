@@ -26,14 +26,31 @@
         <v-btn :to="'../../../register'" color="primary" class="py-8" style="font-size: 25px; width: 45%;">Signup/Login & Apply</v-btn>
         <v-btn :to="'../../../landingpage'" class="py-8" style="font-size: 25px; color: white; background-color: #7C7C7C; width: 45%;">SOWerk - Learn More</v-btn>
       </v-row>
-
+      <v-text-field v-if="loadLocations" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer Name" v-model="searchChannel" light></v-text-field>
       <v-data-table
         :items="propertymanagerVal.locations"
         :headers="headers"
         :items-per-page="5"
         style="width: 95%;"
         v-if="loadLocations"
+        :expanded.sync="expanded"
+        :search="searchChannel"
+        show-expand
+        single-expand
+        @click:row="clickedRow"
       >
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">
+            <v-text-field clearable background-color="white" outlined class="pt-4" style="width: 80%; margin-left: 10%;" label="Search By Application Name" v-model="searchChannelApp" light></v-text-field>
+            <v-data-table
+              :items="item.userforms"
+              :headers="providerApplicationHeaders"
+              :items-per-page="10"
+              :search="searchChannelApp"
+            >
+            </v-data-table>
+          </td>
+        </template>
         <template v-slot:item.name="{item}">
           <v-row class="d-flex justify-center" cols="12" md="6">
             <v-col class="d-flex flex-column justify-center">
@@ -107,6 +124,9 @@
     layout: 'fullwidth',
     data() {
       return {
+        expanded: [],
+        searchChannel: '',
+        searchChannelApp: '',
         loadLocations: false,
         loading: false,
         propertymanagerVal: [
@@ -131,10 +151,14 @@
         headers: [
           { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-justify-center'},
           { text: 'Address', value: 'full_address', class: 'primary--text font-weight-bold text-h6 text-justify-center' },
+          { text: 'Open Applications', value: 'userforms.length', class: 'primary--text font-weight-bold text-h6 text-justify-center' },
           // { text: 'Founded', value: 'year_founded', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           // { text: 'Joined', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
           // { text: 'Approved Providers', value: 'approvedCount', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
-        ]
+        ],
+        providerApplicationHeaders: [
+          { text: 'Application', value: 'name', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+        ],
       }
     },
     watch: {
@@ -157,6 +181,14 @@
       await this.getPropertyManager(this.$route.params.id);
     },
     methods: {
+      clickedRow(value) {
+        if (this.expanded.length && this.expanded[0].id == value.id) {
+          this.expanded = [];
+        } else {
+          this.expanded = [];
+          this.expanded.push(value);
+        }
+      },
       async routeAwayToWebsite() {
         window.location.href = this.propertymanagerVal.website
       },
@@ -195,11 +227,20 @@
             radius: this.propertymanagerVal.locations[i].radius,
             services: this.propertymanagerVal.locations[i].services,
             state: this.propertymanagerVal.locations[i].state,
-            userforms: this.propertymanagerVal.locations[i].userforms,
+            userforms: [],
             year_founded: this.propertymanagerVal.locations[i].year_founded,
             zipcode: this.propertymanagerVal.locations[i].zipcode,
             created: this.propertymanagerVal.locations[i].created,
           }
+          await this.$http.get('https://www.sowerkbackend.com/api/userforms/byLocationId/' +this.propertymanagerVal.locations[i].id)
+            .then(responseUserform => {
+              if(responseUserform.data[0] !== 'There are no userforms') {
+                this.propertymanagerVal.locations[i].userforms = responseUserform.data.filter(userform => userform.applicationStatus === 1 || userform.applicationStatus === 2)
+              }
+            })
+            .catch(err => {
+              console.log(err, 'Err in getting location userforms')
+            })
           await this.getPmApproved(this.propertymanagerVal.locations[i].id, i);
         }
         setTimeout(() => {
