@@ -27,7 +27,7 @@
     ></v-text-field>
 
     <v-row>
-      <v-col cols="4" v-if="loading === true">
+      <v-col cols="3" v-if="loading === true">
         <v-card class="white pt-8 my-3" height="88vh">
           <v-container>
             <v-card-title
@@ -69,13 +69,17 @@
               </v-select>
             </v-card-text>
 
-            <v-btn @click="searchByFilters(selectedFilters)">Search</v-btn>
-            <v-btn @click="clearFilters(selectedFilters)">Clear</v-btn>
+            <v-btn @click="searchByFilters(selectedFilters)" color="primary"
+              >Search</v-btn
+            >
+            <v-btn @click="clearFilters(selectedFilters)" color="primary"
+              >Clear</v-btn
+            >
           </v-container>
         </v-card>
       </v-col>
 
-      <v-col cols="8">
+      <v-col cols="9">
         <v-data-table
           v-if="this.loading && this.channels"
           :search="searchChannels"
@@ -207,14 +211,11 @@ export default {
   methods: {
     searchByFilters(selectedFilters) {
       // console.log(selectedFilters, "SELECTED FILTERS")
-      // console.log(this.filters, "filters")
 
-      // console.log(this.originalChannels, "OG CHANNELS")
-
-      this.channels = this.originalChannels
+      this.channels = []
 
       selectedFilters.forEach((filterValue) => {
-        this.channels = this.channels.filter((item) => {
+        this.testArray = this.originalChannels.filter((item) => {
           if (
             item.channelName === filterValue ||
             item.city === filterValue ||
@@ -223,7 +224,14 @@ export default {
             return item
           }
         })
+        this.testArray.forEach((item) => {
+          this.channels.push(item)
+        })
       })
+
+      this.channels = this.channels.filter(
+        (v, i, a) => a.findIndex((t) => t.channelId === v.channelId) === i
+      )
     },
     clearFilters() {
       this.selectedFilters = []
