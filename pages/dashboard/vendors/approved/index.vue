@@ -371,8 +371,11 @@
     },
     async mounted() {
       console.log();
-      await this.getCompany(this.currentUser.companies_id);
-      await this.getApplications(this.currentUser.companies_id);
+      //await this.getCompany(this.currentUser.companies_id);
+      //await this.getApplications(this.currentUser.companies_id);
+      setTimeout(() => {
+        this.loading = true;
+      }, 3000)
     },
     computed: {
       currentUser() {

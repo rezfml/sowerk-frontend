@@ -841,72 +841,8 @@
           </v-col>
 
         </v-row>
-            <!--
-            This will be uncommented when FilterCard has a horizontal layout for md screens
-            <v-row  v-else-if="$vuetify.breakpoint.md ">
-              <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">
-                <v-progress-circular
-                  indeterminate
-                  color="primary"
-                  :size="50"
-                ></v-progress-circular>
-              </v-col>
-              <v-row>
-              <v-col cols="12">
-                <FilterCard
-                  title="Filter"
-                  :filters="filters"
-                ></FilterCard>
-              </v-col>
-              </v-row>
-              <v-row>
-              <v-col cols="12" class="d-flex flex-column justify-start">
-                <FacilitiesCard
-                  :title="'Your Facilities - ' + locations.length"
-                  :items="locations"
-                  :tableProperties="headers"
-                  :viewAll="false"
-                  slug="/dashboard/channels/"
-                ></FacilitiesCard>
-                <v-row class="d-flex justify-space-between align-center"style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">
-                  <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Property?</p>
-                  <v-btn
-                    style=""
-                    class="px-16 mr-16"
-                    large
-                    outlined
-                    rounded
-                    color="white"
-                    to="add"
-                  >Add Now</v-btn>
-                </v-row>
-              </v-col>
-              </v-row>
-            </v-row>
-            -->
 
-        <v-row  v-else>
-            <!--        <v-col cols="12" style="position: fixed; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 100; background-color: rgba(0,0,0,0.2); top: 0;" v-if="loading">-->
-            <!--          <v-progress-circular-->
-            <!--            indeterminate-->
-            <!--            color="primary"-->
-            <!--            :size="50"-->
-            <!--          ></v-progress-circular>-->
-            <!--        </v-col>-->
-            <!--        <v-col cols="3">-->
-            <!--          <v-skeleton-loader-->
-            <!--            v-if="!loading"-->
-            <!--            type="article, article, article, actions"-->
-            <!--            min-height="50vh"-->
-            <!--          ></v-skeleton-loader>-->
-            <!--          <transition name="slide-fade">-->
-            <!--            <FilterCard-->
-            <!--              title="Filter"-->
-            <!--              :filters="filters"-->
-            <!--              v-if="loading"-->
-            <!--            ></FilterCard>-->
-            <!--          </transition>-->
-            <!--        </v-col>-->
+        <v-row v-else>
           <v-col cols="12" class="d-flex flex-column justify-start">
             <v-skeleton-loader
               v-if="!loading"
@@ -914,23 +850,18 @@
               min-height="50vh"
             ></v-skeleton-loader>
             <transition name="slide-fade">
-              <FacilitiesCard
+              <BusinessChannelsCard
                 :title="'Your Channels - ' + locations.length"
-                :items="locations"
-                :company="company"
-                :tableProperties="headers"
                 :viewAll="false"
                 :viewLocation="viewLocation"
                 slug="/dashboard/channels/"
                 v-if="locationApproved && loading"
-                :sowerkTags="sowerkTags"
                 :locationFilterTags="locationFilterTags"
-                :removeTag="removeTag"
-                :filterItems="filterItems"
-              ></FacilitiesCard>
+              ></BusinessChannelsCard>
             </transition>
           </v-col>
         </v-row>
+
       </v-container>
     </v-app>
   </div>
@@ -1168,7 +1099,7 @@
                 v-if="locationApproved && loading"
                 :locationFilterTags="locationFilterTags"
               ></BusinessChannelsCard>
-            </transition>            
+            </transition>
             <!--          <transition name="slide-fade">-->
             <!--            <v-row v-if="loading" class="d-flex justify-space-between align-center mx-0" style="background: linear-gradient(to right, #A61C00, #741502); max-height: 100px;">-->
             <!--              <p style="color: white; font-size: 24px;" class="pl-16">Need To Add Another Company Channel?</p>-->
