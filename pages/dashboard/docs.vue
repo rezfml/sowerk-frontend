@@ -120,7 +120,7 @@
           :items-per-page="5"
           class="mt-12"
           :search="searchDocument"
-          v-else
+          v-if="company.company_type==='false'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -144,10 +144,10 @@
         <v-data-table
           :search="searchDocument"
           :items="companyDocuments"
-          :headers="vendorHeaders"
+          :headers="vendorBusinessHeaders"
           :items-per-page="5"
           class="mt-12"
-          v-if="company.company_type === 'true'"
+          v-if="company.company_type==='true'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -161,12 +161,12 @@
           </template>
         </v-data-table>
         <v-data-table
+          :search="searchDocument"
           :items="companyDocuments"
           :headers="vendorHeaders"
           :items-per-page="5"
           class="mt-12"
-          :search="searchDocument"
-          v-else
+          v-if="company.company_type==='false'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -335,6 +335,7 @@
         approvedCompanyDocuments: [],
         approvedVendors: [],
         companyUploadDocument: {
+
         },
         companyTemplateDocuments: [],
         successuploaddocument: null,
@@ -515,8 +516,6 @@
         this.uploadDocumentsModalLoading = false
         this.openUploadModelLoad = false;
         this.searchDocument = '';
-        this.vendorDocuments = [];
-        await this.getVendorProvidedDocuments();
       },
       async allDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
@@ -597,24 +596,27 @@
       async getVendorProvidedDocuments() {
         if(this.company.company_type === 'false') {
           await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byVendorVendorId/' + this.currentUser.companies_id)
-            .then(response => {
+            .then(async (response) => {
               console.log(response.data, 'response for vendor docs')
               if(response.data.length > 0 && response.data[0] !== 'There are no company documents') {
                 for(let i=0; i<response.data.length; i++) {
-                  let vendorDoc = {
-                    companies_id: response.data[i].companies_id,
-                    created: response.data[i].created,
-                    documentName: response.data[i].documentName,
-                    documentUrl: response.data[i].documentUrl,
-                    id: response.data[i].id,
-                    modified: response.data[i].modified,
-                    required: response.data[i].required,
-                    vendor_channelsId: response.data[i].vendor_channelsId,
-                    vendor_companiesId: response.data[i].vendor_companiesId,
-                    businessCompanyName: null,
+                  if (this.company.company_type === 'false') {
+                    let vendorDoc = {
+                      companies_id: response.data[i].companies_id,
+                      created: response.data[i].created,
+                      documentName: response.data[i].documentName,
+                      documentUrl: response.data[i].documentUrl,
+                      id: response.data[i].id,
+                      modified: response.data[i].modified,
+                      required: response.data[i].required,
+                      vendor_channelsId: response.data[i].vendor_channelsId,
+                      vendor_companiesId: response.data[i].vendor_companiesId,
+                      businessCompanyName: null,
+                    }
+                    this.vendorDocuments.push(vendorDoc)
                   }
-                  this.vendorDocuments.push(vendorDoc)
                 }
+                await this.getBusinessDocumentChannelCompany();
               }
             })
             .catch(err => {
@@ -622,7 +624,7 @@
             })
         } else {
           await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byCompaniesId/' + this.currentUser.companies_id)
-            .then(response => {
+            .then(async (response) => {
               console.log(response.data, 'response for company docs')
               if(response.data.length > 0 && response.data[0] !== 'There are no company documents') {
                 for(let i=0; i<response.data.length; i++) {
@@ -644,16 +646,12 @@
                     this.companyDocuments.push(vendorDoc)
                   }
                 }
+                await this.getVendorDocumentChannelCompany();
               }
             })
             .catch(err => {
               console.log(err, 'err in getting list')
             })
-        }
-        if(this.company.company_type === "true") {
-          await this.getVendorDocumentChannelCompany();
-        } else if(this.company.company_type === "false") {
-          await this.getBusinessDocumentCompany();
         }
         this.loading = true;
       },
@@ -697,7 +695,7 @@
             })
         }
       },
-      async getBusinessDocumentCompany() {
+      async getBusinessDocumentChannelCompany() {
         for(let i=0; i<this.vendorDocuments.length; i++) {
           this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.vendorDocuments[i].companies_id)
             .then(response => {
@@ -722,6 +720,7 @@
       },
       async selectCompanyDocumentsImage(e) {
         if(this.company.company_type==='false') {
+
         }
         this.companyDocument.documentUrl = e.target.files[0];
         this.companyDocument.documentName = e.target.files[0].name;
@@ -746,8 +745,6 @@
                   console.log(response, 'response.data for on submitcompanydocumentimage')
                   // this.getCompanyDocuments()
                   this.successuploaddoc = true;
-                  this.deleteVendorDocument(this.chosenUploadFirstDocument)
-
                 })
                 .catch(err => {
                   console.log('err in posting new company document')
@@ -773,17 +770,6 @@
           .then(response => {
             console.log(response, 'success in deleting doc')
             this.companyDocuments = this.companyDocuments.filter(item => item !== doc);
-          })
-          .catch(err => {
-            console.log(err, 'err in deleting doc')
-          })
-      },
-      async deleteVendorDocument(doc) {
-        console.log(doc);
-        await this.$http.delete('https://www.sowerkbackend.com/api/vendordocuments/' + doc.id)
-          .then(response => {
-            console.log(response, 'success in deleting doc')
-            this.vendorDocuments = this.vendorDocuments.filter(item => item !== doc);
           })
           .catch(err => {
             console.log(err, 'err in deleting doc')
