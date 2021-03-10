@@ -119,7 +119,7 @@
 <!--                  </v-autocomplete>-->
                 </v-col>
                 <v-form v-if="userform" ref="applicationForm" style="width: 100%;">
-                  <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
+                  <v-col v-if="userform.formfields[0] !== 'There are no formfields'" cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
                     <!-- VENDOR'S NAME 1 -->
                     <v-text-field
                       placeholder=" "
@@ -315,6 +315,9 @@
                         <p class="font-weight-bold text-body-1 black--text">{{ formfield.name }}</p>
                       </template>
                     </v-select>
+                  </v-col>
+                  <v-col v-else cols="12" style="" class="d-flex justify-center">
+                    <v-card-text style="text-align: center; white-space: pre-wrap; word-break: break-word;">There are no questions associated with this application. Please contact <span style="color: #A61c00;">{{location.name}}</span> if you think this is in error.</v-card-text>
                   </v-col>
                 </v-form>
                 <v-card-actions>

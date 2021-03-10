@@ -67,7 +67,7 @@
               </v-col>
             </v-row>
             <v-row class="px-12">
-              <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
+              <v-col v-if="userform.formfields[0] !== 'There are no formfields'" cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
                 <p style="color: #151515; font-size: 14px;" class="mb-n1 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
                 <v-text-field
                   placeholder=" "
@@ -98,6 +98,9 @@
                   readonly
                 ></v-select>
               </v-col>
+              <v-col v-else cols="12" style="" class="d-flex justify-center">
+                <v-card-text style="text-align: center; white-space: pre-wrap; word-break: break-word;">There are no questions associated with this application. Please contact <span style="color: #A61c00;">{{location.name}}</span> if you think this is in error.</v-card-text>
+              </v-col>
             </v-row>
             <vue-html2pdf
               :show-layout="false"
@@ -124,11 +127,11 @@
                     <v-card-text style="width: 100%; font-size: 14px;">Applicant Channel: <span style="color: #A61C00;">{{location.name}}</span></v-card-text>
                     <v-card-text style="width: 100%; font-size: 14px;">Application Approved: <span v-if="application.modified" style="color: #A61C00;">{{application.modified}}</span></v-card-text>
                   </v-col>
-                  <v-col cols="12" v-for="(formfield, index) in userform.formfields" style="">
-                    <p style="color: #151515; font-size: 14px; padding-bottom: 20px;" class="mb-4 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
+                  <v-col v-if="userform.formfields[0] !== 'There are no formfields'" cols="12" v-for="(formfield, index) in userform.formfields" style="margin: auto;">
+                    <p style="color: #151515; font-size: 14px;" class="mb-n1 mt-1">Question #{{index + 1}} - {{formfield.name}}</p>
                     <v-text-field
                       placeholder=" "
-                      class="mt-4"
+                      class="my-2"
                       :value="application.subData[index].value"
                       :name="formfield.name"
                       v-if="formfield.type ==='text' && application.subData[index]"
@@ -138,7 +141,7 @@
                     </v-text-field>
                     <v-checkbox
                       placeholder=" "
-                      class="mt-4"
+                      class="my-2"
                       v-model="application.subData[index].value"
                       :name="formfield.name"
                       v-if="formfield.type ==='checkbox' && application.subData[index]"
@@ -147,13 +150,16 @@
                     </v-checkbox>
                     <v-select
                       placeholder=""
-                      class="mt-4"
+                      class="my-2"
                       v-model="application.subData[index].value"
                       :items="formfield.options.split(', ')"
                       v-if="formfield.type ==='select' && application.subData[index]"
                       outlined
                       readonly
                     ></v-select>
+                  </v-col>
+                  <v-col v-else cols="12" style="" class="d-flex justify-center">
+                    <v-card-text style="text-align: center; white-space: pre-wrap; word-break: break-word;">There are no questions associated with this application. Please contact <span style="color: #A61c00;">{{location.name}}</span> if you think this is in error.</v-card-text>
                   </v-col>
                 </v-row>
             </vue-html2pdf>

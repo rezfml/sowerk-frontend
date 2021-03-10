@@ -116,7 +116,7 @@
         </v-data-table>
         <v-data-table
           :items="vendorDocuments"
-          :headers="vendorHeaders"
+          :headers="vendorRequestedHeaders"
           :items-per-page="5"
           class="mt-12"
           :search="searchDocument"
@@ -147,6 +147,7 @@
           :headers="vendorHeaders"
           :items-per-page="5"
           class="mt-12"
+          v-if="company.company_type === 'true'"
         >
           <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
             <p>{{item.documentName}}</p>
@@ -156,7 +157,26 @@
           </template>
           <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
             <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
-<!--            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>-->
+            <!--            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>-->
+          </template>
+        </v-data-table>
+        <v-data-table
+          :items="companyDocuments"
+          :headers="vendorHeaders"
+          :items-per-page="5"
+          class="mt-12"
+          :search="searchDocument"
+          v-else
+        >
+          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.documentName}}</p>
+          </template>
+          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">
+            <p>{{item.created.slice(0,4)}}</P>
+          </template>
+          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">
+            <v-btn :href="item.documentUrl" download color="primary" outlined class="my-1" style="width: 80%; color: white;">Download + View</v-btn>
+            <!--            <v-btn @click="deleteDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Delete Document</v-btn>-->
           </template>
         </v-data-table>
       </v-card>
@@ -184,39 +204,39 @@
             <v-btn @click="selectVendor(item)" color="primary" class="my-1" style="width: 80%;">Send To Vendor</v-btn>
           </template>
         </v-data-table>
-<!--        THIS WAS THE ORIGINAL FEATURE FOR A BUSINESS TO REQUEST A DOCUMENT FROM A VENDOR AND THE VENDORS LIST OF DOCUMENTS. NEW FEATURE IS BUSINESS SENDING THEIR DOCUMENT TO A VENDOR-->
-<!--        <v-select-->
-<!--          class="mt-12"-->
-<!--          label="Please Select A Vendor From Your Approved Vendors List To Request One of Their Documents"-->
-<!--          :items="approvedVendors"-->
-<!--          style="width: 80%;"-->
-<!--        >-->
-<!--          <template slot="selection" slot-scope="data">-->
-<!--            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>-->
-<!--          </template>-->
-<!--          <template slot="item" slot-scope="data">-->
-<!--            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>-->
-<!--          </template>-->
-<!--        </v-select>-->
-<!--        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>-->
-<!--        <v-data-table-->
-<!--          :items="approvedCompanyDocuments"-->
-<!--          :headers="vendorApprovedHeaders"-->
-<!--          :search="searchDocument"-->
-<!--          :items-per-page="5"-->
-<!--          class="mt-12"-->
-<!--          style="width: 80%;"-->
-<!--        >-->
-<!--          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">-->
-<!--            <p>{{item.documentName}}</p>-->
-<!--          </template>-->
-<!--          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">-->
-<!--            <p>{{item.created.slice(0,4)}}</P>-->
-<!--          </template>-->
-<!--          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">-->
-<!--            <v-btn @click="requestDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Request Document</v-btn>-->
-<!--          </template>-->
-<!--        </v-data-table>-->
+        <!--        THIS WAS THE ORIGINAL FEATURE FOR A BUSINESS TO REQUEST A DOCUMENT FROM A VENDOR AND THE VENDORS LIST OF DOCUMENTS. NEW FEATURE IS BUSINESS SENDING THEIR DOCUMENT TO A VENDOR-->
+        <!--        <v-select-->
+        <!--          class="mt-12"-->
+        <!--          label="Please Select A Vendor From Your Approved Vendors List To Request One of Their Documents"-->
+        <!--          :items="approvedVendors"-->
+        <!--          style="width: 80%;"-->
+        <!--        >-->
+        <!--          <template slot="selection" slot-scope="data">-->
+        <!--            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>-->
+        <!--          </template>-->
+        <!--          <template slot="item" slot-scope="data">-->
+        <!--            <p @click="seeListOfCompanyDocuments(data.item)" style="width: 100%;">{{ data.item.account_name }}</p>-->
+        <!--          </template>-->
+        <!--        </v-select>-->
+        <!--        <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Document Name" v-model="searchDocument" light></v-text-field>-->
+        <!--        <v-data-table-->
+        <!--          :items="approvedCompanyDocuments"-->
+        <!--          :headers="vendorApprovedHeaders"-->
+        <!--          :search="searchDocument"-->
+        <!--          :items-per-page="5"-->
+        <!--          class="mt-12"-->
+        <!--          style="width: 80%;"-->
+        <!--        >-->
+        <!--          <template v-slot:item.documentName="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">-->
+        <!--            <p>{{item.documentName}}</p>-->
+        <!--          </template>-->
+        <!--          <template v-slot:item.created="{item, index}" class="d-flex flex-column align-left" style="width: 100%; background-color: #9A9A9A;">-->
+        <!--            <p>{{item.created.slice(0,4)}}</P>-->
+        <!--          </template>-->
+        <!--          <template v-slot:item.actions="{item, index}" class="d-flex flex-column align-center">-->
+        <!--            <v-btn @click="requestDocument(item)" color="primary" class="my-1" style="width: 80%; color: white;">Request Document</v-btn>-->
+        <!--          </template>-->
+        <!--        </v-data-table>-->
       </v-card>
     </transition>
 
@@ -226,9 +246,9 @@
         <v-card-title v-else style="position: absolute; top: -30px; left: 0px; width: 100%; border-radius: 3px; font-size: .95rem;" class="primary white--text font-weight-regular red-gradient">Upload</v-card-title>
         <v-row class="mt-8">
           <v-col cols="12">
-              <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
-              <v-btn @click="clickUploadCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
-              <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyUploadDocument.documentUrl}" v-model="companyUploadDocument.documentUrl" v-on:change.native="selectUploadCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
+            <v-card-text class="pt-16 ml-4">Upload any company document or template that you will use to share with vendors to download, complete, and upload to SOWerk. Common items include master service agreements, independent contractor agreements, nondisclosure agreements, and tax examples.</v-card-text>
+            <v-btn @click="clickUploadCompanyDocumentsImageUpload" color="primary" large outlined rounded style="width: 70%;" class="py-4 px-16 mb-16 ml-4">Upload <v-icon>mdi-plus</v-icon></v-btn>
+            <v-file-input class="location-image-upload ma-0 pa-0" :class="{'location-image-upload--selected' : companyUploadDocument.documentUrl}" v-model="companyUploadDocument.documentUrl" v-on:change.native="selectUploadCompanyDocumentsImage" id="companyDocumentImage" style="display: none;"></v-file-input>
           </v-col>
         </v-row>
         <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successuploaddocument !== null && successuploaddocument === false">Error with adding this document. Please retry.</v-title>
@@ -256,42 +276,42 @@
       :value="openRequestDocLoad"
     >
       <transition name="slide-fade">
-          <v-card class="d-flex flex-column align-center" light v-if="openRequestDocLoad" style="height: 50vh; width: 80vw;">
-            <v-autocomplete
-              class="mt-12"
-              label="Please Select A Category That Goes With Your Message"
-              v-model="messageService"
-              :items="naicsList"
-              item-text="name"
-              style="width: 80%;"
-              return-object
-            >
-            </v-autocomplete>
-            <v-autocomplete
-              class="mt-12"
-              label="Please Select A Vendor Channel That Goes With Your Message"
-              v-model="messageVendorLocationChosen"
-              :items="messageVendorLocations"
-              item-text="name"
-              style="width: 80%;"
-              return-object
-            >
-            </v-autocomplete>
-            <v-autocomplete
-              class="mt-12"
-              label="Please Select A Business Channel That Goes With Your Message"
-              v-model="messageBusinessLocationChosen"
-              :items="company.locations"
-              item-text="name"
-              style="width: 80%;"
-              return-object
-            >
-            </v-autocomplete>
-            <v-btn @click="requestSend" style="font-size: 25px;" color="primary">Request</v-btn>
-            <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successrequestdoc !== null && successrequestdoc === false">Error with requesting this document. Please retry.</v-title>
-            <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successrequestdoc">Successfully requested this document!</v-title>
-            <v-btn @click="closeRequestDocLoad" style="position: absolute; top: 10px; right: 10px; font-size: 25px;" color="primary">X</v-btn>
-          </v-card>
+        <v-card class="d-flex flex-column align-center" light v-if="openRequestDocLoad" style="height: 50vh; width: 80vw;">
+          <v-autocomplete
+            class="mt-12"
+            label="Please Select A Category That Goes With Your Message"
+            v-model="messageService"
+            :items="naicsList"
+            item-text="name"
+            style="width: 80%;"
+            return-object
+          >
+          </v-autocomplete>
+          <v-autocomplete
+            class="mt-12"
+            label="Please Select A Vendor Channel That Goes With Your Message"
+            v-model="messageVendorLocationChosen"
+            :items="messageVendorLocations"
+            item-text="name"
+            style="width: 80%;"
+            return-object
+          >
+          </v-autocomplete>
+          <v-autocomplete
+            class="mt-12"
+            label="Please Select A Business Channel That Goes With Your Message"
+            v-model="messageBusinessLocationChosen"
+            :items="company.locations"
+            item-text="name"
+            style="width: 80%;"
+            return-object
+          >
+          </v-autocomplete>
+          <v-btn @click="requestSend" style="font-size: 25px;" color="primary">Request</v-btn>
+          <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successrequestdoc !== null && successrequestdoc === false">Error with requesting this document. Please retry.</v-title>
+          <v-title style="text-align: center; font-size: 24px; color: #A61c00;" class="my-2 mx-auto" v-if="successrequestdoc">Successfully requested this document!</v-title>
+          <v-btn @click="closeRequestDocLoad" style="position: absolute; top: 10px; right: 10px; font-size: 25px;" color="primary">X</v-btn>
+        </v-card>
       </transition>
     </v-overlay>
   </v-app>
@@ -315,7 +335,6 @@
         approvedCompanyDocuments: [],
         approvedVendors: [],
         companyUploadDocument: {
-
         },
         companyTemplateDocuments: [],
         successuploaddocument: null,
@@ -328,6 +347,12 @@
           { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Sent Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Recipient', value: 'vendorCompanyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
+        ],
+        vendorRequestedHeaders: [
+          { text: 'Document Name', value: 'documentName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Sent Date', value: 'created', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
+          { text: 'Sender', value: 'businessCompanyName', class: 'primary--text font-weight-bold text-h6 text-left text-justify-start', sortable: false},
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-left text-justify-start' },
         ],
         vendorBusinessHeaders: [
@@ -458,7 +483,7 @@
         await this.$http.get('https://www.sowerkbackend.com/api/applications/byPmId/' + this.currentUser.companies_id)
           .then(response => {
             console.log(response.data, 'APPROVED')
-              let setObj = new Set();
+            let setObj = new Set();
             this.filteredList = response.data.filter(item => item.pmcompanies_id === this.currentUser.companies_id)
             this.filteredList = this.filteredList.filter(el => {
               const duplicateVal = setObj.has(el.pmcompanies_id);
@@ -490,6 +515,8 @@
         this.uploadDocumentsModalLoading = false
         this.openUploadModelLoad = false;
         this.searchDocument = '';
+        this.vendorDocuments = [];
+        await this.getVendorProvidedDocuments();
       },
       async allDocumentsModalLoad() {
         this.requestDocumentsModalLoading = false
@@ -572,7 +599,23 @@
           await this.$http.get('https://www.sowerkbackend.com/api/vendordocuments/byVendorVendorId/' + this.currentUser.companies_id)
             .then(response => {
               console.log(response.data, 'response for vendor docs')
-              this.vendorDocuments = response.data
+              if(response.data.length > 0 && response.data[0] !== 'There are no company documents') {
+                for(let i=0; i<response.data.length; i++) {
+                  let vendorDoc = {
+                    companies_id: response.data[i].companies_id,
+                    created: response.data[i].created,
+                    documentName: response.data[i].documentName,
+                    documentUrl: response.data[i].documentUrl,
+                    id: response.data[i].id,
+                    modified: response.data[i].modified,
+                    required: response.data[i].required,
+                    vendor_channelsId: response.data[i].vendor_channelsId,
+                    vendor_companiesId: response.data[i].vendor_companiesId,
+                    businessCompanyName: null,
+                  }
+                  this.vendorDocuments.push(vendorDoc)
+                }
+              }
             })
             .catch(err => {
               console.log(err, 'err in getting list')
@@ -609,6 +652,8 @@
         }
         if(this.company.company_type === "true") {
           await this.getVendorDocumentChannelCompany();
+        } else if(this.company.company_type === "false") {
+          await this.getBusinessDocumentCompany();
         }
         this.loading = true;
       },
@@ -652,6 +697,18 @@
             })
         }
       },
+      async getBusinessDocumentCompany() {
+        for(let i=0; i<this.vendorDocuments.length; i++) {
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + this.vendorDocuments[i].companies_id)
+            .then(response => {
+              console.log(response.data, 'LOCATION VENDOR DOC')
+              this.vendorDocuments[i].businessCompanyName = response.data.account_name;
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        }
+      },
       async resend(item) {
         let resendObj = {...item}
         console.log(resendObj, 'hey')
@@ -665,7 +722,6 @@
       },
       async selectCompanyDocumentsImage(e) {
         if(this.company.company_type==='false') {
-
         }
         this.companyDocument.documentUrl = e.target.files[0];
         this.companyDocument.documentName = e.target.files[0].name;
@@ -690,6 +746,8 @@
                   console.log(response, 'response.data for on submitcompanydocumentimage')
                   // this.getCompanyDocuments()
                   this.successuploaddoc = true;
+                  this.deleteVendorDocument(this.chosenUploadFirstDocument)
+
                 })
                 .catch(err => {
                   console.log('err in posting new company document')
@@ -715,6 +773,17 @@
           .then(response => {
             console.log(response, 'success in deleting doc')
             this.companyDocuments = this.companyDocuments.filter(item => item !== doc);
+          })
+          .catch(err => {
+            console.log(err, 'err in deleting doc')
+          })
+      },
+      async deleteVendorDocument(doc) {
+        console.log(doc);
+        await this.$http.delete('https://www.sowerkbackend.com/api/vendordocuments/' + doc.id)
+          .then(response => {
+            console.log(response, 'success in deleting doc')
+            this.vendorDocuments = this.vendorDocuments.filter(item => item !== doc);
           })
           .catch(err => {
             console.log(err, 'err in deleting doc')
