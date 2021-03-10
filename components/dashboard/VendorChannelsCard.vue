@@ -21,7 +21,7 @@
       outlined
       class="pt-4"
       style="width: 80%; margin-left: 10%;margin-top:4%;"
-      label="Search by Channel Name, Address, Channel Manager, and Approved Vendors"
+      label="Search by Address"
       v-model="searchChannels"
       light
     ></v-text-field>
@@ -69,26 +69,6 @@
               </v-select>
             </v-card-text>
 
-            <!-- <v-card-text class="pt-0" >
-              <v-select
-                :items="appVendorFilter.items"
-                :placeholder="appVendorFilter.name"
-                light multiple chips single-line dense
-                v-model="selectedFilters"
-                return-object
-              >
-
-                <template slot="selection" slot-scope="data">
-                  <p>{{ data.item }}</p>
-                </template>
-
-                <template slot="item" slot-scope="data">
-                  <p>{{ data.item }}</p>
-                </template>
-
-              </v-select>
-            </v-card-text> -->
-
             <v-btn @click="searchByFilters(selectedFilters)" color="primary"
               >Search</v-btn
             >
@@ -104,7 +84,7 @@
           v-if="this.loading && this.channels"
           :search="searchChannels"
           :items="channels"
-          :headers="headers"
+          :headers="headersVendor"
           :items-per-page="10"
         >
           <template v-slot:item.imageUrl="{ item }">
@@ -115,12 +95,12 @@
             </v-row>
           </template>
           <!-- <template v-slot:item.name="{ item }">
-						<v-row class="d-flex">
-							<v-col>
-								<p>{{ item.channelName }}</p>
-							</v-col>
-						</v-row>
-					</template> -->
+            <v-row class="d-flex">
+              <v-col>
+                <p>{{ item.channelName }}</p>
+              </v-col>
+            </v-row>
+          </template> -->
           <template v-slot:item.address="{ item }">
             <v-row class="d-flex">
               <v-col>
@@ -152,7 +132,7 @@
 import FilterCard from '~/components/dashboard/FilterCard'
 
 export default {
-  name: 'BusinessChannels',
+  name: 'VendorChannelsCard',
   props: ['title', 'viewAll', 'viewLocation', 'locationFilterTags', 'slug'],
   components: {
     FilterCard
@@ -161,47 +141,10 @@ export default {
     return {
       loading: false,
       company: {},
-      headers: [
-        {
-          text: 'Channel Name',
-          value: 'channelName',
-          class:
-            'primary--text font-weight-bold text-h6 text-left text-justify-start',
-          sortable: false
-        },
-        {
-          text: 'Address',
-          value: 'address',
-          class:
-            'primary--text font-weight-bold text-h6 text-left text-justify-start',
-          sortable: false
-        },
-        {
-          text: 'Channel Manager',
-          value: 'channelManagerFullName',
-          class:
-            'primary--text font-weight-bold text-h6 text-left text-justify-start',
-          sortable: false
-        },
-        {
-          text: 'Approved Vendors',
-          value: 'approvedVendors',
-          class:
-            'primary--text font-weight-bold text-h6 text-left text-justify-start',
-          sortable: false
-        },
-        {
-          text: 'Actions',
-          value: 'actions',
-          sortable: false,
-          class:
-            'primary--text font-weight-bold text-h6 text-left text-justify-start'
-        }
-      ],
       headersVendor: [
         {
           text: 'Channel Name',
-          value: 'name',
+          value: 'channelName',
           class:
             'primary--text font-weight-bold text-h6 text-left text-justify-start',
           sortable: false
@@ -336,14 +279,8 @@ export default {
               this.channels.push(company)
               this.originalChannels.push(company)
             } else {
-              console.log(this.approvedVendorsList[i].approvedVendors, 'YO')
-              let numberOfVendors = this.approvedVendorsList[
-                i
-              ].approvedVendors.filter(
-                (v, i, a) =>
-                  a.findIndex((t) => t.spcompanies_id === v.spcompanies_id) ===
-                  i
-              ).length
+              let numberOfVendors = this.approvedVendorsList[i].approvedVendors
+                .length
 
               let company = {
                 channelId: response.data.locations[i].id,
@@ -374,7 +311,7 @@ export default {
               this.originalChannels.push(company)
             }
           }
-          // console.log(this.channels)
+          console.log(this.channels)
           // console.log(this.filters[0].items)
           this.loading = true
         })
@@ -383,6 +320,7 @@ export default {
         })
     },
     async getCompanyApprovedVendors(id) {
+      console.log(id, 'THIS IS TH EID')
       await this.$http
         .get(
           'https://www.sowerkbackend.com/api/companies/location/approvedVendors/' +
