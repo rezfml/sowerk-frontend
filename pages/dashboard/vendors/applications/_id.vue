@@ -143,13 +143,16 @@
                   <transition name="slide-fade">
                     <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
                       <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                      <p style="width: 70%; text-align: center; word-break: break-word;"><span style="color: #A61C00;">#{{ (Number(index) + 16)}}</span> - {{form.name}}</p>
+                      <p style="width: 70%; text-align: center; word-break: break-word;"><span style="color: #A61C00;">#{{ (Number(index) + 12)}}</span> - {{form.name}}</p>
                       <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                     </v-card-title>
                   </transition>
                   <template v-if="form.type === 'select'" class="d-flex flex-column align-center">
                     <v-btn style="background: #707070; color: white;" @click.prevent="addOption(form, index)">Add Another Option</v-btn>
-                    <v-card-title v-if="form.options !== String" v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-title>
+                    <v-card-title v-if="form.options !== String" v-for="(option,iVal) in form.options" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center">
+                      <v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field>
+                      <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn>
+                    </v-card-title>
                     <v-card-title v-else v-for="(option,iVal) in form.options.split(', ')" style="width: 100%; white-space: pre-wrap !important;" class="d-flex justify-center"><v-text-field style="width: 80%;" @click.prevent="" clearable label="Selection Name" v-model="form.options[iVal]">{{option}}</v-text-field> <v-btn class="px-6 ml-12" style="width: 10%; background: #A61C00; color: white;" @click.prevent="removeOption(option, iVal, form, index)" text>X</v-btn></v-card-title>
                   </template>
                 </v-card>
@@ -688,7 +691,7 @@
             })
             if(this.userForms.formfields[0] !== 'There are no formfields') {
               for(let i=0; i<this.userForms.formfields.length; i++) {
-                if(this.userForms.formfields[i].options.includes('{') ||this.userForms.formfields[i].options.includes('}') ||this.userForms.formfields[i].options.includes('"')) {
+                if(typeof this.userForms.formfields[i].options === 'string' || this.userForms.formfields[i].options.includes('{') ||this.userForms.formfields[i].options.includes('}') ||this.userForms.formfields[i].options.includes('"')) {
                   this.userForms.formfields[i].options = this.userForms.formfields[i].options.replace('{', '').replace('}', '').replaceAll('"', '').split(',')
                 }
                 console.log(this.userForms.formfields[i].options, 'option #', i)

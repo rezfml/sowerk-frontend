@@ -38,9 +38,9 @@
             <v-img height="400px" src="/SoWork Logos with Icons-170.png"></v-img>
           </v-col>
 
-          <v-col cols="5" class="d-flex flex-column justify-center">
-            <v-card-title style="color:darkred; font-size: 24px">Manage Your Connections On SOWerk</v-card-title>
-            <v-card-text style="font-size: 18px;">In the Customer Connections section of SOWerk a Vendor can see all their approved connections they have made on the platform. From here you can choose to dive into any one of your Customer accounts where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account. This interface is your customer relationship management solution here on SOWerk.</v-card-text>
+          <v-col cols="5" class="d-flex flex-column align-center justify-center">
+            <v-card-title style="color:darkred; font-size: 24px; white-space: pre-wrap; word-break: break-word; text-align: center;">Manage Your Connections On SOWerk</v-card-title>
+            <v-card-text style="font-size: 18px; white-space: pre-wrap; word-break: break-word;">In the Customer Connections section of SOWerk a Vendor can see all their approved connections they have made on the platform. From here you can choose to dive into any one of your Customer accounts where you can manage all the details of your relationship, including documents shared with the Customer or even internal notes you want to keep on this account. This interface is your customer relationship management solution here on SOWerk.</v-card-text>
             <v-btn to="/dashboard/businesses/leads" color="primary" class="py-6 ml-4" style="width: 95%; border-radius: 10px;">View Customer Leads</v-btn>
           </v-col>
         </v-row>
@@ -62,34 +62,52 @@
               <v-card class="white">
                 <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-if="connections.length > 0">Customer Connections - {{connections.length}}</v-card-title>
                 <v-card-title style="position: absolute; top: -30px; left: 25px; width: 40%; border-radius: 3px; font-size: 18px;" class="primary white--text font-weight-regular red-gradient" v-else>Customer Connections - 0</v-card-title>
-                <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer, Address, Name, Email, or Phone" v-model="search" light></v-text-field>
+                <v-text-field clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Customer" v-model="search" light></v-text-field>
                 <v-data-table
-                  :items="businesses"
-                  :headers="providerHeaders"
+                  :items="customerConnections"
+                  :headers="customerHeaders"
                   :items-per-page="10"
                   :search="search"
+                  :expanded.sync="expanded"
+                  show-expand
+                  single-expand
+                  @click:row="clickedRow"
                 >
                   <template v-slot:item.imageUrl="{item}"  >
                     <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
                     <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
                   </template>
-                  <template v-slot:item.address="{item}">
-                    <div style="width: 100%;" class="d-flex flex-column align-center">
-                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
-                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
-                    </div>
-                  </template>
-                  <template v-slot:item.contact_first_name="{item}">
-                    <div style="width: 100%;" class="d-flex flex-column align-center">
-                      <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
-                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
-                    </div>
-                  </template>
-                  <template v-slot:item.TotalConnections="{item}">
-                      <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.TotalConnections}}</v-card-text>
-                  </template>
-                  <template v-slot:item.actions="{ item }" class="d-flex">
-                    <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                  <template v-slot:expanded-item="{ headers, item }">
+                    <td :colspan="headers.length" style="">
+                      <v-text-field v-if="!loading" background-color="white" clearable outlined class="pt-12" style="width: 80%; margin-left: 10%;" label="Search By Facility, Address, or Name" v-model="searchChannel" light></v-text-field>
+                      <v-data-table
+                        :items="item.companyChannels"
+                        item-key="id"
+                        :items-per-page="10"
+                        :headers="providerHeaders"
+                        :search="searchChannel"
+                      >
+                        <template v-slot:item.imageUrl="{item}"  >
+                          <v-img v-if="item.imageUrl !== ''" :src="item.imageUrl" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
+                          <v-img v-else :src="'https://sowerk-images.s3.us-east-2.amazonaws.com/SoWork+round+icon.png'" :aspect-ratio="1" max-height="75px" max-width="75px" style="border-radius: 50%; width: 75px;" class="my-1"></v-img>
+                        </template>
+                        <template v-slot:item.address="{item}">
+                          <div style="width: 100%;" class="d-flex flex-column align-center">
+                            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.address}}</v-card-text>
+                            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.city}}, {{item.state}} {{item.zipcode}}</v-card-text>
+                          </div>
+                        </template>
+                        <template v-slot:item.contact_first_name="{item}">
+                          <div style="width: 100%;" class="d-flex flex-column align-center">
+                            <v-icon color="primary" style="align-self: flex-start; width: 100%;" class="d-flex justify-center">person</v-icon>
+                            <v-card-text style="width: 100%; white-space: pre-wrap; word-break: break-word;" class="d-flex justify-center">{{item.contact_first_name}} {{item.contact_last_name}}</v-card-text>
+                          </div>
+                        </template>
+                        <template v-slot:item.actions="{ item }" class="d-flex">
+                          <v-btn color="primary" block class="my-2" :to="'/dashboard/businesses/' + item.id">View</v-btn>
+                        </template>
+                      </v-data-table>
+                    </td>
                   </template>
                 </v-data-table>
               </v-card>
@@ -115,6 +133,9 @@
     data() {
       return {
         search: '',
+        searchChannel: '',
+        expanded: [],
+        expandedChannel: [],
         loading: false,
         locations: [
           {
@@ -244,13 +265,18 @@
         ],
         providerHeaders: [
           { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
-          { text: 'Customer', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Channel', value: 'name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Address', value: 'address', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Primary Contact', value: 'contact_first_name', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Phone', value: 'phone', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Email', value: 'email', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
-          { text: 'Total Connections', value: 'TotalConnections', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
+          { text: 'Channel Connections', value: 'totalConnections.length', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false },
           { text: 'Actions', value: 'actions', sortable: false, class: 'primary--text font-weight-bold text-h6 text-center' },
+        ],
+        customerHeaders: [
+          { text: '', value: 'imageUrl', class: 'primary--text font-weight-bold text-h6 text-center', sortable: false},
+          { text: 'Customer', value: 'companyName', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
+          { text: 'Total Connections', value: 'totalConnections.length', class: 'primary--text font-weight-bold text-h6 text-left', sortable: false },
         ],
         // connectionsHeaders: [
         //   {
@@ -271,6 +297,8 @@
         company: { },
         connections: null,
         showVideo: false,
+        customerConnections: [],
+        uniqueCompanyIdValues: [],
       }
     },
     watch: {
@@ -292,6 +320,14 @@
       },
     },
     methods: {
+      clickedRow(value) {
+        if (this.expanded.length && this.expanded[0].id == value.id) {
+          this.expanded = [];
+        } else {
+          this.expanded = [];
+          this.expanded.push(value);
+        }
+      },
       showVideoCard(){
         if(this.showVideo === false){
           this.showVideo = true
@@ -300,23 +336,11 @@
         }
       },
       async getBusinesses(companyType) {
-        if(companyType === 'true') {
-          this.locations = [];
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/companies/type/false').catch(e => e);
-          this.businesses = data;
-          if(this.businesses.length === 0) this.loading = false;
-          console.log(data);
-          // this.businesses = data.users.filter(function(user) {
-          //   return user.user_type == 1;
-          // })
-          // console.log(this.businesses);
-          await this.getLocations(data);
-        } else if(companyType === 'false') {
-          let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id).catch(e => e);
-          console.log(data);
-          this.connections = data.filter(connection => connection.approval_status === 1);
-          await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
-            .then(response => {
+        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/applications/bySpId/' + this.currentUser.companies_id).catch(e => e);
+        console.log(data);
+        this.connections = data.filter(connection => connection.approval_status === 1);
+        await this.$http.get('https://www.sowerkbackend.com/api/preapprovedRequest/bySPCompanyId/' + this.currentUser.companies_id)
+          .then(response => {
               console.log(response.data, 'COMPANY TYPE PRE APPROVED REQUEST')
               for(let i=0; i<response.data.length; i++) {
                 if(response.data[i].approval_status === 1) {
@@ -324,13 +348,19 @@
                 }
               }
             })
-            .catch(err => {
+          .catch(err => {
               console.log(err)
             })
-          console.log(this.connections, 'CONNECTIONSS');
-          await this.getConnectedCompaniesLocations();
-          this.loading = false;
-        }
+        console.log(this.connections, 'CONNECTIONSS');
+        // this gets UNIQUE company ids. No duplicates
+        this.connections.forEach(connection => {
+          if(!(this.uniqueCompanyIdValues.includes(connection.pmcompanies_id))) {
+            this.uniqueCompanyIdValues.push(connection.pmcompanies_id)
+          }
+        })
+        console.log(this.uniqueCompanyIdValues, 'UNIQUE COMPANIES FROM CONNECTIONS LIST')
+        await this.getConnectedCompaniesLocations();
+        this.loading = false;
       },
       async getCompany() {
         this.loading = true;
@@ -340,38 +370,84 @@
         await this.getBusinesses(data.company_type);
       },
       async getConnectedCompaniesLocations() {
-        let filters = [];
-        this.connections.forEach(function(connection) {
-          filters.push(connection.pmlocations_id);
-          filters.push(connection.locations_id);
-        });
-
-        let uniqueFilters = [...new Set(filters)];
-
-        console.log(uniqueFilters);
-
-        let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/').catch(e => e);
-
-        let businesses = [];
-
-        data.forEach(function(company) {
-          uniqueFilters.forEach(function(filter) {
-            if(company.id === filter) {
-              businesses.push(company);
+        let companyObj = {
+          companyId: '',
+          companyName: '',
+          imageUrl: '',
+          companyChannels: [],
+          totalConnections: [],
+        }
+        // this creates a companyObj for EACH unique company
+        this.uniqueCompanyIdValues.forEach(id => {
+          companyObj.companyId = id;
+          companyObj.totalConnections = this.connections.filter(connection => connection.pmcompanies_id === id)
+          let uniqueChannelId = [];
+          // Gets unique TO A COMPANY channel id's for that companies channels
+          uniqueChannelId = this.connections.map(connection => {
+            if(connection.pmcompanies_id === id) {
+              return connection.locations_id || connection.pmlocations_id
             }
           })
+          uniqueChannelId = [...new Set(uniqueChannelId)]
+          console.log(uniqueChannelId, 'UNIQUE CHANNEL IDS')
+          uniqueChannelId.forEach(channel => {
+            this.$http.get('https://www.sowerkbackend.com/api/locations-only/' + channel)
+              .then(response => {
+                console.log(response.data, 'hey')
+                companyObj.companyChannels.push({
+                  ...response.data,
+                  totalConnections: this.connections.filter(connection => connection.pmlocations_id === channel || connection.locations_id === channel)
+                })
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          })
+          this.$http.get('https://www.sowerkbackend.com/api/companies/inviteid/' + id)
+            .then(response => {
+              console.log(response.data, 'hey')
+              companyObj.companyName = response.data.account_name
+              companyObj.imageUrl = response.data.imgUrl
+            })
+            .catch(err => {
+              console.log(err)
+            })
+
+          this.customerConnections.push(companyObj)
         })
 
-        this.businesses = businesses;
-        for(let i=0; i<this.businesses.length; i++) {
-          this.businesses[i]['TotalConnections'] = this.connections.filter(connection => {
-            if(this.businesses[i].id === connection.pmlocations_id || this.businesses[i].id === connection.locations_id) {
-              return connection
-            }
-          }).length;
-        }
-        console.log(this.businesses, 'HELLO')
-
+        console.log(this.customerConnections, 'CUSTOMER CONNECT')
+        // let filters = [];
+        // this.connections.forEach(function(connection) {
+        //   filters.push(connection.pmlocations_id);
+        //   filters.push(connection.locations_id);
+        // });
+        //
+        // let uniqueFilters = [...new Set(filters)];
+        //
+        // console.log(uniqueFilters);
+        //
+        // let {data, status} = await this.$http.get('https://www.sowerkbackend.com/api/locations/').catch(e => e);
+        //
+        // let businesses = [];
+        //
+        // data.forEach(function(company) {
+        //   uniqueFilters.forEach(function(filter) {
+        //     if(company.id === filter) {
+        //       businesses.push(company);
+        //     }
+        //   })
+        // })
+        //
+        // this.businesses = businesses;
+        // for(let i=0; i<this.businesses.length; i++) {
+        //   this.businesses[i]['TotalConnections'] = this.connections.filter(connection => {
+        //     if(this.businesses[i].id === connection.pmlocations_id || this.businesses[i].id === connection.locations_id) {
+        //       return connection
+        //     }
+        //   }).length;
+        // }
+        // console.log(this.businesses, 'HELLO')
       },
       async getLocations(companies) {
         for (const company of companies) {
