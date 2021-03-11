@@ -143,7 +143,7 @@
                   <transition name="slide-fade">
                     <v-card-title class="d-flex justify-space-between" style="width: 100% !important; font-size: 16px;">
                       <v-icon style="color: #707070; width: 10%;">mdi-cursor-move</v-icon>
-                      <p style="width: 70%; text-align: center; word-break: break-word;"><span style="color: #A61C00;">#{{ (Number(index) + 12)}}</span> - {{form.name}}</p>
+                      <p style="width: 70%; text-align: center; word-break: break-word;"><span style="color: #A61C00;">#{{ (Number(index) + 13)}}</span> - {{form.name}}</p>
                       <v-btn style="color: #A61c00; width: 10%;" text @click="openEditFormField(form, index)"><v-icon style="width: 100%;">mdi-cog</v-icon></v-btn>
                     </v-card-title>
                   </transition>
